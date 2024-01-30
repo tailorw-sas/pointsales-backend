@@ -9,8 +9,9 @@
         <outputRelativeToContentRoot value="true" />
         <module name="registry" />
         <module name="config" />
+        <module name="scheduled" />
       </profile>
-      <profile name="Annotation profile for scheduled-task" enabled="true">
+      <profile name="Annotation profile for patients" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -18,6 +19,7 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
         <module name="gateway" />
+        <module name="patients" />
         <module name="scheduled-task" />
       </profile>
     </annotationProcessing>
@@ -26,6 +28,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="config" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="patients" options="-parameters" />
       <module name="registry" options="-parameters" />
       <module name="scheduled" options="-parameters" />
       <module name="scheduled-task" options="-parameters" />
