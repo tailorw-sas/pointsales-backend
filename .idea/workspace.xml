@@ -5,12 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Mi primer comit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kynsoft/scheduled/ScheduledApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/CorsProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/JwtAuthenticationConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/OpenApiConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/EventType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/KafkaConsumerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/KafkaProducerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/controller/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/services/OderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/services/kafka/CreateUserEventService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/util/JsonProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registry/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/registry/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,12 +91,13 @@
     "Spring Boot.ConfigCloudServiceApplication.executor": "Debug",
     "Spring Boot.GatewayApplication.executor": "Run",
     "Spring Boot.PatientsApplication.executor": "Run",
-    "Spring Boot.RegistryApplication.executor": "Debug",
+    "Spring Boot.RegistryApplication.executor": "Run",
     "Spring Boot.ScheduledApplication.executor": "Run",
+    "Spring Boot.TreatmentsApplication.executor": "Run",
     "git-widget-placeholder": "dev",
     "jdk.selected.JAVA_MODULE": "temurin-17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled",
+    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/treatments/src/main/java/com/kynsof/treatments",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -96,7 +107,7 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.testRunning",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -105,6 +116,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients" />
     </key>
@@ -116,7 +128,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.RegistryApplication">
+  <component name="RunManager" selected="Spring Boot.TreatmentsApplication">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="proyect-base" />
       <option name="ENV_FILES" value="" />
@@ -250,6 +262,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TreatmentsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="treatments" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.treatments.TreatmentsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="Tox" factoryName="Tox">
       <module name="proyect-base" />
       <option name="ENV_FILES" value="" />
@@ -286,6 +305,8 @@
       <workItem from="1706621981773" duration="191000" />
       <workItem from="1706622176134" duration="268000" />
       <workItem from="1706622447667" duration="3517000" />
+      <workItem from="1706644357404" duration="1375000" />
+      <workItem from="1706650805302" duration="2577000" />
     </task>
     <task id="LOCAL-00001" summary="Mi primer comit">
       <option name="closed" value="true" />
@@ -319,7 +340,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706643271623</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Mi primer comit">
+      <option name="closed" value="true" />
+      <created>1706644461806</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1706644461806</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

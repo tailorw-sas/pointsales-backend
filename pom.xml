@@ -17,6 +17,7 @@
         <module>gateway</module>
         <module>registry</module>
         <module>scheduled-task</module>
+        <module>treatments</module>
     </modules>
     <build>
 
