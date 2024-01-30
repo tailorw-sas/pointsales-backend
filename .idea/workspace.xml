@@ -4,14 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Mi primer comit" />
+    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Mi primer comit">
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/CorsProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/JwtAuthenticationConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/OpenApiConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/kafka/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/kafka/EventType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/kafka/KafkaConsumerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/kafka/KafkaProducerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/services/OderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/services/kafka/CreateUserEventService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/util/JsonProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/scheduled-task" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="KubernetesApiProvider">{
@@ -46,11 +65,15 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.RegistryApplication.executor": "Run",
-    "git-widget-placeholder": "0140503f",
+    "Spring Boot.ConfigCloudServiceApplication.executor": "Run",
+    "Spring Boot.GatewayApplication.executor": "Run",
+    "Spring Boot.PatientsApplication.executor": "Debug",
+    "Spring Boot.RegistryApplication.executor": "Debug",
+    "Spring Boot.ScheduledApplication.executor": "Run",
+    "git-widget-placeholder": "create-patients",
+    "jdk.selected.JAVA_MODULE": "temurin-17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled",
+    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/patients/src/main/java/com/kynsof/patients",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -60,10 +83,20 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "Console",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.testRunning",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
   <component name="RunManager" selected="Spring Boot.RegistryApplication">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="proyect-base" />
@@ -164,6 +197,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PatientsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="patients" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.patients.PatientsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RegistryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="registry" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsoft.api.registry.RegistryApplication" />
@@ -213,6 +253,7 @@
       <workItem from="1706621256246" duration="634000" />
       <workItem from="1706621981773" duration="191000" />
       <workItem from="1706622176134" duration="268000" />
+      <workItem from="1706622447667" duration="1571000" />
     </task>
     <task id="LOCAL-00001" summary="Mi primer comit">
       <option name="closed" value="true" />
@@ -239,6 +280,16 @@
           <url>file://$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/GatewayApplication.java</url>
           <line>10</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/services/kafka/CreateUserEventService.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/service/kafka/CustomerService.java</url>
+          <line>17</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/GatewayApplication.java</url>
