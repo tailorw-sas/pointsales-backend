@@ -1,4 +1,4 @@
-package com.kynsof.patients.infrastructure.dto;
+package com.kynsof.patients.infrastructure.dao;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

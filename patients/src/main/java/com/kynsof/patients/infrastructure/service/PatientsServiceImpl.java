@@ -5,7 +5,7 @@ import com.kynsof.patients.application.query.getall.PatientsResponse;
 import com.kynsof.patients.domain.Patients;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.command.PatientsWriteDataJPARepository;
-import com.kynsof.patients.infrastructure.dto.PatientsDAO;
+import com.kynsof.patients.infrastructure.dao.PatientsDAO;
 import com.kynsof.patients.infrastructure.query.PatientsReadDataJPARepository;
 import java.util.ArrayList;
 import java.util.List;
