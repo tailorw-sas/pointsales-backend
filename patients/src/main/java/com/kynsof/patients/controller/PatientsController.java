@@ -1,21 +1,21 @@
 package com.kynsof.patients.controller;
 
 import com.kynsof.patients.application.command.create.CreatePatientMessage;
+import com.kynsof.patients.application.command.delete.PatientDeleteMessage;
 import com.kynsof.patients.application.command.create.CreatePatientsCommand;
 import com.kynsof.patients.application.command.create.PatientsRequest;
+import com.kynsof.patients.application.command.delete.PatientsDeleteCommand;
 import com.kynsof.patients.application.query.getall.FindPatientsWithFilterQuery;
-import com.kynsof.patients.application.query.getall.GetAllPatientsCommandHandler;
 import com.kynsof.patients.application.query.getall.PaginatedResponse;
 import com.kynsof.patients.application.query.getall.PatientsResponse;
 import com.kynsof.patients.application.query.getbyid.FindPatientsByIdQuery;
 import java.util.UUID;
 
 import com.kynsof.patients.domain.bus.IMediator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,13 +36,11 @@ public class PatientsController {
     }
 
     @PostMapping("")
-    public ResponseEntity<UUID> create(@RequestBody PatientsRequest request)  {
+    public ResponseEntity<CreatePatientMessage> create(@RequestBody PatientsRequest request)  {
         CreatePatientsCommand createCommand = CreatePatientsCommand.fromRequest(request);
         CreatePatientMessage response = mediator.send(createCommand);
 
-       // return ResponseEntity.ok(new ApiResponse2xx<CreatePatientMessage>(response, HttpStatus.CREATED));
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/all")
@@ -63,6 +61,15 @@ public class PatientsController {
 
         FindPatientsByIdQuery query = new FindPatientsByIdQuery(id);
         PatientsResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<PatientDeleteMessage> deleteServices(@PathVariable("id") UUID id) {
+
+        PatientsDeleteCommand command = new PatientsDeleteCommand(id);
+        PatientDeleteMessage response = mediator.send(command);
 
         return ResponseEntity.ok(response);
     }

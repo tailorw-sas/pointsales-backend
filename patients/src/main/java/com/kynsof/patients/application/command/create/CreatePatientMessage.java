@@ -1,7 +1,5 @@
 package com.kynsof.patients.application.command.create;
 
-
-
 import com.kynsof.patients.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 
