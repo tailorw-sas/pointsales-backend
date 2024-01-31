@@ -35,6 +35,10 @@ public class SecurityConfig {
     
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity httpSecurity) {
+        String[] AUTH_WHITELIST = {
+                // -- Swagger UI v2
+                "/api/patients"
+        };
         return httpSecurity
         		.cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
@@ -42,6 +46,7 @@ public class SecurityConfig {
         				.pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .pathMatchers(HttpMethod.GET, "/health").permitAll()
                         .pathMatchers(HttpMethod.GET, "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs.yaml", "/v3/api-docs/**", "/swagger-resources/**", "webjars/**").permitAll()
+                        .pathMatchers(AUTH_WHITELIST).permitAll()
                         .anyExchange().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
