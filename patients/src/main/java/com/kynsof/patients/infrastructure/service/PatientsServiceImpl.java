@@ -10,6 +10,7 @@ import com.kynsof.patients.infrastructure.dao.specifications.PatientsSpecificati
 import com.kynsof.patients.infrastructure.query.PatientsReadDataJPARepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,13 +33,19 @@ public class PatientsServiceImpl implements IPatientsService {
                 patients.getIdentification(), 
                 patients.getName(), 
                 patients.getLastName(), 
-                patients.getGender()
+                patients.getGender(),
+                patients.getStatus()
         ));
     }
 
     @Override
     public Patients findById(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Optional<PatientsDAO> patient = this.repositoryQuery.findById(id);
+        if (patient.isPresent()) {
+            return patient.get().toAggregate();
+        }
+
+        throw new RuntimeException("Patients not found.");
     }
 
     @Override

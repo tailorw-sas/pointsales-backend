@@ -1,22 +1,20 @@
 package com.kynsof.patients.application.command.create;
 
+import com.kynsof.patients.domain.EStatusPatients;
 import com.kynsof.patients.domain.Patients;
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.infrastructure.service.PatientsServiceImpl;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CreatePatientsCommandHandler  implements ICommandHandler<CreatePatientsCommand> {
-
 
     private final PatientsServiceImpl serviceImpl;
 
     public CreatePatientsCommandHandler(PatientsServiceImpl serviceImpl) {
         this.serviceImpl = serviceImpl;
     }
-
 
     @Override
     public void handle(CreatePatientsCommand command) {
@@ -25,7 +23,8 @@ public class CreatePatientsCommandHandler  implements ICommandHandler<CreatePati
                 command.getIdentification(),
                 command.getName(),
                 command.getLastName(),
-                command.getGender()
+                command.getGender(),
+               EStatusPatients.ACTIVE
         ));
     }
 }

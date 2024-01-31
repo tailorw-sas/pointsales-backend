@@ -1,6 +1,7 @@
 package com.kynsof.patients.application.query.getall;
 
 import com.kynsof.patients.domain.Patients;
+import com.kynsof.patients.domain.bus.query.IResponse;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class PatientsResponse {
+public class PatientsResponse implements IResponse {
     private UUID id;
 
     private String identification;

@@ -1,8 +1,11 @@
 package com.kynsof.patients.infrastructure.dao;
 
+import com.kynsof.patients.domain.EStatusPatients;
 import com.kynsof.patients.domain.Patients;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -27,8 +30,11 @@ public class PatientsDAO {
     private String lastName;
 
     private String gender;
-    
+
+    @Enumerated(EnumType.STRING)
+    private EStatusPatients status;
+
     public Patients toAggregate() {
-        return new Patients(id, identification, name, lastName, gender);
+        return new Patients(id, identification, name, lastName, gender, status);
     }
 }

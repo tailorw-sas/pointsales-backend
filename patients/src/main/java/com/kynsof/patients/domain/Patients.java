@@ -1,5 +1,7 @@
 package com.kynsof.patients.domain;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,4 +21,7 @@ public class Patients {
     private String lastName;
 
     private String gender;
+
+    @Enumerated(EnumType.STRING)
+    private EStatusPatients status;
 }
