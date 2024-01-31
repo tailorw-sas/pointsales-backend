@@ -8,5 +8,5 @@ import org.springframework.data.domain.Pageable;
 public interface IPatientsService {
     public void createService(Patients patients);
     public Patients findById(UUID id);
-    public PaginatedResponse findAll(Pageable pageable);
+    public PaginatedResponse findAll(Pageable pageable, UUID idPatients, String identification);
 }

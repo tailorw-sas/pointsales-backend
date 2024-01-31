@@ -39,10 +39,12 @@ public class PatientsController {
 
     @GetMapping("/all")
     public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
-            @RequestParam(defaultValue = "0") Integer page)
+                                                    @RequestParam(defaultValue = "0") Integer page,
+                                                    @RequestParam(defaultValue = "") UUID idPatients,
+                                                    @RequestParam(defaultValue = "") String identification)
     {
         Pageable pageable = PageRequest.of(page, pageSize);
-        FindPatientsWithFilterQuery query = new FindPatientsWithFilterQuery(pageable);
+        FindPatientsWithFilterQuery query = new FindPatientsWithFilterQuery(pageable, idPatients, identification);
         PaginatedResponse data = getAllPatientsCommandHandler.handle(query);
 
         return ResponseEntity.ok(data);

@@ -14,7 +14,13 @@ public class CreatePatientsCommandHandler {
     
     public void handle(PatientsRequest command) {
 
-        this.serviceImpl.createService(new Patients(UUID.randomUUID(), command.getName(), command.getLastName(), command.getIdentification(), command.getGender()));
+        this.serviceImpl.createService(new Patients(
+                UUID.randomUUID(), 
+                command.getIdentification(), 
+                command.getName(),
+                command.getLastName(), 
+                command.getGender()
+        ));
 
     }
 }

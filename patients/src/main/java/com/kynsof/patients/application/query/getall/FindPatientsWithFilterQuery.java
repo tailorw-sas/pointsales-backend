@@ -1,5 +1,6 @@
 package com.kynsof.patients.application.query.getall;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,5 +12,7 @@ import org.springframework.data.domain.Pageable;
 public class FindPatientsWithFilterQuery {
 
     private Pageable pageable;
+    private UUID idPatients;
+    private String identification;
 
 }

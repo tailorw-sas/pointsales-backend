@@ -12,6 +12,6 @@ public class GetAllPatientsCommandHandler {
     
     public PaginatedResponse handle(FindPatientsWithFilterQuery query) {
 
-        return this.serviceImpl.findAll(query.getPageable());
+        return this.serviceImpl.findAll(query.getPageable(), query.getIdPatients(), query.getIdentification());
     }
 }
