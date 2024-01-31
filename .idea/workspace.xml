@@ -4,17 +4,44 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Se agrega el servicio treatments">
-      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="set properties">
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/create/CreatePatientMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/create/CreatePatientsCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/IMediator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/MediatorImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/command/CommandHandlerExecutionError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/command/CommandHandlersInformation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/command/CommandNotRegisteredError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/command/ICommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/command/ICommandBus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/command/ICommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/command/ICommandMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/command/InMemoryCommandBus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/query/IQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/query/IQueryBus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/query/IQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/query/IResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/query/InMemoryQueryBus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/query/QueryHandlerExecutionError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/query/QueryHandlersInformation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/query/QueryNotRegisteredError.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/patients/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/scheduled-task/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/create/CreatePatientsCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/create/CreatePatientsCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/TestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/controller/PatientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/controller/TestController.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -77,8 +104,8 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.ConfigCloudServiceApplication.executor": "Debug",
-    "Spring Boot.GatewayApplication.executor": "Run",
+    "Spring Boot.ConfigCloudServiceApplication.executor": "Run",
+    "Spring Boot.GatewayApplication.executor": "Debug",
     "Spring Boot.PatientsApplication.executor": "Debug",
     "Spring Boot.RegistryApplication.executor": "Run",
     "Spring Boot.ScheduledApplication.executor": "Run",
@@ -86,7 +113,7 @@
     "git-widget-placeholder": "dev",
     "jdk.selected.JAVA_MODULE": "temurin-17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/treatments/src/main/java/com/kynsof/treatments",
+    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/patients/src/main/java/com/kynsof/patients/domain/bus/query",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -105,9 +132,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/query" />
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/command" />
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus" />
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain" />
       <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.kynsof.patients.application.command.create" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -295,7 +327,7 @@
       <workItem from="1706622176134" duration="268000" />
       <workItem from="1706622447667" duration="3517000" />
       <workItem from="1706644357404" duration="1375000" />
-      <workItem from="1706650805302" duration="5064000" />
+      <workItem from="1706650805302" duration="9502000" />
     </task>
     <task id="LOCAL-00001" summary="Mi primer comit">
       <option name="closed" value="true" />
@@ -345,7 +377,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706654796222</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="set properties">
+      <option name="closed" value="true" />
+      <created>1706717615258</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1706717615259</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -354,7 +394,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Mi primer comit" />
     <MESSAGE value="Se agrega el servicio treatments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se agrega el servicio treatments" />
+    <MESSAGE value="set properties" />
+    <option name="LAST_COMMIT_MESSAGE" value="set properties" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

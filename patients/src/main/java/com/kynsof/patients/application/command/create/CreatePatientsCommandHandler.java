@@ -1,26 +1,31 @@
 package com.kynsof.patients.application.command.create;
 
 import com.kynsof.patients.domain.Patients;
+import com.kynsof.patients.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.infrastructure.service.PatientsServiceImpl;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreatePatientsCommandHandler {
+public class CreatePatientsCommandHandler  implements ICommandHandler<CreatePatientsCommand> {
 
-    @Autowired
-    private PatientsServiceImpl serviceImpl;
-    
-    public void handle(PatientsRequest command) {
 
-        this.serviceImpl.createService(new Patients(
-                UUID.randomUUID(), 
-                command.getIdentification(), 
+    private final PatientsServiceImpl serviceImpl;
+
+    public CreatePatientsCommandHandler(PatientsServiceImpl serviceImpl) {
+        this.serviceImpl = serviceImpl;
+    }
+
+
+    @Override
+    public void handle(CreatePatientsCommand command) {
+       serviceImpl.createService(new Patients(
+                UUID.randomUUID(),
+                command.getIdentification(),
                 command.getName(),
-                command.getLastName(), 
+                command.getLastName(),
                 command.getGender()
         ));
-
     }
 }
