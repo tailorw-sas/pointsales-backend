@@ -5,19 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Mi primer comit">
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/CorsProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/JwtAuthenticationConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/OpenApiConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/kafka/Event.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/kafka/EventType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/kafka/KafkaConsumerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/config/kafka/KafkaProducerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/services/OderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/services/kafka/CreateUserEventService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/util/JsonProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/CorsProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/JwtAuthenticationConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/OpenApiConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/EventType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/KafkaConsumerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/KafkaProducerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/controller/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/services/OderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/services/kafka/CreateUserEventService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/util/JsonProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +35,26 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;kmontes198910&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="MAKEBE2020" />
+        <option name="repository" value="scheduled" />
+      </RepoCoordinatesHolder>
+    </option>
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="450c7f16-4f3b-4af1-8edb-e4d6f6358d01" />
+        <option name="url" value="https://github.com/MAKEBE2020/scheduled.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="KubernetesApiProvider">{
   &quot;contexts&quot;: [
@@ -65,15 +88,16 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.ConfigCloudServiceApplication.executor": "Run",
+    "Spring Boot.ConfigCloudServiceApplication.executor": "Debug",
     "Spring Boot.GatewayApplication.executor": "Run",
-    "Spring Boot.PatientsApplication.executor": "Debug",
-    "Spring Boot.RegistryApplication.executor": "Debug",
+    "Spring Boot.PatientsApplication.executor": "Run",
+    "Spring Boot.RegistryApplication.executor": "Run",
     "Spring Boot.ScheduledApplication.executor": "Run",
-    "git-widget-placeholder": "create-patients",
+    "Spring Boot.TreatmentsApplication.executor": "Run",
+    "git-widget-placeholder": "dev",
     "jdk.selected.JAVA_MODULE": "temurin-17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/patients/src/main/java/com/kynsof/patients",
+    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/treatments/src/main/java/com/kynsof/treatments",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -83,12 +107,19 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.testRunning",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
@@ -97,7 +128,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.RegistryApplication">
+  <component name="RunManager" selected="Spring Boot.TreatmentsApplication">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="proyect-base" />
       <option name="ENV_FILES" value="" />
@@ -198,8 +229,21 @@
       </method>
     </configuration>
     <configuration name="PatientsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="RC_ACTIVE_PROFILE" value="dev" />
+      </envs>
       <module name="patients" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.patients.PatientsApplication" />
+      <extension name="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -214,6 +258,13 @@
     <configuration name="ScheduledApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="scheduled-task" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.scheduled.ScheduledApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TreatmentsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="treatments" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.treatments.TreatmentsApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -253,7 +304,9 @@
       <workItem from="1706621256246" duration="634000" />
       <workItem from="1706621981773" duration="191000" />
       <workItem from="1706622176134" duration="268000" />
-      <workItem from="1706622447667" duration="1571000" />
+      <workItem from="1706622447667" duration="3517000" />
+      <workItem from="1706644357404" duration="1375000" />
+      <workItem from="1706650805302" duration="2577000" />
     </task>
     <task id="LOCAL-00001" summary="Mi primer comit">
       <option name="closed" value="true" />
@@ -263,7 +316,39 @@
       <option name="project" value="LOCAL" />
       <updated>1706621694955</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Mi primer comit">
+      <option name="closed" value="true" />
+      <created>1706624059163</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1706624059163</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Mi primer comit">
+      <option name="closed" value="true" />
+      <created>1706624073595</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1706624073596</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Mi primer comit">
+      <option name="closed" value="true" />
+      <created>1706643271623</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706643271623</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Mi primer comit">
+      <option name="closed" value="true" />
+      <created>1706644461806</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1706644461806</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
