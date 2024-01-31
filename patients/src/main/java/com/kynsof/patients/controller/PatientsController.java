@@ -28,9 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/patients")
 public class PatientsController {
 
-    @Autowired
-    private GetAllPatientsCommandHandler getAllPatientsCommandHandler;
-
     private final IMediator mediator;
 
     public PatientsController(IMediator mediator){
@@ -56,7 +53,7 @@ public class PatientsController {
     {
         Pageable pageable = PageRequest.of(page, pageSize);
         FindPatientsWithFilterQuery query = new FindPatientsWithFilterQuery(pageable, idPatients, identification);
-        PaginatedResponse data = getAllPatientsCommandHandler.handle(query);
+        PaginatedResponse data = mediator.send(query);
 
         return ResponseEntity.ok(data);
     }
