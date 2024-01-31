@@ -37,7 +37,7 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity httpSecurity) {
         String[] AUTH_WHITELIST = {
                 // -- Swagger UI v2
-                "/api/patients"
+                "/api/**",
         };
         return httpSecurity
         		.cors(Customizer.withDefaults())

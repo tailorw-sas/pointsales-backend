@@ -1,5 +1,6 @@
 package com.kynsof.patients.infrastructure.dto;
 
+import com.kynsof.patients.domain.Patients;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -26,4 +27,8 @@ public class PatientsDAO {
     private String lastName;
 
     private String gender;
+    
+    public Patients toAggregate() {
+        return new Patients(id, identification, name, lastName, gender);
+    }
 }

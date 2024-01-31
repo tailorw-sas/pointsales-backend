@@ -12,16 +12,9 @@ public class CreatePatientsCommandHandler {
     @Autowired
     private PatientsServiceImpl serviceImpl;
     
-    public UUID handle(PatientsRequest command) {
-        Patients patients = new Patients();
-        patients.setId(UUID.randomUUID());
-        patients.setName(command.getName());
-        patients.setLastName(command.getLastName());
-        patients.setIdentification(command.getIdentification());
-        patients.setGender(command.getGender());
+    public void handle(PatientsRequest command) {
 
-        this.serviceImpl.createService(patients);
-        
-        return patients.getId();
+        this.serviceImpl.createService(new Patients(UUID.randomUUID(), command.getName(), command.getLastName(), command.getIdentification(), command.getGender()));
+
     }
 }
