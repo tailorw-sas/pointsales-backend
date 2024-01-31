@@ -4,23 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Mi primer comit">
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/CorsProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/JwtAuthenticationConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/OpenApiConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/Event.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/EventType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/KafkaConsumerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/KafkaProducerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/controller/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/services/OderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/services/kafka/CreateUserEventService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/util/JsonProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Se agrega el servicio treatments">
+      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/patients/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/scheduled-task/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +79,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.ConfigCloudServiceApplication.executor": "Debug",
     "Spring Boot.GatewayApplication.executor": "Run",
-    "Spring Boot.PatientsApplication.executor": "Run",
+    "Spring Boot.PatientsApplication.executor": "Debug",
     "Spring Boot.RegistryApplication.executor": "Run",
     "Spring Boot.ScheduledApplication.executor": "Run",
     "Spring Boot.TreatmentsApplication.executor": "Run",
@@ -306,7 +295,7 @@
       <workItem from="1706622176134" duration="268000" />
       <workItem from="1706622447667" duration="3517000" />
       <workItem from="1706644357404" duration="1375000" />
-      <workItem from="1706650805302" duration="2577000" />
+      <workItem from="1706650805302" duration="5064000" />
     </task>
     <task id="LOCAL-00001" summary="Mi primer comit">
       <option name="closed" value="true" />
@@ -348,7 +337,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706644461806</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Se agrega el servicio treatments">
+      <option name="closed" value="true" />
+      <created>1706654796222</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1706654796222</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -356,7 +353,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Mi primer comit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mi primer comit" />
+    <MESSAGE value="Se agrega el servicio treatments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agrega el servicio treatments" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
