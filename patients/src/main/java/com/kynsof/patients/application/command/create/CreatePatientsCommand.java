@@ -1,5 +1,6 @@
 package com.kynsof.patients.application.command.create;
 
+import com.kynsof.patients.application.command.delete.PatientDeleteMessage;
 import com.kynsof.patients.domain.bus.command.ICommand;
 import com.kynsof.patients.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -35,6 +36,6 @@ public class CreatePatientsCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return new CreatePatientMessage(this.id);
+        return new CreatePatientMessage(id);
     }
 }

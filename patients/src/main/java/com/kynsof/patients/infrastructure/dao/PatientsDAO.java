@@ -34,6 +34,15 @@ public class PatientsDAO {
     @Enumerated(EnumType.STRING)
     private EStatusPatients status;
 
+    public PatientsDAO(Patients patients) {
+        this.id = patients.getId();
+        this.identification = patients.getIdentification();
+        this.name = patients.getName();
+        this.lastName = patients.getLastName();
+        this.gender = patients.getGender();
+        this.status = patients.getStatus();
+    }
+
     public Patients toAggregate() {
         return new Patients(id, identification, name, lastName, gender, status);
     }

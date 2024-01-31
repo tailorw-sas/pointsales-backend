@@ -2,6 +2,7 @@ package com.kynsof.patients.infrastructure.service;
 
 import com.kynsof.patients.application.query.getall.PaginatedResponse;
 import com.kynsof.patients.application.query.getall.PatientsResponse;
+import com.kynsof.patients.domain.EStatusPatients;
 import com.kynsof.patients.domain.Patients;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.command.PatientsWriteDataJPARepository;
@@ -28,14 +29,7 @@ public class PatientsServiceImpl implements IPatientsService {
 
     @Override
     public void createService(Patients patients) {
-        this.repositoryCommand.save(new PatientsDAO(
-                patients.getId(), 
-                patients.getIdentification(), 
-                patients.getName(), 
-                patients.getLastName(), 
-                patients.getGender(),
-                patients.getStatus()
-        ));
+        this.repositoryCommand.save(new PatientsDAO(patients));
     }
 
     @Override
@@ -59,6 +53,14 @@ public class PatientsServiceImpl implements IPatientsService {
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public void delete(UUID id) {
+        Patients patientDelete = this.findById(id);
+        patientDelete.setStatus(EStatusPatients.INACTIVE);
+        
+        this.repositoryCommand.save(new PatientsDAO(patientDelete));
     }
 
 }
