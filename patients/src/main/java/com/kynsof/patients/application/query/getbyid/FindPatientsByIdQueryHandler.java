@@ -1,9 +1,9 @@
-package com.kynsof.patients.application.query.getbyid;
+package com.kynsof.patients.application.query.getById;
 
 import com.kynsof.patients.application.query.getall.PatientsResponse;
 import com.kynsof.patients.domain.Patients;
 import com.kynsof.patients.domain.bus.query.IQueryHandler;
-import com.kynsof.patients.infrastructure.service.PatientsServiceImpl;
+import com.kynsof.patients.infrastructure.services.PatientsServiceImpl;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,10 +17,8 @@ public class FindPatientsByIdQueryHandler implements IQueryHandler<FindPatientsB
 
     @Override
     public PatientsResponse handle(FindPatientsByIdQuery query) {
-
         Patients patient = serviceImpl.findById(query.getId());
 
         return new PatientsResponse(patient);
     }
-
 }

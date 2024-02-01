@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="registry" />
         <module name="config" />
+        <module name="scheduled" />
       </profile>
       <profile name="Annotation profile for scheduled" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />

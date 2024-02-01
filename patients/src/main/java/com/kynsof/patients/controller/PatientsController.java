@@ -1,15 +1,15 @@
 package com.kynsof.patients.controller;
 
-import com.kynsof.patients.application.command.create.CreatePatientMessage;
-import com.kynsof.patients.application.command.delete.PatientDeleteMessage;
-import com.kynsof.patients.application.command.create.CreatePatientsCommand;
-import com.kynsof.patients.application.command.create.PatientsRequest;
-import com.kynsof.patients.application.command.delete.PatientsDeleteCommand;
+import com.kynsof.patients.application.command.patients.create.CreatePatientMessage;
+import com.kynsof.patients.application.command.patients.delete.PatientDeleteMessage;
+import com.kynsof.patients.application.command.patients.create.CreatePatientsCommand;
+import com.kynsof.patients.application.command.patients.create.PatientsRequest;
+import com.kynsof.patients.application.command.patients.delete.PatientsDeleteCommand;
 import com.kynsof.patients.application.query.getall.FindPatientsWithFilterQuery;
 import com.kynsof.patients.application.query.getall.PaginatedResponse;
 import com.kynsof.patients.application.query.getall.PatientsResponse;
-import com.kynsof.patients.application.query.getbyid.FindPatientsByIdQuery;
 import java.util.UUID;
+import com.kynsof.patients.application.query.getById.FindPatientsByIdQuery;
 
 import com.kynsof.patients.domain.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
