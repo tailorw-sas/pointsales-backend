@@ -1,6 +1,5 @@
-package com.kynsof.patients.application.command.create;
+package com.kynsof.patients.application.command.patients.create;
 
-import com.kynsof.patients.application.command.delete.PatientDeleteMessage;
 import com.kynsof.patients.domain.bus.command.ICommand;
 import com.kynsof.patients.domain.bus.command.ICommandMessage;
 import lombok.Getter;

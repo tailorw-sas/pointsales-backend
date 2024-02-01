@@ -1,4 +1,4 @@
-package com.kynsof.patients.application.command.delete;
+package com.kynsof.patients.application.command.patients.delete;
 
 
 

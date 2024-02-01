@@ -1,4 +1,4 @@
-package com.kynsof.patients.application.command.delete;
+package com.kynsof.patients.application.command.patients.delete;
 
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.infrastructure.services.PatientsServiceImpl;

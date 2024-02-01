@@ -1,4 +1,4 @@
-package com.kynsof.patients.application.command.create;
+package com.kynsof.patients.application.command.patients.create;
 
 import lombok.Getter;
 import lombok.Setter;
