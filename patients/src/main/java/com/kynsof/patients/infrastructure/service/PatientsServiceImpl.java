@@ -4,6 +4,8 @@ import com.kynsof.patients.application.query.getall.PaginatedResponse;
 import com.kynsof.patients.application.query.getall.PatientsResponse;
 import com.kynsof.patients.domain.EStatusPatients;
 import com.kynsof.patients.domain.Patients;
+import com.kynsof.patients.domain.exception.BusinessException;
+import com.kynsof.patients.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.command.PatientsWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.dao.PatientsDAO;
@@ -38,8 +40,8 @@ public class PatientsServiceImpl implements IPatientsService {
         if (patient.isPresent()) {
             return patient.get().toAggregate();
         }
-
-        throw new RuntimeException("Patients not found.");
+        //throw new RuntimeException("Patients not found.");
+        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Patients not found.");
     }
 
     @Override
