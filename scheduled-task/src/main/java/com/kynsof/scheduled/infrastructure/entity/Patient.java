@@ -1,15 +1,9 @@
-package com.kynsof.scheduled.infrastructure.dao;
+package com.kynsof.scheduled.infrastructure.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
@@ -17,8 +11,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -29,7 +21,7 @@ import java.util.UUID;
                 @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")
         })
-public class User {
+public class Patient {
     @Id
     @Column(name="user_id")
     private UUID id;
@@ -57,24 +49,12 @@ public class User {
     @Size(max = 10)
     private String otp;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	@JoinTable(name = "user_roles",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles = new HashSet<>();
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-//	private Set<UserEmotion> userEmotions = new HashSet<UserEmotion>();
 
-	@OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	private Profile profile;
-
-    public User() {
+    public Patient() {
     }
 
-    public User(UUID id, String username, String email, String password) {
+    public Patient(UUID id, String username, String email, String password) {
         this.id = id;
         this.username = username;
         this.email = email;

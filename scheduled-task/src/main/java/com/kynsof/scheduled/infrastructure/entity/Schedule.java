@@ -1,4 +1,4 @@
-package com.kynsof.scheduled.infrastructure.dao;
+package com.kynsof.scheduled.infrastructure.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,16 +9,11 @@ import java.util.UUID;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -55,8 +50,12 @@ public class Schedule {
     @JsonIgnoreProperties({"picture", "services", "qualifications"})
     @ManyToOne(optional = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_pk_specialist", nullable = true)
-    private Specialist specialist;
+    private Resource resource;
 
+    // Relación de muchos a uno con Business
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "business_id", nullable = true)
+    private Business business;
     @PrePersist
     public void prePersist() {
         this.initialStock = this.stock;
@@ -76,19 +75,19 @@ public class Schedule {
         this.status = status;
     }
 
-    public Schedule(UUID id, LocalDate date, LocalTime startTime, LocalTime endingTime, Specialist specialist) {
+    public Schedule(UUID id, LocalDate date, LocalTime startTime, LocalTime endingTime, Resource specialist) {
         this.id = id;
         this.date = date;
         this.startTime = startTime;
         this.endingTime = endingTime;
-        this.specialist = specialist;
+        this.resource = specialist;
     }
 
-    public Schedule(LocalDate date, LocalTime startTime, LocalTime endingTime, Specialist specialist) {
+    public Schedule(LocalDate date, LocalTime startTime, LocalTime endingTime, Resource specialist) {
         this.date = date;
         this.startTime = startTime;
         this.endingTime = endingTime;
-        this.specialist = specialist;
+        this.resource = specialist;
     }
 
 }

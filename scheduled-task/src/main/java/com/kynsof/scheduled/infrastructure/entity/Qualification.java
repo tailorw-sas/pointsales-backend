@@ -1,4 +1,4 @@
-package com.kynsof.scheduled.infrastructure.dao;
+package com.kynsof.scheduled.infrastructure.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
@@ -30,5 +30,5 @@ public class Qualification {
 
     @JsonIgnoreProperties("specialists")
     @ManyToMany(mappedBy = "qualifications")
-    private Set<Specialist> specialists = new HashSet<>();
+    private Set<Resource> specialists = new HashSet<>();
 }

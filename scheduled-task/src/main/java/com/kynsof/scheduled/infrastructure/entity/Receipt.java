@@ -1,4 +1,4 @@
-package com.kynsof.scheduled.infrastructure.dao;
+package com.kynsof.scheduled.infrastructure.entity;
 
 import com.kynsof.scheduled.domain.EStatusReceipt;
 import jakarta.persistence.Column;
@@ -36,7 +36,7 @@ public class Receipt {
 
     @ManyToOne
     @JoinColumn(name = "fk_pk_user")
-    private User user;
+    private Patient user;
 
     //@JsonIgnore
     @ManyToOne
@@ -51,7 +51,12 @@ public class Receipt {
     @Column
     private EStatusReceipt status;
 
-    public Receipt(User user, Schedule schedule, Service service) {
+    // Relación de muchos a uno con Business
+    @ManyToOne
+    @JoinColumn(name = "business_id", nullable = true)
+    private Business business;
+
+    public Receipt(Patient user, Schedule schedule, Service service) {
         this.user = user;
         this.schedule = schedule;
         this.service = service;
