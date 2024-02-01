@@ -1,6 +1,5 @@
 package com.kynsof.patients.application.command.create;
 
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
