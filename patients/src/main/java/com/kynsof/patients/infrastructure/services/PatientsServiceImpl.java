@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,32 +38,29 @@ public class PatientsServiceImpl implements IPatientsService {
     }
 
     @Override
-    public UUID update(PatientDto patient) {
-        Optional<Patients> updatePatient = this.repositoryQuery.findById(patient.getId());
-        Patients patients = updatePatient.get();
-        if (patient.getName() != null) {
-            patients.setName(patient.getName());
+    public UUID update(PatientDto patientDto) {
+        if (patientDto == null || patientDto.getId() == null) {
+            throw new IllegalArgumentException("Patient DTO or ID cannot be null");
         }
 
-        if (patient.getLastName() != null) {
-            patients.setLastName(patient.getLastName());
-        }
+        this.repositoryQuery.findById(patientDto.getId())
+                .map(patient -> {
+                    // Actualiza los campos si no son null
+                    if (patientDto.getName() != null) patient.setName(patientDto.getName());
+                    if (patientDto.getLastName() != null) patient.setLastName(patientDto.getLastName());
+                    if (patientDto.getIdentification() != null) patient.setIdentification(patientDto.getIdentification());
+                    // Corrección: Debe ser setGender en lugar de setIdentification
+                    if (patientDto.getGender() != null) patient.setGender(patientDto.getGender());
+                    if (patientDto.getStatus() != null) patient.setStatus(patientDto.getStatus());
 
-        if (patient.getIdentification() != null) {
-            patients.setIdentification(patient.getIdentification());
-        }
+                    // Guarda los cambios en el repositorio
+                    return this.repositoryCommand.save(patient);
+                })
+                .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + patientDto.getId() + " not found"));
 
-        if (patient.getGender() != null) {
-            patients.setIdentification(patient.getGender());
-        }
-
-        if (patient.getStatus() != null) {
-            patients.setStatus(patient.getStatus());
-        }
-
-        this.repositoryCommand.save(patients);
-        return patient.getId();
+        return patientDto.getId();
     }
+
 
     @Override
     public PatientDto findById(UUID id) {
