@@ -15,8 +15,8 @@ public class OpenApiConfig {
 
     private Info apiInfo() {
         return new Info()
-                .title("Scheduled Services")
-                .description("API Documentation Scheduled Services")
+                .title("Patients Services")
+                .description("API Documentation Patients Services")
                 .version("1.0.0");
                 /*.license(new License()
                         .name(openApiProperties.getLicense())
