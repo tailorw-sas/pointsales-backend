@@ -1,7 +1,7 @@
 package com.kynsof.scheduled.infrastructure.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.kynsof.scheduled.domain.EServiceType;
+import com.kynsof.scheduled.domain.dto.EServiceType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;

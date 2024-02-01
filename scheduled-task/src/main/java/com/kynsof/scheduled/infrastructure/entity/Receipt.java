@@ -1,6 +1,6 @@
 package com.kynsof.scheduled.infrastructure.entity;
 
-import com.kynsof.scheduled.domain.EStatusReceipt;
+import com.kynsof.scheduled.domain.dto.EStatusReceipt;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

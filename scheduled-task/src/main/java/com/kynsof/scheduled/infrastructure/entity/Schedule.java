@@ -2,7 +2,7 @@ package com.kynsof.scheduled.infrastructure.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.kynsof.scheduled.domain.EStatusSchedule;
+import com.kynsof.scheduled.domain.dto.EStatusSchedule;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;

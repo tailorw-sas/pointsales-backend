@@ -1,4 +1,4 @@
-package com.kynsof.scheduled.domain;
+package com.kynsof.scheduled.domain.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

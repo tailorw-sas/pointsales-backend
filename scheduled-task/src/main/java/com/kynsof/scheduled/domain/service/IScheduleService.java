@@ -1,7 +1,7 @@
 package com.kynsof.scheduled.domain.service;
 
 import com.kynsof.scheduled.application.PaginatedResponse;
-import com.kynsof.scheduled.domain.Scheduled;
+import com.kynsof.scheduled.domain.dto.Scheduled;
 import java.util.UUID;
 import org.springframework.data.domain.Pageable;
 
