@@ -1,4 +1,4 @@
-package com.kynsof.patients.infrastructure.dao;
+package com.kynsof.patients.infrastructure.entity;
 
 import jakarta.persistence.*;
 import java.util.UUID;
@@ -8,18 +8,14 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-public class AdditionalInformation {
+public class InsuranceInformation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    private String maritalStatus;
+    private String insuranceCompany;
 
-    private String occupation;
-
-    private String emergencyContactName;
-
-    private String emergencyContactPhone;
+    private String policyNumber;
 
     @OneToOne
     @JoinColumn(name = "patients_id", referencedColumnName = "id")

@@ -1,4 +1,4 @@
-package com.kynsof.patients.infrastructure.dao;
+package com.kynsof.patients.infrastructure.entity;
 
 import jakarta.persistence.*;
 import java.util.List;

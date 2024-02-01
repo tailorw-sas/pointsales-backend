@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/scheduled-task/pom.xml" />
         <option value="$PROJECT_DIR$/patients/pom.xml" />
+        <option value="$PROJECT_DIR$/treatments/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />

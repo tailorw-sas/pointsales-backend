@@ -1,4 +1,4 @@
-package com.kynsof.patients.infrastructure.dao;
+package com.kynsof.patients.infrastructure.entity;
 
 import com.kynsof.patients.domain.EStatusPatients;
 import com.kynsof.patients.domain.Patients;

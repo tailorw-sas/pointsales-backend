@@ -1,4 +1,4 @@
-package com.kynsof.patients.infrastructure.dao;
+package com.kynsof.patients.infrastructure.entity;
 
 import jakarta.persistence.*;
 import java.util.UUID;
@@ -8,14 +8,14 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-public class Allergy {
+public class CurrentMedication {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    private String code;
-
     private String name;
+
+    private String dosage;
 
     @ManyToOne
     @JoinColumn(name = "medical_information_id")

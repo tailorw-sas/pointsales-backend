@@ -1,6 +1,6 @@
-package com.kynsof.patients.infrastructure.dao.specifications;
+package com.kynsof.patients.infrastructure.entity.specifications;
 
-import com.kynsof.patients.infrastructure.dao.PatientsDAO;
+import com.kynsof.patients.infrastructure.entity.PatientsDAO;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;

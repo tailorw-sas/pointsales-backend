@@ -1,6 +1,6 @@
-package com.kynsof.patients.infrastructure.dao.specifications;
+package com.kynsof.patients.infrastructure.entity.specifications;
 
-import com.kynsof.patients.infrastructure.dao.PatientsDAO;
+import com.kynsof.patients.infrastructure.entity.PatientsDAO;
 import org.springframework.data.jpa.domain.Specification;
 
 public class PatientsSpecs {

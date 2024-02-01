@@ -1,4 +1,4 @@
-package com.kynsof.patients.infrastructure.service;
+package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.getall.PaginatedResponse;
 import com.kynsof.patients.application.query.getall.PatientsResponse;
@@ -8,8 +8,8 @@ import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.command.PatientsWriteDataJPARepository;
-import com.kynsof.patients.infrastructure.dao.PatientsDAO;
-import com.kynsof.patients.infrastructure.dao.specifications.PatientsSpecifications;
+import com.kynsof.patients.infrastructure.entity.PatientsDAO;
+import com.kynsof.patients.infrastructure.entity.specifications.PatientsSpecifications;
 import com.kynsof.patients.infrastructure.query.PatientsReadDataJPARepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +30,9 @@ public class PatientsServiceImpl implements IPatientsService {
     private PatientsReadDataJPARepository repositoryQuery;
 
     @Override
-    public void createService(Patients patients) {
+    public UUID create(Patients patients) {
         this.repositoryCommand.save(new PatientsDAO(patients));
+        return patients.getId();
     }
 
     @Override

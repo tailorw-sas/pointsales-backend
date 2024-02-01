@@ -1,6 +1,6 @@
 package com.kynsof.patients.infrastructure.query;
 
-import com.kynsof.patients.infrastructure.dao.PatientsDAO;
+import com.kynsof.patients.infrastructure.entity.PatientsDAO;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -8,8 +8,6 @@ import lombok.Setter;
 @Setter
 public class PatientsRequest {
 
-    private UUID id;
-
     private String identification;
 
     private String name;
