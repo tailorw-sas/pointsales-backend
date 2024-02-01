@@ -1,4 +1,4 @@
-package com.kynsof.patients.config;
+package com.kynsof.patients.infrastructure.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

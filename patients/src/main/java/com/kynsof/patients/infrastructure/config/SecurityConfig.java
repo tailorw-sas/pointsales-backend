@@ -1,4 +1,4 @@
-package com.kynsof.patients.config;
+package com.kynsof.patients.infrastructure.config;
 
 
 import lombok.RequiredArgsConstructor;

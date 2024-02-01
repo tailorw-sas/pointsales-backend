@@ -1,4 +1,4 @@
-package com.kynsof.patients.util;
+package com.kynsof.patients.application.util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
