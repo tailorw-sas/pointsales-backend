@@ -2,16 +2,10 @@ package com.kynsof.patients.infrastructure.dao;
 
 import com.kynsof.patients.domain.EStatusPatients;
 import com.kynsof.patients.domain.Patients;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.util.List;
 import java.util.UUID;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,9 +14,10 @@ import lombok.Setter;
 @Entity
 public class PatientsDAO {
     @Id
-    @Column(name="patients_id")
+    @Column(name="id")
     private UUID id;
 
+    @Column(unique = true)
     private String identification;
 
     private String name;
@@ -33,6 +28,18 @@ public class PatientsDAO {
 
     @Enumerated(EnumType.STRING)
     private EStatusPatients status;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ContactInformationDAO> contactInformation;
+
+    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private MedicalInformation medicalInformation;
+
+    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private AdditionalInformation additionalInformation;
+
+    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private InsuranceInformation insuranceInformation;
 
     public PatientsDAO(Patients patients) {
         this.id = patients.getId();

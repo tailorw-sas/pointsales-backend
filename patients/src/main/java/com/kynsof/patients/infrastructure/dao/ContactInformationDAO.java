@@ -1,13 +1,9 @@
 package com.kynsof.patients.infrastructure.dao;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @Getter
@@ -15,8 +11,12 @@ import lombok.Setter;
 @Entity
 public class ContactInformationDAO {
     @Id
-    @Column(name="patients_id")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id; // Cambiado para evitar conflictos con el ID del paciente
+
+    @ManyToOne
+    @JoinColumn(name="patientId", nullable = false)
+    private PatientsDAO patient;
 
     private String email;
 
@@ -25,5 +25,4 @@ public class ContactInformationDAO {
     private String address;
 
     private LocalDate birthdayDate;
-
 }
