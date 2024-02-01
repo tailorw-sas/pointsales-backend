@@ -1,7 +1,7 @@
 package com.kynsof.scheduled.infrastructure.exceptions;
 
-import com.kynsof.scheduled.domain.exception.BusinessException;
-import com.kynsof.scheduled.domain.exception.BusinessRuleValidationException;
+import com.kynsof.scheduled.exception.BusinessException;
+import com.kynsof.scheduled.exception.BusinessRuleValidationException;
 import java.time.LocalDateTime;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
