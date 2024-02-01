@@ -9,14 +9,14 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-public class ContactInformationDAO {
+public class ContactInformation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id; // Cambiado para evitar conflictos con el ID del paciente
 
     @ManyToOne
     @JoinColumn(name="patientId", nullable = false)
-    private PatientsDAO patient;
+    private Patients patient;
 
     private String email;
 

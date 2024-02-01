@@ -1,6 +1,6 @@
 package com.kynsof.patients.infrastructure.entity.specifications;
 
-import com.kynsof.patients.infrastructure.entity.PatientsDAO;
+import com.kynsof.patients.infrastructure.entity.Patients;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -11,7 +11,7 @@ import java.util.UUID;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
-public class PatientsSpecifications implements Specification<PatientsDAO> {
+public class PatientsSpecifications implements Specification<Patients> {
     private UUID patients;
     private String identification;
 
@@ -21,7 +21,7 @@ public class PatientsSpecifications implements Specification<PatientsDAO> {
     }
 
     @Override
-    public Predicate toPredicate(Root<PatientsDAO> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+    public Predicate toPredicate(Root<Patients> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
 
         if (patients != null) {

@@ -1,7 +1,6 @@
 package com.kynsof.patients.infrastructure.entity;
 
 import com.kynsof.patients.domain.EStatusPatients;
-import com.kynsof.patients.domain.Patients;
 import jakarta.persistence.*;
 import java.util.List;
 import java.util.UUID;
@@ -12,7 +11,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-public class PatientsDAO {
+public class Patients {
     @Id
     @Column(name="id")
     private UUID id;
@@ -30,7 +29,7 @@ public class PatientsDAO {
     private EStatusPatients status;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ContactInformationDAO> contactInformation;
+    private List<ContactInformation> contactInformation;
 
     @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private MedicalInformation medicalInformation;
@@ -41,7 +40,7 @@ public class PatientsDAO {
     @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private InsuranceInformation insuranceInformation;
 
-    public PatientsDAO(Patients patients) {
+    public Patients(com.kynsof.patients.domain.Patients patients) {
         this.id = patients.getId();
         this.identification = patients.getIdentification();
         this.name = patients.getName();
@@ -50,7 +49,7 @@ public class PatientsDAO {
         this.status = patients.getStatus();
     }
 
-    public Patients toAggregate() {
-        return new Patients(id, identification, name, lastName, gender, status);
+    public com.kynsof.patients.domain.Patients toAggregate() {
+        return new com.kynsof.patients.domain.Patients(id, identification, name, lastName, gender, status);
     }
 }

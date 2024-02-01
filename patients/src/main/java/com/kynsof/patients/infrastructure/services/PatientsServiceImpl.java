@@ -3,12 +3,11 @@ package com.kynsof.patients.infrastructure.services;
 import com.kynsof.patients.application.query.getall.PaginatedResponse;
 import com.kynsof.patients.application.query.getall.PatientsResponse;
 import com.kynsof.patients.domain.EStatusPatients;
-import com.kynsof.patients.domain.Patients;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.command.PatientsWriteDataJPARepository;
-import com.kynsof.patients.infrastructure.entity.PatientsDAO;
+import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.patients.infrastructure.entity.specifications.PatientsSpecifications;
 import com.kynsof.patients.infrastructure.query.PatientsReadDataJPARepository;
 import java.util.ArrayList;
@@ -30,14 +29,14 @@ public class PatientsServiceImpl implements IPatientsService {
     private PatientsReadDataJPARepository repositoryQuery;
 
     @Override
-    public UUID create(Patients patients) {
-        this.repositoryCommand.save(new PatientsDAO(patients));
+    public UUID create(com.kynsof.patients.domain.Patients patients) {
+        this.repositoryCommand.save(new Patients(patients));
         return patients.getId();
     }
 
     @Override
-    public Patients findById(UUID id) {
-        Optional<PatientsDAO> patient = this.repositoryQuery.findById(id);
+    public com.kynsof.patients.domain.Patients findById(UUID id) {
+        Optional<Patients> patient = this.repositoryQuery.findById(id);
         if (patient.isPresent()) {
             return patient.get().toAggregate();
         }
@@ -48,10 +47,10 @@ public class PatientsServiceImpl implements IPatientsService {
     @Override
     public PaginatedResponse findAll(Pageable pageable, UUID idPatients, String identification) {
         PatientsSpecifications specifications = new PatientsSpecifications(idPatients, identification);
-        Page<PatientsDAO> data = this.repositoryQuery.findAll(specifications, pageable);
+        Page<Patients> data = this.repositoryQuery.findAll(specifications, pageable);
 
         List<PatientsResponse> patients = new ArrayList<>();
-        for (PatientsDAO p : data.getContent()) {
+        for (Patients p : data.getContent()) {
             patients.add(new PatientsResponse(p.toAggregate()));
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
@@ -60,10 +59,10 @@ public class PatientsServiceImpl implements IPatientsService {
 
     @Override
     public void delete(UUID id) {
-        Patients patientDelete = this.findById(id);
+        com.kynsof.patients.domain.Patients patientDelete = this.findById(id);
         patientDelete.setStatus(EStatusPatients.INACTIVE);
         
-        this.repositoryCommand.save(new PatientsDAO(patientDelete));
+        this.repositoryCommand.save(new Patients(patientDelete));
     }
 
 }

@@ -23,5 +23,5 @@ public class AdditionalInformation {
 
     @OneToOne
     @JoinColumn(name = "patients_id", referencedColumnName = "id")
-    private PatientsDAO patient;
+    private Patients patient;
 }

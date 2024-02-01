@@ -21,7 +21,7 @@ public class MedicalInformation {
 
     @OneToOne
     @JoinColumn(name = "patients_id", referencedColumnName = "id")
-    private PatientsDAO patient;
+    private Patients patient;
 
     @OneToMany(mappedBy = "medicalInformation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Allergy> allergies;
