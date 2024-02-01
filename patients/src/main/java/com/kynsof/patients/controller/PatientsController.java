@@ -3,8 +3,11 @@ package com.kynsof.patients.controller;
 import com.kynsof.patients.application.command.patients.create.CreatePatientMessage;
 import com.kynsof.patients.application.command.patients.delete.PatientDeleteMessage;
 import com.kynsof.patients.application.command.patients.create.CreatePatientsCommand;
-import com.kynsof.patients.application.command.patients.create.PatientsRequest;
+import com.kynsof.patients.application.command.patients.create.CreatePatientsRequest;
 import com.kynsof.patients.application.command.patients.delete.PatientsDeleteCommand;
+import com.kynsof.patients.application.command.patients.update.UpdatePatientMessage;
+import com.kynsof.patients.application.command.patients.update.UpdatePatientsCommand;
+import com.kynsof.patients.application.command.patients.update.UpdatePatientsRequest;
 import com.kynsof.patients.application.query.getall.FindPatientsWithFilterQuery;
 import com.kynsof.patients.application.query.getall.PaginatedResponse;
 import com.kynsof.patients.application.query.getall.PatientsResponse;
@@ -15,14 +18,7 @@ import com.kynsof.patients.domain.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/patients")
@@ -36,7 +32,7 @@ public class PatientsController {
     }
 
     @PostMapping("")
-    public ResponseEntity<CreatePatientMessage> create(@RequestBody PatientsRequest request)  {
+    public ResponseEntity<CreatePatientMessage> create(@RequestBody CreatePatientsRequest request)  {
         CreatePatientsCommand createCommand = CreatePatientsCommand.fromRequest(request);
         CreatePatientMessage response = mediator.send(createCommand);
 
@@ -62,6 +58,14 @@ public class PatientsController {
         FindPatientsByIdQuery query = new FindPatientsByIdQuery(id);
         PatientsResponse response = mediator.send(query);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<UpdatePatientMessage> update(@PathVariable UUID id, @RequestBody UpdatePatientsRequest request) {
+
+        UpdatePatientsCommand command = UpdatePatientsCommand.fromRequest(id,request );
+        UpdatePatientMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 

@@ -3,6 +3,7 @@ package com.kynsof.patients.infrastructure.services;
 import com.kynsof.patients.application.query.getall.PaginatedResponse;
 import com.kynsof.patients.application.query.getall.PatientsResponse;
 import com.kynsof.patients.domain.EStatusPatients;
+import com.kynsof.patients.domain.PatientDto;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IPatientsService;
@@ -29,13 +30,41 @@ public class PatientsServiceImpl implements IPatientsService {
     private PatientsReadDataJPARepository repositoryQuery;
 
     @Override
-    public UUID create(com.kynsof.patients.domain.Patients patients) {
+    public UUID create(PatientDto patients) {
         this.repositoryCommand.save(new Patients(patients));
         return patients.getId();
     }
 
     @Override
-    public com.kynsof.patients.domain.Patients findById(UUID id) {
+    public UUID update(PatientDto patient) {
+        Optional<Patients> updatePatient = this.repositoryQuery.findById(patient.getId());
+        Patients patients = updatePatient.get();
+        if (patient.getName() != null) {
+            patients.setName(patient.getName());
+        }
+
+        if (patient.getLastName() != null) {
+            patients.setLastName(patient.getLastName());
+        }
+
+        if (patient.getIdentification() != null) {
+            patients.setIdentification(patient.getIdentification());
+        }
+
+        if (patient.getGender() != null) {
+            patients.setIdentification(patient.getGender());
+        }
+
+        if (patient.getStatus() != null) {
+            patients.setStatus(patient.getStatus());
+        }
+
+        this.repositoryCommand.save(patients);
+        return patient.getId();
+    }
+
+    @Override
+    public PatientDto findById(UUID id) {
         Optional<Patients> patient = this.repositoryQuery.findById(id);
         if (patient.isPresent()) {
             return patient.get().toAggregate();
@@ -59,7 +88,7 @@ public class PatientsServiceImpl implements IPatientsService {
 
     @Override
     public void delete(UUID id) {
-        com.kynsof.patients.domain.Patients patientDelete = this.findById(id);
+        PatientDto patientDelete = this.findById(id);
         patientDelete.setStatus(EStatusPatients.INACTIVE);
         
         this.repositoryCommand.save(new Patients(patientDelete));

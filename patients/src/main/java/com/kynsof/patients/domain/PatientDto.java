@@ -1,5 +1,6 @@
 package com.kynsof.patients.domain;
 
+import com.kynsof.patients.infrastructure.entity.Patients;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import java.util.UUID;
@@ -10,8 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Patients {
-    
+public class PatientDto {
+
     private UUID id;
 
     private String identification;

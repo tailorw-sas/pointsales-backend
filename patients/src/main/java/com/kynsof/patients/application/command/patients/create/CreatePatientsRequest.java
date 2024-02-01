@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PatientsRequest {
+public class CreatePatientsRequest {
 
     private String identification;
 

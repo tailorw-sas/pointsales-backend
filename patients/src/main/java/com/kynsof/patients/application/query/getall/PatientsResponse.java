@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.query.getall;
 
-import com.kynsof.patients.domain.Patients;
+import com.kynsof.patients.domain.PatientDto;
 import com.kynsof.patients.domain.bus.query.IResponse;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class PatientsResponse implements IResponse {
 
     private String gender;
 
-    public PatientsResponse(Patients patients) {
+    public PatientsResponse(PatientDto patients) {
         this.id = patients.getId();
         this.identification = patients.getIdentification();
         this.name = patients.getName();
