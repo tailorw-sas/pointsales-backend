@@ -1,5 +1,6 @@
 package com.kynsof.scheduled.infrastructure.entity;
 
+import com.kynsof.scheduled.domain.dto.EBusinessStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +20,6 @@ public class Business {
 
     private String name;
 
-    @Lob
     private String description;
 
     @Lob
@@ -27,7 +27,7 @@ public class Business {
 
     private String ruc;
 
-    private String status;
+    private EBusinessStatus status;
 
     // Relación de muchos a muchos con Resource
     @ManyToMany(mappedBy = "businesses", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
