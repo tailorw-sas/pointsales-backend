@@ -1,4 +1,4 @@
-package com.kynsof.scheduled.application.query.getAll;
+package com.kynsof.scheduled.application.query.qualification.getAll;
 
 import com.kynsof.scheduled.infrastructure.config.bus.query.IQuery;
 import java.util.UUID;

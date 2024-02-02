@@ -5,7 +5,11 @@ import com.kynsof.scheduled.application.PaginatedResponse;
 import com.kynsof.scheduled.application.command.qualification.create.CreateQualificationCommand;
 import com.kynsof.scheduled.application.command.qualification.create.CreateQualificationMessage;
 import com.kynsof.scheduled.application.command.qualification.create.CreateQualificationRequest;
-import com.kynsof.scheduled.application.query.getAll.FindQualificationWithFilterQuery;
+import com.kynsof.scheduled.application.command.qualification.delete.QualificationDeleteCommand;
+import com.kynsof.scheduled.application.command.qualification.delete.QualificationDeleteMessage;
+import com.kynsof.scheduled.application.query.QualificationResponse;
+import com.kynsof.scheduled.application.query.qualification.getAll.FindQualificationWithFilterQuery;
+import com.kynsof.scheduled.application.query.qualification.getbyid.FindQualificationByIdQuery;
 
 import com.kynsof.scheduled.infrastructure.config.bus.IMediator;
 import java.util.UUID;
@@ -44,6 +48,24 @@ public class QualificationController {
         PaginatedResponse data = mediator.send(query);
 
         return ResponseEntity.ok(data);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<QualificationResponse> getById(@PathVariable UUID id) {
+
+        FindQualificationByIdQuery query = new FindQualificationByIdQuery(id);
+        QualificationResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<QualificationDeleteMessage> deleteServices(@PathVariable("id") UUID id) {
+
+        QualificationDeleteCommand command = new QualificationDeleteCommand(id);
+        QualificationDeleteMessage response = mediator.send(command);
+
+        return ResponseEntity.ok(response);
     }
 
 }

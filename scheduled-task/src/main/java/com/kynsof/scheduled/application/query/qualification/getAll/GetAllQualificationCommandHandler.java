@@ -1,4 +1,4 @@
-package com.kynsof.scheduled.application.query.getAll;
+package com.kynsof.scheduled.application.query.qualification.getAll;
 
 import com.kynsof.scheduled.application.PaginatedResponse;
 import com.kynsof.scheduled.infrastructure.config.bus.query.IQueryHandler;
