@@ -1,10 +1,13 @@
 package com.kynsof.scheduled.infrastructure.service;
 
 import com.kynsof.scheduled.application.PaginatedResponse;
+import com.kynsof.scheduled.domain.dto.EQualificationStatus;
 import com.kynsof.scheduled.domain.dto.QualificationDto;
 import com.kynsof.scheduled.domain.service.IQualificationService;
 import com.kynsof.scheduled.infrastructure.command.QualificationWriteDataJPARepository;
 import com.kynsof.scheduled.infrastructure.entity.Qualification;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +21,12 @@ public class QualificationServiceImpl implements IQualificationService {
 
     @Override
     public void create(QualificationDto qualification) {
+        qualification.setStatus(EQualificationStatus.ACTIVE);
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        localDateTime.atZone(ZoneId.of("America/Guayaquil"));
+        qualification.setCreateAt(localDateTime);
+
         this.repositoryCommand.save(new Qualification(qualification));
     }
 
