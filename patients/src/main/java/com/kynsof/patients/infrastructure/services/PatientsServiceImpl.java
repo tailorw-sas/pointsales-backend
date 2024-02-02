@@ -2,15 +2,15 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.getall.PaginatedResponse;
 import com.kynsof.patients.application.query.getall.PatientsResponse;
-import com.kynsof.patients.domain.EStatusPatients;
-import com.kynsof.patients.domain.PatientDto;
+import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IPatientsService;
-import com.kynsof.patients.infrastructure.command.PatientsWriteDataJPARepository;
+import com.kynsof.patients.infrastructure.repositories.command.PatientsWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.patients.infrastructure.entity.specifications.PatientsSpecifications;
-import com.kynsof.patients.infrastructure.query.PatientsReadDataJPARepository;
+import com.kynsof.patients.infrastructure.repositories.query.PatientsReadDataJPARepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,15 +45,12 @@ public class PatientsServiceImpl implements IPatientsService {
 
         this.repositoryQuery.findById(patientDto.getId())
                 .map(patient -> {
-                    // Actualiza los campos si no son null
                     if (patientDto.getName() != null) patient.setName(patientDto.getName());
                     if (patientDto.getLastName() != null) patient.setLastName(patientDto.getLastName());
                     if (patientDto.getIdentification() != null) patient.setIdentification(patientDto.getIdentification());
-                    // Corrección: Debe ser setGender en lugar de setIdentification
                     if (patientDto.getGender() != null) patient.setGender(patientDto.getGender());
                     if (patientDto.getStatus() != null) patient.setStatus(patientDto.getStatus());
 
-                    // Guarda los cambios en el repositorio
                     return this.repositoryCommand.save(patient);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + patientDto.getId() + " not found"));

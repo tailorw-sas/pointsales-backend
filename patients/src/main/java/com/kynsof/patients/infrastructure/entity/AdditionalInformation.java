@@ -24,4 +24,6 @@ public class AdditionalInformation {
     @OneToOne
     @JoinColumn(name = "patients_id", referencedColumnName = "id")
     private Patients patient;
+
+
 }

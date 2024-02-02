@@ -1,6 +1,5 @@
-package com.kynsof.patients.domain;
+package com.kynsof.patients.domain.dto;
 
-import com.kynsof.patients.infrastructure.entity.Patients;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import java.util.UUID;

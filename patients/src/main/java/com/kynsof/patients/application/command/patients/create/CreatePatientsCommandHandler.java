@@ -1,7 +1,7 @@
 package com.kynsof.patients.application.command.patients.create;
 
-import com.kynsof.patients.domain.EStatusPatients;
-import com.kynsof.patients.domain.PatientDto;
+import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.infrastructure.services.PatientsServiceImpl;
 import java.util.UUID;

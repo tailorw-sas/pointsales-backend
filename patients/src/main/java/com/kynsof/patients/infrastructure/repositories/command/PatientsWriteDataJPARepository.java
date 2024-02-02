@@ -1,4 +1,4 @@
-package com.kynsof.patients.infrastructure.command;
+package com.kynsof.patients.infrastructure.repositories.command;
 
 import com.kynsof.patients.infrastructure.entity.Patients;
 import java.util.UUID;

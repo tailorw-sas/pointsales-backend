@@ -1,8 +1,10 @@
 package com.kynsof.patients.application.query.getall;
 
-import com.kynsof.patients.domain.PatientDto;
+
 import com.kynsof.patients.domain.bus.query.IResponse;
 import java.util.UUID;
+
+import com.kynsof.patients.domain.dto.PatientDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

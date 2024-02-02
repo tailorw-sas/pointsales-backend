@@ -1,7 +1,7 @@
 package com.kynsof.patients.application.query.getById;
 
 import com.kynsof.patients.application.query.getall.PatientsResponse;
-import com.kynsof.patients.domain.PatientDto;
+import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.bus.query.IQueryHandler;
 import com.kynsof.patients.infrastructure.services.PatientsServiceImpl;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package com.kynsof.patients.infrastructure.entity;
 
-import com.kynsof.patients.domain.EStatusPatients;
-import com.kynsof.patients.domain.PatientDto;
+import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.PatientDto;
 import jakarta.persistence.*;
 import java.util.List;
 import java.util.UUID;
