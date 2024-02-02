@@ -1,8 +1,12 @@
 package com.kynsof.patients.infrastructure.entity;
 
+import com.kynsof.patients.domain.dto.*;
 import jakarta.persistence.*;
+
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 import lombok.*;
 
 @NoArgsConstructor
@@ -19,6 +23,8 @@ public class MedicalInformation {
     @Lob
     private String medicalHistory;
 
+    @Enumerated(EnumType.STRING)
+    private EStatusPatients status;
     @OneToOne
     @JoinColumn(name = "patients_id", referencedColumnName = "id")
     private Patients patient;
@@ -28,4 +34,52 @@ public class MedicalInformation {
 
     @OneToMany(mappedBy = "medicalInformation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CurrentMedication> currentMedications;
+
+    public MedicalInformation(MedicalInformationDto dto) {
+        this.id = dto.getId();
+        this.bloodType = dto.getBloodType();
+        this.medicalHistory = dto.getMedicalHistory();
+        this.patient = new Patients(dto.getPatientDto());
+        this.allergies = dto.getAllergies().stream()
+                .map(allergyDto -> {
+                    Allergy allergy = new Allergy();
+                    allergy.setCode(allergyDto.getCode());
+                    allergy.setName(allergyDto.getName());
+                    return allergy;
+                })
+                .collect(Collectors.toList());
+        this.currentMedications = dto.getCurrentMedications().stream()
+                .map(medicationDto -> {
+                    CurrentMedication medication = new CurrentMedication();
+                    medication.setName(medicationDto.getName());
+                    medication.setDosage(medicationDto.getDosage());
+                    return medication;
+                })
+                .collect(Collectors.toList());
+
+    }
+
+    public MedicalInformationDto toAggregate() {
+        List<AllergyDto> allergyDtos = allergies.stream()
+                .map(allergy -> {
+                    AllergyDto dto = new AllergyDto();
+                    dto.setId(allergy.getId());
+                    dto.setCode(allergy.getCode());
+                    dto.setName(allergy.getName());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
+        List<CurrentMedicationDto> currentMedicationDtos = currentMedications.stream()
+                .map(medication -> {
+                    CurrentMedicationDto dto = new CurrentMedicationDto();
+                    dto.setId(medication.getId());
+                    dto.setName(medication.getName());
+                    dto.setDosage(medication.getDosage());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+        return new MedicalInformationDto(this.getId(), this.getBloodType(), this.getMedicalHistory(),
+                patient.getId(), patient.toAggregate(), allergyDtos, currentMedicationDtos, this.getStatus());
+    }
 }
