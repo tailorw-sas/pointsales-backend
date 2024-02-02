@@ -2,6 +2,7 @@ package com.kynsoft.service.impl;
 
 import com.kynsoft.dto.LoginDTO;
 import com.kynsoft.dto.RegisterDTO;
+import com.kynsoft.dto.TokenResponse;
 import com.kynsoft.service.IKeycloakService;
 import com.kynsoft.service.kafka.CustomerService;
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +60,7 @@ public class KeycloakServiceImpl implements IKeycloakService {
      * return the token
      * @return String
      */
-	public Mono<String> authenticate(LoginDTO loginDTO) {
+	public Mono<TokenResponse> authenticate(LoginDTO loginDTO) {
 		WebClient webClient = webClientBuilder.baseUrl(tokenUri).build();
 		return webClient.post()
 	            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -70,7 +71,7 @@ public class KeycloakServiceImpl implements IKeycloakService {
 	                                .with("password", loginDTO.getPassword())
 	                                .with("client_secret", client_secret))
 	            .retrieve()
-	            .bodyToMono(String.class);
+	            .bodyToMono(TokenResponse.class);
 	}
 	
     /**

@@ -1,4 +1,4 @@
-package com.kynsof.patients.application.query.getById;
+package com.kynsof.patients.application.query.patients.getById;
 
 import com.kynsof.patients.domain.bus.query.IQuery;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.kynsof.patients.application.query.getall;
+package com.kynsof.patients.application.query.patients.getall;
 
 
 import com.kynsof.patients.domain.bus.query.IResponse;

@@ -4,6 +4,8 @@ import com.kynsof.patients.domain.dto.ContactInfoDto;
 import com.kynsof.patients.domain.dto.EStatusPatients;
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.dto.PatientDto;
+import com.kynsof.patients.domain.service.IContactInfoService;
+import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.patients.infrastructure.services.ContactInfoServiceImpl;
 import com.kynsof.patients.infrastructure.services.PatientsServiceImpl;
@@ -14,10 +16,10 @@ import java.util.UUID;
 @Component
 public class CreateContactInfoCommandHandler implements ICommandHandler<CreateContactInfoCommand> {
 
-    private final ContactInfoServiceImpl contactInfoService;
-    private final PatientsServiceImpl patientsService;
+    private final IContactInfoService contactInfoService;
+    private final IPatientsService patientsService;
 
-    public CreateContactInfoCommandHandler(ContactInfoServiceImpl serviceImpl, PatientsServiceImpl patientsService) {
+    public CreateContactInfoCommandHandler(IContactInfoService serviceImpl, IPatientsService patientsService) {
         this.contactInfoService = serviceImpl;
         this.patientsService = patientsService;
     }

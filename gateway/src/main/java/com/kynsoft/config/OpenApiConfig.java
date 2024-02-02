@@ -18,7 +18,7 @@ public class OpenApiConfig {
 
    private Info apiInfo() {
         return new Info()
-                .title("Quipux API Gateway")
+                .title("API Gateway")
                 .description("API Documentation for the Quipux API Gateway")
                 .version("1.0.0");
     }

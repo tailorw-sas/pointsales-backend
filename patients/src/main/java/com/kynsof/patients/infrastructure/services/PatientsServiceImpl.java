@@ -1,7 +1,7 @@
 package com.kynsof.patients.infrastructure.services;
 
-import com.kynsof.patients.application.query.getall.PaginatedResponse;
-import com.kynsof.patients.application.query.getall.PatientsResponse;
+import com.kynsof.patients.domain.dto.PaginatedResponse;
+import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import com.kynsof.patients.domain.dto.EStatusPatients;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.exception.BusinessException;

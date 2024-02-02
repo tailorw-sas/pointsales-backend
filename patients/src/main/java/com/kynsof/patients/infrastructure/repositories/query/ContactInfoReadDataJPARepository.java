@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.UUID;
 
-public interface ContactInfoReadDataJPARepository extends JpaRepository<ContactInformation, UUID>, JpaSpecificationExecutor<Patients> {
-    Page<Patients> findAll(Specification specification, Pageable pageable);
+public interface ContactInfoReadDataJPARepository extends JpaRepository<ContactInformation, UUID>, JpaSpecificationExecutor<ContactInformation> {
+    Page<ContactInformation> findAll(Specification specification, Pageable pageable);
 }

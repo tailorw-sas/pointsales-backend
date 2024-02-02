@@ -6,18 +6,13 @@ import com.kynsof.patients.application.command.contactInfo.create.CreateContactI
 import com.kynsof.patients.application.command.contactInfo.update.UpdateContactInfoCommand;
 import com.kynsof.patients.application.command.contactInfo.update.UpdateContactInfoMessage;
 import com.kynsof.patients.application.command.contactInfo.update.UpdateContactInfoRequest;
-import com.kynsof.patients.application.command.patients.create.CreatePatientMessage;
-import com.kynsof.patients.application.command.patients.create.CreatePatientsCommand;
-import com.kynsof.patients.application.command.patients.create.CreatePatientsRequest;
 import com.kynsof.patients.application.command.patients.delete.PatientDeleteMessage;
 import com.kynsof.patients.application.command.patients.delete.PatientsDeleteCommand;
-import com.kynsof.patients.application.command.patients.update.UpdatePatientMessage;
-import com.kynsof.patients.application.command.patients.update.UpdatePatientsCommand;
-import com.kynsof.patients.application.command.patients.update.UpdatePatientsRequest;
-import com.kynsof.patients.application.query.getById.FindPatientsByIdQuery;
-import com.kynsof.patients.application.query.getall.FindPatientsWithFilterQuery;
-import com.kynsof.patients.application.query.getall.PaginatedResponse;
-import com.kynsof.patients.application.query.getall.PatientsResponse;
+import com.kynsof.patients.application.query.contactInfo.getById.FindByIdContactInfoQuery;
+import com.kynsof.patients.application.query.contactInfo.getall.ContactInfoResponse;
+import com.kynsof.patients.application.query.contactInfo.getall.GetAllContactInfoQuery;
+import com.kynsof.patients.application.query.patients.getall.GetAllPatientsFilterQuery;
+import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -49,20 +44,21 @@ public class ContactInfoController {
     public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
                                                     @RequestParam(defaultValue = "0") Integer page,
                                                     @RequestParam(defaultValue = "") UUID idPatients,
-                                                    @RequestParam(defaultValue = "") String identification)
+                                                    @RequestParam(defaultValue = "") String email,
+                                                    @RequestParam(defaultValue = "") String phone)
     {
         Pageable pageable = PageRequest.of(page, pageSize);
-        FindPatientsWithFilterQuery query = new FindPatientsWithFilterQuery(pageable, idPatients, identification);
-        PaginatedResponse data = mediator.send(query);
+        GetAllContactInfoQuery query = new GetAllContactInfoQuery(pageable, idPatients, email,phone);
+        PaginatedResponse response = mediator.send(query);
 
-        return ResponseEntity.ok(data);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<PatientsResponse> getById(@PathVariable UUID id) {
+    public ResponseEntity<ContactInfoResponse> getById(@PathVariable UUID id) {
 
-        FindPatientsByIdQuery query = new FindPatientsByIdQuery(id);
-        PatientsResponse response = mediator.send(query);
+        FindByIdContactInfoQuery query = new FindByIdContactInfoQuery(id);
+        ContactInfoResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }

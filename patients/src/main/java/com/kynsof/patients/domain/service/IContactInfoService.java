@@ -1,6 +1,6 @@
 package com.kynsof.patients.domain.service;
 
-import com.kynsof.patients.application.query.getall.PaginatedResponse;
+import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.dto.ContactInfoDto;
 import org.springframework.data.domain.Pageable;
 
@@ -11,5 +11,5 @@ public interface IContactInfoService {
     UUID update(ContactInfoDto patients);
     public void delete(UUID id);
     public ContactInfoDto findById(UUID id);
-    public PaginatedResponse findAll(Pageable pageable, UUID idPatients, String identification);
+    public PaginatedResponse findAll(Pageable pageable, UUID idPatients,  String email, String phone);
 }

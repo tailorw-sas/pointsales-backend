@@ -3,15 +3,16 @@ package com.kynsof.patients.application.command.patients.update;
 import com.kynsof.patients.domain.dto.EStatusPatients;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
+import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.services.PatientsServiceImpl;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatientsCommand> {
 
-    private final PatientsServiceImpl serviceImpl;
+    private final IPatientsService serviceImpl;
 
-    public UpdatePatientsCommandHandler(PatientsServiceImpl serviceImpl) {
+    public UpdatePatientsCommandHandler(IPatientsService serviceImpl) {
         this.serviceImpl = serviceImpl;
     }
 

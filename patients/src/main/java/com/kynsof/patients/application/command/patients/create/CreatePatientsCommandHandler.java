@@ -1,18 +1,19 @@
 package com.kynsof.patients.application.command.patients.create;
 
+import com.kynsof.patients.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.dto.EStatusPatients;
 import com.kynsof.patients.domain.dto.PatientDto;
-import com.kynsof.patients.domain.bus.command.ICommandHandler;
-import com.kynsof.patients.infrastructure.services.PatientsServiceImpl;
-import java.util.UUID;
+import com.kynsof.patients.domain.service.IPatientsService;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class CreatePatientsCommandHandler  implements ICommandHandler<CreatePatientsCommand> {
 
-    private final PatientsServiceImpl serviceImpl;
+    private final IPatientsService serviceImpl;
 
-    public CreatePatientsCommandHandler(PatientsServiceImpl serviceImpl) {
+    public CreatePatientsCommandHandler(IPatientsService serviceImpl) {
         this.serviceImpl = serviceImpl;
     }
 

@@ -1,4 +1,4 @@
-package com.kynsof.patients.application.query.getall;
+package com.kynsof.patients.domain.dto;
 
 import com.kynsof.patients.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
