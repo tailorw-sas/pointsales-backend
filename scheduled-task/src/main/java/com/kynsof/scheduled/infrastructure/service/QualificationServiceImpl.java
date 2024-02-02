@@ -44,7 +44,14 @@ public class QualificationServiceImpl implements IQualificationService {
 
     @Override
     public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        QualificationDto objectDelete = this.findById(id);
+        objectDelete.setStatus(EQualificationStatus.INACTIVE);
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        localDateTime.atZone(ZoneId.of("America/Guayaquil"));
+        objectDelete.setDeleteAt(localDateTime);
+
+        this.repositoryCommand.save(new Qualification(objectDelete));
     }
 
     @Override
@@ -54,7 +61,7 @@ public class QualificationServiceImpl implements IQualificationService {
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
-        //throw new RuntimeException("Patients not found.");
+
         throw new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found.");
     }
 
