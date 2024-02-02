@@ -7,7 +7,7 @@ import lombok.Getter;
 public class UpdateAdditionalInfoMessage implements ICommandMessage {
 
 
-    private final String command = "UPDATE_PATIENT";
+        private final String command = "UPDATE_ADDITIONAL_INFO";
 
     public UpdateAdditionalInfoMessage() {
 

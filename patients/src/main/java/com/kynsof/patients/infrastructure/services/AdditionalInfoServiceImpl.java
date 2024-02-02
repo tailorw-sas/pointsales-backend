@@ -1,23 +1,16 @@
 package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.additionalInfo.getall.AdditionalInfoResponse;
-import com.kynsof.patients.application.query.contactInfo.getall.ContactInfoResponse;
 import com.kynsof.patients.domain.dto.AdditionalInformationDto;
-import com.kynsof.patients.domain.dto.ContactInfoDto;
 import com.kynsof.patients.domain.dto.EStatusPatients;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IAdditionalInfoService;
-import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.infrastructure.entity.AdditionalInformation;
-import com.kynsof.patients.infrastructure.entity.ContactInformation;
 import com.kynsof.patients.infrastructure.entity.specifications.AdditionalInfoSpecifications;
-import com.kynsof.patients.infrastructure.entity.specifications.ContactInfoSpecifications;
 import com.kynsof.patients.infrastructure.repositories.command.AdditionaltInfoWriteDataJPARepository;
-import com.kynsof.patients.infrastructure.repositories.command.ContactInfoWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.AdditionalInfoReadDataJPARepository;
-import com.kynsof.patients.infrastructure.repositories.query.ContactInfoReadDataJPARepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,24 +38,29 @@ public class AdditionalInfoServiceImpl implements IAdditionalInfoService {
     }
 
     @Override
-    public UUID update(AdditionalInformationDto informationDto) {
-        if (informationDto == null || informationDto.getId() == null) {
-            throw new IllegalArgumentException("Patient DTO or ID cannot be null");
+    public UUID update(AdditionalInformationDto additionalInformationDto) {
+        if (additionalInformationDto == null || additionalInformationDto.getId() == null) {
+            throw new IllegalArgumentException("Additional Information cannot be null");
         }
 
-        this.repositoryQuery.findById(informationDto.getId())
+        this.repositoryQuery.findById(additionalInformationDto.getId())
                 .map(additionalInformation -> {
-                    if (informationDto.getMaritalStatus() != null) additionalInformation.setMaritalStatus(informationDto.getMaritalStatus());
-                    if (informationDto.getOccupation() != null) additionalInformation.setOccupation(informationDto.getOccupation());
-                    if (informationDto.getEmergencyContactName() != null) additionalInformation.setEmergencyContactName(informationDto.getEmergencyContactName());
-                    if (informationDto.getEmergencyContactPhone() != null) additionalInformation.setEmergencyContactPhone(informationDto.getEmergencyContactPhone());
-                    if (informationDto.getPatient() != null) additionalInformation.setPatient(informationDto.getPatient());
+                    if (additionalInformationDto.getMaritalStatus() != null)
+                        additionalInformation.setMaritalStatus(additionalInformationDto.getMaritalStatus());
+                    if (additionalInformationDto.getOccupation() != null)
+                        additionalInformation.setOccupation(additionalInformationDto.getOccupation());
+                    if (additionalInformationDto.getEmergencyContactName() != null)
+                        additionalInformation.setEmergencyContactName(additionalInformationDto.getEmergencyContactName());
+                    if (additionalInformationDto.getEmergencyContactPhone() != null)
+                        additionalInformation.setEmergencyContactPhone(additionalInformationDto.getEmergencyContactPhone());
+                    if (additionalInformationDto.getPatient() != null)
+                        additionalInformation.setPatient(additionalInformationDto.getPatient());
 
                     return this.repositoryCommand.save(additionalInformation);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + informationDto.getId() + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Additional Information with ID " + additionalInformationDto.getId() + " not found"));
 
-        return informationDto.getId();
+        return additionalInformationDto.getId();
     }
 
 
@@ -92,7 +90,6 @@ public class AdditionalInfoServiceImpl implements IAdditionalInfoService {
     public void delete(UUID id) {
         AdditionalInformationDto additionalInformationDto = this.findById(id);
         additionalInformationDto.setStatus(EStatusPatients.INACTIVE);
-        
         this.repositoryCommand.save(new AdditionalInformation(additionalInformationDto));
     }
 
