@@ -1,6 +1,5 @@
 package com.kynsof.scheduled.infrastructure.config;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,38 +26,41 @@ public class SecurityConfig {
 
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
     private String jwkSetUri;
-	   
+
     @Autowired
     private JwtAuthenticationConverter jwtAuthenticationConverter;
-    
+
     private final CorsProperties corsProperties;
-    
+
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity httpSecurity) {
+        String[] AUTH_WHITELIST = {
+            // -- Swagger UI v2
+            "/api/**",};
         return httpSecurity
-        		.cors(Customizer.withDefaults())
+                .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeExchange(exchanges -> exchanges
-        				.pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .pathMatchers(HttpMethod.GET, "/health").permitAll()
-                        .pathMatchers(HttpMethod.GET, "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs.yaml", "/v3/api-docs/**", "/swagger-resources/**", "webjars/**").permitAll()
-                        .anyExchange().authenticated()
+                .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .pathMatchers(HttpMethod.GET, "/health").permitAll()
+                .pathMatchers(HttpMethod.GET, "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs.yaml", "/v3/api-docs/**", "/swagger-resources/**", "webjars/**").permitAll()
+                .pathMatchers(AUTH_WHITELIST).permitAll()
+                .anyExchange().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
-                                .jwt(jwtSpec -> jwtSpec
-                                                .jwtDecoder(jwtDecoder())
-                                                .jwtAuthenticationConverter(jwtAuthenticationConverter)
-                                )
+                .jwt(jwtSpec -> jwtSpec
+                .jwtDecoder(jwtDecoder())
+                .jwtAuthenticationConverter(jwtAuthenticationConverter)
                 )
-                
+                )
                 .build();
     }
 
     @Bean
     public ReactiveJwtDecoder jwtDecoder() {
-    	return ReactiveJwtDecoders.fromIssuerLocation(jwkSetUri);
+        return ReactiveJwtDecoders.fromIssuerLocation(jwkSetUri);
     }
-    
+
     @Bean
     @ConditionalOnProperty(prefix = "http", name = "cors-enabled", matchIfMissing = false, havingValue = "true")
     public CorsWebFilter corsFilter() {
@@ -71,4 +73,3 @@ public class SecurityConfig {
     }
 
 }
-
