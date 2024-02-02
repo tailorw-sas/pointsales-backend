@@ -4,6 +4,8 @@ import com.kynsof.scheduled.application.PaginatedResponse;
 import com.kynsof.scheduled.application.query.QualificationResponse;
 import com.kynsof.scheduled.domain.dto.EQualificationStatus;
 import com.kynsof.scheduled.domain.dto.QualificationDto;
+import com.kynsof.scheduled.domain.exception.BusinessException;
+import com.kynsof.scheduled.domain.exception.DomainErrorMessage;
 import com.kynsof.scheduled.domain.service.IQualificationService;
 import com.kynsof.scheduled.infrastructure.command.QualificationWriteDataJPARepository;
 import com.kynsof.scheduled.infrastructure.entity.Qualification;
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -46,7 +49,13 @@ public class QualificationServiceImpl implements IQualificationService {
 
     @Override
     public QualificationDto findById(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+        Optional<Qualification> object = this.repositoryQuery.findById(id);
+        if (object.isPresent()) {
+            return object.get().toAggregate();
+        }
+        //throw new RuntimeException("Patients not found.");
+        throw new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found.");
     }
 
     @Override

@@ -5,10 +5,8 @@ import jakarta.annotation.Nullable;
 
 public enum DomainErrorMessage implements IDomainErrorMessage {
 
-    /**
-     * {@code 601 User First Name Required}
-     */
-    PATIENTS_NOT_FOUND(601, Series.DOMAIN_ERROR, "Patients not found.");
+    PATIENTS_NOT_FOUND(601, Series.DOMAIN_ERROR, "Patients not found."),
+    QUALIFICATION_NOT_FOUND(602, Series.DOMAIN_ERROR, "Qualification not found.");
 
     private static final DomainErrorMessage[] VALUES;
 
