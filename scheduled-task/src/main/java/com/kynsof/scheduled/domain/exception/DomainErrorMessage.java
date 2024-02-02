@@ -6,7 +6,8 @@ import jakarta.annotation.Nullable;
 public enum DomainErrorMessage implements IDomainErrorMessage {
 
     PATIENTS_NOT_FOUND(601, Series.DOMAIN_ERROR, "Patients not found."),
-    QUALIFICATION_NOT_FOUND(602, Series.DOMAIN_ERROR, "Qualification not found.");
+    QUALIFICATION_NOT_FOUND(602, Series.DOMAIN_ERROR, "Qualification not found."),
+    QUALIFICATION_OR_ID_NULL(603, Series.DOMAIN_ERROR, "Qualification DTO or ID cannot be null.");
 
     private static final DomainErrorMessage[] VALUES;
 

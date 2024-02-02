@@ -29,4 +29,10 @@ public class QualificationDto {
         this.description = description;
     }
 
+    public QualificationDto(UUID id, String description, EQualificationStatus status) {
+        this.id = id;
+        this.description = description;
+        this.status = status;
+    }
+
 }

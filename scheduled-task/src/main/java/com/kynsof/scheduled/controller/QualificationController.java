@@ -7,6 +7,9 @@ import com.kynsof.scheduled.application.command.qualification.create.CreateQuali
 import com.kynsof.scheduled.application.command.qualification.create.CreateQualificationRequest;
 import com.kynsof.scheduled.application.command.qualification.delete.QualificationDeleteCommand;
 import com.kynsof.scheduled.application.command.qualification.delete.QualificationDeleteMessage;
+import com.kynsof.scheduled.application.command.qualification.update.UpdateQualificationCommand;
+import com.kynsof.scheduled.application.command.qualification.update.UpdateQualificationMessage;
+import com.kynsof.scheduled.application.command.qualification.update.UpdateQualificationRequest;
 import com.kynsof.scheduled.application.query.QualificationResponse;
 import com.kynsof.scheduled.application.query.qualification.getAll.FindQualificationWithFilterQuery;
 import com.kynsof.scheduled.application.query.qualification.getbyid.FindQualificationByIdQuery;
@@ -65,6 +68,14 @@ public class QualificationController {
         QualificationDeleteCommand command = new QualificationDeleteCommand(id);
         QualificationDeleteMessage response = mediator.send(command);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping()
+    public ResponseEntity<UpdateQualificationMessage> update(@RequestBody UpdateQualificationRequest request) {
+
+        UpdateQualificationCommand command = UpdateQualificationCommand.fromRequest(request);
+        UpdateQualificationMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 
