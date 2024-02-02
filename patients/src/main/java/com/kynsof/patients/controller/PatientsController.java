@@ -8,11 +8,11 @@ import com.kynsof.patients.application.command.patients.delete.PatientsDeleteCom
 import com.kynsof.patients.application.command.patients.update.UpdatePatientMessage;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsCommand;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsRequest;
-import com.kynsof.patients.application.query.getall.FindPatientsWithFilterQuery;
-import com.kynsof.patients.application.query.getall.PaginatedResponse;
-import com.kynsof.patients.application.query.getall.PatientsResponse;
+import com.kynsof.patients.application.query.patients.getall.GetAllPatientsFilterQuery;
+import com.kynsof.patients.domain.dto.PaginatedResponse;
+import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import java.util.UUID;
-import com.kynsof.patients.application.query.getById.FindPatientsByIdQuery;
+import com.kynsof.patients.application.query.patients.getById.FindPatientsByIdQuery;
 
 import com.kynsof.patients.domain.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
@@ -46,7 +46,7 @@ public class PatientsController {
                                                     @RequestParam(defaultValue = "") String identification)
     {
         Pageable pageable = PageRequest.of(page, pageSize);
-        FindPatientsWithFilterQuery query = new FindPatientsWithFilterQuery(pageable, idPatients, identification);
+        GetAllPatientsFilterQuery query = new GetAllPatientsFilterQuery(pageable, idPatients, identification);
         PaginatedResponse data = mediator.send(query);
 
         return ResponseEntity.ok(data);

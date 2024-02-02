@@ -4,6 +4,8 @@ import com.kynsof.patients.domain.dto.ContactInfoDto;
 import com.kynsof.patients.domain.dto.EStatusPatients;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
+import com.kynsof.patients.domain.service.IContactInfoService;
+import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.patients.infrastructure.services.ContactInfoServiceImpl;
 import com.kynsof.patients.infrastructure.services.PatientsServiceImpl;
@@ -12,10 +14,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class UpdateContactInfoCommandHandler implements ICommandHandler<UpdateContactInfoCommand> {
 
-    private final PatientsServiceImpl patientsService;
-    private final ContactInfoServiceImpl contactInfoService;
+    private final IPatientsService patientsService;
+    private final IContactInfoService contactInfoService;
 
-    public UpdateContactInfoCommandHandler(PatientsServiceImpl patientsService, ContactInfoServiceImpl contactInfoService) {
+    public UpdateContactInfoCommandHandler(IPatientsService patientsService, IContactInfoService contactInfoService) {
         this.patientsService = patientsService;
         this.contactInfoService = contactInfoService;
     }

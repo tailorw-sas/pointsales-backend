@@ -1,4 +1,4 @@
-package com.kynsof.patients.application.query.getall;
+package com.kynsof.patients.application.query.patients.getall;
 
 import com.kynsof.patients.domain.bus.query.IQuery;
 import java.util.UUID;
@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 @Getter
 @Setter
 @AllArgsConstructor
-public class FindPatientsWithFilterQuery implements IQuery {
+public class GetAllPatientsFilterQuery implements IQuery {
 
     private Pageable pageable;
     private UUID idPatients;

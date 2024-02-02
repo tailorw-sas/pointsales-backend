@@ -1,7 +1,8 @@
 package com.kynsof.patients.infrastructure.services;
 
-import com.kynsof.patients.application.query.getall.PaginatedResponse;
-import com.kynsof.patients.application.query.getall.PatientsResponse;
+import com.kynsof.patients.application.query.contactInfo.getall.ContactInfoResponse;
+import com.kynsof.patients.domain.dto.PaginatedResponse;
+import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import com.kynsof.patients.domain.dto.ContactInfoDto;
 import com.kynsof.patients.domain.dto.EStatusPatients;
 import com.kynsof.patients.domain.exception.BusinessException;
@@ -9,6 +10,7 @@ import com.kynsof.patients.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.infrastructure.entity.ContactInformation;
 import com.kynsof.patients.infrastructure.entity.Patients;
+import com.kynsof.patients.infrastructure.entity.specifications.ContactInfoSpecifications;
 import com.kynsof.patients.infrastructure.entity.specifications.PatientsSpecifications;
 import com.kynsof.patients.infrastructure.repositories.command.ContactInfoWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.ContactInfoReadDataJPARepository;
@@ -69,13 +71,13 @@ public class ContactInfoServiceImpl implements IContactInfoService {
     }
 
     @Override
-    public PaginatedResponse findAll(Pageable pageable, UUID idPatients, String identification) {
-        PatientsSpecifications specifications = new PatientsSpecifications(idPatients, identification);
-        Page<Patients> data = this.repositoryQuery.findAll(specifications, pageable);
+    public PaginatedResponse findAll(Pageable pageable, UUID idPatients, String email, String phone) {
+        ContactInfoSpecifications specifications = new ContactInfoSpecifications(idPatients, email);
+        Page<ContactInformation> data = this.repositoryQuery.findAll(specifications, pageable);
 
-        List<PatientsResponse> patients = new ArrayList<>();
-        for (Patients p : data.getContent()) {
-            patients.add(new PatientsResponse(p.toAggregate()));
+        List<ContactInfoResponse> patients = new ArrayList<>();
+        for (ContactInformation p : data.getContent()) {
+            patients.add(new ContactInfoResponse(p.toAggregate()));
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
