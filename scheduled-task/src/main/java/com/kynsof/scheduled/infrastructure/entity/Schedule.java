@@ -56,6 +56,7 @@ public class Schedule {
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "business_id", nullable = true)
     private Business business;
+
     @PrePersist
     public void prePersist() {
         this.initialStock = this.stock;
