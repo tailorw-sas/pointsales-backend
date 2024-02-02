@@ -39,6 +39,6 @@ public class CreateContactInfoCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return new ContactInfoContactMessage(id);
+        return new CreateContactInfoMessage(id);
     }
 }

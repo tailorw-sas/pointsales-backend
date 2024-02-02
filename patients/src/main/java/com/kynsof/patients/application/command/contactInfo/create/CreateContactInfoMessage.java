@@ -6,13 +6,13 @@ import lombok.Getter;
 import java.util.UUID;
 
 @Getter
-public class ContactInfoContactMessage implements ICommandMessage {
+public class CreateContactInfoMessage implements ICommandMessage {
 
     private final UUID id;
 
     private final String command = "CREATE_CONTACT_INFO";
 
-    public ContactInfoContactMessage(UUID id) {
+    public CreateContactInfoMessage(UUID id) {
         this.id = id;
     }
 

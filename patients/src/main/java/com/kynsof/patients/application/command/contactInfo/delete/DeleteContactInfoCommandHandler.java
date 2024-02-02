@@ -1,15 +1,15 @@
 package com.kynsof.patients.application.command.contactInfo.delete;
 
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
-import com.kynsof.patients.infrastructure.services.PatientsServiceImpl;
+import com.kynsof.patients.domain.service.IContactInfoService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DeleteContactInfoCommandHandler implements ICommandHandler<DeleteContactInfoCommand> {
 
-    private final PatientsServiceImpl serviceImpl;
+    private final IContactInfoService serviceImpl;
 
-    public DeleteContactInfoCommandHandler(PatientsServiceImpl serviceImpl) {
+    public DeleteContactInfoCommandHandler(IContactInfoService serviceImpl) {
         this.serviceImpl = serviceImpl;
     }
 
