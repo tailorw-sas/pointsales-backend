@@ -9,5 +9,5 @@ public interface IQualificationService {
     public void create(QualificationDto qualification);
     public void delete(UUID id);
     public QualificationDto findById(UUID id);
-    public PaginatedResponse findAll(Pageable pageable, UUID idQualification);
+    public PaginatedResponse findAll(Pageable pageable, UUID idQualification, String filter);
 }
