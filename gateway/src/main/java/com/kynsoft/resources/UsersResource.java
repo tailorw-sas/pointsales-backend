@@ -3,7 +3,9 @@ package com.kynsoft.resources;
 
 import com.kynsoft.dto.LoginDTO;
 import com.kynsoft.dto.RegisterDTO;
+import com.kynsoft.dto.TokenResponse;
 import com.kynsoft.service.IKeycloakService;
+import jakarta.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,12 +23,10 @@ public class UsersResource {
     @Autowired
     private IKeycloakService keycloakService;
 
-
     @PreAuthorize("permitAll()")
-    @PostMapping("/authenticate")
-    public Mono<String> loginUser(@RequestBody LoginDTO loginDTO) throws URISyntaxException {
-    	return keycloakService.authenticate(loginDTO);
-               
+    @PostMapping(value = "/authenticate", produces = "application/json")
+    public Mono<TokenResponse> loginUser(@RequestBody LoginDTO loginDTO)  {
+        return keycloakService.authenticate(loginDTO);
     }
     
     @PreAuthorize("permitAll()")
