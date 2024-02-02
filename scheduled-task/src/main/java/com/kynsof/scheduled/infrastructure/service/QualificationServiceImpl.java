@@ -25,10 +25,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class QualificationServiceImpl implements IQualificationService {
 
-    @Autowired 
+    @Autowired
     private QualificationWriteDataJPARepository repositoryCommand;
 
-    @Autowired 
+    @Autowired
     private QualificationReadDataJPARepository repositoryQuery;
 
     @Override
@@ -76,6 +76,29 @@ public class QualificationServiceImpl implements IQualificationService {
         }
         return new PaginatedResponse(qualification, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public void update(QualificationDto qualification) {
+        if (qualification.getId() == null || qualification == null) {
+            throw new BusinessException(DomainErrorMessage.QUALIFICATION_OR_ID_NULL, "Qualification DTO or ID cannot be null.");
+        }
+
+        this.repositoryQuery.findById(qualification.getId())
+                .map(object -> {
+                    if (qualification.getDescription() != null) {
+                        object.setDescription(qualification.getDescription());
+                    }
+                    if (qualification.getStatus() != null) {
+                        object.setStatus(qualification.getStatus());
+                    }
+                    LocalDateTime localDateTime = LocalDateTime.now();
+                    localDateTime.atZone(ZoneId.of("America/Guayaquil"));
+                    object.setUpdateAt(localDateTime);
+                    return this.repositoryCommand.save(object);
+                })
+                .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));
+
     }
 
 }
