@@ -7,20 +7,12 @@ import com.kynsof.scheduled.application.command.business.create.CreateBusinessMe
 import com.kynsof.scheduled.application.command.business.create.CreateBusinessRequest;
 import com.kynsof.scheduled.application.command.business.delete.BusinessDeleteCommand;
 import com.kynsof.scheduled.application.command.business.delete.BusinessDeleteMessage;
-import com.kynsof.scheduled.application.command.qualification.create.CreateQualificationCommand;
-import com.kynsof.scheduled.application.command.qualification.create.CreateQualificationMessage;
-import com.kynsof.scheduled.application.command.qualification.create.CreateQualificationRequest;
-import com.kynsof.scheduled.application.command.qualification.delete.QualificationDeleteCommand;
-import com.kynsof.scheduled.application.command.qualification.delete.QualificationDeleteMessage;
-import com.kynsof.scheduled.application.command.qualification.update.UpdateQualificationCommand;
-import com.kynsof.scheduled.application.command.qualification.update.UpdateQualificationMessage;
-import com.kynsof.scheduled.application.command.qualification.update.UpdateQualificationRequest;
+import com.kynsof.scheduled.application.command.business.update.UpdateBusinessCommand;
+import com.kynsof.scheduled.application.command.business.update.UpdateBusinessMessage;
+import com.kynsof.scheduled.application.command.business.update.UpdateBusinessRequest;
 import com.kynsof.scheduled.application.query.BusinessResponse;
-import com.kynsof.scheduled.application.query.QualificationResponse;
 import com.kynsof.scheduled.application.query.business.getAll.FindBusinessWithFilterQuery;
 import com.kynsof.scheduled.application.query.business.getbyid.FindBusinessByIdQuery;
-import com.kynsof.scheduled.application.query.qualification.getAll.FindQualificationWithFilterQuery;
-import com.kynsof.scheduled.application.query.qualification.getbyid.FindQualificationByIdQuery;
 
 import com.kynsof.scheduled.infrastructure.config.bus.IMediator;
 import java.util.UUID;
@@ -79,4 +71,11 @@ public class BusinessController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping()
+    public ResponseEntity<UpdateBusinessMessage> update(@RequestBody UpdateBusinessRequest request) {
+
+        UpdateBusinessCommand command = UpdateBusinessCommand.fromRequest(request);
+        UpdateBusinessMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
 }
