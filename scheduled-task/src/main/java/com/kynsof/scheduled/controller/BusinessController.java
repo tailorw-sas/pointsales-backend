@@ -15,7 +15,9 @@ import com.kynsof.scheduled.application.command.qualification.delete.Qualificati
 import com.kynsof.scheduled.application.command.qualification.update.UpdateQualificationCommand;
 import com.kynsof.scheduled.application.command.qualification.update.UpdateQualificationMessage;
 import com.kynsof.scheduled.application.command.qualification.update.UpdateQualificationRequest;
+import com.kynsof.scheduled.application.query.BusinessResponse;
 import com.kynsof.scheduled.application.query.QualificationResponse;
+import com.kynsof.scheduled.application.query.business.getbyid.FindBusinessByIdQuery;
 import com.kynsof.scheduled.application.query.qualification.getAll.FindQualificationWithFilterQuery;
 import com.kynsof.scheduled.application.query.qualification.getbyid.FindQualificationByIdQuery;
 
@@ -41,6 +43,15 @@ public class BusinessController {
     public ResponseEntity<CreateBusinessMessage> create(@RequestBody CreateBusinessRequest request)  {
         CreateBusinessCommand createCommand = CreateBusinessCommand.fromRequest(request);
         CreateBusinessMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<BusinessResponse> getById(@PathVariable UUID id) {
+
+        FindBusinessByIdQuery query = new FindBusinessByIdQuery(id);
+        BusinessResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }
