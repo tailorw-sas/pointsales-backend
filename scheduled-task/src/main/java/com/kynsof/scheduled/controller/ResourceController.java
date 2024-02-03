@@ -3,9 +3,14 @@ package com.kynsof.scheduled.controller;
 import com.kynsof.scheduled.application.command.resource.create.CreateResourceCommand;
 import com.kynsof.scheduled.application.command.resource.create.CreateResourceMessage;
 import com.kynsof.scheduled.application.command.resource.create.CreateResourceRequest;
+import com.kynsof.scheduled.application.query.ResourceResponse;
+import com.kynsof.scheduled.application.query.resource.getbyid.FindResourceByIdQuery;
 
 import com.kynsof.scheduled.infrastructure.config.bus.IMediator;
+import java.util.UUID;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +31,15 @@ public class ResourceController {
     public ResponseEntity<CreateResourceMessage> create(@RequestBody CreateResourceRequest request)  {
         CreateResourceCommand createCommand = CreateResourceCommand.fromRequest(request);
         CreateResourceMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<ResourceResponse> getById(@PathVariable UUID id) {
+
+        FindResourceByIdQuery query = new FindResourceByIdQuery(id);
+        ResourceResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }

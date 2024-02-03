@@ -1,6 +1,5 @@
 package com.kynsof.scheduled.application.query;
 
-import com.kynsof.scheduled.domain.dto.BusinessDto;
 import com.kynsof.scheduled.domain.dto.EResourceStatus;
 import com.kynsof.scheduled.domain.dto.ResourceDto;
 import com.kynsof.scheduled.infrastructure.config.bus.query.IResponse;
