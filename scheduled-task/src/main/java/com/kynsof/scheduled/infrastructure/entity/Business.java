@@ -29,6 +29,7 @@ public class Business {
 
     private String ruc;
 
+    @Enumerated(EnumType.STRING)
     private EBusinessStatus status;
 
     @Column(nullable = true)
