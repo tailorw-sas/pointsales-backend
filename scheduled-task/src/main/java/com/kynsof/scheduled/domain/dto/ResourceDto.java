@@ -1,6 +1,5 @@
 package com.kynsof.scheduled.domain.dto;
 
-import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -33,5 +32,15 @@ public class ResourceDto {
     private LocalDateTime updateAt;
 
     private LocalDateTime deleteAt;
+
+    public ResourceDto(UUID id, String picture, String name, String registrationNumber, String language, EResourceStatus status, Boolean expressAppointments) {
+        this.id = id;
+        this.picture = picture;
+        this.name = name;
+        this.registrationNumber = registrationNumber;
+        this.language = language;
+        this.status = status;
+        this.expressAppointments = expressAppointments;
+    }
 
 }
