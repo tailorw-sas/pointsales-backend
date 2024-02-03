@@ -3,33 +3,27 @@ package com.kynsof.patients.application.command.medicalInformation.update;
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.dto.AdditionalInformationDto;
 import com.kynsof.patients.domain.dto.EStatusPatients;
-import com.kynsof.patients.domain.dto.PatientDto;
-import com.kynsof.patients.domain.service.IAdditionalInfoService;
-import com.kynsof.patients.domain.service.IPatientsService;
+import com.kynsof.patients.domain.dto.MedicalInformationDto;
+import com.kynsof.patients.domain.dto.MedicalInformationUpdateDto;
+import com.kynsof.patients.domain.service.IMedicalInformationService;
 import com.kynsof.patients.infrastructure.entity.Patients;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateMedicalInformationCommandHandler implements ICommandHandler<UpdateMedicalInformationCommand> {
 
-    private final IPatientsService patientsService;
-    private final IAdditionalInfoService additionalInfoService;
+    private final IMedicalInformationService medicalInformationService;
 
-    public UpdateMedicalInformationCommandHandler(IPatientsService patientsService, IAdditionalInfoService contactInfoService) {
-        this.patientsService = patientsService;
-        this.additionalInfoService = contactInfoService;
+    public UpdateMedicalInformationCommandHandler(IMedicalInformationService contactInfoService) {
+        this.medicalInformationService = contactInfoService;
     }
 
     @Override
     public void handle(UpdateMedicalInformationCommand command) {
-        PatientDto patientDto = patientsService.findById(command.getPatientId());
-        additionalInfoService.update(new AdditionalInformationDto(
+        medicalInformationService.update(new MedicalInformationUpdateDto(
                 command.getId(),
-                new Patients(patientDto),
-                command.getOccupation(),
-                command.getMaritalStatus(),
-                command.getEmergencyContactName(),
-                command.getEmergencyContactPhone(),
+                command.getBloodType(),
+                command.getMedicalHistory(),
                 EStatusPatients.ACTIVE
         ));
 

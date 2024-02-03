@@ -1,21 +1,14 @@
 package com.kynsof.patients.application.command.medicalInformation.update;
 
+import com.kynsof.patients.domain.dto.EStatusPatients;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.UUID;
 
 @Getter
 @Setter
 public class UpdateMedicalInformationRequest {
 
-    private UUID patientId;
-
-    private String maritalStatus;
-
-    private String occupation;
-
-    private String emergencyContactName;
-
-    private String emergencyContactPhone;
+    private String bloodType;
+    private String medicalHistory;
+    private EStatusPatients status;
 }
