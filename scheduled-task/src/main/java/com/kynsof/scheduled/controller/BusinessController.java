@@ -57,7 +57,7 @@ public class BusinessController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<BusinessDeleteMessage> deleteServices(@PathVariable("id") UUID id) {
+    public ResponseEntity<BusinessDeleteMessage> delete(@PathVariable("id") UUID id) {
 
         BusinessDeleteCommand command = new BusinessDeleteCommand(id);
         BusinessDeleteMessage response = mediator.send(command);
