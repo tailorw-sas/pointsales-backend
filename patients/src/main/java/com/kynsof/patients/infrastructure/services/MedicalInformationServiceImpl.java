@@ -43,8 +43,13 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
 
     @Override
     public UUID create(MedicalInformationDto dto) {
-        this.repositoryCommand.save(new MedicalInformation(dto));
-        return dto.getId();
+        try {
+            this.repositoryCommand.save(new MedicalInformation(dto));
+            return dto.getId();
+        }catch (Exception e){
+            String message = e.getMessage();
+            throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Medical Information not found.");
+        }
     }
 
     @Override
@@ -112,7 +117,7 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
         if (medicalInformation.isPresent()) {
             return medicalInformation.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Contact Information not found.");
+        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Medical Information not found.");
     }
 
     @Override

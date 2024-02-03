@@ -11,7 +11,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MedicalInformationDto {
-
     private UUID id;
     private String bloodType;
     private String medicalHistory;

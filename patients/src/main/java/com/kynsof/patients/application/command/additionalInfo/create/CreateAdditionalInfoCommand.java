@@ -1,6 +1,7 @@
 package com.kynsof.patients.application.command.additionalInfo.create;
 
 import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoMessage;
+import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoRequest;
 import com.kynsof.patients.domain.bus.command.ICommand;
 import com.kynsof.patients.domain.bus.command.ICommandMessage;
 import lombok.Getter;
