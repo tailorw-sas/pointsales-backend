@@ -1,7 +1,7 @@
 package com.kynsof.patients.controller;
 
-import com.kynsof.patients.application.command.contactInfo.create.ContactInfoContactMessage;
 import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoCommand;
+import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoMessage;
 import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoRequest;
 import com.kynsof.patients.application.command.contactInfo.update.UpdateContactInfoCommand;
 import com.kynsof.patients.application.command.contactInfo.update.UpdateContactInfoMessage;
@@ -33,9 +33,9 @@ public class ContactInfoController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ContactInfoContactMessage> create(@RequestBody CreateContactInfoRequest request)  {
+    public ResponseEntity<CreateContactInfoMessage> create(@RequestBody CreateContactInfoRequest request)  {
         CreateContactInfoCommand createCommand = CreateContactInfoCommand.fromRequest(request);
-        ContactInfoContactMessage response = mediator.send(createCommand);
+        CreateContactInfoMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
     }

@@ -1,7 +1,11 @@
 package com.kynsof.patients.infrastructure.entity;
 
+import com.kynsof.patients.domain.dto.AdditionalInformationDto;
+import com.kynsof.patients.domain.dto.EStatusPatients;
 import jakarta.persistence.*;
+
 import java.util.UUID;
+
 import lombok.*;
 
 @NoArgsConstructor
@@ -20,10 +24,25 @@ public class AdditionalInformation {
     private String emergencyContactName;
 
     private String emergencyContactPhone;
+    @Enumerated(EnumType.STRING)
+    private EStatusPatients status;
 
     @OneToOne
-    @JoinColumn(name = "patients_id", referencedColumnName = "id")
+    @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patients patient;
 
+    public AdditionalInformation(AdditionalInformationDto additionalInformationDto) {
+        id = additionalInformationDto.getId();
+        maritalStatus = additionalInformationDto.getMaritalStatus();
+        occupation = additionalInformationDto.getOccupation();
+        emergencyContactName = additionalInformationDto.getEmergencyContactName();
+        emergencyContactPhone = additionalInformationDto.getEmergencyContactPhone();
+        patient = additionalInformationDto.getPatient();
+        status = additionalInformationDto.getStatus();
+    }
 
+    public AdditionalInformationDto toAggregate() {
+        return new AdditionalInformationDto(getId(), getPatient(), getMaritalStatus(), getOccupation(),
+                getEmergencyContactName(), getEmergencyContactPhone(), getStatus());
+    }
 }
