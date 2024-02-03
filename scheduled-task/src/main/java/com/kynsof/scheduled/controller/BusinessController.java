@@ -17,6 +17,7 @@ import com.kynsof.scheduled.application.command.qualification.update.UpdateQuali
 import com.kynsof.scheduled.application.command.qualification.update.UpdateQualificationRequest;
 import com.kynsof.scheduled.application.query.BusinessResponse;
 import com.kynsof.scheduled.application.query.QualificationResponse;
+import com.kynsof.scheduled.application.query.business.getAll.FindBusinessWithFilterQuery;
 import com.kynsof.scheduled.application.query.business.getbyid.FindBusinessByIdQuery;
 import com.kynsof.scheduled.application.query.qualification.getAll.FindQualificationWithFilterQuery;
 import com.kynsof.scheduled.application.query.qualification.getbyid.FindQualificationByIdQuery;
@@ -45,6 +46,19 @@ public class BusinessController {
         CreateBusinessMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
+                                                    @RequestParam(defaultValue = "0") Integer page,
+                                                    @RequestParam(defaultValue = "") UUID idBusiness,
+                                                    @RequestParam(defaultValue = "") String filter)
+    {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        FindBusinessWithFilterQuery query = new FindBusinessWithFilterQuery(pageable, idBusiness, filter);
+        PaginatedResponse data = mediator.send(query);
+
+        return ResponseEntity.ok(data);
     }
 
     @GetMapping(path = "/{id}")
