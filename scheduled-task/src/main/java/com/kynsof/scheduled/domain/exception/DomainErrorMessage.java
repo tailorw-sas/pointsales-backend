@@ -8,7 +8,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     PATIENTS_NOT_FOUND(601, Series.DOMAIN_ERROR, "Patients not found."),
     QUALIFICATION_NOT_FOUND(602, Series.DOMAIN_ERROR, "Qualification not found."),
     QUALIFICATION_OR_ID_NULL(603, Series.DOMAIN_ERROR, "Qualification DTO or ID cannot be null."),
-    BUSINESS_NOT_FOUND(604, Series.DOMAIN_ERROR, "Business not found.");
+    BUSINESS_NOT_FOUND(604, Series.DOMAIN_ERROR, "Business not found."),
+    BUSINESS_OR_ID_NULL(605, Series.DOMAIN_ERROR, "Business DTO or ID cannot be null.");
 
     private static final DomainErrorMessage[] VALUES;
 
