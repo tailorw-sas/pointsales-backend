@@ -5,6 +5,8 @@ import com.kynsof.scheduled.application.PaginatedResponse;
 import com.kynsof.scheduled.application.command.business.create.CreateBusinessCommand;
 import com.kynsof.scheduled.application.command.business.create.CreateBusinessMessage;
 import com.kynsof.scheduled.application.command.business.create.CreateBusinessRequest;
+import com.kynsof.scheduled.application.command.business.delete.BusinessDeleteCommand;
+import com.kynsof.scheduled.application.command.business.delete.BusinessDeleteMessage;
 import com.kynsof.scheduled.application.command.qualification.create.CreateQualificationCommand;
 import com.kynsof.scheduled.application.command.qualification.create.CreateQualificationMessage;
 import com.kynsof.scheduled.application.command.qualification.create.CreateQualificationRequest;
@@ -39,6 +41,15 @@ public class BusinessController {
     public ResponseEntity<CreateBusinessMessage> create(@RequestBody CreateBusinessRequest request)  {
         CreateBusinessCommand createCommand = CreateBusinessCommand.fromRequest(request);
         CreateBusinessMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BusinessDeleteMessage> deleteServices(@PathVariable("id") UUID id) {
+
+        BusinessDeleteCommand command = new BusinessDeleteCommand(id);
+        BusinessDeleteMessage response = mediator.send(command);
 
         return ResponseEntity.ok(response);
     }
