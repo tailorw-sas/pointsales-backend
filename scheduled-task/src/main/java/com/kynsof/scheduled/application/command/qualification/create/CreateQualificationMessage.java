@@ -10,7 +10,7 @@ public class CreateQualificationMessage implements ICommandMessage {
 
     private final UUID id;
 
-    private final String command = "CREATE_PATIENT";
+    private final String command = "CREATE_QUALIFICATION";
 
     public CreateQualificationMessage(UUID id) {
         this.id = id;
