@@ -2,6 +2,7 @@ package com.kynsof.patients.application.command.medicalInformation.update;
 
 import com.kynsof.patients.domain.bus.command.ICommand;
 import com.kynsof.patients.domain.bus.command.ICommandMessage;
+import com.kynsof.patients.domain.dto.EStatusPatients;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,30 +12,20 @@ import java.util.UUID;
 @Setter
 public class UpdateMedicalInformationCommand implements ICommand {
     private UUID id;
-    private UUID patientId;
-
-    private String maritalStatus;
-
-    private String occupation;
-
-    private String emergencyContactName;
-
-    private String emergencyContactPhone;
+    private String bloodType;
+    private String medicalHistory;
+    private EStatusPatients status;
 
 
-    public UpdateMedicalInformationCommand(UUID id, UUID patientId, String maritalStatus, String occupation,
-                                           String emergencyContactName, String emergencyContactPhone) {
+    public UpdateMedicalInformationCommand(UUID id, String bloodType, String medicalHistory, EStatusPatients status) {
         this.id = id;
-        this.patientId = patientId;
-        this.maritalStatus = maritalStatus;
-        this.occupation = occupation;
-        this.emergencyContactName = emergencyContactName;
-        this.emergencyContactPhone = emergencyContactPhone;
+        this.bloodType = bloodType;
+        this.medicalHistory = medicalHistory;
+        this.status = status;
     }
 
     public static UpdateMedicalInformationCommand fromRequest(UUID id, UpdateMedicalInformationRequest request) {
-        return new UpdateMedicalInformationCommand(id, request.getPatientId(), request.getMaritalStatus(), request.getOccupation(),
-                request.getEmergencyContactName(), request.getEmergencyContactPhone());
+        return new UpdateMedicalInformationCommand(id, request.getBloodType(), request.getMedicalHistory(), request.getStatus());
     }
 
 

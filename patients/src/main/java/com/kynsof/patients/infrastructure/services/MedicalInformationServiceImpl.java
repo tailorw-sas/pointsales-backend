@@ -2,10 +2,7 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.additionalInfo.getall.AdditionalInfoResponse;
 import com.kynsof.patients.application.query.medicalInformation.getall.MedicalInformationResponse;
-import com.kynsof.patients.domain.dto.AdditionalInformationDto;
-import com.kynsof.patients.domain.dto.EStatusPatients;
-import com.kynsof.patients.domain.dto.MedicalInformationDto;
-import com.kynsof.patients.domain.dto.PaginatedResponse;
+import com.kynsof.patients.domain.dto.*;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IAdditionalInfoService;
@@ -53,7 +50,7 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
     }
 
     @Override
-    public UUID update(MedicalInformationDto medicalInformationDto) {
+    public UUID update(MedicalInformationUpdateDto medicalInformationDto) {
         if (medicalInformationDto == null || medicalInformationDto.getId() == null) {
             throw new IllegalArgumentException("Medical Information cannot be null or have a null ID.");
         }
@@ -69,39 +66,8 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
             medicalInformation.setMedicalHistory(medicalInformationDto.getMedicalHistory());
         }
 
-        // Actualizar el paciente solo si patientId no es null
-        if (medicalInformationDto.getPatientId() != null) {
-//            Patient patient = patientRepository.findById(medicalInformationDto.getPatientId())
-//                    .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + medicalInformationDto.getPatientId() + " not found"));
-//            medicalInformation.setPatient(patient);
-        }
-
-        // Actualizar las alergias solo si la lista no es null
-        if (medicalInformationDto.getAllergies() != null) {
-            List<Allergy> allergies = medicalInformationDto.getAllergies().stream()
-                    .map(allergyDto -> {
-                        Allergy allergy = new Allergy(); // Ajusta según tu implementación
-                        allergy.setCode(allergyDto.getCode());
-                        allergy.setName(allergyDto.getName());
-                        allergy.setMedicalInformation(medicalInformation); // Establecer la relación inversa
-                        return allergy;
-                    })
-                    .collect(Collectors.toList());
-            medicalInformation.setAllergies(allergies);
-        }
-
-        // Actualizar los medicamentos actuales solo si la lista no es null
-        if (medicalInformationDto.getCurrentMedications() != null) {
-            List<CurrentMedication> currentMedications = medicalInformationDto.getCurrentMedications().stream()
-                    .map(medicationDto -> {
-                        CurrentMedication medication = new CurrentMedication(); // Ajusta según tu implementación
-                        medication.setName(medicationDto.getName());
-                        medication.setDosage(medicationDto.getDosage());
-                        medication.setMedicalInformation(medicalInformation); // Establecer la relación inversa
-                        return medication;
-                    })
-                    .collect(Collectors.toList());
-            medicalInformation.setCurrentMedications(currentMedications);
+        if (medicalInformationDto.getStatus() != null) {
+            medicalInformation.setStatus(medicalInformationDto.getStatus());
         }
 
         repositoryCommand.save(medicalInformation);

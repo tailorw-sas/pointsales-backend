@@ -4,32 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Se agrega los otros campos a la entidad scheduled">
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/update/UpdatePatientMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/update/UpdatePatientsCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/update/UpdatePatientsCommandHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/update/UpdatePatientsRequest.java" afterDir="false" />
+    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Se agrega las entidades relacionadas con la información medica">
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/MedicalInformationUpdateDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/create/CreatePatientsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/create/CreatePatientsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/create/CreatePatientsCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/create/CreatePatientsCommandHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/create/PatientsRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/create/CreatePatientsRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/getall/PatientsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/getall/PatientsResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/getbyid/FindPatientsByIdQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/getbyid/FindPatientsByIdQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/Patients.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/PatientDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/repository/IPatientsQueryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/repository/IPatientsQueryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IPatientsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IPatientsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/Patients.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/Patients.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/config/CorsProperties.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/config/JwtAuthenticationConverter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/config/OpenApiConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/config/SecurityConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/config/kafka/Event.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/config/kafka/EventType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/config/kafka/KafkaConsumerConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/config/kafka/KafkaProducerConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/util/JsonProcessor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/update/UpdateMedicalInformationCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/update/UpdateMedicalInformationCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/update/UpdateMedicalInformationCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/update/UpdateMedicalInformationCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/update/UpdateMedicalInformationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/update/UpdateMedicalInformationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IMedicalInformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IMedicalInformationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/MedicalInformationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/MedicalInformationServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,13 +92,13 @@
     "Spring Boot.ConfigCloudServiceApplication.executor": "Debug",
     "Spring Boot.GatewayApplication.executor": "Debug",
     "Spring Boot.PatientsApplication.executor": "Debug",
-    "Spring Boot.RegistryApplication.executor": "Run",
+    "Spring Boot.RegistryApplication.executor": "Debug",
     "Spring Boot.ScheduledApplication.executor": "Debug",
-    "Spring Boot.TreatmentsApplication.executor": "Run",
+    "Spring Boot.TreatmentsApplication.executor": "Debug",
     "git-widget-placeholder": "dev",
     "jdk.selected.JAVA_MODULE": "temurin-17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/patients/src/main/java/com/kynsof/patients/application/command/patients/update",
+    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -140,14 +122,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/update" />
-      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/query" />
-      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus/command" />
-      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/bus" />
-      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain" />
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation" />
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command" />
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/medicalInformation" />
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/additionalInfo" />
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/additionalInfo" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.kynsof.patients.application.command.create" />
+      <recent name="com.kynsof.patients.domain.dto" />
+      <recent name="com.kynsof.patients.application.command.additionalInfo.create" />
+      <recent name="com.kynsof.patients.application.command.medicalInformation.create" />
+      <recent name="com.kynsof.patients.controller" />
+      <recent name="com.kynsof.patients.infrastructure.entity.specifications" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -157,7 +143,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.TreatmentsApplication">
+  <component name="RunManager" selected="Spring Boot.PatientsApplication">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="proyect-base" />
       <option name="ENV_FILES" value="" />
@@ -257,12 +243,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PatientsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="PatientsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <envs>
         <env name="RC_ACTIVE_PROFILE" value="dev" />
       </envs>
       <module name="patients" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.patients.PatientsApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.kynsof.patients.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <extension name="net.ashald.envfile">
         <option name="IS_ENABLED" value="false" />
         <option name="IS_SUBST" value="false" />
@@ -311,6 +303,11 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.PatientsApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -335,7 +332,8 @@
       <workItem from="1706622176134" duration="268000" />
       <workItem from="1706622447667" duration="3517000" />
       <workItem from="1706644357404" duration="1375000" />
-      <workItem from="1706650805302" duration="29556000" />
+      <workItem from="1706650805302" duration="35579000" />
+      <workItem from="1706888844594" duration="26878000" />
     </task>
     <task id="LOCAL-00001" summary="Mi primer comit">
       <option name="closed" value="true" />
@@ -489,7 +487,95 @@
       <option name="project" value="LOCAL" />
       <updated>1706827719593</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Se agrega los otros campos a la entidad scheduled">
+      <option name="closed" value="true" />
+      <created>1706830995185</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1706830995185</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Se agrega los otros campos a la entidad patiens">
+      <option name="closed" value="true" />
+      <created>1706831159181</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1706831159181</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Se agrega los otros campos a la entidad contactInfo">
+      <option name="closed" value="true" />
+      <created>1706890121720</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1706890121720</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Se agrega los otros campos a la entidad contactInfo">
+      <option name="closed" value="true" />
+      <created>1706893748434</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1706893748434</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Se arregla la forma de responder el login del gateway">
+      <option name="closed" value="true" />
+      <created>1706894977222</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1706894977222</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Se arregla la forma de responder el login del gateway">
+      <option name="closed" value="true" />
+      <created>1706895065463</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1706895065463</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Se arregla la forma de responder el login del gateway">
+      <option name="closed" value="true" />
+      <created>1706895127365</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1706895127365</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Se agrega las entidades relacionadas con la informacion adicional">
+      <option name="closed" value="true" />
+      <created>1706909734537</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1706909734537</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Se agrega las entidades relacionadas con la informacion adicional">
+      <option name="closed" value="true" />
+      <created>1706910409526</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1706910409526</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Se agrega las entidades relacionadas con la información medica">
+      <option name="closed" value="true" />
+      <created>1706915913343</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1706915913343</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Se agrega las entidades relacionadas con la información medica">
+      <option name="closed" value="true" />
+      <created>1706998610077</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1706998610077</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -502,7 +588,12 @@
     <MESSAGE value="Se agrega el medietor" />
     <MESSAGE value="Se agrega los otros campos a la entidad paciente" />
     <MESSAGE value="Se agrega los otros campos a la entidad scheduled" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se agrega los otros campos a la entidad scheduled" />
+    <MESSAGE value="Se agrega los otros campos a la entidad patiens" />
+    <MESSAGE value="Se agrega los otros campos a la entidad contactInfo" />
+    <MESSAGE value="Se arregla la forma de responder el login del gateway" />
+    <MESSAGE value="Se agrega las entidades relacionadas con la informacion adicional" />
+    <MESSAGE value="Se agrega las entidades relacionadas con la información medica" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agrega las entidades relacionadas con la información medica" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -523,29 +614,14 @@
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/getall/GetAllPatientsCommandHandler.java</url>
+          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/patients/getall/GetAllPatientsQueryHandler.java</url>
           <line>18</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/PatientsSpecifications.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/create/CreatePatientsCommandHandler.java</url>
-          <line>28</line>
+          <line>29</line>
           <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/Patients.java</url>
-          <line>44</line>
-          <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java</url>
@@ -557,7 +633,16 @@
           <line>68</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/create/CreateMedicalInformationCommandHandler.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XPathView.XPathProjectComponent">
+    <history />
+    <find-history />
   </component>
 </project>
