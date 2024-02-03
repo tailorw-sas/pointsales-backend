@@ -1,6 +1,5 @@
 package com.kynsof.scheduled.application.command.business.create;
 
-import com.kynsof.scheduled.application.command.qualification.create.*;
 import com.kynsof.scheduled.domain.dto.EBusinessStatus;
 import com.kynsof.scheduled.infrastructure.config.bus.command.ICommand;
 import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandMessage;
@@ -35,6 +34,6 @@ public class CreateBusinessCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return new CreateQualificationMessage(id);
+        return new CreateBusinessMessage(id);
     }
 }
