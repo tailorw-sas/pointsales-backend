@@ -2,6 +2,12 @@ package com.kynsof.patients.controller;
 
 import com.kynsof.patients.application.command.additionalInfo.delete.DeleteAdditionalInfoCommand;
 import com.kynsof.patients.application.command.additionalInfo.delete.DeleteAdditionalMessage;
+import com.kynsof.patients.application.command.allergy.create.CreateAllergyCommand;
+import com.kynsof.patients.application.command.allergy.create.CreateAllergyMessage;
+import com.kynsof.patients.application.command.allergy.create.CreateAllergyEntityRequest;
+import com.kynsof.patients.application.command.allergy.update.UpdateAllergyCommand;
+import com.kynsof.patients.application.command.allergy.update.UpdateAllergyMessage;
+import com.kynsof.patients.application.command.allergy.update.UpdateAllergyRequest;
 import com.kynsof.patients.application.command.medicalInformation.create.CreateMedicalInformationCommand;
 import com.kynsof.patients.application.command.medicalInformation.create.CreateMedicalInformationMessage;
 import com.kynsof.patients.application.command.medicalInformation.create.CreateMedicalInformationRequest;
@@ -39,6 +45,14 @@ public class MedicalInformationController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/allergy")
+    public ResponseEntity<CreateAllergyMessage> createAllergy(@RequestBody CreateAllergyEntityRequest request)  {
+        CreateAllergyCommand createCommand = CreateAllergyCommand.fromRequest(request);
+        CreateAllergyMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
                                                     @RequestParam(defaultValue = "0") Integer page,
@@ -66,6 +80,14 @@ public class MedicalInformationController {
 
         UpdateMedicalInformationCommand command = UpdateMedicalInformationCommand.fromRequest(id,request );
         UpdateMedicalInformationMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping(path = "/allergy/{id}")
+    public ResponseEntity<UpdateAllergyMessage> updateAllergy(@PathVariable UUID id, @RequestBody UpdateAllergyRequest request) {
+
+        UpdateAllergyCommand command = UpdateAllergyCommand.fromRequest(id,request );
+        UpdateAllergyMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 

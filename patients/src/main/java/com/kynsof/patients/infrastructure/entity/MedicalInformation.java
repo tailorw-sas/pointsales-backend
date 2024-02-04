@@ -28,10 +28,10 @@ public class MedicalInformation {
     @JoinColumn(name = "patients_id", referencedColumnName = "id")
     private Patients patient;
 
-    @OneToMany(mappedBy = "medicalInformation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "medicalInformation", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Allergy> allergies;
 
-    @OneToMany(mappedBy = "medicalInformation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "medicalInformation", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<CurrentMedication> currentMedications;
 
     public MedicalInformation(MedicalInformationDto dto) {
