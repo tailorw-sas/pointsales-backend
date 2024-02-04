@@ -7,7 +7,7 @@ import com.kynsof.patients.application.command.allergy.create.CreateAllergyMessa
 import com.kynsof.patients.application.command.allergy.create.CreateAllergyEntityRequest;
 import com.kynsof.patients.application.command.allergy.update.UpdateAllergyCommand;
 import com.kynsof.patients.application.command.allergy.update.UpdateAllergyMessage;
-import com.kynsof.patients.application.command.allergy.update.UpdateAllergyRequest;
+import com.kynsof.patients.application.command.allergy.update.UpdateAllergyEntityRequest;
 import com.kynsof.patients.application.command.medicalInformation.create.CreateMedicalInformationCommand;
 import com.kynsof.patients.application.command.medicalInformation.create.CreateMedicalInformationMessage;
 import com.kynsof.patients.application.command.medicalInformation.create.CreateMedicalInformationRequest;
@@ -84,7 +84,7 @@ public class MedicalInformationController {
     }
 
     @PutMapping(path = "/allergy/{id}")
-    public ResponseEntity<UpdateAllergyMessage> updateAllergy(@PathVariable UUID id, @RequestBody UpdateAllergyRequest request) {
+    public ResponseEntity<UpdateAllergyMessage> updateAllergy(@PathVariable UUID id, @RequestBody UpdateAllergyEntityRequest request) {
 
         UpdateAllergyCommand command = UpdateAllergyCommand.fromRequest(id,request );
         UpdateAllergyMessage response = mediator.send(command);

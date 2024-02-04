@@ -6,7 +6,6 @@ import com.kynsof.patients.domain.dto.EStatusPatients;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
@@ -25,7 +24,7 @@ public class UpdateAllergyCommand implements ICommand {
         this.status = status;
     }
 
-    public static UpdateAllergyCommand fromRequest(UUID id, UpdateAllergyRequest request) {
+    public static UpdateAllergyCommand fromRequest(UUID id, UpdateAllergyEntityRequest request) {
         return new UpdateAllergyCommand(id, request.getCode(), request.getName(), request.getStatus());
     }
 

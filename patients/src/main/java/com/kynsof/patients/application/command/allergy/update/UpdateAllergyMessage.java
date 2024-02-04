@@ -7,7 +7,7 @@ import lombok.Getter;
 public class UpdateAllergyMessage implements ICommandMessage {
 
 
-    private final String command = "UPDATE_PATIENT";
+    private final String command = "UPDATE_ALLERGY";
 
     public UpdateAllergyMessage() {
 

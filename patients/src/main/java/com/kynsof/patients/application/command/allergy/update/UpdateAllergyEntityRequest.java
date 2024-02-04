@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateAllergyRequest {
+public class UpdateAllergyEntityRequest {
 
     private String code;
     private String name;
