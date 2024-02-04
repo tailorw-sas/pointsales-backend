@@ -23,4 +23,15 @@ public class ServiceDto {
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
     private LocalDateTime deleteAt;
+
+    public ServiceDto(UUID id, EServiceType type, String picture, String name, Double normalAppointmentPrice, Double expressAppointmentPrice, String description) {
+        this.id = id;
+        this.type = type;
+        this.picture = picture;
+        this.name = name;
+        this.normalAppointmentPrice = normalAppointmentPrice;
+        this.expressAppointmentPrice = expressAppointmentPrice;
+        this.description = description;
+    }
+
 }
