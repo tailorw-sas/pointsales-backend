@@ -20,7 +20,6 @@ public class MedicalInformation {
 
     private String bloodType;
 
-    @Lob
     private String medicalHistory;
 
     @Enumerated(EnumType.STRING)
@@ -40,11 +39,14 @@ public class MedicalInformation {
         this.bloodType = dto.getBloodType();
         this.medicalHistory = dto.getMedicalHistory();
         this.patient = new Patients(dto.getPatientDto());
+        this.status = dto.getStatus();
         this.allergies = dto.getAllergies().stream()
                 .map(allergyDto -> {
                     Allergy allergy = new Allergy();
                     allergy.setCode(allergyDto.getCode());
                     allergy.setName(allergyDto.getName());
+                    allergy.setMedicalInformation(this);
+                    allergy.setStatus(allergyDto.getStatus());
                     return allergy;
                 })
                 .collect(Collectors.toList());
@@ -53,6 +55,8 @@ public class MedicalInformation {
                     CurrentMedication medication = new CurrentMedication();
                     medication.setName(medicationDto.getName());
                     medication.setDosage(medicationDto.getDosage());
+                    medication.setMedicalInformation(this);
+                    medication.setStatus(medicationDto.getStatus());
                     return medication;
                 })
                 .collect(Collectors.toList());

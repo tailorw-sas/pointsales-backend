@@ -10,14 +10,10 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MedicalInformationDto {
+public class MedicalInformationUpdateDto {
     private UUID id;
     private String bloodType;
     private String medicalHistory;
-    private UUID patientId;
-    private PatientDto patientDto;
-    private List<AllergyDto> allergies;
-    private List<CurrentMedicationDto> currentMedications;
     private EStatusPatients Status;
 
 }

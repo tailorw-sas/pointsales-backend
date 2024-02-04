@@ -1,7 +1,6 @@
 package com.kynsof.patients.infrastructure.entity.specifications;
 
 import com.kynsof.patients.infrastructure.entity.AdditionalInformation;
-import com.kynsof.patients.infrastructure.entity.ContactInformation;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
