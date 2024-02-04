@@ -6,6 +6,9 @@ import com.kynsof.scheduled.application.command.resource.create.CreateResourceMe
 import com.kynsof.scheduled.application.command.resource.create.CreateResourceRequest;
 import com.kynsof.scheduled.application.command.resource.delete.ResourceDeleteCommand;
 import com.kynsof.scheduled.application.command.resource.delete.ResourceDeleteMessage;
+import com.kynsof.scheduled.application.command.resource.update.UpdateResourceCommand;
+import com.kynsof.scheduled.application.command.resource.update.UpdateResourceMessage;
+import com.kynsof.scheduled.application.command.resource.update.UpdateResourceRequest;
 import com.kynsof.scheduled.application.query.ResourceResponse;
 import com.kynsof.scheduled.application.query.resource.getAll.FindResourceWithFilterQuery;
 import com.kynsof.scheduled.application.query.resource.getbyid.FindResourceByIdQuery;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,6 +75,14 @@ public class ResourceController {
         ResourceDeleteCommand command = new ResourceDeleteCommand(id);
         ResourceDeleteMessage response = mediator.send(command);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping()
+    public ResponseEntity<UpdateResourceMessage> update(@RequestBody UpdateResourceRequest request) {
+
+        UpdateResourceCommand command = UpdateResourceCommand.fromRequest(request);
+        UpdateResourceMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 
