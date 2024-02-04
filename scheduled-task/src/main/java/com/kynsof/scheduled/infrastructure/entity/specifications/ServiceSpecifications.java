@@ -1,6 +1,6 @@
 package com.kynsof.scheduled.infrastructure.entity.specifications;
 
-import com.kynsof.scheduled.infrastructure.entity.Service;
+import com.kynsof.scheduled.infrastructure.entity.Services;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.data.jpa.domain.Specification;
 
-public class ServiceSpecifications implements Specification<Service> {
+public class ServiceSpecifications implements Specification<Services> {
     private UUID idObject;
     private String filter;
 
@@ -20,7 +20,7 @@ public class ServiceSpecifications implements Specification<Service> {
     }
 
     @Override
-    public Predicate toPredicate(Root<Service> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+    public Predicate toPredicate(Root<Services> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
 
         if (idObject != null) {

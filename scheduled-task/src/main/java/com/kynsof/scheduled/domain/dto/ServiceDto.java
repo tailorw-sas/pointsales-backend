@@ -14,6 +14,7 @@ import lombok.Setter;
 public class ServiceDto {
     private UUID id;
     private EServiceType type;
+    private EServiceStatus status;
     private String picture;
     private String name;
     private Double normalAppointmentPrice;

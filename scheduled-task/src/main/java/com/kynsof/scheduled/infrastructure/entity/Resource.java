@@ -51,7 +51,7 @@ public class Resource {
             joinColumns = @JoinColumn(name = "specialist_id"),
             inverseJoinColumns = @JoinColumn(name = "service_id")
     )
-    private Set<Service> services = new HashSet<>();
+    private Set<Services> services = new HashSet<>();
 
     @JsonIgnoreProperties({"qualifications", "specialists"})
     @ManyToMany(fetch = FetchType.LAZY, cascade = {

@@ -1,6 +1,7 @@
 package com.kynsof.scheduled.infrastructure.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.kynsof.scheduled.domain.dto.EServiceStatus;
 import com.kynsof.scheduled.domain.dto.EServiceType;
 import com.kynsof.scheduled.domain.dto.ServiceDto;
 import jakarta.persistence.CascadeType;
@@ -29,12 +30,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Service {
+public class Services {
     @Id
     private UUID id;
 
     @Enumerated(EnumType.STRING)
     private EServiceType type;
+
+    @Enumerated(EnumType.STRING)
+    private EServiceStatus status;
 
     private String picture;
     private String name;
@@ -67,9 +71,10 @@ public class Service {
     @Column(nullable = true)
     private LocalDateTime deleteAt;
 
-    public Service(ServiceDto object) {
+    public Services(ServiceDto object) {
         this.id = object.getId();
         this.type = object.getType();
+        this.status = object.getStatus();
         this.picture = object.getPicture();
         this.name = object.getName();
         this.normalAppointmentPrice = object.getNormalAppointmentPrice();
@@ -81,6 +86,6 @@ public class Service {
     }
 
     public ServiceDto toAggregate () {
-        return new ServiceDto(id, type, picture, name, normalAppointmentPrice, expressAppointmentPrice, description, createAt, updateAt, deleteAt);
+        return new ServiceDto(id, type, status, picture, name, normalAppointmentPrice, expressAppointmentPrice, description, createAt, updateAt, deleteAt);
     }
 }

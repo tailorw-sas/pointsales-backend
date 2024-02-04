@@ -47,7 +47,7 @@ public class Business {
 
    // @JsonIgnoreProperties("businesses")
     @ManyToMany(mappedBy = "businesses", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private Set<Service> services = new HashSet<>();
+    private Set<Services> services = new HashSet<>();
 
     // Relación de uno a muchos con Schedule
     @OneToMany(mappedBy = "business", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

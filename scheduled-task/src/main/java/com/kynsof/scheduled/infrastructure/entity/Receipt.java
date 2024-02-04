@@ -46,7 +46,7 @@ public class Receipt {
     //@JsonIgnore
     @OneToOne
     @JoinColumn(name = "fk_pk_service", unique = false)
-    private Service service;
+    private Services service;
     
     @Column
     private EStatusReceipt status;
@@ -56,7 +56,7 @@ public class Receipt {
     @JoinColumn(name = "business_id", nullable = true)
     private Business business;
 
-    public Receipt(Patient user, Schedule schedule, Service service) {
+    public Receipt(Patient user, Schedule schedule, Services service) {
         this.user = user;
         this.schedule = schedule;
         this.service = service;
