@@ -96,7 +96,7 @@ public class ResocurceServiceImpl implements IResourceService {
             return object.get().toAggregate();
         }
 
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Business not found.");
+        throw new BusinessException(DomainErrorMessage.RESOURCE_NOT_FOUND, "Resource not found.");
 
     }
 

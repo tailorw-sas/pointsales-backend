@@ -1,6 +1,7 @@
 package com.kynsof.scheduled.infrastructure.service;
 
 import com.kynsof.scheduled.domain.dto.EStatusSchedule;
+import com.kynsof.scheduled.domain.dto.ScheduleDto;
 import com.kynsof.scheduled.domain.exception.BusinessException;
 import com.kynsof.scheduled.domain.exception.DomainErrorMessage;
 import com.kynsof.scheduled.infrastructure.command.ScheduleWriteDataJPARepository;
@@ -99,14 +100,10 @@ public class ScheduleServiceImpl {
         repositoryCommand.save(schedule);
     }
 
-    public Schedule create(Schedule schedule) {
-        /*
-        Hay que checar que la hora de inicio sea menor que la hora de fin.
-         */
-        schedule.setId(UUID.randomUUID());
+    public Schedule create(ScheduleDto schedule) {
+
         schedule.setStatus(EStatusSchedule.ACTIVE);
-        schedule.setStock(1);
-        Schedule _schedule = repositoryCommand.save(schedule);
+        Schedule _schedule = repositoryCommand.save(new Schedule(schedule));
 
         return _schedule;
     }
