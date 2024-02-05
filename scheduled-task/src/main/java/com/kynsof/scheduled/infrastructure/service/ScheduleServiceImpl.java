@@ -1,6 +1,7 @@
 package com.kynsof.scheduled.infrastructure.service;
 
 import com.kynsof.scheduled.domain.dto.EStatusSchedule;
+import com.kynsof.scheduled.domain.dto.ResourceDto;
 import com.kynsof.scheduled.domain.dto.ScheduleDto;
 import com.kynsof.scheduled.domain.exception.BusinessException;
 import com.kynsof.scheduled.domain.exception.DomainErrorMessage;
@@ -12,6 +13,7 @@ import com.kynsof.scheduled.infrastructure.query.ScheduleReadDataJPARepository;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -109,21 +111,16 @@ public class ScheduleServiceImpl {
     }
 
     public Schedule changeStatus(Schedule schedule, EStatusSchedule status) {
-        /*
-        Hay que checar que la hora de inicio sea menor que la hora de fin.
-         */
+
         schedule.setStatus(status);
         Schedule _schedule = repositoryCommand.save(schedule);
 
         return _schedule;
     }
 
-    public void createAll(List<Schedule> schedule) {
-        /*
-        Hay que checar que la hora de inicio sea menor que la hora de fin.
-         */
+    public void createAll(List<ScheduleDto> schedule) {
 
-        repositoryCommand.saveAll(schedule);
+        repositoryCommand.saveAll(schedule.stream().map(Schedule::new).collect(Collectors.toList()));
     }
 
     public Schedule update(Schedule schedule) {
@@ -255,7 +252,7 @@ public class ScheduleServiceImpl {
                 .collect(Collectors.toList());
     }
 
-    public void validate(Resource specialist, LocalDate validateDate, LocalTime startTime, LocalTime endingTime) {
+    public void validate(ResourceDto resource, LocalDate validateDate, LocalTime startTime, LocalTime endingTime) {
         if (this.validateStartTimeAndEndingTimeEqual(startTime, endingTime)) {
             throw new BusinessException(DomainErrorMessage.SCHEDULE_CANNOT_BE_EQUALS_STARTTIME_ENDTIME, "The start time and end time cannot be equal.");
         }
@@ -269,13 +266,13 @@ public class ScheduleServiceImpl {
         if (!this.validateStartTimeAndEndingTime(startTime, endingTime)) {
             throw new BusinessException(DomainErrorMessage.SCHEDULE_END_TIME_IS_LESS_THAN, "The provided end time is less than the start time.");
         }
-        if (this.findByResourceAndDateAndStartTimeAndEndingTime(specialist, validateDate, startTime, endingTime)) {
+        if (this.findByResourceAndDateAndStartTimeAndEndingTime(new Resource(resource), validateDate, startTime, endingTime)) {
             throw new BusinessException(DomainErrorMessage.SCHEDULE_EXISTS_SOME_TIME_STARTTIME_EDNTIME, "There exists a schedule with the same date, start time, and end time.");
         }
-        if (this.findByDateAndTimeInRange(specialist, validateDate, startTime, endingTime)) {
+        if (this.findByDateAndTimeInRange(new Resource(resource), validateDate, startTime, endingTime)) {
             throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.");//Existe horario en igual fecha, que su rango de hora coincide en algun instante de tiempo con el que se desea crear
         }
-        if (this.findByDateAndTimeInRangeAndStartTimeAndEndingTime(specialist, validateDate, startTime, endingTime)) {
+        if (this.findByDateAndTimeInRangeAndStartTimeAndEndingTime(new Resource(resource), validateDate, startTime, endingTime)) {
             throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.");//Existe horario en igual fecha, que su rango de hora coincide en algun instante de tiempo con el que se desea crear
         }
     }
