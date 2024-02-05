@@ -1,4 +1,4 @@
-package com.kynsof.patients.application.query.allergy.getall;
+package com.kynsof.patients.application.query.medicalInformation.getall;
 
 import com.kynsof.patients.domain.bus.query.IQuery;
 import lombok.AllArgsConstructor;
@@ -11,11 +11,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetAllAllergyQuery implements IQuery {
+public class GetAllMedicalInformationQuery implements IQuery {
 
     private Pageable pageable;
-    private UUID medicalInformationId;
-    private String name;
-    private String code;
-
+    private UUID idPatients;
+    private String emergencyContactName;
 }

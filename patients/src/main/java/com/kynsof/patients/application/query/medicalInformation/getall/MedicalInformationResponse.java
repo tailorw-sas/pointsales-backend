@@ -23,14 +23,14 @@ public class MedicalInformationResponse implements IResponse {
     private List<CurrentMedicationDto> currentMedications;
     private EStatusPatients status;
 
-    public MedicalInformationResponse(MedicalInformationDto contactInfoDto) {
-        this.id = contactInfoDto.getId();
-        this.patientDto = contactInfoDto.getPatientDto();
-        this.medicalHistory = contactInfoDto.getMedicalHistory();
-        this.patientId = contactInfoDto.getPatientId();
-        this.allergies= contactInfoDto.getAllergies();
-        this.currentMedications = contactInfoDto.getCurrentMedications();
-        this.status = contactInfoDto.getStatus();
+    public MedicalInformationResponse(MedicalInformationDto medicalInformationDto) {
+        this.id = medicalInformationDto.getId();
+        this.patientDto = medicalInformationDto.getPatientDto();
+        this.medicalHistory = medicalInformationDto.getMedicalHistory();
+        this.patientId = medicalInformationDto.getPatientId();
+        this.allergies= medicalInformationDto.getAllergies();
+        this.currentMedications = medicalInformationDto.getCurrentMedications();
+        this.status = medicalInformationDto.getStatus();
     }
 
 }

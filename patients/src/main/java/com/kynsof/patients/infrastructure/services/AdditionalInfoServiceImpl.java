@@ -33,8 +33,8 @@ public class AdditionalInfoServiceImpl implements IAdditionalInfoService {
 
     @Override
     public UUID create(AdditionalInformationDto dto) {
-        this.repositoryCommand.save(new AdditionalInformation(dto));
-        return dto.getId();
+       AdditionalInformation additionalInformation = this.repositoryCommand.save(new AdditionalInformation(dto));
+        return additionalInformation.getId();
     }
 
     @Override

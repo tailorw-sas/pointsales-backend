@@ -33,8 +33,8 @@ public class PatientsServiceImpl implements IPatientsService {
 
     @Override
     public UUID create(PatientDto patients) {
-        this.repositoryCommand.save(new Patients(patients));
-        return patients.getId();
+        Patients entity = this.repositoryCommand.save(new Patients(patients));
+        return entity.getId();
     }
 
     @Override

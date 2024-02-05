@@ -70,6 +70,7 @@ public class MedicalInformation {
                     dto.setId(allergy.getId());
                     dto.setCode(allergy.getCode());
                     dto.setName(allergy.getName());
+                    dto.setStatus(allergy.getStatus());
                     return dto;
                 })
                 .collect(Collectors.toList());
@@ -80,6 +81,7 @@ public class MedicalInformation {
                     dto.setId(medication.getId());
                     dto.setName(medication.getName());
                     dto.setDosage(medication.getDosage());
+                    dto.setStatus(medication.getStatus());
                     return dto;
                 })
                 .collect(Collectors.toList());
