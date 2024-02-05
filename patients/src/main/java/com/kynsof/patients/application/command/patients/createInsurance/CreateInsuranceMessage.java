@@ -1,4 +1,4 @@
-package com.kynsof.patients.application.command.insurance.create;
+package com.kynsof.patients.application.command.patients.createInsurance;
 
 import com.kynsof.patients.domain.bus.command.ICommandMessage;
 import lombok.Getter;

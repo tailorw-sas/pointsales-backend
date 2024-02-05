@@ -1,8 +1,8 @@
 package com.kynsof.patients.controller;
 
-import com.kynsof.patients.application.command.insurance.create.CreateInsuranceCommand;
-import com.kynsof.patients.application.command.insurance.create.CreateInsuranceMessage;
-import com.kynsof.patients.application.command.insurance.create.CreateInsuranceRequest;
+import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceCommand;
+import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceMessage;
+import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceRequest;
 import com.kynsof.patients.application.command.patients.create.CreatePatientMessage;
 import com.kynsof.patients.application.command.patients.delete.PatientDeleteMessage;
 import com.kynsof.patients.application.command.patients.create.CreatePatientsCommand;

@@ -1,11 +1,10 @@
-package com.kynsof.patients.application.command.insurance.create;
+package com.kynsof.patients.application.command.patients.createInsurance;
 
 import com.kynsof.patients.domain.bus.command.ICommand;
 import com.kynsof.patients.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
