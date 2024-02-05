@@ -6,6 +6,9 @@ import com.kynsof.scheduled.application.command.service.create.CreateServiceMess
 import com.kynsof.scheduled.application.command.service.create.CreateServiceRequest;
 import com.kynsof.scheduled.application.command.service.delete.ServiceDeleteCommand;
 import com.kynsof.scheduled.application.command.service.delete.ServiceDeleteMessage;
+import com.kynsof.scheduled.application.command.service.update.UpdateServiceCommand;
+import com.kynsof.scheduled.application.command.service.update.UpdateServiceMessage;
+import com.kynsof.scheduled.application.command.service.update.UpdateServiceRequest;
 import com.kynsof.scheduled.application.query.ServicesResponse;
 import com.kynsof.scheduled.application.query.service.getAll.FindServiceWithFilterQuery;
 import com.kynsof.scheduled.application.query.service.getbyid.FindServiceByIdQuery;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,6 +76,14 @@ public class ServiceController {
         ServiceDeleteCommand command = new ServiceDeleteCommand(id);
         ServiceDeleteMessage response = mediator.send(command);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping()
+    public ResponseEntity<UpdateServiceMessage> update(@RequestBody UpdateServiceRequest request) {
+
+        UpdateServiceCommand command = UpdateServiceCommand.fromRequest(request);
+        UpdateServiceMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 
