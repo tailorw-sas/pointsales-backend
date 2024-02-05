@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.command.currenrMedication.update;
 
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,5 +10,5 @@ public class UpdateCurrentMedicationRequest {
 
     private String dosage;
     private String name;
-    private EStatusPatients status;
+    private Status status;
 }

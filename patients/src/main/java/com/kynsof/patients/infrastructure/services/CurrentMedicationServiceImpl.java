@@ -1,7 +1,7 @@
 package com.kynsof.patients.infrastructure.services;
 import com.kynsof.patients.application.query.currentMedication.getall.CurrentMedicationResponse;
 import com.kynsof.patients.domain.dto.CurrentMerdicationEntityDto;
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
@@ -71,7 +71,7 @@ public class CurrentMedicationServiceImpl implements ICurrentMedicationService {
     @Override
     public void delete(UUID id) {
         CurrentMerdicationEntityDto currentMerdicationEntityDto = this.findById(id);
-        currentMerdicationEntityDto.setStatus(EStatusPatients.INACTIVE);
+        currentMerdicationEntityDto.setStatus(Status.INACTIVE);
 
         this.repositoryCommand.save(new CurrentMedication(currentMerdicationEntityDto));
     }

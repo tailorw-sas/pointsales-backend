@@ -23,5 +23,5 @@ public class PatientDto {
     private String gender;
 
     @Enumerated(EnumType.STRING)
-    private EStatusPatients status;
+    private Status status;
 }

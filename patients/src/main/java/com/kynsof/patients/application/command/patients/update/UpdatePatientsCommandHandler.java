@@ -1,10 +1,9 @@
 package com.kynsof.patients.application.command.patients.update;
 
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.service.IPatientsService;
-import com.kynsof.patients.infrastructure.services.PatientsServiceImpl;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,7 +23,7 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
                 command.getName(),
                 command.getLastName(),
                 command.getGender(),
-               EStatusPatients.ACTIVE
+               Status.ACTIVE
         ));
 
     }

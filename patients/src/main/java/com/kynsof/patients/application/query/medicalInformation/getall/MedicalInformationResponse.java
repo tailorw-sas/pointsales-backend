@@ -21,7 +21,7 @@ public class MedicalInformationResponse implements IResponse {
     private PatientDto patientDto;
     private List<AllergyDto> allergies;
     private List<CurrentMedicationDto> currentMedications;
-    private EStatusPatients status;
+    private Status status;
 
     public MedicalInformationResponse(MedicalInformationDto medicalInformationDto) {
         this.id = medicalInformationDto.getId();

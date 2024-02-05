@@ -4,33 +4,96 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Se agrega las entidades relacionadas con la información medica">
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/create/CreateAllergyCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/create/CreateAllergyCommandHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/create/CreateAllergyEntityRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/create/CreateAllergyMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/delete/DeleteAllergyCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/delete/DeleteAllergyCommandHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/delete/DeleteAllergyMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/update/UpdateAllergyCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/update/UpdateAllergyCommandHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/update/UpdateAllergyMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/update/UpdateAllergyRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/allergy/getById/FindByIdAllergyQuery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/allergy/getById/FindByIdAllergyQueryHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/allergy/getall/AllergyResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/allergy/getall/GetAllAllergyQuery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/allergy/getall/GetAllAllergyQueryHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/AllergyEntityDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IAllergyService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/AllergySpecifications.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/repositories/command/AllergyWriteDataJPARepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/repositories/query/AllergyReadDataJPARepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/AllergyServiceImpl.java" afterDir="false" />
+    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Patients">
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/IMediator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/MediatorImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/command/CommandHandlerExecutionError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/command/CommandHandlersInformation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/command/CommandNotRegisteredError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/command/ICommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/command/ICommandBus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/command/ICommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/command/ICommandMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/command/InMemoryCommandBus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/query/IQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/query/IQueryBus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/query/IQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/query/IResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/query/InMemoryQueryBus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/query/QueryHandlerExecutionError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/query/QueryHandlersInformation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/bus/query/QueryNotRegisteredError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/dto/PaginatedResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/dto/PatientDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/dto/Status.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/exception/BusinessException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/exception/BusinessRule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/exception/BusinessRuleValidationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/exception/DomainErrorMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/exception/IDomainErrorMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/entity/Patients.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/exceptions/ApiError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/exceptions/AsyncExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/exceptions/ConstraintViolationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/exceptions/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/exceptions/MethodArgumentTypeMismatchException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/exceptions/ResourceNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/exceptions/ResponseEntityBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/exceptions/UnauthorizedException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/MedicalInformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/MedicalInformationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/additionalInfo/create/CreateAdditionalInfoCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/additionalInfo/create/CreateAdditionalInfoCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/additionalInfo/update/UpdateAdditionalInfoCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/additionalInfo/update/UpdateAdditionalInfoCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/create/CreateAllergyCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/create/CreateAllergyCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/update/UpdateAllergyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/update/UpdateAllergyCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/update/UpdateAllergyCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/update/UpdateAllergyCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/update/UpdateAllergyEntityRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/update/UpdateAllergyEntityRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/contactInfo/create/CreateContactInfoCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/contactInfo/create/CreateContactInfoCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/contactInfo/update/UpdateContactInfoCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/contactInfo/update/UpdateContactInfoCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/currenrMedication/create/CreateCurrentMedicationCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/currenrMedication/create/CreateCurrentMedicationCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/currenrMedication/update/UpdateCurrentMedicationCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/currenrMedication/update/UpdateCurrentMedicationCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/currenrMedication/update/UpdateCurrentMedicationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/currenrMedication/update/UpdateCurrentMedicationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/create/CreateMedicalInformationCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/create/CreateMedicalInformationCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/create/CreateMedicalInformationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/create/CreateMedicalInformationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/update/UpdateMedicalInformationCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/update/UpdateMedicalInformationCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/update/UpdateMedicalInformationCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/update/UpdateMedicalInformationCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/update/UpdateMedicalInformationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/update/UpdateMedicalInformationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/create/CreatePatientsCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/create/CreatePatientsCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/update/UpdatePatientsCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/update/UpdatePatientsCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/additionalInfo/getall/AdditionalInfoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/additionalInfo/getall/AdditionalInfoResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/medicalInformation/getall/MedicalInformationResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/medicalInformation/getall/MedicalInformationResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/AdditionalInformationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/AdditionalInformationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/AllergyDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/AllergyDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/AllergyEntityDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/AllergyEntityDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/ContactInfoDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/ContactInfoDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/CurrentMedicationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/CurrentMedicationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/CurrentMerdicationEntityDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/CurrentMerdicationEntityDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/EStatusPatients.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/Status.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/MedicalInformationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/MedicalInformationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/MedicalInformationUpdateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/MedicalInformationUpdateDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/PatientDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/PatientDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/AdditionalInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/AdditionalInformation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/Allergy.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/Allergy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/ContactInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/ContactInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/CurrentMedication.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/CurrentMedication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/MedicalInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/MedicalInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/Patients.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/Patients.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/AdditionalInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/AdditionalInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/AllergyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/AllergyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/ContactInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/ContactInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/CurrentMedicationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/CurrentMedicationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/MedicalInformationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/MedicalInformationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/CorsProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/CorsProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/JwtAuthenticationConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/JwtAuthenticationConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/OpenApiConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/OpenApiConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/kafka/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/EventType.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/kafka/EventType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/KafkaConsumerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/kafka/KafkaConsumerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/config/kafka/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/kafka/KafkaProducerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/services/OderService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/services/kafka/CreateUserEventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/kafka/CreateUserEventService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/util/JsonProcessor.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +180,7 @@
     "git-widget-placeholder": "dev",
     "jdk.selected.JAVA_MODULE": "temurin-17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/patients/src/main/java/com/kynsof/patients/application/query/allergy",
+    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/treatments/src/main/java/com/kynsof/treatments/domain/dto",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -141,18 +204,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/allergy" />
-      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy" />
-      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation" />
-      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command" />
-      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/medicalInformation" />
+      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/dto" />
+      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain" />
+      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure" />
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/insuarance/getall" />
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/insuarance" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.kynsof.treatments.domain.dto" />
+      <recent name="com.kynsof.treatments.infrastructure.entity" />
+      <recent name="com.kynsof.patients.controller" />
       <recent name="com.kynsof.patients.infrastructure.entity.specifications" />
-      <recent name="com.kynsof.patients.infrastructure.repositories.query" />
-      <recent name="com.kynsof.patients.infrastructure.repositories.command" />
       <recent name="com.kynsof.patients.infrastructure.services" />
-      <recent name="com.kynsof.patients.domain.dto" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -303,8 +366,21 @@
       </method>
     </configuration>
     <configuration name="TreatmentsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="RC_ACTIVE_PROFILE" value="dev" />
+      </envs>
       <module name="treatments" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.treatments.TreatmentsApplication" />
+      <extension name="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -360,7 +436,7 @@
       <workItem from="1706622447667" duration="3517000" />
       <workItem from="1706644357404" duration="1375000" />
       <workItem from="1706650805302" duration="35579000" />
-      <workItem from="1706888844594" duration="32251000" />
+      <workItem from="1706888844594" duration="49014000" />
     </task>
     <task id="LOCAL-00001" summary="Mi primer comit">
       <option name="closed" value="true" />
@@ -618,7 +694,55 @@
       <option name="project" value="LOCAL" />
       <updated>1706999693076</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Se agrega las entidades relacionadas con la alergia">
+      <option name="closed" value="true" />
+      <created>1707068295669</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1707068295669</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Se agrega las entidades relacionadas con la alergia">
+      <option name="closed" value="true" />
+      <created>1707068638771</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1707068638771</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Se agrega las entidades relacionadas con los pacientes">
+      <option name="closed" value="true" />
+      <created>1707148257199</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1707148257199</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Treatments">
+      <option name="closed" value="true" />
+      <created>1707148964143</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1707148964143</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Patients">
+      <option name="closed" value="true" />
+      <created>1707154130370</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1707154130370</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Patients">
+      <option name="closed" value="true" />
+      <created>1707155660022</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1707155660022</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -636,7 +760,11 @@
     <MESSAGE value="Se arregla la forma de responder el login del gateway" />
     <MESSAGE value="Se agrega las entidades relacionadas con la informacion adicional" />
     <MESSAGE value="Se agrega las entidades relacionadas con la información medica" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se agrega las entidades relacionadas con la información medica" />
+    <MESSAGE value="Se agrega las entidades relacionadas con la alergia" />
+    <MESSAGE value="Se agrega las entidades relacionadas con los pacientes" />
+    <MESSAGE value="Treatments" />
+    <MESSAGE value="Patients" />
+    <option name="LAST_COMMIT_MESSAGE" value="Patients" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -653,7 +781,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java</url>
-          <line>47</line>
+          <line>58</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -662,39 +790,29 @@
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/create/CreatePatientsCommandHandler.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java</url>
-          <line>66</line>
+          <line>77</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java</url>
-          <line>68</line>
+          <line>79</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/create/CreateMedicalInformationCommandHandler.java</url>
-          <line>56</line>
+          <line>55</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/MedicalInformationController.java</url>
-          <line>49</line>
-          <option name="timeStamp" value="28" />
+          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/createInsurance/CreateInsuranceCommandHandler.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/allergy/create/CreateAllergyCommandHandler.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/MedicalInformationServiceImpl.java</url>
-          <line>81</line>
-          <option name="timeStamp" value="30" />
+          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

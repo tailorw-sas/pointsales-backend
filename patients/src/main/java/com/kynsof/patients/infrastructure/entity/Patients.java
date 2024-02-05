@@ -1,6 +1,6 @@
 package com.kynsof.patients.infrastructure.entity;
 
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
 import jakarta.persistence.*;
 import java.util.List;
@@ -27,7 +27,7 @@ public class Patients {
     private String gender;
 
     @Enumerated(EnumType.STRING)
-    private EStatusPatients status;
+    private Status status;
 
     @OneToMany(mappedBy = "patient", orphanRemoval = true)
     private List<ContactInformation> contactInformation;

@@ -22,6 +22,6 @@ public class ContactInfoDto {
     private String address;
 
     private LocalDate birthdayDate;
-    private EStatusPatients status;
+    private Status status;
 
 }

@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.command.medicalInformation.update;
 
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,5 +10,5 @@ public class UpdateMedicalInformationRequest {
 
     private String bloodType;
     private String medicalHistory;
-    private EStatusPatients status;
+    private Status status;
 }

@@ -1,11 +1,9 @@
 package com.kynsof.patients.application.command.currenrMedication.create;
 
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
-import com.kynsof.patients.domain.dto.AllergyEntityDto;
 import com.kynsof.patients.domain.dto.CurrentMerdicationEntityDto;
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.MedicalInformationDto;
-import com.kynsof.patients.domain.service.IAllergyService;
 import com.kynsof.patients.domain.service.ICurrentMedicationService;
 import com.kynsof.patients.domain.service.IMedicalInformationService;
 import org.springframework.stereotype.Component;
@@ -31,7 +29,7 @@ public class CreateCurrentMedicationCommandHandler implements ICommandHandler<Cr
                 UUID.randomUUID(),
                 command.getDosage(),
                 command.getName(),
-                EStatusPatients.ACTIVE,
+                Status.ACTIVE,
                 command.getMedicalInformationId(),
                 medicalInformationDto
         ));

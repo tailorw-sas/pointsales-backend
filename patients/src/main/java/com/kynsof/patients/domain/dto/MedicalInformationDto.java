@@ -18,6 +18,6 @@ public class MedicalInformationDto {
     private PatientDto patientDto;
     private List<AllergyDto> allergies;
     private List<CurrentMedicationDto> currentMedications;
-    private EStatusPatients Status;
+    private com.kynsof.patients.domain.dto.Status Status;
 
 }

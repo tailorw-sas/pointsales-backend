@@ -2,8 +2,7 @@ package com.kynsof.patients.application.command.additionalInfo.create;
 
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.dto.AdditionalInformationDto;
-import com.kynsof.patients.domain.dto.ContactInfoDto;
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.service.IAdditionalInfoService;
 import com.kynsof.patients.domain.service.IPatientsService;
@@ -33,7 +32,7 @@ public class CreateAdditionalInfoCommandHandler implements ICommandHandler<Creat
                 command.getMaritalStatus(),
                 command.getEmergencyContactName(),
                 command.getEmergencyContactPhone(),
-                EStatusPatients.ACTIVE
+                Status.ACTIVE
         ));
         command.setId(id);
     }

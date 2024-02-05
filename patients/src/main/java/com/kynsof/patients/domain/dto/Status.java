@@ -1,5 +1,5 @@
 package com.kynsof.patients.domain.dto;
 
-public enum EStatusPatients {
+public enum Status {
     ACTIVE, INACTIVE
 }

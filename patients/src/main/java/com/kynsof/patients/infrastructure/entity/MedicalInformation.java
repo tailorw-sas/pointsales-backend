@@ -23,7 +23,7 @@ public class MedicalInformation {
     private String medicalHistory;
 
     @Enumerated(EnumType.STRING)
-    private EStatusPatients status;
+    private Status status;
     @OneToOne
     @JoinColumn(name = "patients_id", referencedColumnName = "id")
     private Patients patient;

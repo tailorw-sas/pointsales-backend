@@ -2,7 +2,7 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
@@ -109,7 +109,7 @@ public class PatientsServiceImpl implements IPatientsService {
     @Override
     public void delete(UUID id) {
         PatientDto patientDelete = this.findById(id);
-        patientDelete.setStatus(EStatusPatients.INACTIVE);
+        patientDelete.setStatus(Status.INACTIVE);
 
         this.repositoryCommand.save(new Patients(patientDelete));
     }

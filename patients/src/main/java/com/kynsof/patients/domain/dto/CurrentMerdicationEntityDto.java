@@ -16,7 +16,7 @@ public class CurrentMerdicationEntityDto {
     private String name;
     private String dosage;
     @Enumerated(EnumType.STRING)
-    private EStatusPatients status;
+    private Status status;
     private UUID MedicalInformationId;
     private MedicalInformationDto medicalInformationDto;
 }

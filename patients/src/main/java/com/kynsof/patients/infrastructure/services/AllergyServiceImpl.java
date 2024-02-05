@@ -3,7 +3,7 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.allergy.getall.AllergyResponse;
 import com.kynsof.patients.domain.dto.AllergyEntityDto;
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
@@ -72,7 +72,7 @@ public class AllergyServiceImpl implements IAllergyService {
     @Override
     public void delete(UUID id) {
         AllergyEntityDto contactInfoDto = this.findById(id);
-        contactInfoDto.setStatus(EStatusPatients.INACTIVE);
+        contactInfoDto.setStatus(Status.INACTIVE);
 
         this.repositoryCommand.save(new Allergy(contactInfoDto));
     }

@@ -1,14 +1,12 @@
 package com.kynsof.patients.application.command.contactInfo.update;
 
 import com.kynsof.patients.domain.dto.ContactInfoDto;
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.entity.Patients;
-import com.kynsof.patients.infrastructure.services.ContactInfoServiceImpl;
-import com.kynsof.patients.infrastructure.services.PatientsServiceImpl;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -32,7 +30,7 @@ public class UpdateContactInfoCommandHandler implements ICommandHandler<UpdateCo
                 command.getTelephone(),
                 command.getAddress(),
                 command.getBirthdayDate(),
-                EStatusPatients.ACTIVE
+                Status.ACTIVE
         ));
 
     }

@@ -1,6 +1,6 @@
 package com.kynsof.patients.infrastructure.services;
 
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.MedicalInformationDto;
 import com.kynsof.patients.domain.dto.MedicalInformationUpdateDto;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
@@ -95,7 +95,7 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
     @Override
     public void delete(UUID id) {
         MedicalInformationDto medicalInformationDto = this.findById(id);
-        medicalInformationDto.setStatus(EStatusPatients.INACTIVE);
+        medicalInformationDto.setStatus(Status.INACTIVE);
         this.repositoryCommand.save(new MedicalInformation(medicalInformationDto));
     }
 

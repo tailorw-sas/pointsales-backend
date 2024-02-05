@@ -2,7 +2,7 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.contactInfo.getall.ContactInfoResponse;
 import com.kynsof.patients.domain.dto.ContactInfoDto;
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
@@ -83,7 +83,7 @@ public class ContactInfoServiceImpl implements IContactInfoService {
     @Override
     public void delete(UUID id) {
         ContactInfoDto contactInfoDto = this.findById(id);
-        contactInfoDto.setStatus(EStatusPatients.INACTIVE);
+        contactInfoDto.setStatus(Status.INACTIVE);
         
         this.repositoryCommand.save(new ContactInformation(contactInfoDto));
     }

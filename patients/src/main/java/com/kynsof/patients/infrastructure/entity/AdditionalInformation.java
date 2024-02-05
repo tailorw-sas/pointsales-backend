@@ -1,7 +1,7 @@
 package com.kynsof.patients.infrastructure.entity;
 
 import com.kynsof.patients.domain.dto.AdditionalInformationDto;
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -25,7 +25,7 @@ public class AdditionalInformation {
 
     private String emergencyContactPhone;
     @Enumerated(EnumType.STRING)
-    private EStatusPatients status;
+    private Status status;
 
     @OneToOne
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
