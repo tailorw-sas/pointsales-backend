@@ -4,6 +4,8 @@ import com.kynsof.scheduled.application.PaginatedResponse;
 import com.kynsof.scheduled.application.command.service.create.CreateServiceCommand;
 import com.kynsof.scheduled.application.command.service.create.CreateServiceMessage;
 import com.kynsof.scheduled.application.command.service.create.CreateServiceRequest;
+import com.kynsof.scheduled.application.command.service.delete.ServiceDeleteCommand;
+import com.kynsof.scheduled.application.command.service.delete.ServiceDeleteMessage;
 import com.kynsof.scheduled.application.query.ServicesResponse;
 import com.kynsof.scheduled.application.query.service.getAll.FindServiceWithFilterQuery;
 import com.kynsof.scheduled.application.query.service.getbyid.FindServiceByIdQuery;
@@ -13,6 +15,7 @@ import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,6 +64,15 @@ public class ServiceController {
         PaginatedResponse data = mediator.send(query);
 
         return ResponseEntity.ok(data);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ServiceDeleteMessage> delete(@PathVariable("id") UUID id) {
+
+        ServiceDeleteCommand command = new ServiceDeleteCommand(id);
+        ServiceDeleteMessage response = mediator.send(command);
+
+        return ResponseEntity.ok(response);
     }
 
 }
