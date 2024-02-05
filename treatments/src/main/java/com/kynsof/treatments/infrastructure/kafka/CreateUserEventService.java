@@ -1,4 +1,4 @@
-package com.kynsof.treatments.services.kafka;
+package com.kynsof.treatments.infrastructure.kafka;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;

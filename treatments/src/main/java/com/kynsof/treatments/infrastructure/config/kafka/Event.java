@@ -1,4 +1,4 @@
-package com.kynsof.treatments.config.kafka;
+package com.kynsof.treatments.infrastructure.config.kafka;
 import lombok.Data;
 
 import java.util.Date;

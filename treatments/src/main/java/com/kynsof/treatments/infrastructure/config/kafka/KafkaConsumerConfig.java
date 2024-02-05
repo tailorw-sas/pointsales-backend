@@ -1,4 +1,4 @@
-package com.kynsof.treatments.config.kafka;
+package com.kynsof.treatments.infrastructure.config.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;

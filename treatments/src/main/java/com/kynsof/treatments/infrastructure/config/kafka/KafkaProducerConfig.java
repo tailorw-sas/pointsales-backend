@@ -1,4 +1,4 @@
-package com.kynsof.treatments.config.kafka;
+package com.kynsof.treatments.infrastructure.config.kafka;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;

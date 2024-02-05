@@ -1,4 +1,4 @@
-package com.kynsof.treatments.config;
+package com.kynsof.treatments.infrastructure.config;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;

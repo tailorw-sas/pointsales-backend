@@ -1,8 +1,6 @@
-package com.kynsof.scheduled.config;
+package com.kynsof.treatments.infrastructure.config;
 
 
-import com.kynsof.treatments.config.CorsProperties;
-import com.kynsof.treatments.config.JwtAuthenticationConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
