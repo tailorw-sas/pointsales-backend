@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -30,6 +32,9 @@ public class Patients {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @OneToMany(mappedBy = "patient")
+    private List<ExternalConsultation> externalConsultations;
 
     public Patients(PatientDto patients) {
         this.id = patients.getId();
