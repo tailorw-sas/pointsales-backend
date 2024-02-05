@@ -1,5 +1,6 @@
 package com.kynsof.treatments.infrastructure.entity;
 
+import com.kynsof.treatments.domain.dto.DoctorDto;
 import com.kynsof.treatments.domain.dto.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,15 @@ public class Doctor {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private String specialty;
+    public Doctor(DoctorDto doctor) {
+        this.id = doctor.getId();
+        this.identification = doctor.getIdentification();
+        this.name = doctor.getName();
+        this.lastName = doctor.getLastName();
+        this.status = doctor.getStatus();
+    }
 
+    public DoctorDto toAggregate() {
+        return new DoctorDto(this.id, this.identification, this.name,this.lastName,this.status);
+    }
 }

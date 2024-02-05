@@ -1,5 +1,6 @@
 package com.kynsof.treatments.infrastructure.entity;
 
+import com.kynsof.treatments.domain.dto.TreatmentDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,4 +28,9 @@ public class Treatment {
     @ManyToOne
     @JoinColumn(name = "external_consultation_id")
     private ExternalConsultation externalConsultation;
+
+
+    public TreatmentDto toAggregate(Treatment treatment){
+        return new TreatmentDto(this.id,this.medication, this.description, this.dose, this.frequency, this.duration);
+    }
 }
