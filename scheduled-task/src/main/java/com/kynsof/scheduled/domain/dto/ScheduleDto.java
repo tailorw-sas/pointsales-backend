@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Scheduled {
+public class ScheduleDto {
 
     private UUID id;
 
