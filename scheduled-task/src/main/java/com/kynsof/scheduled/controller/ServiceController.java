@@ -5,6 +5,7 @@ import com.kynsof.scheduled.application.command.service.create.CreateServiceComm
 import com.kynsof.scheduled.application.command.service.create.CreateServiceMessage;
 import com.kynsof.scheduled.application.command.service.create.CreateServiceRequest;
 import com.kynsof.scheduled.application.query.ServicesResponse;
+import com.kynsof.scheduled.application.query.service.getAll.FindServiceWithFilterQuery;
 import com.kynsof.scheduled.application.query.service.getbyid.FindServiceByIdQuery;
 
 import com.kynsof.scheduled.infrastructure.config.bus.IMediator;
@@ -48,18 +49,18 @@ public class ServiceController {
         return ResponseEntity.ok(response);
     }
 
-//
-//    @GetMapping("/all")
-//    public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
-//                                                    @RequestParam(defaultValue = "0") Integer page,
-//                                                    @RequestParam(defaultValue = "") UUID idService,
-//                                                    @RequestParam(defaultValue = "") String filter)
-//    {
-//        Pageable pageable = PageRequest.of(page, pageSize);
-//        FindServiceByIdQuery query = new FindBusinessWithFilterQuery(pageable, idBusiness, filter);
-//        PaginatedResponse data = mediator.send(query);
-//
-//        return ResponseEntity.ok(data);
-//    }
+
+    @GetMapping("/all")
+    public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
+                                                    @RequestParam(defaultValue = "0") Integer page,
+                                                    @RequestParam(defaultValue = "") UUID idService,
+                                                    @RequestParam(defaultValue = "") String filter)
+    {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        FindServiceWithFilterQuery query = new FindServiceWithFilterQuery(pageable, idService, filter);
+        PaginatedResponse data = mediator.send(query);
+
+        return ResponseEntity.ok(data);
+    }
 
 }
