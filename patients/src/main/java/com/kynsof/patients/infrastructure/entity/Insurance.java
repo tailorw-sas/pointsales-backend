@@ -3,12 +3,13 @@ package com.kynsof.patients.infrastructure.entity;
 import jakarta.persistence.*;
 import java.util.UUID;
 import lombok.*;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-public class InsuranceInformation {
+public class Insurance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -17,7 +18,6 @@ public class InsuranceInformation {
 
     private String policyNumber;
 
-    @OneToOne
-    @JoinColumn(name = "patients_id", referencedColumnName = "id")
-    private Patients patient;
+    @ManyToMany(mappedBy = "insurances")
+    private List<Patients> patients;
 }

@@ -38,8 +38,12 @@ public class Patients {
     @OneToOne(mappedBy = "patient",  orphanRemoval = true, fetch = FetchType.LAZY)
     private AdditionalInformation additionalInformation;
 
-    @OneToOne(mappedBy = "patient", orphanRemoval = true, fetch = FetchType.LAZY)
-    private InsuranceInformation insuranceInformation;
+    @ManyToMany
+    @JoinTable(name = "patient_insurance",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "insurance_id")
+    )
+    private List<Insurance> insurances;
 
     public Patients(PatientDto patients) {
         this.id = patients.getId();

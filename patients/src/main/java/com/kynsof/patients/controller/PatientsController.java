@@ -1,5 +1,8 @@
 package com.kynsof.patients.controller;
 
+import com.kynsof.patients.application.command.insurance.create.CreateInsuranceCommand;
+import com.kynsof.patients.application.command.insurance.create.CreateInsuranceMessage;
+import com.kynsof.patients.application.command.insurance.create.CreateInsuranceRequest;
 import com.kynsof.patients.application.command.patients.create.CreatePatientMessage;
 import com.kynsof.patients.application.command.patients.delete.PatientDeleteMessage;
 import com.kynsof.patients.application.command.patients.create.CreatePatientsCommand;
@@ -35,6 +38,14 @@ public class PatientsController {
     public ResponseEntity<CreatePatientMessage> create(@RequestBody CreatePatientsRequest request)  {
         CreatePatientsCommand createCommand = CreatePatientsCommand.fromRequest(request);
         CreatePatientMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/insurance")
+    public ResponseEntity<CreateInsuranceMessage> createInsurance(@RequestBody CreateInsuranceRequest request)  {
+        CreateInsuranceCommand createCommand = CreateInsuranceCommand.fromRequest(request);
+        CreateInsuranceMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
     }
