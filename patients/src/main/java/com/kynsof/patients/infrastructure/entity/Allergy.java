@@ -1,7 +1,7 @@
 package com.kynsof.patients.infrastructure.entity;
 
 import com.kynsof.patients.domain.dto.AllergyEntityDto;
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -21,7 +21,7 @@ public class Allergy {
 
     private String name;
     @Enumerated(EnumType.STRING)
-    private EStatusPatients status;
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "medical_information_id", nullable = false)

@@ -16,5 +16,5 @@ public class CurrentMedicationDto {
     private String name;
     private String dosage;
     @Enumerated(EnumType.STRING)
-    private EStatusPatients status;
+    private Status status;
 }

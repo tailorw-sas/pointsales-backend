@@ -14,14 +14,9 @@ import java.util.UUID;
 @Setter
 public class AllergyResponse implements IResponse {
     private UUID id;
-
     private UUID medicalInformationId;
-
     private String code;
-
-
     private String name;
-
 
     public AllergyResponse(AllergyEntityDto contactInfoDto) {
         this.id = contactInfoDto.getId();

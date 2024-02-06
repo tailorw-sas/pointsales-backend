@@ -16,7 +16,7 @@ public class AllergyEntityDto {
     private String code;
     private String name;
     @Enumerated(EnumType.STRING)
-    private EStatusPatients status;
+    private Status status;
     private UUID MedicalInformationId;
     private MedicalInformationDto medicalInformationDto;
 }

@@ -16,5 +16,5 @@ public class AllergyDto {
     private String code;
     private String name;
     @Enumerated(EnumType.STRING)
-    private EStatusPatients status;
+    private Status status;
 }

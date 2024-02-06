@@ -1,21 +1,15 @@
 package com.kynsof.patients.infrastructure.services;
 
-import com.kynsof.patients.application.query.additionalInfo.getall.AdditionalInfoResponse;
-import com.kynsof.patients.application.query.medicalInformation.getall.MedicalInformationResponse;
-import com.kynsof.patients.domain.dto.*;
+import com.kynsof.patients.domain.dto.Status;
+import com.kynsof.patients.domain.dto.MedicalInformationDto;
+import com.kynsof.patients.domain.dto.MedicalInformationUpdateDto;
+import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
-import com.kynsof.patients.domain.service.IAdditionalInfoService;
 import com.kynsof.patients.domain.service.IMedicalInformationService;
-import com.kynsof.patients.infrastructure.entity.AdditionalInformation;
-import com.kynsof.patients.infrastructure.entity.Allergy;
-import com.kynsof.patients.infrastructure.entity.CurrentMedication;
 import com.kynsof.patients.infrastructure.entity.MedicalInformation;
-import com.kynsof.patients.infrastructure.entity.specifications.AdditionalInfoSpecifications;
 import com.kynsof.patients.infrastructure.entity.specifications.MedicalInformationSpecifications;
-import com.kynsof.patients.infrastructure.repositories.command.AdditionaltInfoWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.command.MedicalInformationWriteDataJPARepository;
-import com.kynsof.patients.infrastructure.repositories.query.AdditionalInfoReadDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.MedicalInformationReadDataJPARepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class MedicalInformationServiceImpl implements IMedicalInformationService {
@@ -41,8 +34,8 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
     @Override
     public UUID create(MedicalInformationDto dto) {
         try {
-            this.repositoryCommand.save(new MedicalInformation(dto));
-            return dto.getId();
+          MedicalInformation medicalInformation =  this.repositoryCommand.save(new MedicalInformation(dto));
+            return medicalInformation.getId();
         }catch (Exception e){
             String message = e.getMessage();
             throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Medical Information not found.");
@@ -91,9 +84,9 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
         MedicalInformationSpecifications specifications = new MedicalInformationSpecifications(idPatients);
         Page<MedicalInformation> data = this.repositoryQuery.findAll(specifications, pageable);
 
-        List<MedicalInformation> medicalInformations = new ArrayList<>();
-        for (MedicalInformation p : data.getContent()) {
-            medicalInformations.add(new MedicalInformation(p.toAggregate()));
+        List<MedicalInformationDto> medicalInformations = new ArrayList<>();
+        for (MedicalInformation medicalInformation : data.getContent()) {
+            medicalInformations.add(medicalInformation.toAggregate());
         }
         return new PaginatedResponse(medicalInformations, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
@@ -102,7 +95,7 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
     @Override
     public void delete(UUID id) {
         MedicalInformationDto medicalInformationDto = this.findById(id);
-        medicalInformationDto.setStatus(EStatusPatients.INACTIVE);
+        medicalInformationDto.setStatus(Status.INACTIVE);
         this.repositoryCommand.save(new MedicalInformation(medicalInformationDto));
     }
 

@@ -1,6 +1,6 @@
 package com.kynsof.patients.infrastructure.entity;
 
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
 import jakarta.persistence.*;
 import java.util.List;
@@ -27,7 +27,7 @@ public class Patients {
     private String gender;
 
     @Enumerated(EnumType.STRING)
-    private EStatusPatients status;
+    private Status status;
 
     @OneToMany(mappedBy = "patient", orphanRemoval = true)
     private List<ContactInformation> contactInformation;
@@ -38,8 +38,12 @@ public class Patients {
     @OneToOne(mappedBy = "patient",  orphanRemoval = true, fetch = FetchType.LAZY)
     private AdditionalInformation additionalInformation;
 
-    @OneToOne(mappedBy = "patient", orphanRemoval = true, fetch = FetchType.LAZY)
-    private InsuranceInformation insuranceInformation;
+    @ManyToMany
+    @JoinTable(name = "patient_insurance",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "insurance_id")
+    )
+    private List<Insurance> insurances;
 
     public Patients(PatientDto patients) {
         this.id = patients.getId();

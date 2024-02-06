@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -14,6 +13,6 @@ public class MedicalInformationUpdateDto {
     private UUID id;
     private String bloodType;
     private String medicalHistory;
-    private EStatusPatients Status;
+    private com.kynsof.patients.domain.dto.Status Status;
 
 }

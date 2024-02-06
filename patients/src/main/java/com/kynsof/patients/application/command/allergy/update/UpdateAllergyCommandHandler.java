@@ -2,15 +2,8 @@ package com.kynsof.patients.application.command.allergy.update;
 
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.dto.AllergyEntityDto;
-import com.kynsof.patients.domain.dto.ContactInfoDto;
-import com.kynsof.patients.domain.dto.EStatusPatients;
-import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.service.IAllergyService;
-import com.kynsof.patients.domain.service.IContactInfoService;
-import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.entity.Allergy;
-import com.kynsof.patients.infrastructure.entity.Patients;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component

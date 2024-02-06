@@ -14,7 +14,7 @@ import java.util.UUID;
 public class GetAllAllergyQuery implements IQuery {
 
     private Pageable pageable;
-    private UUID idPatients;
+    private UUID medicalInformationId;
     private String name;
     private String code;
 

@@ -1,17 +1,14 @@
 package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.contactInfo.getall.ContactInfoResponse;
-import com.kynsof.patients.domain.dto.PaginatedResponse;
-import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import com.kynsof.patients.domain.dto.ContactInfoDto;
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
+import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.infrastructure.entity.ContactInformation;
-import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.patients.infrastructure.entity.specifications.ContactInfoSpecifications;
-import com.kynsof.patients.infrastructure.entity.specifications.PatientsSpecifications;
 import com.kynsof.patients.infrastructure.repositories.command.ContactInfoWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.ContactInfoReadDataJPARepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -86,7 +83,7 @@ public class ContactInfoServiceImpl implements IContactInfoService {
     @Override
     public void delete(UUID id) {
         ContactInfoDto contactInfoDto = this.findById(id);
-        contactInfoDto.setStatus(EStatusPatients.INACTIVE);
+        contactInfoDto.setStatus(Status.INACTIVE);
         
         this.repositoryCommand.save(new ContactInformation(contactInfoDto));
     }

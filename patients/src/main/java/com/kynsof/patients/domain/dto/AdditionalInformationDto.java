@@ -23,5 +23,5 @@ public class AdditionalInformationDto {
 
     private String emergencyContactPhone;
 
-    private EStatusPatients status;
+    private Status status;
 }

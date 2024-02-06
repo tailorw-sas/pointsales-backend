@@ -2,7 +2,7 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.additionalInfo.getall.AdditionalInfoResponse;
 import com.kynsof.patients.domain.dto.AdditionalInformationDto;
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
@@ -33,8 +33,8 @@ public class AdditionalInfoServiceImpl implements IAdditionalInfoService {
 
     @Override
     public UUID create(AdditionalInformationDto dto) {
-        this.repositoryCommand.save(new AdditionalInformation(dto));
-        return dto.getId();
+       AdditionalInformation additionalInformation = this.repositoryCommand.save(new AdditionalInformation(dto));
+        return additionalInformation.getId();
     }
 
     @Override
@@ -89,7 +89,7 @@ public class AdditionalInfoServiceImpl implements IAdditionalInfoService {
     @Override
     public void delete(UUID id) {
         AdditionalInformationDto additionalInformationDto = this.findById(id);
-        additionalInformationDto.setStatus(EStatusPatients.INACTIVE);
+        additionalInformationDto.setStatus(Status.INACTIVE);
         this.repositoryCommand.save(new AdditionalInformation(additionalInformationDto));
     }
 

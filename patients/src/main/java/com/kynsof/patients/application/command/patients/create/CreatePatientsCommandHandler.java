@@ -1,7 +1,7 @@
 package com.kynsof.patients.application.command.patients.create;
 
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.service.IPatientsService;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class CreatePatientsCommandHandler  implements ICommandHandler<CreatePati
                 command.getName(),
                 command.getLastName(),
                 command.getGender(),
-               EStatusPatients.ACTIVE
+               Status.ACTIVE
         ));
        command.setId(id);
     }

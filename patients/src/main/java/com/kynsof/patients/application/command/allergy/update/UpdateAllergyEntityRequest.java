@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.command.allergy.update;
 
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,5 +10,5 @@ public class UpdateAllergyEntityRequest {
 
     private String code;
     private String name;
-    private EStatusPatients status;
+    private Status status;
 }

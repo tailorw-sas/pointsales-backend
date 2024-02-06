@@ -6,7 +6,6 @@ import com.kynsof.patients.domain.service.IMedicalInformationService;
 import com.kynsof.patients.domain.service.IPatientsService;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -30,14 +29,14 @@ public class CreateMedicalInformationCommandHandler implements ICommandHandler<C
                 .map(createAllergyRequest -> new AllergyDto(
                         UUID.randomUUID(),
                         createAllergyRequest.getCode(),
-                        createAllergyRequest.getName(),EStatusPatients.ACTIVE))
+                        createAllergyRequest.getName(), Status.ACTIVE))
                 .collect(Collectors.toList());
 
         List<CurrentMedicationDto> currentMedicationDtos = command.getCurrentMedications().stream()
                 .map(currentMedication -> new CurrentMedicationDto(
                         UUID.randomUUID(),
                         currentMedication.getName(),
-                        currentMedication.getDescription(),EStatusPatients.ACTIVE))
+                        currentMedication.getDescription(), Status.ACTIVE))
                 .collect(Collectors.toList());
 
         UUID id = medicalInformationService.create(new MedicalInformationDto(
@@ -48,7 +47,7 @@ public class CreateMedicalInformationCommandHandler implements ICommandHandler<C
                 patientDto,
                 allergyDtos,
                 currentMedicationDtos,
-                EStatusPatients.ACTIVE
+                Status.ACTIVE
         ));
 
         command.setId(id);

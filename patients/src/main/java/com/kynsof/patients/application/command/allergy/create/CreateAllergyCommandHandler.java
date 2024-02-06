@@ -26,7 +26,7 @@ public class CreateAllergyCommandHandler implements ICommandHandler<CreateAllerg
                 UUID.randomUUID(),
                 command.getCode(),
                 command.getName(),
-                EStatusPatients.ACTIVE,
+                Status.ACTIVE,
                 command.getMedicalInformationId(),
                 medicalInformationDto
         ));

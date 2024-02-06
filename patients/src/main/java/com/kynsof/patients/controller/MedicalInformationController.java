@@ -14,8 +14,11 @@ import com.kynsof.patients.application.command.medicalInformation.create.CreateM
 import com.kynsof.patients.application.command.medicalInformation.update.UpdateMedicalInformationCommand;
 import com.kynsof.patients.application.command.medicalInformation.update.UpdateMedicalInformationMessage;
 import com.kynsof.patients.application.command.medicalInformation.update.UpdateMedicalInformationRequest;
+import com.kynsof.patients.application.query.allergy.getById.FindByIdAllergyQuery;
+import com.kynsof.patients.application.query.allergy.getall.AllergyResponse;
+import com.kynsof.patients.application.query.allergy.getall.GetAllAllergyQuery;
 import com.kynsof.patients.application.query.medicalInformation.getById.FindByIdMedicalInformationQuery;
-import com.kynsof.patients.application.query.medicalInformation.getall.GetMedicalInformationQuery;
+import com.kynsof.patients.application.query.medicalInformation.getall.GetAllMedicalInformationQuery;
 import com.kynsof.patients.application.query.medicalInformation.getall.MedicalInformationResponse;
 import com.kynsof.patients.domain.bus.IMediator;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
@@ -45,14 +48,6 @@ public class MedicalInformationController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/allergy")
-    public ResponseEntity<CreateAllergyMessage> createAllergy(@RequestBody CreateAllergyEntityRequest request)  {
-        CreateAllergyCommand createCommand = CreateAllergyCommand.fromRequest(request);
-        CreateAllergyMessage response = mediator.send(createCommand);
-
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("/all")
     public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
                                                     @RequestParam(defaultValue = "0") Integer page,
@@ -60,7 +55,7 @@ public class MedicalInformationController {
                                                     @RequestParam(defaultValue = "") String emergencyContactName)
     {
         Pageable pageable = PageRequest.of(page, pageSize);
-        GetMedicalInformationQuery query = new GetMedicalInformationQuery(pageable, idPatients, emergencyContactName);
+        GetAllMedicalInformationQuery query = new GetAllMedicalInformationQuery(pageable, idPatients, emergencyContactName);
         PaginatedResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
@@ -80,14 +75,6 @@ public class MedicalInformationController {
 
         UpdateMedicalInformationCommand command = UpdateMedicalInformationCommand.fromRequest(id,request );
         UpdateMedicalInformationMessage response = mediator.send(command);
-        return ResponseEntity.ok(response);
-    }
-
-    @PutMapping(path = "/allergy/{id}")
-    public ResponseEntity<UpdateAllergyMessage> updateAllergy(@PathVariable UUID id, @RequestBody UpdateAllergyEntityRequest request) {
-
-        UpdateAllergyCommand command = UpdateAllergyCommand.fromRequest(id,request );
-        UpdateAllergyMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 

@@ -2,7 +2,7 @@ package com.kynsof.patients.application.command.medicalInformation.update;
 
 import com.kynsof.patients.domain.bus.command.ICommand;
 import com.kynsof.patients.domain.bus.command.ICommandMessage;
-import com.kynsof.patients.domain.dto.EStatusPatients;
+import com.kynsof.patients.domain.dto.Status;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,10 +14,10 @@ public class UpdateMedicalInformationCommand implements ICommand {
     private UUID id;
     private String bloodType;
     private String medicalHistory;
-    private EStatusPatients status;
+    private Status status;
 
 
-    public UpdateMedicalInformationCommand(UUID id, String bloodType, String medicalHistory, EStatusPatients status) {
+    public UpdateMedicalInformationCommand(UUID id, String bloodType, String medicalHistory, Status status) {
         this.id = id;
         this.bloodType = bloodType;
         this.medicalHistory = medicalHistory;
