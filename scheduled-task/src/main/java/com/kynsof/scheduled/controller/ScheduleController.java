@@ -10,6 +10,9 @@ import com.kynsof.scheduled.application.command.schedule.createlote.CreateSchedu
 import com.kynsof.scheduled.application.command.schedule.createlote.CreateScheduleByLoteRequest;
 import com.kynsof.scheduled.application.command.schedule.delete.ScheduleDeleteCommand;
 import com.kynsof.scheduled.application.command.schedule.delete.ScheduleDeleteMessage;
+import com.kynsof.scheduled.application.command.schedule.update.ScheduleUpdateRequest;
+import com.kynsof.scheduled.application.command.schedule.update.UpdateScheduleCommand;
+import com.kynsof.scheduled.application.command.schedule.update.UpdateScheduleMessage;
 import com.kynsof.scheduled.application.query.ScheduleResponse;
 import com.kynsof.scheduled.application.query.schedule.getAll.FindScheduleWithFilterQuery;
 import com.kynsof.scheduled.application.query.schedule.getbyid.FindScheduleByIdQuery;
@@ -17,19 +20,16 @@ import com.kynsof.scheduled.domain.dto.EStatusSchedule;
 
 import com.kynsof.scheduled.infrastructure.config.bus.IMediator;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -102,6 +102,14 @@ public class ScheduleController {
         ScheduleDeleteCommand command = new ScheduleDeleteCommand(id);
         ScheduleDeleteMessage response = mediator.send(command);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping()
+    public ResponseEntity<UpdateScheduleMessage> update(@RequestBody ScheduleUpdateRequest request) {
+
+        UpdateScheduleCommand command = UpdateScheduleCommand.fromRequest(request);
+        UpdateScheduleMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 

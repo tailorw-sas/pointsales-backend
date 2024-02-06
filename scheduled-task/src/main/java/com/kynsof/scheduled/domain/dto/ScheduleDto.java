@@ -30,6 +30,16 @@ public class ScheduleDto {
 
     private EStatusSchedule status;
 
+    public ScheduleDto(UUID id, ResourceDto resource, LocalDate date, LocalTime startTime, LocalTime endingTime, int stock, EStatusSchedule status) {
+        this.id = id;
+        this.resource = resource;
+        this.date = date;
+        this.startTime = startTime;
+        this.endingTime = endingTime;
+        this.stock = stock;
+        this.status = status;
+    }
+
     public ScheduleDto(UUID id, ResourceDto resource, LocalDate date, LocalTime startTime, LocalTime endingTime, int stock) {
         this.id = id;
         this.resource = resource;
