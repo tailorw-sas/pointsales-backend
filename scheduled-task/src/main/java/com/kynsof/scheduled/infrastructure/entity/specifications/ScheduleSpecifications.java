@@ -2,9 +2,9 @@ package com.kynsof.scheduled.infrastructure.entity.specifications;
 
 import com.kynsof.scheduled.domain.dto.EStatusSchedule;
 import com.kynsof.scheduled.infrastructure.entity.Schedule;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,14 +17,14 @@ import org.springframework.data.jpa.domain.Specification;
 @Getter
 @Setter
 public class ScheduleSpecifications implements Specification<Schedule> {
-    private UUID specialist;
+    private UUID resource;
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalDate date;
     private EStatusSchedule status;
 
-    public ScheduleSpecifications(UUID specialist, LocalDate startDate, LocalDate endDate, LocalDate date, EStatusSchedule status) {
-        this.specialist = specialist;
+    public ScheduleSpecifications(UUID resource, LocalDate startDate, LocalDate endDate, LocalDate date, EStatusSchedule status) {
+        this.resource = resource;
         this.startDate = startDate;
         this.endDate = endDate;
         this.date = date;
@@ -43,8 +43,8 @@ public class ScheduleSpecifications implements Specification<Schedule> {
             predicates.add(cb.equal(root.get("status"), status));
         }
 
-        if (specialist != null) {
-            predicates.add(cb.equal(root.get("specialist").get("id"), specialist));
+        if (resource != null) {
+            predicates.add(cb.equal(root.get("resource").get("id"), resource));
         }
 
         if (startDate != null) {

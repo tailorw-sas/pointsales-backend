@@ -1,5 +1,7 @@
 package com.kynsof.scheduled.infrastructure.service;
 
+import com.kynsof.scheduled.application.PaginatedResponse;
+import com.kynsof.scheduled.application.query.ScheduleResponse;
 import com.kynsof.scheduled.domain.dto.EStatusSchedule;
 import com.kynsof.scheduled.domain.dto.ResourceDto;
 import com.kynsof.scheduled.domain.dto.ScheduleDto;
@@ -37,9 +39,17 @@ public class ScheduleServiceImpl {
         return repositoryQuery.findAll(pageable);
     }
 
-    public Page<Schedule> getAll(Pageable pageable, UUID specialist, LocalDate date, EStatusSchedule status, LocalDate startDate, LocalDate endDate) {
-        ScheduleSpecifications spec = new ScheduleSpecifications(specialist, startDate, endDate, date, status);
-        return repositoryQuery.findAll(spec, pageable);
+    public PaginatedResponse findAll(Pageable pageable, UUID resource, LocalDate date, EStatusSchedule status, LocalDate startDate, LocalDate endDate) {
+        ScheduleSpecifications spec = new ScheduleSpecifications(resource, startDate, endDate, date, status);
+        Page<Schedule> data = this.repositoryQuery.findAll(spec, pageable);
+
+        List<ScheduleResponse> objects = new ArrayList<>();
+        for (Schedule o : data.getContent()) {
+            objects.add(new ScheduleResponse(o.toAggregate()));
+        }
+
+        return new PaginatedResponse(objects, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
     public List<Schedule> getAllScheduleForResource(UUID id) {
