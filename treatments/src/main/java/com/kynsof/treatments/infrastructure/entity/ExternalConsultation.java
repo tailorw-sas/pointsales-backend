@@ -1,6 +1,7 @@
 package com.kynsof.treatments.infrastructure.entity;
 
 import com.kynsof.treatments.domain.dto.DiagnosisDto;
+import com.kynsof.treatments.domain.dto.ExamOrderDto;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.dto.TreatmentDto;
 import jakarta.persistence.*;
@@ -49,6 +50,9 @@ public class ExternalConsultation {
     private List<Treatment> treatments;
 
     private String observations;
+
+    @OneToMany(mappedBy = "externalConsultation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ExamOrder> examOrders;
 
     public ExternalConsultation(ExternalConsultationDto dto) {
         this.id = dto.getId();
