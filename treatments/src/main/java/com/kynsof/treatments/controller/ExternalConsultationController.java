@@ -30,7 +30,7 @@ public class ExternalConsultationController {
     }
 
     @PostMapping("")
-    public ResponseEntity<CreateExternalConsultationMessage> createAllergy(@RequestBody CreateExternalConsultationRequest request)  {
+    public ResponseEntity<CreateExternalConsultationMessage> create(@RequestBody CreateExternalConsultationRequest request)  {
         CreateExternalConsultationCommand createCommand = CreateExternalConsultationCommand.fromRequest(request);
         CreateExternalConsultationMessage response = mediator.send(createCommand);
 
@@ -39,7 +39,7 @@ public class ExternalConsultationController {
 
 
     @GetMapping("/all")
-    public ResponseEntity<PaginatedResponse> getAllAllergy(@RequestParam(defaultValue = "20") Integer pageSize,
+    public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
                                                     @RequestParam(defaultValue = "0") Integer page,
                                                     @RequestParam(defaultValue = "") UUID patientId,
                                                            @RequestParam(defaultValue = "") UUID doctorId)
@@ -52,7 +52,7 @@ public class ExternalConsultationController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ExternalConsultationResponse> getByIdAllergy(@PathVariable UUID id) {
+    public ResponseEntity<ExternalConsultationResponse> getById(@PathVariable UUID id) {
 
         FindByIdExternalConsultationQuery query = new FindByIdExternalConsultationQuery(id);
         ExternalConsultationResponse response = mediator.send(query);
@@ -61,8 +61,7 @@ public class ExternalConsultationController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<UpdateExternalConsultationMessage> updateAllergy(@PathVariable UUID id, @RequestBody UpdateExternalConsultationRequest request) {
-
+    public ResponseEntity<UpdateExternalConsultationMessage> update(@PathVariable UUID id, @RequestBody UpdateExternalConsultationRequest request) {
         UpdateExternalConsultationCommand command = UpdateExternalConsultationCommand.fromRequest(id,request );
         UpdateExternalConsultationMessage response = mediator.send(command);
         return ResponseEntity.ok(response);

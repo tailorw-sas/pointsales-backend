@@ -7,7 +7,7 @@ import lombok.Getter;
 public class UpdateExternalConsultationMessage implements ICommandMessage {
 
 
-    private final String command = "UPDATE_PATIENT";
+    private final String command = "UPDATE_EXTERNAL_CONSULTATION";
 
     public UpdateExternalConsultationMessage() {
 
