@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.UUID;
 
-public interface ExternalConsultationReadDataJPARepository extends JpaRepository<ExternalConsultation, UUID>, JpaSpecificationExecutor<ExternalConsultation> {
-    Page<ExternalConsultation> findAll(Specification specification, Pageable pageable);
+public interface Cie10ReadDataJPARepository extends JpaRepository<Cie10, UUID>, JpaSpecificationExecutor<Cie10> {
+    Page<Cie10> findAll(Specification specification, Pageable pageable);
+    Cie10 findCie10ByCode(String code);
 }
