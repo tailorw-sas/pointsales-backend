@@ -1,8 +1,6 @@
 package com.kynsof.scheduled.application.command.schedule.createall;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
+import java.time.LocalTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ScheduleCreateAllRequest {
-    private UUID idResource;
-    private LocalDate date;
-    private List<ScheduleRequest> schedules;
+public class ScheduleAllRequest {
+    private LocalTime startTime;
+    private LocalTime endingTime;
 }

@@ -12,18 +12,18 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateAllScheduleCommandHandler implements ICommandHandler<CreateAllScheduleCommand> {
+public class CreateScheduleAllCommandHandler implements ICommandHandler<CreateScheduleAllCommand> {
 
     private final ScheduleServiceImpl serviceImpl;
     private final ResocurceServiceImpl serviceResourceImpl;
 
-    public CreateAllScheduleCommandHandler(ScheduleServiceImpl serviceImpl, ResocurceServiceImpl serviceResourceImpl) {
+    public CreateScheduleAllCommandHandler(ScheduleServiceImpl serviceImpl, ResocurceServiceImpl serviceResourceImpl) {
         this.serviceImpl = serviceImpl;
         this.serviceResourceImpl = serviceResourceImpl;
     }
 
     @Override
-    public void handle(CreateAllScheduleCommand command) {
+    public void handle(CreateScheduleAllCommand command) {
         ResourceDto _resource = this.serviceResourceImpl.findById(command.getIdResource());
 
         List<ScheduleDto> schedule = new ArrayList<>();

@@ -1,4 +1,4 @@
-package com.kynsof.scheduled.application.command.schedule.createall;
+package com.kynsof.scheduled.application.command.schedule.createlote;
 
 import java.time.LocalTime;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ScheduleRequest {
+public class CreateScheduleRequest {
     private LocalTime startTime;
     private LocalTime endingTime;
 }

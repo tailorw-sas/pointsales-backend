@@ -12,20 +12,20 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class CreateAllScheduleCommand implements ICommand {
+public class CreateScheduleAllCommand implements ICommand {
 
     private UUID idResource;
     private LocalDate date;
-    private List<ScheduleRequest> schedules;
+    private List<ScheduleAllRequest> schedules;
 
-    public CreateAllScheduleCommand(UUID idResource, LocalDate date, List<ScheduleRequest> schedules) {
+    public CreateScheduleAllCommand(UUID idResource, LocalDate date, List<ScheduleAllRequest> schedules) {
         this.idResource = idResource;
         this.date = date;
         this.schedules = schedules;
     }
 
-    public static CreateAllScheduleCommand fromRequest(ScheduleCreateAllRequest request) {
-        return new CreateAllScheduleCommand(request.getIdResource(), request.getDate(), request.getSchedules());
+    public static CreateScheduleAllCommand fromRequest(CreateScheduleAllRequest request) {
+        return new CreateScheduleAllCommand(request.getIdResource(), request.getDate(), request.getSchedules());
     }
 
     @Override
