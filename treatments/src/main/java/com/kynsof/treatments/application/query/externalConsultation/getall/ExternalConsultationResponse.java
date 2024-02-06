@@ -29,7 +29,6 @@ public class ExternalConsultationResponse implements IResponse {
 
     public ExternalConsultationResponse(ExternalConsultationDto dto) {
         this.id = dto.getId();
-        this.id = dto.getId();
         this.patient = dto.getPatient();
         this.consultationReason = dto.getConsultationReason();
         this.medicalHistory = dto.getMedicalHistory();
@@ -38,6 +37,7 @@ public class ExternalConsultationResponse implements IResponse {
         this.doctor = dto.getDoctor();
         this.treatments = dto.getTreatments();
         this.diagnoses = dto.getDiagnoses();
+        this.observations = dto.getObservations();
     }
 
 }

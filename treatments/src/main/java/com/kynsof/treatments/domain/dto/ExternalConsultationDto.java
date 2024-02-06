@@ -15,7 +15,6 @@ import java.util.UUID;
 public class ExternalConsultationDto {
 
     private UUID id;
-
     private PatientDto patient;
     private DoctorDto doctor;
     private Date consultationTime;

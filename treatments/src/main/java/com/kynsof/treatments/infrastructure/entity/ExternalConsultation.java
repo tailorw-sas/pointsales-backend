@@ -42,10 +42,10 @@ public class ExternalConsultation {
     private String medicalHistory;
     private String physicalExam;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "externalConsultation")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "externalConsultation")
     private List<Diagnosis> diagnoses;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "externalConsultation")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "externalConsultation")
     private List<Treatment> treatments;
 
     private String observations;
@@ -80,6 +80,7 @@ public class ExternalConsultation {
                     return diagnosis;
                 })
                 .collect(Collectors.toList());
+        this.observations = dto.getObservations();
     }
 
     public ExternalConsultationDto toAggregate(){

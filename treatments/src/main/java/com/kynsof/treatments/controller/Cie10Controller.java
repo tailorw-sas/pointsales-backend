@@ -6,6 +6,9 @@ import com.kynsof.treatments.application.command.externalConsultation.create.Cre
 import com.kynsof.treatments.application.command.externalConsultation.update.UpdateExternalConsultationCommand;
 import com.kynsof.treatments.application.command.externalConsultation.update.UpdateExternalConsultationMessage;
 import com.kynsof.treatments.application.command.externalConsultation.update.UpdateExternalConsultationRequest;
+import com.kynsof.treatments.application.query.cie10.getAll.Cie10Response;
+import com.kynsof.treatments.application.query.cie10.getAll.GetAllCie10Query;
+import com.kynsof.treatments.application.query.cie10.getByCode.FindByCodeCie10Query;
 import com.kynsof.treatments.application.query.externalConsultation.getById.FindByIdExternalConsultationQuery;
 import com.kynsof.treatments.application.query.externalConsultation.getall.ExternalConsultationResponse;
 import com.kynsof.treatments.application.query.externalConsultation.getall.GetAllExternalConsultationQuery;
@@ -19,51 +22,37 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/external-consultation")
-public class ExternalConsultationController {
+@RequestMapping("/api/cie10")
+public class Cie10Controller {
 
     private final IMediator mediator;
 
-    public ExternalConsultationController(IMediator mediator){
+    public Cie10Controller(IMediator mediator){
 
         this.mediator = mediator;
     }
 
-    @PostMapping("")
-    public ResponseEntity<CreateExternalConsultationMessage> create(@RequestBody CreateExternalConsultationRequest request)  {
-        CreateExternalConsultationCommand createCommand = CreateExternalConsultationCommand.fromRequest(request);
-        CreateExternalConsultationMessage response = mediator.send(createCommand);
-
-        return ResponseEntity.ok(response);
-    }
 
 
     @GetMapping("/all")
     public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
                                                     @RequestParam(defaultValue = "0") Integer page,
-                                                    @RequestParam(defaultValue = "") UUID patientId,
-                                                           @RequestParam(defaultValue = "") UUID doctorId)
+                                                    @RequestParam(defaultValue = "") String name,
+                                                           @RequestParam(defaultValue = "") String code)
     {
         Pageable pageable = PageRequest.of(page, pageSize);
-        GetAllExternalConsultationQuery query = new GetAllExternalConsultationQuery(pageable, doctorId, patientId);
+        GetAllCie10Query query = new GetAllCie10Query(pageable, name, code);
         PaginatedResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<ExternalConsultationResponse> getById(@PathVariable UUID id) {
+    @GetMapping(path = "/{code}")
+    public ResponseEntity<Cie10Response> getById(@PathVariable String code) {
 
-        FindByIdExternalConsultationQuery query = new FindByIdExternalConsultationQuery(id);
-        ExternalConsultationResponse response = mediator.send(query);
+        FindByCodeCie10Query query = new FindByCodeCie10Query(code);
+        Cie10Response response = mediator.send(query);
 
-        return ResponseEntity.ok(response);
-    }
-
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<UpdateExternalConsultationMessage> update(@PathVariable UUID id, @RequestBody UpdateExternalConsultationRequest request) {
-        UpdateExternalConsultationCommand command = UpdateExternalConsultationCommand.fromRequest(id,request );
-        UpdateExternalConsultationMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 
