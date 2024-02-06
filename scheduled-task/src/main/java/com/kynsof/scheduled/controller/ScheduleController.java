@@ -8,7 +8,9 @@ import com.kynsof.scheduled.application.command.schedule.createall.CreateSchedul
 import com.kynsof.scheduled.application.command.schedule.createall.CreateScheduleAllRequest;
 import com.kynsof.scheduled.application.command.schedule.createlote.CreateScheduleByLoteCommand;
 import com.kynsof.scheduled.application.command.schedule.createlote.CreateScheduleByLoteRequest;
+import com.kynsof.scheduled.application.query.ScheduleResponse;
 import com.kynsof.scheduled.application.query.schedule.getAll.FindScheduleWithFilterQuery;
+import com.kynsof.scheduled.application.query.schedule.getbyid.FindScheduleByIdQuery;
 import com.kynsof.scheduled.domain.dto.EStatusSchedule;
 
 import com.kynsof.scheduled.infrastructure.config.bus.IMediator;
@@ -23,6 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,6 +83,14 @@ public class ScheduleController {
         PaginatedResponse data = mediator.send(query);
 
         return ResponseEntity.ok(data);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ScheduleResponse> getById(@PathVariable UUID id) {
+        FindScheduleByIdQuery query = new FindScheduleByIdQuery(id);
+        ScheduleResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
     }
 
 }

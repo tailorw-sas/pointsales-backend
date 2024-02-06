@@ -91,8 +91,14 @@ public class ScheduleServiceImpl {
         return !_schedulesStartTime.isEmpty();
     }
 
-    public Optional<Schedule> getOne(UUID id) {
-        return repositoryQuery.findById(id);
+    public ScheduleDto findById(UUID id) {
+
+        Optional<Schedule> object = this.repositoryQuery.findById(id);
+        if (object.isPresent()) {
+            return object.get().toAggregate();
+        }
+
+        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Schedule not found.");
     }
 
     public List<Schedule> findByDateAndEndingTimeAndStatus(LocalDate date, LocalTime endingTime) {
@@ -100,11 +106,10 @@ public class ScheduleServiceImpl {
     }
 
     public void delete(UUID id) {
-        Optional<Schedule> _schedule = this.getOne(id);
+        ScheduleDto _schedule = this.findById(id);
 
-        Schedule _scheduleDelete = _schedule.get();
-        _scheduleDelete.setStatus(EStatusSchedule.INACTIVE);
-        repositoryCommand.save(_scheduleDelete);
+        _schedule.setStatus(EStatusSchedule.INACTIVE);
+        repositoryCommand.save(new Schedule(_schedule));
     }
 
     public void delete(Schedule schedule) {

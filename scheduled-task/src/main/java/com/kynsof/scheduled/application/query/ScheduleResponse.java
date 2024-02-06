@@ -1,6 +1,7 @@
 package com.kynsof.scheduled.application.query;
 
 import com.kynsof.scheduled.domain.dto.*;
+import com.kynsof.scheduled.infrastructure.config.bus.query.IResponse;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ScheduleResponse {
+public class ScheduleResponse implements IResponse {
 
     private UUID id;
     private ResourceDto resource;
