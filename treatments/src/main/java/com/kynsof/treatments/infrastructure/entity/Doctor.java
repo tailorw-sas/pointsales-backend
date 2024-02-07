@@ -1,13 +1,13 @@
 package com.kynsof.treatments.infrastructure.entity;
 
 import com.kynsof.treatments.domain.dto.DoctorDto;
-import com.kynsof.treatments.domain.dto.Status;
+import com.kynsof.treatments.domain.enumDto.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.List;
+
 import java.util.UUID;
 
 @NoArgsConstructor

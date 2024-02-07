@@ -1,7 +1,7 @@
 package com.kynsof.treatments.infrastructure.entity;
 
 import com.kynsof.treatments.domain.dto.PatientDto;
-import com.kynsof.treatments.domain.dto.Status;
+import com.kynsof.treatments.domain.enumDto.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,6 +39,8 @@ public class Patients {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ExamOrder> examOrders;
 
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PatientVaccine> patientVaccines;
     public Patients(PatientDto patients) {
         this.id = patients.getId();
         this.identification = patients.getIdentification();

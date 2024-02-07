@@ -3,6 +3,7 @@ package com.kynsof.treatments.application.query.cie10.getAll;
 
 import com.kynsof.treatments.domain.bus.query.IResponse;
 import com.kynsof.treatments.domain.dto.Cie10Dto;
+import com.kynsof.treatments.domain.dto.VaccineDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,5 +24,4 @@ public class Cie10Response implements IResponse {
         this.code = cie10Dto.getCode();
         this.name = cie10Dto.getName();
     }
-
 }

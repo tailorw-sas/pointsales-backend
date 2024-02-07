@@ -2,7 +2,7 @@ package com.kynsof.treatments.application.command.patients.create;
 
 import com.kynsof.treatments.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.PatientDto;
-import com.kynsof.treatments.domain.dto.Status;
+import com.kynsof.treatments.domain.enumDto.Status;
 import com.kynsof.treatments.domain.service.IPatientsService;
 import org.springframework.stereotype.Component;
 

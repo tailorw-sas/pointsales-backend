@@ -4,7 +4,6 @@ package com.kynsof.treatments.infrastructure.service;
 import com.kynsof.treatments.application.query.externalConsultation.getall.ExternalConsultationResponse;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.dto.PaginatedResponse;
-import com.kynsof.treatments.domain.dto.Status;
 import com.kynsof.treatments.domain.exception.BusinessException;
 import com.kynsof.treatments.domain.exception.DomainErrorMessage;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
