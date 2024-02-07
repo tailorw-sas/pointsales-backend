@@ -1,13 +1,12 @@
 package com.kynsof.scheduled.infrastructure.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kynsof.scheduled.domain.dto.PatientDto;
+import com.kynsof.scheduled.domain.dto.PatientStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,51 +15,33 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "users",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "username"),
-                @UniqueConstraint(columnNames = "email")
-        })
 public class Patient {
     @Id
-    @Column(name="user_id")
+    @Column(name="id")
     private UUID id;
 
-    @NotBlank
-    @Size(max = 50)
-    private String username;
+    @Column(unique = true)
+    private String identification;
 
-    @NotBlank
-    @Size(max = 50)
-    private String email;
+    private String name;
 
-    @JsonIgnore
-    @NotBlank
-    @Size(max = 120)
-    private String password;
+    private String lastName;
 
-    private boolean active;
+    private String gender;
 
-    private boolean verified;
+    @Enumerated(EnumType.STRING)
+    private PatientStatus status;
 
-    @Size(max = 500)
-    private String fcm_token;
-
-    @Size(max = 10)
-    private String otp;
-
-
-
-    public Patient() {
+    public Patient(PatientDto patients) {
+        this.id = patients.getId();
+        this.identification = patients.getIdentification();
+        this.name = patients.getName();
+        this.lastName = patients.getLastName();
+        this.gender = patients.getGender();
+        this.status = patients.getStatus();
     }
 
-    public Patient(UUID id, String username, String email, String password) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.active = true;
-        this.verified = true;
+    public PatientDto toAggregate() {
+        return new PatientDto(id, identification, name, lastName, gender, status);
     }
-
 }

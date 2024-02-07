@@ -1,6 +1,7 @@
 package com.kynsof.scheduled.infrastructure.entity;
 
 import com.kynsof.scheduled.domain.dto.EStatusReceipt;
+import com.kynsof.scheduled.domain.dto.ReceiptDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -62,4 +63,19 @@ public class Receipt {
         this.service = service;
     }
 
+    public Receipt(ReceiptDto receipt) {
+        this.id = receipt.getId();
+        this.price = receipt.getPrice();
+        this.express = receipt.getExpress();
+        this.reasons = receipt.getReasons();
+        this.status = receipt.getStatus();
+        this.user = new Patient(receipt.getUser());
+        this.schedule = new Schedule(receipt.getSchedule());
+        this.service = new Services(receipt.getService());
+        this.business = new Business(receipt.getBusiness());
+    }
+
+    public ReceiptDto toAggregate() {
+        return new ReceiptDto(id, price, express, reasons, user.toAggregate(), schedule.toAggregate(), service.toAggregate(), status, business.toAggregate());
+    }
 }
