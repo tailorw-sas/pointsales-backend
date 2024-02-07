@@ -60,6 +60,9 @@ public class ReceiptService implements IReceiptService {
     @Override
     public void create(ReceiptDto receipt) {
 
+        if (receipt.getSchedule().getStatus() != EStatusSchedule.ACTIVE)
+            throw new BusinessException(DomainErrorMessage.SCHEDULE_IS_NOT_AVAIBLE, "The selected schedule is not available.");
+
         ScheduleDto _schedule = receipt.getSchedule();
         _schedule.setStatus(EStatusSchedule.PRE_RESERVE);
         this.scheduleServiceImpl.changeStatus(new Schedule(_schedule), EStatusSchedule.PRE_RESERVE);

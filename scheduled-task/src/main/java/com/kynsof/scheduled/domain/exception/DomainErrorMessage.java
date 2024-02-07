@@ -20,7 +20,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     SCHEDULE_EXISTS_SOME_TIME_STARTTIME_EDNTIME(613, Series.DOMAIN_ERROR, "There exists a schedule with the same date, start time, and end time."),
     RESOURCE_NOT_FOUND(614, Series.DOMAIN_ERROR, "Resource not found."),
     RECEIPT_NOT_FOUND(615, Series.DOMAIN_ERROR, "Receipt not found."),
-    STATUS_NOT_ACCEPTED(616, Series.DOMAIN_ERROR, "Status not accepted, the appointment was attended.");
+    STATUS_NOT_ACCEPTED(616, Series.DOMAIN_ERROR, "Status not accepted, the appointment was attended."),
+    SCHEDULE_IS_NOT_AVAIBLE(617, Series.DOMAIN_ERROR, "The selected schedule is not available.");
 
     private static final DomainErrorMessage[] VALUES;
 

@@ -7,7 +7,6 @@ import com.kynsof.scheduled.domain.dto.ReceiptDto;
 import com.kynsof.scheduled.domain.dto.ScheduleDto;
 import com.kynsof.scheduled.domain.dto.ServiceDto;
 import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandHandler;
-import com.kynsof.scheduled.infrastructure.service.BusinessServiceImpl;
 import com.kynsof.scheduled.infrastructure.service.PatientsServiceImpl;
 import com.kynsof.scheduled.infrastructure.service.ReceiptService;
 import com.kynsof.scheduled.infrastructure.service.ScheduleServiceImpl;
@@ -21,16 +20,12 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
     private final PatientsServiceImpl servicePatientImpl;
     private final ScheduleServiceImpl serviceScheduleImpl;
     private final ServiceServiceImpl serviceServiceImpl;
-    private final BusinessServiceImpl serviceBusinessImpl;
-
     public CreateReceiptCommandHandler(ReceiptService serviceImpl, PatientsServiceImpl servicePatientImpl, 
-                                       ScheduleServiceImpl serviceScheduleImpl, ServiceServiceImpl serviceServiceImpl,
-                                       BusinessServiceImpl serviceBusinessImpl) {
+                                       ScheduleServiceImpl serviceScheduleImpl, ServiceServiceImpl serviceServiceImpl) {
         this.serviceImpl = serviceImpl;
         this.servicePatientImpl = servicePatientImpl;
         this.serviceScheduleImpl = serviceScheduleImpl;
         this.serviceServiceImpl = serviceServiceImpl;
-        this.serviceBusinessImpl = serviceBusinessImpl;
     }
 
     @Override
