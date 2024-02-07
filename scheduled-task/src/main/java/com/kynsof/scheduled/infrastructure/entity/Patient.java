@@ -11,10 +11,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.UUID;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class Patient {
     @Id
     @Column(name="id")
