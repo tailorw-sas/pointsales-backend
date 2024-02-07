@@ -17,8 +17,8 @@ import lombok.Setter;
 public class ScheduleResponse implements IResponse {
 
     private UUID id;
-    private ResourceDto resource;
-    private BusinessDto business;
+    private ResourceResponse resource;
+    private BusinessResponse business;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endingTime;
@@ -27,8 +27,8 @@ public class ScheduleResponse implements IResponse {
 
     public ScheduleResponse(ScheduleDto schedule) {
         this.id = schedule.getId();
-        this.resource = schedule.getResource();
-        this.business = schedule.getBusiness();
+        this.resource = new ResourceResponse(schedule.getResource().getId(), schedule.getResource().getName());
+        this.business = new BusinessResponse(schedule.getBusiness().getId(), schedule.getBusiness().getName());
         this.date = schedule.getDate();
         this.startTime = schedule.getStartTime();
         this.endingTime = schedule.getEndingTime();

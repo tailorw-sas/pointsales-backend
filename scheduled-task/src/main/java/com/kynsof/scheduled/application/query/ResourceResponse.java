@@ -37,4 +37,9 @@ public class ResourceResponse implements IResponse {
         this.deleteAt = object.getDeleteAt();
     }
 
+    public ResourceResponse(UUID id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
 }

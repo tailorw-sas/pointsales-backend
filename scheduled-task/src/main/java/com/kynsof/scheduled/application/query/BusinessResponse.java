@@ -35,4 +35,9 @@ public class BusinessResponse implements IResponse {
         this.deleteAt = object.getDeleteAt();
     }
 
+    public BusinessResponse(UUID id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
 }
