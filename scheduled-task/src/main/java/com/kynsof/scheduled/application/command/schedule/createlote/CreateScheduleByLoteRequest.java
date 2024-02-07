@@ -14,6 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CreateScheduleByLoteRequest {
     private List<UUID> idResource;
+    private UUID idBusiness;
     private LocalDate startDate;
     private LocalDate endDate;
     private List<CreateScheduleRequest> schedules;

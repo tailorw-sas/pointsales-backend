@@ -1,9 +1,11 @@
 package com.kynsof.scheduled.application.command.schedule.createlote;
 
+import com.kynsof.scheduled.domain.dto.BusinessDto;
 import com.kynsof.scheduled.domain.dto.EStatusSchedule;
 import com.kynsof.scheduled.domain.dto.ResourceDto;
 import com.kynsof.scheduled.domain.dto.ScheduleDto;
 import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandHandler;
+import com.kynsof.scheduled.infrastructure.service.BusinessServiceImpl;
 import com.kynsof.scheduled.infrastructure.service.ResocurceServiceImpl;
 import com.kynsof.scheduled.infrastructure.service.ScheduleServiceImpl;
 import java.time.LocalDate;
@@ -17,16 +19,19 @@ public class CreateScheduleByLoteCommandHandler implements ICommandHandler<Creat
 
     private final ScheduleServiceImpl serviceImpl;
     private final ResocurceServiceImpl serviceResourceImpl;
+    private final BusinessServiceImpl serviceBusinessImpl;
 
-    public CreateScheduleByLoteCommandHandler(ScheduleServiceImpl serviceImpl, ResocurceServiceImpl serviceResourceImpl) {
+    public CreateScheduleByLoteCommandHandler(ScheduleServiceImpl serviceImpl, ResocurceServiceImpl serviceResourceImpl, BusinessServiceImpl serviceBusinessImpl) {
         this.serviceImpl = serviceImpl;
         this.serviceResourceImpl = serviceResourceImpl;
+        this.serviceBusinessImpl = serviceBusinessImpl;
     }
 
     @Override
     public void handle(CreateScheduleByLoteCommand command) {
         List<ScheduleDto> schedules = new ArrayList<>();
         List<LocalDate> dates = this.serviceImpl.getBusinessDays(command.getStartDate(), command.getEndDate());
+        BusinessDto _business = this.serviceBusinessImpl.findById(command.getIdBusiness());
         for (UUID resource : command.getIdResource()) {
             ResourceDto _resource = this.serviceResourceImpl.findById(resource);
             for (LocalDate date : dates) {
@@ -35,6 +40,7 @@ public class CreateScheduleByLoteCommandHandler implements ICommandHandler<Creat
                     ScheduleDto __schedule = new ScheduleDto(
                             UUID.randomUUID(),
                             _resource,
+                            _business,
                             date,
                             command.getSchedules().get(i).getStartTime(),
                             command.getSchedules().get(i).getEndingTime(), 1);

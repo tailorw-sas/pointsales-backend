@@ -18,6 +18,7 @@ public class ScheduleResponse implements IResponse {
 
     private UUID id;
     private ResourceDto resource;
+    private BusinessDto business;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endingTime;
@@ -27,6 +28,7 @@ public class ScheduleResponse implements IResponse {
     public ScheduleResponse(ScheduleDto schedule) {
         this.id = schedule.getId();
         this.resource = schedule.getResource();
+        this.business = schedule.getBusiness();
         this.date = schedule.getDate();
         this.startTime = schedule.getStartTime();
         this.endingTime = schedule.getEndingTime();

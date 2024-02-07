@@ -1,9 +1,11 @@
 package com.kynsof.scheduled.application.command.schedule.createall;
 
+import com.kynsof.scheduled.domain.dto.BusinessDto;
 import com.kynsof.scheduled.domain.dto.EStatusSchedule;
 import com.kynsof.scheduled.domain.dto.ResourceDto;
 import com.kynsof.scheduled.domain.dto.ScheduleDto;
 import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandHandler;
+import com.kynsof.scheduled.infrastructure.service.BusinessServiceImpl;
 import com.kynsof.scheduled.infrastructure.service.ResocurceServiceImpl;
 import com.kynsof.scheduled.infrastructure.service.ScheduleServiceImpl;
 import java.util.ArrayList;
@@ -16,15 +18,18 @@ public class CreateScheduleAllCommandHandler implements ICommandHandler<CreateSc
 
     private final ScheduleServiceImpl serviceImpl;
     private final ResocurceServiceImpl serviceResourceImpl;
+    private final BusinessServiceImpl serviceBusinessImpl;
 
-    public CreateScheduleAllCommandHandler(ScheduleServiceImpl serviceImpl, ResocurceServiceImpl serviceResourceImpl) {
+    public CreateScheduleAllCommandHandler(ScheduleServiceImpl serviceImpl, ResocurceServiceImpl serviceResourceImpl, BusinessServiceImpl serviceBusinessImpl) {
         this.serviceImpl = serviceImpl;
         this.serviceResourceImpl = serviceResourceImpl;
+        this.serviceBusinessImpl = serviceBusinessImpl;
     }
 
     @Override
     public void handle(CreateScheduleAllCommand command) {
         ResourceDto _resource = this.serviceResourceImpl.findById(command.getIdResource());
+        BusinessDto _business = this.serviceBusinessImpl.findById(command.getIdBusiness());
 
         List<ScheduleDto> schedule = new ArrayList<>();
         for (int i = 0; i < command.getSchedules().size(); i++) {
@@ -32,6 +37,7 @@ public class CreateScheduleAllCommandHandler implements ICommandHandler<CreateSc
             ScheduleDto __schedule = new ScheduleDto(
                     UUID.randomUUID(),
                     _resource,
+                    _business,
                     command.getDate(),
                     command.getSchedules().get(i).getStartTime(),
                     command.getSchedules().get(i).getEndingTime(), 1);

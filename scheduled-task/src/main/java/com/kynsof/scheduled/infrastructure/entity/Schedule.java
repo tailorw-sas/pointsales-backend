@@ -53,8 +53,8 @@ public class Schedule {
     @JoinColumn(name = "fk_pk_resource", nullable = true)
     private Resource resource;
 
-    // Relación de muchos a uno con Business
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JsonIgnoreProperties({"logo", "description", "resources", "services", "schedules", "receipts"})
+    @ManyToOne(optional = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "business_id", nullable = true)
     private Business business;
 
@@ -95,6 +95,7 @@ public class Schedule {
     public Schedule(ScheduleDto scheduleDto) {
         this.id = scheduleDto.getId();
         this.resource = new Resource(scheduleDto.getResource());
+        this.business = new Business(scheduleDto.getBusiness());
         this.date = scheduleDto.getDate();
         this.startTime = scheduleDto.getStartTime();
         this.endingTime = scheduleDto.getEndingTime();
@@ -103,6 +104,7 @@ public class Schedule {
     }
 
     public ScheduleDto toAggregate () {
-        return new ScheduleDto(id, resource.toAggregate(), date, startTime, endingTime, stock, initialStock, status);
+        return new ScheduleDto(id, resource.toAggregate(), business.toAggregate(), date, startTime, endingTime, stock, initialStock, status);
     }
+
 }

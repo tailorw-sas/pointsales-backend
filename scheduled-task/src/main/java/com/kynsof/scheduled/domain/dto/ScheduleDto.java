@@ -1,5 +1,6 @@
 package com.kynsof.scheduled.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
@@ -17,6 +18,9 @@ public class ScheduleDto {
     private UUID id;
 
     private ResourceDto resource;
+
+    @JsonIgnoreProperties({"logo", "description", "resources", "services", "schedules", "receipts"})
+    private BusinessDto business;
 
     private LocalDate date;
 
@@ -40,9 +44,10 @@ public class ScheduleDto {
         this.status = status;
     }
 
-    public ScheduleDto(UUID id, ResourceDto resource, LocalDate date, LocalTime startTime, LocalTime endingTime, int stock) {
+    public ScheduleDto(UUID id, ResourceDto resource, BusinessDto business, LocalDate date, LocalTime startTime, LocalTime endingTime, int stock) {
         this.id = id;
         this.resource = resource;
+        this.business = business;
         this.date = date;
         this.startTime = startTime;
         this.endingTime = endingTime;
