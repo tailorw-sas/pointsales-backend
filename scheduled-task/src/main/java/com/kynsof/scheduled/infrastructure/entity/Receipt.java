@@ -45,10 +45,10 @@ public class Receipt {
     private Schedule schedule;
 
     //@JsonIgnore
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "fk_pk_service", unique = false)
     private Services service;
-    
+
     @Column
     private EStatusReceipt status;
 

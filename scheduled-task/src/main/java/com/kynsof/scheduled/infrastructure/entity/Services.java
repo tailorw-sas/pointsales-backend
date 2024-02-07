@@ -50,7 +50,7 @@ public class Services {
 
     @JsonIgnoreProperties("services")
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "services")
-    private Set<Resource> specialists = new HashSet<>();
+    private Set<Resource> resources = new HashSet<>();
 
     // Relación de muchos a muchos con Business
     @JsonIgnoreProperties("services")
