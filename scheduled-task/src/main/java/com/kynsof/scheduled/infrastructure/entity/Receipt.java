@@ -70,7 +70,7 @@ public class Receipt {
         this.reasons = receipt.getReasons();
         this.status = receipt.getStatus();
         this.user = new Patient(receipt.getUser());
-        this.schedule = new Schedule(receipt.getSchedule());
+        this.schedule = receipt.getSchedule() != null ? new Schedule(receipt.getSchedule()) : null;
         this.service = new Services(receipt.getService());
         this.business = new Business(receipt.getBusiness());
     }

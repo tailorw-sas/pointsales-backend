@@ -4,6 +4,8 @@ import com.kynsof.scheduled.application.PaginatedResponse;
 import com.kynsof.scheduled.application.command.receipt.create.CreateReceiptCommand;
 import com.kynsof.scheduled.application.command.receipt.create.CreateReceiptMessage;
 import com.kynsof.scheduled.application.command.receipt.create.CreateReceiptRequest;
+import com.kynsof.scheduled.application.command.receipt.delete.ReceiptDeleteCommand;
+import com.kynsof.scheduled.application.command.receipt.delete.ReceiptDeleteMessage;
 import com.kynsof.scheduled.application.query.ReceiptResponse;
 import com.kynsof.scheduled.application.query.receipt.getAll.FindReceiptWithFilterQuery;
 import com.kynsof.scheduled.application.query.receipt.getbyid.FindReceiptByIdQuery;
@@ -68,6 +70,15 @@ public class ReceiptController {
         PaginatedResponse data = mediator.send(query);
 
         return ResponseEntity.ok(data);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ReceiptDeleteMessage> delete(@PathVariable("id") UUID id) {
+
+        ReceiptDeleteCommand command = new ReceiptDeleteCommand(id);
+        ReceiptDeleteMessage response = mediator.send(command);
+
+        return ResponseEntity.ok(response);
     }
 
 }
