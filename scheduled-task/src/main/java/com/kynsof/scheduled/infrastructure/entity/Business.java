@@ -2,13 +2,24 @@ package com.kynsof.scheduled.infrastructure.entity;
 
 import com.kynsof.scheduled.domain.dto.BusinessDto;
 import com.kynsof.scheduled.domain.dto.EBusinessStatus;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import java.time.LocalDateTime;
-import lombok.*;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
@@ -48,14 +59,6 @@ public class Business {
    // @JsonIgnoreProperties("businesses")
     @ManyToMany(mappedBy = "businesses", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Set<Services> services = new HashSet<>();
-
-    // Relación de uno a muchos con Schedule
-    @OneToMany(mappedBy = "business", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Schedule> schedules = new HashSet<>();
-
-    // Relación de uno a muchos con Receipt
-    @OneToMany(mappedBy = "business", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Receipt> receipts = new HashSet<>();
 
     public Business(BusinessDto business) {
         this.id = business.getId();

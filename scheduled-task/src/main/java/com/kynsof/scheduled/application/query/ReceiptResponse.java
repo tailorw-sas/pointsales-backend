@@ -1,6 +1,5 @@
 package com.kynsof.scheduled.application.query;
 
-import com.kynsof.scheduled.domain.dto.BusinessDto;
 import com.kynsof.scheduled.domain.dto.EStatusReceipt;
 import com.kynsof.scheduled.domain.dto.PatientDto;
 import com.kynsof.scheduled.domain.dto.ReceiptDto;
@@ -24,7 +23,6 @@ public class ReceiptResponse implements IResponse {
     private ScheduleDto schedule;
     private ServiceDto service;
     private EStatusReceipt status;
-    private BusinessDto business;
 
     public ReceiptResponse(ReceiptDto object) {
         this.id = object.getId();
@@ -35,7 +33,6 @@ public class ReceiptResponse implements IResponse {
         this.schedule = object.getSchedule();
         this.service = object.getService();
         this.status = object.getStatus();
-        this.business = object.getBusiness();
     }
 
 }

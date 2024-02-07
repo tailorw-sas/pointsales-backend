@@ -12,6 +12,7 @@ import com.kynsof.scheduled.domain.exception.DomainErrorMessage;
 import com.kynsof.scheduled.domain.service.IReceiptService;
 import com.kynsof.scheduled.infrastructure.command.ReceiptWriteDataJPARepository;
 import com.kynsof.scheduled.infrastructure.entity.Receipt;
+import com.kynsof.scheduled.infrastructure.entity.Schedule;
 import com.kynsof.scheduled.infrastructure.entity.specifications.ReceiptSpecifications;
 import com.kynsof.scheduled.infrastructure.query.ReceiptReadDataJPARepository;
 import java.time.LocalDate;
@@ -61,6 +62,8 @@ public class ReceiptService implements IReceiptService {
 
         ScheduleDto _schedule = receipt.getSchedule();
         _schedule.setStatus(EStatusSchedule.PRE_RESERVE);
+        this.scheduleServiceImpl.changeStatus(new Schedule(_schedule), EStatusSchedule.PRE_RESERVE);
+
         receipt.setSchedule(_schedule);
 
         receipt.setStatus(EStatusReceipt.PRE_RESERVE);

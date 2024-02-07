@@ -20,6 +20,5 @@ public class ReceiptDto {
     private ScheduleDto schedule;
     private ServiceDto service;
     private EStatusReceipt status;
-    private BusinessDto business;
 
 }

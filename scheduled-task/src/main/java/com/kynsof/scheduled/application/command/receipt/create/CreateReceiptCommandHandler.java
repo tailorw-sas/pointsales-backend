@@ -38,7 +38,6 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
         PatientDto _patient = this.servicePatientImpl.findById(command.getUser());
         ScheduleDto _schedule = this.serviceScheduleImpl.findById(command.getSchedule());
         ServiceDto _service = this.serviceServiceImpl.findById(command.getService());
-        BusinessDto _business = this.serviceBusinessImpl.findById(command.getBusiness());
 
         serviceImpl.create(new ReceiptDto(
                 command.getId(), 
@@ -48,8 +47,7 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
                 _patient, 
                 _schedule, 
                 _service, 
-                EStatusReceipt.PRE_RESERVE, 
-                _business
+                EStatusReceipt.PRE_RESERVE
         ));
     }
 }

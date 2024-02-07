@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Size;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -52,11 +51,6 @@ public class Receipt {
     @Column
     private EStatusReceipt status;
 
-    // Relación de muchos a uno con Business
-    @ManyToOne
-    @JoinColumn(name = "business_id", nullable = true)
-    private Business business;
-
     public Receipt(Patient user, Schedule schedule, Services service) {
         this.user = user;
         this.schedule = schedule;
@@ -72,10 +66,9 @@ public class Receipt {
         this.user = new Patient(receipt.getUser());
         this.schedule = receipt.getSchedule() != null ? new Schedule(receipt.getSchedule()) : null;
         this.service = new Services(receipt.getService());
-        this.business = new Business(receipt.getBusiness());
     }
 
     public ReceiptDto toAggregate() {
-        return new ReceiptDto(id, price, express, reasons, user.toAggregate(), schedule.toAggregate(), service.toAggregate(), status, business.toAggregate());
+        return new ReceiptDto(id, price, express, reasons, user.toAggregate(), schedule.toAggregate(), service.toAggregate(), status);
     }
 }
