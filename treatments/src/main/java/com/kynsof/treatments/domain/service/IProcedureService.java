@@ -4,8 +4,6 @@ import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import com.kynsof.treatments.domain.dto.ProcedureDto;
 import org.springframework.data.domain.Pageable;
 
-import java.util.UUID;
-
 public interface IProcedureService {
 
     ProcedureDto findByCode(String code);

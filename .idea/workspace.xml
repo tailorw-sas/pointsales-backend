@@ -5,32 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Trataments create identity">
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/command/examOrder/create/CreateExamOrderCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/command/examOrder/create/CreateExamOrderCommandHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/command/examOrder/create/CreateExamOrderMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/command/examOrder/create/CreateExamOrderRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/command/examOrder/create/ExamRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/examOrder/getById/FindByIdExamOrderQuery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/examOrder/getById/FindByIdExamOrderQueryHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/examOrder/getall/ExamOrderResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/examOrder/getall/GetAllExamOrderQuery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/examOrder/getall/GetAllExamOrderQueryHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/controller/ExamOrderController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/dto/ExamDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/dto/ExamOrderDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/service/IExamOrderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/entity/Exam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/entity/ExamOrder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/entity/Procedure.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/entity/specifications/ExamOrderSpecifications.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/repositories/command/ExamOrderWriteDataJPARepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/repositories/query/ExamOrderReadDataJPARepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/service/ExamOrderServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/target/classes/com/kynsoft/config/OpenApiConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/classes/com/kynsoft/config/OpenApiConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/target/classes/com/kynsoft/resources/UsersResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/classes/com/kynsoft/resources/UsersResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/entity/ExternalConsultation.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/entity/ExternalConsultation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/entity/Patients.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/entity/Patients.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/service/IProcedureService.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/domain/service/IProcedureService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +93,7 @@
     "git-widget-placeholder": "dev",
     "jdk.selected.JAVA_MODULE": "temurin-17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/treatments/src/main/java/com/kynsof/treatments/application/command/examOrder",
+    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/treatments/src/main/java/com/kynsof/treatments/application/query/procedure",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -141,18 +117,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/procedure" />
+      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/vaccine" />
+      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/command/patientVaccine" />
+      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/patientVaccine" />
       <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/command/examOrder" />
-      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/examOrder" />
-      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/cie10" />
-      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/externalConsultation" />
-      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/command/externalConsultation" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.kynsof.treatments.controller" />
       <recent name="com.kynsof.treatments.infrastructure.entity.specifications" />
       <recent name="com.kynsof.treatments.infrastructure.repositories.query" />
-      <recent name="com.kynsof.treatments.infrastructure.repositories.command" />
       <recent name="com.kynsof.treatments.infrastructure.service" />
+      <recent name="com.kynsof.treatments.domain.dto" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -374,7 +350,7 @@
       <workItem from="1706644357404" duration="1375000" />
       <workItem from="1706650805302" duration="35579000" />
       <workItem from="1706888844594" duration="71651000" />
-      <workItem from="1707248675544" duration="8681000" />
+      <workItem from="1707248675544" duration="24864000" />
     </task>
     <task id="LOCAL-00001" summary="Mi primer comit">
       <option name="closed" value="true" />
@@ -728,7 +704,39 @@
       <option name="project" value="LOCAL" />
       <updated>1707241377919</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Trataments create identity">
+      <option name="closed" value="true" />
+      <created>1707258071658</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1707258071659</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Trataments create identity">
+      <option name="closed" value="true" />
+      <created>1707258084144</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1707258084144</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Trataments create identity">
+      <option name="closed" value="true" />
+      <created>1707342241162</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1707342241162</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Trataments create identity">
+      <option name="closed" value="true" />
+      <created>1707343794494</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1707343794495</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -816,6 +824,21 @@
           <url>file://$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/service/Cie10ServiceImpl.java</url>
           <line>31</line>
           <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/controller/PatientVaccineController.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/command/patientVaccine/create/CreatePatientVaccineCommandHandler.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/service/PatientVaccineServiceImpl.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
