@@ -5,7 +5,9 @@ import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import lombok.*;
@@ -31,6 +33,8 @@ public class Patients {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    private LocalDate birthDate;
 
     @OneToMany(mappedBy = "patient", orphanRemoval = true)
     private List<ContactInformation> contactInformation;
@@ -62,6 +66,7 @@ public class Patients {
         this.lastName = patients.getLastName();
         this.gender = patients.getGender();
         this.status = patients.getStatus();
+        this.birthDate = patients.getBirthDate();
     }
 
     public Patients(DependentPatientDto patients) {
@@ -75,6 +80,6 @@ public class Patients {
     }
 
     public PatientDto toAggregate() {
-        return new PatientDto(id, identification, name, lastName, gender, status);
+        return new PatientDto(id, identification, name, lastName, gender, status,birthDate);
     }
 }

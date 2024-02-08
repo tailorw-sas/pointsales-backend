@@ -17,13 +17,14 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
 
     @Override
     public void handle(UpdatePatientsCommand command) {
-      serviceImpl.update(new PatientDto(
+        serviceImpl.update(new PatientDto(
                 command.getId(),
                 command.getIdentification(),
                 command.getName(),
                 command.getLastName(),
                 command.getGender(),
-               Status.ACTIVE
+                Status.ACTIVE,
+                command.getBirthDate()
         ));
 
     }

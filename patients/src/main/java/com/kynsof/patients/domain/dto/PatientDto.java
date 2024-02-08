@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -17,4 +18,5 @@ public class PatientDto {
     private String lastName;
     private String gender;
     private Status status;
+    private LocalDate birthDate;
 }

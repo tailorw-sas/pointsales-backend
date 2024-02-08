@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -15,15 +16,10 @@ import java.util.UUID;
 public class PatientDto {
 
     private UUID id;
-
     private String identification;
-
     private String name;
-
     private String lastName;
-
     private String gender;
-
-    @Enumerated(EnumType.STRING)
     private Status status;
+    private LocalDate birthDate;
 }
