@@ -15,5 +15,6 @@ public class GetAllPatientsFilterQuery implements IQuery {
     private Pageable pageable;
     private UUID idPatients;
     private String identification;
+    private UUID primeId;
 
 }

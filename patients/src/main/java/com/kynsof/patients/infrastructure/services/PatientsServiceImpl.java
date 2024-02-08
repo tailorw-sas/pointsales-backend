@@ -1,5 +1,6 @@
 package com.kynsof.patients.infrastructure.services;
 
+import com.kynsof.patients.domain.dto.DependentPatientDto;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import com.kynsof.patients.domain.dto.Status;
@@ -44,6 +45,12 @@ public class PatientsServiceImpl implements IPatientsService {
     }
 
     @Override
+    public UUID createDependent(DependentPatientDto patients) {
+        Patients entity = this.repositoryCommand.save(new Patients(patients));
+        return entity.getId();
+    }
+
+    @Override
     public UUID update(PatientDto patientDto) {
         if (patientDto == null || patientDto.getId() == null) {
             throw new IllegalArgumentException("Patient DTO or ID cannot be null");
@@ -51,18 +58,41 @@ public class PatientsServiceImpl implements IPatientsService {
 
         this.repositoryQuery.findById(patientDto.getId())
                 .map(patient -> {
-                    if (patientDto.getName() != null) patient.setName(patientDto.getName());
-                    if (patientDto.getLastName() != null) patient.setLastName(patientDto.getLastName());
-                    if (patientDto.getIdentification() != null)
-                        patient.setIdentification(patientDto.getIdentification());
-                    if (patientDto.getGender() != null) patient.setGender(patientDto.getGender());
-                    if (patientDto.getStatus() != null) patient.setStatus(patientDto.getStatus());
+                    updatePatient(patient, patientDto.getName(), patientDto.getLastName(), patientDto.getIdentification(),
+                            patientDto.getGender(), patientDto.getStatus());
 
                     return this.repositoryCommand.save(patient);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + patientDto.getId() + " not found"));
 
         return patientDto.getId();
+    }
+
+    @Override
+    public void updateDependent(DependentPatientDto patientDto) {
+        if (patientDto == null || patientDto.getId() == null) {
+            throw new IllegalArgumentException("Patient DTO or ID cannot be null");
+        }
+
+        this.repositoryQuery.findById(patientDto.getId())
+                .map(patient -> {
+                    updatePatient(patient, patientDto.getName(),
+                            patientDto.getLastName(), patientDto.getIdentification(),
+                            patientDto.getGender(), patientDto.getStatus());
+                    if (patientDto.getPrime() != null) patient.setPrime(new Patients(patientDto.getPrime()));
+                    return this.repositoryCommand.save(patient);
+                })
+                .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + patientDto.getId() + " not found"));
+
+    }
+
+    private void updatePatient(Patients patient, String name, String lastName, String identification, String gender, Status status) {
+        if (name != null) patient.setName(name);
+        if (lastName != null) patient.setLastName(lastName);
+        if (identification != null)
+            patient.setIdentification(identification);
+        if (gender != null) patient.setGender(gender);
+        if (status != null) patient.setStatus(status);
     }
 
 
@@ -77,8 +107,8 @@ public class PatientsServiceImpl implements IPatientsService {
     }
 
     @Override
-    public PaginatedResponse findAll(Pageable pageable, UUID idPatients, String identification) {
-        PatientsSpecifications specifications = new PatientsSpecifications(idPatients, identification);
+    public PaginatedResponse findAll(Pageable pageable, UUID idPatients, String identification, UUID primeId) {
+        PatientsSpecifications specifications = new PatientsSpecifications(idPatients, identification, primeId);
         Page<Patients> data = this.repositoryQuery.findAll(specifications, pageable);
 
         List<PatientsResponse> patients = new ArrayList<>();

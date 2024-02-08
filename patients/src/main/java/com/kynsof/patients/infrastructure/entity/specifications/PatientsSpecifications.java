@@ -12,12 +12,14 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
 public class PatientsSpecifications implements Specification<Patients> {
-    private UUID patients;
-    private String identification;
+    private final UUID patients;
+    private final String identification;
+    private final UUID primeId;
 
-    public PatientsSpecifications(UUID patients, String identification) {
+    public PatientsSpecifications(UUID patients, String identification, UUID primeId) {
         this.patients = patients;
         this.identification = identification;
+        this.primeId = primeId;
     }
 
     @Override
@@ -26,6 +28,10 @@ public class PatientsSpecifications implements Specification<Patients> {
 
         if (patients != null) {
             predicates.add(cb.equal(root.get("id"), patients));
+        }
+
+        if (primeId != null) {
+            predicates.add(cb.equal(root.join("prime").get("id"), primeId));
         }
 
         if (StringUtils.isNotEmpty(identification)) {

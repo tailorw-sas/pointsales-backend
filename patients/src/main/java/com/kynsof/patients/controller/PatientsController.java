@@ -53,11 +53,12 @@ public class PatientsController {
     @GetMapping("/all")
     public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
                                                     @RequestParam(defaultValue = "0") Integer page,
-                                                    @RequestParam(defaultValue = "") UUID idPatients,
+                                                    @RequestParam(defaultValue = "") UUID patientId,
+                                                    @RequestParam(defaultValue = "") UUID primeId,
                                                     @RequestParam(defaultValue = "") String identification)
     {
         Pageable pageable = PageRequest.of(page, pageSize);
-        GetAllPatientsFilterQuery query = new GetAllPatientsFilterQuery(pageable, idPatients, identification);
+        GetAllPatientsFilterQuery query = new GetAllPatientsFilterQuery(pageable, patientId, identification,primeId);
         PaginatedResponse data = mediator.send(query);
 
         return ResponseEntity.ok(data);

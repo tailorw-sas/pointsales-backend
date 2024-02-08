@@ -1,8 +1,11 @@
 package com.kynsof.patients.infrastructure.entity;
 
+import com.kynsof.patients.domain.dto.DependentPatientDto;
 import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import lombok.*;
@@ -32,11 +35,18 @@ public class Patients {
     @OneToMany(mappedBy = "patient", orphanRemoval = true)
     private List<ContactInformation> contactInformation;
 
-    @OneToOne(mappedBy = "patient",  orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "patient",  orphanRemoval = true)
     private MedicalInformation medicalInformation;
 
-    @OneToOne(mappedBy = "patient",  orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "patient",  orphanRemoval = true)
     private AdditionalInformation additionalInformation;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "prime_id")
+    private Patients prime;
+
+    @OneToMany(mappedBy = "prime", fetch = FetchType.LAZY)
+    private List<Patients> dependents = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "patient_insurance",
@@ -52,6 +62,16 @@ public class Patients {
         this.lastName = patients.getLastName();
         this.gender = patients.getGender();
         this.status = patients.getStatus();
+    }
+
+    public Patients(DependentPatientDto patients) {
+        this.id = patients.getId();
+        this.identification = patients.getIdentification();
+        this.name = patients.getName();
+        this.lastName = patients.getLastName();
+        this.gender = patients.getGender();
+        this.status = patients.getStatus();
+        this.setPrime(new Patients(patients.getPrime()));
     }
 
     public PatientDto toAggregate() {
