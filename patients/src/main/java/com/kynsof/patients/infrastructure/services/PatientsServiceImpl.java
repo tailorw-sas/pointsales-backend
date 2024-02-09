@@ -8,6 +8,7 @@ import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IPatientsService;
+import com.kynsof.patients.infrastructure.config.redis.CacheConfig;
 import com.kynsof.patients.infrastructure.entity.Insurance;
 import com.kynsof.patients.infrastructure.repositories.command.PatientsWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.entity.Patients;
@@ -22,6 +23,7 @@ import java.util.UUID;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -96,6 +98,7 @@ public class PatientsServiceImpl implements IPatientsService {
     }
 
 
+    @Cacheable(cacheNames = CacheConfig.USER_CACHE, unless = "#result == null")
     @Override
     public PatientDto findById(UUID id) {
         Optional<Patients> patient = this.repositoryQuery.findById(id);

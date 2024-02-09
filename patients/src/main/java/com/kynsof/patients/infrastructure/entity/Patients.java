@@ -5,6 +5,7 @@ import com.kynsof.patients.domain.dto.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +18,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-public class Patients {
+public class Patients implements Serializable {
     @Id
     @Column(name="id")
     private UUID id;

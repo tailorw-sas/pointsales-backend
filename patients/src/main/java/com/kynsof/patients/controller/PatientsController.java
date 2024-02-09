@@ -18,6 +18,8 @@ import java.util.UUID;
 import com.kynsof.patients.application.query.patients.getById.FindPatientsByIdQuery;
 
 import com.kynsof.patients.domain.bus.IMediator;
+import com.kynsof.patients.infrastructure.config.redis.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -63,7 +65,6 @@ public class PatientsController {
 
         return ResponseEntity.ok(data);
     }
-
     @GetMapping(path = "/{id}")
     public ResponseEntity<PatientsResponse> getById(@PathVariable UUID id) {
 
