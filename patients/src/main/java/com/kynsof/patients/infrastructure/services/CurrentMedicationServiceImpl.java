@@ -1,7 +1,7 @@
 package com.kynsof.patients.infrastructure.services;
 import com.kynsof.patients.application.query.currentMedication.getall.CurrentMedicationResponse;
 import com.kynsof.patients.domain.dto.CurrentMerdicationEntityDto;
-import com.kynsof.patients.domain.dto.Status;
+import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;

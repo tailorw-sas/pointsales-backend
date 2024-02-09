@@ -1,14 +1,13 @@
 package com.kynsof.patients.infrastructure.entity;
 
 import com.kynsof.patients.domain.dto.DependentPatientDto;
-import com.kynsof.patients.domain.dto.Status;
+import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import lombok.*;

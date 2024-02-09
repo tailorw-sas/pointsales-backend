@@ -13,6 +13,6 @@ public class MedicalInformationUpdateDto {
     private UUID id;
     private String bloodType;
     private String medicalHistory;
-    private com.kynsof.patients.domain.dto.Status Status;
+    private com.kynsof.patients.domain.dto.enumTye.Status Status;
 
 }

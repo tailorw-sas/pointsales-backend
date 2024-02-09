@@ -2,7 +2,7 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.additionalInfo.getall.AdditionalInfoResponse;
 import com.kynsof.patients.domain.dto.AdditionalInformationDto;
-import com.kynsof.patients.domain.dto.Status;
+import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;

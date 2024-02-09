@@ -2,7 +2,7 @@ package com.kynsof.patients.application.command.medicalInformation.update;
 
 import com.kynsof.patients.domain.bus.command.ICommand;
 import com.kynsof.patients.domain.bus.command.ICommandMessage;
-import com.kynsof.patients.domain.dto.Status;
+import com.kynsof.patients.domain.dto.enumTye.Status;
 import lombok.Getter;
 import lombok.Setter;
 

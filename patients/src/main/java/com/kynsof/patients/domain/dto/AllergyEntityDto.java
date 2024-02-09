@@ -1,5 +1,6 @@
 package com.kynsof.patients.domain.dto;
 
+import com.kynsof.patients.domain.dto.enumTye.Status;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;

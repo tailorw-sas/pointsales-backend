@@ -1,7 +1,7 @@
 package com.kynsof.patients.infrastructure.entity;
 
 import com.kynsof.patients.domain.dto.ContactInfoDto;
-import com.kynsof.patients.domain.dto.Status;
+import com.kynsof.patients.domain.dto.enumTye.Status;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;

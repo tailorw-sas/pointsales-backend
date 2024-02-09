@@ -2,6 +2,7 @@ package com.kynsof.patients.application.command.allergy.create;
 
 import com.kynsof.patients.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.dto.*;
+import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IAllergyService;
 import com.kynsof.patients.domain.service.IMedicalInformationService;
 import org.springframework.stereotype.Component;
