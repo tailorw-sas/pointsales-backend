@@ -1,4 +1,4 @@
-package com.kynsof.scheduled.infrastructure.query;
+package com.kynsof.scheduled.infrastructure.repository.query;
 
 import com.kynsof.scheduled.infrastructure.entity.Qualification;
 import java.util.UUID;

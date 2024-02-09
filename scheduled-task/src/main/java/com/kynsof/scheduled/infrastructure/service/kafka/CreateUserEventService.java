@@ -1,4 +1,4 @@
-package com.kynsof.scheduled.infrastructure.services.kafka;
+package com.kynsof.scheduled.infrastructure.service.kafka;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
