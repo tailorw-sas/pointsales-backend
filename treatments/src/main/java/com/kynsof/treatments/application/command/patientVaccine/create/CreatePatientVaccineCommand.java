@@ -2,11 +2,10 @@ package com.kynsof.treatments.application.command.patientVaccine.create;
 
 import com.kynsof.treatments.domain.bus.command.ICommand;
 import com.kynsof.treatments.domain.bus.command.ICommandMessage;
-import com.kynsof.treatments.domain.enumDto.VaccinationStatus;
+import com.kynsof.treatments.domain.dto.enumDto.VaccinationStatus;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.UUID;
 
 @Getter

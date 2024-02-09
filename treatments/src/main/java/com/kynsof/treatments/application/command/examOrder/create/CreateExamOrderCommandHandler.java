@@ -2,7 +2,7 @@ package com.kynsof.treatments.application.command.examOrder.create;
 
 import com.kynsof.treatments.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.*;
-import com.kynsof.treatments.domain.enumDto.Status;
+import com.kynsof.treatments.domain.dto.enumDto.Status;
 import com.kynsof.treatments.domain.service.IDoctorService;
 import com.kynsof.treatments.domain.service.IExamOrderService;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;

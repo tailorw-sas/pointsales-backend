@@ -1,7 +1,7 @@
 package com.kynsof.treatments.infrastructure.entity;
 
 import com.kynsof.treatments.domain.dto.PatientDto;
-import com.kynsof.treatments.domain.enumDto.Status;
+import com.kynsof.treatments.domain.dto.enumDto.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

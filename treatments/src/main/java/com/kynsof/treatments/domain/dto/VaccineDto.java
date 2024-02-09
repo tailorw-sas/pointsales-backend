@@ -1,8 +1,6 @@
 package com.kynsof.treatments.domain.dto;
 
-import com.kynsof.treatments.domain.enumDto.VaccineType;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.kynsof.treatments.domain.dto.enumDto.VaccineType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

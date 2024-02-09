@@ -1,6 +1,6 @@
 package com.kynsof.treatments.application.command.patientVaccine.update;
 
-import com.kynsof.treatments.domain.enumDto.VaccinationStatus;
+import com.kynsof.treatments.domain.dto.enumDto.VaccinationStatus;
 import lombok.Getter;
 import lombok.Setter;
 

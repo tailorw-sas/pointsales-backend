@@ -5,7 +5,7 @@ import com.kynsof.treatments.domain.bus.query.IResponse;
 import com.kynsof.treatments.domain.dto.PatientDto;
 import com.kynsof.treatments.domain.dto.PatientVaccineDto;
 import com.kynsof.treatments.domain.dto.VaccineDto;
-import com.kynsof.treatments.domain.enumDto.VaccinationStatus;
+import com.kynsof.treatments.domain.dto.enumDto.VaccinationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

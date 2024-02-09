@@ -1,7 +1,6 @@
 package com.kynsof.treatments.infrastructure.repositories.query;
 
 import com.kynsof.treatments.infrastructure.entity.Cie10;
-import com.kynsof.treatments.infrastructure.entity.ExternalConsultation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

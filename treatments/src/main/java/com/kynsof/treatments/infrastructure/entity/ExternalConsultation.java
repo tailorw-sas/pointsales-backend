@@ -1,7 +1,6 @@
 package com.kynsof.treatments.infrastructure.entity;
 
 import com.kynsof.treatments.domain.dto.DiagnosisDto;
-import com.kynsof.treatments.domain.dto.ExamOrderDto;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.dto.TreatmentDto;
 import jakarta.persistence.*;
@@ -10,13 +9,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import static org.hibernate.internal.util.collections.ArrayHelper.forEach;
 
 @NoArgsConstructor
 @AllArgsConstructor

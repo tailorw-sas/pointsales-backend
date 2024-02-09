@@ -1,7 +1,7 @@
 package com.kynsof.treatments.infrastructure.service;
 
 import com.kynsof.treatments.domain.dto.PatientDto;
-import com.kynsof.treatments.domain.enumDto.Status;
+import com.kynsof.treatments.domain.dto.enumDto.Status;
 import com.kynsof.treatments.domain.exception.BusinessException;
 import com.kynsof.treatments.domain.exception.DomainErrorMessage;
 import com.kynsof.treatments.domain.service.IPatientsService;

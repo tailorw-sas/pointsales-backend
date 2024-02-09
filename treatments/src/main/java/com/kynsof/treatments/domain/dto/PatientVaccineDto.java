@@ -1,6 +1,6 @@
 package com.kynsof.treatments.domain.dto;
 
-import com.kynsof.treatments.domain.enumDto.VaccinationStatus;
+import com.kynsof.treatments.domain.dto.enumDto.VaccinationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
