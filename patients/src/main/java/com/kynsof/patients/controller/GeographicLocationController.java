@@ -45,5 +45,4 @@ public class GeographicLocationController {
 
         return ResponseEntity.ok(response);
     }
-
 }

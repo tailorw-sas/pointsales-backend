@@ -1,4 +1,4 @@
-package com.kynsof.scheduled.infrastructure.command;
+package com.kynsof.scheduled.infrastructure.repository.command;
 
 import java.util.UUID;
 

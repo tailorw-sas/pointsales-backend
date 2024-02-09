@@ -1,4 +1,4 @@
-package com.kynsof.scheduled.infrastructure.command;
+package com.kynsof.scheduled.infrastructure.repository.command;
 
 import com.kynsof.scheduled.infrastructure.entity.Business;
 import java.util.UUID;
