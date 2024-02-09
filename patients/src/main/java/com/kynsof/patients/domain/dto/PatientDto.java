@@ -20,5 +20,4 @@ public class PatientDto implements Serializable {
     private String lastName;
     private String gender;
     private Status status;
-    private LocalDate birthDate;
 }

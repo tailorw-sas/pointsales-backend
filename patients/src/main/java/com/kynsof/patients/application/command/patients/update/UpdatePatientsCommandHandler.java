@@ -23,7 +23,7 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
                 command.getName(),
                 command.getLastName(),
                 command.getGender(),
-               Status.ACTIVE,command.getBirthDate()
+               Status.ACTIVE
         ));
 
     }

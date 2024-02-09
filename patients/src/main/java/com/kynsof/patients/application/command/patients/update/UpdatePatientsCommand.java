@@ -16,21 +16,18 @@ public class UpdatePatientsCommand implements ICommand {
     private String name;
     private String lastName;
     private String gender;
-    private LocalDate birthDate;
 
-    public UpdatePatientsCommand(UUID id,String identification, String name, String lastName, String gender,
-                                 LocalDate birthDate){
+    public UpdatePatientsCommand(UUID id,String identification, String name, String lastName, String gender){
         this.id = id;
         this.identification = identification;
         this.name = name;
         this.lastName = lastName;
         this.gender = gender;
-        this.birthDate = birthDate;
     }
 
     public static UpdatePatientsCommand fromRequest(UUID id, UpdatePatientsRequest request) {
         return new UpdatePatientsCommand(id,request.getIdentification(), request.getName(), request.getLastName(),
-                request.getGender(), request.getBirthDate());
+                request.getGender());
     }
 
 

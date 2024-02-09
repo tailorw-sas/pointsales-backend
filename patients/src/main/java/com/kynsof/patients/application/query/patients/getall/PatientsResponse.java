@@ -21,14 +21,12 @@ public class PatientsResponse implements IResponse {
     private String name;
     private String lastName;
     private String gender;
-    private LocalDate birthDate;
     public PatientsResponse(PatientDto patients) {
         this.id = patients.getId();
         this.identification = patients.getIdentification();
         this.name = patients.getName();
         this.lastName = patients.getLastName();
         this.gender = patients.getGender();
-        this.birthDate = patients.getBirthDate();
     }
 
 }

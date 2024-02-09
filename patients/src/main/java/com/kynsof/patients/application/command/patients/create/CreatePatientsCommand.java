@@ -16,20 +16,18 @@ public class CreatePatientsCommand implements ICommand {
     private String name;
     private String lastName;
     private String gender;
-    private LocalDate birthDate;
 
 
-    public CreatePatientsCommand(String identification, String name, String lastName, String gender,LocalDate birthDate){
+    public CreatePatientsCommand(String identification, String name, String lastName, String gender){
 
         this.identification = identification;
         this.name = name;
         this.lastName = lastName;
         this.gender = gender;
-        this.birthDate = birthDate;
     }
 
     public static CreatePatientsCommand fromRequest(CreatePatientsRequest request) {
-        return new CreatePatientsCommand(request.getIdentification(), request.getName(), request.getLastName(), request.getGender(),request.getBirthDate());
+        return new CreatePatientsCommand(request.getIdentification(), request.getName(), request.getLastName(), request.getGender());
     }
 
 

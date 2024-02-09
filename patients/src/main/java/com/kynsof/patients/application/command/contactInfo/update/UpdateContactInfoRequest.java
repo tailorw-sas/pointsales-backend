@@ -11,12 +11,9 @@ import java.util.UUID;
 public class UpdateContactInfoRequest {
 
     private UUID patientId;
-
     private String email;
-
     private String telephone;
-
     private String address;
-
     private LocalDate birthdayDate;
+    private UUID geographicLocationId;
 }

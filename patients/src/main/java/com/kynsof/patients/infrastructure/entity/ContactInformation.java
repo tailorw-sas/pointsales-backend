@@ -31,6 +31,10 @@ public class ContactInformation {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "geographic_location_id", nullable = true)
+    private GeographicLocation geographicLocation;
+
     public ContactInformation(ContactInfoDto contactInfoDto) {
         this.patient = contactInfoDto.getPatient();
         this.email = contactInfoDto.getEmail();
@@ -41,6 +45,7 @@ public class ContactInformation {
     }
 
     public ContactInfoDto toAggregate() {
-        return new ContactInfoDto(getId(), getPatient(), getEmail(), getTelephone(), getAddress(), getBirthdayDate(), getStatus());
+        return new ContactInfoDto(getId(), getPatient(), getEmail(), getTelephone(), getAddress(), getBirthdayDate(), getStatus(),
+                geographicLocation.toAggregate());
     }
 }

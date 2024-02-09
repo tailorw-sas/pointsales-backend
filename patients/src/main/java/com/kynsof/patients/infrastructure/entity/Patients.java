@@ -34,8 +34,6 @@ public class Patients implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private LocalDate birthDate;
-
     @OneToMany(mappedBy = "patient", orphanRemoval = true)
     private List<ContactInformation> contactInformation;
 
@@ -53,8 +51,7 @@ public class Patients implements Serializable {
     private List<Patients> dependents = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "patient_insurance",
-            joinColumns = @JoinColumn(name = "patient_id"),
+    @JoinTable(name = "patient_insurance", joinColumns = @JoinColumn(name = "patient_id"),
             inverseJoinColumns = @JoinColumn(name = "insurance_id")
     )
     private List<Insurance> insurances;
@@ -66,7 +63,6 @@ public class Patients implements Serializable {
         this.lastName = patients.getLastName();
         this.gender = patients.getGender();
         this.status = patients.getStatus();
-        this.birthDate = patients.getBirthDate();
     }
 
     public Patients(DependentPatientDto patients) {
@@ -80,6 +76,6 @@ public class Patients implements Serializable {
     }
 
     public PatientDto toAggregate() {
-        return new PatientDto(id, identification, name, lastName, gender, status,birthDate);
+        return new PatientDto(id, identification, name, lastName, gender, status);
     }
 }

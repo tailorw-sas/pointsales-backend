@@ -1,6 +1,7 @@
 package com.kynsof.patients.domain.dto;
 
 import com.kynsof.patients.domain.dto.enumTye.Status;
+import com.kynsof.patients.infrastructure.entity.GeographicLocation;
 import com.kynsof.patients.infrastructure.entity.Patients;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,14 +16,11 @@ import java.util.UUID;
 public class ContactInfoDto {
     private UUID id;
     private Patients patient;
-
     private String email;
-
     private String telephone;
-
     private String address;
-
     private LocalDate birthdayDate;
     private Status status;
+    private GeographicLocationDto geographicLocation;
 
 }
