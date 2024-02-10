@@ -41,26 +41,26 @@ public class Resource {
 
     private Boolean expressAppointments;
 
-    @JsonIgnoreProperties("specialists")
+    @JsonIgnoreProperties("resources")
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
     @JoinTable(
-            name = "specialist_service",
-            joinColumns = @JoinColumn(name = "specialist_id"),
+            name = "resource_service",
+            joinColumns = @JoinColumn(name = "resource_id"),
             inverseJoinColumns = @JoinColumn(name = "service_id")
     )
     private Set<Services> services = new HashSet<>();
 
-    @JsonIgnoreProperties({"qualifications", "specialists"})
+    @JsonIgnoreProperties({"qualifications", "resources"})
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
     @JoinTable(
-            name = "specialist_qualification",
-            joinColumns = @JoinColumn(name = "specialist_id"),
+            name = "resource_qualification",
+            joinColumns = @JoinColumn(name = "resource_id"),
             inverseJoinColumns = @JoinColumn(name = "qualification_id")
     )
     private Set<Qualification> qualifications = new HashSet<>();

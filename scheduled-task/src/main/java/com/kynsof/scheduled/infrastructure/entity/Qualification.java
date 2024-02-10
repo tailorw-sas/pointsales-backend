@@ -36,9 +36,9 @@ public class Qualification {
     @Enumerated(EnumType.STRING)
     private EQualificationStatus status;
 
-    @JsonIgnoreProperties("specialists")
+    @JsonIgnoreProperties("resources")
     @ManyToMany(mappedBy = "qualifications")
-    private Set<Resource> specialists = new HashSet<>();
+    private Set<Resource> resources = new HashSet<>();
 
     @Column(nullable = true)
     private LocalDateTime createAt;
