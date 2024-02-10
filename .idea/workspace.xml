@@ -4,26 +4,60 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Trataments create identity">
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/config/redis/CacheConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/config/redis/RedisConfig.java" afterDir="false" />
+    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="refactorizacion del micro de las citas">
+      <change afterPath="$PROJECT_DIR$/store/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/StoreApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/controller/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/CorsProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/JwtAuthenticationConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/OpenApiConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/kafka/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/kafka/EventType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/kafka/KafkaConsumerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/kafka/KafkaProducerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/redis/CacheConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/redis/RedisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/src/test/java/com/kynsof/store/StoreApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/patients/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/PatientsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/PatientsApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/PatientDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/PatientDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/repository/IPatientsQueryRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IPatientsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IPatientsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/Patients.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/Patients.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/PatientsApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/PatientsApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registry/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/registry/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/products">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="products" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -83,13 +117,18 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2beQrvUwRr8TgCM8b4TAXfE7GH4" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Gradle.Build products.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -99,14 +138,16 @@
     "Spring Boot.ConfigCloudServiceApplication.executor": "Debug",
     "Spring Boot.GatewayApplication.executor": "Debug",
     "Spring Boot.PatientsApplication.executor": "Debug",
+    "Spring Boot.ProductsApplication.executor": "Debug",
     "Spring Boot.RegistryApplication.executor": "Debug",
     "Spring Boot.ScheduledApplication.executor": "Debug",
+    "Spring Boot.StoreApplication.executor": "Debug",
     "Spring Boot.TreatmentsApplication.executor": "Debug",
     "extract.method.default.visibility": "private",
     "git-widget-placeholder": "dev",
     "jdk.selected.JAVA_MODULE": "temurin-17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/patients/src/main/java/com/kynsof/patients/infrastructure/config/redis",
+    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/store/src/main/java/com/kynsof/store/infrastructure",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -130,18 +171,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure" />
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/geographicLocation" />
       <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/config/redis" />
       <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/dependents" />
       <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/procedure" />
-      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/vaccine" />
-      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/command/patientVaccine" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.kynsof.patients.controller" />
-      <recent name="com.kynsof.patients.domain.dto" />
-      <recent name="com.kynsof.treatments.controller" />
-      <recent name="com.kynsof.treatments.infrastructure.entity.specifications" />
-      <recent name="com.kynsof.treatments.infrastructure.repositories.query" />
+      <recent name="com.kynsof.store.controller" />
+      <recent name="com.kynsof.scheduled.domain.dto" />
+      <recent name="com.kynsof.scheduled.infrastructure.query" />
+      <recent name="com.kynsof.scheduled.infrastructure.service" />
+      <recent name="com.kynsof.scheduled.infrastructure.entity.specifications" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -151,7 +192,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.PatientsApplication">
+  <component name="RunManager" selected="Spring Boot.StoreApplication">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="proyect-base" />
       <option name="ENV_FILES" value="" />
@@ -291,6 +332,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StoreApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="store" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.store.StoreApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TreatmentsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <envs>
         <env name="RC_ACTIVE_PROFILE" value="dev" />
@@ -325,6 +373,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Spring Boot.StoreApplication" />
       <item itemvalue="Spring Boot.ConfigCloudServiceApplication" />
       <item itemvalue="Spring Boot.GatewayApplication" />
       <item itemvalue="Spring Boot.RegistryApplication" />
@@ -364,55 +413,8 @@
       <workItem from="1706650805302" duration="35579000" />
       <workItem from="1706888844594" duration="71651000" />
       <workItem from="1707248675544" duration="31985000" />
-      <workItem from="1707485683329" duration="4105000" />
-    </task>
-    <task id="LOCAL-00003" summary="Mi primer comit">
-      <option name="closed" value="true" />
-      <created>1706624073595</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1706624073596</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Mi primer comit">
-      <option name="closed" value="true" />
-      <created>1706643271623</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1706643271623</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Mi primer comit">
-      <option name="closed" value="true" />
-      <created>1706644461806</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1706644461806</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Se agrega el servicio treatments">
-      <option name="closed" value="true" />
-      <created>1706654796222</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1706654796222</updated>
-    </task>
-    <task id="LOCAL-00007" summary="set properties">
-      <option name="closed" value="true" />
-      <created>1706717615258</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1706717615259</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Se agrega el medietor">
-      <option name="closed" value="true" />
-      <created>1706732496887</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1706732496887</updated>
+      <workItem from="1707485683329" duration="21791000" />
+      <workItem from="1707595185156" duration="1016000" />
     </task>
     <task id="LOCAL-00009" summary="Se agrega el medietor">
       <option name="closed" value="true" />
@@ -758,13 +760,62 @@
       <option name="project" value="LOCAL" />
       <updated>1707414605509</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Redis">
+      <option name="closed" value="true" />
+      <created>1707492767393</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1707492767393</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Se agregan las localidades">
+      <option name="closed" value="true" />
+      <created>1707494664583</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1707494664583</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Se agregan las localidades">
+      <option name="closed" value="true" />
+      <created>1707499238590</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1707499238590</updated>
+    </task>
+    <task id="LOCAL-00055" summary="refactorizacion del micro de las citas">
+      <option name="closed" value="true" />
+      <created>1707513549846</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1707513549846</updated>
+    </task>
+    <task id="LOCAL-00056" summary="refactorizacion del micro de las citas">
+      <option name="closed" value="true" />
+      <created>1707513568556</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1707513568556</updated>
+    </task>
+    <task id="LOCAL-00057" summary="refactorizacion del micro de las citas">
+      <option name="closed" value="true" />
+      <created>1707522890978</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1707522890978</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Mi primer comit" />
     <MESSAGE value="Se agrega el servicio treatments" />
     <MESSAGE value="set properties" />
@@ -782,13 +833,16 @@
     <MESSAGE value="Patients" />
     <MESSAGE value="Trataments" />
     <MESSAGE value="Trataments create identity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Trataments create identity" />
+    <MESSAGE value="Redis" />
+    <MESSAGE value="Se agregan las localidades" />
+    <MESSAGE value="refactorizacion del micro de las citas" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactorizacion del micro de las citas" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/services/kafka/CreateUserEventService.java</url>
+          <url>file://$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/service/kafka/CreateUserEventService.java</url>
           <line>22</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
@@ -814,7 +868,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/medicalInformation/create/CreateMedicalInformationCommandHandler.java</url>
-          <line>55</line>
+          <line>56</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

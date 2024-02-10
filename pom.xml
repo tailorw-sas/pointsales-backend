@@ -18,6 +18,7 @@
         <module>registry</module>
         <module>scheduled-task</module>
         <module>treatments</module>
+        <module>store</module>
     </modules>
     <build>
 
