@@ -1,6 +1,7 @@
 package com.kynsof.scheduled.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ScheduleDto {
+public class ScheduleDto implements Serializable {
 
     private UUID id;
 

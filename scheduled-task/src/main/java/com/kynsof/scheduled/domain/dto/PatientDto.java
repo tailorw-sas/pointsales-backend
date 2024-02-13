@@ -1,5 +1,6 @@
 package com.kynsof.scheduled.domain.dto;
 
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PatientDto {
+public class PatientDto implements Serializable {
     private UUID id;
     private String identification;
     private String name;

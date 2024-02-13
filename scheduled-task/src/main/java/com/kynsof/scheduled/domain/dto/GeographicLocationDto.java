@@ -1,6 +1,7 @@
 package com.kynsof.scheduled.domain.dto;
 
 import com.kynsof.scheduled.domain.dto.enumType.GeographicLocationType;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GeographicLocationDto {
+public class GeographicLocationDto implements Serializable {
     private UUID id;
     private String name;
     private GeographicLocationType type;

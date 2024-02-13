@@ -1,5 +1,6 @@
 package com.kynsof.scheduled.domain.dto;
 
+import java.io.Serializable;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ReceiptDto {
+public class ReceiptDto implements Serializable {
 
     private UUID id;
     private Double price;

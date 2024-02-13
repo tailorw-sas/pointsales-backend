@@ -19,8 +19,7 @@ public class CacheConfig {
 
     public static final String USER_CACHE = "user-cache";
     public static final String QUALIFICATION_CACHE = "qualification-cache";
-    
-    
+
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();

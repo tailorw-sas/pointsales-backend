@@ -1,5 +1,6 @@
 package com.kynsof.scheduled.domain.dto;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ResourceDto {
+public class ResourceDto implements Serializable {
 
     private UUID id;
 
