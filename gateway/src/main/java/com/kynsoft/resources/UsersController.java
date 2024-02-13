@@ -5,7 +5,6 @@ import com.kynsoft.dto.LoginDTO;
 import com.kynsoft.dto.RegisterDTO;
 import com.kynsoft.dto.TokenResponse;
 import com.kynsoft.service.IKeycloakService;
-import jakarta.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +17,7 @@ import java.net.URISyntaxException;
 @RestController
 @RequestMapping("/api/users")
 @PreAuthorize("hasRole('ADMIN_CLIENT')")
-public class UsersResource {
+public class UsersController {
 
     @Autowired
     private IKeycloakService keycloakService;
@@ -35,6 +34,7 @@ public class UsersResource {
         String response = keycloakService.registerUser(registerDTO);
         return Mono.justOrEmpty(ResponseEntity.created(new URI("/users/register")).body(response));
     }
+
     
     @GetMapping("/list")
     public Mono<ResponseEntity<?>> findAllUsers(){
