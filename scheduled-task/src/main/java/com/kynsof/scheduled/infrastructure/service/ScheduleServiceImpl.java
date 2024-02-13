@@ -7,6 +7,7 @@ import com.kynsof.scheduled.domain.dto.ResourceDto;
 import com.kynsof.scheduled.domain.dto.ScheduleDto;
 import com.kynsof.scheduled.domain.exception.BusinessException;
 import com.kynsof.scheduled.domain.exception.DomainErrorMessage;
+import com.kynsof.scheduled.infrastructure.config.redis.CacheConfig;
 import com.kynsof.scheduled.infrastructure.repository.command.ScheduleWriteDataJPARepository;
 import com.kynsof.scheduled.infrastructure.entity.Resource;
 import com.kynsof.scheduled.infrastructure.entity.Schedule;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import org.springframework.cache.annotation.Cacheable;
 
 @Service
 public class ScheduleServiceImpl {
@@ -91,6 +93,7 @@ public class ScheduleServiceImpl {
         return !_schedulesStartTime.isEmpty();
     }
 
+    @Cacheable(cacheNames = CacheConfig.QUALIFICATION_CACHE, unless = "#result == null")
     public ScheduleDto findById(UUID id) {
 
         Optional<Schedule> object = this.repositoryQuery.findById(id);

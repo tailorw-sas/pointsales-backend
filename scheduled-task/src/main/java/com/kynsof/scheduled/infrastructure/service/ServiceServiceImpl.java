@@ -7,6 +7,7 @@ import com.kynsof.scheduled.domain.dto.ServiceDto;
 import com.kynsof.scheduled.domain.exception.BusinessException;
 import com.kynsof.scheduled.domain.exception.DomainErrorMessage;
 import com.kynsof.scheduled.domain.service.IServiceService;
+import com.kynsof.scheduled.infrastructure.config.redis.CacheConfig;
 import com.kynsof.scheduled.infrastructure.repository.command.ServiceWriteDataJPARepository;
 import com.kynsof.scheduled.infrastructure.entity.Services;
 import com.kynsof.scheduled.infrastructure.entity.specifications.BusinessSpecifications;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -93,6 +95,7 @@ public class ServiceServiceImpl implements IServiceService {
         this.repositoryCommand.save(new Services(objectDelete));
     }
 
+    @Cacheable(cacheNames = CacheConfig.QUALIFICATION_CACHE, unless = "#result == null")
     @Override
     public ServiceDto findById(UUID id) {
         

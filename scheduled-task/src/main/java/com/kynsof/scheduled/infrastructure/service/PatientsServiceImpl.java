@@ -5,6 +5,7 @@ import com.kynsof.scheduled.domain.dto.PatientStatus;
 import com.kynsof.scheduled.domain.exception.BusinessException;
 import com.kynsof.scheduled.domain.exception.DomainErrorMessage;
 import com.kynsof.scheduled.domain.service.IPatientsService;
+import com.kynsof.scheduled.infrastructure.config.redis.CacheConfig;
 import com.kynsof.scheduled.infrastructure.repository.command.PatientsWriteDataJPARepository;
 import com.kynsof.scheduled.infrastructure.entity.Patient;
 import com.kynsof.scheduled.infrastructure.repository.query.PatientsReadDataJPARepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.cache.annotation.Cacheable;
 
 @Service
 public class PatientsServiceImpl implements IPatientsService {
@@ -53,6 +55,7 @@ public class PatientsServiceImpl implements IPatientsService {
         return patientDto.getId();
     }
 
+    @Cacheable(cacheNames = CacheConfig.QUALIFICATION_CACHE, unless = "#result == null")
     @Override
     public PatientDto findById(UUID id) {
         Optional<Patient> patient = this.repositoryQuery.findById(id);

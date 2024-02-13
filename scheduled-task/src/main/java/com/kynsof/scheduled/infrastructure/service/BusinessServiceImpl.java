@@ -7,6 +7,7 @@ import com.kynsof.scheduled.domain.dto.EBusinessStatus;
 import com.kynsof.scheduled.domain.exception.BusinessException;
 import com.kynsof.scheduled.domain.exception.DomainErrorMessage;
 import com.kynsof.scheduled.domain.service.IBusinessService;
+import com.kynsof.scheduled.infrastructure.config.redis.CacheConfig;
 import com.kynsof.scheduled.infrastructure.repository.command.BusinessWriteDataJPARepository;
 import com.kynsof.scheduled.infrastructure.entity.Business;
 import com.kynsof.scheduled.infrastructure.entity.specifications.BusinessSpecifications;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -88,6 +90,7 @@ public class BusinessServiceImpl implements IBusinessService {
         this.repositoryCommand.save(new Business(objectDelete));
     }
 
+    @Cacheable(cacheNames = CacheConfig.BUSINESS_CACHE, unless = "#result == null")
     @Override
     public BusinessDto findById(UUID id) {
         

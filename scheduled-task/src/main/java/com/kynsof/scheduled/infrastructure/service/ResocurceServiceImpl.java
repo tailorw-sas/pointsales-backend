@@ -7,6 +7,7 @@ import com.kynsof.scheduled.domain.dto.ResourceDto;
 import com.kynsof.scheduled.domain.exception.BusinessException;
 import com.kynsof.scheduled.domain.exception.DomainErrorMessage;
 import com.kynsof.scheduled.domain.service.IResourceService;
+import com.kynsof.scheduled.infrastructure.config.redis.CacheConfig;
 import com.kynsof.scheduled.infrastructure.repository.command.ResourceWriteDataJPARepository;
 import com.kynsof.scheduled.infrastructure.entity.Resource;
 import com.kynsof.scheduled.infrastructure.entity.specifications.ResourceSpecifications;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -88,6 +90,7 @@ public class ResocurceServiceImpl implements IResourceService {
         this.repositoryCommand.save(new Resource(objectDelete));
     }
 
+    @Cacheable(cacheNames = CacheConfig.QUALIFICATION_CACHE, unless = "#result == null")
     @Override
     public ResourceDto findById(UUID id) {
 

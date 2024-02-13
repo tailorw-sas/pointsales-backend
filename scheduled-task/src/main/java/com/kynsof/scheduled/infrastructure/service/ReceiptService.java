@@ -10,6 +10,7 @@ import com.kynsof.scheduled.domain.dto.ServiceDto;
 import com.kynsof.scheduled.domain.exception.BusinessException;
 import com.kynsof.scheduled.domain.exception.DomainErrorMessage;
 import com.kynsof.scheduled.domain.service.IReceiptService;
+import com.kynsof.scheduled.infrastructure.config.redis.CacheConfig;
 import com.kynsof.scheduled.infrastructure.repository.command.ReceiptWriteDataJPARepository;
 import com.kynsof.scheduled.infrastructure.entity.Receipt;
 import com.kynsof.scheduled.infrastructure.entity.Schedule;
@@ -23,6 +24,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -80,6 +82,7 @@ public class ReceiptService implements IReceiptService {
         this.changeState(_receipt, EStatusReceipt.CANCEL);
     }
 
+    @Cacheable(cacheNames = CacheConfig.QUALIFICATION_CACHE, unless = "#result == null")
     @Override
     public ReceiptDto findById(UUID id) {
         Optional<Receipt> object = this.receiptRepositoryQuery.findById(id);
