@@ -11,10 +11,12 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class PaginatedResponse implements IResponse {
+
     private List data;
     private Integer totalPages;
     private Integer totalElementsPage;
     private Long totalElements;
     private Integer size;
     private Integer page;
+
 }
