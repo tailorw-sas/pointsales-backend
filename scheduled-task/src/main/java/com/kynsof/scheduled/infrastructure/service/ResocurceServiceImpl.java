@@ -90,7 +90,7 @@ public class ResocurceServiceImpl implements IResourceService {
         this.repositoryCommand.save(new Resource(objectDelete));
     }
 
-    @Cacheable(cacheNames = CacheConfig.QUALIFICATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames = CacheConfig.RESOURCE_CACHE, unless = "#result == null")
     @Override
     public ResourceDto findById(UUID id) {
 
