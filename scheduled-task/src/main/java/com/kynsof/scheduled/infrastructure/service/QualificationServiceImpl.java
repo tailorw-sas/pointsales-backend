@@ -7,6 +7,7 @@ import com.kynsof.scheduled.domain.dto.QualificationDto;
 import com.kynsof.scheduled.domain.exception.BusinessException;
 import com.kynsof.scheduled.domain.exception.DomainErrorMessage;
 import com.kynsof.scheduled.domain.service.IQualificationService;
+import com.kynsof.scheduled.infrastructure.config.redis.CacheConfig;
 import com.kynsof.scheduled.infrastructure.repository.command.QualificationWriteDataJPARepository;
 import com.kynsof.scheduled.infrastructure.entity.Qualification;
 import com.kynsof.scheduled.infrastructure.entity.specifications.QualificationSpecifications;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -54,6 +56,7 @@ public class QualificationServiceImpl implements IQualificationService {
         this.repositoryCommand.save(new Qualification(objectDelete));
     }
 
+    @Cacheable(cacheNames = CacheConfig.QUALIFICATION_CACHE, unless = "#result == null")
     @Override
     public QualificationDto findById(UUID id) {
 
