@@ -95,7 +95,7 @@ public class ServiceServiceImpl implements IServiceService {
         this.repositoryCommand.save(new Services(objectDelete));
     }
 
-    @Cacheable(cacheNames = CacheConfig.QUALIFICATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames = CacheConfig.SERVICE_CACHE, unless = "#result == null")
     @Override
     public ServiceDto findById(UUID id) {
         

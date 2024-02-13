@@ -82,7 +82,7 @@ public class ReceiptService implements IReceiptService {
         this.changeState(_receipt, EStatusReceipt.CANCEL);
     }
 
-    @Cacheable(cacheNames = CacheConfig.QUALIFICATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames = CacheConfig.RECEIPT_CACHE, unless = "#result == null")
     @Override
     public ReceiptDto findById(UUID id) {
         Optional<Receipt> object = this.receiptRepositoryQuery.findById(id);

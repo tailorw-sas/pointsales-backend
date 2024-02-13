@@ -93,7 +93,7 @@ public class ScheduleServiceImpl {
         return !_schedulesStartTime.isEmpty();
     }
 
-    @Cacheable(cacheNames = CacheConfig.QUALIFICATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames = CacheConfig.SCHEDULE_CACHE, unless = "#result == null")
     public ScheduleDto findById(UUID id) {
 
         Optional<Schedule> object = this.repositoryQuery.findById(id);
