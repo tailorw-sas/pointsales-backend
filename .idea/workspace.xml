@@ -4,33 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="refactorizacion del micro de las citas">
-      <change afterPath="$PROJECT_DIR$/store/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/StoreApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/controller/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/CorsProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/JwtAuthenticationConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/OpenApiConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/kafka/Event.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/kafka/EventType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/kafka/KafkaConsumerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/kafka/KafkaProducerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/redis/CacheConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/redis/RedisConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store/src/test/java/com/kynsof/store/StoreApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Merge remote-tracking branch 'origin/dev' into dev">
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/patients/search/GetSearchPatientsQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/patients/search/GetSearchPatientsQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/request/FilterCriteria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/request/SearchRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/dinamic/GenericSpecification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/dinamic/GenericSpecificationsBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/dinamic/SearchCriteria.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/target/classes/com/kynsoft/resources/UsersResource.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IPatientsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IPatientsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +134,7 @@
     "git-widget-placeholder": "dev",
     "jdk.selected.JAVA_MODULE": "temurin-17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/store/src/main/java/com/kynsof/store/infrastructure",
+    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/patients/src/main/java/com/kynsof/patients/application/query/patients/search",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -171,11 +158,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/patients/search" />
       <recent name="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure" />
       <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/geographicLocation" />
       <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/config/redis" />
       <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/dependents" />
-      <recent name="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/query/procedure" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.kynsof.store.controller" />
@@ -414,39 +401,8 @@
       <workItem from="1706888844594" duration="71651000" />
       <workItem from="1707248675544" duration="31985000" />
       <workItem from="1707485683329" duration="21791000" />
-      <workItem from="1707595185156" duration="1016000" />
-    </task>
-    <task id="LOCAL-00009" summary="Se agrega el medietor">
-      <option name="closed" value="true" />
-      <created>1706740354536</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1706740354536</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Se agrega los otros campos a la entidad paciente">
-      <option name="closed" value="true" />
-      <created>1706812163701</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1706812163701</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Se agrega los otros campos a la entidad paciente">
-      <option name="closed" value="true" />
-      <created>1706817344025</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1706817344025</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Se agrega los otros campos a la entidad paciente">
-      <option name="closed" value="true" />
-      <created>1706817362791</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1706817362791</updated>
+      <workItem from="1707595185156" duration="2922000" />
+      <workItem from="1707753401036" duration="22706000" />
     </task>
     <task id="LOCAL-00013" summary="Se agrega los otros campos a la entidad paciente">
       <option name="closed" value="true" />
@@ -808,7 +764,39 @@
       <option name="project" value="LOCAL" />
       <updated>1707522890978</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="creacion del micro tienda">
+      <option name="closed" value="true" />
+      <created>1707596251395</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1707596251396</updated>
+    </task>
+    <task id="LOCAL-00059" summary="creacion del micro tienda">
+      <option name="closed" value="true" />
+      <created>1707596286244</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1707596286244</updated>
+    </task>
+    <task id="LOCAL-00060" summary="se arreglan temas relacionado con la creacion de usuarios">
+      <option name="closed" value="true" />
+      <created>1707843602708</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1707843602709</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Merge remote-tracking branch 'origin/dev' into dev">
+      <option name="closed" value="true" />
+      <created>1707843620410</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1707843620410</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -836,21 +824,14 @@
     <MESSAGE value="Redis" />
     <MESSAGE value="Se agregan las localidades" />
     <MESSAGE value="refactorizacion del micro de las citas" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactorizacion del micro de las citas" />
+    <MESSAGE value="creacion del micro tienda" />
+    <MESSAGE value="se arreglan temas relacionado con la creacion de usuarios" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/dev' into dev" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/dev' into dev" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/service/kafka/CreateUserEventService.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/service/kafka/CustomerService.java</url>
-          <line>17</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/patients/getall/GetAllPatientsQueryHandler.java</url>
           <line>18</line>
@@ -858,12 +839,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java</url>
-          <line>79</line>
+          <line>90</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java</url>
-          <line>81</line>
+          <line>92</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -878,7 +859,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java</url>
-          <line>126</line>
+          <line>141</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -922,19 +903,24 @@
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/repositories/kafka/CreateUserEventService.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="67" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/kafka/CreateUserEventService.java</url>
           <line>22</line>
           <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java</url>
-          <line>103</line>
+          <line>104</line>
           <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/resources/TestResource.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/service/impl/KeycloakServiceImpl.java</url>
+          <line>174</line>
+          <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/resources/ServiceDiscoveryResource.java</url>

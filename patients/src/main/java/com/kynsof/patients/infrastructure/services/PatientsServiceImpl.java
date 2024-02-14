@@ -5,21 +5,22 @@ import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
+import com.kynsof.patients.domain.dto.request.FilterCriteria;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.config.redis.CacheConfig;
 import com.kynsof.patients.infrastructure.entity.Insurance;
+import com.kynsof.patients.infrastructure.entity.specifications.dinamic.GenericSpecificationsBuilder;
+import com.kynsof.patients.infrastructure.entity.specifications.dinamic.SearchCriteria;
 import com.kynsof.patients.infrastructure.repositories.command.PatientsWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.patients.infrastructure.entity.specifications.PatientsSpecifications;
 import com.kynsof.patients.infrastructure.repositories.query.InsuranceReadDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.PatientsReadDataJPARepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,10 +111,24 @@ public class PatientsServiceImpl implements IPatientsService {
     }
 
     @Override
-    public PaginatedResponse findAll(Pageable pageable, UUID idPatients, String identification, UUID primeId) {
-        PatientsSpecifications specifications = new PatientsSpecifications(idPatients, identification, primeId);
+    public PaginatedResponse findAll(Pageable pageable) {
+        Page<Patients> data = this.repositoryQuery.findAll(pageable);
+        return getPaginatedResponse(data);
+    }
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+
+        List<SearchCriteria> criteriaList = filterCriteria.stream()
+                .map(filterCriteriaItem -> new SearchCriteria(filterCriteriaItem.getKey(), filterCriteriaItem.getOperator(), filterCriteriaItem.getValue()))
+                .collect(Collectors.toList());
+        GenericSpecificationsBuilder<Patients> specifications = new GenericSpecificationsBuilder<>(criteriaList);
         Page<Patients> data = this.repositoryQuery.findAll(specifications, pageable);
 
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<Patients> data) {
         List<PatientsResponse> patients = new ArrayList<>();
         for (Patients p : data.getContent()) {
             patients.add(new PatientsResponse(p.toAggregate()));

@@ -18,6 +18,6 @@ public class GetAllPatientsQueryHandler implements IQueryHandler<GetAllPatientsF
     @Override
     public PaginatedResponse handle(GetAllPatientsFilterQuery query) {
 
-        return this.serviceImpl.findAll(query.getPageable(), query.getIdPatients(), query.getIdentification(), query.getPrimeId());
+        return this.serviceImpl.findAll(query.getPageable());
     }
 }

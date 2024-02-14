@@ -12,12 +12,14 @@ import com.kynsof.patients.application.command.patients.update.UpdatePatientMess
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsCommand;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsRequest;
 import com.kynsof.patients.application.query.patients.getall.GetAllPatientsFilterQuery;
+import com.kynsof.patients.application.query.patients.search.GetSearchPatientsQuery;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import java.util.UUID;
 import com.kynsof.patients.application.query.patients.getById.FindPatientsByIdQuery;
 
 import com.kynsof.patients.domain.bus.IMediator;
+import com.kynsof.patients.domain.dto.request.SearchRequest;
 import com.kynsof.patients.infrastructure.config.redis.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
@@ -63,6 +65,15 @@ public class PatientsController {
         GetAllPatientsFilterQuery query = new GetAllPatientsFilterQuery(pageable, patientId, identification,primeId);
         PaginatedResponse data = mediator.send(query);
 
+        return ResponseEntity.ok(data);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchPatientsQuery query = new GetSearchPatientsQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
     @GetMapping(path = "/{id}")
