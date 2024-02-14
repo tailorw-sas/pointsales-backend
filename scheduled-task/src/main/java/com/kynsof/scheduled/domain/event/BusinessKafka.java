@@ -6,12 +6,10 @@ import java.io.Serializable;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class BusinessKafka implements Serializable {
     private UUID id;
@@ -19,6 +17,9 @@ public class BusinessKafka implements Serializable {
     private String description;
     private String ruc;
     private EBusinessStatus status;
+
+    public BusinessKafka() {
+    }
 
     public BusinessKafka(BusinessDto entity) {
         this.id = entity.getId();

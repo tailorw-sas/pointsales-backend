@@ -19,7 +19,7 @@ public class KafkaConsumerConfig {
     @Bean
     public DefaultKafkaConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
-        String bootstrapAddress = "localhost:29092";
+        String bootstrapAddress = "localhost:9092";
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         String groupId = "group-id";
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
@@ -28,7 +28,6 @@ public class KafkaConsumerConfig {
 
         return new DefaultKafkaConsumerFactory<>(props);
     }
-
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
