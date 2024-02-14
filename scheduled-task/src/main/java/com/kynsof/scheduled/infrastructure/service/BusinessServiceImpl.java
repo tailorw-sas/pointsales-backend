@@ -12,6 +12,7 @@ import com.kynsof.scheduled.infrastructure.repository.command.BusinessWriteDataJ
 import com.kynsof.scheduled.infrastructure.entity.Business;
 import com.kynsof.scheduled.infrastructure.entity.specifications.BusinessSpecifications;
 import com.kynsof.scheduled.infrastructure.repository.query.BusinessReadDataJPARepository;
+import com.kynsof.scheduled.infrastructure.service.kafka.BusinessEventService;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -27,12 +28,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class BusinessServiceImpl implements IBusinessService {
 
-    
     @Autowired
     private BusinessWriteDataJPARepository repositoryCommand;
 
     @Autowired
     private BusinessReadDataJPARepository repositoryQuery;
+
+    @Autowired
+    BusinessEventService businessEventService;
 
     @Override
     public void create(BusinessDto object) {
@@ -43,6 +46,7 @@ public class BusinessServiceImpl implements IBusinessService {
         object.setCreateAt(localDateTime);
 
         this.repositoryCommand.save(new Business(object));
+        businessEventService.create(object);
     }
 
     @Override
@@ -79,7 +83,7 @@ public class BusinessServiceImpl implements IBusinessService {
 
     @Override
     public void delete(UUID id) {
-    
+
         BusinessDto objectDelete = this.findById(id);
         objectDelete.setStatus(EBusinessStatus.INACTIVE);
 
@@ -93,7 +97,7 @@ public class BusinessServiceImpl implements IBusinessService {
     @Cacheable(cacheNames = CacheConfig.BUSINESS_CACHE, unless = "#result == null")
     @Override
     public BusinessDto findById(UUID id) {
-        
+
         Optional<Business> object = this.repositoryQuery.findById(id);
         if (object.isPresent()) {
             return object.get().toAggregate();
@@ -115,5 +119,5 @@ public class BusinessServiceImpl implements IBusinessService {
         return new PaginatedResponse(objects, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
-    
+
 }

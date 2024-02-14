@@ -11,17 +11,24 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
 public class KafkaProducerConfig {
 
+    @Value("${kafka.bootstrap.address:localhost}")
+    private String bootstrapAddress;
+
+    @Value("${kafka.bootstrap.port:9092}")
+    private String port;
+
     @Bean
     public ProducerFactory<String, String> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
-        String bootstrapAddress = "localhost:29092";
+        //String bootstrapAddress = "localhost:29092";
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                bootstrapAddress);
+                bootstrapAddress + ":" + port);
         configProps.put(
                 ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);
