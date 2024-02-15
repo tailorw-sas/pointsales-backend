@@ -1,6 +1,6 @@
 package com.kynsof.scheduled.application.query.resource.getAll;
 
-import com.kynsof.scheduled.infrastructure.config.bus.query.IQuery;
+import com.kynsof.share.core.domain.bus.query.IQuery;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

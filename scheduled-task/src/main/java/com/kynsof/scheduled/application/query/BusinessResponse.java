@@ -2,7 +2,7 @@ package com.kynsof.scheduled.application.query;
 
 import com.kynsof.scheduled.domain.dto.BusinessDto;
 import com.kynsof.scheduled.domain.dto.EBusinessStatus;
-import com.kynsof.scheduled.infrastructure.config.bus.query.IResponse;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,8 @@
 package com.kynsof.scheduled.application.command.qualification.update;
 
 import com.kynsof.scheduled.domain.dto.EQualificationStatus;
-import com.kynsof.scheduled.infrastructure.config.bus.command.ICommand;
-import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandMessage;
+import com.kynsof.share.core.domain.bus.command.ICommand;
+import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 import lombok.Setter;
 

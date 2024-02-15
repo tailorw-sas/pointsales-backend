@@ -1,7 +1,7 @@
 package com.kynsof.scheduled.application.command.qualification.delete;
 
 import com.kynsof.scheduled.domain.service.IQualificationService;
-import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
 @Component

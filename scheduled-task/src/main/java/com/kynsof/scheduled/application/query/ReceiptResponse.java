@@ -5,7 +5,7 @@ import com.kynsof.scheduled.domain.dto.PatientDto;
 import com.kynsof.scheduled.domain.dto.ReceiptDto;
 import com.kynsof.scheduled.domain.dto.ScheduleDto;
 import com.kynsof.scheduled.domain.dto.ServiceDto;
-import com.kynsof.scheduled.infrastructure.config.bus.query.IResponse;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

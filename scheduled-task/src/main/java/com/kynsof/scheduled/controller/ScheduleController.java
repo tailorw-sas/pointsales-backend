@@ -17,8 +17,8 @@ import com.kynsof.scheduled.application.query.ScheduleResponse;
 import com.kynsof.scheduled.application.query.schedule.getAll.FindScheduleWithFilterQuery;
 import com.kynsof.scheduled.application.query.schedule.getbyid.FindScheduleByIdQuery;
 import com.kynsof.scheduled.domain.dto.EStatusSchedule;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 
-import com.kynsof.scheduled.infrastructure.config.bus.IMediator;
 import java.time.LocalDate;
 import java.util.UUID;
 import org.springframework.data.domain.PageRequest;

@@ -1,7 +1,7 @@
 package com.kynsof.scheduled.domain.dto;
 
 import com.kynsof.scheduled.domain.dto.enumType.GeographicLocationType;
-import com.kynsof.scheduled.infrastructure.config.bus.query.IResponse;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

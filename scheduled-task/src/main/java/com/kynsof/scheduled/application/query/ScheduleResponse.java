@@ -1,7 +1,8 @@
 package com.kynsof.scheduled.application.query;
 
-import com.kynsof.scheduled.domain.dto.*;
-import com.kynsof.scheduled.infrastructure.config.bus.query.IResponse;
+import com.kynsof.scheduled.domain.dto.EStatusSchedule;
+import com.kynsof.scheduled.domain.dto.ScheduleDto;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;

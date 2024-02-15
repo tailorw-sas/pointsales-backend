@@ -13,8 +13,8 @@ import com.kynsof.scheduled.application.command.business.update.UpdateBusinessRe
 import com.kynsof.scheduled.application.query.BusinessResponse;
 import com.kynsof.scheduled.application.query.business.getAll.FindBusinessWithFilterQuery;
 import com.kynsof.scheduled.application.query.business.getbyid.FindBusinessByIdQuery;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 
-import com.kynsof.scheduled.infrastructure.config.bus.IMediator;
 import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

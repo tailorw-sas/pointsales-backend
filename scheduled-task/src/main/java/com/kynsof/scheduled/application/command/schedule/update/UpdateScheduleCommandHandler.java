@@ -4,7 +4,7 @@ import com.kynsof.scheduled.domain.dto.ResourceDto;
 import com.kynsof.scheduled.domain.dto.ScheduleDto;
 import com.kynsof.scheduled.domain.service.IResourceService;
 import com.kynsof.scheduled.domain.service.IScheduleService;
-import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
 @Component

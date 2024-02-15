@@ -3,7 +3,7 @@ package com.kynsof.scheduled.application.query.schedule.getbyid;
 import com.kynsof.scheduled.application.query.ScheduleResponse;
 import com.kynsof.scheduled.domain.dto.ScheduleDto;
 import com.kynsof.scheduled.domain.service.IScheduleService;
-import com.kynsof.scheduled.infrastructure.config.bus.query.IQueryHandler;
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
 @Component

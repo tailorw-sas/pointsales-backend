@@ -1,7 +1,7 @@
 package com.kynsof.scheduled.application.command.receipt.delete;
 
-import com.kynsof.scheduled.infrastructure.config.bus.command.ICommand;
-import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandMessage;
+import com.kynsof.share.core.domain.bus.command.ICommand;
+import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

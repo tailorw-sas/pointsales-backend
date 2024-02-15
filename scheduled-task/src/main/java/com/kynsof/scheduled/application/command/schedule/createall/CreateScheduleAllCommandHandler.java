@@ -7,7 +7,7 @@ import com.kynsof.scheduled.domain.dto.ScheduleDto;
 import com.kynsof.scheduled.domain.service.IBusinessService;
 import com.kynsof.scheduled.domain.service.IResourceService;
 import com.kynsof.scheduled.domain.service.IScheduleService;
-import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.scheduled.infrastructure.service.BusinessServiceImpl;
 import com.kynsof.scheduled.infrastructure.service.ResocurceServiceImpl;
 import com.kynsof.scheduled.infrastructure.service.ScheduleServiceImpl;

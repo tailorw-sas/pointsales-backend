@@ -14,6 +14,7 @@ public class ConsumerBusinessEventService {
 
     @KafkaListener(topics = "business")
     public void consumer(String event) {
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);

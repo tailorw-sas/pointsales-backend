@@ -1,7 +1,7 @@
 package com.kynsof.scheduled.application.query.receipt.getAll;
 
 import com.kynsof.scheduled.domain.dto.EStatusReceipt;
-import com.kynsof.scheduled.infrastructure.config.bus.query.IQuery;
+import com.kynsof.share.core.domain.bus.query.IQuery;
 import java.time.LocalDate;
 import java.util.UUID;
 import lombok.AllArgsConstructor;

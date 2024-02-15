@@ -1,6 +1,6 @@
 package com.kynsof.scheduled.application.command.qualification.delete;
 
-import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandMessage;
+import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 
 import java.util.UUID;

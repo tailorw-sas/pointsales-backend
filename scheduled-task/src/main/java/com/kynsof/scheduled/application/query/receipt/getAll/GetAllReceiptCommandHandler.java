@@ -2,7 +2,7 @@ package com.kynsof.scheduled.application.query.receipt.getAll;
 
 import com.kynsof.scheduled.application.PaginatedResponse;
 import com.kynsof.scheduled.domain.service.IReceiptService;
-import com.kynsof.scheduled.infrastructure.config.bus.query.IQueryHandler;
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
 @Component

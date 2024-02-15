@@ -12,8 +12,8 @@ import com.kynsof.scheduled.application.command.resource.update.UpdateResourceRe
 import com.kynsof.scheduled.application.query.ResourceResponse;
 import com.kynsof.scheduled.application.query.resource.getAll.FindResourceWithFilterQuery;
 import com.kynsof.scheduled.application.query.resource.getbyid.FindResourceByIdQuery;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 
-import com.kynsof.scheduled.infrastructure.config.bus.IMediator;
 import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

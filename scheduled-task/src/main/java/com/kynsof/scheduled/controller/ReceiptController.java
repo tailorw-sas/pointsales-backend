@@ -10,8 +10,8 @@ import com.kynsof.scheduled.application.query.ReceiptResponse;
 import com.kynsof.scheduled.application.query.receipt.getAll.FindReceiptWithFilterQuery;
 import com.kynsof.scheduled.application.query.receipt.getbyid.FindReceiptByIdQuery;
 import com.kynsof.scheduled.domain.dto.EStatusReceipt;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 
-import com.kynsof.scheduled.infrastructure.config.bus.IMediator;
 import java.time.LocalDate;
 import java.util.UUID;
 import org.springframework.data.domain.PageRequest;

@@ -1,6 +1,5 @@
 package com.kynsof.scheduled.controller;
 
-
 import com.kynsof.scheduled.application.PaginatedResponse;
 import com.kynsof.scheduled.application.command.qualification.create.CreateQualificationCommand;
 import com.kynsof.scheduled.application.command.qualification.create.CreateQualificationMessage;
@@ -13,8 +12,8 @@ import com.kynsof.scheduled.application.command.qualification.update.UpdateQuali
 import com.kynsof.scheduled.application.query.QualificationResponse;
 import com.kynsof.scheduled.application.query.qualification.getAll.FindQualificationWithFilterQuery;
 import com.kynsof.scheduled.application.query.qualification.getbyid.FindQualificationByIdQuery;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 
-import com.kynsof.scheduled.infrastructure.config.bus.IMediator;
 import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

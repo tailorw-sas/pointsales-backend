@@ -3,7 +3,7 @@ package com.kynsof.scheduled.application.query.qualification.getbyid;
 import com.kynsof.scheduled.application.query.QualificationResponse;
 import com.kynsof.scheduled.domain.dto.QualificationDto;
 import com.kynsof.scheduled.domain.service.IQualificationService;
-import com.kynsof.scheduled.infrastructure.config.bus.query.IQueryHandler;
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
 @Component
