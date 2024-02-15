@@ -1,22 +1,22 @@
 package com.kynsof.scheduled.application.command.service.update;
 
 import com.kynsof.scheduled.domain.dto.ServiceDto;
+import com.kynsof.scheduled.domain.service.IServiceService;
 import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandHandler;
-import com.kynsof.scheduled.infrastructure.service.ServiceServiceImpl;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateServiceCommandHandler  implements ICommandHandler<UpdateServiceCommand> {
 
-    private final ServiceServiceImpl serviceImpl;
+    private final IServiceService service;
 
-    public UpdateServiceCommandHandler(ServiceServiceImpl serviceImpl) {
-        this.serviceImpl = serviceImpl;
+    public UpdateServiceCommandHandler(IServiceService service) {
+        this.service = service;
     }
 
     @Override
     public void handle(UpdateServiceCommand command) {
-       serviceImpl.update(new ServiceDto(
+       service.update(new ServiceDto(
                command.getId(), 
                command.getType(), 
                command.getPicture(), 

@@ -1,22 +1,22 @@
 package com.kynsof.scheduled.application.command.qualification.create;
 
 import com.kynsof.scheduled.domain.dto.QualificationDto;
+import com.kynsof.scheduled.domain.service.IQualificationService;
 import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandHandler;
-import com.kynsof.scheduled.infrastructure.service.QualificationServiceImpl;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CreateQualificationCommandHandler  implements ICommandHandler<CreateQualificationCommand> {
 
-    private final QualificationServiceImpl serviceImpl;
+    private final IQualificationService service;
 
-    public CreateQualificationCommandHandler(QualificationServiceImpl serviceImpl) {
-        this.serviceImpl = serviceImpl;
+    public CreateQualificationCommandHandler(IQualificationService service) {
+        this.service = service;
     }
 
     @Override
     public void handle(CreateQualificationCommand command) {
-       serviceImpl.create(new QualificationDto(
+       service.create(new QualificationDto(
                 command.getId(),
                 command.getDescription()
         ));

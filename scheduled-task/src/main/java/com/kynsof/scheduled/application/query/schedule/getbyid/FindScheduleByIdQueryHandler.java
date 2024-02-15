@@ -2,22 +2,22 @@ package com.kynsof.scheduled.application.query.schedule.getbyid;
 
 import com.kynsof.scheduled.application.query.ScheduleResponse;
 import com.kynsof.scheduled.domain.dto.ScheduleDto;
+import com.kynsof.scheduled.domain.service.IScheduleService;
 import com.kynsof.scheduled.infrastructure.config.bus.query.IQueryHandler;
-import com.kynsof.scheduled.infrastructure.service.ScheduleServiceImpl;
 import org.springframework.stereotype.Component;
 
 @Component
 public class FindScheduleByIdQueryHandler implements IQueryHandler<FindScheduleByIdQuery, ScheduleResponse>  {
 
-    private final ScheduleServiceImpl serviceImpl;
+    private final IScheduleService service;
 
-    public FindScheduleByIdQueryHandler(ScheduleServiceImpl serviceImpl) {
-        this.serviceImpl = serviceImpl;
+    public FindScheduleByIdQueryHandler(IScheduleService service) {
+        this.service = service;
     }
 
     @Override
     public ScheduleResponse handle(FindScheduleByIdQuery query) {
-        ScheduleDto response = serviceImpl.findById(query.getId());
+        ScheduleDto response = service.findById(query.getId());
 
         return new ScheduleResponse(response);
     }

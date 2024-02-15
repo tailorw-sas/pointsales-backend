@@ -1,22 +1,22 @@
 package com.kynsof.scheduled.application.command.schedule.delete;
 
+import com.kynsof.scheduled.domain.service.IScheduleService;
 import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandHandler;
-import com.kynsof.scheduled.infrastructure.service.ScheduleServiceImpl;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DeleteScheduleCommandHandler implements ICommandHandler<ScheduleDeleteCommand> {
 
-    private final ScheduleServiceImpl serviceImpl;
+    private final IScheduleService service;
 
-    public DeleteScheduleCommandHandler(ScheduleServiceImpl serviceImpl) {
-        this.serviceImpl = serviceImpl;
+    public DeleteScheduleCommandHandler(IScheduleService service) {
+        this.service = service;
     }
 
     @Override
     public void handle(ScheduleDeleteCommand command) {
 
-        serviceImpl.delete(command.getId());
+        service.delete(command.getId());
     }
 
 }

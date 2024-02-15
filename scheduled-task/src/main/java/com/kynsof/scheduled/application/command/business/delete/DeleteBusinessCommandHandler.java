@@ -1,22 +1,22 @@
 package com.kynsof.scheduled.application.command.business.delete;
 
+import com.kynsof.scheduled.domain.service.IBusinessService;
 import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandHandler;
-import com.kynsof.scheduled.infrastructure.service.BusinessServiceImpl;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DeleteBusinessCommandHandler implements ICommandHandler<BusinessDeleteCommand> {
 
-    private final BusinessServiceImpl serviceImpl;
+    private final IBusinessService service;
 
-    public DeleteBusinessCommandHandler(BusinessServiceImpl serviceImpl) {
-        this.serviceImpl = serviceImpl;
+    public DeleteBusinessCommandHandler(IBusinessService service) {
+        this.service = service;
     }
 
     @Override
     public void handle(BusinessDeleteCommand command) {
 
-        serviceImpl.delete(command.getId());
+        service.delete(command.getId());
     }
 
 }

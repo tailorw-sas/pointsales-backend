@@ -7,6 +7,7 @@ import com.kynsof.scheduled.domain.dto.ResourceDto;
 import com.kynsof.scheduled.domain.dto.ScheduleDto;
 import com.kynsof.scheduled.domain.exception.BusinessException;
 import com.kynsof.scheduled.domain.exception.DomainErrorMessage;
+import com.kynsof.scheduled.domain.service.IScheduleService;
 import com.kynsof.scheduled.infrastructure.config.redis.CacheConfig;
 import com.kynsof.scheduled.infrastructure.repository.command.ScheduleWriteDataJPARepository;
 import com.kynsof.scheduled.infrastructure.entity.Resource;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 import org.springframework.cache.annotation.Cacheable;
 
 @Service
-public class ScheduleServiceImpl {
+public class ScheduleServiceImpl implements IScheduleService {
 
     @Autowired
     private ScheduleReadDataJPARepository repositoryQuery;
@@ -37,10 +38,12 @@ public class ScheduleServiceImpl {
     @Autowired
     private ScheduleWriteDataJPARepository repositoryCommand;
 
+    @Override
     public Page<Schedule> getAll(Pageable pageable) {
         return repositoryQuery.findAll(pageable);
     }
 
+    @Override
     public PaginatedResponse findAll(Pageable pageable, UUID resource, LocalDate date, EStatusSchedule status, LocalDate startDate, LocalDate endDate) {
         ScheduleSpecifications spec = new ScheduleSpecifications(resource, startDate, endDate, date, status);
         Page<Schedule> data = this.repositoryQuery.findAll(spec, pageable);
@@ -54,27 +57,33 @@ public class ScheduleServiceImpl {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    @Override
     public List<Schedule> getAllScheduleForResource(UUID id) {
         return repositoryQuery.findByResourceId(id);
     }
 
+    @Override
     public List<Schedule> getAllScheduleForResourceAndStatus(UUID id, EStatusSchedule status) {
         return repositoryQuery.findByResourceIdAndStatus(id, status);
     }
 
+    @Override
     public List<Schedule> findByResourceIdAndDateAndStatus(UUID id, LocalDate date) {
         return repositoryQuery.findByResourceIdAndDateAndStatus(id, date, EStatusSchedule.ACTIVE);
     }
 
+    @Override
     public List<Schedule> findActiveSchedulesAfterDateAndTime(LocalDate date, LocalTime time) {
         return this.repositoryQuery.findActiveSchedulesAfterDateAndTime(date, time);
     }
 
+    @Override
     public boolean findByResourceAndDateAndStartTimeAndEndingTime(Resource resource, LocalDate date, LocalTime startTime, LocalTime endingTime) {
         Schedule _schedule = this.repositoryQuery.findByResourceAndDateAndStartTimeAndEndingTimeAndStatus(resource, date, startTime, endingTime, EStatusSchedule.ACTIVE);
         return _schedule != null;
     }
 
+    @Override
     public boolean findByDateAndTimeInRange(Resource resource, LocalDate date, LocalTime startTime, LocalTime endingTime) {
         List<Schedule> _schedulesStartTime = this.repositoryQuery.findByDateAndTimeInRange(resource, date, startTime);
         if (!_schedulesStartTime.isEmpty() && _schedulesStartTime.get(0).getEndingTime().equals(startTime)) {
@@ -87,6 +96,7 @@ public class ScheduleServiceImpl {
         return !_schedulesStartTime.isEmpty() || !_schedulesEndingTime.isEmpty();
     }
 
+    @Override
     public boolean findByDateAndTimeInRangeAndStartTimeAndEndingTime(Resource resource, LocalDate date, LocalTime startTime, LocalTime endingTime) {
         List<Schedule> _schedulesStartTime = this.repositoryQuery.findByDateAndTimeInRangeAndStartTimeAndEndingTime(resource, date, startTime, endingTime);
 
@@ -94,6 +104,7 @@ public class ScheduleServiceImpl {
     }
 
     @Cacheable(cacheNames = CacheConfig.SCHEDULE_CACHE, unless = "#result == null")
+    @Override
     public ScheduleDto findById(UUID id) {
 
         Optional<Schedule> object = this.repositoryQuery.findById(id);
@@ -104,10 +115,12 @@ public class ScheduleServiceImpl {
         throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Schedule not found.");
     }
 
+    @Override
     public List<Schedule> findByDateAndEndingTimeAndStatus(LocalDate date, LocalTime endingTime) {
         return this.repositoryQuery.findByDateAndEndingTimeAndStatus(date, endingTime);
     }
 
+    @Override
     public void delete(UUID id) {
         ScheduleDto _schedule = this.findById(id);
 
@@ -115,11 +128,13 @@ public class ScheduleServiceImpl {
         repositoryCommand.save(new Schedule(_schedule));
     }
 
+    @Override
     public void delete(Schedule schedule) {
         schedule.setStatus(EStatusSchedule.INACTIVE);
         repositoryCommand.save(schedule);
     }
 
+    @Override
     public Schedule create(ScheduleDto schedule) {
 
         schedule.setStatus(EStatusSchedule.ACTIVE);
@@ -128,6 +143,7 @@ public class ScheduleServiceImpl {
         return _schedule;
     }
 
+    @Override
     public Schedule changeStatus(Schedule schedule, EStatusSchedule status) {
 
         schedule.setStatus(status);
@@ -136,11 +152,13 @@ public class ScheduleServiceImpl {
         return _schedule;
     }
 
+    @Override
     public void createAll(List<ScheduleDto> schedule) {
 
         repositoryCommand.saveAll(schedule.stream().map(Schedule::new).collect(Collectors.toList()));
     }
 
+    @Override
     public ScheduleDto update(ScheduleDto schedule) {
         ScheduleDto _schedule = this.findById(schedule.getId());
             if (!schedule.getDate().equals(_schedule.getDate())) {
@@ -193,6 +211,7 @@ public class ScheduleServiceImpl {
      * @param condition
      * @return
      */
+    @Override
     public boolean validateDate(LocalDate validateDate, String condition) {
         LocalDate currentDate = LocalDate.now();
         switch (condition) {
@@ -218,6 +237,7 @@ public class ScheduleServiceImpl {
      * @param condition
      * @return
      */
+    @Override
     public boolean validateStartTime(LocalTime validateTime, LocalDate validateDate, String condition) {
         LocalTime currentTime = LocalTime.now();
         LocalDate currentDate = LocalDate.now();
@@ -241,6 +261,7 @@ public class ScheduleServiceImpl {
      * @param endingTime
      * @return
      */
+    @Override
     public boolean validateStartTimeAndEndingTime(LocalTime startTime, LocalTime endingTime) {
 
         return startTime.isBefore(endingTime);
@@ -253,11 +274,13 @@ public class ScheduleServiceImpl {
      * @param endingTime
      * @return
      */
+    @Override
     public boolean validateStartTimeAndEndingTimeEqual(LocalTime startTime, LocalTime endingTime) {
 
         return startTime.equals(endingTime);
     }
 
+    @Override
     public List<LocalDate> getBusinessDays(LocalDate startDate, LocalDate endDate) {
         return startDate.datesUntil(endDate)
                 .filter(d -> !d.getDayOfWeek().equals(DayOfWeek.SATURDAY))
@@ -265,6 +288,7 @@ public class ScheduleServiceImpl {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public void validate(ResourceDto resource, LocalDate validateDate, LocalTime startTime, LocalTime endingTime) {
         if (this.validateStartTimeAndEndingTimeEqual(startTime, endingTime)) {
             throw new BusinessException(DomainErrorMessage.SCHEDULE_CANNOT_BE_EQUALS_STARTTIME_ENDTIME, "The start time and end time cannot be equal.");

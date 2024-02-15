@@ -1,22 +1,22 @@
 package com.kynsof.scheduled.application.command.resource.delete;
 
+import com.kynsof.scheduled.domain.service.IResourceService;
 import com.kynsof.scheduled.infrastructure.config.bus.command.ICommandHandler;
-import com.kynsof.scheduled.infrastructure.service.ResocurceServiceImpl;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DeleteResourceCommandHandler implements ICommandHandler<ResourceDeleteCommand> {
 
-    private final ResocurceServiceImpl serviceImpl;
+    private final IResourceService service;
 
-    public DeleteResourceCommandHandler(ResocurceServiceImpl serviceImpl) {
-        this.serviceImpl = serviceImpl;
+    public DeleteResourceCommandHandler(IResourceService service) {
+        this.service = service;
     }
 
     @Override
     public void handle(ResourceDeleteCommand command) {
 
-        serviceImpl.delete(command.getId());
+        service.delete(command.getId());
     }
 
 }
