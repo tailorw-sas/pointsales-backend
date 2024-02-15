@@ -4,8 +4,8 @@ package com.kynsof.patients.infrastructure.services;
 import com.kynsof.patients.application.query.geographicLocation.getall.GeographicLocationResponse;
 import com.kynsof.patients.domain.dto.GeographicLocationDto;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
-import com.kynsof.patients.domain.exception.BusinessException;
-import com.kynsof.patients.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.infrastructure.entity.GeographicLocation;
 import com.kynsof.patients.infrastructure.entity.specifications.GeographicLocationSpecifications;
@@ -33,7 +33,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
         if (location.isPresent()) {
             return location.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Location Information not found.");
+        throw new BusinessException(DomainErrorMessage.CITIZEN_MARITAL_STATUS_REQUIRED, "Location Information not found.");
     }
 
     @Override

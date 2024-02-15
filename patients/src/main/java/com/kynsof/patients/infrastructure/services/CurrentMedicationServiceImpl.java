@@ -3,8 +3,8 @@ import com.kynsof.patients.application.query.currentMedication.getall.CurrentMed
 import com.kynsof.patients.domain.dto.CurrentMerdicationEntityDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
-import com.kynsof.patients.domain.exception.BusinessException;
-import com.kynsof.patients.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.ICurrentMedicationService;
 import com.kynsof.patients.infrastructure.entity.CurrentMedication;
 import com.kynsof.patients.infrastructure.entity.specifications.CurrentMedicationSpecifications;
@@ -52,7 +52,7 @@ public class CurrentMedicationServiceImpl implements ICurrentMedicationService {
         if (currenMedication.isPresent()) {
             return currenMedication.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Contact Information not found.");
+        throw new BusinessException(DomainErrorMessage.ACCESS_CODE_REQUIRED, "Contact Information not found.");
     }
 
     @Override

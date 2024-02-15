@@ -5,8 +5,8 @@ import com.kynsof.patients.application.query.allergy.getall.AllergyResponse;
 import com.kynsof.patients.domain.dto.AllergyEntityDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
-import com.kynsof.patients.domain.exception.BusinessException;
-import com.kynsof.patients.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IAllergyService;
 import com.kynsof.patients.infrastructure.entity.Allergy;
 import com.kynsof.patients.infrastructure.entity.specifications.AllergySpecifications;
@@ -53,7 +53,7 @@ public class AllergyServiceImpl implements IAllergyService {
         if (contactInformation.isPresent()) {
             return contactInformation.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Contact Information not found.");
+        throw new BusinessException(DomainErrorMessage.ACCESS_CODE_REQUIRED, "Contact Information not found.");
     }
 
     @Override

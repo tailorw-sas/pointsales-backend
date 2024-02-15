@@ -4,8 +4,8 @@ import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.dto.MedicalInformationDto;
 import com.kynsof.patients.domain.dto.MedicalInformationUpdateDto;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
-import com.kynsof.patients.domain.exception.BusinessException;
-import com.kynsof.patients.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IMedicalInformationService;
 import com.kynsof.patients.infrastructure.entity.MedicalInformation;
 import com.kynsof.patients.infrastructure.entity.specifications.MedicalInformationSpecifications;
@@ -38,7 +38,7 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
             return medicalInformation.getId();
         }catch (Exception e){
             String message = e.getMessage();
-            throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Medical Information not found.");
+            throw new BusinessException(DomainErrorMessage.ACCESS_CODE_REQUIRED, "Medical Information not found.");
         }
     }
 
@@ -76,7 +76,7 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
         if (medicalInformation.isPresent()) {
             return medicalInformation.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Medical Information not found.");
+        throw new BusinessException(DomainErrorMessage.ACCESS_CODE_REQUIRED, "Medical Information not found.");
     }
 
     @Override

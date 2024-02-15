@@ -6,8 +6,8 @@ import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.share.core.domain.request.FilterCriteria;
-import com.kynsof.patients.domain.exception.BusinessException;
-import com.kynsof.patients.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.config.redis.CacheConfig;
 import com.kynsof.patients.infrastructure.entity.Insurance;
@@ -106,7 +106,7 @@ public class PatientsServiceImpl implements IPatientsService {
             return patient.get().toAggregate();
         }
         //throw new RuntimeException("Patients not found.");
-        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Patients not found.");
+        throw new BusinessException(DomainErrorMessage.ACCESS_CODE_REQUIRED, "Patients not found.");
     }
 
     @Override
