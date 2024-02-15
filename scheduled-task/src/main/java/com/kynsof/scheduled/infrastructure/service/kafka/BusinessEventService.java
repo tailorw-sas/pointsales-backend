@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.scheduled.domain.dto.BusinessDto;
 import com.kynsof.scheduled.domain.event.BusinessKafka;
+import com.kynsof.scheduled.domain.event.CreateEvent;
+import com.kynsof.scheduled.infrastructure.config.kafka.EventType;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -23,7 +25,7 @@ public class BusinessEventService {
             BusinessKafka event = new BusinessKafka(entity);
 
             ObjectMapper objectMapper = new ObjectMapper();
-            String json = objectMapper.writeValueAsString(event);
+            String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
 
             this.producer.send("business", json);
         } catch (JsonProcessingException ex) {

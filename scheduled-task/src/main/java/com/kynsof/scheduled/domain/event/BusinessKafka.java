@@ -29,4 +29,9 @@ public class BusinessKafka implements Serializable {
         this.status = entity.getStatus();
     }
 
+    @Override
+    public String toString() {
+        return "BusinessKafka{" + "id=" + id + ", name=" + name + ", description=" + description + ", ruc=" + ruc + ", status=" + status + '}';
+    }
+
 }
