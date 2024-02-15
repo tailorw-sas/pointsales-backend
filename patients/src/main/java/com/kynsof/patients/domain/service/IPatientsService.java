@@ -7,9 +7,7 @@ import com.kynsof.patients.domain.dto.PatientDto;
 import java.util.List;
 import java.util.UUID;
 
-import com.kynsof.patients.domain.dto.request.FilterCriteria;
-import com.kynsof.patients.infrastructure.config.redis.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
+import com.kynsof.share.core.domain.request.FilterCriteria;
 import org.springframework.data.domain.Pageable;
 
 public interface IPatientsService {

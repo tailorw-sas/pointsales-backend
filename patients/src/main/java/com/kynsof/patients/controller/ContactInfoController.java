@@ -7,13 +7,12 @@ import com.kynsof.patients.application.command.contactInfo.update.UpdateContactI
 import com.kynsof.patients.application.command.contactInfo.update.UpdateContactInfoMessage;
 import com.kynsof.patients.application.command.contactInfo.update.UpdateContactInfoRequest;
 import com.kynsof.patients.application.command.patients.delete.PatientDeleteMessage;
-import com.kynsof.patients.application.command.patients.delete.PatientsDeleteCommand;
+import com.kynsof.patients.application.command.patients.delete.DeletePatientsCommand;
 import com.kynsof.patients.application.query.contactInfo.getById.FindByIdContactInfoQuery;
 import com.kynsof.patients.application.query.contactInfo.getall.ContactInfoResponse;
 import com.kynsof.patients.application.query.contactInfo.getall.GetAllContactInfoQuery;
-import com.kynsof.patients.application.query.patients.getall.GetAllPatientsFilterQuery;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
-import com.kynsof.patients.domain.bus.IMediator;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -74,7 +73,7 @@ public class ContactInfoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<PatientDeleteMessage> deleteServices(@PathVariable("id") UUID id) {
 
-        PatientsDeleteCommand command = new PatientsDeleteCommand(id);
+        DeletePatientsCommand command = new DeletePatientsCommand(id);
         PatientDeleteMessage response = mediator.send(command);
 
         return ResponseEntity.ok(response);

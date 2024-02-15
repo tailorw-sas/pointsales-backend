@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.query.currentMedication.getall;
 
-import com.kynsof.patients.domain.bus.query.IQuery;
+import com.kynsof.share.core.domain.bus.query.IQuery;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

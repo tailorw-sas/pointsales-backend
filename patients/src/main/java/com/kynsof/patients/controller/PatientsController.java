@@ -7,7 +7,7 @@ import com.kynsof.patients.application.command.patients.create.CreatePatientMess
 import com.kynsof.patients.application.command.patients.delete.PatientDeleteMessage;
 import com.kynsof.patients.application.command.patients.create.CreatePatientsCommand;
 import com.kynsof.patients.application.command.patients.create.CreatePatientsRequest;
-import com.kynsof.patients.application.command.patients.delete.PatientsDeleteCommand;
+import com.kynsof.patients.application.command.patients.delete.DeletePatientsCommand;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientMessage;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsCommand;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsRequest;
@@ -17,11 +17,8 @@ import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import java.util.UUID;
 import com.kynsof.patients.application.query.patients.getById.FindPatientsByIdQuery;
-
-import com.kynsof.patients.domain.bus.IMediator;
-import com.kynsof.patients.domain.dto.request.SearchRequest;
-import com.kynsof.patients.infrastructure.config.redis.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
+import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -96,7 +93,7 @@ public class PatientsController {
     @DeleteMapping("/{id}")
     public ResponseEntity<PatientDeleteMessage> deleteServices(@PathVariable("id") UUID id) {
 
-        PatientsDeleteCommand command = new PatientsDeleteCommand(id);
+        DeletePatientsCommand command = new DeletePatientsCommand(id);
         PatientDeleteMessage response = mediator.send(command);
 
         return ResponseEntity.ok(response);

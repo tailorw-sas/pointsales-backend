@@ -5,23 +5,22 @@ import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.dto.PatientDto;
-import com.kynsof.patients.domain.dto.request.FilterCriteria;
+import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.patients.domain.exception.BusinessException;
 import com.kynsof.patients.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.config.redis.CacheConfig;
 import com.kynsof.patients.infrastructure.entity.Insurance;
-import com.kynsof.patients.infrastructure.entity.specifications.dinamic.GenericSpecificationsBuilder;
-import com.kynsof.patients.infrastructure.entity.specifications.dinamic.SearchCriteria;
 import com.kynsof.patients.infrastructure.repositories.command.PatientsWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.entity.Patients;
-import com.kynsof.patients.infrastructure.entity.specifications.PatientsSpecifications;
 import com.kynsof.patients.infrastructure.repositories.query.InsuranceReadDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.PatientsReadDataJPARepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import com.kynsof.share.core.infrastructure.specifications.SearchCriteria;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;

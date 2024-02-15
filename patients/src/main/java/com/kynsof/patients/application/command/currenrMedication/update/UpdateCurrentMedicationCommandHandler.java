@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.command.currenrMedication.update;
 
-import com.kynsof.patients.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.dto.CurrentMerdicationEntityDto;
 import com.kynsof.patients.domain.service.ICurrentMedicationService;
 import com.kynsof.patients.infrastructure.entity.CurrentMedication;

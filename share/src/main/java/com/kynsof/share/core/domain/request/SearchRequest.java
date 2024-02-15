@@ -1,4 +1,4 @@
-package com.kynsof.patients.domain.dto.request;
+package com.kynsof.share.core.domain.request;
 
 import lombok.Getter;
 import lombok.Setter;

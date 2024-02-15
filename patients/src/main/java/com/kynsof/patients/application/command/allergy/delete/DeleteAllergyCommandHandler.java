@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.command.allergy.delete;
 
-import com.kynsof.patients.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import org.springframework.stereotype.Component;
 

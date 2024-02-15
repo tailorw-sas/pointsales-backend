@@ -1,6 +1,6 @@
 package com.kynsof.patients.domain.dto;
 
-import com.kynsof.patients.domain.bus.query.IResponse;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

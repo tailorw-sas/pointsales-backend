@@ -9,7 +9,7 @@ import com.kynsof.patients.application.command.allergy.update.UpdateAllergyMessa
 import com.kynsof.patients.application.query.allergy.getById.FindByIdAllergyQuery;
 import com.kynsof.patients.application.query.allergy.getall.AllergyResponse;
 import com.kynsof.patients.application.query.allergy.getall.GetAllAllergyQuery;
-import com.kynsof.patients.domain.bus.IMediator;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

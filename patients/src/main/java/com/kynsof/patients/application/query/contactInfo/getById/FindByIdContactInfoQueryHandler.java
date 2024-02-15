@@ -1,12 +1,9 @@
 package com.kynsof.patients.application.query.contactInfo.getById;
 
 import com.kynsof.patients.application.query.contactInfo.getall.ContactInfoResponse;
-import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
-import com.kynsof.patients.domain.bus.query.IQueryHandler;
 import com.kynsof.patients.domain.dto.ContactInfoDto;
-import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.service.IContactInfoService;
-import com.kynsof.patients.infrastructure.services.PatientsServiceImpl;
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
 @Component

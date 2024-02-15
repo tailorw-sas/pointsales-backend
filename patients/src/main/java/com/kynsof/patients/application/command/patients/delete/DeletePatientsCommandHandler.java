@@ -1,11 +1,11 @@
 package com.kynsof.patients.application.command.patients.delete;
 
-import com.kynsof.patients.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.infrastructure.services.PatientsServiceImpl;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DeletePatientsCommandHandler implements ICommandHandler<PatientsDeleteCommand> {
+public class DeletePatientsCommandHandler implements ICommandHandler<DeletePatientsCommand> {
 
     private final PatientsServiceImpl serviceImpl;
 
@@ -14,7 +14,7 @@ public class DeletePatientsCommandHandler implements ICommandHandler<PatientsDel
     }
 
     @Override
-    public void handle(PatientsDeleteCommand command) {
+    public void handle(DeletePatientsCommand command) {
 
         serviceImpl.delete(command.getId());
     }

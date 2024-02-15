@@ -3,7 +3,7 @@ package com.kynsof.patients.controller;
 import com.kynsof.patients.application.query.insuarance.getById.FindByIdInsuranceQuery;
 import com.kynsof.patients.application.query.insuarance.getall.GetAllInsuranceQuery;
 import com.kynsof.patients.application.query.insuarance.getall.InsuranceResponse;
-import com.kynsof.patients.domain.bus.IMediator;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

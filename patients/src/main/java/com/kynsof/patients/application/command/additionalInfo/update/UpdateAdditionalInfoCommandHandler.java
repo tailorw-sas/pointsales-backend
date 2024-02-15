@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.command.additionalInfo.update;
 
-import com.kynsof.patients.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.dto.AdditionalInformationDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.dto.PatientDto;

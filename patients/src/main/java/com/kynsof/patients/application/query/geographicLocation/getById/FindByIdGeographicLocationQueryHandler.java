@@ -1,7 +1,7 @@
 package com.kynsof.patients.application.query.geographicLocation.getById;
 
 import com.kynsof.patients.application.query.geographicLocation.getall.GeographicLocationResponse;
-import com.kynsof.patients.domain.bus.query.IQueryHandler;
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.patients.domain.dto.GeographicLocationDto;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import org.springframework.stereotype.Component;

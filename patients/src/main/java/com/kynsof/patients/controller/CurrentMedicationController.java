@@ -8,7 +8,7 @@ import com.kynsof.patients.application.command.currenrMedication.update.UpdateCu
 import com.kynsof.patients.application.query.currentMedication.getById.FindByIdCurrentMedicationIQuery;
 import com.kynsof.patients.application.query.currentMedication.getall.CurrentMedicationResponse;
 import com.kynsof.patients.application.query.currentMedication.getall.GetAllCurrentMedicationQuery;
-import com.kynsof.patients.domain.bus.IMediator;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

@@ -1,7 +1,7 @@
 package com.kynsof.patients.application.query.patients.getall;
 
 
-import com.kynsof.patients.domain.bus.query.IResponse;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 
 import java.time.LocalDate;
 import java.util.UUID;

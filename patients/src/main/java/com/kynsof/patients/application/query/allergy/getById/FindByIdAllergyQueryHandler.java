@@ -1,11 +1,9 @@
 package com.kynsof.patients.application.query.allergy.getById;
 
 import com.kynsof.patients.application.query.allergy.getall.AllergyResponse;
-import com.kynsof.patients.domain.bus.query.IQueryHandler;
 import com.kynsof.patients.domain.dto.AllergyEntityDto;
-import com.kynsof.patients.domain.dto.ContactInfoDto;
 import com.kynsof.patients.domain.service.IAllergyService;
-import com.kynsof.patients.domain.service.IContactInfoService;
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
 @Component

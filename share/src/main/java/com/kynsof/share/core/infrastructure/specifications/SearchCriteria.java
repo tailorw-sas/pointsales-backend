@@ -1,16 +1,12 @@
-package com.kynsof.patients.infrastructure.entity.specifications.dinamic;
+package com.kynsof.share.core.infrastructure.specifications;
 
 import lombok.Getter;
 import lombok.Setter;
-
-/**
- * @param key Getters
- */
 @Getter
 @Setter
 public class SearchCriteria {
     private String key;
-    private SearchOperation operation; // Usa el enumerador Operation
+    private SearchOperation operation;
     private Object value;
 
     public SearchCriteria(String key, SearchOperation operation, Object value) {

@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.query.contactInfo.getById;
 
-import com.kynsof.patients.domain.bus.query.IQuery;
+import com.kynsof.share.core.domain.bus.query.IQuery;
 import lombok.Getter;
 
 import java.util.UUID;

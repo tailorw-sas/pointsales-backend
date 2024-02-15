@@ -6,24 +6,7 @@ import com.kynsof.patients.application.command.dependents.create.CreateDependent
 import com.kynsof.patients.application.command.dependents.update.UpdateDependentPatientMessage;
 import com.kynsof.patients.application.command.dependents.update.UpdateDependentPatientsCommand;
 import com.kynsof.patients.application.command.dependents.update.UpdateDependentPatientsRequest;
-import com.kynsof.patients.application.command.patients.create.CreatePatientMessage;
-import com.kynsof.patients.application.command.patients.create.CreatePatientsCommand;
-import com.kynsof.patients.application.command.patients.create.CreatePatientsRequest;
-import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceCommand;
-import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceMessage;
-import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceRequest;
-import com.kynsof.patients.application.command.patients.delete.PatientDeleteMessage;
-import com.kynsof.patients.application.command.patients.delete.PatientsDeleteCommand;
-import com.kynsof.patients.application.command.patients.update.UpdatePatientMessage;
-import com.kynsof.patients.application.command.patients.update.UpdatePatientsCommand;
-import com.kynsof.patients.application.command.patients.update.UpdatePatientsRequest;
-import com.kynsof.patients.application.query.patients.getById.FindPatientsByIdQuery;
-import com.kynsof.patients.application.query.patients.getall.GetAllPatientsFilterQuery;
-import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
-import com.kynsof.patients.domain.bus.IMediator;
-import com.kynsof.patients.domain.dto.PaginatedResponse;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
 package com.kynsof.patients.application.query.currentMedication.getall;
 
 
-import com.kynsof.patients.domain.bus.query.IResponse;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsof.patients.domain.dto.CurrentMerdicationEntityDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

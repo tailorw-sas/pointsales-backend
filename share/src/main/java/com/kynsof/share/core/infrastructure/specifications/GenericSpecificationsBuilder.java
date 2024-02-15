@@ -1,4 +1,4 @@
-package com.kynsof.patients.infrastructure.entity.specifications.dinamic;
+package com.kynsof.share.core.infrastructure.specifications;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

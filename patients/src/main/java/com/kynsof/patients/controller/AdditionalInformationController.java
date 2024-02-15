@@ -11,7 +11,7 @@ import com.kynsof.patients.application.command.contactInfo.create.CreateContactI
 import com.kynsof.patients.application.query.additionalInfo.getById.FindByIdAdditionalInfoQuery;
 import com.kynsof.patients.application.query.additionalInfo.getall.AdditionalInfoResponse;
 import com.kynsof.patients.application.query.additionalInfo.getall.GetAllAdditionalInfoQuery;
-import com.kynsof.patients.domain.bus.IMediator;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.command.medicalInformation.update;
 
-import com.kynsof.patients.domain.bus.command.ICommandMessage;
+import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 
 @Getter

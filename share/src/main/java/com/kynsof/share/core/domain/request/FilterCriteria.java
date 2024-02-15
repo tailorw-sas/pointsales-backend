@@ -1,6 +1,6 @@
-package com.kynsof.patients.domain.dto.request;
+package com.kynsof.share.core.domain.request;
 
-import com.kynsof.patients.infrastructure.entity.specifications.dinamic.SearchOperation;
+import com.kynsof.share.core.infrastructure.specifications.SearchOperation;
 import lombok.Getter;
 import lombok.Setter;
 

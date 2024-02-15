@@ -1,4 +1,4 @@
-package com.kynsof.patients.infrastructure.entity.specifications.dinamic;
+package com.kynsof.share.core.infrastructure.specifications;
 
 public enum SearchOperation {
     LIKE,
