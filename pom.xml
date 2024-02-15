@@ -19,6 +19,7 @@
         <module>scheduled-task</module>
         <module>treatments</module>
         <module>store</module>
+        <module>share</module>
     </modules>
     <build>
 

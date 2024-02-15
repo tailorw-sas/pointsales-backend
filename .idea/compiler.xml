@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="registry" />
         <module name="config" />
+        <module name="share" />
       </profile>
       <profile name="Annotation profile for scheduled" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -37,6 +38,7 @@
       <module name="registry" options="-parameters" />
       <module name="scheduled" options="" />
       <module name="scheduled-task" options="-parameters" />
+      <module name="share" options="-parameters" />
       <module name="store" options="-parameters" />
       <module name="treatments" options="-parameters" />
     </option>
