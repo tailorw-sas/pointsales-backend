@@ -5,19 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Merge remote-tracking branch 'origin/dev' into dev">
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/patients/search/GetSearchPatientsQuery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/patients/search/GetSearchPatientsQueryHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/request/FilterCriteria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/dto/request/SearchRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/dinamic/GenericSpecification.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/dinamic/GenericSpecificationsBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/dinamic/SearchCriteria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/target/classes/com/kynsoft/resources/UsersResource.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IPatientsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IPatientsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/dinamic/SearchOperation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/dinamic/GenericSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/dinamic/GenericSpecification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/dinamic/SearchCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/dinamic/SearchCriteria.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -402,23 +392,7 @@
       <workItem from="1707248675544" duration="31985000" />
       <workItem from="1707485683329" duration="21791000" />
       <workItem from="1707595185156" duration="2922000" />
-      <workItem from="1707753401036" duration="22706000" />
-    </task>
-    <task id="LOCAL-00013" summary="Se agrega los otros campos a la entidad paciente">
-      <option name="closed" value="true" />
-      <created>1706817699381</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1706817699381</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Se agrega los otros campos a la entidad paciente">
-      <option name="closed" value="true" />
-      <created>1706818540769</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1706818540769</updated>
+      <workItem from="1707753401036" duration="27449000" />
     </task>
     <task id="LOCAL-00015" summary="Se agrega los otros campos a la entidad paciente">
       <option name="closed" value="true" />
@@ -796,7 +770,23 @@
       <option name="project" value="LOCAL" />
       <updated>1707843620410</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Merge remote-tracking branch 'origin/dev' into dev">
+      <option name="closed" value="true" />
+      <created>1707949698571</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1707949698572</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Merge remote-tracking branch 'origin/dev' into dev">
+      <option name="closed" value="true" />
+      <created>1707998708124</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1707998708124</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -834,7 +824,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/patients/getall/GetAllPatientsQueryHandler.java</url>
-          <line>18</line>
+          <line>17</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
