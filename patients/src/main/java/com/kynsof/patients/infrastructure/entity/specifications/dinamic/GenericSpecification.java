@@ -16,30 +16,30 @@ public class GenericSpecification<T> implements Specification<T> {
 
     @Override
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
-        return switch (criteria.operation().toLowerCase()) {
-            case "like" -> builder.like(builder.lower(root.get(criteria.key())), "%" + criteria.value().toString().toLowerCase() + "%");
-            case "equals" -> builder.equal(root.get(criteria.key()), criteria.value());
-            case "greater-than" -> builder.greaterThan(root.get(criteria.key()), (Comparable) criteria.value());
-            case "less-than" -> builder.lessThan(root.get(criteria.key()), (Comparable) criteria.value());
-            case "greater-than-or-equal-to" -> builder.greaterThanOrEqualTo(root.get(criteria.key()), (Comparable) criteria.value());
-            case "less-than-or-equal-to" -> builder.lessThanOrEqualTo(root.get(criteria.key()), (Comparable) criteria.value());
-            case "not-equal" -> builder.notEqual(root.get(criteria.key()), criteria.value());
-            case "in" -> {
-                CriteriaBuilder.In<Object> inClause = builder.in(root.get(criteria.key()));
-                List<?> values = (List<?>) criteria.value();
+        return switch (criteria.getOperation()) {
+            case LIKE -> builder.like(builder.lower(root.get(criteria.getKey())), "%" + criteria.getValue().toString().toLowerCase() + "%");
+            case EQUALS -> builder.equal(root.get(criteria.getKey()), criteria.getValue());
+            case GREATER_THAN -> builder.greaterThan(root.get(criteria.getKey()), (Comparable) criteria.getValue());
+            case LESS_THAN -> builder.lessThan(root.get(criteria.getKey()), (Comparable) criteria.getValue());
+            case GREATER_THAN_OR_EQUAL_TO -> builder.greaterThanOrEqualTo(root.get(criteria.getKey()), (Comparable) criteria.getValue());
+            case LESS_THAN_OR_EQUAL_TO -> builder.lessThanOrEqualTo(root.get(criteria.getKey()), (Comparable) criteria.getValue());
+            case NOT_EQUALS -> builder.notEqual(root.get(criteria.getKey()), criteria.getValue());
+            case IN-> {
+                CriteriaBuilder.In<Object> inClause = builder.in(root.get(criteria.getKey()));
+                List<?> values = (List<?>) criteria.getValue();
                 values.forEach(inClause::value);
                 yield inClause;
             }
-            case "not-in" -> {
-                CriteriaBuilder.In<Object> inClause = builder.in(root.get(criteria.key()));
-                List<?> values = (List<?>) criteria.value();
+            case NOT_IN -> {
+                CriteriaBuilder.In<Object> inClause = builder.in(root.get(criteria.getKey()));
+                List<?> values = (List<?>) criteria.getValue();
                 values.forEach(inClause::value);
                 yield builder.not(inClause);
             }
-            case "is-null" -> builder.isNull(root.get(criteria.key()));
-            case "is-notnull" -> builder.isNotNull(root.get(criteria.key()));
-            case "is-true" -> builder.isTrue(root.get(criteria.key()));
-            case "is-false" -> builder.isFalse(root.get(criteria.key()));
+            case IS_NULL -> builder.isNull(root.get(criteria.getKey()));
+            case IS_NOT_NULL -> builder.isNotNull(root.get(criteria.getKey()));
+            case IS_TRUE -> builder.isTrue(root.get(criteria.getKey()));
+            case IS_FALSE -> builder.isFalse(root.get(criteria.getKey()));
             default -> null;
         };
     }
