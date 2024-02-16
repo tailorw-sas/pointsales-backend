@@ -5,7 +5,7 @@
     <groupId>com.kynsof</groupId>
     <artifactId>scheduled</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging> <!-- Asegúrate de que el empaquetado sea 'pom' para proyectos agregadores -->
+    <packaging>pom</packaging>
     <properties>
         <java.version>17</java.version>
     </properties>
