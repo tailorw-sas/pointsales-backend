@@ -17,6 +17,6 @@ public class GetAllGeographicLocationQueryHandler implements IQueryHandler<GetAl
     @Override
     public PaginatedResponse handle(GetAllGeographicLocationQuery query) {
 
-        return this.serviceImpl.findAll(query.getPageable(), query.getParentId(), query.getName(), query.getType());
+        return this.serviceImpl.findAll(query.getPageable());
     }
 }

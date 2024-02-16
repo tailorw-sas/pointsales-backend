@@ -2,15 +2,16 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.contactInfo.getall.ContactInfoResponse;
 import com.kynsof.patients.domain.dto.ContactInfoDto;
-import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
-import com.kynsof.share.core.domain.exception.BusinessException;
-import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.infrastructure.entity.ContactInformation;
-import com.kynsof.patients.infrastructure.entity.specifications.ContactInfoSpecifications;
 import com.kynsof.patients.infrastructure.repositories.command.ContactInfoWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.ContactInfoReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -68,10 +69,21 @@ public class ContactInfoServiceImpl implements IContactInfoService {
     }
 
     @Override
-    public PaginatedResponse findAll(Pageable pageable, UUID idPatients, String email, String phone) {
-        ContactInfoSpecifications specifications = new ContactInfoSpecifications(idPatients, email);
+    public PaginatedResponse findAll(Pageable pageable) {
+        Page<ContactInformation> data = this.repositoryQuery.findAll( pageable);
+
+        return getPaginatedResponse(data);
+    }
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<ContactInformation> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<ContactInformation> data = this.repositoryQuery.findAll(specifications, pageable);
 
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<ContactInformation> data) {
         List<ContactInfoResponse> patients = new ArrayList<>();
         for (ContactInformation p : data.getContent()) {
             patients.add(new ContactInfoResponse(p.toAggregate()));

@@ -1,15 +1,17 @@
 package com.kynsof.patients.infrastructure.services;
+
 import com.kynsof.patients.application.query.currentMedication.getall.CurrentMedicationResponse;
 import com.kynsof.patients.domain.dto.CurrentMerdicationEntityDto;
-import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
-import com.kynsof.share.core.domain.exception.BusinessException;
-import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.ICurrentMedicationService;
 import com.kynsof.patients.infrastructure.entity.CurrentMedication;
-import com.kynsof.patients.infrastructure.entity.specifications.CurrentMedicationSpecifications;
 import com.kynsof.patients.infrastructure.repositories.command.CurrentMedicationWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.CurrentMedicationReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -56,10 +58,19 @@ public class CurrentMedicationServiceImpl implements ICurrentMedicationService {
     }
 
     @Override
-    public PaginatedResponse findAll(Pageable pageable, UUID medicalInformationId, String name) {
-        CurrentMedicationSpecifications specifications = new CurrentMedicationSpecifications(medicalInformationId, name);
-        Page<CurrentMedication> data = this.repositoryQuery.findAll(specifications, pageable);
+    public PaginatedResponse findAll(Pageable pageable) {
+        Page<CurrentMedication> data = this.repositoryQuery.findAll( pageable);
+        return getPaginatedResponse(data);
+    }
 
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<CurrentMedication> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<CurrentMedication> data = this.repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<CurrentMedication> data) {
         List<CurrentMedicationResponse> currentMedicationResponses = new ArrayList<>();
         for (CurrentMedication p : data.getContent()) {
             currentMedicationResponses.add(new CurrentMedicationResponse(p.toAggregate()));

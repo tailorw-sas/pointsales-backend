@@ -18,6 +18,6 @@ public class GetAllAdditionalInfoQueryHandler implements IQueryHandler<GetAllAdd
     @Override
     public PaginatedResponse handle(GetAllAdditionalInfoQuery query) {
 
-        return this.serviceImpl.findAll(query.getPageable(), query.getIdPatients(), query.getEmergencyContactName());
+        return this.serviceImpl.findAll(query.getPageable());
     }
 }

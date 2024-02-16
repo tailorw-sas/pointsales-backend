@@ -9,9 +9,10 @@ import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IAllergyService;
 import com.kynsof.patients.infrastructure.entity.Allergy;
-import com.kynsof.patients.infrastructure.entity.specifications.AllergySpecifications;
 import com.kynsof.patients.infrastructure.repositories.command.AllergyWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.AllergyReadDataJPARepository;
+import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -57,10 +58,20 @@ public class AllergyServiceImpl implements IAllergyService {
     }
 
     @Override
-    public PaginatedResponse findAll(Pageable pageable, UUID medicalInformationId, String name, String code) {
-        AllergySpecifications specifications = new AllergySpecifications(medicalInformationId, name, code);
+    public PaginatedResponse findAll(Pageable pageable ) {
+        Page<Allergy> data = this.repositoryQuery.findAll( pageable);
+        return getPaginatedResponse(data);
+    }
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<Allergy> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<Allergy> data = this.repositoryQuery.findAll(specifications, pageable);
 
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<Allergy> data) {
         List<AllergyResponse> allergyResponses = new ArrayList<>();
         for (Allergy p : data.getContent()) {
             allergyResponses.add(new AllergyResponse(p.toAggregate()));

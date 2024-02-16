@@ -17,6 +17,6 @@ public class GetAllMedicalInformationQueryHandler implements IQueryHandler<GetAl
     @Override
     public PaginatedResponse handle(GetAllMedicalInformationQuery query) {
 
-        return this.serviceImpl.findAll(query.getPageable(), query.getIdPatients());
+        return this.serviceImpl.findAll(query.getPageable());
     }
 }

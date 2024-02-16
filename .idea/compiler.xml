@@ -22,7 +22,6 @@
         <module name="gateway" />
         <module name="treatments" />
         <module name="patients" />
-        <module name="scheduled-task" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

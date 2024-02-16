@@ -4,12 +4,13 @@ package com.kynsof.patients.infrastructure.services;
 import com.kynsof.patients.application.query.insuarance.getall.InsuranceResponse;
 import com.kynsof.patients.domain.dto.InsuranceDto;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
-import com.kynsof.share.core.domain.exception.BusinessException;
-import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IInsuranceService;
 import com.kynsof.patients.infrastructure.entity.Insurance;
-import com.kynsof.patients.infrastructure.entity.specifications.InsuranceSpecifications;
 import com.kynsof.patients.infrastructure.repositories.query.InsuranceReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,10 +36,22 @@ public class InsuranceServiceImpl implements IInsuranceService {
     }
 
     @Override
-    public PaginatedResponse findAll(Pageable pageable, String name) {
-        InsuranceSpecifications specifications = new InsuranceSpecifications(name);
+    public PaginatedResponse findAll(Pageable pageable) {
+
+        Page<Insurance> data = this.repositoryQuery.findAll( pageable);
+
+        return getPaginatedResponse(data);
+    }
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<Insurance> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<Insurance> data = this.repositoryQuery.findAll(specifications, pageable);
 
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<Insurance> data) {
         List<InsuranceResponse> insuranceResponses = new ArrayList<>();
         for (Insurance p : data.getContent()) {
             insuranceResponses.add(new InsuranceResponse(p.toAggregate()));

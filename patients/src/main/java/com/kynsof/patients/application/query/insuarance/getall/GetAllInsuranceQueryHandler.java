@@ -17,6 +17,6 @@ public class GetAllInsuranceQueryHandler implements IQueryHandler<GetAllInsuranc
     @Override
     public PaginatedResponse handle(GetAllInsuranceQuery query) {
 
-        return this.serviceImpl.findAll(query.getPageable(), query.getName());
+        return this.serviceImpl.findAll(query.getPageable());
     }
 }

@@ -17,6 +17,6 @@ public class GetAllContactInfoQueryHandler implements IQueryHandler<GetAllContac
     @Override
     public PaginatedResponse handle(GetAllContactInfoQuery query) {
 
-        return this.serviceImpl.findAll(query.getPageable(), query.getIdPatients(), query.getEmail(), query.getPhone());
+        return this.serviceImpl.findAll(query.getPageable());
     }
 }

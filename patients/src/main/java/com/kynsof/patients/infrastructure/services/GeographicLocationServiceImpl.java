@@ -4,12 +4,13 @@ package com.kynsof.patients.infrastructure.services;
 import com.kynsof.patients.application.query.geographicLocation.getall.GeographicLocationResponse;
 import com.kynsof.patients.domain.dto.GeographicLocationDto;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
-import com.kynsof.share.core.domain.exception.BusinessException;
-import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.infrastructure.entity.GeographicLocation;
-import com.kynsof.patients.infrastructure.entity.specifications.GeographicLocationSpecifications;
 import com.kynsof.patients.infrastructure.repositories.query.GeographicLocationReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,10 +38,18 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     }
 
     @Override
-    public PaginatedResponse findAll(Pageable pageable, UUID parentId, String name, String type) {
-        GeographicLocationSpecifications specifications = new GeographicLocationSpecifications( name, parentId, type);
-        Page<GeographicLocation> data = this.repositoryQuery.findAll(specifications, pageable);
+    public PaginatedResponse findAll(Pageable pageable) {
+        Page<GeographicLocation> data = this.repositoryQuery.findAll( pageable);
 
+        return getPaginatedResponse(data);
+    }
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<GeographicLocation> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<GeographicLocation> data = this.repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+    }
+    private PaginatedResponse getPaginatedResponse(Page<GeographicLocation> data) {
         List<GeographicLocationResponse> allergyResponses = new ArrayList<>();
         for (GeographicLocation p : data.getContent()) {
             allergyResponses.add(new GeographicLocationResponse(p.toAggregate()));

@@ -17,6 +17,6 @@ public class GetAllAllergyQueryHandler implements IQueryHandler<GetAllAllergyQue
     @Override
     public PaginatedResponse handle(GetAllAllergyQuery query) {
 
-        return this.serviceImpl.findAll(query.getPageable(), query.getMedicalInformationId(), query.getName(), query.getCode());
+        return this.serviceImpl.findAll(query.getPageable());
     }
 }
