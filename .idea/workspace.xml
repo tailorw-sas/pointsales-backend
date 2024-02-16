@@ -5,19 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Merge remote-tracking branch 'origin/dev' into dev">
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/exception/BusinessException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/exception/BusinessRule.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/exception/BusinessRuleValidationException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/exception/DomainErrorMessage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/exception/IDomainErrorMessage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/AdditionalInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/AdditionalInfoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/AllergyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/AllergyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/ContactInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/ContactInfoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/CurrentMedicationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/CurrentMedicationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/GeographicLocationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/GeographicLocationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/InsuranceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/InsuranceServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/MedicalInformationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/MedicalInformationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -411,15 +399,7 @@
       <workItem from="1707595185156" duration="2922000" />
       <workItem from="1707753401036" duration="29984000" />
       <workItem from="1708037443037" duration="880000" />
-      <workItem from="1708038514811" duration="2936000" />
-    </task>
-    <task id="LOCAL-00018" summary="Se agrega los otros campos a la entidad scheduled">
-      <option name="closed" value="true" />
-      <created>1706827657647</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1706827657647</updated>
+      <workItem from="1708038514811" duration="4108000" />
     </task>
     <task id="LOCAL-00019" summary="Se agrega los otros campos a la entidad scheduled">
       <option name="closed" value="true" />
@@ -805,7 +785,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708041196044</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Merge remote-tracking branch 'origin/dev' into dev">
+      <option name="closed" value="true" />
+      <created>1708041485395</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1708041485395</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
