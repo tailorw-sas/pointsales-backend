@@ -3,45 +3,423 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="AutomaticModuleUnloader">
+    <loaded-modules>
+      <module name="patients" />
+      <module name="scheduled" />
+      <module name="gateway" />
+      <module name="calendar" />
+      <module name="share" />
+      <module name="registry" />
+      <module name="store" />
+      <module name="config" />
+      <module name="treatments" />
+    </loaded-modules>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Merge remote-tracking branch 'origin/dev' into dev">
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/CalendarApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/PaginatedResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/business/create/CreateBusinessCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/business/create/CreateBusinessCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/business/create/CreateBusinessMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/business/create/CreateBusinessRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/business/delete/BusinessDeleteCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/business/delete/BusinessDeleteMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/business/delete/DeleteBusinessCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/business/update/UpdateBusinessCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/business/update/UpdateBusinessCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/business/update/UpdateBusinessMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/business/update/UpdateBusinessRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/qualification/create/CreateQualificationCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/qualification/create/CreateQualificationCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/qualification/create/CreateQualificationMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/qualification/create/CreateQualificationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/qualification/delete/DeleteQualificationCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/qualification/delete/QualificationDeleteCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/qualification/delete/QualificationDeleteMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/qualification/update/UpdateQualificationCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/qualification/update/UpdateQualificationCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/qualification/update/UpdateQualificationMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/qualification/update/UpdateQualificationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/receipt/create/CreateReceiptCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/receipt/create/CreateReceiptCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/receipt/create/CreateReceiptMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/receipt/create/CreateReceiptRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/receipt/delete/DeleteReceiptCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/receipt/delete/ReceiptDeleteCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/receipt/delete/ReceiptDeleteMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/resource/create/CreateResourceCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/resource/create/CreateResourceCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/resource/create/CreateResourceMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/resource/create/CreateResourceRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/resource/delete/DeleteResourceCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/resource/delete/ResourceDeleteCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/resource/delete/ResourceDeleteMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/resource/update/UpdateResourceCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/resource/update/UpdateResourceCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/resource/update/UpdateResourceMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/resource/update/UpdateResourceRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/create/CreateScheduleCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/create/CreateScheduleCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/create/CreateScheduleMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/create/CreateScheduleRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/createall/CreateScheduleAllCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/createall/CreateScheduleAllCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/createall/CreateScheduleAllRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/createall/ScheduleAllRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/createlote/CreateScheduleByLoteCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/createlote/CreateScheduleByLoteCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/createlote/CreateScheduleByLoteRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/createlote/CreateScheduleRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/delete/DeleteScheduleCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/delete/ScheduleDeleteCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/delete/ScheduleDeleteMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/update/ScheduleUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/update/UpdateScheduleCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/update/UpdateScheduleCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/schedule/update/UpdateScheduleMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/service/create/CreateServiceCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/service/create/CreateServiceCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/service/create/CreateServiceMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/service/create/CreateServiceRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/service/delete/DeleteServiceCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/service/delete/ServiceDeleteCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/service/delete/ServiceDeleteMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/service/update/UpdateServiceCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/service/update/UpdateServiceCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/service/update/UpdateServiceMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/command/service/update/UpdateServiceRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/BusinessResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/QualificationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/ReceiptResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/ResourceResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/ScheduleResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/ServicesResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/business/getAll/FindBusinessWithFilterQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/business/getAll/GetAllBusinessCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/business/getbyid/FindBusinessByIdQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/business/getbyid/FindBusinessByIdQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/qualification/getAll/FindQualificationWithFilterQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/qualification/getAll/GetAllQualificationCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/qualification/getbyid/FindQualificationByIdQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/qualification/getbyid/FindQualificationByIdQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/receipt/getAll/FindReceiptWithFilterQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/receipt/getAll/GetAllReceiptCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/receipt/getbyid/FindReceiptByIdQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/receipt/getbyid/FindReceiptByIdQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/resource/getAll/FindResourceWithFilterQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/resource/getAll/GetAllResourceCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/resource/getbyid/FindResourceByIdQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/resource/getbyid/FindResourceByIdQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/schedule/getAll/FindScheduleWithFilterQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/schedule/getAll/GetAllScheduleCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/schedule/getbyid/FindScheduleByIdQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/schedule/getbyid/FindScheduleByIdQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/service/getAll/FindServiceWithFilterQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/service/getAll/GetAllServiceCommandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/service/getbyid/FindServiceByIdQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/query/service/getbyid/FindServiceByIdQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/application/util/JsonProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/controller/BusinessController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/controller/QualificationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/controller/ReceiptController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/controller/ResourceController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/controller/ScheduleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/controller/ServiceController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/controller/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/BusinessDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/EBusinessStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/EQualificationStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/EResourceStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/ESectionType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/EServiceStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/EServiceType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/EStatusReceipt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/EStatusSchedule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/GeographicLocationDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/GeographicLocationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/PatientDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/PatientStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/QualificationDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/ReceiptDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/ResourceDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/ScheduleDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/ServiceDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/dto/enumType/GeographicLocationType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/event/BusinessKafka.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/event/CreateEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/exception/BusinessException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/exception/BusinessRule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/exception/BusinessRuleValidationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/exception/DomainErrorMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/exception/IDomainErrorMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/service/IBusinessService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/service/IGeographicLocationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/service/IPatientsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/service/IQualificationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/service/IReceiptService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/service/IResourceService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/service/IScheduleService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/domain/service/IServiceService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/CorsProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/JwtAuthenticationConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/OpenApiConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/kafka/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/kafka/EventType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/kafka/KafkaConsumerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/kafka/KafkaProducerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/redis/CacheConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/redis/RedisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/Business.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/GeographicLocation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/Patient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/Qualification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/Receipt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/Resource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/Schedule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/Services.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/specifications/BusinessSpecifications.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/specifications/GeographicLocationSpecifications.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/specifications/QualificationSpecifications.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/specifications/ReceiptSpecifications.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/specifications/ResourceSpecifications.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/specifications/ScheduleSpecifications.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/entity/specifications/ServiceSpecifications.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/command/BusinessWriteDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/command/PatientsWriteDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/command/QualificationWriteDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/command/ReceiptWriteDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/command/ResourceWriteDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/command/ScheduleWriteDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/command/ServiceWriteDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/query/BusinessReadDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/query/GeographicLocationReadDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/query/PatientsReadDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/query/QualificationReadDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/query/ReceiptReadDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/query/ResourceReadDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/query/ScheduleReadDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/repository/query/ServiceReadDataJPARepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/service/BusinessServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/service/GeographicLocationServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/service/PatientsServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/service/QualificationServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/service/ReceiptService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/service/ResocurceServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/service/ScheduleServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/service/ServiceServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/service/kafka/BusinessEventService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/service/kafka/ConsumerBusinessEventService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/patients/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/additionalInfo/getall/GetAllAdditionalInfoQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/additionalInfo/getall/GetAllAdditionalInfoQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/allergy/getall/GetAllAllergyQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/allergy/getall/GetAllAllergyQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/contactInfo/getall/GetAllContactInfoQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/contactInfo/getall/GetAllContactInfoQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/currentMedication/getall/GetAllCurrentMedicationQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/currentMedication/getall/GetAllCurrentMedicationQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/geographicLocation/getall/GetAllGeographicLocationQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/geographicLocation/getall/GetAllGeographicLocationQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/insuarance/getall/GetAllInsuranceQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/insuarance/getall/GetAllInsuranceQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/medicalInformation/getall/GetAllMedicalInformationQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/medicalInformation/getall/GetAllMedicalInformationQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IAdditionalInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IAdditionalInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IAllergyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IAllergyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IContactInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IContactInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/ICurrentMedicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/ICurrentMedicationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IGeographicLocationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IGeographicLocationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IInsuranceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IInsuranceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IMedicalInformationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IMedicalInformationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/AdditionalInfoSpecifications.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/AllergySpecifications.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/ContactInfoSpecifications.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/CurrentMedicationSpecifications.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/GeographicLocationSpecifications.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/InsuranceSpecifications.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/MedicalInformationSpecifications.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/entity/specifications/PatientsSpecifications.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/AdditionalInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/AdditionalInfoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/AllergyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/AllergyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/ContactInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/ContactInfoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/CurrentMedicationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/CurrentMedicationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/GeographicLocationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/GeographicLocationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/InsuranceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/InsuranceServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/MedicalInformationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/MedicalInformationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scheduled-task/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/scheduled-task/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/share/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/share/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/share/src/main/java/com/kynsof/share/core/infrastructure/specifications/GenericSpecificationsBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/share/src/main/java/com/kynsof/share/core/infrastructure/specifications/GenericSpecificationsBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/PatientsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/PatientsApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/controller/PatientsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/test/java/com/kynsof/patients/PatientsApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/ScheduledApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/PaginatedResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/business/create/CreateBusinessCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/business/create/CreateBusinessCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/business/create/CreateBusinessMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/business/create/CreateBusinessRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/business/delete/BusinessDeleteCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/business/delete/BusinessDeleteMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/business/delete/DeleteBusinessCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/business/update/UpdateBusinessCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/business/update/UpdateBusinessCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/business/update/UpdateBusinessMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/business/update/UpdateBusinessRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/qualification/create/CreateQualificationCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/qualification/create/CreateQualificationCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/qualification/create/CreateQualificationMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/qualification/create/CreateQualificationRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/qualification/delete/DeleteQualificationCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/qualification/delete/QualificationDeleteCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/qualification/delete/QualificationDeleteMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/qualification/update/UpdateQualificationCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/qualification/update/UpdateQualificationCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/qualification/update/UpdateQualificationMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/qualification/update/UpdateQualificationRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/receipt/create/CreateReceiptCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/receipt/create/CreateReceiptCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/receipt/create/CreateReceiptMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/receipt/create/CreateReceiptRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/receipt/delete/DeleteReceiptCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/receipt/delete/ReceiptDeleteCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/receipt/delete/ReceiptDeleteMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/resource/create/CreateResourceCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/resource/create/CreateResourceCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/resource/create/CreateResourceMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/resource/create/CreateResourceRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/resource/delete/DeleteResourceCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/resource/delete/ResourceDeleteCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/resource/delete/ResourceDeleteMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/resource/update/UpdateResourceCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/resource/update/UpdateResourceCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/resource/update/UpdateResourceMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/resource/update/UpdateResourceRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/create/CreateScheduleCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/create/CreateScheduleCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/create/CreateScheduleMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/create/CreateScheduleRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/createall/CreateScheduleAllCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/createall/CreateScheduleAllCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/createall/CreateScheduleAllRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/createall/ScheduleAllRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/createlote/CreateScheduleByLoteCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/createlote/CreateScheduleByLoteCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/createlote/CreateScheduleByLoteRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/createlote/CreateScheduleRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/delete/DeleteScheduleCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/delete/ScheduleDeleteCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/delete/ScheduleDeleteMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/update/ScheduleUpdateRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/update/UpdateScheduleCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/update/UpdateScheduleCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/schedule/update/UpdateScheduleMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/service/create/CreateServiceCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/service/create/CreateServiceCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/service/create/CreateServiceMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/service/create/CreateServiceRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/service/delete/DeleteServiceCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/service/delete/ServiceDeleteCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/service/delete/ServiceDeleteMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/service/update/UpdateServiceCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/service/update/UpdateServiceCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/service/update/UpdateServiceMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/command/service/update/UpdateServiceRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/BusinessResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/QualificationResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/ReceiptResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/ResourceResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/ScheduleResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/ServicesResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/business/getAll/FindBusinessWithFilterQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/business/getAll/GetAllBusinessCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/business/getbyid/FindBusinessByIdQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/business/getbyid/FindBusinessByIdQueryHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/qualification/getAll/FindQualificationWithFilterQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/qualification/getAll/GetAllQualificationCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/qualification/getbyid/FindQualificationByIdQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/qualification/getbyid/FindQualificationByIdQueryHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/receipt/getAll/FindReceiptWithFilterQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/receipt/getAll/GetAllReceiptCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/receipt/getbyid/FindReceiptByIdQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/receipt/getbyid/FindReceiptByIdQueryHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/resource/getAll/FindResourceWithFilterQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/resource/getAll/GetAllResourceCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/resource/getbyid/FindResourceByIdQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/resource/getbyid/FindResourceByIdQueryHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/schedule/getAll/FindScheduleWithFilterQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/schedule/getAll/GetAllScheduleCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/schedule/getbyid/FindScheduleByIdQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/schedule/getbyid/FindScheduleByIdQueryHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/service/getAll/FindServiceWithFilterQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/service/getAll/GetAllServiceCommandHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/service/getbyid/FindServiceByIdQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/query/service/getbyid/FindServiceByIdQueryHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/application/util/JsonProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/controller/BusinessController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/controller/QualificationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/controller/ReceiptController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/controller/ResourceController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/controller/ScheduleController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/controller/ServiceController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/controller/TestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/BusinessDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/EBusinessStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/EQualificationStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/EResourceStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/ESectionType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/EServiceStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/EServiceType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/EStatusReceipt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/EStatusSchedule.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/GeographicLocationDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/GeographicLocationResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/PatientDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/PatientStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/QualificationDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/ReceiptDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/ResourceDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/ScheduleDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/ServiceDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/dto/enumType/GeographicLocationType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/event/BusinessKafka.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/event/CreateEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/exception/BusinessException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/exception/BusinessRule.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/exception/BusinessRuleValidationException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/exception/DomainErrorMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/exception/IDomainErrorMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/service/IBusinessService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/service/IGeographicLocationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/service/IPatientsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/service/IQualificationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/service/IReceiptService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/service/IResourceService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/service/IScheduleService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/domain/service/IServiceService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/config/CorsProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/config/JwtAuthenticationConverter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/config/OpenApiConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/config/kafka/Event.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/config/kafka/EventType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/config/kafka/KafkaConsumerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/config/kafka/KafkaProducerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/config/redis/CacheConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/config/redis/RedisConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/Business.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/GeographicLocation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/Patient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/Qualification.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/Receipt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/Resource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/Schedule.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/Services.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/specifications/BusinessSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/specifications/GeographicLocationSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/specifications/QualificationSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/specifications/ReceiptSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/specifications/ResourceSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/specifications/ScheduleSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/entity/specifications/ServiceSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/command/BusinessWriteDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/command/PatientsWriteDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/command/QualificationWriteDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/command/ReceiptWriteDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/command/ResourceWriteDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/command/ScheduleWriteDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/command/ServiceWriteDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/query/BusinessReadDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/query/GeographicLocationReadDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/query/PatientsReadDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/query/QualificationReadDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/query/ReceiptReadDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/query/ResourceReadDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/query/ScheduleReadDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/repository/query/ServiceReadDataJPARepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/service/BusinessServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/service/GeographicLocationServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/service/PatientsServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/service/QualificationServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/service/ReceiptService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/service/ResocurceServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/service/ScheduleServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/service/ServiceServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/service/kafka/BusinessEventService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/java/com/kynsof/scheduled/infrastructure/service/kafka/ConsumerBusinessEventService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scheduled-task/src/test/java/com/kynsof/scheduled/ScheduledApplicationTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,13 +502,6 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="enabledProfiles">
-      <list>
-        <option value="native" />
-      </list>
-    </option>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -142,51 +513,60 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Gradle.Build products.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.gateway [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.gateway [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.scheduled-task [clean].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ConfigCloudServiceApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.GatewayApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.PatientsApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.ProductsApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.RegistryApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.ScheduledApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.StoreApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.TreatmentsApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;temurin-17&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/keimermontes/Development/java/scheduled/share/src/main/java/com/kynsof/share/core/domain/bus&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Gradle.Build products.executor": "Run",
+    "Maven.calendar [clean].executor": "Run",
+    "Maven.calendar [compile].executor": "Run",
+    "Maven.calendar [deploy].executor": "Run",
+    "Maven.calendar [install].executor": "Run",
+    "Maven.gateway [clean].executor": "Run",
+    "Maven.gateway [compile].executor": "Run",
+    "Maven.scheduled-task [clean].executor": "Run",
+    "Maven.scheduled-task [compile].executor": "Run",
+    "Maven.scheduled-task [install].executor": "Run",
+    "Maven.scheduled-task [package].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.CalendarApplication (1).executor": "Debug",
+    "Spring Boot.ConfigCloudServiceApplication.executor": "Debug",
+    "Spring Boot.GatewayApplication.executor": "Debug",
+    "Spring Boot.PatientsApplication.executor": "Debug",
+    "Spring Boot.ProductsApplication.executor": "Debug",
+    "Spring Boot.RegistryApplication.executor": "Run",
+    "Spring Boot.ScheduledApplication.executor": "Debug",
+    "Spring Boot.StoreApplication.executor": "Debug",
+    "Spring Boot.TreatmentsApplication.executor": "Debug",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "dev",
+    "jdk.selected.JAVA_MODULE": "temurin-17",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/share/src/main/java/com/kynsof/share/core/domain/bus",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Facets",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -197,6 +577,9 @@
       <recent name="$PROJECT_DIR$/store/src/main/java/com/kynsof/store/infrastructure" />
       <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/query/geographicLocation" />
       <recent name="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/config/redis" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.kynsof.store.controller" />
@@ -213,7 +596,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.PatientsApplication">
+  <component name="RunManager" selected="Spring Boot.CalendarApplication">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="proyect-base" />
       <option name="ENV_FILES" value="" />
@@ -299,6 +682,13 @@
       <option name="launchJavascriptDebuger" value="false" />
       <method v="2" />
     </configuration>
+    <configuration name="CalendarApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="calendar" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.calendar.CalendarApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ConfigCloudServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="config" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.configcloudservice.ConfigCloudServiceApplication" />
@@ -346,13 +736,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ScheduledApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="scheduled-task" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.scheduled.ScheduledApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="StoreApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="store" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.store.StoreApplication" />
@@ -394,11 +777,11 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Spring Boot.CalendarApplication" />
       <item itemvalue="Spring Boot.StoreApplication" />
       <item itemvalue="Spring Boot.ConfigCloudServiceApplication" />
       <item itemvalue="Spring Boot.GatewayApplication" />
       <item itemvalue="Spring Boot.RegistryApplication" />
-      <item itemvalue="Spring Boot.ScheduledApplication" />
       <item itemvalue="Spring Boot.TreatmentsApplication" />
       <item itemvalue="Spring Boot.PatientsApplication" />
     </list>
@@ -407,13 +790,6 @@
         <item itemvalue="Spring Boot.PatientsApplication" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-53826d6a" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -440,15 +816,13 @@
       <workItem from="1708037443037" duration="880000" />
       <workItem from="1708038514811" duration="5051000" />
       <workItem from="1708093052661" duration="7000" />
-      <workItem from="1708093095709" duration="3744000" />
-    </task>
-    <task id="LOCAL-00021" summary="Se agrega los otros campos a la entidad patiens">
-      <option name="closed" value="true" />
-      <created>1706831159181</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1706831159181</updated>
+      <workItem from="1708093095709" duration="4227000" />
+      <workItem from="1708098866414" duration="638000" />
+      <workItem from="1708099511214" duration="158000" />
+      <workItem from="1708099678002" duration="295000" />
+      <workItem from="1708099978383" duration="30000" />
+      <workItem from="1708100024167" duration="63000" />
+      <workItem from="1708100091865" duration="936000" />
     </task>
     <task id="LOCAL-00022" summary="Se agrega los otros campos a la entidad contactInfo">
       <option name="closed" value="true" />
@@ -834,11 +1208,23 @@
       <option name="project" value="LOCAL" />
       <updated>1708085865173</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="Merge remote-tracking branch 'origin/dev' into dev">
+      <option name="closed" value="true" />
+      <created>1708098406203</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1708098406204</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnloadedModulesList">
+    <module name="products.main" />
+    <module name="products.test" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

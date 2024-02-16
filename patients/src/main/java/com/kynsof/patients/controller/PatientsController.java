@@ -82,7 +82,7 @@ public class PatientsController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping(path = "/{id}")
+    @PatchMapping(path = "/{id}")
     public ResponseEntity<UpdatePatientMessage> update(@PathVariable UUID id, @RequestBody UpdatePatientsRequest request) {
 
         UpdatePatientsCommand command = UpdatePatientsCommand.fromRequest(id,request );

@@ -18,6 +18,7 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
+        <module name="calendar" />
         <module name="store" />
         <module name="gateway" />
         <module name="treatments" />
@@ -26,17 +27,19 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="products" target="17" />
+      <module name="products.main" target="17" />
+      <module name="products.test" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="calendar" options="-parameters" />
       <module name="config" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="patients" options="-parameters" />
       <module name="products" options="-parameters" />
       <module name="registry" options="-parameters" />
       <module name="scheduled" options="" />
-      <module name="scheduled-task" options="-parameters" />
       <module name="share" options="-parameters" />
       <module name="store" options="-parameters" />
       <module name="treatments" options="-parameters" />
