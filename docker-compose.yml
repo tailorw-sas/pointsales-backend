@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  config-service:
+    build:
+      context: ./config
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    networks:
+      - microservicios-net
+
+  registry-service:
+    build:
+      context: ./registry
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - microservicios-net
+
+  patients-service:
+    build:
+      context: ./patients
+      dockerfile: Dockerfile
+    ports:
+      - "9909:9909"
+    networks:
+      - microservicios-net
+
+  calendar-service:
+    build:
+      context: ./calendar
+      dockerfile: Dockerfile
+    ports:
+      - "9908:9908"
+    networks:
+      - microservicios-net
+
+networks:
+  microservicios-net:
+    driver: bridge
