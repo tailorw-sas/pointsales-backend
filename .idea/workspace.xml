@@ -19,44 +19,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Merge remote-tracking branch 'origin/dev' into dev">
-      <change afterPath="$PROJECT_DIR$/calendar/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/DemoApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/target/gateway-1.0.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/target/gateway-1.0.0.jar.original" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/target/maven-archiver/pom.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatments/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendar/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/calendar/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/kafka/KafkaConsumerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/kafka/KafkaConsumerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/kafka/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/kafka/KafkaProducerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendar/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/calendar/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/patients/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/patients/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/PatientsApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/store/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/store/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/treatments/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/kafka/KafkaConsumerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/kafka/KafkaConsumerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/kafka/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/kafka/KafkaProducerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/treatments/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/treatments/src/test/java/com/kynsof/treatments/TreatmentsApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -591,15 +554,7 @@
       <workItem from="1708100091865" duration="1269000" />
       <workItem from="1708101368552" duration="15714000" />
       <workItem from="1708122064075" duration="19808000" />
-      <workItem from="1708357327957" duration="7773000" />
-    </task>
-    <task id="LOCAL-00025" summary="Se arregla la forma de responder el login del gateway">
-      <option name="closed" value="true" />
-      <created>1706895065463</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1706895065463</updated>
+      <workItem from="1708357327957" duration="9770000" />
     </task>
     <task id="LOCAL-00026" summary="Se arregla la forma de responder el login del gateway">
       <option name="closed" value="true" />
@@ -985,7 +940,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708103725012</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="Merge remote-tracking branch 'origin/dev' into dev">
+      <option name="closed" value="true" />
+      <created>1708370461703</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1708370461703</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

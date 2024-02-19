@@ -1,13 +1,18 @@
-# Usar imagen base Temurin-17 Alpine
+FROM maven:3.8.5-openjdk-17-slim as build
+
+COPY src /home/app/src
+COPY pom.xml /home/app
+
+WORKDIR /home/app
+
+RUN mvn clean package
+
 FROM eclipse-temurin:17-jdk-focal
 
-COPY target/*.jar /app.jar
-
-
-ENTRYPOINT ["java","-jar","/app.jar"]
-
-#Configurar Zona Horaria
 ENV TZ="America/Guayaquil"
 
-# Expone el puerto que usa tu aplicación, cambiar si es necesario
+COPY --from=build /home/app/target/*.jar /app.jar
+
 EXPOSE 9906
+
+ENTRYPOINT ["java","-jar","/app.jar"]
