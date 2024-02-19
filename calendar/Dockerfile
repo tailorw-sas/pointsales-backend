@@ -1,11 +1,18 @@
-# Usar imagen base Temurin-17 Alpine
+FROM maven:3.8.5-openjdk-17-slim as build
+
+COPY src /home/app/src
+COPY pom.xml /home/app
+
+WORKDIR /home/app
+
+RUN mvn clean package
+
 FROM eclipse-temurin:17-jdk-focal
 
-COPY target/calendar-1.0.0.jar /app.jar
-
-ENTRYPOINT ["java","-jar","/app.jar"]
-
-#Configurar Zona Horaria
 ENV TZ="America/Guayaquil"
 
+COPY --from=build /home/app/target/*.jar /app.jar
+
 EXPOSE 9908
+
+ENTRYPOINT ["java","-jar","/app.jar"]

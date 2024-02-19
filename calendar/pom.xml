@@ -60,6 +60,7 @@
             <groupId>com.knsof</groupId>
             <artifactId>share</artifactId>
             <version>1.0.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
