@@ -1,13 +1,18 @@
 version: '3.8'
 services:
-  config-service:
-    build:
-      context: ./config
-      dockerfile: Dockerfile
+  db:
+    container_name: db
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: toor
     ports:
-      - "8081:8081"
+      - "5431:5432"
+    expose:
+      - 5431
     networks:
-      - microservicios-net
+      - microservices-net
 
   registry-service:
     build:
@@ -16,16 +21,31 @@ services:
     ports:
       - "8761:8761"
     networks:
-      - microservicios-net
+      - microservices-net
 
-  patients-service:
+  config-service:
     build:
-      context: ./patients
+      context: ./config
       dockerfile: Dockerfile
     ports:
-      - "9909:9909"
+      - "8081:8081"
     networks:
-      - microservicios-net
+      - microservices-net
+    depends_on:
+      - registry-service
+
+  treatments-service:
+    build:
+      context: ./treatments
+      dockerfile: Dockerfile
+    ports:
+      - "9906:9906"
+    environment:
+      RC_SERVER_CONFIG: host.docker.internal
+      RC_ACTIVE_PROFILE: dev
+      KAFKA_BOOTSTRAP_ADDRESS: host.docker.internal:29092
+    networks:
+      - microservices-net
 
   calendar-service:
     build:
@@ -33,9 +53,39 @@ services:
       dockerfile: Dockerfile
     ports:
       - "9908:9908"
+    environment:
+      RC_SERVER_CONFIG: host.docker.internal
+      RC_ACTIVE_PROFILE: dev
+      KAFKA_BOOTSTRAP_ADDRESS: host.docker.internal:29092
     networks:
-      - microservicios-net
+      - microservices-net
+
+  patients-service:
+    build:
+      context: ./patients
+      dockerfile: Dockerfile
+    ports:
+      - "9909:9909"
+    environment:
+      RC_SERVER_CONFIG: host.docker.internal
+      RC_ACTIVE_PROFILE: dev
+      KAFKA_BOOTSTRAP_ADDRESS: host.docker.internal:29092
+    networks:
+      - microservices-net
+
+  gateway-service:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      RC_SERVER_CONFIG: host.docker.internal
+      RC_ACTIVE_PROFILE: dev
+      KAFKA_BOOTSTRAP_ADDRESS: host.docker.internal:29092
+    networks:
+      - microservices-net
 
 networks:
-  microservicios-net:
+  microservices-net:
     driver: bridge

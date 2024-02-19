@@ -6,6 +6,7 @@
   <component name="AutomaticModuleUnloader">
     <loaded-modules>
       <module name="patients" />
+      <module name="demo" />
       <module name="scheduled" />
       <module name="gateway" />
       <module name="calendar" />
@@ -18,8 +19,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Merge remote-tracking branch 'origin/dev' into dev">
-      <change afterPath="$PROJECT_DIR$/config/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/calendar/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/src/main/java/com/example/demo/DemoApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/target/gateway-1.0.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/target/gateway-1.0.0.jar.original" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/treatments/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calendar/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/calendar/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/kafka/KafkaConsumerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/kafka/KafkaConsumerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/kafka/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/calendar/src/main/java/com/kynsof/calendar/infrastructure/config/kafka/KafkaProducerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calendar/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/calendar/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/patients/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/patients/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/target/classes/com/kynsof/patients/PatientsApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/store/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/kafka/KafkaConsumerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/kafka/KafkaConsumerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/kafka/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/infrastructure/config/kafka/KafkaProducerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/treatments/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatments/src/test/java/com/kynsof/treatments/TreatmentsApplicationTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,18 +65,33 @@
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/products">
-      <ProjectState />
+      <ProjectState>
+        <option name="isInclusion" value="true" />
+      </ProjectState>
     </projectState>
   </component>
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/products">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="products" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="products" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="products" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
               </path>
             </expand>
             <select />
@@ -52,6 +104,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -117,17 +170,51 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Docker.calendar/Dockerfile.executor": "Run",
+    "Docker.config/Dockerfile.executor": "Run",
+    "Docker.demo/Dockerfile.executor": "Run",
+    "Docker.docker-compose.yml.calendar-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.config-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.db-calendar: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.db: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.gateway -service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.gateway-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.patients-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.registry-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.treatments-service: Compose Deployment.executor": "Run",
+    "Docker.patients/Dockerfile.executor": "Run",
+    "Docker.treatments/Dockerfile.executor": "Run",
     "Gradle.Build products.executor": "Run",
     "Maven.calendar [clean].executor": "Run",
     "Maven.calendar [compile].executor": "Run",
     "Maven.calendar [deploy].executor": "Run",
     "Maven.calendar [install].executor": "Run",
+    "Maven.calendar [package].executor": "Run",
+    "Maven.config [clean].executor": "Run",
+    "Maven.config [deploy].executor": "Run",
+    "Maven.config [package].executor": "Run",
+    "Maven.demo [package].executor": "Run",
     "Maven.gateway [clean].executor": "Run",
     "Maven.gateway [compile].executor": "Run",
+    "Maven.gateway [deploy].executor": "Run",
+    "Maven.gateway [install].executor": "Run",
+    "Maven.gateway [package].executor": "Run",
+    "Maven.patients [clean].executor": "Run",
+    "Maven.patients [compile].executor": "Run",
+    "Maven.patients [install].executor": "Run",
+    "Maven.patients [package].executor": "Run",
+    "Maven.patients [validate].executor": "Run",
     "Maven.scheduled-task [clean].executor": "Run",
     "Maven.scheduled-task [compile].executor": "Run",
     "Maven.scheduled-task [install].executor": "Run",
     "Maven.scheduled-task [package].executor": "Run",
+    "Maven.share [clean].executor": "Run",
+    "Maven.share [install].executor": "Run",
+    "Maven.treatments [clean].executor": "Run",
+    "Maven.treatments [compile].executor": "Run",
+    "Maven.treatments [install].executor": "Run",
+    "Maven.treatments [package].executor": "Run",
+    "Maven.treatments [verify].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -136,11 +223,12 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.CalendarApplication (1).executor": "Debug",
     "Spring Boot.CalendarApplication.executor": "Debug",
-    "Spring Boot.ConfigCloudServiceApplication.executor": "Debug",
+    "Spring Boot.ConfigCloudServiceApplication.executor": "Run",
+    "Spring Boot.DemoApplication.executor": "Run",
     "Spring Boot.GatewayApplication.executor": "Debug",
     "Spring Boot.PatientsApplication.executor": "Debug",
     "Spring Boot.ProductsApplication.executor": "Debug",
-    "Spring Boot.RegistryApplication.executor": "Run",
+    "Spring Boot.RegistryApplication.executor": "Debug",
     "Spring Boot.ScheduledApplication.executor": "Debug",
     "Spring Boot.StoreApplication.executor": "Debug",
     "Spring Boot.TreatmentsApplication.executor": "Debug",
@@ -196,8 +284,9 @@
         <option value="SpringBootApplicationConfigurationType" />
       </set>
     </option>
+    <option name="openRunningConfigInTab" value="true" />
   </component>
-  <component name="RunManager" selected="Spring Boot.CalendarApplication">
+  <component name="RunManager" selected="Docker.docker-compose.yml.gateway-service: Compose Deployment">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="proyect-base" />
       <option name="ENV_FILES" value="" />
@@ -297,6 +386,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="demo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DemoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="gateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsoft.GatewayApplication" />
@@ -304,28 +400,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PatientsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <envs>
-        <env name="RC_ACTIVE_PROFILE" value="dev" />
-      </envs>
+    <configuration name="PatientsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="patients" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.patients.PatientsApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.kynsof.patients.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="net.ashald.envfile">
-        <option name="IS_ENABLED" value="false" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
-        </ENTRIES>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -347,6 +424,7 @@
     <configuration name="TreatmentsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <envs>
         <env name="RC_ACTIVE_PROFILE" value="dev" />
+        <env name="RC_SERVER_CONFIG" value="localhost" />
       </envs>
       <module name="treatments" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.kynsof.treatments.TreatmentsApplication" />
@@ -377,18 +455,105 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <method v="2" />
     </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.calendar-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="calendar-service" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.config-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="config-service" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.gateway-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="gateway-service" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.patients-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="patients-service" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.treatments-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="treatments-service" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Docker.docker-compose.yml.calendar-service: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.gateway-service: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.patients-service: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.treatments-service: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.config-service: Compose Deployment" />
+      <item itemvalue="Spring Boot.DemoApplication" />
+      <item itemvalue="Spring Boot.PatientsApplication" />
       <item itemvalue="Spring Boot.CalendarApplication" />
       <item itemvalue="Spring Boot.StoreApplication" />
       <item itemvalue="Spring Boot.ConfigCloudServiceApplication" />
       <item itemvalue="Spring Boot.GatewayApplication" />
       <item itemvalue="Spring Boot.RegistryApplication" />
       <item itemvalue="Spring Boot.TreatmentsApplication" />
-      <item itemvalue="Spring Boot.PatientsApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.PatientsApplication" />
+        <item itemvalue="Docker.docker-compose.yml.gateway-service: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.treatments-service: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.patients-service: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.calendar-service: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.config-service: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -424,23 +589,9 @@
       <workItem from="1708099978383" duration="30000" />
       <workItem from="1708100024167" duration="63000" />
       <workItem from="1708100091865" duration="1269000" />
-      <workItem from="1708101368552" duration="1231000" />
-    </task>
-    <task id="LOCAL-00023" summary="Se agrega los otros campos a la entidad contactInfo">
-      <option name="closed" value="true" />
-      <created>1706893748434</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1706893748434</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Se arregla la forma de responder el login del gateway">
-      <option name="closed" value="true" />
-      <created>1706894977222</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1706894977222</updated>
+      <workItem from="1708101368552" duration="15714000" />
+      <workItem from="1708122064075" duration="19808000" />
+      <workItem from="1708357327957" duration="7773000" />
     </task>
     <task id="LOCAL-00025" summary="Se arregla la forma de responder el login del gateway">
       <option name="closed" value="true" />
@@ -818,7 +969,23 @@
       <option name="project" value="LOCAL" />
       <updated>1708101200092</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Merge remote-tracking branch 'origin/dev' into dev">
+      <option name="closed" value="true" />
+      <created>1708103716433</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1708103716433</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Merge remote-tracking branch 'origin/dev' into dev">
+      <option name="closed" value="true" />
+      <created>1708103725012</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1708103725012</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -827,6 +994,17 @@
   <component name="UnloadedModulesList">
     <module name="products.main" />
     <module name="products.test" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -882,11 +1060,6 @@
           <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/command/patients/createInsurance/CreateInsuranceCommandHandler.java</url>
           <line>18</line>
           <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java</url>
-          <line>135</line>
-          <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/treatments/src/main/java/com/kynsof/treatments/application/command/externalConsultation/create/CreateExternalConsultationCommandHandler.java</url>

@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/patients/pom.xml" />
         <option value="$PROJECT_DIR$/treatments/pom.xml" />
         <option value="$PROJECT_DIR$/products/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -22,7 +23,6 @@
         <option value="$PROJECT_DIR$/products/pom.xml" />
       </set>
     </option>
-    <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="temurin-17" project-jdk-type="JavaSDK" />
   <component name="ProjectType">

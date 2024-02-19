@@ -7,9 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="calendar" />
         <module name="registry" />
-        <module name="config" />
         <module name="share" />
+        <module name="config" />
+        <module name="demo" />
+        <module name="patients" />
       </profile>
       <profile name="Annotation profile for scheduled" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -18,11 +21,9 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
-        <module name="calendar" />
-        <module name="store" />
-        <module name="gateway" />
         <module name="treatments" />
-        <module name="patients" />
+        <module name="gateway" />
+        <module name="store" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -35,14 +36,15 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="calendar" options="-parameters" />
       <module name="config" options="-parameters" />
-      <module name="gateway" options="-parameters" />
-      <module name="patients" options="-parameters" />
+      <module name="demo" options="-parameters" />
+      <module name="gateway" options="-parameters -parameters" />
+      <module name="patients" options="-parameters -parameters" />
       <module name="products" options="-parameters" />
       <module name="registry" options="-parameters" />
       <module name="scheduled" options="" />
       <module name="share" options="-parameters" />
       <module name="store" options="-parameters" />
-      <module name="treatments" options="-parameters" />
+      <module name="treatments" options="-parameters -parameters" />
     </option>
   </component>
 </project>
