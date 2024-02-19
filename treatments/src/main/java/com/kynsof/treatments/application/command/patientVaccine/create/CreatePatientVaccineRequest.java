@@ -3,6 +3,7 @@ package com.kynsof.treatments.application.command.patientVaccine.create;
 import com.kynsof.treatments.domain.dto.enumDto.VaccinationStatus;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.util.UUID;
 
 @Getter

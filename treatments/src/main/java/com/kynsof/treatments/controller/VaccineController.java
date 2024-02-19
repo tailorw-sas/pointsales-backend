@@ -1,18 +1,9 @@
 package com.kynsof.treatments.controller;
 
-import com.kynsof.treatments.application.command.patientVaccine.create.CreatePatientVaccineCommand;
-import com.kynsof.treatments.application.command.patientVaccine.create.CreatePatientVaccineMessage;
-import com.kynsof.treatments.application.command.patientVaccine.create.CreatePatientVaccineRequest;
-import com.kynsof.treatments.application.command.patientVaccine.update.UpdatePatientVaccineCommand;
-import com.kynsof.treatments.application.command.patientVaccine.update.UpdatePatientVaccineMessage;
-import com.kynsof.treatments.application.command.patientVaccine.update.UpdatePatientVaccineRequest;
-import com.kynsof.treatments.application.query.patientVaccine.getById.FindByIdPatientVaccineQuery;
-import com.kynsof.treatments.application.query.patientVaccine.getall.GetAllPatientVaccineQuery;
-import com.kynsof.treatments.application.query.patientVaccine.getall.PatientVaccineResponse;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.query.vaccine.getById.FindByIdVaccineQuery;
 import com.kynsof.treatments.application.query.vaccine.getall.GetAllVaccineQuery;
 import com.kynsof.treatments.application.query.vaccine.getall.VaccineResponse;
-import com.kynsof.treatments.domain.bus.IMediator;
 import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

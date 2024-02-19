@@ -1,6 +1,5 @@
 package com.kynsof.treatments.domain.dto;
 
-import com.kynsof.treatments.infrastructure.entity.Patients;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

@@ -12,7 +12,7 @@
 
     <groupId>com.knsof</groupId>
     <artifactId>share</artifactId>
-    <version>1.0.0</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>share</name>
     <packaging>jar</packaging>
     <description>Shared module</description>
@@ -104,7 +104,7 @@
         <repository>
             <id>github</id>
             <name>GitHub OWNER Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/kmontes198910/registro-civil-backend</url>
+            <url>https://maven.pkg.github.com/MAKEBE2020/scheduled</url>
         </repository>
     </distributionManagement>
 </project>

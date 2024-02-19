@@ -1,6 +1,5 @@
 package com.kynsof.treatments.infrastructure.entity;
 
-import com.kynsof.treatments.domain.dto.Cie10Dto;
 import com.kynsof.treatments.domain.dto.ProcedureDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

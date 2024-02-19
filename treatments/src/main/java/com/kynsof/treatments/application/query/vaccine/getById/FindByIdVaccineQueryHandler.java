@@ -1,10 +1,8 @@
 package com.kynsof.treatments.application.query.vaccine.getById;
 
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.treatments.application.query.vaccine.getall.VaccineResponse;
-import com.kynsof.treatments.domain.bus.query.IQueryHandler;
-import com.kynsof.treatments.domain.dto.ExamOrderDto;
 import com.kynsof.treatments.domain.dto.VaccineDto;
-import com.kynsof.treatments.domain.service.IExamOrderService;
 import com.kynsof.treatments.domain.service.IVaccineService;
 import org.springframework.stereotype.Component;
 

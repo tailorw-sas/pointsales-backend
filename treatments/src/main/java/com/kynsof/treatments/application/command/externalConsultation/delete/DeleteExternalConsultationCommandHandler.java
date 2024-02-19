@@ -1,6 +1,6 @@
 package com.kynsof.treatments.application.command.externalConsultation.delete;
 
-import com.kynsof.treatments.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.infrastructure.service.PatientsServiceImpl;
 import org.springframework.stereotype.Component;
 

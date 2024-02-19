@@ -1,11 +1,9 @@
 package com.kynsof.treatments.application.query.procedure.getByCode;
 
 
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.treatments.application.query.procedure.getAll.ProcedureResponse;
-import com.kynsof.treatments.domain.bus.query.IQueryHandler;
-import com.kynsof.treatments.domain.dto.Cie10Dto;
 import com.kynsof.treatments.domain.dto.ProcedureDto;
-import com.kynsof.treatments.domain.service.ICie10Service;
 import com.kynsof.treatments.domain.service.IProcedureService;
 import org.springframework.stereotype.Component;
 

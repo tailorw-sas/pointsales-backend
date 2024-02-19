@@ -1,7 +1,7 @@
 package com.kynsof.treatments.application.query.vaccine.getall;
 
 
-import com.kynsof.treatments.domain.bus.query.IResponse;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsof.treatments.domain.dto.VaccineDto;
 import com.kynsof.treatments.domain.dto.enumDto.VaccineType;
 import lombok.AllArgsConstructor;

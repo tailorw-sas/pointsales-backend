@@ -1,6 +1,6 @@
 package com.kynsof.treatments.application.command.externalConsultation.create;
 
-import com.kynsof.treatments.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.*;
 import com.kynsof.treatments.domain.service.IDoctorService;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;

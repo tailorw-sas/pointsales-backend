@@ -3,7 +3,6 @@ package com.kynsof.treatments.domain.service;
 import com.kynsof.treatments.domain.dto.ExamOrderDto;
 import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import com.kynsof.treatments.infrastructure.entity.ExamOrder;
-import com.kynsof.treatments.infrastructure.entity.ExternalConsultation;
 import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;

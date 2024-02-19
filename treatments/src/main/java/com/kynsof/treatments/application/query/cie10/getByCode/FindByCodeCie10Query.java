@@ -1,6 +1,6 @@
 package com.kynsof.treatments.application.query.cie10.getByCode;
 
-import com.kynsof.treatments.domain.bus.query.IQuery;
+import com.kynsof.share.core.domain.bus.query.IQuery;
 import lombok.Getter;
 
 @Getter

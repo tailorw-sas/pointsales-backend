@@ -1,12 +1,9 @@
 package com.kynsof.treatments.controller;
 
-import com.kynsof.treatments.application.query.cie10.getAll.Cie10Response;
-import com.kynsof.treatments.application.query.cie10.getAll.GetAllCie10Query;
-import com.kynsof.treatments.application.query.cie10.getByCode.FindByCodeCie10Query;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.query.procedure.getAll.GetAllProcedureQuery;
 import com.kynsof.treatments.application.query.procedure.getAll.ProcedureResponse;
 import com.kynsof.treatments.application.query.procedure.getByCode.FindByCodeProcedureQuery;
-import com.kynsof.treatments.domain.bus.IMediator;
 import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

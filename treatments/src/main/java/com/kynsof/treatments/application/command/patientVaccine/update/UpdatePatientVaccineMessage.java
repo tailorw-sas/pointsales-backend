@@ -1,6 +1,6 @@
 package com.kynsof.treatments.application.command.patientVaccine.update;
 
-import com.kynsof.treatments.domain.bus.command.ICommandMessage;
+import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 
 @Getter

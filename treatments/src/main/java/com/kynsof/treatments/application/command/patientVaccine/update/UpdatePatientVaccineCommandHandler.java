@@ -1,6 +1,6 @@
 package com.kynsof.treatments.application.command.patientVaccine.update;
 
-import com.kynsof.treatments.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.PatientDto;
 import com.kynsof.treatments.domain.dto.PatientVaccineDto;
 import com.kynsof.treatments.domain.dto.VaccineDto;

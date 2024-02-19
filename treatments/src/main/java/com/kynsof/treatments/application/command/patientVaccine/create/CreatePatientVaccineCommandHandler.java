@@ -1,17 +1,16 @@
 package com.kynsof.treatments.application.command.patientVaccine.create;
 
-import com.kynsof.treatments.domain.bus.command.ICommandHandler;
-import com.kynsof.treatments.domain.dto.*;
-import com.kynsof.treatments.domain.service.IDoctorService;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.treatments.domain.dto.PatientDto;
+import com.kynsof.treatments.domain.dto.PatientVaccineDto;
+import com.kynsof.treatments.domain.dto.VaccineDto;
 import com.kynsof.treatments.domain.service.IPatientVaccineService;
 import com.kynsof.treatments.domain.service.IPatientsService;
 import com.kynsof.treatments.domain.service.IVaccineService;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Component
 public class CreatePatientVaccineCommandHandler implements ICommandHandler<CreatePatientVaccineCommand> {

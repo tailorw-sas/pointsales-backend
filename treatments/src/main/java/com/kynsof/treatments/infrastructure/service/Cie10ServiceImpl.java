@@ -4,8 +4,8 @@ package com.kynsof.treatments.infrastructure.service;
 import com.kynsof.treatments.application.query.cie10.getAll.Cie10Response;
 import com.kynsof.treatments.domain.dto.Cie10Dto;
 import com.kynsof.treatments.domain.dto.PaginatedResponse;
-import com.kynsof.treatments.domain.exception.BusinessException;
-import com.kynsof.treatments.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.treatments.domain.service.ICie10Service;
 import com.kynsof.treatments.infrastructure.entity.Cie10;
 import com.kynsof.treatments.infrastructure.entity.specifications.Cie10Specifications;
@@ -33,7 +33,7 @@ public class Cie10ServiceImpl implements ICie10Service {
         if (cie10ByCode.isPresent()) {
             return cie10ByCode.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Cie10 not found.");
+        throw new BusinessException(DomainErrorMessage.PARAMETIRAZATION_NOT_FOUND, "Cie10 not found.");
     }
 
     @Override

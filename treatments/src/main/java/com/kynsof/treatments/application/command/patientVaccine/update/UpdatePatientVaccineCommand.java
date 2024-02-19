@@ -1,7 +1,7 @@
 package com.kynsof.treatments.application.command.patientVaccine.update;
 
-import com.kynsof.treatments.domain.bus.command.ICommand;
-import com.kynsof.treatments.domain.bus.command.ICommandMessage;
+import com.kynsof.share.core.domain.bus.command.ICommand;
+import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import com.kynsof.treatments.domain.dto.enumDto.VaccinationStatus;
 import lombok.Getter;
 import lombok.Setter;

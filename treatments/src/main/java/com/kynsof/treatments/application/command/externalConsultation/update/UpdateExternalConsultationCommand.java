@@ -1,11 +1,9 @@
 package com.kynsof.treatments.application.command.externalConsultation.update;
 
-import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationCommand;
-import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationRequest;
+import com.kynsof.share.core.domain.bus.command.ICommand;
+import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import com.kynsof.treatments.application.command.externalConsultation.create.DiagnosisRequest;
 import com.kynsof.treatments.application.command.externalConsultation.create.TreatmentRequest;
-import com.kynsof.treatments.domain.bus.command.ICommand;
-import com.kynsof.treatments.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 import lombok.Setter;
 

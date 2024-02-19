@@ -4,8 +4,8 @@ package com.kynsof.treatments.infrastructure.service;
 import com.kynsof.treatments.application.query.patientVaccine.getall.PatientVaccineResponse;
 import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import com.kynsof.treatments.domain.dto.PatientVaccineDto;
-import com.kynsof.treatments.domain.exception.BusinessException;
-import com.kynsof.treatments.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.treatments.domain.service.IPatientVaccineService;
 import com.kynsof.treatments.infrastructure.entity.PatientVaccine;
 import com.kynsof.treatments.infrastructure.entity.specifications.PatientVaccineSpecifications;
@@ -52,7 +52,7 @@ public class PatientVaccineServiceImpl implements IPatientVaccineService {
         if (patientVaccine.isPresent()) {
             return patientVaccine.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Contact Information not found.");
+        throw new BusinessException(DomainErrorMessage.PARAMETIRAZATION_NOT_FOUND, "Contact Information not found.");
     }
 
     @Override

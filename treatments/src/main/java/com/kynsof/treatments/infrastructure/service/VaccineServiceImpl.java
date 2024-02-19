@@ -1,18 +1,14 @@
 package com.kynsof.treatments.infrastructure.service;
 
 
-import com.kynsof.treatments.application.query.cie10.getAll.Cie10Response;
 import com.kynsof.treatments.application.query.vaccine.getall.VaccineResponse;
-import com.kynsof.treatments.domain.dto.VaccineDto;
 import com.kynsof.treatments.domain.dto.PaginatedResponse;
-import com.kynsof.treatments.domain.exception.BusinessException;
-import com.kynsof.treatments.domain.exception.DomainErrorMessage;
-import com.kynsof.treatments.domain.service.ICie10Service;
+import com.kynsof.treatments.domain.dto.VaccineDto;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.treatments.domain.service.IVaccineService;
-import com.kynsof.treatments.infrastructure.entity.Cie10;
 import com.kynsof.treatments.infrastructure.entity.Vaccine;
 import com.kynsof.treatments.infrastructure.entity.specifications.Cie10Specifications;
-import com.kynsof.treatments.infrastructure.repositories.query.Cie10ReadDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.VaccineReadDataJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,7 +32,7 @@ public class VaccineServiceImpl implements IVaccineService {
         if (vaccine.isPresent()) {
             return vaccine.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Vaccine not found.");
+        throw new BusinessException(DomainErrorMessage.PARAMETIRAZATION_NOT_FOUND, "Vaccine not found.");
     }
 
     @Override

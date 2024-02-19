@@ -1,6 +1,7 @@
 package com.kynsof.treatments.application.query.externalConsultation.getById;
+
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.treatments.application.query.externalConsultation.getall.ExternalConsultationResponse;
-import com.kynsof.treatments.domain.bus.query.IQueryHandler;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
 import org.springframework.stereotype.Component;

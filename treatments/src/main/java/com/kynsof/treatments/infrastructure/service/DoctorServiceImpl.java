@@ -2,8 +2,8 @@ package com.kynsof.treatments.infrastructure.service;
 
 import com.kynsof.treatments.domain.dto.DoctorDto;
 import com.kynsof.treatments.domain.dto.enumDto.Status;
-import com.kynsof.treatments.domain.exception.BusinessException;
-import com.kynsof.treatments.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.treatments.domain.service.IDoctorService;
 import com.kynsof.treatments.infrastructure.entity.Doctor;
 import com.kynsof.treatments.infrastructure.repositories.command.DoctorWriteDataJPARepository;
@@ -60,7 +60,7 @@ public class DoctorServiceImpl implements IDoctorService {
             return patient.get().toAggregate();
         }
         //throw new RuntimeException("Patients not found.");
-        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Doctor not found.");
+        throw new BusinessException(DomainErrorMessage.PARAMETIRAZATION_NOT_FOUND, "Doctor not found.");
     }
 
 

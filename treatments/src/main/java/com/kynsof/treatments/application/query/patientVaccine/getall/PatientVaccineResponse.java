@@ -1,7 +1,7 @@
 package com.kynsof.treatments.application.query.patientVaccine.getall;
 
 
-import com.kynsof.treatments.domain.bus.query.IResponse;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsof.treatments.domain.dto.PatientDto;
 import com.kynsof.treatments.domain.dto.PatientVaccineDto;
 import com.kynsof.treatments.domain.dto.VaccineDto;

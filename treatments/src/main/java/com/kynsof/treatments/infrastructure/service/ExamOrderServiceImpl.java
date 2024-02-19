@@ -2,22 +2,15 @@ package com.kynsof.treatments.infrastructure.service;
 
 
 import com.kynsof.treatments.application.query.examOrder.getall.ExamOrderResponse;
-import com.kynsof.treatments.application.query.externalConsultation.getall.ExternalConsultationResponse;
 import com.kynsof.treatments.domain.dto.ExamOrderDto;
-import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.dto.PaginatedResponse;
-import com.kynsof.treatments.domain.exception.BusinessException;
-import com.kynsof.treatments.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.treatments.domain.service.IExamOrderService;
-import com.kynsof.treatments.domain.service.IExternalConsultationService;
 import com.kynsof.treatments.infrastructure.entity.ExamOrder;
-import com.kynsof.treatments.infrastructure.entity.ExternalConsultation;
 import com.kynsof.treatments.infrastructure.entity.specifications.ExamOrderSpecifications;
-import com.kynsof.treatments.infrastructure.entity.specifications.ExternalConsultationSpecifications;
 import com.kynsof.treatments.infrastructure.repositories.command.ExamOrderWriteDataJPARepository;
-import com.kynsof.treatments.infrastructure.repositories.command.ExternalConsultationWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.ExamOrderReadDataJPARepository;
-import com.kynsof.treatments.infrastructure.repositories.query.ExternalConsultationReadDataJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -59,7 +52,7 @@ public class ExamOrderServiceImpl implements IExamOrderService {
         if (examOrder.isPresent()) {
             return examOrder.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Contact Information not found.");
+        throw new BusinessException(DomainErrorMessage.PARAMETIRAZATION_NOT_FOUND, "Contact Information not found.");
     }
 
     @Override

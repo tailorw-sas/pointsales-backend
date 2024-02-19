@@ -1,6 +1,6 @@
 package com.kynsof.treatments.application.query.externalConsultation.getById;
 
-import com.kynsof.treatments.domain.bus.query.IQuery;
+import com.kynsof.share.core.domain.bus.query.IQuery;
 import lombok.Getter;
 
 import java.util.UUID;

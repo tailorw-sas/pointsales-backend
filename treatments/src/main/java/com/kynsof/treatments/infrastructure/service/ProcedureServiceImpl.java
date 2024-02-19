@@ -1,17 +1,13 @@
 package com.kynsof.treatments.infrastructure.service;
 
 
-import com.kynsof.treatments.application.query.cie10.getAll.Cie10Response;
 import com.kynsof.treatments.application.query.procedure.getAll.ProcedureResponse;
 import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import com.kynsof.treatments.domain.dto.ProcedureDto;
-import com.kynsof.treatments.domain.exception.BusinessException;
-import com.kynsof.treatments.domain.exception.DomainErrorMessage;
-import com.kynsof.treatments.domain.service.ICie10Service;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.treatments.domain.service.IProcedureService;
-import com.kynsof.treatments.infrastructure.entity.Cie10;
 import com.kynsof.treatments.infrastructure.entity.Procedure;
-import com.kynsof.treatments.infrastructure.entity.specifications.Cie10Specifications;
 import com.kynsof.treatments.infrastructure.entity.specifications.ProcedureSpecifications;
 import com.kynsof.treatments.infrastructure.repositories.query.ProcedureReadDataJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +33,7 @@ public class ProcedureServiceImpl implements IProcedureService {
         if (procedureByCode.isPresent()) {
             return procedureByCode.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, "Cie10 not found.");
+        throw new BusinessException(DomainErrorMessage.PARAMETIRAZATION_NOT_FOUND, "Cie10 not found.");
     }
 
     @Override

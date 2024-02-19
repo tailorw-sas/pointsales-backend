@@ -1,5 +1,6 @@
 package com.kynsof.treatments.controller;
 
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationCommand;
 import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationMessage;
 import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationRequest;
@@ -9,7 +10,6 @@ import com.kynsof.treatments.application.command.externalConsultation.update.Upd
 import com.kynsof.treatments.application.query.externalConsultation.getById.FindByIdExternalConsultationQuery;
 import com.kynsof.treatments.application.query.externalConsultation.getall.ExternalConsultationResponse;
 import com.kynsof.treatments.application.query.externalConsultation.getall.GetAllExternalConsultationQuery;
-import com.kynsof.treatments.domain.bus.IMediator;
 import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

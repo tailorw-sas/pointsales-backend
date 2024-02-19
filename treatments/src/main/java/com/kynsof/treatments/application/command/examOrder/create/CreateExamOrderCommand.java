@@ -1,11 +1,10 @@
 package com.kynsof.treatments.application.command.examOrder.create;
 
-import com.kynsof.treatments.domain.bus.command.ICommand;
-import com.kynsof.treatments.domain.bus.command.ICommandMessage;
+import com.kynsof.share.core.domain.bus.command.ICommand;
+import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 

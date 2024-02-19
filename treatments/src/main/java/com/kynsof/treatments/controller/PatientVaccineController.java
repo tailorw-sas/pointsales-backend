@@ -1,5 +1,6 @@
 package com.kynsof.treatments.controller;
 
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.patientVaccine.create.CreatePatientVaccineCommand;
 import com.kynsof.treatments.application.command.patientVaccine.create.CreatePatientVaccineMessage;
 import com.kynsof.treatments.application.command.patientVaccine.create.CreatePatientVaccineRequest;
@@ -9,12 +10,12 @@ import com.kynsof.treatments.application.command.patientVaccine.update.UpdatePat
 import com.kynsof.treatments.application.query.patientVaccine.getById.FindByIdPatientVaccineQuery;
 import com.kynsof.treatments.application.query.patientVaccine.getall.GetAllPatientVaccineQuery;
 import com.kynsof.treatments.application.query.patientVaccine.getall.PatientVaccineResponse;
-import com.kynsof.treatments.domain.bus.IMediator;
 import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.UUID;
 
 @RestController

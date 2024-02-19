@@ -1,6 +1,6 @@
 package com.kynsof.treatments.application.command.externalConsultation.update;
 
-import com.kynsof.treatments.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.DiagnosisDto;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.dto.TreatmentDto;

@@ -1,7 +1,7 @@
 package com.kynsof.treatments.application.query.examOrder.getall;
 
 
-import com.kynsof.treatments.domain.bus.query.IResponse;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsof.treatments.domain.dto.ExamDto;
 import com.kynsof.treatments.domain.dto.ExamOrderDto;
 import com.kynsof.treatments.domain.dto.PatientDto;

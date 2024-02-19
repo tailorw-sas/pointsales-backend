@@ -1,7 +1,7 @@
 package com.kynsof.treatments.application.query.externalConsultation.getall;
 
 
-import com.kynsof.treatments.domain.bus.query.IResponse;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsof.treatments.domain.dto.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

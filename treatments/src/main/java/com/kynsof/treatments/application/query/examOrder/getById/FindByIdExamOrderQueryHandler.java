@@ -1,7 +1,7 @@
 package com.kynsof.treatments.application.query.examOrder.getById;
 
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.treatments.application.query.examOrder.getall.ExamOrderResponse;
-import com.kynsof.treatments.domain.bus.query.IQueryHandler;
 import com.kynsof.treatments.domain.dto.ExamOrderDto;
 import com.kynsof.treatments.domain.service.IExamOrderService;
 import org.springframework.stereotype.Component;
