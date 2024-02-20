@@ -30,6 +30,6 @@ public class GenericSpecificationsBuilder<T> implements Specification<T> {
                 predicates.add(predicate);
             }
         }
-        return cb.and(predicates.toArray(new Predicate[0]));
+        return cb.and(predicates.toArray(Predicate[]::new));
     }
 }
