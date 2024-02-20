@@ -8,7 +8,9 @@ import com.kynsof.calendar.application.command.receipt.delete.ReceiptDeleteMessa
 import com.kynsof.calendar.application.query.ReceiptResponse;
 import com.kynsof.calendar.application.query.receipt.getAll.FindReceiptWithFilterQuery;
 import com.kynsof.calendar.application.query.receipt.getbyid.FindReceiptByIdQuery;
+import com.kynsof.calendar.application.query.receipt.search.GetSearchReceiptQuery;
 import com.kynsof.calendar.domain.dto.EStatusReceipt;
+import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 
@@ -69,6 +71,15 @@ public class ReceiptController {
         FindReceiptWithFilterQuery query = new FindReceiptWithFilterQuery(pageable, service, user, service, schedule, date, startDate, endDate, status, filter);
         PaginatedResponse data = mediator.send(query);
 
+        return ResponseEntity.ok(data);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchReceiptQuery query = new GetSearchReceiptQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
 

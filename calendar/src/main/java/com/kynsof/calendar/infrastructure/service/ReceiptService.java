@@ -1,5 +1,6 @@
 package com.kynsof.calendar.infrastructure.service;
 
+import com.kynsof.calendar.application.query.BusinessResponse;
 import com.kynsof.calendar.application.query.ReceiptResponse;
 import com.kynsof.calendar.domain.dto.EStatusReceipt;
 import com.kynsof.calendar.domain.dto.EStatusSchedule;
@@ -9,14 +10,18 @@ import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.exception.BusinessException;
 import com.kynsof.calendar.domain.exception.DomainErrorMessage;
 import com.kynsof.calendar.domain.service.IReceiptService;
+import com.kynsof.calendar.infrastructure.entity.Business;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.calendar.infrastructure.repository.command.ReceiptWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.entity.Receipt;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
 import com.kynsof.calendar.infrastructure.entity.specifications.ReceiptSpecifications;
 import com.kynsof.calendar.infrastructure.repository.query.ReceiptReadDataJPARepository;
+import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -194,6 +199,22 @@ public class ReceiptService implements IReceiptService {
                 //return new UpdateReceiptResponse("Status not accepted.", false);
             }
         }
+    }
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<Receipt> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<Receipt> data = this.receiptRepositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<Receipt> data) {
+        List<ReceiptResponse> patients = new ArrayList<>();
+        for (Receipt o : data.getContent()) {
+            patients.add(new ReceiptResponse(o.toAggregate()));
+        }
+        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
 }
