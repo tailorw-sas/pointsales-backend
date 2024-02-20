@@ -19,41 +19,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Merge remote-tracking branch 'origin/dev' into dev">
-      <change afterPath="$PROJECT_DIR$/gateway/rc-settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/GatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/GatewayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/ApiRouteLocator.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/ApiRouteLocator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/ApiSwaggerResources.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/ApiSwaggerResources.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/CorsProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/CorsProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/JwtAuthConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/JwtAuthConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/OpenApiConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/OpenApiConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/RefreshRoutesEventPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/RefreshRoutesEventPublisher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/RouteDefinitionsContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/RouteDefinitionsContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/RoutesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/RoutesConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/SwaggerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/UpdateRouteContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/UpdateRouteContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/kafka/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/kafka/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/kafka/EventType.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/kafka/EventType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/config/kafka/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/kafka/KafkaProducerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/dto/LoginDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/dto/LoginDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/dto/RegisterDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/dto/RegisterDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/dto/RouteDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/dto/RouteDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/dto/ServiceInstanceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/dto/ServiceInstanceDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/dto/TokenResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/dto/TokenResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/resources/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/RoleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/resources/ServiceDiscoveryResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/ServiceDiscoveryResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/resources/TestResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/TestResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/resources/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/UsersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/service/IKeycloakService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/IKeycloakService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/service/impl/KeycloakServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/impl/KeycloakServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/service/kafka/CustomerCreatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/kafka/CustomerCreatedEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/service/kafka/CustomerEventsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/kafka/CustomerEventsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/service/kafka/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/kafka/CustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/util/KeycloakProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/util/KeycloakProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -592,31 +558,7 @@
       <workItem from="1708100091865" duration="1269000" />
       <workItem from="1708101368552" duration="15714000" />
       <workItem from="1708122064075" duration="19808000" />
-      <workItem from="1708357327957" duration="28761000" />
-    </task>
-    <task id="LOCAL-00029" summary="Se agrega las entidades relacionadas con la información medica">
-      <option name="closed" value="true" />
-      <created>1706915913343</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1706915913343</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Se agrega las entidades relacionadas con la información medica">
-      <option name="closed" value="true" />
-      <created>1706998610077</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1706998610077</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Se agrega las entidades relacionadas con la información medica">
-      <option name="closed" value="true" />
-      <created>1706999678841</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1706999678841</updated>
+      <workItem from="1708357327957" duration="29648000" />
     </task>
     <task id="LOCAL-00032" summary="Se agrega las entidades relacionadas con la información medica">
       <option name="closed" value="true" />
@@ -986,7 +928,31 @@
       <option name="project" value="LOCAL" />
       <updated>1708384520153</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="Merge remote-tracking branch 'origin/dev' into dev">
+      <option name="closed" value="true" />
+      <created>1708460934929</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1708460934929</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Merge remote-tracking branch 'origin/dev' into dev">
+      <option name="closed" value="true" />
+      <created>1708460954034</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1708460954034</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Merge remote-tracking branch 'origin/dev' into dev">
+      <option name="closed" value="true" />
+      <created>1708461255462</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1708461255462</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1130,7 +1096,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/ServiceDiscoveryResource.java</url>
           <line>38</line>
-          <properties class="com.kynsoft.resources.ServiceDiscoveryResource" method="getAllServiceInstances">
+          <properties class="com.kynsoft.gateway.resources.ServiceDiscoveryResource" method="getAllServiceInstances">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
