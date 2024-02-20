@@ -12,10 +12,10 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BusinessEventService {
+public class ProducerBusinessEventService {
     private final KafkaTemplate<String, String> producer;
 
-    public BusinessEventService(KafkaTemplate<String, String> producer) {
+    public ProducerBusinessEventService(KafkaTemplate<String, String> producer) {
         this.producer = producer;
     }
 
@@ -29,7 +29,7 @@ public class BusinessEventService {
 
             this.producer.send("business", json);
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(BusinessEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProducerBusinessEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -11,7 +11,7 @@ import com.kynsof.calendar.infrastructure.repository.command.BusinessWriteDataJP
 import com.kynsof.calendar.infrastructure.entity.Business;
 import com.kynsof.calendar.infrastructure.entity.specifications.BusinessSpecifications;
 import com.kynsof.calendar.infrastructure.repository.query.BusinessReadDataJPARepository;
-import com.kynsof.calendar.infrastructure.service.kafka.BusinessEventService;
+import com.kynsof.calendar.infrastructure.service.kafka.ProducerBusinessEventService;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
@@ -37,7 +37,7 @@ public class BusinessServiceImpl implements IBusinessService {
     private BusinessReadDataJPARepository repositoryQuery;
 
     @Autowired
-    BusinessEventService businessEventService;
+    ProducerBusinessEventService businessEventService;
 
     @Override
     public void create(BusinessDto object) {
