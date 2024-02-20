@@ -6,7 +6,7 @@ import com.kynsof.calendar.domain.dto.EBusinessStatus;
 import com.kynsof.calendar.domain.exception.BusinessException;
 import com.kynsof.calendar.domain.exception.DomainErrorMessage;
 import com.kynsof.calendar.domain.service.IBusinessService;
-import com.kynsof.calendar.infrastructure.config.redis.CacheConfig;
+import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.calendar.infrastructure.repository.command.BusinessWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.entity.Business;
 import com.kynsof.calendar.infrastructure.entity.specifications.BusinessSpecifications;

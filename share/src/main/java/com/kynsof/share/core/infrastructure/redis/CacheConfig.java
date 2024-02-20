@@ -1,4 +1,4 @@
-package com.kynsof.calendar.infrastructure.config.redis;
+package com.kynsof.share.core.infrastructure.redis;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;

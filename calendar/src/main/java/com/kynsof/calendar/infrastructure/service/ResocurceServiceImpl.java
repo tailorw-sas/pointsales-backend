@@ -6,7 +6,7 @@ import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.exception.BusinessException;
 import com.kynsof.calendar.domain.exception.DomainErrorMessage;
 import com.kynsof.calendar.domain.service.IResourceService;
-import com.kynsof.calendar.infrastructure.config.redis.CacheConfig;
+import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.calendar.infrastructure.repository.command.ResourceWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.entity.Resource;
 import com.kynsof.calendar.infrastructure.entity.specifications.ResourceSpecifications;

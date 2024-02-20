@@ -6,7 +6,7 @@ import com.kynsof.calendar.domain.dto.QualificationDto;
 import com.kynsof.calendar.domain.exception.BusinessException;
 import com.kynsof.calendar.domain.exception.DomainErrorMessage;
 import com.kynsof.calendar.domain.service.IQualificationService;
-import com.kynsof.calendar.infrastructure.config.redis.CacheConfig;
+import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.calendar.infrastructure.repository.command.QualificationWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.entity.Qualification;
 import com.kynsof.calendar.infrastructure.entity.specifications.QualificationSpecifications;

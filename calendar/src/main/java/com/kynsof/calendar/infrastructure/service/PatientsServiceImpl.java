@@ -5,7 +5,7 @@ import com.kynsof.calendar.domain.dto.PatientStatus;
 import com.kynsof.calendar.domain.exception.BusinessException;
 import com.kynsof.calendar.domain.exception.DomainErrorMessage;
 import com.kynsof.calendar.domain.service.IPatientsService;
-import com.kynsof.calendar.infrastructure.config.redis.CacheConfig;
+import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.calendar.infrastructure.repository.command.PatientsWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.entity.Patient;
 import com.kynsof.calendar.infrastructure.repository.query.PatientsReadDataJPARepository;
