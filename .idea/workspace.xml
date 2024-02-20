@@ -19,7 +19,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Merge remote-tracking branch 'origin/dev' into dev">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/rc-settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/config/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/kafka/CustomerCreatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/kafka/CustomerCreatedEvent.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,6 +156,7 @@
     "Maven.calendar [install].executor": "Run",
     "Maven.calendar [package].executor": "Run",
     "Maven.config [clean].executor": "Run",
+    "Maven.config [compile].executor": "Run",
     "Maven.config [deploy].executor": "Run",
     "Maven.config [package].executor": "Run",
     "Maven.demo [package].executor": "Run",
@@ -193,7 +196,7 @@
     "Spring Boot.CalendarApplication.executor": "Debug",
     "Spring Boot.ConfigCloudServiceApplication.executor": "Run",
     "Spring Boot.DemoApplication.executor": "Run",
-    "Spring Boot.GatewayApplication.executor": "Debug",
+    "Spring Boot.GatewayApplication.executor": "Run",
     "Spring Boot.PatientsApplication.executor": "Debug",
     "Spring Boot.ProductsApplication.executor": "Debug",
     "Spring Boot.RegistryApplication.executor": "Run",
@@ -204,7 +207,7 @@
     "git-widget-placeholder": "dev",
     "jdk.selected.JAVA_MODULE": "temurin-17",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/gateway",
+    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/config",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -229,11 +232,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/config" />
       <recent name="$PROJECT_DIR$/gateway" />
       <recent name="$PROJECT_DIR$/store" />
       <recent name="$PROJECT_DIR$/treatments" />
       <recent name="$PROJECT_DIR$/patients" />
-      <recent name="$PROJECT_DIR$/calendar" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -558,15 +561,7 @@
       <workItem from="1708100091865" duration="1269000" />
       <workItem from="1708101368552" duration="15714000" />
       <workItem from="1708122064075" duration="19808000" />
-      <workItem from="1708357327957" duration="29648000" />
-    </task>
-    <task id="LOCAL-00032" summary="Se agrega las entidades relacionadas con la información medica">
-      <option name="closed" value="true" />
-      <created>1706999693076</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1706999693076</updated>
+      <workItem from="1708357327957" duration="30565000" />
     </task>
     <task id="LOCAL-00033" summary="Se agrega las entidades relacionadas con la alergia">
       <option name="closed" value="true" />
@@ -952,7 +947,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708461255462</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="Merge remote-tracking branch 'origin/dev' into dev">
+      <option name="closed" value="true" />
+      <created>1708461313632</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1708461313633</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
