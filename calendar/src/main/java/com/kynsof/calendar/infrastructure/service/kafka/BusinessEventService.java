@@ -3,9 +3,9 @@ package com.kynsof.calendar.infrastructure.service.kafka;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.calendar.domain.dto.BusinessDto;
-import com.kynsof.calendar.domain.event.BusinessKafka;
-import com.kynsof.calendar.domain.event.CreateEvent;
-import com.kynsof.calendar.infrastructure.config.kafka.EventType;
+import com.kynsof.share.core.domain.event.EventType;
+import com.kynsof.share.core.domain.kafka.entity.BusinessKafka;
+import com.kynsof.share.core.domain.event.CreateEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -22,7 +22,7 @@ public class BusinessEventService {
     public void create(BusinessDto entity) {
 
         try {
-            BusinessKafka event = new BusinessKafka(entity);
+            BusinessKafka event = new BusinessKafka(entity.getId(), entity.getName(), entity.getDescription(), entity.getRuc(), entity.getStatus().name());
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
