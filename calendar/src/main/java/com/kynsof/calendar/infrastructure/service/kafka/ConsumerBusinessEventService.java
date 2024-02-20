@@ -2,7 +2,7 @@ package com.kynsof.calendar.infrastructure.service.kafka;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.share.core.domain.event.EventType;
+import com.kynsof.share.core.domain.kafka.event.EventType;
 import com.kynsof.share.core.domain.kafka.entity.BusinessKafka;
 import java.util.logging.Level;
 import java.util.logging.Logger;
