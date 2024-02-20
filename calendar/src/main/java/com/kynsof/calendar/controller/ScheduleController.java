@@ -1,6 +1,5 @@
 package com.kynsof.calendar.controller;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.application.command.schedule.create.CreateScheduleCommand;
 import com.kynsof.calendar.application.command.schedule.create.CreateScheduleMessage;
 import com.kynsof.calendar.application.command.schedule.create.CreateScheduleRequest;
@@ -17,6 +16,7 @@ import com.kynsof.calendar.application.query.ScheduleResponse;
 import com.kynsof.calendar.application.query.schedule.getAll.FindScheduleWithFilterQuery;
 import com.kynsof.calendar.application.query.schedule.getbyid.FindScheduleByIdQuery;
 import com.kynsof.calendar.domain.dto.EStatusSchedule;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 
 import java.time.LocalDate;

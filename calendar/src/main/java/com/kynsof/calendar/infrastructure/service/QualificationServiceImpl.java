@@ -1,6 +1,5 @@
 package com.kynsof.calendar.infrastructure.service;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.application.query.QualificationResponse;
 import com.kynsof.calendar.domain.dto.EQualificationStatus;
 import com.kynsof.calendar.domain.dto.QualificationDto;
@@ -12,6 +11,7 @@ import com.kynsof.calendar.infrastructure.repository.command.QualificationWriteD
 import com.kynsof.calendar.infrastructure.entity.Qualification;
 import com.kynsof.calendar.infrastructure.entity.specifications.QualificationSpecifications;
 import com.kynsof.calendar.infrastructure.repository.query.QualificationReadDataJPARepository;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;

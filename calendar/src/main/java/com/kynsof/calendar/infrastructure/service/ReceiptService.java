@@ -1,6 +1,5 @@
 package com.kynsof.calendar.infrastructure.service;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.application.query.ReceiptResponse;
 import com.kynsof.calendar.domain.dto.EStatusReceipt;
 import com.kynsof.calendar.domain.dto.EStatusSchedule;
@@ -16,6 +15,7 @@ import com.kynsof.calendar.infrastructure.entity.Receipt;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
 import com.kynsof.calendar.infrastructure.entity.specifications.ReceiptSpecifications;
 import com.kynsof.calendar.infrastructure.repository.query.ReceiptReadDataJPARepository;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;

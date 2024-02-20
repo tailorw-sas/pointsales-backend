@@ -1,6 +1,5 @@
 package com.kynsof.calendar.controller;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.application.command.resource.create.CreateResourceCommand;
 import com.kynsof.calendar.application.command.resource.create.CreateResourceMessage;
 import com.kynsof.calendar.application.command.resource.create.CreateResourceRequest;
@@ -12,6 +11,7 @@ import com.kynsof.calendar.application.command.resource.update.UpdateResourceReq
 import com.kynsof.calendar.application.query.ResourceResponse;
 import com.kynsof.calendar.application.query.resource.getAll.FindResourceWithFilterQuery;
 import com.kynsof.calendar.application.query.resource.getbyid.FindResourceByIdQuery;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 
 import java.util.UUID;

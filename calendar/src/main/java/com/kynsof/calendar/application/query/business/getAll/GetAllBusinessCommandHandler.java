@@ -1,8 +1,8 @@
 package com.kynsof.calendar.application.query.business.getAll;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.domain.service.IBusinessService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import org.springframework.stereotype.Component;
 
 @Component

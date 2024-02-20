@@ -1,6 +1,5 @@
 package com.kynsof.calendar.controller;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.application.command.service.create.CreateServiceCommand;
 import com.kynsof.calendar.application.command.service.create.CreateServiceMessage;
 import com.kynsof.calendar.application.command.service.create.CreateServiceRequest;
@@ -12,6 +11,7 @@ import com.kynsof.calendar.application.command.service.update.UpdateServiceReque
 import com.kynsof.calendar.application.query.ServicesResponse;
 import com.kynsof.calendar.application.query.service.getAll.FindServiceWithFilterQuery;
 import com.kynsof.calendar.application.query.service.getbyid.FindServiceByIdQuery;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 
 import java.util.UUID;

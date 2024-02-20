@@ -1,6 +1,5 @@
 package com.kynsof.calendar.infrastructure.service;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.domain.dto.GeographicLocationDto;
 import com.kynsof.calendar.domain.dto.GeographicLocationResponse;
 import com.kynsof.calendar.domain.exception.BusinessException;
@@ -9,6 +8,7 @@ import com.kynsof.calendar.domain.service.IGeographicLocationService;
 import com.kynsof.calendar.infrastructure.entity.GeographicLocation;
 import com.kynsof.calendar.infrastructure.entity.specifications.GeographicLocationSpecifications;
 import com.kynsof.calendar.infrastructure.repository.query.GeographicLocationReadDataJPARepository;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

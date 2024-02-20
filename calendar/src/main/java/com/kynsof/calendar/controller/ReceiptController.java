@@ -1,6 +1,5 @@
 package com.kynsof.calendar.controller;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.application.command.receipt.create.CreateReceiptCommand;
 import com.kynsof.calendar.application.command.receipt.create.CreateReceiptMessage;
 import com.kynsof.calendar.application.command.receipt.create.CreateReceiptRequest;
@@ -10,6 +9,7 @@ import com.kynsof.calendar.application.query.ReceiptResponse;
 import com.kynsof.calendar.application.query.receipt.getAll.FindReceiptWithFilterQuery;
 import com.kynsof.calendar.application.query.receipt.getbyid.FindReceiptByIdQuery;
 import com.kynsof.calendar.domain.dto.EStatusReceipt;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 
 import java.time.LocalDate;

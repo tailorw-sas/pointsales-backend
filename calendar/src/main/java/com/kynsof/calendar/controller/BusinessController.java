@@ -1,7 +1,5 @@
 package com.kynsof.calendar.controller;
 
-
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.application.command.business.create.CreateBusinessCommand;
 import com.kynsof.calendar.application.command.business.create.CreateBusinessMessage;
 import com.kynsof.calendar.application.command.business.create.CreateBusinessRequest;
@@ -13,6 +11,9 @@ import com.kynsof.calendar.application.command.business.update.UpdateBusinessReq
 import com.kynsof.calendar.application.query.BusinessResponse;
 import com.kynsof.calendar.application.query.business.getAll.FindBusinessWithFilterQuery;
 import com.kynsof.calendar.application.query.business.getbyid.FindBusinessByIdQuery;
+import com.kynsof.calendar.application.query.business.search.GetSearchBusinessQuery;
+import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 
 import java.util.UUID;
@@ -50,6 +51,15 @@ public class BusinessController {
         FindBusinessWithFilterQuery query = new FindBusinessWithFilterQuery(pageable, idBusiness, filter);
         PaginatedResponse data = mediator.send(query);
 
+        return ResponseEntity.ok(data);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchBusinessQuery query = new GetSearchBusinessQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
 

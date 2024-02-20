@@ -1,7 +1,7 @@
 package com.kynsof.calendar.domain.service;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.domain.dto.ServiceDto;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import java.util.UUID;
 import org.springframework.data.domain.Pageable;
 

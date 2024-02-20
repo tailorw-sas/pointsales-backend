@@ -1,6 +1,5 @@
 package com.kynsof.calendar.infrastructure.service;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.application.query.ServicesResponse;
 import com.kynsof.calendar.domain.dto.EServiceStatus;
 import com.kynsof.calendar.domain.dto.ServiceDto;
@@ -12,6 +11,7 @@ import com.kynsof.calendar.infrastructure.repository.command.ServiceWriteDataJPA
 import com.kynsof.calendar.infrastructure.entity.Services;
 import com.kynsof.calendar.infrastructure.entity.specifications.BusinessSpecifications;
 import com.kynsof.calendar.infrastructure.repository.query.ServiceReadDataJPARepository;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;

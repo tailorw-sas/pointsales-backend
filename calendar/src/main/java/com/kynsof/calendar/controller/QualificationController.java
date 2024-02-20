@@ -1,6 +1,5 @@
 package com.kynsof.calendar.controller;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.application.command.qualification.create.CreateQualificationCommand;
 import com.kynsof.calendar.application.command.qualification.create.CreateQualificationMessage;
 import com.kynsof.calendar.application.command.qualification.create.CreateQualificationRequest;
@@ -12,6 +11,7 @@ import com.kynsof.calendar.application.command.qualification.update.UpdateQualif
 import com.kynsof.calendar.application.query.QualificationResponse;
 import com.kynsof.calendar.application.query.qualification.getAll.FindQualificationWithFilterQuery;
 import com.kynsof.calendar.application.query.qualification.getbyid.FindQualificationByIdQuery;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 
 import java.util.UUID;

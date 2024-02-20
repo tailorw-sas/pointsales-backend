@@ -1,6 +1,5 @@
 package com.kynsof.calendar.infrastructure.service;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.application.query.BusinessResponse;
 import com.kynsof.calendar.domain.dto.BusinessDto;
 import com.kynsof.calendar.domain.dto.EBusinessStatus;
@@ -13,6 +12,9 @@ import com.kynsof.calendar.infrastructure.entity.Business;
 import com.kynsof.calendar.infrastructure.entity.specifications.BusinessSpecifications;
 import com.kynsof.calendar.infrastructure.repository.query.BusinessReadDataJPARepository;
 import com.kynsof.calendar.infrastructure.service.kafka.BusinessEventService;
+import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -117,6 +119,22 @@ public class BusinessServiceImpl implements IBusinessService {
             objects.add(new BusinessResponse(o.toAggregate()));
         }
         return new PaginatedResponse(objects, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<Business> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<Business> data = this.repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<Business> data) {
+        List<BusinessResponse> patients = new ArrayList<>();
+        for (Business o : data.getContent()) {
+            patients.add(new BusinessResponse(o.toAggregate()));
+        }
+        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 

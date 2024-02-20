@@ -1,6 +1,5 @@
 package com.kynsof.calendar.infrastructure.service;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.application.query.ScheduleResponse;
 import com.kynsof.calendar.domain.dto.EStatusSchedule;
 import com.kynsof.calendar.domain.dto.ResourceDto;
@@ -14,6 +13,7 @@ import com.kynsof.calendar.infrastructure.entity.Resource;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
 import com.kynsof.calendar.infrastructure.entity.specifications.ScheduleSpecifications;
 import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;

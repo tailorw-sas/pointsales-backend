@@ -1,11 +1,11 @@
 package com.kynsof.calendar.domain.service;
 
-import com.kynsof.calendar.application.PaginatedResponse;
 import com.kynsof.calendar.domain.dto.EStatusSchedule;
 import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.infrastructure.entity.Resource;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
