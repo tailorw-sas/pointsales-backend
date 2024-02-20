@@ -1,4 +1,4 @@
-package com.kynsof.calendar.infrastructure.config.kafka;
+package com.kynsof.share.core.domain.kafka.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -15,7 +15,7 @@ import java.util.Map;
 @Configuration
 public class KafkaProducerConfig {
 
-    @Value("${KAFKA_BOOTSTRAP_ADDRESS:localhost:9092}")
+    @Value("${KAFKA_BOOTSTRAP_ADDRESS:localhost:29092}")
     private String bootstrapAddress;
 
     @Bean
