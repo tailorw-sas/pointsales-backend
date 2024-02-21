@@ -3,21 +3,17 @@ package com.kynsoft.gateway.application.service.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsoft.gateway.infrastructure.config.kafka.EventType;
+import com.kynsof.share.core.domain.kafka.event.EventType;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.UUID;
-
-
 @Component
 public class CustomerEventsService {
 
 
-    private KafkaTemplate<String, String> producer;
+    private final KafkaTemplate<String, String> producer;
 
     @Value("${topic.customer.name:customers}")
     private String topicCustomer;
@@ -32,9 +28,7 @@ public class CustomerEventsService {
 
         CustomerCreatedEvent created = new CustomerCreatedEvent();
         created.setData(customer); // Aquí asumo que setData acepta una String
-        created.setId(UUID.randomUUID().toString());
         created.setType(EventType.CREATED);
-        created.setDate(new Date());
         ObjectMapper objectMapper = new ObjectMapper();
         String customerAsJson = "";
         try {
