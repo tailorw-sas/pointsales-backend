@@ -38,16 +38,16 @@ public class KeycloakServiceImpl implements IKeycloakService {
     @Value("${spring.security.oauth2.client.provider.keycloak.token-uri}")
     private String tokenUri;
 
-    @Value("${keycloack.provider.client-id}")
+    @Value("${keycloak.provider.client-id}")
     private String client_id;
 
-    @Value("${keycloack.provider.grant-type}")
+    @Value("${keycloak.provider.grant-type}")
     private String grant_type;
 
-    @Value("${keycloack.provider.client-secret}")
+    @Value("${keycloak.provider.client-secret}")
     private String client_secret;
 
-    @Value("${keycloack.provider.default-role}")
+    @Value("${keycloak.provider.default-role}")
     private String default_role;
     private CustomerService customerService;
 

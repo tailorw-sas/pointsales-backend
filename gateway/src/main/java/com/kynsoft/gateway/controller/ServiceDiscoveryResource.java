@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.resources;
+package com.kynsoft.gateway.controller;
 
 import com.kynsoft.gateway.config.RefreshRoutesEventPublisher;
 import com.kynsoft.gateway.dto.ServiceInstanceDTO;

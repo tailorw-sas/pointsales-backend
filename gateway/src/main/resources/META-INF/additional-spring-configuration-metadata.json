@@ -15,49 +15,49 @@
     "description": "A description for 'jwt.auth.converter.principle-attribute'"
   },
   {
-    "name": "keycloack.provider.client-secret",
+    "name": "keycloak.provider.client-secret",
     "type": "java.lang.String",
-    "description": "A description for 'keycloack.provider.client-secret'"
+    "description": "A description for 'keycloak.provider.client-secret'"
   },
   {
-    "name": "keycloack.provider.password-console",
+    "name": "keycloak.provider.password-console",
     "type": "java.lang.String",
-    "description": "A description for 'keycloack.provider.password-console'"
+    "description": "A description for 'keycloak.provider.password-console'"
   },
   {
-    "name": "keycloack.provider.user-console",
+    "name": "keycloak.provider.user-console",
     "type": "java.lang.String",
-    "description": "A description for 'keycloack.provider.user-console'"
+    "description": "A description for 'keycloak.provider.user-console'"
   },
   {
-    "name": "keycloack.provider.admin-clic",
+    "name": "keycloak.provider.admin-clic",
     "type": "java.lang.String",
-    "description": "A description for 'keycloack.provider.admin-clic'"
+    "description": "A description for 'keycloak.provider.admin-clic'"
   },
   {
-    "name": "keycloack.provider.realm-master",
+    "name": "keycloak.provider.realm-master",
     "type": "java.lang.String",
-    "description": "A description for 'keycloack.provider.realm-master'"
+    "description": "A description for 'keycloak.provider.realm-master'"
   },
   {
-    "name": "keycloack.provider.realm-name",
+    "name": "keycloak.provider.realm-name",
     "type": "java.lang.String",
-    "description": "A description for 'keycloack.provider.realm-name'"
+    "description": "A description for 'keycloak.provider.realm-name'"
   },
   {
-    "name": "keycloack.provider.server-url",
+    "name": "keycloak.provider.server-url",
     "type": "java.lang.String",
-    "description": "A description for 'keycloack.provider.server-url'"
+    "description": "A description for 'keycloak.provider.server-url'"
   },
   {
-    "name": "keycloack.provider.client-id",
+    "name": "keycloak.provider.client-id",
     "type": "java.lang.String",
-    "description": "A description for 'keycloack.provider.client-id'"
+    "description": "A description for 'keycloak.provider.client-id'"
   },
   {
-    "name": "keycloack.provider.grant_type",
+    "name": "keycloak.provider.grant_type",
     "type": "java.lang.String",
-    "description": "A description for 'keycloack.provider.grant_type'"
+    "description": "A description for 'keycloak.provider.grant_type'"
   },
   {
     "name": "spring.security.client.provider.keycloak.token-uri",
@@ -105,9 +105,9 @@
     "description": "A description for 'http.cors-enabled'"
   },
   {
-    "name": "keycloack.provider.default-user",
+    "name": "keycloak.provider.default-user",
     "type": "java.lang.String",
-    "description": "A description for 'keycloack.provider.default-user'"
+    "description": "A description for 'keycloak.provider.default-user'"
   },
   {
     "name": "http.cors.allowed-origins",
@@ -140,9 +140,9 @@
     "description": "A description for 'http.cors.max-age'"
   },
   {
-    "name": "keycloack.provider.default-role",
+    "name": "keycloak.provider.default-role",
     "type": "java.lang.String",
-    "description": "A description for 'keycloack.provider.default-role'"
+    "description": "A description for 'keycloak.provider.default-role'"
   },
   {
     "name": "springdoc.swagger-ui.groups-enabled",

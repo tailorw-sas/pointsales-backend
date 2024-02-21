@@ -11,25 +11,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class KeycloakProvider {
 
-	@Value("${keycloack.provider.server-url}")
+	@Value("${keycloak.provider.server-url}")
     private String server_url;
 	
-	@Value("${keycloack.provider.realm-name}")
+	@Value("${keycloak.provider.realm-name}")
     private String realm_name;
 	
-	@Value("${keycloack.provider.realm-master}")
+	@Value("${keycloak.provider.realm-master}")
     private String realm_master;
 	
-	@Value("${keycloack.provider.admin-clic}")
+	@Value("${keycloak.provider.admin-clic}")
     private String admin_clic;
 	
-	@Value("${keycloack.provider.user-console}")
+	@Value("${keycloak.provider.user-console}")
     private String user_console;
 	
-	@Value("${keycloack.provider.password-console}")
+	@Value("${keycloak.provider.password-console}")
 	private String password_console;
 	
-	@Value("${keycloack.provider.client-secret}")
+	@Value("${keycloak.provider.client-secret}")
     private String client_secret;
 
     public RealmResource getRealmResource() {

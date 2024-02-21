@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.resources;
+package com.kynsoft.gateway.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
