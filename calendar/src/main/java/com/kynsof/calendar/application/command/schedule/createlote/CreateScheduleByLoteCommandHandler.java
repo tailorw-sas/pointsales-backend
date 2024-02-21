@@ -9,7 +9,7 @@ import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.calendar.domain.service.IScheduleService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.calendar.infrastructure.service.BusinessServiceImpl;
-import com.kynsof.calendar.infrastructure.service.ResocurceServiceImpl;
+import com.kynsof.calendar.infrastructure.service.ResourceServiceImpl;
 import com.kynsof.calendar.infrastructure.service.ScheduleServiceImpl;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class CreateScheduleByLoteCommandHandler implements ICommandHandler<Creat
     private final IResourceService serviceResource;
     private final IBusinessService serviceBusiness;
 
-    public CreateScheduleByLoteCommandHandler(ScheduleServiceImpl service, ResocurceServiceImpl serviceResource, BusinessServiceImpl serviceBusiness) {
+    public CreateScheduleByLoteCommandHandler(ScheduleServiceImpl service, ResourceServiceImpl serviceResource, BusinessServiceImpl serviceBusiness) {
         this.service = service;
         this.serviceResource = serviceResource;
         this.serviceBusiness = serviceBusiness;
