@@ -19,9 +19,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Merge remote-tracking branch 'origin/dev' into dev">
-      <change afterPath="$PROJECT_DIR$/config/rc-settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/config/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/kafka/CustomerCreatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/kafka/CustomerCreatedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/RoleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/ServiceDiscoveryResource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/TestResource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/UsersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/RoleController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/ServiceDiscoveryResource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/TestResource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/UsersController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/util/KeycloakProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/util/KeycloakProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/store/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,102 +139,102 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Docker.calendar/Dockerfile.executor": "Run",
-    "Docker.config/Dockerfile.executor": "Run",
-    "Docker.demo/Dockerfile.executor": "Run",
-    "Docker.docker-compose.yml.calendar-service: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.config-service: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.db-calendar: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.db: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.gateway -service: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.gateway-service: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.patients-service: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.registry-service: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.treatments-service: Compose Deployment.executor": "Run",
-    "Docker.patients/Dockerfile.executor": "Run",
-    "Docker.treatments/Dockerfile.executor": "Run",
-    "Gradle.Build products.executor": "Run",
-    "Maven.calendar [clean].executor": "Run",
-    "Maven.calendar [compile].executor": "Run",
-    "Maven.calendar [deploy].executor": "Run",
-    "Maven.calendar [install].executor": "Run",
-    "Maven.calendar [package].executor": "Run",
-    "Maven.config [clean].executor": "Run",
-    "Maven.config [compile].executor": "Run",
-    "Maven.config [deploy].executor": "Run",
-    "Maven.config [package].executor": "Run",
-    "Maven.demo [package].executor": "Run",
-    "Maven.gateway [clean].executor": "Run",
-    "Maven.gateway [compile].executor": "Run",
-    "Maven.gateway [deploy].executor": "Run",
-    "Maven.gateway [install].executor": "Run",
-    "Maven.gateway [package].executor": "Run",
-    "Maven.patients [clean].executor": "Run",
-    "Maven.patients [compile].executor": "Run",
-    "Maven.patients [install].executor": "Run",
-    "Maven.patients [package].executor": "Run",
-    "Maven.patients [validate].executor": "Run",
-    "Maven.scheduled [install].executor": "Run",
-    "Maven.scheduled-task [clean].executor": "Run",
-    "Maven.scheduled-task [compile].executor": "Run",
-    "Maven.scheduled-task [install].executor": "Run",
-    "Maven.scheduled-task [package].executor": "Run",
-    "Maven.share [clean].executor": "Run",
-    "Maven.share [compile].executor": "Run",
-    "Maven.share [deploy].executor": "Run",
-    "Maven.share [install].executor": "Run",
-    "Maven.share [package].executor": "Run",
-    "Maven.share [site].executor": "Run",
-    "Maven.treatments [clean].executor": "Run",
-    "Maven.treatments [compile].executor": "Run",
-    "Maven.treatments [install].executor": "Run",
-    "Maven.treatments [package].executor": "Run",
-    "Maven.treatments [verify].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.CalendarApplication (1).executor": "Debug",
-    "Spring Boot.CalendarApplication.executor": "Debug",
-    "Spring Boot.ConfigCloudServiceApplication.executor": "Run",
-    "Spring Boot.DemoApplication.executor": "Run",
-    "Spring Boot.GatewayApplication.executor": "Run",
-    "Spring Boot.PatientsApplication.executor": "Debug",
-    "Spring Boot.ProductsApplication.executor": "Debug",
-    "Spring Boot.RegistryApplication.executor": "Run",
-    "Spring Boot.ScheduledApplication.executor": "Debug",
-    "Spring Boot.StoreApplication.executor": "Debug",
-    "Spring Boot.TreatmentsApplication.executor": "Debug",
-    "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "dev",
-    "jdk.selected.JAVA_MODULE": "temurin-17",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/config",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Docker.calendar/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.config/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.demo/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.calendar-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.config-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.db-calendar: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.db: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.gateway -service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.gateway-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.patients-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.registry-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.treatments-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.patients/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.treatments/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build products.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.calendar [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.calendar [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.calendar [deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.calendar [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.calendar [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.config [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.config [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.config [deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.config [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.demo [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.gateway [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.gateway [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.gateway [deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.gateway [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.gateway [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.patients [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.patients [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.patients [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.patients [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.patients [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.scheduled [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.scheduled-task [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.scheduled-task [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.scheduled-task [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.scheduled-task [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.share [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.share [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.share [deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.share [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.share [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.share [site].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.treatments [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.treatments [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.treatments [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.treatments [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.treatments [verify].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.CalendarApplication (1).executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.CalendarApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.ConfigCloudServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DemoApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GatewayApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.PatientsApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.ProductsApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.RegistryApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ScheduledApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.StoreApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.TreatmentsApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;temurin-17&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/keimermontes/Development/java/scheduled/config&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -257,7 +265,7 @@
     </option>
     <option name="openRunningConfigInTab" value="true" />
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yml.config-service: Compose Deployment">
+  <component name="RunManager" selected="Spring Boot.GatewayApplication">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="proyect-base" />
       <option name="ENV_FILES" value="" />
@@ -561,15 +569,9 @@
       <workItem from="1708100091865" duration="1269000" />
       <workItem from="1708101368552" duration="15714000" />
       <workItem from="1708122064075" duration="19808000" />
-      <workItem from="1708357327957" duration="30565000" />
-    </task>
-    <task id="LOCAL-00033" summary="Se agrega las entidades relacionadas con la alergia">
-      <option name="closed" value="true" />
-      <created>1707068295669</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1707068295669</updated>
+      <workItem from="1708357327957" duration="33826000" />
+      <workItem from="1708526615271" duration="265000" />
+      <workItem from="1708526890310" duration="570000" />
     </task>
     <task id="LOCAL-00034" summary="Se agrega las entidades relacionadas con la alergia">
       <option name="closed" value="true" />
@@ -955,7 +957,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708461313633</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Merge remote-tracking branch 'origin/dev' into dev">
+      <option name="closed" value="true" />
+      <created>1708462251227</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1708462251228</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1099,7 +1109,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/ServiceDiscoveryResource.java</url>
           <line>38</line>
-          <properties class="com.kynsoft.gateway.resources.ServiceDiscoveryResource" method="getAllServiceInstances">
+          <properties class="com.kynsoft.gateway.resources.ServiceDiscoveryResource">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
