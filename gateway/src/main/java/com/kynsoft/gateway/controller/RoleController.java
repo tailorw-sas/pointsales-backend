@@ -1,6 +1,6 @@
 package com.kynsoft.gateway.controller;
 
-import com.kynsoft.gateway.service.IKeycloakService;
+import com.kynsoft.gateway.application.service.IKeycloakService;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

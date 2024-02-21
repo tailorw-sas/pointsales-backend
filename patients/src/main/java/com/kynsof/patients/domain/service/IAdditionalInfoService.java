@@ -9,10 +9,15 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IAdditionalInfoService {
-     UUID create(AdditionalInformationDto patients);
+    UUID create(AdditionalInformationDto patients);
+
     UUID update(AdditionalInformationDto patients);
-     void delete(UUID id);
-     AdditionalInformationDto findById(UUID id);
-     PaginatedResponse findAll(Pageable pageable);
+
+    void delete(UUID id);
+
+    AdditionalInformationDto findById(UUID id);
+
+    PaginatedResponse findAll(Pageable pageable);
+
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }

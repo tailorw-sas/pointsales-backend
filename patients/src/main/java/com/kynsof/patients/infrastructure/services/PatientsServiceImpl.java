@@ -6,7 +6,7 @@ import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IPatientsService;
-import com.kynsof.patients.infrastructure.config.redis.CacheConfig;
+import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.patients.infrastructure.entity.Insurance;
 import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.patients.infrastructure.repositories.command.PatientsWriteDataJPARepository;

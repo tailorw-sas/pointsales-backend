@@ -18,18 +18,47 @@
     </loaded-modules>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="Merge remote-tracking branch 'origin/dev' into dev">
-      <change afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/RoleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/ServiceDiscoveryResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/TestResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/UsersController.java" afterDir="false" />
+    <list default="true" id="2e0b26aa-b47f-4123-a236-81953c02b604" name="Changes" comment="gateway">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/RoleController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/ServiceDiscoveryResource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/TestResource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/resources/UsersController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/util/KeycloakProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/util/KeycloakProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/store/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/ApiRouteLocator.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/ApiRouteLocator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/ApiSwaggerResources.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/ApiSwaggerResources.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/CorsProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/CorsProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/JwtAuthConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/JwtAuthConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/OpenApiConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/OpenApiConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/RefreshRoutesEventPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/RefreshRoutesEventPublisher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/RouteDefinitionsContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/RouteDefinitionsContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/RoutesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/RoutesConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/SwaggerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/UpdateRouteContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/UpdateRouteContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/kafka/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/kafka/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/kafka/EventType.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/kafka/EventType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/config/kafka/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/kafka/KafkaProducerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/RoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/ServiceDiscoveryResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/ServiceDiscoveryResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/controller/UsersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/dto/LoginDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/application/dto/LoginDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/dto/RegisterDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/application/dto/RegisterDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/dto/RouteDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/application/dto/RouteDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/dto/ServiceInstanceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/application/dto/ServiceInstanceDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/dto/TokenResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/application/dto/TokenResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/IKeycloakService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/application/service/IKeycloakService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/impl/KeycloakServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/impl/KeycloakServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/kafka/CustomerCreatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/application/service/kafka/CustomerCreatedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/kafka/CustomerEventsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/application/service/kafka/CustomerEventsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/kafka/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/application/service/kafka/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/util/KeycloakProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/config/util/KeycloakProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/application/util/JsonProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/util/JsonProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IAdditionalInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/domain/service/IAdditionalInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/config/kafka/Event.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/config/kafka/EventType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/config/kafka/KafkaConsumerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/config/kafka/KafkaProducerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/config/redis/CacheConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/config/redis/RedisConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/java/com/kynsof/patients/infrastructure/services/PatientsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/patients/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/patients/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,102 +168,102 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Docker.calendar/Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.config/Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.demo/Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.calendar-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.config-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.db-calendar: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.db: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.gateway -service: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.gateway-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.patients-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.registry-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.treatments-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.patients/Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.treatments/Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build products.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.calendar [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.calendar [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.calendar [deploy].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.calendar [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.calendar [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.config [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.config [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.config [deploy].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.config [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.demo [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.gateway [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.gateway [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.gateway [deploy].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.gateway [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.gateway [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.patients [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.patients [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.patients [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.patients [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.patients [validate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.scheduled [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.scheduled-task [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.scheduled-task [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.scheduled-task [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.scheduled-task [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.share [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.share [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.share [deploy].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.share [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.share [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.share [site].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.treatments [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.treatments [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.treatments [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.treatments [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.treatments [verify].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.CalendarApplication (1).executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.CalendarApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.ConfigCloudServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.DemoApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.GatewayApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.PatientsApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.ProductsApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.RegistryApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ScheduledApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.StoreApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.TreatmentsApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;temurin-17&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/keimermontes/Development/java/scheduled/config&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Docker.calendar/Dockerfile.executor": "Run",
+    "Docker.config/Dockerfile.executor": "Run",
+    "Docker.demo/Dockerfile.executor": "Run",
+    "Docker.docker-compose.yml.calendar-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.config-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.db-calendar: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.db: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.gateway -service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.gateway-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.patients-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.registry-service: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.treatments-service: Compose Deployment.executor": "Run",
+    "Docker.patients/Dockerfile.executor": "Run",
+    "Docker.treatments/Dockerfile.executor": "Run",
+    "Gradle.Build products.executor": "Run",
+    "Maven.calendar [clean].executor": "Run",
+    "Maven.calendar [compile].executor": "Run",
+    "Maven.calendar [deploy].executor": "Run",
+    "Maven.calendar [install].executor": "Run",
+    "Maven.calendar [package].executor": "Run",
+    "Maven.config [clean].executor": "Run",
+    "Maven.config [compile].executor": "Run",
+    "Maven.config [deploy].executor": "Run",
+    "Maven.config [package].executor": "Run",
+    "Maven.demo [package].executor": "Run",
+    "Maven.gateway [clean].executor": "Run",
+    "Maven.gateway [compile].executor": "Run",
+    "Maven.gateway [deploy].executor": "Run",
+    "Maven.gateway [install].executor": "Run",
+    "Maven.gateway [package].executor": "Run",
+    "Maven.patients [clean].executor": "Run",
+    "Maven.patients [compile].executor": "Run",
+    "Maven.patients [install].executor": "Run",
+    "Maven.patients [package].executor": "Run",
+    "Maven.patients [validate].executor": "Run",
+    "Maven.scheduled [install].executor": "Run",
+    "Maven.scheduled-task [clean].executor": "Run",
+    "Maven.scheduled-task [compile].executor": "Run",
+    "Maven.scheduled-task [install].executor": "Run",
+    "Maven.scheduled-task [package].executor": "Run",
+    "Maven.share [clean].executor": "Run",
+    "Maven.share [compile].executor": "Run",
+    "Maven.share [deploy].executor": "Run",
+    "Maven.share [install].executor": "Run",
+    "Maven.share [package].executor": "Run",
+    "Maven.share [site].executor": "Run",
+    "Maven.treatments [clean].executor": "Run",
+    "Maven.treatments [compile].executor": "Run",
+    "Maven.treatments [install].executor": "Run",
+    "Maven.treatments [package].executor": "Run",
+    "Maven.treatments [verify].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.CalendarApplication (1).executor": "Debug",
+    "Spring Boot.CalendarApplication.executor": "Debug",
+    "Spring Boot.ConfigCloudServiceApplication.executor": "Run",
+    "Spring Boot.DemoApplication.executor": "Run",
+    "Spring Boot.GatewayApplication.executor": "Debug",
+    "Spring Boot.PatientsApplication.executor": "Run",
+    "Spring Boot.ProductsApplication.executor": "Debug",
+    "Spring Boot.RegistryApplication.executor": "Run",
+    "Spring Boot.ScheduledApplication.executor": "Debug",
+    "Spring Boot.StoreApplication.executor": "Debug",
+    "Spring Boot.TreatmentsApplication.executor": "Debug",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "dev",
+    "jdk.selected.JAVA_MODULE": "temurin-17",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/keimermontes/Development/java/scheduled/config",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -571,23 +600,7 @@
       <workItem from="1708122064075" duration="19808000" />
       <workItem from="1708357327957" duration="33826000" />
       <workItem from="1708526615271" duration="265000" />
-      <workItem from="1708526890310" duration="570000" />
-    </task>
-    <task id="LOCAL-00034" summary="Se agrega las entidades relacionadas con la alergia">
-      <option name="closed" value="true" />
-      <created>1707068638771</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1707068638771</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Se agrega las entidades relacionadas con los pacientes">
-      <option name="closed" value="true" />
-      <created>1707148257199</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1707148257199</updated>
+      <workItem from="1708526890310" duration="2860000" />
     </task>
     <task id="LOCAL-00036" summary="Treatments">
       <option name="closed" value="true" />
@@ -965,7 +978,23 @@
       <option name="project" value="LOCAL" />
       <updated>1708462251228</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="gateway">
+      <option name="closed" value="true" />
+      <created>1708527592325</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1708527592326</updated>
+    </task>
+    <task id="LOCAL-00084" summary="gateway">
+      <option name="closed" value="true" />
+      <created>1708527604935</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1708527604936</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1011,7 +1040,8 @@
     <MESSAGE value="creacion del micro tienda" />
     <MESSAGE value="se arreglan temas relacionado con la creacion de usuarios" />
     <MESSAGE value="Merge remote-tracking branch 'origin/dev' into dev" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/dev' into dev" />
+    <MESSAGE value="gateway" />
+    <option name="LAST_COMMIT_MESSAGE" value="gateway" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1097,12 +1127,12 @@
           <option name="timeStamp" value="79" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/impl/KeycloakServiceImpl.java</url>
+          <url>file://$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/impl/KeycloakServiceImpl.java</url>
           <line>172</line>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/service/impl/KeycloakServiceImpl.java</url>
+          <url>file://$PROJECT_DIR$/gateway/src/main/java/com/kynsoft/gateway/infrastructure/impl/KeycloakServiceImpl.java</url>
           <line>136</line>
           <option name="timeStamp" value="90" />
         </line-breakpoint>

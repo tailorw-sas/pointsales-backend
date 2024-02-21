@@ -1,7 +1,7 @@
 package com.kynsoft.gateway.controller;
 
-import com.kynsoft.gateway.config.RefreshRoutesEventPublisher;
-import com.kynsoft.gateway.dto.ServiceInstanceDTO;
+import com.kynsoft.gateway.infrastructure.config.RefreshRoutesEventPublisher;
+import com.kynsoft.gateway.application.dto.ServiceInstanceDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.client.DefaultServiceInstance;
 import org.springframework.cloud.client.ServiceInstance;

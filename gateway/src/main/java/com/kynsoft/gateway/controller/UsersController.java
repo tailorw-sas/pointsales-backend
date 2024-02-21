@@ -1,10 +1,10 @@
 package com.kynsoft.gateway.controller;
 
 
-import com.kynsoft.gateway.dto.LoginDTO;
-import com.kynsoft.gateway.dto.RegisterDTO;
-import com.kynsoft.gateway.dto.TokenResponse;
-import com.kynsoft.gateway.service.IKeycloakService;
+import com.kynsoft.gateway.application.dto.LoginDTO;
+import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.dto.TokenResponse;
+import com.kynsoft.gateway.application.service.IKeycloakService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
