@@ -13,7 +13,9 @@ import com.kynsof.calendar.infrastructure.entity.Resource;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
 import com.kynsof.calendar.infrastructure.entity.specifications.ScheduleSpecifications;
 import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
+import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -37,6 +39,22 @@ public class ScheduleServiceImpl implements IScheduleService {
     
     @Autowired
     private ScheduleWriteDataJPARepository repositoryCommand;
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<Schedule> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<Schedule> data = this.repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<Schedule> data) {
+        List<ScheduleResponse> patients = new ArrayList<>();
+        for (Schedule s : data.getContent()) {
+            patients.add(new ScheduleResponse(s.toAggregate()));
+        }
+        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
 
     @Override
     public Page<Schedule> getAll(Pageable pageable) {

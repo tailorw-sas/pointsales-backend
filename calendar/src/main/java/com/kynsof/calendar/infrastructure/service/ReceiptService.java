@@ -1,6 +1,5 @@
 package com.kynsof.calendar.infrastructure.service;
 
-import com.kynsof.calendar.application.query.BusinessResponse;
 import com.kynsof.calendar.application.query.ReceiptResponse;
 import com.kynsof.calendar.domain.dto.EStatusReceipt;
 import com.kynsof.calendar.domain.dto.EStatusSchedule;
@@ -10,7 +9,6 @@ import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.exception.BusinessException;
 import com.kynsof.calendar.domain.exception.DomainErrorMessage;
 import com.kynsof.calendar.domain.service.IReceiptService;
-import com.kynsof.calendar.infrastructure.entity.Business;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.calendar.infrastructure.repository.command.ReceiptWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.entity.Receipt;

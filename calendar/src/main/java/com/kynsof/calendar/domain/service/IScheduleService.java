@@ -5,6 +5,7 @@ import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.infrastructure.entity.Resource;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
+import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 public interface IScheduleService {
     public void delete(UUID id);
     public ScheduleDto findById(UUID id);
+    PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     Page<Schedule> getAll(Pageable pageable);
     PaginatedResponse findAll(Pageable pageable, UUID resource, LocalDate date, EStatusSchedule status, LocalDate startDate, LocalDate endDate);
     List<Schedule> getAllScheduleForResource(UUID id);
