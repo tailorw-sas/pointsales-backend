@@ -15,7 +15,9 @@ import com.kynsof.calendar.application.command.schedule.update.UpdateScheduleMes
 import com.kynsof.calendar.application.query.ScheduleResponse;
 import com.kynsof.calendar.application.query.schedule.getAll.FindScheduleWithFilterQuery;
 import com.kynsof.calendar.application.query.schedule.getbyid.FindScheduleByIdQuery;
+import com.kynsof.calendar.application.query.schedule.search.GetSearchScheduleQuery;
 import com.kynsof.calendar.domain.dto.EStatusSchedule;
+import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 
@@ -85,6 +87,15 @@ public class ScheduleController {
         FindScheduleWithFilterQuery query = new FindScheduleWithFilterQuery(pageable, resource, date, startDate, endDate, status);
         PaginatedResponse data = mediator.send(query);
 
+        return ResponseEntity.ok(data);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchScheduleQuery query = new GetSearchScheduleQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
 

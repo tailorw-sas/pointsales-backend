@@ -11,6 +11,8 @@ import com.kynsof.calendar.application.command.qualification.update.UpdateQualif
 import com.kynsof.calendar.application.query.QualificationResponse;
 import com.kynsof.calendar.application.query.qualification.getAll.FindQualificationWithFilterQuery;
 import com.kynsof.calendar.application.query.qualification.getbyid.FindQualificationByIdQuery;
+import com.kynsof.calendar.application.query.qualification.search.GetSearchQualificationQuery;
+import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 
@@ -49,6 +51,15 @@ public class QualificationController {
         FindQualificationWithFilterQuery query = new FindQualificationWithFilterQuery(pageable, idQualification, filter);
         PaginatedResponse data = mediator.send(query);
 
+        return ResponseEntity.ok(data);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchQualificationQuery query = new GetSearchQualificationQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
 

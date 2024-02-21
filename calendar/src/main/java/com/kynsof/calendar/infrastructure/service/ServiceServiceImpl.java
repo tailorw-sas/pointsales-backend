@@ -11,7 +11,9 @@ import com.kynsof.calendar.infrastructure.repository.command.ServiceWriteDataJPA
 import com.kynsof.calendar.infrastructure.entity.Services;
 import com.kynsof.calendar.infrastructure.entity.specifications.BusinessSpecifications;
 import com.kynsof.calendar.infrastructure.repository.query.ServiceReadDataJPARepository;
+import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -120,5 +122,21 @@ public class ServiceServiceImpl implements IServiceService {
         return new PaginatedResponse(objects, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
-    
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<Service> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<Services> data = this.repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<Services> data) {
+        List<ServicesResponse> patients = new ArrayList<>();
+        for (Services s : data.getContent()) {
+            patients.add(new ServicesResponse(s.toAggregate()));
+        }
+        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
 }

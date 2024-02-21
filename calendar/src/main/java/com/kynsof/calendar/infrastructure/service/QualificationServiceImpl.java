@@ -11,7 +11,9 @@ import com.kynsof.calendar.infrastructure.repository.command.QualificationWriteD
 import com.kynsof.calendar.infrastructure.entity.Qualification;
 import com.kynsof.calendar.infrastructure.entity.specifications.QualificationSpecifications;
 import com.kynsof.calendar.infrastructure.repository.query.QualificationReadDataJPARepository;
+import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -78,6 +80,22 @@ public class QualificationServiceImpl implements IQualificationService {
             qualification.add(new QualificationResponse(q.toAggregate()));
         }
         return new PaginatedResponse(qualification, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<Qualification> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<Qualification> data = this.repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<Qualification> data) {
+        List<QualificationResponse> patients = new ArrayList<>();
+        for (Qualification q : data.getContent()) {
+            patients.add(new QualificationResponse(q.toAggregate()));
+        }
+        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 

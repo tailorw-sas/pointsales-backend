@@ -11,7 +11,9 @@ import com.kynsof.calendar.infrastructure.repository.command.ResourceWriteDataJP
 import com.kynsof.calendar.infrastructure.entity.Resource;
 import com.kynsof.calendar.infrastructure.entity.specifications.ResourceSpecifications;
 import com.kynsof.calendar.infrastructure.repository.query.ResourceReadDataJPARepository;
+import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ResocurceServiceImpl implements IResourceService {
+public class ResourceServiceImpl implements IResourceService {
 
     
     @Autowired
@@ -115,5 +117,21 @@ public class ResocurceServiceImpl implements IResourceService {
         return new PaginatedResponse(objects, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
-    
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<Resource> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<Resource> data = this.repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<Resource> data) {
+        List<ResourceResponse> patients = new ArrayList<>();
+        for (Resource s : data.getContent()) {
+            patients.add(new ResourceResponse(s.toAggregate()));
+        }
+        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
 }
