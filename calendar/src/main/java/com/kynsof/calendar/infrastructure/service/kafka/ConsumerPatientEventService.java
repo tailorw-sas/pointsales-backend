@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class ConsumerPatientEventService {
 
     // Ejemplo de un método listener
-    @KafkaListener(topics = "patient")
+    @KafkaListener(topics = "patient", groupId = "calendar-patient")
     public void listen(String event) {
         try {
             System.err.println("#######################################################");

@@ -1,15 +1,13 @@
 package com.kynsof.patients.infrastructure.services.kafka;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Slf4j
-@Component
+@Service
 public class CreateUserEventService {
 
     // Ejemplo de un método listener
-    @KafkaListener(topics = "patient")
+    @KafkaListener(topics = "patient", groupId = "patient-patient")
     public void listen(String event) {
         System.err.println("#######################################################");
         System.err.println("#######################################################");
