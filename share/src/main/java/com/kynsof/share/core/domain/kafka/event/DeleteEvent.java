@@ -1,6 +1,5 @@
 package com.kynsof.share.core.domain.kafka.event;
 
-import com.kynsof.share.core.domain.kafka.event.EventType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

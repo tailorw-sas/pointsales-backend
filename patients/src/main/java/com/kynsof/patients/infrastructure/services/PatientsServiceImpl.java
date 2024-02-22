@@ -12,6 +12,7 @@ import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.patients.infrastructure.repositories.command.PatientsWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.InsuranceReadDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.PatientsReadDataJPARepository;
+import com.kynsof.patients.infrastructure.services.kafka.ProducerPatientsEventService;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -40,9 +41,13 @@ public class PatientsServiceImpl implements IPatientsService {
     @Autowired
     private InsuranceReadDataJPARepository insuranceReadDataJPARepository;
 
+    @Autowired
+    private ProducerPatientsEventService patientEventService;
+
     @Override
     public UUID create(PatientDto patients) {
         Patients entity = this.repositoryCommand.save(new Patients(patients));
+        this.patientEventService.create(patients);
         return entity.getId();
     }
 
