@@ -8,8 +8,6 @@ import lombok.Value;
 @RequiredArgsConstructor
 @Builder
 public class ServiceInstanceDTO {
-
-    private String serviceId;
-    private String url;
-
+    String serviceId;
+    String url;
 }
