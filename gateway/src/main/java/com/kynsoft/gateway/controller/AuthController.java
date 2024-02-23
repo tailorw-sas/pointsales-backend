@@ -1,10 +1,7 @@
 package com.kynsoft.gateway.controller;
 
 
-import com.kynsoft.gateway.application.dto.LoginDTO;
-import com.kynsoft.gateway.application.dto.RegisterDTO;
-import com.kynsoft.gateway.application.dto.TokenRefreshRequest;
-import com.kynsoft.gateway.application.dto.TokenResponse;
+import com.kynsoft.gateway.application.dto.*;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,5 +43,11 @@ public class AuthController {
     @PreAuthorize("permitAll()")
     public Mono<TokenResponse> refreshToken(@RequestBody TokenRefreshRequest request) {
         return  userService.refreshToken(request.getRefreshToken());
+    }
+
+    @PreAuthorize("permitAll()")
+    @PostMapping("/exchange-google-token")
+    public Mono<?> exchangeGoogleTokenForKeycloakToken(@RequestBody GoogleTokenRequest googleTokenRequest) {
+        return userService.getKeycloakTokenUsingGoogleToken(googleTokenRequest.getGoogleToken());
     }
 }

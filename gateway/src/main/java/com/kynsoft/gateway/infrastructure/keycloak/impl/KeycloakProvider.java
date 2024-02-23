@@ -42,6 +42,9 @@ public class KeycloakProvider {
     @Value("${keycloak.provider.grant-type}")
     private String grant_type;
 
+    @Value("${google.client-id}")
+    private String googleClientId;
+
     public RealmResource getRealmResource() {
         Keycloak keycloak = KeycloakBuilder.builder()
                 .serverUrl(server_url)

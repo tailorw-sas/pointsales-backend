@@ -1,5 +1,9 @@
 package com.kynsoft.gateway.infrastructure.keycloak.impl;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.kynsoft.gateway.application.dto.LoginDTO;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.application.dto.TokenResponse;
@@ -19,6 +23,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +40,7 @@ public class UserService implements IUserService {
     @Override
     public Mono<TokenResponse> authenticate(LoginDTO loginDTO) {
         WebClient webClient = webClientBuilder.baseUrl(keycloakProvider.getTokenUri()).build();
-        return webClient.post()
+        Mono<TokenResponse> response = webClient.post()
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromFormData("client_id", keycloakProvider.getClient_id())
@@ -44,6 +50,7 @@ public class UserService implements IUserService {
                         .with("client_secret", keycloakProvider.getClient_secret()))
                 .retrieve()
                 .bodyToMono(TokenResponse.class);
+        return response;
     }
 
     @Override
@@ -62,6 +69,7 @@ public class UserService implements IUserService {
         return  response;
     }
 
+    @Override
     public String registerUser(@NonNull RegisterDTO registerDTO) {
         int status = 0;
         UsersResource usersResource = keycloakProvider.getUserResource();
@@ -72,8 +80,7 @@ public class UserService implements IUserService {
         userRepresentation.setEmail(registerDTO.getEmail());
         userRepresentation.setUsername(registerDTO.getUsername());
         userRepresentation.setEnabled(true);
-        userRepresentation.setEmailVerified(true);
-
+        userRepresentation.setEmailVerified(false);
         Response response = usersResource.create(userRepresentation);
 
         status = response.getStatus();
@@ -88,6 +95,7 @@ public class UserService implements IUserService {
             credentialRepresentation.setValue(registerDTO.getPassword());
 
             usersResource.get(id).resetPassword(credentialRepresentation);
+            usersResource.get(id).sendVerifyEmail();
 
             RealmResource realmResource = keycloakProvider.getRealmResource();
 
@@ -156,5 +164,23 @@ public class UserService implements IUserService {
         keycloakProvider.getUserResource()
                 .get(id)
                 .remove();
+    }
+
+
+    public Mono<?> getKeycloakTokenUsingGoogleToken(String googleToken) {
+        String googleCLientId = keycloakProvider.getGoogleClientId();
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance())
+                .setAudience(Collections.singletonList(googleCLientId))
+                .build();
+
+        try {
+            GoogleIdToken idToken = verifier.verify(googleToken);
+            if( idToken != null)
+                return  Mono.just(true);
+        } catch (GeneralSecurityException | IOException e) {
+            // Log and handle the exception
+            return Mono.just(false);
+        }
+        return Mono.just(false);
     }
 }
