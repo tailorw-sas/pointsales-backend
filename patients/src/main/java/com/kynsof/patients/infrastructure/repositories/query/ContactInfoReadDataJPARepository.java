@@ -1,7 +1,6 @@
 package com.kynsof.patients.infrastructure.repositories.query;
 
 import com.kynsof.patients.infrastructure.entity.ContactInformation;
-import com.kynsof.patients.infrastructure.entity.Patients;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

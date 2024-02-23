@@ -1,9 +1,9 @@
 package com.kynsof.patients.application.command.allergy.update;
 
-import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.dto.AllergyEntityDto;
 import com.kynsof.patients.domain.service.IAllergyService;
 import com.kynsof.patients.infrastructure.entity.Allergy;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
 @Component

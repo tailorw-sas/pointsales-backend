@@ -1,9 +1,8 @@
 package com.kynsof.patients.application.query.additionalInfo.getall;
 
-import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.service.IAdditionalInfoService;
-import com.kynsof.patients.domain.service.IContactInfoService;
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
 @Component

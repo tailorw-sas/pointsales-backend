@@ -3,12 +3,11 @@ package com.kynsof.patients.domain.service;
 import com.kynsof.patients.domain.dto.DependentPatientDto;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.dto.PatientDto;
+import com.kynsof.share.core.domain.request.FilterCriteria;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.UUID;
-
-import com.kynsof.share.core.domain.request.FilterCriteria;
-import org.springframework.data.domain.Pageable;
 
 public interface IPatientsService {
     UUID create(PatientDto patients);

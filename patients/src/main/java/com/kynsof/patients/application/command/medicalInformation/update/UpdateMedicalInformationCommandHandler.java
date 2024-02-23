@@ -1,9 +1,9 @@
 package com.kynsof.patients.application.command.medicalInformation.update;
 
-import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.dto.MedicalInformationUpdateDto;
+import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IMedicalInformationService;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
 @Component

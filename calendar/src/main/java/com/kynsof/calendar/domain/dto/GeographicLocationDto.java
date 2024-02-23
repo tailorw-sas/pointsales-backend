@@ -1,11 +1,11 @@
 package com.kynsof.calendar.domain.dto;
 
 import com.kynsof.calendar.domain.dto.enumType.GeographicLocationType;
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Getter

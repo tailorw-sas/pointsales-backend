@@ -1,8 +1,8 @@
 package com.kynsof.patients.application.query.insuarance.getall;
 
 
-import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsof.patients.domain.dto.InsuranceDto;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

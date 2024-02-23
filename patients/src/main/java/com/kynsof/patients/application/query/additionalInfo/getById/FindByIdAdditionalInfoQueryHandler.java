@@ -1,9 +1,9 @@
 package com.kynsof.patients.application.query.additionalInfo.getById;
 
 import com.kynsof.patients.application.query.additionalInfo.getall.AdditionalInfoResponse;
-import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.patients.domain.dto.AdditionalInformationDto;
 import com.kynsof.patients.domain.service.IAdditionalInfoService;
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
 @Component

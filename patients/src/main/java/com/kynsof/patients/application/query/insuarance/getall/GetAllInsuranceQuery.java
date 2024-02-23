@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Pageable;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @AllArgsConstructor

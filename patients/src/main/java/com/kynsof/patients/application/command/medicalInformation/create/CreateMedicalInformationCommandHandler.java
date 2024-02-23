@@ -1,10 +1,13 @@
 package com.kynsof.patients.application.command.medicalInformation.create;
 
-import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.patients.domain.dto.*;
+import com.kynsof.patients.domain.dto.AllergyDto;
+import com.kynsof.patients.domain.dto.CurrentMedicationDto;
+import com.kynsof.patients.domain.dto.MedicalInformationDto;
+import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IMedicalInformationService;
 import com.kynsof.patients.domain.service.IPatientsService;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

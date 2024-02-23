@@ -1,14 +1,17 @@
 package com.kynsof.patients.infrastructure.entity;
 
-import com.kynsof.patients.domain.dto.*;
+import com.kynsof.patients.domain.dto.AllergyDto;
+import com.kynsof.patients.domain.dto.CurrentMedicationDto;
+import com.kynsof.patients.domain.dto.MedicalInformationDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import lombok.*;
 
 @NoArgsConstructor
 @Getter

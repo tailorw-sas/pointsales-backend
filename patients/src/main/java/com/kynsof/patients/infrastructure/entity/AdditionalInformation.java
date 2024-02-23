@@ -3,10 +3,11 @@ package com.kynsof.patients.infrastructure.entity;
 import com.kynsof.patients.domain.dto.AdditionalInformationDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
-
-import lombok.*;
 
 @NoArgsConstructor
 @Getter

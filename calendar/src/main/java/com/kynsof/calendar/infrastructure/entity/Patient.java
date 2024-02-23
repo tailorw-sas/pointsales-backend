@@ -2,16 +2,12 @@ package com.kynsof.calendar.infrastructure.entity;
 
 import com.kynsof.calendar.domain.dto.PatientDto;
 import com.kynsof.calendar.domain.dto.PatientStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
-import lombok.NoArgsConstructor;
 
 @Getter
 @Setter

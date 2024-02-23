@@ -1,10 +1,10 @@
 package com.kynsof.patients.application.command.patients.create;
 
+import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.kynsof.share.core.domain.bus.command.ICommand;
 import java.util.UUID;
 
 @Getter

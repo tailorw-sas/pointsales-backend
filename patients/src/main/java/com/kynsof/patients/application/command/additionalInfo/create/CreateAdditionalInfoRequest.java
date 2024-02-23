@@ -1,10 +1,8 @@
 package com.kynsof.patients.application.command.additionalInfo.create;
 
-import com.kynsof.patients.infrastructure.entity.Patients;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter

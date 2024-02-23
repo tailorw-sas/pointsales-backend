@@ -1,8 +1,8 @@
 package com.kynsof.patients.application.query.allergy.getall;
 
-import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.service.IAllergyService;
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
 @Component

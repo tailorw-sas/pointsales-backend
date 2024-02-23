@@ -2,17 +2,14 @@ package com.kynsof.calendar.infrastructure.entity;
 
 import com.kynsof.calendar.domain.dto.EStatusReceipt;
 import com.kynsof.calendar.domain.dto.ReceiptDto;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.UUID;
 
 @Entity
 @NoArgsConstructor

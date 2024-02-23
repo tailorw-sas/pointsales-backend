@@ -2,17 +2,18 @@ package com.kynsof.calendar.infrastructure.entity.specifications;
 
 import com.kynsof.calendar.domain.dto.EStatusSchedule;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.jpa.domain.Specification;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.jpa.domain.Specification;
 
 @Getter
 @Setter

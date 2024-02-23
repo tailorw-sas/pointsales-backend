@@ -1,8 +1,8 @@
 package com.kynsof.patients.application.command.allergy.update;
 
+import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.patients.domain.dto.enumTye.Status;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -6,8 +6,8 @@ import com.kynsof.patients.application.command.contactInfo.create.CreateContactI
 import com.kynsof.patients.application.command.contactInfo.update.UpdateContactInfoCommand;
 import com.kynsof.patients.application.command.contactInfo.update.UpdateContactInfoMessage;
 import com.kynsof.patients.application.command.contactInfo.update.UpdateContactInfoRequest;
-import com.kynsof.patients.application.command.patients.delete.PatientDeleteMessage;
 import com.kynsof.patients.application.command.patients.delete.DeletePatientsCommand;
+import com.kynsof.patients.application.command.patients.delete.PatientDeleteMessage;
 import com.kynsof.patients.application.query.contactInfo.getById.FindByIdContactInfoQuery;
 import com.kynsof.patients.application.query.contactInfo.getall.ContactInfoResponse;
 import com.kynsof.patients.application.query.contactInfo.getall.GetAllContactInfoQuery;

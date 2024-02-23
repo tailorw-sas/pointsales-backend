@@ -1,10 +1,11 @@
 package com.kynsof.calendar.application.command.schedule.createall;
 
-import java.time.LocalTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalTime;
 
 @Getter
 @Setter

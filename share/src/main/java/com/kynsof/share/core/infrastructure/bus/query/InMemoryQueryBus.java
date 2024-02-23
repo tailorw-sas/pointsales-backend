@@ -1,11 +1,6 @@
 package com.kynsof.share.core.infrastructure.bus.query;
 
-import com.kynsof.share.core.domain.bus.query.IQuery;
-import com.kynsof.share.core.domain.bus.query.IQueryBus;
-import com.kynsof.share.core.domain.bus.query.IQueryHandler;
-import com.kynsof.share.core.domain.bus.query.IResponse;
-import com.kynsof.share.core.domain.bus.query.QueryHandlerExecutionError;
-import com.kynsof.share.core.domain.bus.query.QueryNotRegisteredError;
+import com.kynsof.share.core.domain.bus.query.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;

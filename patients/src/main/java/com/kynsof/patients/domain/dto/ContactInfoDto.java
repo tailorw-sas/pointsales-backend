@@ -1,7 +1,6 @@
 package com.kynsof.patients.domain.dto;
 
 import com.kynsof.patients.domain.dto.enumTye.Status;
-import com.kynsof.patients.infrastructure.entity.GeographicLocation;
 import com.kynsof.patients.infrastructure.entity.Patients;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

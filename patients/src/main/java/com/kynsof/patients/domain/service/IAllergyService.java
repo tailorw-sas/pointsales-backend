@@ -1,7 +1,6 @@
 package com.kynsof.patients.domain.service;
 
 import com.kynsof.patients.domain.dto.AllergyEntityDto;
-import com.kynsof.patients.domain.dto.ContactInfoDto;
 import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.infrastructure.entity.Allergy;
 import com.kynsof.share.core.domain.request.FilterCriteria;

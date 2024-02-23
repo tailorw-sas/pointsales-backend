@@ -1,7 +1,7 @@
 package com.kynsof.patients.application.command.additionalInfo.delete;
 
-import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.service.IAdditionalInfoService;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
 @Component

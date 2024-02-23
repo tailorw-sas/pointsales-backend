@@ -1,15 +1,12 @@
 package com.kynsof.calendar.application.query;
 
-import com.kynsof.calendar.domain.dto.EStatusReceipt;
-import com.kynsof.calendar.domain.dto.PatientDto;
-import com.kynsof.calendar.domain.dto.ReceiptDto;
-import com.kynsof.calendar.domain.dto.ScheduleDto;
-import com.kynsof.calendar.domain.dto.ServiceDto;
+import com.kynsof.calendar.domain.dto.*;
 import com.kynsof.share.core.domain.bus.query.IResponse;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.UUID;
 
 @AllArgsConstructor
 @Getter

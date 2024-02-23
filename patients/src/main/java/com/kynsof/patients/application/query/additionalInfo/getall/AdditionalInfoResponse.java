@@ -1,9 +1,9 @@
 package com.kynsof.patients.application.query.additionalInfo.getall;
 
 
-import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsof.patients.domain.dto.AdditionalInformationDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,15 +1,13 @@
 package com.kynsof.patients.application.query.patients.getall;
 
 
-import com.kynsof.share.core.domain.bus.query.IResponse;
-
-import java.time.LocalDate;
-import java.util.UUID;
-
 import com.kynsof.patients.domain.dto.PatientDto;
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.UUID;
 
 @AllArgsConstructor
 @Getter

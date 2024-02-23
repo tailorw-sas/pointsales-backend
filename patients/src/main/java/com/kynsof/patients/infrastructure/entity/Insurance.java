@@ -2,9 +2,12 @@ package com.kynsof.patients.infrastructure.entity;
 
 import com.kynsof.patients.domain.dto.InsuranceDto;
 import jakarta.persistence.*;
-import java.util.UUID;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Getter

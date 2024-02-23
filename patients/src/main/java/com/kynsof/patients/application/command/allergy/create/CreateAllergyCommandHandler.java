@@ -1,10 +1,11 @@
 package com.kynsof.patients.application.command.allergy.create;
 
-import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.patients.domain.dto.*;
+import com.kynsof.patients.domain.dto.AllergyEntityDto;
+import com.kynsof.patients.domain.dto.MedicalInformationDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IAllergyService;
 import com.kynsof.patients.domain.service.IMedicalInformationService;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

@@ -1,7 +1,7 @@
 package com.kynsof.patients.application.command.patients.createInsurance;
 
-import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.patients.domain.service.IPatientsService;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
 @Component

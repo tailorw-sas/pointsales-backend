@@ -1,11 +1,12 @@
 package com.kynsof.patients.application.query.patients.getall;
 
 import com.kynsof.share.core.domain.bus.query.IQuery;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Pageable;
+
+import java.util.UUID;
 
 @Getter
 @Setter

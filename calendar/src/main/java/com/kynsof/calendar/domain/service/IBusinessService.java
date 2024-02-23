@@ -3,9 +3,10 @@ package com.kynsof.calendar.domain.service;
 import com.kynsof.calendar.domain.dto.BusinessDto;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.UUID;
-import org.springframework.data.domain.Pageable;
 
 public interface IBusinessService {
     public void create(BusinessDto object);

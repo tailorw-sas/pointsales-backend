@@ -3,11 +3,11 @@ package com.kynsof.calendar.application.command.schedule.update;
 import com.kynsof.calendar.domain.dto.EStatusSchedule;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 @Getter

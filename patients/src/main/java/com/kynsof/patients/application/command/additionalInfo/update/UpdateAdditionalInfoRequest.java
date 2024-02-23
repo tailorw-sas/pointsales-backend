@@ -3,7 +3,6 @@ package com.kynsof.patients.application.command.additionalInfo.update;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
