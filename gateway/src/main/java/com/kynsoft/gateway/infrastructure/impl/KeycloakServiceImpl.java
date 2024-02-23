@@ -3,6 +3,7 @@ package com.kynsoft.gateway.infrastructure.impl;
 import com.kynsoft.gateway.application.dto.LoginDTO;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.application.dto.TokenResponse;
+import com.kynsoft.gateway.application.dto.role.RoleRequest;
 import com.kynsoft.gateway.application.service.IKeycloakService;
 import com.kynsoft.gateway.application.service.kafka.CustomerService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,16 +22,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
 public class KeycloakServiceImpl implements IKeycloakService {
 
     @Autowired
-    private com.kynsoft.gateway.infrastructure.config.util.KeycloakProvider KeycloakProvider;
+    private com.kynsoft.gateway.infrastructure.config.util.KeycloakProvider keycloakProvider;
 
     @Autowired
     private WebClient.Builder webClientBuilder;
@@ -75,13 +74,29 @@ public class KeycloakServiceImpl implements IKeycloakService {
                 .bodyToMono(TokenResponse.class);
     }
 
+    @Override
+    public   Mono<TokenResponse>  refreshToken(String refreshToken) {
+        WebClient webClient = WebClient.builder().baseUrl(tokenUri).build();
+
+        Mono<TokenResponse> response = webClient.post()
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromFormData("client_id", client_id)
+                        .with("grant_type", "refresh_token")
+                        .with("refresh_token", refreshToken)
+                        .with("client_secret", client_secret))
+                .retrieve()
+                .bodyToMono(TokenResponse.class);
+        return  response;
+    }
+
     /**
      * Method to list all keycloak users
      *
      * @return List<UserRepresentation>
      */
     public List<UserRepresentation> findAllUsers() {
-        return KeycloakProvider.getRealmResource()
+        return keycloakProvider.getRealmResource()
                 .users()
                 .list();
     }
@@ -92,7 +107,7 @@ public class KeycloakServiceImpl implements IKeycloakService {
      * @return List<UserRepresentation>
      */
     public List<RoleRepresentation> findAllRoles() {
-        RealmResource realmResource = KeycloakProvider.getRealmResource();
+        RealmResource realmResource = keycloakProvider.getRealmResource();
         String clientId = realmResource.clients().findByClientId(client_id).get(0).getId();
         ClientResource clientResource = realmResource.clients().get(clientId);
         RolesResource rolesResource = clientResource.roles();
@@ -100,13 +115,31 @@ public class KeycloakServiceImpl implements IKeycloakService {
     }
 
     @Override
-    public String registerRol(String rolName) {
-        RealmResource realmResource = KeycloakProvider.getRealmResource();
+    public String createRole(RoleRequest request) {
+        // Obtener RealmResource
+        RealmResource realmResource = keycloakProvider.getRealmResource();
+
+        ClientResource clientResource = realmResource.clients().findByClientId(client_id).stream()
+                .findFirst()
+                .map(clientRepresentation -> realmResource.clients().get(clientRepresentation.getId()))
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+
+
         RoleRepresentation role = new RoleRepresentation();
-        role.setName(rolName);
-        role.setClientRole(false);
-        return "Role created successfully!!";
+        role.setName(request.getName());
+        role.setDescription(request.getDescription());
+
+        // Agregar atributo de estado
+        Map<String, List<String>> attributes = new HashMap<>();
+        attributes.put("status", List.of("ACTIVE"));
+        role.setAttributes(attributes);
+
+        clientResource.roles().create(role);
+        RoleRepresentation createdRole = clientResource.roles().get(request.getName()).toRepresentation();
+        return createdRole.getId();
     }
+
+
 
     /**
      * Method to search for a user by username
@@ -114,7 +147,7 @@ public class KeycloakServiceImpl implements IKeycloakService {
      * @return List<UserRepresentation>
      */
     public List<UserRepresentation> searchUserByUsername(String username) {
-        return KeycloakProvider.getRealmResource()
+        return keycloakProvider.getRealmResource()
                 .users()
                 .searchByUsername(username, true);
     }
@@ -124,7 +157,7 @@ public class KeycloakServiceImpl implements IKeycloakService {
      * @return int
      */
     public int countUsers() {
-        return KeycloakProvider.getRealmResource()
+        return keycloakProvider.getRealmResource()
                 .users().count();
     }
 
@@ -134,7 +167,7 @@ public class KeycloakServiceImpl implements IKeycloakService {
      */
     public String registerUser(@NonNull RegisterDTO registerDTO) {
         int status = 0;
-        UsersResource usersResource = KeycloakProvider.getUserResource();
+        UsersResource usersResource = keycloakProvider.getUserResource();
 
         UserRepresentation userRepresentation = new UserRepresentation();
         userRepresentation.setFirstName(registerDTO.getFirstname());
@@ -159,7 +192,7 @@ public class KeycloakServiceImpl implements IKeycloakService {
 
             usersResource.get(id).resetPassword(credentialRepresentation);
 
-            RealmResource realmResource = KeycloakProvider.getRealmResource();
+            RealmResource realmResource = keycloakProvider.getRealmResource();
 
             String clientId = realmResource.clients().findByClientId(client_id).get(0).getId();
 
@@ -211,7 +244,7 @@ public class KeycloakServiceImpl implements IKeycloakService {
         user.setEmailVerified(true);
         user.setCredentials(Collections.singletonList(credentialRepresentation));
 
-        UserResource usersResource = KeycloakProvider.getUserResource().get(id);
+        UserResource usersResource = keycloakProvider.getUserResource().get(id);
         usersResource.update(user);
     }
 
@@ -221,7 +254,7 @@ public class KeycloakServiceImpl implements IKeycloakService {
      * @return void
      */
     public void deleteUser(String id) {
-        KeycloakProvider.getUserResource()
+        keycloakProvider.getUserResource()
                 .get(id)
                 .remove();
     }
