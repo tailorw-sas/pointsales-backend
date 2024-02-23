@@ -177,7 +177,7 @@ public class UserService implements IUserService {
             GoogleIdToken idToken = verifier.verify(googleToken);
             if( idToken != null)
                 return  Mono.just(true);
-        } catch (GeneralSecurityException | IOException e) {
+        } catch ( Exception e) {
             // Log and handle the exception
             return Mono.just(false);
         }
