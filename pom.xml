@@ -21,6 +21,7 @@
         <module>treatments</module>
         <module>store</module>
         <module>share</module>
+        <module>identity</module>
     </modules>
     <build>
 
