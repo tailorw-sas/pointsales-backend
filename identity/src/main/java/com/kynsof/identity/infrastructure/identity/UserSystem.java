@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -27,7 +29,8 @@ public class UserSystem implements Serializable {
     private String lastName;
     @Enumerated(EnumType.STRING)
     private Status status;
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserRol> userRoles = new ArrayList<>();
 //
 //
 //    public User(PatientDto patients) {
