@@ -7,7 +7,6 @@ import lombok.Value;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
-import java.util.UUID;
 
 @Value
 @RequiredArgsConstructor

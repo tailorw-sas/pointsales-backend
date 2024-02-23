@@ -1,11 +1,9 @@
-package com.kynsoft.gateway.infrastructure.impl;
+package com.kynsoft.gateway.infrastructure.keycloak.impl;
 
 import com.kynsoft.gateway.application.dto.LoginDTO;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.application.dto.TokenResponse;
-import com.kynsoft.gateway.application.dto.role.RoleRequest;
-import com.kynsoft.gateway.application.service.IKeycloakService;
-import com.kynsoft.gateway.application.service.kafka.CustomerService;
+import com.kynsoft.gateway.domain.interfaces.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.resource.*;
@@ -13,7 +11,6 @@ import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -22,149 +19,49 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import javax.ws.rs.core.Response;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 @Slf4j
-public class KeycloakServiceImpl implements IKeycloakService {
+public class UserService implements IUserService {
 
     @Autowired
-    private com.kynsoft.gateway.infrastructure.config.util.KeycloakProvider keycloakProvider;
-
+    private KeycloakProvider keycloakProvider;
     @Autowired
     private WebClient.Builder webClientBuilder;
-
-    @Value("${spring.security.oauth2.client.provider.keycloak.token-uri}")
-    private String tokenUri;
-
-    @Value("${keycloak.provider.client-id}")
-    private String client_id;
-
-    @Value("${keycloak.provider.grant-type}")
-    private String grant_type;
-
-    @Value("${keycloak.provider.client-secret}")
-    private String client_secret;
-
-    @Value("${keycloak.provider.default-role}")
-    private String default_role;
-    private CustomerService customerService;
-
-    public KeycloakServiceImpl(CustomerService customerService) {
-        this.customerService = customerService;
-    }
-
-    /**
-     * Method to user login in keycloak
-     * return the token
-     *
-     * @return String
-     */
+    @Override
     public Mono<TokenResponse> authenticate(LoginDTO loginDTO) {
-        WebClient webClient = webClientBuilder.baseUrl(tokenUri).build();
+        WebClient webClient = webClientBuilder.baseUrl(keycloakProvider.getTokenUri()).build();
         return webClient.post()
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromFormData("client_id", client_id)
-                        .with("grant_type", grant_type)
+                .body(BodyInserters.fromFormData("client_id", keycloakProvider.getClient_id())
+                        .with("grant_type", keycloakProvider.getGrant_type())
                         .with("username", loginDTO.getUsername())
                         .with("password", loginDTO.getPassword())
-                        .with("client_secret", client_secret))
+                        .with("client_secret", keycloakProvider.getClient_secret()))
                 .retrieve()
                 .bodyToMono(TokenResponse.class);
     }
 
     @Override
     public   Mono<TokenResponse>  refreshToken(String refreshToken) {
-        WebClient webClient = WebClient.builder().baseUrl(tokenUri).build();
+        WebClient webClient = WebClient.builder().baseUrl(keycloakProvider.getTokenUri()).build();
 
         Mono<TokenResponse> response = webClient.post()
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromFormData("client_id", client_id)
+                .body(BodyInserters.fromFormData("client_id", keycloakProvider.getClient_id())
                         .with("grant_type", "refresh_token")
                         .with("refresh_token", refreshToken)
-                        .with("client_secret", client_secret))
+                        .with("client_secret", keycloakProvider.getClient_secret()))
                 .retrieve()
                 .bodyToMono(TokenResponse.class);
         return  response;
     }
 
-    /**
-     * Method to list all keycloak users
-     *
-     * @return List<UserRepresentation>
-     */
-    public List<UserRepresentation> findAllUsers() {
-        return keycloakProvider.getRealmResource()
-                .users()
-                .list();
-    }
-
-    /**
-     * Method to list all keycloak users
-     *
-     * @return List<UserRepresentation>
-     */
-    public List<RoleRepresentation> findAllRoles() {
-        RealmResource realmResource = keycloakProvider.getRealmResource();
-        String clientId = realmResource.clients().findByClientId(client_id).get(0).getId();
-        ClientResource clientResource = realmResource.clients().get(clientId);
-        RolesResource rolesResource = clientResource.roles();
-        return rolesResource.list();
-    }
-
-    @Override
-    public String createRole(RoleRequest request) {
-        // Obtener RealmResource
-        RealmResource realmResource = keycloakProvider.getRealmResource();
-
-        ClientResource clientResource = realmResource.clients().findByClientId(client_id).stream()
-                .findFirst()
-                .map(clientRepresentation -> realmResource.clients().get(clientRepresentation.getId()))
-                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
-
-
-        RoleRepresentation role = new RoleRepresentation();
-        role.setName(request.getName());
-        role.setDescription(request.getDescription());
-
-        // Agregar atributo de estado
-        Map<String, List<String>> attributes = new HashMap<>();
-        attributes.put("status", List.of("ACTIVE"));
-        role.setAttributes(attributes);
-
-        clientResource.roles().create(role);
-        RoleRepresentation createdRole = clientResource.roles().get(request.getName()).toRepresentation();
-        return createdRole.getId();
-    }
-
-
-
-    /**
-     * Method to search for a user by username
-     *
-     * @return List<UserRepresentation>
-     */
-    public List<UserRepresentation> searchUserByUsername(String username) {
-        return keycloakProvider.getRealmResource()
-                .users()
-                .searchByUsername(username, true);
-    }
-
-    /**
-     * Method that returns the number of users
-     * @return int
-     */
-    public int countUsers() {
-        return keycloakProvider.getRealmResource()
-                .users().count();
-    }
-
-    /**
-     * Method to create a user in keycloak
-     * @return String
-     */
     public String registerUser(@NonNull RegisterDTO registerDTO) {
         int status = 0;
         UsersResource usersResource = keycloakProvider.getUserResource();
@@ -194,7 +91,7 @@ public class KeycloakServiceImpl implements IKeycloakService {
 
             RealmResource realmResource = keycloakProvider.getRealmResource();
 
-            String clientId = realmResource.clients().findByClientId(client_id).get(0).getId();
+            String clientId = realmResource.clients().findByClientId(keycloakProvider.getClient_id()).get(0).getId();
 
             ClientResource clientResource = realmResource.clients().get(clientId);
             RoleMappingResource roleMappingResource = usersResource.get(id).roles();
@@ -211,7 +108,7 @@ public class KeycloakServiceImpl implements IKeycloakService {
                 roleMappingResource.clientLevel(clientId).add(rolesToAdd);
             }
 
-            customerService.save(registerDTO);
+           // customerService.save(registerDTO);
             return "User created successfully!!";
 
         } else if (status == 409) {
@@ -223,11 +120,18 @@ public class KeycloakServiceImpl implements IKeycloakService {
         }
     }
 
+    public List<UserRepresentation> findAllUsers() {
+        return keycloakProvider.getRealmResource()
+                .users()
+                .list();
+    }
 
-    /**
-     * Method to update a user in keycloak
-     * @return void
-     */
+    public List<UserRepresentation> searchUserByUsername(String username) {
+        return keycloakProvider.getRealmResource()
+                .users()
+                .searchByUsername(username, true);
+    }
+
     public void updateUser(String id, @NonNull RegisterDTO registerDTO) {
 
         CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
@@ -248,15 +152,9 @@ public class KeycloakServiceImpl implements IKeycloakService {
         usersResource.update(user);
     }
 
-    /**
-     * Method to delete a user in keycloak
-     *
-     * @return void
-     */
     public void deleteUser(String id) {
         keycloakProvider.getUserResource()
                 .get(id)
                 .remove();
     }
-
 }

@@ -1,6 +1,5 @@
 package com.kynsoft.gateway.application.service;
 
-import com.kynsoft.gateway.application.dto.LoginDTO;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.application.dto.TokenResponse;
 import com.kynsoft.gateway.application.dto.role.RoleRequest;
@@ -12,7 +11,7 @@ import java.util.List;
 
 public interface IKeycloakService {
 
-    Mono<TokenResponse> authenticate(LoginDTO loginDTO);
+//    Mono<TokenResponse> authenticate(LoginDTO loginDTO);
 
     List<UserRepresentation> findAllUsers();
 
