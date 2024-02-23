@@ -1,6 +1,6 @@
 package com.kynsof.identity.infrastructure.identity;
 
-import com.kynsof.identity.domain.dto.enumTye.Status;
+import com.kynsof.identity.domain.dto.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
