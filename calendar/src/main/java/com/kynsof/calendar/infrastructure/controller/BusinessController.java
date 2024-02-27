@@ -1,4 +1,4 @@
-package com.kynsof.calendar.controller;
+package com.kynsof.calendar.infrastructure.controller;
 
 import com.kynsof.calendar.application.command.business.create.CreateBusinessCommand;
 import com.kynsof.calendar.application.command.business.create.CreateBusinessMessage;
