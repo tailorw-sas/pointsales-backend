@@ -17,8 +17,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(IMediator.class)
 @ComponentScan(basePackages = "com.kynsof.share")
-@EnableFeignClients(basePackages = {
-})
+@EnableFeignClients(basePackages = {})
 public class ShareAutoConfiguration {
 
     @Value("${rc.microservice.feign.connect-timeout:300000}")
