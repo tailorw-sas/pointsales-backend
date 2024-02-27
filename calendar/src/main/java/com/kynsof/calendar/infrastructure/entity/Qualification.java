@@ -3,6 +3,7 @@ package com.kynsof.calendar.infrastructure.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kynsof.calendar.domain.dto.enumType.EQualificationStatus;
 import com.kynsof.calendar.domain.dto.QualificationDto;
+import com.kynsof.share.core.domain.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -20,9 +20,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Qualification {
-    @Id
-    private UUID id;
+public class Qualification extends BaseEntity {
 
     @NotBlank
     @Column(unique = true)
@@ -35,15 +33,6 @@ public class Qualification {
     @ManyToMany(mappedBy = "qualifications")
     private Set<Resource> resources = new HashSet<>();
 
-    @Column(nullable = true)
-    private LocalDateTime createAt;
-
-    @Column(nullable = true)
-    private LocalDateTime updateAt;
-
-    @Column(nullable = true)
-    private LocalDateTime deleteAt;
-
     public Qualification(UUID id, String description) {
         this.id = id;
         this.description = description;
@@ -52,13 +41,14 @@ public class Qualification {
     public Qualification(QualificationDto qualification) {
         this.id = qualification.getId();
         this.description = qualification.getDescription();
-        this.createAt = qualification.getCreateAt();
-        this.deleteAt = qualification.getDeleteAt();
-        this.updateAt = qualification.getUpdateAt();
         this.status = qualification.getStatus();
+        this.createdAt = qualification.getCreateAt();
+        this.updatedAt = qualification.getUpdateAt() != null ? qualification.getUpdateAt() : null;
+        this.deletedAt = qualification.getDeleteAt() != null ? qualification.getDeleteAt() : null;
+        this.deleted = qualification.isDeleted();
     }
 
     public QualificationDto toAggregate () {
-        return new QualificationDto(id, description, status, createAt, updateAt, deleteAt);
+        return new QualificationDto(id, description, status, createdAt, updatedAt, deletedAt, deleted);
     }
 }

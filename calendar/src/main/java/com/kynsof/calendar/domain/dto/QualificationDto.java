@@ -25,6 +25,7 @@ public class QualificationDto implements Serializable {
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
     private LocalDateTime deleteAt;
+    private boolean deleted;
 
     public QualificationDto(UUID id, String description) {
         this.id = id;
