@@ -1,7 +1,7 @@
 package com.kynsof.calendar.application.query;
 
-import com.kynsof.calendar.domain.dto.EServiceStatus;
-import com.kynsof.calendar.domain.dto.EServiceType;
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
+import com.kynsof.calendar.domain.dto.enumType.EServiceType;
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;

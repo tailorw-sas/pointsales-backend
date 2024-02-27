@@ -1,6 +1,6 @@
 package com.kynsof.calendar.infrastructure.entity.specifications;
 
-import com.kynsof.calendar.domain.dto.EStatusReceipt;
+import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import com.kynsof.calendar.infrastructure.entity.Patient;
 import com.kynsof.calendar.infrastructure.entity.Receipt;
 import com.kynsof.calendar.infrastructure.entity.Schedule;

@@ -1,8 +1,8 @@
 package com.kynsof.calendar.infrastructure.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.kynsof.calendar.domain.dto.EServiceStatus;
-import com.kynsof.calendar.domain.dto.EServiceType;
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
+import com.kynsof.calendar.domain.dto.enumType.EServiceType;
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;

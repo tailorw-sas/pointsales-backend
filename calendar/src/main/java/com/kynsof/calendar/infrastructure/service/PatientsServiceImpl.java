@@ -1,7 +1,7 @@
 package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.domain.dto.PatientDto;
-import com.kynsof.calendar.domain.dto.PatientStatus;
+import com.kynsof.calendar.domain.dto.enumType.PatientStatus;
 import com.kynsof.calendar.domain.service.IPatientsService;
 import com.kynsof.calendar.infrastructure.entity.Patient;
 import com.kynsof.calendar.infrastructure.repository.command.PatientsWriteDataJPARepository;

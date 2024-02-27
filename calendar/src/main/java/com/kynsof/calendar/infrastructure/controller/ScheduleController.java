@@ -16,7 +16,7 @@ import com.kynsof.calendar.application.query.ScheduleResponse;
 import com.kynsof.calendar.application.query.schedule.getAll.FindScheduleWithFilterQuery;
 import com.kynsof.calendar.application.query.schedule.getbyid.FindScheduleByIdQuery;
 import com.kynsof.calendar.application.query.schedule.search.GetSearchScheduleQuery;
-import com.kynsof.calendar.domain.dto.EStatusSchedule;
+import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;

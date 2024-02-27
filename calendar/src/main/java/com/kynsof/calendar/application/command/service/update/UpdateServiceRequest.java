@@ -1,6 +1,6 @@
 package com.kynsof.calendar.application.command.service.update;
 
-import com.kynsof.calendar.domain.dto.EServiceType;
+import com.kynsof.calendar.domain.dto.enumType.EServiceType;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,7 +1,7 @@
 package com.kynsof.calendar.application.query;
 
 import com.kynsof.calendar.domain.dto.BusinessDto;
-import com.kynsof.calendar.domain.dto.EBusinessStatus;
+import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

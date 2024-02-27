@@ -1,6 +1,6 @@
 package com.kynsof.calendar.domain.service;
 
-import com.kynsof.calendar.domain.dto.EStatusReceipt;
+import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import com.kynsof.calendar.domain.dto.ReceiptDto;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;

@@ -1,5 +1,6 @@
 package com.kynsof.calendar.domain.dto;
 
+import com.kynsof.calendar.domain.dto.enumType.EQualificationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

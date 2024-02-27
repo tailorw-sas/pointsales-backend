@@ -1,5 +1,7 @@
 package com.kynsof.calendar.domain.dto;
 
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
+import com.kynsof.calendar.domain.dto.enumType.EServiceType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

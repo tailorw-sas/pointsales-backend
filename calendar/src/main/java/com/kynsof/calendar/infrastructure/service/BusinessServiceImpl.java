@@ -2,7 +2,7 @@ package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.BusinessResponse;
 import com.kynsof.calendar.domain.dto.BusinessDto;
-import com.kynsof.calendar.domain.dto.EBusinessStatus;
+import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.calendar.domain.service.IBusinessService;
 import com.kynsof.calendar.infrastructure.entity.Business;
 import com.kynsof.calendar.infrastructure.entity.specifications.BusinessSpecifications;

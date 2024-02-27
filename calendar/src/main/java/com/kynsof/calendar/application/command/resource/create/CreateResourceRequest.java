@@ -1,6 +1,6 @@
 package com.kynsof.calendar.application.command.resource.create;
 
-import com.kynsof.calendar.domain.dto.EResourceStatus;
+import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import lombok.Getter;
 import lombok.Setter;
 

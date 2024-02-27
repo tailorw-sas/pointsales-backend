@@ -1,6 +1,6 @@
 package com.kynsof.calendar.application.command.schedule.update;
 
-import com.kynsof.calendar.domain.dto.EStatusSchedule;
+import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

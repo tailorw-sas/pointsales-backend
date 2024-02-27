@@ -1,6 +1,6 @@
 package com.kynsof.calendar.application.command.qualification.update;
 
-import com.kynsof.calendar.domain.dto.EQualificationStatus;
+import com.kynsof.calendar.domain.dto.enumType.EQualificationStatus;
 import lombok.Getter;
 import lombok.Setter;
 

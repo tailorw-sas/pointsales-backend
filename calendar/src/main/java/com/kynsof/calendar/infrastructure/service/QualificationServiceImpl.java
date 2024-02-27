@@ -1,7 +1,7 @@
 package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.QualificationResponse;
-import com.kynsof.calendar.domain.dto.EQualificationStatus;
+import com.kynsof.calendar.domain.dto.enumType.EQualificationStatus;
 import com.kynsof.calendar.domain.dto.QualificationDto;
 import com.kynsof.calendar.domain.service.IQualificationService;
 import com.kynsof.calendar.infrastructure.entity.Qualification;

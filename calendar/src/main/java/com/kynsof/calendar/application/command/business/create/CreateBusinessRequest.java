@@ -1,6 +1,6 @@
 package com.kynsof.calendar.application.command.business.create;
 
-import com.kynsof.calendar.domain.dto.EBusinessStatus;
+import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
 import lombok.Getter;
 import lombok.Setter;
 

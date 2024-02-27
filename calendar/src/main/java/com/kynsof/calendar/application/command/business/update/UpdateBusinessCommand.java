@@ -1,6 +1,6 @@
 package com.kynsof.calendar.application.command.business.update;
 
-import com.kynsof.calendar.domain.dto.EBusinessStatus;
+import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;

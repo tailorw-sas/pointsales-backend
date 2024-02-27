@@ -1,6 +1,6 @@
 package com.kynsof.calendar.infrastructure.repository.query;
 
-import com.kynsof.calendar.domain.dto.EStatusSchedule;
+import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.infrastructure.entity.Resource;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
 import org.springframework.data.domain.Page;

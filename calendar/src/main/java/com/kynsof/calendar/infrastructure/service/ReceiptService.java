@@ -1,8 +1,8 @@
 package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.ReceiptResponse;
-import com.kynsof.calendar.domain.dto.EStatusReceipt;
-import com.kynsof.calendar.domain.dto.EStatusSchedule;
+import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
+import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.domain.dto.ReceiptDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.dto.ServiceDto;

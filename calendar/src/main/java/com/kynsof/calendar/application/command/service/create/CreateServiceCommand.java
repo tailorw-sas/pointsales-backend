@@ -1,6 +1,6 @@
 package com.kynsof.calendar.application.command.service.create;
 
-import com.kynsof.calendar.domain.dto.EServiceType;
+import com.kynsof.calendar.domain.dto.enumType.EServiceType;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;

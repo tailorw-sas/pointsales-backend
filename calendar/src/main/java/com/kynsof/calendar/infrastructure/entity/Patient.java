@@ -1,7 +1,7 @@
 package com.kynsof.calendar.infrastructure.entity;
 
 import com.kynsof.calendar.domain.dto.PatientDto;
-import com.kynsof.calendar.domain.dto.PatientStatus;
+import com.kynsof.calendar.domain.dto.enumType.PatientStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

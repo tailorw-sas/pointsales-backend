@@ -2,7 +2,7 @@ package com.kynsof.calendar.infrastructure.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.kynsof.calendar.domain.dto.EStatusSchedule;
+import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import jakarta.persistence.*;
 import lombok.Getter;

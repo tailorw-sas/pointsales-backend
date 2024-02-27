@@ -1,7 +1,7 @@
 package com.kynsof.calendar.infrastructure.entity;
 
 import com.kynsof.calendar.domain.dto.BusinessDto;
-import com.kynsof.calendar.domain.dto.EBusinessStatus;
+import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.kynsof.calendar.infrastructure.entity.specifications;
 
-import com.kynsof.calendar.domain.dto.EStatusSchedule;
+import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
