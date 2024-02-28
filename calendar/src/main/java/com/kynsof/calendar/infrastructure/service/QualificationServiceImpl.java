@@ -5,6 +5,8 @@ import com.kynsof.calendar.domain.dto.enumType.EQualificationStatus;
 import com.kynsof.calendar.domain.dto.QualificationDto;
 import com.kynsof.calendar.domain.service.IQualificationService;
 import com.kynsof.calendar.infrastructure.entity.Qualification;
+import com.kynsof.calendar.infrastructure.entity.specifications.QualificationDeleteSpecifications;
+import com.kynsof.calendar.infrastructure.entity.specifications.QualificationSearchSpecifications;
 import com.kynsof.calendar.infrastructure.entity.specifications.QualificationSpecifications;
 import com.kynsof.calendar.infrastructure.repository.command.QualificationWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.QualificationReadDataJPARepository;
@@ -56,6 +58,8 @@ public class QualificationServiceImpl implements IQualificationService {
         localDateTime.atZone(ZoneId.of("America/Guayaquil"));
         objectDelete.setDeleteAt(localDateTime);
         objectDelete.setDeleted(true);
+        objectDelete.setDescriptionSoftDelete(objectDelete.getDescription());
+        objectDelete.setDescription(null);
 
         this.repositoryCommand.save(new Qualification(objectDelete));
     }
@@ -64,7 +68,8 @@ public class QualificationServiceImpl implements IQualificationService {
     @Override
     public QualificationDto findById(UUID id) {
 
-        Optional<Qualification> object = this.repositoryQuery.findById(id);
+        //Optional<Qualification> object = this.repositoryQuery.findById(id);
+        Optional<Qualification> object = this.repositoryQuery.findOne(new QualificationDeleteSpecifications(id));
         if (object.isPresent()) {
             return object.get().toAggregate();
         }

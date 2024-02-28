@@ -12,12 +12,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GenericSpecificationsBuilder<T> implements Specification<T> {
+
     private final List<SearchCriteria> params;
 
     public GenericSpecificationsBuilder(List<FilterCriteria> filterCriteria) {
         this.params = filterCriteria.stream()
                 .map(filterCriteriaItem -> new SearchCriteria(filterCriteriaItem.getKey(),
-                        filterCriteriaItem.getOperator(), filterCriteriaItem.getValue()))
+                filterCriteriaItem.getOperator(), filterCriteriaItem.getValue()))
                 .collect(Collectors.toList());
     }
 
@@ -29,6 +30,11 @@ public class GenericSpecificationsBuilder<T> implements Specification<T> {
             if (predicate != null) {
                 predicates.add(predicate);
             }
+        }
+        // Verificar si la entidad tiene el atributo 'deleted'
+        if (root.getModel().getAttributes().stream().anyMatch(a -> a.getName().equals("deleted"))) {
+            // Añadir el predicado para filtrar por registros no eliminados
+            predicates.add(cb.isFalse(root.get("deleted")));
         }
         return cb.and(predicates.toArray(Predicate[]::new));
     }

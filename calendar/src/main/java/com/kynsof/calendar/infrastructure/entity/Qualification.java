@@ -25,6 +25,8 @@ public class Qualification extends BaseEntity {
     @NotBlank
     @Column(unique = true)
     private String description;
+    @Column(name = "description_sd_virtual")
+    private String descriptionSoftDelete;
 
     @Enumerated(EnumType.STRING)
     private EQualificationStatus status;
@@ -46,9 +48,10 @@ public class Qualification extends BaseEntity {
         this.updatedAt = qualification.getUpdateAt() != null ? qualification.getUpdateAt() : null;
         this.deletedAt = qualification.getDeleteAt() != null ? qualification.getDeleteAt() : null;
         this.deleted = qualification.isDeleted();
+        this.descriptionSoftDelete = qualification.getDescriptionSoftDelete();
     }
 
     public QualificationDto toAggregate () {
-        return new QualificationDto(id, description, status, createdAt, updatedAt, deletedAt, deleted);
+        return new QualificationDto(id, description,  descriptionSoftDelete, status, createdAt, updatedAt, deletedAt, deleted);
     }
 }
