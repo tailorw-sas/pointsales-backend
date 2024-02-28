@@ -19,7 +19,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     RESOURCE_NOT_FOUND(614, Series.DOMAIN_ERROR, "Resource not found."),
     RECEIPT_NOT_FOUND(615, Series.DOMAIN_ERROR, "Receipt not found."),
     STATUS_NOT_ACCEPTED(616, Series.DOMAIN_ERROR, "Status not accepted, the appointment was attended."),
-    SCHEDULE_IS_NOT_AVAIBLE(617, Series.DOMAIN_ERROR, "The selected schedule is not available.");
+    SCHEDULE_IS_NOT_AVAIBLE(617, Series.DOMAIN_ERROR, "The selected schedule is not available."),
+    COLUMN_UNIQUE(618, Series.DOMAIN_ERROR, "Duplicate key value violates unique constraint.");
     private static final DomainErrorMessage[] VALUES;
 
     static {
