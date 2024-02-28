@@ -6,7 +6,6 @@ import com.kynsof.calendar.domain.dto.QualificationDto;
 import com.kynsof.calendar.domain.service.IQualificationService;
 import com.kynsof.calendar.infrastructure.entity.Qualification;
 import com.kynsof.calendar.infrastructure.entity.specifications.QualificationDeleteSpecifications;
-import com.kynsof.calendar.infrastructure.entity.specifications.QualificationSearchSpecifications;
 import com.kynsof.calendar.infrastructure.entity.specifications.QualificationSpecifications;
 import com.kynsof.calendar.infrastructure.repository.command.QualificationWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.QualificationReadDataJPARepository;
@@ -45,8 +44,12 @@ public class QualificationServiceImpl implements IQualificationService {
         LocalDateTime localDateTime = LocalDateTime.now();
         localDateTime.atZone(ZoneId.of("America/Guayaquil"));
         qualification.setCreateAt(localDateTime);
+        try {
+            this.repositoryCommand.save(new Qualification(qualification));
+        } catch (Exception e) {
+            throw new BusinessException(DomainErrorMessage.COLUMN_UNIQUE, "Qualification not insert, the descriptions is already exists: " + e.getCause().getCause().getLocalizedMessage().split("Key")[1]);
+        }
 
-        this.repositoryCommand.save(new Qualification(qualification));
     }
 
     @Override
