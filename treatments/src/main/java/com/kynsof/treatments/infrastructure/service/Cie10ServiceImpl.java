@@ -33,7 +33,7 @@ public class Cie10ServiceImpl implements ICie10Service {
         if (cie10ByCode.isPresent()) {
             return cie10ByCode.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PARAMETIRAZATION_NOT_FOUND, "Cie10 not found.");
+        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Cie10 not found.");
     }
 
     @Override

@@ -60,7 +60,7 @@ public class DoctorServiceImpl implements IDoctorService {
             return patient.get().toAggregate();
         }
         //throw new RuntimeException("Patients not found.");
-        throw new BusinessException(DomainErrorMessage.PARAMETIRAZATION_NOT_FOUND, "Doctor not found.");
+        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Doctor not found.");
     }
 
 

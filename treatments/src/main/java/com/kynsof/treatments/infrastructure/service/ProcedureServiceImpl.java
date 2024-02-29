@@ -33,7 +33,7 @@ public class ProcedureServiceImpl implements IProcedureService {
         if (procedureByCode.isPresent()) {
             return procedureByCode.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PARAMETIRAZATION_NOT_FOUND, "Cie10 not found.");
+        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Cie10 not found.");
     }
 
     @Override

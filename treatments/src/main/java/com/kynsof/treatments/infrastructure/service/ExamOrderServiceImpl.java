@@ -52,7 +52,7 @@ public class ExamOrderServiceImpl implements IExamOrderService {
         if (examOrder.isPresent()) {
             return examOrder.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PARAMETIRAZATION_NOT_FOUND, "Contact Information not found.");
+        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Contact Information not found.");
     }
 
     @Override

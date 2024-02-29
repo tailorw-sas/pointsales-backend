@@ -39,7 +39,7 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
             return medicalInformation.getId();
         } catch (Exception e) {
             String message = e.getMessage();
-            throw new BusinessException(DomainErrorMessage.ACCESS_CODE_REQUIRED, "Medical Information not found.");
+            throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Medical Information not found.");
         }
     }
 
@@ -76,7 +76,7 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
         if (medicalInformation.isPresent()) {
             return medicalInformation.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.ACCESS_CODE_REQUIRED, "Medical Information not found.");
+        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Medical Information not found.");
     }
 
     @Override

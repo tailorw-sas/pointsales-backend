@@ -52,7 +52,7 @@ public class ExternalConsultationServiceImpl implements IExternalConsultationSer
         if (contactInformation.isPresent()) {
             return contactInformation.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.PARAMETIRAZATION_NOT_FOUND, "Contact Information not found.");
+        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Contact Information not found.");
     }
 
     @Override

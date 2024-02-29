@@ -111,7 +111,7 @@ public class PatientsServiceImpl implements IPatientsService {
             return patient.get().toAggregate();
         }
         //throw new RuntimeException("Patients not found.");
-        throw new BusinessException(DomainErrorMessage.ACCESS_CODE_REQUIRED, "Patients not found.");
+        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Patients not found.");
     }
 
     @Override

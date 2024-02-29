@@ -65,7 +65,7 @@ public class ContactInfoServiceImpl implements IContactInfoService {
         if (contactInformation.isPresent()) {
             return contactInformation.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.ACCESS_CODE_REQUIRED, "Contact Information not found.");
+        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Contact Information not found.");
     }
 
     @Override

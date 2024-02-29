@@ -34,7 +34,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
         if (location.isPresent()) {
             return location.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.CITIZEN_MARITAL_STATUS_REQUIRED, "Location Information not found.");
+        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Location Information not found.");
     }
 
     @Override
