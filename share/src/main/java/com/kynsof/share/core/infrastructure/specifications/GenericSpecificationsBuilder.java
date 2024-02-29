@@ -18,24 +18,35 @@ public class GenericSpecificationsBuilder<T> implements Specification<T> {
     public GenericSpecificationsBuilder(List<FilterCriteria> filterCriteria) {
         this.params = filterCriteria.stream()
                 .map(filterCriteriaItem -> new SearchCriteria(filterCriteriaItem.getKey(),
-                filterCriteriaItem.getOperator(), filterCriteriaItem.getValue()))
+                        filterCriteriaItem.getOperator(), filterCriteriaItem.getValue(),
+                        filterCriteriaItem.getLogicalOperation()
+                ))
                 .collect(Collectors.toList());
     }
 
     @Override
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-        List<Predicate> predicates = new ArrayList<>();
+        List<Predicate> andPredicates = new ArrayList<>();
+        List<Predicate> orPredicates = new ArrayList<>();
+
         for (SearchCriteria criteria : params) {
             Predicate predicate = new GenericSpecification<T>(criteria).toPredicate(root, query, cb);
             if (predicate != null) {
-                predicates.add(predicate);
+                if (criteria.getLogicalOperation() == LogicalOperation.AND) {
+                    andPredicates.add(predicate);
+                } else {
+                    orPredicates.add(predicate);
+                }
             }
         }
-        // Verificar si la entidad tiene el atributo 'deleted'
-        if (root.getModel().getAttributes().stream().anyMatch(a -> a.getName().equals("deleted"))) {
-            // Añadir el predicado para filtrar por registros no eliminados
-            predicates.add(cb.isFalse(root.get("deleted")));
+
+        Predicate andPredicate = cb.and(andPredicates.toArray(new Predicate[0]));
+        Predicate orPredicate = cb.or(orPredicates.toArray(new Predicate[0]));
+
+        if (!orPredicates.isEmpty()) {
+            return cb.and(andPredicate, orPredicate);
+        } else {
+            return andPredicate;
         }
-        return cb.and(predicates.toArray(Predicate[]::new));
     }
 }
