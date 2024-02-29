@@ -22,7 +22,7 @@
         <module>store</module>
         <module>share</module>
         <module>identity</module>
-        <module>email</module>
+        <module>notification</module>
     </modules>
     <build>
 
