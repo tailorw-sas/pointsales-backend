@@ -10,6 +10,6 @@ import lombok.Setter;
 public class FilterCriteria {
     private String key;
     private SearchOperation operator;
-    private String value;
+    private Object value;
     private LogicalOperation logicalOperation = LogicalOperation.AND;
 }
