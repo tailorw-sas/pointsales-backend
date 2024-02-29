@@ -22,7 +22,7 @@ public class EmailService implements IEmailService {
     @Value("${spring.mail.username}")
     private String from;
 
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     @Qualifier("getFreeMarkerConfiguration")
     @Autowired

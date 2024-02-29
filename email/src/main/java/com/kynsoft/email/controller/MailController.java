@@ -1,4 +1,4 @@
-package com.kynsoft.email.infrastructure.port;
+package com.kynsoft.email.controller;
 
 import com.kynsoft.email.shared.application.ApiResponse2xx;
 import com.kynsoft.email.application.SendEmailRequest;
