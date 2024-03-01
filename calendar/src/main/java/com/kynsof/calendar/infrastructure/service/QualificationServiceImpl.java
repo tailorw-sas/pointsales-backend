@@ -3,12 +3,14 @@ package com.kynsof.calendar.infrastructure.service;
 import com.kynsof.calendar.application.query.QualificationResponse;
 import com.kynsof.calendar.domain.dto.enumType.EQualificationStatus;
 import com.kynsof.calendar.domain.dto.QualificationDto;
+import com.kynsof.calendar.domain.rules.QualificationDescriptionMustBeNotNullRule;
 import com.kynsof.calendar.domain.service.IQualificationService;
 import com.kynsof.calendar.infrastructure.entity.Qualification;
 import com.kynsof.calendar.infrastructure.entity.specifications.QualificationDeleteSpecifications;
 import com.kynsof.calendar.infrastructure.entity.specifications.QualificationSpecifications;
 import com.kynsof.calendar.infrastructure.repository.command.QualificationWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.QualificationReadDataJPARepository;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -39,6 +41,7 @@ public class QualificationServiceImpl implements IQualificationService {
 
     @Override
     public void create(QualificationDto qualification) {
+        RulesChecker.checkRule(new QualificationDescriptionMustBeNotNullRule(this, qualification));
         qualification.setStatus(EQualificationStatus.ACTIVE);
 
         LocalDateTime localDateTime = LocalDateTime.now();
