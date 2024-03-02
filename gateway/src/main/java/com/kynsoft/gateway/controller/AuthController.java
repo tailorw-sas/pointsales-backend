@@ -35,6 +35,15 @@ public class AuthController {
     @PreAuthorize("permitAll()")
     @PostMapping("/register")
     public Mono<ResponseEntity<?>> registerUser(@RequestBody RegisterDTO registerDTO) throws URISyntaxException {
+        System.err.println("################################################################");
+        System.err.println("################################################################");
+        System.err.println("################################################################");
+        System.err.println("################################################################");
+        System.err.println("LLEGO AQUI");
+        System.err.println("################################################################");
+        System.err.println("################################################################");
+        System.err.println("################################################################");
+        System.err.println("################################################################");
         String response = userService.registerUser(registerDTO);
         return Mono.justOrEmpty(ResponseEntity.created(new URI("/users/register")).body(response));
     }

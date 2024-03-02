@@ -1,8 +1,8 @@
-package com.kynsof.calendar.infrastructure.service.kafka;
+package com.kynsof.calendar.infrastructure.service.kafka.consumer;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.share.core.domain.kafka.entity.BusinessKafka;
+import com.kynsof.share.core.domain.kafka.entity.UserKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -11,16 +11,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ConsumerBusinessEventService {
+public class ConsumerRegisterUserEventService {
 
-    @KafkaListener(topics = "business")
+    @KafkaListener(topics = "user", groupId = "calendar-register-user")
     public void consumer(String event) {
 
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
-            BusinessKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), BusinessKafka.class);
+            UserKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UserKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
             if (eventType.equals(EventType.CREATED)) {
@@ -31,7 +31,7 @@ public class ConsumerBusinessEventService {
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
 
-                System.err.println("BusinessKafka: " + eventRead.toString());
+                System.err.println("UserKafka: " + eventRead.toString());
                 System.err.println("Type: " + eventType.name());
 
             }
@@ -60,7 +60,7 @@ public class ConsumerBusinessEventService {
             System.err.println("#######################################################");
             System.err.println("#######################################################");
 
-            Logger.getLogger(ConsumerBusinessEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumerRegisterUserEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
