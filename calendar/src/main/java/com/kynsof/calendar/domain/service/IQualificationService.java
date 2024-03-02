@@ -15,4 +15,5 @@ public interface IQualificationService {
     public QualificationDto findById(UUID id);
     public PaginatedResponse findAll(Pageable pageable, UUID idQualification, String filter);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    Long countByDescription(String description);
 }

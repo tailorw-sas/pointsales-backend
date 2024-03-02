@@ -11,4 +11,5 @@ import java.util.UUID;
 
 public interface QualificationReadDataJPARepository extends JpaRepository<Qualification, UUID>, JpaSpecificationExecutor<Qualification> {
     Page<Qualification> findAll(Specification specification, Pageable pageable);
+    Long countByDescription(String description);
 }

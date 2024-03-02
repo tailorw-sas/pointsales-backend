@@ -4,6 +4,7 @@ import com.kynsof.calendar.application.query.QualificationResponse;
 import com.kynsof.calendar.domain.dto.enumType.EQualificationStatus;
 import com.kynsof.calendar.domain.dto.QualificationDto;
 import com.kynsof.calendar.domain.rules.QualificationDescriptionMustBeNotNullRule;
+import com.kynsof.calendar.domain.rules.QualificationDescriptionMustBeUniqueRule;
 import com.kynsof.calendar.domain.service.IQualificationService;
 import com.kynsof.calendar.infrastructure.entity.Qualification;
 import com.kynsof.calendar.infrastructure.entity.specifications.QualificationDeleteSpecifications;
@@ -42,6 +43,8 @@ public class QualificationServiceImpl implements IQualificationService {
     @Override
     public void create(QualificationDto qualification) {
         RulesChecker.checkRule(new QualificationDescriptionMustBeNotNullRule(this, qualification));
+        RulesChecker.checkRule(new QualificationDescriptionMustBeUniqueRule(this, qualification));
+
         qualification.setStatus(EQualificationStatus.ACTIVE);
 
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -133,6 +136,11 @@ public class QualificationServiceImpl implements IQualificationService {
                 })
                 .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));
 
+    }
+
+    @Override
+    public Long countByDescription(String description) {
+        return repositoryQuery.countByDescription(description);
     }
 
 }
