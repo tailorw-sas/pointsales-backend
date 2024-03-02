@@ -1,4 +1,4 @@
-package com.kynsof.calendar.infrastructure.service.kafka;
+package com.kynsof.calendar.infrastructure.service.kafka.consumer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;

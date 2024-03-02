@@ -8,6 +8,7 @@ import com.kynsoft.gateway.application.dto.LoginDTO;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.application.dto.TokenResponse;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
+import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserEventService;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.resource.*;
@@ -37,6 +38,9 @@ public class UserService implements IUserService {
     private KeycloakProvider keycloakProvider;
     @Autowired
     private WebClient.Builder webClientBuilder;
+    @Autowired
+    private ProducerRegisterUserEventService producerRegisterUserEvent;
+
     @Override
     public Mono<TokenResponse> authenticate(LoginDTO loginDTO) {
         WebClient webClient = webClientBuilder.baseUrl(keycloakProvider.getTokenUri()).build();
@@ -116,6 +120,7 @@ public class UserService implements IUserService {
                 roleMappingResource.clientLevel(clientId).add(rolesToAdd);
             }
 
+            this.producerRegisterUserEvent.create(registerDTO);
            // customerService.save(registerDTO);
             return "User created successfully!!";
 

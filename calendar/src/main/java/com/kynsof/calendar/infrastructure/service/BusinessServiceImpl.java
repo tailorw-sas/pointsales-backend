@@ -8,7 +8,7 @@ import com.kynsof.calendar.infrastructure.entity.Business;
 import com.kynsof.calendar.infrastructure.entity.specifications.BusinessSpecifications;
 import com.kynsof.calendar.infrastructure.repository.command.BusinessWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.BusinessReadDataJPARepository;
-import com.kynsof.calendar.infrastructure.service.kafka.ProducerBusinessEventService;
+import com.kynsof.calendar.infrastructure.service.kafka.producer.ProducerBusinessEventService;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
