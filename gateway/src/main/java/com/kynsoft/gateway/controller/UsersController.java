@@ -1,6 +1,7 @@
 package com.kynsoft.gateway.controller;
 
 
+import com.kynsoft.gateway.application.dto.user.ChangeStatusRequest;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,13 @@ public class UsersController {
         return Mono.justOrEmpty(ResponseEntity.ok(userService.searchUserByUsername(username)));
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/change_status")
+    public Mono<ResponseEntity<?>> changeStatus(@RequestBody ChangeStatusRequest request) {
+        userService.changeStatus(request.getUserId(), request.getStatus());
+        return Mono.justOrEmpty(ResponseEntity.ok("User updated successfully"));
+    }
+
+    @PatchMapping("/update/{id}")
     public Mono<ResponseEntity<?>> updateUser(@PathVariable String id, @RequestBody RegisterDTO registerDTO) {
         userService.updateUser(id, registerDTO);
         return Mono.justOrEmpty(ResponseEntity.ok("User updated successfully"));

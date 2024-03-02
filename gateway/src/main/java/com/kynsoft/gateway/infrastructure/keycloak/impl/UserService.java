@@ -29,6 +29,7 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -169,6 +170,14 @@ public class UserService implements IUserService {
         keycloakProvider.getUserResource()
                 .get(id)
                 .remove();
+    }
+
+    @Override
+    public void changeStatus(UUID id, String status) {
+        UserResource usersResource = keycloakProvider.getUserResource().get(id.toString());
+        UserRepresentation userRepresentation = usersResource.toRepresentation();
+        userRepresentation.setEnabled(false);
+        usersResource.update(userRepresentation);
     }
 
 
