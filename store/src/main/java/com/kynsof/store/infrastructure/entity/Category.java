@@ -1,5 +1,6 @@
 package com.kynsof.store.infrastructure.entity;
 
+import com.kynsof.store.domain.dto.CategoryEntityDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,8 @@ public class Category {
     private String description;
     @OneToMany(mappedBy = "category")
     private List<Subcategory> subcategories;
+
+    public CategoryEntityDto toAggregate() {
+        return new CategoryEntityDto(this.id, this.name, this.description);
+    }
 }

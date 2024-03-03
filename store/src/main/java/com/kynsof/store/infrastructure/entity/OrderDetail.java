@@ -1,11 +1,11 @@
 package com.kynsof.store.infrastructure.entity;
 
+import com.kynsof.store.domain.dto.OrderEntityDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -26,5 +26,9 @@ public class OrderDetail {
     private Product product;
 
     private Integer quantity;
-    private BigDecimal price; // Precio acordado en el momento del pedido
+    private Double price; // Precio acordado en el momento del pedido
+
+    public OrderEntityDto.OrderDetailDto toAggregate() {
+        return new OrderEntityDto.OrderDetailDto(this.product.getId(), this.quantity, this.price);
+    }
 }

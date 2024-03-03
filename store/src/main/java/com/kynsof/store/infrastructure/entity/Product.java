@@ -1,5 +1,6 @@
 package com.kynsof.store.infrastructure.entity;
 
+import com.kynsof.store.domain.dto.ProductEntityDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,4 +27,10 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
+
+    public ProductEntityDto toAggregate() {
+        UUID subcategoryId = this.subcategory != null ? this.subcategory.getId() : null;
+        UUID supplierId = this.supplier != null ? this.supplier.getId() : null;
+        return new ProductEntityDto(this.id, this.name, this.description, this.price, this.quantityInStock, this.status, subcategoryId, supplierId);
+    }
 }

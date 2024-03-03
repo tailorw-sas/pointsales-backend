@@ -1,5 +1,6 @@
 package com.kynsof.store.infrastructure.entity;
 
+import com.kynsof.store.domain.dto.SupplierEntityDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,8 @@ public class Supplier {
     private String email;
     @OneToMany(mappedBy = "supplier")
     private List<Product> products;
+
+    public SupplierEntityDto toAggregate() {
+        return new SupplierEntityDto(this.id, this.name, this.address, this.phone, this.email);
+    }
 }
