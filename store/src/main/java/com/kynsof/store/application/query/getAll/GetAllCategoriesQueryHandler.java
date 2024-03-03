@@ -3,7 +3,6 @@ package com.kynsof.store.application.query.getAll;
 
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-
 import org.springframework.stereotype.Component;
 
 @Component

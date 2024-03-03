@@ -1,6 +1,11 @@
 package com.kynsof.store.controller;
 
-import com.kynsof.store.application.request.SupplierRequest;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
+import com.kynsof.store.application.command.SupplierRequest;
+import com.kynsof.store.application.command.create.CreateSupplierCommand;
+import com.kynsof.store.application.command.create.CreateSupplierMessage;
+import com.kynsof.store.application.command.update.UpdateSupplierCommand;
+import com.kynsof.store.application.command.update.UpdateSupplierMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,16 +16,25 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/suppliers")
 public class SupplierController {
+    private final IMediator mediator;
+
+    public SupplierController(IMediator mediator) {
+        this.mediator = mediator;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<ResponseEntity<String>> createSupplier(@RequestBody SupplierRequest supplierRequest) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    public ResponseEntity<CreateSupplierMessage> createSupplier(@RequestBody SupplierRequest request) {
+        CreateSupplierCommand createCommand = CreateSupplierCommand.fromFrontRequest(request);
+        CreateSupplierMessage response = mediator.send(createCommand);
+        return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{id}")
-    public Mono<ResponseEntity<String>> updateSupplier(@PathVariable UUID id, @RequestBody SupplierRequest supplierRequest) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateSupplierMessage> updateSupplier(@PathVariable UUID id, @RequestBody SupplierRequest request) {
+        UpdateSupplierCommand createCommand = UpdateSupplierCommand.fromRequest(id,request);
+        UpdateSupplierMessage response = mediator.send(createCommand);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping

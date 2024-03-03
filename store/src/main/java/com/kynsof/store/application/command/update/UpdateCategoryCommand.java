@@ -1,7 +1,7 @@
 package com.kynsof.store.application.command.update;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.store.application.request.CategoryRequest;
+import com.kynsof.store.application.command.CategoryRequest;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +32,6 @@ public class UpdateCategoryCommand implements ICommand {
     @Override
     public ICommandMessage getMessage() {
         // Implementación específica
-        return null;
+        return new UpdateCategoryMessage();
     }
 }

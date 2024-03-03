@@ -3,7 +3,7 @@ package com.kynsof.store.application.command.update;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.store.application.request.SubcategoryRequest;
+import com.kynsof.store.application.command.SubcategoryRequest;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,7 +36,7 @@ public class UpdateSubcategoryCommand implements ICommand {
     @Override
     public ICommandMessage getMessage() {
         // Implementación específica
-        return null;
+        return new UpdateSubcategoryMessage();
     }
 }
 

@@ -1,4 +1,4 @@
-package com.kynsof.store.application.request;
+package com.kynsof.store.application.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,8 +11,8 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubcategoryRequest {
-    private String name;
-    private String description;
-    private UUID categoryId;
+public class OrderDetailRequest {
+    private UUID productId;
+    private Integer quantity;
+    private Double price;
 }

@@ -1,4 +1,4 @@
-package com.kynsof.store.application.request;
+package com.kynsof.store.application.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SupplierRequest {
+public class CategoryRequest {
     private String name;
-    private String address;
-    private String phone;
-    private String email;
+    private String description;
 }

@@ -1,7 +1,12 @@
 package com.kynsof.store.controller;
 
 
-import com.kynsof.store.application.request.OrderRequest;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
+import com.kynsof.store.application.command.OrderRequest;
+import com.kynsof.store.application.command.create.CreateOrderCommand;
+import com.kynsof.store.application.command.create.CreateOrderMessage;
+import com.kynsof.store.application.command.update.UpdateOrderCommand;
+import com.kynsof.store.application.command.update.UpdateOrderMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +17,25 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
+    private final IMediator mediator;
+
+    public OrderController(IMediator mediator) {
+        this.mediator = mediator;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<ResponseEntity<String>> createOrder(@RequestBody OrderRequest orderRequest) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    public ResponseEntity<CreateOrderMessage> createOrder(@RequestBody OrderRequest request) {
+        CreateOrderCommand createCommand = CreateOrderCommand.fromFrontRequest(request);
+        CreateOrderMessage response = mediator.send(createCommand);
+        return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{id}")
-    public Mono<ResponseEntity<String>> updateOrder(@PathVariable UUID id, @RequestBody OrderRequest orderRequest) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateOrderMessage> updateOrder(@PathVariable UUID id, @RequestBody OrderRequest request) {
+        UpdateOrderCommand createCommand = UpdateOrderCommand.fromRequest(id, request);
+        UpdateOrderMessage response = mediator.send(createCommand);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping

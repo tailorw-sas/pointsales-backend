@@ -3,7 +3,7 @@ package com.kynsof.store.application.command.update;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.store.application.request.SupplierRequest;
+import com.kynsof.store.application.command.SupplierRequest;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,7 +38,6 @@ public class UpdateSupplierCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        // Implementación específica
-        return null;
+        return new UpdateSupplierMessage();
     }
 }

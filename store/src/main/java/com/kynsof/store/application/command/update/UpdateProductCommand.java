@@ -2,7 +2,7 @@ package com.kynsof.store.application.command.update;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.store.application.request.ProductRequest;
+import com.kynsof.store.application.command.ProductRequest;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -47,7 +47,6 @@ public class UpdateProductCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        // Logic to create and return an ICommandMessage
-        return null;
+        return new UpdateProductMessage();
     }
 }

@@ -1,7 +1,7 @@
 package com.kynsof.store.application.query.getAll;
 
-import com.kynsof.store.domain.dto.ProductEntityDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
+import com.kynsof.store.domain.dto.ProductEntityDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

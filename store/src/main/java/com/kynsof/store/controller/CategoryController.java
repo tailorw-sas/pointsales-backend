@@ -1,7 +1,12 @@
 package com.kynsof.store.controller;
 
 
-import com.kynsof.store.application.request.CategoryRequest;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
+import com.kynsof.store.application.command.CategoryRequest;
+import com.kynsof.store.application.command.create.CreateCategoryCommand;
+import com.kynsof.store.application.command.create.CreateCategoryMessage;
+import com.kynsof.store.application.command.update.UpdateCategoryCommand;
+import com.kynsof.store.application.command.update.UpdateCategoryMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +17,25 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
+    private final IMediator mediator;
+
+    public CategoryController(IMediator mediator) {
+        this.mediator = mediator;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<ResponseEntity<String>> createCategory(@RequestBody CategoryRequest categoryRequest) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    public ResponseEntity<CreateCategoryMessage> createCategory(@RequestBody CategoryRequest categoryRequest) {
+        CreateCategoryCommand createCommand = CreateCategoryCommand.fromRequest(categoryRequest);
+        CreateCategoryMessage response = mediator.send(createCommand);
+        return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{id}")
-    public Mono<ResponseEntity<String>> updateCategory(@PathVariable UUID id, @RequestBody CategoryRequest categoryRequest) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateCategoryMessage> updateCategory(@PathVariable UUID id, @RequestBody CategoryRequest categoryRequest) {
+        UpdateCategoryCommand updateCategoryCommand = UpdateCategoryCommand.fromRequest(id,categoryRequest);
+        UpdateCategoryMessage response = mediator.send(updateCategoryCommand);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping

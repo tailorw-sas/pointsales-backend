@@ -3,8 +3,6 @@ package com.kynsof.store.application.query.getAll;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.store.application.command.deleted.IOrderService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component

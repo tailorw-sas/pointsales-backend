@@ -15,6 +15,7 @@ public class CreateOrderDetailsCommand implements ICommand {
     private final UUID productId;
     private final Integer quantity;
     private final Double price;
+    private UUID id;
 
     public CreateOrderDetailsCommand(UUID orderId, UUID productId, Integer quantity, Double price) {
         this.orderId = orderId;
@@ -25,9 +26,9 @@ public class CreateOrderDetailsCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return null;
+        return new CreateOrderDetailMessage(id);
     }
 
-    // Getters
+
 }
 

@@ -1,4 +1,4 @@
-package com.kynsof.store.application.request;
+package com.kynsof.store.application.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,8 +11,9 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDetailRequest {
+public class UpdateOrderDetailRequest {
     private UUID productId;
     private Integer quantity;
     private Double price;
+    private UUID orderId;
 }

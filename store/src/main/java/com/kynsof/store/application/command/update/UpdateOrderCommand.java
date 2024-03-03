@@ -4,8 +4,8 @@ package com.kynsof.store.application.command.update;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.store.application.request.OrderDetailRequest;
-import com.kynsof.store.application.request.OrderRequest;
+import com.kynsof.store.application.command.OrderDetailRequest;
+import com.kynsof.store.application.command.OrderRequest;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,7 +43,7 @@ public class UpdateOrderCommand implements ICommand {
     @Override
     public ICommandMessage getMessage() {
         // Logic to create and return an ICommandMessage
-        return null;
+        return new UpdateOrderMessage();
     }
 }
 
