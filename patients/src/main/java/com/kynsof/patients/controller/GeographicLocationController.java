@@ -3,7 +3,7 @@ package com.kynsof.patients.controller;
 import com.kynsof.patients.application.query.geographicLocation.getById.FindByIdGeographicLocationQuery;
 import com.kynsof.patients.application.query.geographicLocation.getall.GeographicLocationResponse;
 import com.kynsof.patients.application.query.geographicLocation.getall.GetAllGeographicLocationQuery;
-import com.kynsof.patients.domain.dto.PaginatedResponse;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

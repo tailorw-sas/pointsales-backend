@@ -15,8 +15,8 @@ import com.kynsof.patients.application.query.patients.getById.FindPatientsByIdQu
 import com.kynsof.patients.application.query.patients.getall.GetAllPatientsFilterQuery;
 import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import com.kynsof.patients.application.query.patients.search.GetSearchPatientsQuery;
-import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

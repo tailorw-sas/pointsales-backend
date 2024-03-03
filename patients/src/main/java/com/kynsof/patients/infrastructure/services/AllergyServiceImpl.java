@@ -3,7 +3,6 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.allergy.getall.AllergyResponse;
 import com.kynsof.patients.domain.dto.AllergyEntityDto;
-import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IAllergyService;
 import com.kynsof.patients.infrastructure.entity.Allergy;
@@ -12,6 +11,7 @@ import com.kynsof.patients.infrastructure.repositories.query.AllergyReadDataJPAR
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

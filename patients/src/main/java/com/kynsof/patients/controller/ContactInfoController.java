@@ -11,7 +11,7 @@ import com.kynsof.patients.application.command.patients.delete.PatientDeleteMess
 import com.kynsof.patients.application.query.contactInfo.getById.FindByIdContactInfoQuery;
 import com.kynsof.patients.application.query.contactInfo.getall.ContactInfoResponse;
 import com.kynsof.patients.application.query.contactInfo.getall.GetAllContactInfoQuery;
-import com.kynsof.patients.domain.dto.PaginatedResponse;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

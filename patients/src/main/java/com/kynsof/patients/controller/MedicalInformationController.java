@@ -11,7 +11,7 @@ import com.kynsof.patients.application.command.medicalInformation.update.UpdateM
 import com.kynsof.patients.application.query.medicalInformation.getById.FindByIdMedicalInformationQuery;
 import com.kynsof.patients.application.query.medicalInformation.getall.GetAllMedicalInformationQuery;
 import com.kynsof.patients.application.query.medicalInformation.getall.MedicalInformationResponse;
-import com.kynsof.patients.domain.dto.PaginatedResponse;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

@@ -3,13 +3,13 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.insuarance.getall.InsuranceResponse;
 import com.kynsof.patients.domain.dto.InsuranceDto;
-import com.kynsof.patients.domain.dto.PaginatedResponse;
 import com.kynsof.patients.domain.service.IInsuranceService;
 import com.kynsof.patients.infrastructure.entity.Insurance;
 import com.kynsof.patients.infrastructure.repositories.query.InsuranceReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

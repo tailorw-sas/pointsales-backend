@@ -8,7 +8,7 @@ import com.kynsof.patients.application.command.currenrMedication.update.UpdateCu
 import com.kynsof.patients.application.query.currentMedication.getById.FindByIdCurrentMedicationIQuery;
 import com.kynsof.patients.application.query.currentMedication.getall.CurrentMedicationResponse;
 import com.kynsof.patients.application.query.currentMedication.getall.GetAllCurrentMedicationQuery;
-import com.kynsof.patients.domain.dto.PaginatedResponse;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +41,7 @@ public class CurrentMedicationController {
     public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
                                                     @RequestParam(defaultValue = "0") Integer page,
                                                     @RequestParam(defaultValue = "") UUID medicalInformationId,
-                                                           @RequestParam(defaultValue = "") String name)
+                                                    @RequestParam(defaultValue = "") String name)
     {
         Pageable pageable = PageRequest.of(page, pageSize);
         GetAllCurrentMedicationQuery query = new GetAllCurrentMedicationQuery(pageable, medicalInformationId, name);

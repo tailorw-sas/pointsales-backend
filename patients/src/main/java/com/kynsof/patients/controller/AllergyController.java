@@ -9,7 +9,7 @@ import com.kynsof.patients.application.command.allergy.update.UpdateAllergyMessa
 import com.kynsof.patients.application.query.allergy.getById.FindByIdAllergyQuery;
 import com.kynsof.patients.application.query.allergy.getall.AllergyResponse;
 import com.kynsof.patients.application.query.allergy.getall.GetAllAllergyQuery;
-import com.kynsof.patients.domain.dto.PaginatedResponse;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -40,10 +40,10 @@ public class AllergyController {
 
     @GetMapping("/all")
     public ResponseEntity<PaginatedResponse> getAllAllergy(@RequestParam(defaultValue = "20") Integer pageSize,
-                                                    @RequestParam(defaultValue = "0") Integer page,
-                                                    @RequestParam(defaultValue = "") UUID medicalInformationId,
+                                                           @RequestParam(defaultValue = "0") Integer page,
+                                                           @RequestParam(defaultValue = "") UUID medicalInformationId,
                                                            @RequestParam(defaultValue = "") String name,
-                                                    @RequestParam(defaultValue = "") String code)
+                                                           @RequestParam(defaultValue = "") String code)
     {
         Pageable pageable = PageRequest.of(page, pageSize);
         GetAllAllergyQuery query = new GetAllAllergyQuery(pageable, medicalInformationId, name, code);
