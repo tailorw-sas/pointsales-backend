@@ -2,7 +2,7 @@ package com.kynsof.store.application.command.subcategory.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.store.application.command.SubcategoryRequest;
+import com.kynsof.store.application.command.subcategory.SubcategoryRequest;
 import lombok.Getter;
 import lombok.Setter;
 

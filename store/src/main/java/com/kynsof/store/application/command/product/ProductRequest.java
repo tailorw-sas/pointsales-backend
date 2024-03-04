@@ -1,4 +1,4 @@
-package com.kynsof.store.application.command;
+package com.kynsof.store.application.command.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

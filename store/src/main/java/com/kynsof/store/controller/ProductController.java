@@ -3,7 +3,7 @@ package com.kynsof.store.controller;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsof.store.application.command.ProductRequest;
+import com.kynsof.store.application.command.product.ProductRequest;
 import com.kynsof.store.application.command.product.create.CreateProductCommand;
 import com.kynsof.store.application.command.product.create.CreateProductMessage;
 import com.kynsof.store.application.command.product.delete.DeleteProductCommand;

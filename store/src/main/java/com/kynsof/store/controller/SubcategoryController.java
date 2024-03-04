@@ -3,7 +3,7 @@ package com.kynsof.store.controller;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsof.store.application.command.SubcategoryRequest;
+import com.kynsof.store.application.command.subcategory.SubcategoryRequest;
 import com.kynsof.store.application.command.subcategory.create.CreateSubcategoryCommand;
 import com.kynsof.store.application.command.subcategory.create.CreateSubcategoryMessage;
 import com.kynsof.store.application.command.subcategory.delete.DeleteSubCategoryMessage;

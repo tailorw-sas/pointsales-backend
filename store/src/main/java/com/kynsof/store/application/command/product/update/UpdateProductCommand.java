@@ -2,7 +2,7 @@ package com.kynsof.store.application.command.product.update;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.store.application.command.ProductRequest;
+import com.kynsof.store.application.command.product.ProductRequest;
 import lombok.Getter;
 import lombok.Setter;
 
