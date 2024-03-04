@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserKafka implements Serializable {
 
+    private String id;
     private String username;
     private String email;
     private String firstname;
