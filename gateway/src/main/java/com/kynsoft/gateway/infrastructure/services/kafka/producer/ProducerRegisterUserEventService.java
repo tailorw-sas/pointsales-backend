@@ -20,10 +20,10 @@ public class ProducerRegisterUserEventService {
         this.producer = producer;
     }
 
-    public void create(RegisterDTO entity) {
+    public void create(RegisterDTO entity, String clientId) {
 
         try {
-            UserKafka event = new UserKafka(entity.getUsername(), entity.getEmail(), entity.getFirstname(), entity.getLastname());
+            UserKafka event = new UserKafka(clientId, entity.getUsername(), entity.getEmail(), entity.getFirstname(), entity.getLastname());
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));

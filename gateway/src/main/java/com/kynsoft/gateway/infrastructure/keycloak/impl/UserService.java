@@ -121,7 +121,7 @@ public class UserService implements IUserService {
                 roleMappingResource.clientLevel(clientId).add(rolesToAdd);
             }
 
-            this.producerRegisterUserEvent.create(registerDTO);
+            this.producerRegisterUserEvent.create(registerDTO, id);
            // customerService.save(registerDTO);
             return "User created successfully!!";
 
