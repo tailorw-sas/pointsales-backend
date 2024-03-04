@@ -2,11 +2,13 @@ package com.kynsof.store.controller;
 
 
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsof.store.application.command.OrderRequest;
-import com.kynsof.store.application.command.create.CreateOrderCommand;
 import com.kynsof.store.application.command.create.CreateOrderMessage;
-import com.kynsof.store.application.command.update.UpdateOrderCommand;
-import com.kynsof.store.application.command.update.UpdateOrderMessage;
+import com.kynsof.store.application.command.order.create.CreateOrderCommand;
+import com.kynsof.store.application.command.order.create.OrderRequest;
+import com.kynsof.store.application.command.order.update.UpdateOrderCommand;
+import com.kynsof.store.application.command.order.update.UpdateOrderMessage;
+import com.kynsof.store.application.query.order.findById.FindOrderByIdQuery;
+import com.kynsof.store.application.query.order.findById.OrderFindByIdResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,7 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/orders")
 public class OrderController {
     private final IMediator mediator;
 
@@ -44,8 +46,10 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<String>> getOrderById(@PathVariable UUID id) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    public ResponseEntity<OrderFindByIdResponse> getOrderById(@PathVariable UUID id) {
+        FindOrderByIdQuery query = new FindOrderByIdQuery(id);
+        OrderFindByIdResponse categoryResponse = mediator.send(query);
+        return ResponseEntity.ok(categoryResponse);
     }
 
     @GetMapping("/search")

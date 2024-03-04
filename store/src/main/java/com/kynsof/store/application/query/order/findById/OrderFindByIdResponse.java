@@ -1,8 +1,10 @@
-package com.kynsof.store.application.query.getAll;
+package com.kynsof.store.application.query.order.findById;
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsof.store.domain.dto.OrderDetailDto;
 import com.kynsof.store.domain.dto.OrderEntityDto;
+import com.kynsof.store.infrastructure.enumDto.OrderDetailStatus;
+import com.kynsof.store.infrastructure.enumDto.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,21 +15,23 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class OrderResponse implements IResponse {
+public class OrderFindByIdResponse implements IResponse {
     private UUID id;
     private UUID supplierId;
     private LocalDateTime orderDate;
-    private String status;
+    private OrderStatus status;
     private List<OrderDetailResponse> orderDetails;
-
-    public OrderResponse(OrderEntityDto orderDto) {
+    private Double total;
+    public OrderFindByIdResponse(OrderEntityDto orderDto) {
         this.id = orderDto.getId();
-        this.supplierId = orderDto.getSupplierId();
         this.orderDate = orderDto.getOrderDate();
         this.status = orderDto.getStatus();
         this.orderDetails = orderDto.getOrderDetails().stream()
                 .map(OrderDetailResponse::new)
                 .collect(Collectors.toList());
+        this.total = orderDetails.stream()
+                .mapToDouble(detail -> detail.getPrice() * detail.getQuantity())
+                .sum();
     }
 
     @Getter
@@ -36,11 +40,14 @@ public class OrderResponse implements IResponse {
         private UUID productId;
         private Integer quantity;
         private Double price;
+        private OrderDetailStatus status;
+
 
         public OrderDetailResponse(OrderDetailDto orderDetailDto) {
             this.productId = orderDetailDto.getProductId();
             this.quantity = orderDetailDto.getQuantity();
             this.price = orderDetailDto.getPrice();
+            this.status = orderDetailDto.getStatus();
         }
     }
 }

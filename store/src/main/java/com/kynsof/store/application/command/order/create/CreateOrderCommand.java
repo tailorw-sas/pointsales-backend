@@ -1,13 +1,12 @@
-package com.kynsof.store.application.command.create;
+package com.kynsof.store.application.command.order.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import com.kynsof.store.application.command.OrderDetailRequest;
-import com.kynsof.store.application.command.OrderRequest;
+import com.kynsof.store.application.command.create.CreateOrderMessage;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -15,16 +14,11 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class CreateOrderCommand implements ICommand {
-    private UUID supplierId;
-    private LocalDateTime orderDate;
-    private String status;
     private List<OrderDetailRequest> orderDetails;
     private UUID id;
 
-    public CreateOrderCommand(UUID supplierId, LocalDateTime orderDate, String status, List<OrderDetailRequest> orderDetails) {
-        this.supplierId = supplierId;
-        this.orderDate = orderDate;
-        this.status = status;
+    public CreateOrderCommand(List<OrderDetailRequest> orderDetails) {
+
         this.orderDetails = orderDetails;
     }
 
@@ -34,9 +28,6 @@ public class CreateOrderCommand implements ICommand {
                 .collect(Collectors.toList());
 
         return new CreateOrderCommand(
-                request.getSupplierId(),
-                request.getOrderDate(),
-                request.getStatus(),
                 details
         );
     }

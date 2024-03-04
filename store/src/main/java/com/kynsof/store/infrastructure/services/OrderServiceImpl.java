@@ -5,23 +5,23 @@ import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import com.kynsof.store.application.query.getAll.OrderResponse;
+import com.kynsof.store.application.query.order.findById.OrderFindByIdResponse;
 import com.kynsof.store.domain.dto.OrderEntityDto;
 import com.kynsof.store.domain.services.IOrderService;
 import com.kynsof.store.infrastructure.entity.Category;
 import com.kynsof.store.infrastructure.entity.Order;
-import com.kynsof.store.infrastructure.entity.Supplier;
 import com.kynsof.store.infrastructure.repositories.command.OrderWriteDataJPARepository;
 import com.kynsof.store.infrastructure.repositories.queries.OrderReadDataJPARepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+@Service
 public class OrderServiceImpl implements IOrderService {
     private final OrderWriteDataJPARepository repositoryCommand;
     private final OrderReadDataJPARepository repositoryQuery;
@@ -33,7 +33,8 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public UUID create(OrderEntityDto orderDto) {
-        Order additionalInformation = this.repositoryCommand.save(new Order(orderDto));
+        Order entity = new Order(orderDto);
+        Order additionalInformation = this.repositoryCommand.save(entity);
         return additionalInformation.getId();
     }
 
@@ -45,8 +46,6 @@ public class OrderServiceImpl implements IOrderService {
 
         return repositoryQuery.findById(orderDto.getId())
                 .map(order -> {
-                    if (orderDto.getSupplierId() != null)
-                        order.setSupplier(new Supplier(orderDto.getSupplierEntityDto()));
                     if (orderDto.getOrderDate() != null)
                         order.setOrderDate(orderDto.getOrderDate());
                     if (orderDto.getStatus() != null)
@@ -89,9 +88,9 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     private PaginatedResponse getPaginatedResponse(Page<Order> data) {
-        List<OrderResponse> patients = new ArrayList<>();
+        List<OrderFindByIdResponse> patients = new ArrayList<>();
         for (Order p : data.getContent()) {
-            patients.add(new OrderResponse(p.toAggregate()));
+            patients.add(new OrderFindByIdResponse(p.toAggregate()));
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());

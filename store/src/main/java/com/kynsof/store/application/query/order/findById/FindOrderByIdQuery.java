@@ -1,4 +1,4 @@
-package com.kynsof.store.application.query.getById;
+package com.kynsof.store.application.query.order.findById;
 
 import com.kynsof.share.core.domain.bus.query.IQuery;
 import lombok.Getter;

@@ -1,6 +1,7 @@
 package com.kynsof.store.infrastructure.entity;
 
 import com.kynsof.store.domain.dto.OrderDetailDto;
+import com.kynsof.store.infrastructure.enumDto.OrderDetailStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,13 +27,20 @@ public class OrderDetail {
     private Product product;
 
     private Integer quantity;
-    private Double price; // Precio acordado en el momento del pedido
+    private Double price;
+
+    @Enumerated(EnumType.STRING)
+    private OrderDetailStatus status;
 
     public OrderDetail(OrderDetailDto orderDetailDto) {
-
+        this.id = orderDetailDto.getId();
+        this.product = new Product(orderDetailDto.getProduct());
+        this.quantity = orderDetailDto.getQuantity();
+        this.price = orderDetailDto.getPrice();
+        this.status = orderDetailDto.getStatus();
     }
 
     public OrderDetailDto toAggregate() {
-        return new OrderDetailDto(this.id,this.product.getId(),this.product, this.quantity, this.price);
+        return new OrderDetailDto(this.id,this.product.getId(),this.product.toAggregate(), this.quantity, this.price, this.status);
     }
 }

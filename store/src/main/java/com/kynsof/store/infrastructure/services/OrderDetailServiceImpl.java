@@ -5,6 +5,7 @@ import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.store.domain.dto.OrderDetailDto;
 import com.kynsof.store.domain.services.IOrderDetailService;
 import com.kynsof.store.infrastructure.entity.OrderDetail;
+import com.kynsof.store.infrastructure.entity.Product;
 import com.kynsof.store.infrastructure.repositories.command.OrderDetailWriteDataJPARepository;
 import com.kynsof.store.infrastructure.repositories.queries.OrderDetailReadDataJPARepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -39,7 +40,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
         return repositoryQuery.findById(orderDetailDto.getId())
                 .map(orderDetail -> {
                     if (orderDetailDto.getProductId() != null)
-                        orderDetail.setProduct(orderDetailDto.getProduct());
+                        orderDetail.setProduct(new Product(orderDetailDto.getProduct()));
                     if (orderDetailDto.getQuantity() != null)
                         orderDetail.setQuantity(orderDetailDto.getQuantity());
                     if (orderDetailDto.getPrice() != null)

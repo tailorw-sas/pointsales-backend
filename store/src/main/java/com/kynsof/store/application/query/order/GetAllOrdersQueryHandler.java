@@ -1,4 +1,4 @@
-package com.kynsof.store.application.query.getAll;
+package com.kynsof.store.application.query.order;
 
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
