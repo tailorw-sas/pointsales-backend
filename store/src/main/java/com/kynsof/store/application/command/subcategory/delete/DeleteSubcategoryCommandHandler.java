@@ -8,15 +8,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class DeleteSubcategoryCommandHandler implements ICommandHandler<DeleteSubcategoryCommand> {
 
-    private ISubcategoryService subcategoryService;
+    private final ISubcategoryService subcategoryService;
 
-//    public DeleteSubcategoryCommandHandler(ISubcategoryService subcategoryService) {
-//        this.subcategoryService = subcategoryService;
-//    }
+    public DeleteSubcategoryCommandHandler(ISubcategoryService subcategoryService) {
+        this.subcategoryService = subcategoryService;
+    }
 
     @Override
     public void handle(DeleteSubcategoryCommand command) {
-        //subcategoryService.deleteSubcategory(command.getSubcategoryId());
+        subcategoryService.delete(command.getSubcategoryId());
     }
 }
 

@@ -1,9 +1,9 @@
-package com.kynsof.store.application.command.update;
+package com.kynsof.store.application.command.supplier.update;
 
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.store.application.command.SupplierRequest;
+import com.kynsof.store.application.command.supplier.create.SupplierRequest;
 import lombok.Getter;
 import lombok.Setter;
 

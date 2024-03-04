@@ -1,4 +1,4 @@
-package com.kynsof.store.application.command.deleted;
+package com.kynsof.store.application.command.supplier.delete;
 
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 public class DeleteSupplierCommandHandler implements ICommandHandler<DeleteSupplierCommand> {
 
 
-    private ISupplierService supplierService;
+    private final ISupplierService supplierService;
 
-//    public DeleteSupplierCommandHandler(ISupplierService supplierService) {
-//        this.supplierService = supplierService;
-//    }
+    public DeleteSupplierCommandHandler(ISupplierService supplierService) {
+        this.supplierService = supplierService;
+    }
 
     @Override
     public void handle(DeleteSupplierCommand command) {
-       // supplierService.deleteSupplier(command.getSupplierId());
+        supplierService.delete(command.getSupplierId());
     }
 }

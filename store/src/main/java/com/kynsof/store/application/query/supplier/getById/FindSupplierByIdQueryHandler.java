@@ -1,9 +1,9 @@
-package com.kynsof.store.application.query.getById;
+package com.kynsof.store.application.query.supplier.getById;
 
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
+import com.kynsof.store.application.query.supplier.getAll.SupplierResponse;
 import com.kynsof.store.domain.dto.SupplierEntityDto;
 import com.kynsof.store.domain.services.ISupplierService;
-import com.kynsof.store.application.query.getAll.SupplierResponse;
 import org.springframework.stereotype.Component;
 
 @Component

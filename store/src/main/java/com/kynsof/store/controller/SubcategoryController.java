@@ -6,11 +6,13 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.store.application.command.SubcategoryRequest;
 import com.kynsof.store.application.command.subcategory.create.CreateSubcategoryCommand;
 import com.kynsof.store.application.command.subcategory.create.CreateSubcategoryMessage;
+import com.kynsof.store.application.command.subcategory.delete.DeleteSubCategoryMessage;
+import com.kynsof.store.application.command.subcategory.delete.DeleteSubcategoryCommand;
 import com.kynsof.store.application.command.subcategory.update.UpdateSubcategoryCommand;
 import com.kynsof.store.application.command.subcategory.update.UpdateSubcategoryMessage;
-import com.kynsof.store.application.query.subcategory.getById.FindSubcategoryByIdQuery;
 import com.kynsof.store.application.query.subcategory.getAll.GetAllSubcategoriesQuery;
 import com.kynsof.store.application.query.subcategory.getAll.SubcategoryResponse;
+import com.kynsof.store.application.query.subcategory.getById.FindSubcategoryByIdQuery;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -68,7 +70,9 @@ public class SubcategoryController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<ResponseEntity<String>> deleteSubcategory(@PathVariable UUID id) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    public ResponseEntity<DeleteSubCategoryMessage> deleteSubcategory(@PathVariable UUID id) {
+        DeleteSubcategoryCommand command = new DeleteSubcategoryCommand(id);
+        DeleteSubCategoryMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
     }
 }

@@ -1,4 +1,4 @@
-package com.kynsof.store.application.command.deleted;
+package com.kynsof.store.application.command.supplier.delete;
 
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
@@ -19,6 +19,6 @@ public class DeleteSupplierCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return null;
+        return new DeleteSupplierMessage();
     }
 }

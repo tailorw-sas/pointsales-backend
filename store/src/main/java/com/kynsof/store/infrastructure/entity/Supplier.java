@@ -25,6 +25,11 @@ public class Supplier {
     private List<Product> products;
 
     public Supplier(SupplierEntityDto supplierEntityDto) {
+        this.id = supplierEntityDto.getId();
+        this.name = supplierEntityDto.getName();
+        this.address = supplierEntityDto.getAddress();
+        this.phone = supplierEntityDto.getPhone();
+        this.email = supplierEntityDto.getEmail();
     }
 
     public SupplierEntityDto toAggregate() {

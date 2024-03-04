@@ -1,11 +1,20 @@
 package com.kynsof.store.controller;
 
+import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsof.store.application.command.SupplierRequest;
-import com.kynsof.store.application.command.create.CreateSupplierCommand;
-import com.kynsof.store.application.command.create.CreateSupplierMessage;
-import com.kynsof.store.application.command.update.UpdateSupplierCommand;
-import com.kynsof.store.application.command.update.UpdateSupplierMessage;
+import com.kynsof.store.application.command.supplier.create.CreateSupplierCommand;
+import com.kynsof.store.application.command.supplier.create.CreateSupplierMessage;
+import com.kynsof.store.application.command.supplier.create.SupplierRequest;
+import com.kynsof.store.application.command.supplier.delete.DeleteSupplierCommand;
+import com.kynsof.store.application.command.supplier.delete.DeleteSupplierMessage;
+import com.kynsof.store.application.command.supplier.update.UpdateSupplierCommand;
+import com.kynsof.store.application.command.supplier.update.UpdateSupplierMessage;
+import com.kynsof.store.application.query.supplier.getAll.GetAllSuppliersQuery;
+import com.kynsof.store.application.query.supplier.getAll.SupplierResponse;
+import com.kynsof.store.application.query.supplier.getById.FindSupplierByIdQuery;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +23,7 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/suppliers")
+@RequestMapping("/api/suppliers")
 public class SupplierController {
     private final IMediator mediator;
 
@@ -32,7 +41,7 @@ public class SupplierController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<UpdateSupplierMessage> updateSupplier(@PathVariable UUID id, @RequestBody SupplierRequest request) {
-        UpdateSupplierCommand createCommand = UpdateSupplierCommand.fromRequest(id,request);
+        UpdateSupplierCommand createCommand = UpdateSupplierCommand.fromRequest(id, request);
         UpdateSupplierMessage response = mediator.send(createCommand);
         return ResponseEntity.ok(response);
     }
@@ -43,18 +52,25 @@ public class SupplierController {
     }
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<String>> getSupplierById(@PathVariable UUID id) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    public ResponseEntity<SupplierResponse> getSupplierById(@PathVariable UUID id) {
+        FindSupplierByIdQuery query = new FindSupplierByIdQuery(id);
+        SupplierResponse response = mediator.send(query);
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/search")
-    public Mono<ResponseEntity<String>> searchSuppliers(@RequestParam String keyword) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> searchSuppliers(@RequestBody SearchRequest request) {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetAllSuppliersQuery query = new GetAllSuppliersQuery(pageable, request.getFilter(), request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<ResponseEntity<String>> deleteSupplier(@PathVariable UUID id) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    public ResponseEntity<DeleteSupplierMessage> deleteSupplier(@PathVariable UUID id) {
+        DeleteSupplierCommand command = new DeleteSupplierCommand(id);
+        DeleteSupplierMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
     }
 }
