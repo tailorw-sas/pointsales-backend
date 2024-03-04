@@ -1,4 +1,4 @@
-package com.kynsof.store.application.command.category.command.delete;
+package com.kynsof.store.application.command.category.delete;
 
 
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;

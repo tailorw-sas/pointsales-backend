@@ -3,11 +3,11 @@ package com.kynsof.store.infrastructure.services;
 
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
-import com.kynsof.store.application.query.category.getAll.CategoryResponse;
-import com.kynsof.store.domain.dto.CategoryDto;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import com.kynsof.store.application.query.category.getAll.CategoryResponse;
+import com.kynsof.store.domain.dto.CategoryDto;
 import com.kynsof.store.domain.services.ICategoryService;
 import com.kynsof.store.infrastructure.entity.Category;
 import com.kynsof.store.infrastructure.repositories.command.CategoryWriteDataJPARepository;
@@ -19,9 +19,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements ICategoryService {

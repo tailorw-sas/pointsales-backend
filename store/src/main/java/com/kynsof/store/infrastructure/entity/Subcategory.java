@@ -25,8 +25,16 @@ public class Subcategory {
     @OneToMany(mappedBy = "subcategory")
     private List<Product> products;
 
+    public Subcategory(SubcategoryEntityDto subcategoryDto) {
+        this.id = subcategoryDto.getId();
+        this.name = subcategoryDto.getName();
+        this.description = subcategoryDto.getDescription();
+        this.category = new Category(subcategoryDto.getCategory());
+    }
+
     public SubcategoryEntityDto toAggregate() {
         UUID categoryId = this.category != null ? this.category.getId() : null;
-        return new SubcategoryEntityDto(this.id, this.name, this.description, categoryId);
+        assert category != null;
+        return new SubcategoryEntityDto(this.id, this.name, this.description, categoryId, category.toAggregate());
     }
 }

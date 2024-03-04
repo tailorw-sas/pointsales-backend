@@ -1,4 +1,4 @@
-package com.kynsof.store.application.command.category.command.create;
+package com.kynsof.store.application.command.category.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.store.domain.dto.CategoryDto;

@@ -2,10 +2,10 @@ package com.kynsof.store.controller;
 
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.store.application.command.SubcategoryRequest;
-import com.kynsof.store.application.command.create.CreateSubcategoryCommand;
-import com.kynsof.store.application.command.create.CreateSubcategoryMessage;
-import com.kynsof.store.application.command.update.UpdateSubcategoryCommand;
-import com.kynsof.store.application.command.update.UpdateSubcategoryMessage;
+import com.kynsof.store.application.command.subcategory.create.CreateSubcategoryCommand;
+import com.kynsof.store.application.command.subcategory.create.CreateSubcategoryMessage;
+import com.kynsof.store.application.command.subcategory.update.UpdateSubcategoryCommand;
+import com.kynsof.store.application.command.subcategory.update.UpdateSubcategoryMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/subcategories")
+@RequestMapping("/api/subcategories")
 public class SubcategoryController {
 
     private final IMediator mediator;

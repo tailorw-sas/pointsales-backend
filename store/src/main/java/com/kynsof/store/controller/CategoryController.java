@@ -1,16 +1,15 @@
 package com.kynsof.store.controller;
 
-
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.store.application.command.CategoryRequest;
-import com.kynsof.store.application.command.category.command.create.CreateCategoryCommand;
-import com.kynsof.store.application.command.category.command.create.CreateCategoryMessage;
-import com.kynsof.store.application.command.category.command.delete.DeleteCategoryCommand;
-import com.kynsof.store.application.command.category.command.delete.DeleteCategoryMessage;
-import com.kynsof.store.application.command.category.command.update.UpdateCategoryCommand;
-import com.kynsof.store.application.command.category.command.update.UpdateCategoryMessage;
+import com.kynsof.store.application.command.category.create.CreateCategoryCommand;
+import com.kynsof.store.application.command.category.create.CreateCategoryMessage;
+import com.kynsof.store.application.command.category.delete.DeleteCategoryCommand;
+import com.kynsof.store.application.command.category.delete.DeleteCategoryMessage;
+import com.kynsof.store.application.command.category.update.UpdateCategoryCommand;
+import com.kynsof.store.application.command.category.update.UpdateCategoryMessage;
 import com.kynsof.store.application.query.category.getAll.CategoryResponse;
 import com.kynsof.store.application.query.category.getAll.GetAllCategoriesQuery;
 import com.kynsof.store.application.query.category.getById.FindCategoryByIdQuery;

@@ -1,4 +1,4 @@
-package com.kynsof.store.application.command.category.command.update;
+package com.kynsof.store.application.command.category.update;
 
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;

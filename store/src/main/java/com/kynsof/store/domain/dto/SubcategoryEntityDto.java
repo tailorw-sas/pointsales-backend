@@ -14,4 +14,5 @@ public class SubcategoryEntityDto {
     private String name;
     private String description;
     private UUID categoryId;
+    private CategoryDto category;
 }
