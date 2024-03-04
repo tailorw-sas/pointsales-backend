@@ -1,6 +1,7 @@
 package com.kynsof.store.application.query.getAll;
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
+import com.kynsof.store.domain.dto.OrderDetailDto;
 import com.kynsof.store.domain.dto.OrderEntityDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +37,7 @@ public class OrderResponse implements IResponse {
         private Integer quantity;
         private Double price;
 
-        public OrderDetailResponse(OrderEntityDto.OrderDetailDto orderDetailDto) {
+        public OrderDetailResponse(OrderDetailDto orderDetailDto) {
             this.productId = orderDetailDto.getProductId();
             this.quantity = orderDetailDto.getQuantity();
             this.price = orderDetailDto.getPrice();

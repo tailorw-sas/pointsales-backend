@@ -28,9 +28,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/patients")
 public class PatientsController {
-
     private final IMediator mediator;
-
     public PatientsController(IMediator mediator){
 
         this.mediator = mediator;

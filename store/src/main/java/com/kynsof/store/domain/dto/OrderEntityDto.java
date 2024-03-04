@@ -17,14 +17,7 @@ public class OrderEntityDto {
     private LocalDateTime orderDate;
     private String status;
     private List<OrderDetailDto> orderDetails;
+    private SupplierEntityDto supplierEntityDto;
 
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    public static class OrderDetailDto {
-        private UUID productId;
-        private Integer quantity;
-        private Double price;
-    }
 }
 

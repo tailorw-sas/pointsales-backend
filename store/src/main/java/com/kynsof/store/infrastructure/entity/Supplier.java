@@ -24,6 +24,9 @@ public class Supplier {
     @OneToMany(mappedBy = "supplier")
     private List<Product> products;
 
+    public Supplier(SupplierEntityDto supplierEntityDto) {
+    }
+
     public SupplierEntityDto toAggregate() {
         return new SupplierEntityDto(this.id, this.name, this.address, this.phone, this.email);
     }

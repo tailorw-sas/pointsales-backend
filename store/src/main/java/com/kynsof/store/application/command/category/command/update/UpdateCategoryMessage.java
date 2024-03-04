@@ -1,0 +1,13 @@
+package com.kynsof.store.application.command.category.command.update;
+
+
+import com.kynsof.share.core.domain.bus.command.ICommandMessage;
+import lombok.Getter;
+
+@Getter
+public class UpdateCategoryMessage implements ICommandMessage {
+    private final String command = "UPDATE_CATEGORY";
+
+    public UpdateCategoryMessage() {
+    }
+}

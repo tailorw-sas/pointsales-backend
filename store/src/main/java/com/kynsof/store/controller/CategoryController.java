@@ -1,12 +1,21 @@
 package com.kynsof.store.controller;
 
 
+import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.store.application.command.CategoryRequest;
-import com.kynsof.store.application.command.create.CreateCategoryCommand;
-import com.kynsof.store.application.command.create.CreateCategoryMessage;
-import com.kynsof.store.application.command.update.UpdateCategoryCommand;
-import com.kynsof.store.application.command.update.UpdateCategoryMessage;
+import com.kynsof.store.application.command.category.command.create.CreateCategoryCommand;
+import com.kynsof.store.application.command.category.command.create.CreateCategoryMessage;
+import com.kynsof.store.application.command.category.command.delete.DeleteCategoryCommand;
+import com.kynsof.store.application.command.category.command.delete.DeleteCategoryMessage;
+import com.kynsof.store.application.command.category.command.update.UpdateCategoryCommand;
+import com.kynsof.store.application.command.category.command.update.UpdateCategoryMessage;
+import com.kynsof.store.application.query.category.getAll.CategoryResponse;
+import com.kynsof.store.application.query.category.getAll.GetAllCategoriesQuery;
+import com.kynsof.store.application.query.category.getById.FindCategoryByIdQuery;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +24,7 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("/api/categories")
 public class CategoryController {
     private final IMediator mediator;
 
@@ -44,18 +53,26 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<String>> getCategoryById(@PathVariable UUID id) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    public ResponseEntity<CategoryResponse> getCategoryById(@PathVariable UUID id) {
+        FindCategoryByIdQuery findCategoryByIdQuery = new FindCategoryByIdQuery(id);
+        CategoryResponse categoryResponse = mediator.send(findCategoryByIdQuery);
+        return ResponseEntity.ok(categoryResponse);
     }
 
-    @GetMapping("/search")
-    public Mono<ResponseEntity<String>> searchCategories(@RequestParam String keyword) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> searchCategories(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetAllCategoriesQuery query = new GetAllCategoriesQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<ResponseEntity<String>> deleteCategory(@PathVariable UUID id) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    public ResponseEntity<DeleteCategoryMessage> deleteCategory(@PathVariable UUID id) {
+        DeleteCategoryCommand deleteCategoryCommand = new DeleteCategoryCommand(id);
+        DeleteCategoryMessage deleteCategoryMessage =  mediator.send(deleteCategoryCommand);
+        return ResponseEntity.ok(deleteCategoryMessage);
     }
 }

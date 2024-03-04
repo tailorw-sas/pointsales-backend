@@ -2,7 +2,7 @@ package com.kynsof.store.application.command.update;
 
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.store.application.command.deleted.IOrderDetailService;
+import com.kynsof.store.domain.services.IOrderDetailService;
 import org.springframework.stereotype.Component;
 
 @Component

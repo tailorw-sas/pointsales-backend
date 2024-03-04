@@ -1,6 +1,7 @@
 package com.kynsof.store.application.command.deleted;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.store.domain.services.IProductService;
 import org.springframework.stereotype.Component;
 
 @Component

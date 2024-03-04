@@ -1,7 +1,7 @@
 package com.kynsof.store.application.query.getAll;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-import com.kynsof.store.application.command.deleted.IProductService;
+import com.kynsof.store.domain.services.IProductService;
 import org.springframework.stereotype.Component;
 
 @Component

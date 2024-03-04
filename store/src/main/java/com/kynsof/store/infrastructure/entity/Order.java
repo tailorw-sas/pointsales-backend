@@ -1,5 +1,6 @@
 package com.kynsof.store.infrastructure.entity;
 
+import com.kynsof.store.domain.dto.OrderDetailDto;
 import com.kynsof.store.domain.dto.OrderEntityDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -31,10 +32,17 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails;
 
+    public Order(OrderEntityDto orderDto) {
+        this.id = orderDto.getId();
+        this.orderDate = orderDto.getOrderDate();
+        this.status = orderDto.getStatus();
+    }
+
     public OrderEntityDto toAggregate() {
-        List<OrderEntityDto.OrderDetailDto> orderDetailsDto = this.orderDetails.stream()
+        List<OrderDetailDto> orderDetailsDto = this.orderDetails.stream()
                 .map(OrderDetail::toAggregate)
                 .collect(Collectors.toList());
-        return new OrderEntityDto(this.id, this.supplier.getId(), this.orderDate, this.status, orderDetailsDto);
+        return new OrderEntityDto(this.id, this.supplier.getId(), this.orderDate, this.status, orderDetailsDto,
+                this.supplier.toAggregate());
     }
 }
