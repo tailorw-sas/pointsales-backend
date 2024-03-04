@@ -1,14 +1,19 @@
 package com.kynsof.store.controller;
 
 
+import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.store.application.command.create.CreateOrderMessage;
 import com.kynsof.store.application.command.order.create.CreateOrderCommand;
 import com.kynsof.store.application.command.order.create.OrderRequest;
 import com.kynsof.store.application.command.order.update.UpdateOrderCommand;
 import com.kynsof.store.application.command.order.update.UpdateOrderMessage;
+import com.kynsof.store.application.query.order.GetAllOrdersQuery;
 import com.kynsof.store.application.query.order.findById.FindOrderByIdQuery;
 import com.kynsof.store.application.query.order.findById.OrderFindByIdResponse;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,9 +57,13 @@ public class OrderController {
         return ResponseEntity.ok(categoryResponse);
     }
 
-    @GetMapping("/search")
-    public Mono<ResponseEntity<String>> searchOrders(@RequestParam String keyword) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> searchOrders(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetAllOrdersQuery query = new GetAllOrdersQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
     @DeleteMapping("/{id}")

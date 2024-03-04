@@ -10,17 +10,14 @@ public class GetAllOrdersQueryHandler implements IQueryHandler<GetAllOrdersQuery
 
     private  IOrderService orderService;
 
-//    @Autowired
-//    public GetAllOrdersQueryHandler(IOrderService orderService) {
-//        this.orderService = orderService;
-//    }
+
+    public GetAllOrdersQueryHandler(IOrderService orderService) {
+        this.orderService = orderService;
+    }
 
     @Override
     public PaginatedResponse handle(GetAllOrdersQuery query) {
-//        Page<OrderDto> orders = orderService.findAll(query.getPageable());
-//        Page<OrderResponse> orderResponses = orders.map(OrderResponse::new);
-//        return new PaginatedResponse<>(orderResponses);
-        return null;
+        return orderService.search(query.getPageable(),query.getFilter());
     }
 }
 

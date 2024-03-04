@@ -5,7 +5,7 @@ import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import com.kynsof.store.application.query.order.findById.OrderFindByIdResponse;
+import com.kynsof.store.application.query.order.OrderResponse;
 import com.kynsof.store.domain.dto.OrderEntityDto;
 import com.kynsof.store.domain.services.IOrderService;
 import com.kynsof.store.infrastructure.entity.Category;
@@ -74,7 +74,6 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public PaginatedResponse findAll(Pageable pageable) {
         Page<Order> data = this.repositoryQuery.findAll(pageable);
-
         return getPaginatedResponse(data);
     }
 
@@ -88,9 +87,9 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     private PaginatedResponse getPaginatedResponse(Page<Order> data) {
-        List<OrderFindByIdResponse> patients = new ArrayList<>();
+        List<OrderResponse> patients = new ArrayList<>();
         for (Order p : data.getContent()) {
-            patients.add(new OrderFindByIdResponse(p.toAggregate()));
+            patients.add(new OrderResponse(p.toAggregate()));
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
