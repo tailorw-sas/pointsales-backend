@@ -1,4 +1,4 @@
-package com.kynsof.store.application.query.getAll;
+package com.kynsof.store.application.query.subcategory.getAll;
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsof.store.domain.dto.SubcategoryEntityDto;

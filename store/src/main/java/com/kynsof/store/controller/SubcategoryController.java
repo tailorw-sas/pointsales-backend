@@ -1,11 +1,18 @@
 package com.kynsof.store.controller;
 
+import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.store.application.command.SubcategoryRequest;
 import com.kynsof.store.application.command.subcategory.create.CreateSubcategoryCommand;
 import com.kynsof.store.application.command.subcategory.create.CreateSubcategoryMessage;
 import com.kynsof.store.application.command.subcategory.update.UpdateSubcategoryCommand;
 import com.kynsof.store.application.command.subcategory.update.UpdateSubcategoryMessage;
+import com.kynsof.store.application.query.subcategory.getById.FindSubcategoryByIdQuery;
+import com.kynsof.store.application.query.subcategory.getAll.GetAllSubcategoriesQuery;
+import com.kynsof.store.application.query.subcategory.getAll.SubcategoryResponse;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,13 +51,19 @@ public class SubcategoryController {
     }
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<String>> getSubcategoryById(@PathVariable UUID id) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    public ResponseEntity<SubcategoryResponse> getSubcategoryById(@PathVariable UUID id) {
+        FindSubcategoryByIdQuery query = new FindSubcategoryByIdQuery(id);
+        SubcategoryResponse response = mediator.send(query);
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/search")
-    public Mono<ResponseEntity<String>> searchSubcategories(@RequestParam String keyword) {
-        return Mono.just(ResponseEntity.ok("Spring Boot: Keycloak with ADMIN CLIENT ROLE"));
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> searchSubcategories(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetAllSubcategoriesQuery query = new GetAllSubcategoriesQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
     @DeleteMapping("/{id}")
