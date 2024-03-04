@@ -1,4 +1,4 @@
-package com.kynsof.store.application.command.create;
+package com.kynsof.store.application.command.product.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;

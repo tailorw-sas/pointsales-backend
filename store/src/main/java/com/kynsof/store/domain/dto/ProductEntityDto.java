@@ -18,4 +18,6 @@ public class ProductEntityDto {
     private String status;
     private UUID subcategoryId;
     private UUID supplierId;
+    private SupplierEntityDto supplierEntityDto;
+    private SubcategoryEntityDto subcategoryEntityDto;
 }

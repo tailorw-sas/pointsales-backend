@@ -1,4 +1,4 @@
-package com.kynsof.store.application.command.create;
+package com.kynsof.store.application.command.product.update;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
@@ -10,18 +10,19 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class CreateProductCommand implements ICommand {
-    private String name;
-    private String description;
-    private Double price;
-    private Integer quantityInStock;
-    private String status;
-    private UUID subcategoryId;
-    private UUID supplierId;
-    private UUID id;
+public class UpdateProductCommand implements ICommand {
+    private final UUID productId;
+    private final String name;
+    private final String description;
+    private final Double price;
+    private final Integer quantityInStock;
+    private final String status;
+    private final UUID subcategoryId;
+    private final UUID supplierId;
 
-    public CreateProductCommand(String name, String description, Double price, Integer quantityInStock, String status,
-                                UUID subcategoryId, UUID supplierId) {
+    public UpdateProductCommand(UUID productId, String name, String description, Double price, Integer quantityInStock,
+                                String status, UUID subcategoryId, UUID supplierId) {
+        this.productId = productId;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -31,8 +32,9 @@ public class CreateProductCommand implements ICommand {
         this.supplierId = supplierId;
     }
 
-    public static CreateProductCommand fromFrontRequest(ProductRequest request) {
-        return new CreateProductCommand(
+    public static UpdateProductCommand fromRequest(UUID productId, ProductRequest request) {
+        return new UpdateProductCommand(
+                productId,
                 request.getName(),
                 request.getDescription(),
                 request.getPrice(),
@@ -45,6 +47,6 @@ public class CreateProductCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return new CreateProductMessage(id);
+        return new UpdateProductMessage();
     }
 }

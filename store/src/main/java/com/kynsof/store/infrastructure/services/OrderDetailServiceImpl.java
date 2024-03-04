@@ -3,16 +3,11 @@ package com.kynsof.store.infrastructure.services;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.store.domain.dto.OrderDetailDto;
-import com.kynsof.store.domain.dto.OrderEntityDto;
 import com.kynsof.store.domain.services.IOrderDetailService;
-import com.kynsof.store.infrastructure.entity.Category;
 import com.kynsof.store.infrastructure.entity.OrderDetail;
-import com.kynsof.store.infrastructure.repositories.command.CategoryWriteDataJPARepository;
 import com.kynsof.store.infrastructure.repositories.command.OrderDetailWriteDataJPARepository;
-import com.kynsof.store.infrastructure.repositories.queries.CategoryReadDataJPARepository;
 import com.kynsof.store.infrastructure.repositories.queries.OrderDetailReadDataJPARepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 import java.util.UUID;

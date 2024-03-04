@@ -1,4 +1,4 @@
-package com.kynsof.store.application.query.getById;
+package com.kynsof.store.application.query.product;
 
 import com.kynsof.share.core.domain.bus.query.IQuery;
 import lombok.Getter;
@@ -6,10 +6,10 @@ import lombok.Getter;
 import java.util.UUID;
 
 @Getter
-public class FindProductByIdQuery implements IQuery {
+public class FindProductsByIdQuery implements IQuery {
     private final UUID id;
 
-    public FindProductByIdQuery(UUID id) {
+    public FindProductsByIdQuery(UUID id) {
         this.id = id;
     }
 }
