@@ -11,9 +11,11 @@ import com.kynsof.calendar.infrastructure.entity.specifications.QualificationDel
 import com.kynsof.calendar.infrastructure.entity.specifications.QualificationSpecifications;
 import com.kynsof.calendar.infrastructure.repository.command.QualificationWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.QualificationReadDataJPARepository;
+import com.kynsof.calendar.infrastructure.service.kafka.producer.ProducerEmailEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.kafka.config.SimpleEmailKafka;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
@@ -40,6 +42,9 @@ public class QualificationServiceImpl implements IQualificationService {
     @Autowired
     private QualificationReadDataJPARepository repositoryQuery;
 
+    @Autowired
+    private ProducerEmailEventService producerEmailEventService;
+
     @Override
     public void create(QualificationDto qualification) {
         RulesChecker.checkRule(new QualificationDescriptionMustBeNotNullRule(this, qualification));
@@ -52,6 +57,7 @@ public class QualificationServiceImpl implements IQualificationService {
         qualification.setCreateAt(localDateTime);
         try {
             this.repositoryCommand.save(new Qualification(qualification));
+            this.producerEmailEventService.create(new SimpleEmailKafka("penaescalonayannier@gmail.com", "Hola", "Nuevo mensaje...."));
         } catch (Exception e) {
             throw new BusinessException(DomainErrorMessage.COLUMN_UNIQUE, "Qualification not insert, the descriptions is already exists: " + e.getCause().getCause().getLocalizedMessage().split("Key")[1]);
         }
