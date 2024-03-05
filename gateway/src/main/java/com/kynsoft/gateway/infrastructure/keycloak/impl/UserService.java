@@ -24,8 +24,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import javax.ws.rs.core.Response;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -85,7 +83,7 @@ public class UserService implements IUserService {
         userRepresentation.setEmail(registerDTO.getEmail());
         userRepresentation.setUsername(registerDTO.getUsername());
         userRepresentation.setEnabled(true);
-        userRepresentation.setEmailVerified(false);
+        userRepresentation.setEmailVerified(true);
         Response response = usersResource.create(userRepresentation);
 
         status = response.getStatus();
@@ -100,7 +98,7 @@ public class UserService implements IUserService {
             credentialRepresentation.setValue(registerDTO.getPassword());
 
             usersResource.get(id).resetPassword(credentialRepresentation);
-            usersResource.get(id).sendVerifyEmail();
+           // usersResource.get(id).sendVerifyEmail();
 
             RealmResource realmResource = keycloakProvider.getRealmResource();
 
@@ -121,7 +119,7 @@ public class UserService implements IUserService {
                 roleMappingResource.clientLevel(clientId).add(rolesToAdd);
             }
 
-            this.producerRegisterUserEvent.create(registerDTO, id);
+          //  this.producerRegisterUserEvent.create(registerDTO, id);
            // customerService.save(registerDTO);
             return "User created successfully!!";
 
