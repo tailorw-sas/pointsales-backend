@@ -10,7 +10,7 @@ import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.patients.infrastructure.repositories.command.PatientsWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.InsuranceReadDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.PatientsReadDataJPARepository;
-import com.kynsof.patients.infrastructure.services.kafka.ProducerPatientsEventService;
+import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerPatientsEventService;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
