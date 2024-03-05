@@ -7,6 +7,7 @@ import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
@@ -20,6 +21,7 @@ public class ProducerRegisterUserEventService {
         this.producer = producer;
     }
 
+    @Async
     public void create(RegisterDTO entity, String clientId) {
 
         try {
