@@ -1,4 +1,4 @@
-package com.kynsof.store.application.command;
+package com.kynsof.store.application.command.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

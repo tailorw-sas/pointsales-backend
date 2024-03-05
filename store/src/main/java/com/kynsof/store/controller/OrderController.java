@@ -9,7 +9,7 @@ import com.kynsof.store.application.command.order.create.CreateOrderCommand;
 import com.kynsof.store.application.command.order.create.OrderRequest;
 import com.kynsof.store.application.command.order.update.UpdateOrderCommand;
 import com.kynsof.store.application.command.order.update.UpdateOrderMessage;
-import com.kynsof.store.application.query.order.GetAllOrdersQuery;
+import com.kynsof.store.application.query.order.getAll.GetAllOrdersQuery;
 import com.kynsof.store.application.query.order.findById.FindOrderByIdQuery;
 import com.kynsof.store.application.query.order.findById.OrderFindByIdResponse;
 import org.springframework.data.domain.PageRequest;

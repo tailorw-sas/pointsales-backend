@@ -5,7 +5,7 @@ import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import com.kynsof.store.application.query.order.OrderResponse;
+import com.kynsof.store.application.query.order.getAll.OrderResponse;
 import com.kynsof.store.domain.dto.OrderEntityDto;
 import com.kynsof.store.domain.services.IOrderService;
 import com.kynsof.store.infrastructure.entity.Category;

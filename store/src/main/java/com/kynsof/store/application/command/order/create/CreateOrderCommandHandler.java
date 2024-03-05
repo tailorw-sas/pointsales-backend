@@ -1,9 +1,11 @@
 package com.kynsof.store.application.command.order.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.store.domain.dto.CustomerDto;
 import com.kynsof.store.domain.dto.OrderDetailDto;
 import com.kynsof.store.domain.dto.OrderEntityDto;
 import com.kynsof.store.domain.dto.ProductEntityDto;
+import com.kynsof.store.domain.services.ICustomerService;
 import com.kynsof.store.domain.services.IOrderService;
 import com.kynsof.store.domain.services.IProductService;
 import com.kynsof.store.infrastructure.enumDto.OrderDetailStatus;
@@ -20,15 +22,18 @@ public class CreateOrderCommandHandler implements ICommandHandler<CreateOrderCom
 
     private final IOrderService orderService;
     private final IProductService productService;
+    private final ICustomerService customerService;
 
-    public CreateOrderCommandHandler(IOrderService orderService, IProductService productService) {
+    public CreateOrderCommandHandler(IOrderService orderService, IProductService productService, ICustomerService customerService) {
         this.orderService = orderService;
         this.productService = productService;
+        this.customerService = customerService;
     }
 
 
     @Override
     public void handle(CreateOrderCommand command) {
+        CustomerDto customerDto = customerService.findById(command.getCustomerId());
         List<OrderDetailDto> orderDetails = command.getOrderDetails().stream()
                 .map(detail -> {
                     ProductEntityDto productDto = productService.findById(detail.getProductId());
@@ -46,7 +51,9 @@ public class CreateOrderCommandHandler implements ICommandHandler<CreateOrderCom
                 UUID.randomUUID(),
                 LocalDateTime.now(),
                 OrderStatus.PENDING,
-                orderDetails
+                orderDetails,
+                command.getCustomerId(),
+                customerDto
         ));
         command.setId(id);
     }

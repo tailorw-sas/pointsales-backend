@@ -2,7 +2,7 @@ package com.kynsof.store.application.command.order.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.store.application.command.OrderDetailRequest;
+import com.kynsof.store.application.command.order.OrderDetailRequest;
 import com.kynsof.store.application.command.create.CreateOrderMessage;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,10 +15,11 @@ import java.util.stream.Collectors;
 @Setter
 public class CreateOrderCommand implements ICommand {
     private List<OrderDetailRequest> orderDetails;
+    private UUID customerId;
     private UUID id;
 
-    public CreateOrderCommand(List<OrderDetailRequest> orderDetails) {
-
+    public CreateOrderCommand(List<OrderDetailRequest> orderDetails, UUID customerId) {
+        this.customerId = customerId;
         this.orderDetails = orderDetails;
     }
 
@@ -28,7 +29,8 @@ public class CreateOrderCommand implements ICommand {
                 .collect(Collectors.toList());
 
         return new CreateOrderCommand(
-                details
+                details,
+                request.getCustomerId()
         );
     }
     @Override

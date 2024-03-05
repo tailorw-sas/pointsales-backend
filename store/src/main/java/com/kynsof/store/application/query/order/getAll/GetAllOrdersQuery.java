@@ -1,4 +1,4 @@
-package com.kynsof.store.application.query.order;
+package com.kynsof.store.application.query.order.getAll;
 
 import com.kynsof.share.core.domain.bus.query.IQuery;
 import com.kynsof.share.core.domain.request.FilterCriteria;

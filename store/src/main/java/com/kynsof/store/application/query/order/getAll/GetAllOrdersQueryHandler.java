@@ -1,4 +1,4 @@
-package com.kynsof.store.application.query.order;
+package com.kynsof.store.application.query.order.getAll;
 
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class GetAllOrdersQueryHandler implements IQueryHandler<GetAllOrdersQuery, PaginatedResponse> {
 
-    private  IOrderService orderService;
+    private final IOrderService orderService;
 
 
     public GetAllOrdersQueryHandler(IOrderService orderService) {

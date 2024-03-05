@@ -3,7 +3,7 @@ package com.kynsof.store.application.command.order.update;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.store.application.command.OrderDetailRequest;
+import com.kynsof.store.application.command.order.OrderDetailRequest;
 import com.kynsof.store.application.command.order.create.OrderRequest;
 import lombok.Getter;
 import lombok.Setter;
