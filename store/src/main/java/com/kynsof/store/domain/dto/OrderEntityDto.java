@@ -17,5 +17,7 @@ public class OrderEntityDto {
     private LocalDateTime orderDate;
     private OrderStatus status;
     private List<OrderDetailDto> orderDetails;
+    private UUID customerId;
+    private CustomerDto customerDto;
 }
 

@@ -29,11 +29,14 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<OrderDetail> orderDetails;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id") // Esta columna en la tabla Order enlaza a Customer
+    private Customer customer;
     public Order(OrderEntityDto orderDto) {
         this.id = orderDto.getId();
         this.orderDate = orderDto.getOrderDate();
         this.status = orderDto.getStatus();
+        this.customer = new Customer(orderDto.getCustomerDto());
        this.orderDetails = orderDto.getOrderDetails().stream()
                     .map(orderDetailDto -> {
                         OrderDetail orderDetail = new OrderDetail();
@@ -51,6 +54,6 @@ public class Order {
         List<OrderDetailDto> orderDetailsDto = this.orderDetails.stream()
                 .map(OrderDetail::toAggregate)
                 .collect(Collectors.toList());
-        return new OrderEntityDto(this.id,  this.orderDate, this.status, orderDetailsDto);
+        return new OrderEntityDto(this.id,  this.orderDate, this.status, orderDetailsDto, this.customer.getId(),this.customer.toAggregate());
     }
 }
