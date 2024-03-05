@@ -17,6 +17,6 @@ public class GetAllCategoriesQueryHandler implements IQueryHandler<GetAllCategor
 
     @Override
     public PaginatedResponse handle(GetAllCategoriesQuery query) {
-     return categoryService.search(query.getPageable(),query.getFilter());
+        return categoryService.search(query.getPageable(), query.getFilter());
     }
 }

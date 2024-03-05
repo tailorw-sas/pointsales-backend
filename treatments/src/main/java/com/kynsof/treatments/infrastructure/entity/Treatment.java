@@ -31,7 +31,7 @@ public class Treatment {
     private ExternalConsultation externalConsultation;
 
 
-    public TreatmentDto toAggregate(Treatment treatment){
+    public TreatmentDto toAggregate(){
         return new TreatmentDto(this.id,this.medication, this.description, this.dose, this.frequency, this.duration);
     }
 }

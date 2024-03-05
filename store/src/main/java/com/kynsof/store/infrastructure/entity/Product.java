@@ -28,9 +28,22 @@ public class Product {
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
+    public Product(ProductEntityDto productDto) {
+        this.id = productDto.getId(); // Asumiendo que se permite establecer el ID directamente. Si no, omitir para generación automática.
+        this.name = productDto.getName();
+        this.description = productDto.getDescription();
+        this.price = productDto.getPrice();
+        this.quantityInStock = productDto.getQuantityInStock();
+        this.status = productDto.getStatus();
+        this.supplier = new Supplier(productDto.getSupplierEntityDto());
+        this.subcategory = new Subcategory(productDto.getSubcategoryEntityDto());
+    }
+
     public ProductEntityDto toAggregate() {
         UUID subcategoryId = this.subcategory != null ? this.subcategory.getId() : null;
         UUID supplierId = this.supplier != null ? this.supplier.getId() : null;
-        return new ProductEntityDto(this.id, this.name, this.description, this.price, this.quantityInStock, this.status, subcategoryId, supplierId);
+        assert this.supplier != null;
+        return new ProductEntityDto(this.id, this.name, this.description, this.price, this.quantityInStock, this.status,
+                subcategoryId, supplierId, this.supplier.toAggregate(),this.subcategory.toAggregate());
     }
 }

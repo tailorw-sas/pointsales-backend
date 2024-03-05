@@ -1,5 +1,6 @@
 package com.kynsof.store.domain.dto;
 
+import com.kynsof.store.infrastructure.enumDto.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,11 +14,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class OrderEntityDto {
     private UUID id;
-    private UUID supplierId;
     private LocalDateTime orderDate;
-    private String status;
+    private OrderStatus status;
     private List<OrderDetailDto> orderDetails;
-    private SupplierEntityDto supplierEntityDto;
-
 }
 
