@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.patients.domain.dto.PatientDto;
-import com.kynsof.patients.domain.dto.UserDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.share.core.domain.kafka.entity.UserKafka;
