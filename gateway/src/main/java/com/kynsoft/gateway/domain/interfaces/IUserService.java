@@ -8,12 +8,13 @@ import org.keycloak.representations.idm.UserRepresentation;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface IUserService {
     Mono<TokenResponse> authenticate(LoginDTO loginDTO);
 
-    Mono<TokenResponse> refreshToken(String refreshToken);
+    Mono<Optional<TokenResponse>> refreshToken(String refreshToken);
 
     String registerUser(@NonNull RegisterDTO registerDTO);
 
@@ -28,4 +29,5 @@ public interface IUserService {
     void changeStatus(UUID id, String status);
 
     Mono<?> getKeycloakTokenUsingGoogleToken(String googleToken);
+   Boolean triggerPasswordReset(String email);
 }

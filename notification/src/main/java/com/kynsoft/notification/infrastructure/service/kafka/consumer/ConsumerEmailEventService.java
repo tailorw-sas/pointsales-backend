@@ -4,19 +4,19 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsoft.notification.application.SendEmailRequest;
-import com.kynsoft.notification.infrastructure.service.EmailService;
+import com.kynsoft.notification.domain.service.IEmailService;
 import com.kynsoft.notification.shared.domain.event.EventType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class ConsumerEmailEventService {
     @Autowired
-    private EmailService service;
+    private IEmailService service;
 
     // Ejemplo de un método listener
     @KafkaListener(topics = "email", groupId = "email")
