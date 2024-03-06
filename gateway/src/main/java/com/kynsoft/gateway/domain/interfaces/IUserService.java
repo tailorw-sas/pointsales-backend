@@ -28,4 +28,5 @@ public interface IUserService {
     void changeStatus(UUID id, String status);
 
     Mono<?> getKeycloakTokenUsingGoogleToken(String googleToken);
+   Boolean triggerPasswordReset(String email);
 }

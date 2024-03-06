@@ -57,7 +57,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public   Mono<TokenResponse>  refreshToken(String refreshToken) {
+    public Mono<TokenResponse> refreshToken(String refreshToken) {
         WebClient webClient = WebClient.builder().baseUrl(keycloakProvider.getTokenUri()).build();
 
         Mono<TokenResponse> response = webClient.post()
@@ -69,7 +69,7 @@ public class UserService implements IUserService {
                         .with("client_secret", keycloakProvider.getClient_secret()))
                 .retrieve()
                 .bodyToMono(TokenResponse.class);
-        return  response;
+        return response;
     }
 
     @Override
@@ -98,7 +98,7 @@ public class UserService implements IUserService {
             credentialRepresentation.setValue(registerDTO.getPassword());
 
             usersResource.get(id).resetPassword(credentialRepresentation);
-           // usersResource.get(id).sendVerifyEmail();
+            // usersResource.get(id).sendVerifyEmail();
 
             RealmResource realmResource = keycloakProvider.getRealmResource();
 
@@ -119,8 +119,8 @@ public class UserService implements IUserService {
                 roleMappingResource.clientLevel(clientId).add(rolesToAdd);
             }
 
-           this.producerRegisterUserEvent.create(registerDTO, id);
-           // customerService.save(registerDTO);
+            this.producerRegisterUserEvent.create(registerDTO, id);
+            // customerService.save(registerDTO);
             return "User created successfully!!";
 
         } else if (status == 409) {
@@ -187,12 +187,29 @@ public class UserService implements IUserService {
 
         try {
             GoogleIdToken idToken = verifier.verify(googleToken);
-            if( idToken != null)
-                return  Mono.just(true);
-        } catch ( Exception e) {
+            if (idToken != null)
+                return Mono.just(true);
+        } catch (Exception e) {
             // Log and handle the exception
             return Mono.just(false);
         }
         return Mono.just(false);
+    }
+
+    @Override
+    public Boolean triggerPasswordReset(String email) {
+        UsersResource userResource = keycloakProvider.getRealmResource()
+                .users();
+        List<UserRepresentation> users = userResource
+                .searchByEmail(email, true);
+
+        if (!users.isEmpty()) {
+            UserRepresentation user = users.get(0);
+            if (user.isEmailVerified() && user.isEnabled()) {
+                userResource.get(user.getId()).executeActionsEmail(List.of("UPDATE_PASSWORD"));
+                return true;
+            }
+        }
+        return false;
     }
 }
