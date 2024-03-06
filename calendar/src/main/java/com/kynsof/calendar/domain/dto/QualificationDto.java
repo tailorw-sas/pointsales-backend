@@ -19,7 +19,6 @@ public class QualificationDto implements Serializable {
     private UUID id;
 
     private String description;
-    private String descriptionSoftDelete;
     private EQualificationStatus status;
 
     private LocalDateTime createAt;

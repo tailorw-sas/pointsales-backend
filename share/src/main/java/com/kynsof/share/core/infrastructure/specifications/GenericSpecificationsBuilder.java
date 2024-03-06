@@ -5,6 +5,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.lang.reflect.Field;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
@@ -18,9 +19,9 @@ public class GenericSpecificationsBuilder<T> implements Specification<T> {
     public GenericSpecificationsBuilder(List<FilterCriteria> filterCriteria) {
         this.params = filterCriteria.stream()
                 .map(filterCriteriaItem -> new SearchCriteria(filterCriteriaItem.getKey(),
-                        filterCriteriaItem.getOperator(), filterCriteriaItem.getValue(),
-                        filterCriteriaItem.getLogicalOperation()
-                ))
+                filterCriteriaItem.getOperator(), filterCriteriaItem.getValue(),
+                filterCriteriaItem.getLogicalOperation()
+        ))
                 .collect(Collectors.toList());
     }
 
@@ -28,6 +29,12 @@ public class GenericSpecificationsBuilder<T> implements Specification<T> {
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
         List<Predicate> andPredicates = new ArrayList<>();
         List<Predicate> orPredicates = new ArrayList<>();
+
+        // Verifica si el campo 'deleted' existe en la entidad
+        if (doesClassContainField(root.getJavaType(), "deleted")) {
+            // Si el campo 'deleted' existe, agrega un predicado para excluir entidades marcadas como eliminadas
+            andPredicates.add(cb.isFalse(root.get("deleted")));
+        }
 
         for (SearchCriteria criteria : params) {
             Predicate predicate = new GenericSpecification<T>(criteria).toPredicate(root, query, cb);
@@ -40,8 +47,8 @@ public class GenericSpecificationsBuilder<T> implements Specification<T> {
             }
         }
 
-        Predicate andPredicate = cb.and(andPredicates.toArray(new Predicate[0]));
-        Predicate orPredicate = cb.or(orPredicates.toArray(new Predicate[0]));
+        Predicate andPredicate = cb.and(andPredicates.toArray(Predicate[]::new));
+        Predicate orPredicate = cb.or(orPredicates.toArray(Predicate[]::new));
 
         if (!orPredicates.isEmpty()) {
             return cb.and(andPredicate, orPredicate);
@@ -49,4 +56,14 @@ public class GenericSpecificationsBuilder<T> implements Specification<T> {
             return andPredicate;
         }
     }
+
+    private boolean doesClassContainField(Class<?> clazz, String fieldName) {
+        for (Field field : clazz.getDeclaredFields()) {
+            if (field.getName().equals(fieldName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

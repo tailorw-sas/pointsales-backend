@@ -73,8 +73,8 @@ public class QualificationServiceImpl implements IQualificationService {
         localDateTime.atZone(ZoneId.of("America/Guayaquil"));
         objectDelete.setDeleteAt(localDateTime);
         objectDelete.setDeleted(true);
-        objectDelete.setDescriptionSoftDelete(objectDelete.getDescription());
-        objectDelete.setDescription(null);
+
+        objectDelete.setDescription(objectDelete.getDescription() + UUID.randomUUID().toString());
 
         this.repositoryCommand.save(new Qualification(objectDelete));
     }

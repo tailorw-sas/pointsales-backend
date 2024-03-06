@@ -22,11 +22,8 @@ public class BaseEntity implements Serializable {
     protected LocalDateTime updatedAt;
     @Column(nullable = true)
     protected LocalDateTime deletedAt;
-    @Column(nullable = true)
-    protected boolean deleted;
 
     public BaseEntity() {
-        this.deleted = false;
     }
 
 }
