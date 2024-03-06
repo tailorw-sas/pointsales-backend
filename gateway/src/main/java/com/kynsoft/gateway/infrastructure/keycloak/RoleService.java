@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.infrastructure.keycloak.impl;
+package com.kynsoft.gateway.infrastructure.keycloak;
 
 import com.kynsoft.gateway.application.dto.role.RoleRequest;
 import com.kynsoft.gateway.domain.interfaces.IRoleService;

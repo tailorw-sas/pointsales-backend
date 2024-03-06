@@ -4,6 +4,7 @@ package com.kynsoft.gateway.controller;
 import com.kynsoft.gateway.application.dto.*;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +39,15 @@ public class AuthController {
 
     @PostMapping("/refresh-token")
     @PreAuthorize("permitAll()")
-    public Mono<TokenResponse> refreshToken(@RequestBody TokenRefreshRequest request) {
-        return userService.refreshToken(request.getRefreshToken());
+    public Mono<ResponseEntity<?>> refreshToken(@RequestBody TokenRefreshRequest request) {
+        return userService.refreshToken(request.getRefreshToken())
+                .flatMap(tokenResponseOptional -> tokenResponseOptional
+                        .map(tokenResponse -> Mono.just(ResponseEntity.ok(tokenResponse)))
+                        .orElseGet(() -> Mono.just(ResponseEntity.status(HttpStatus.FORBIDDEN).<TokenResponse>body(null))));
     }
+
+
+
 
     @PreAuthorize("permitAll()")
     @PostMapping("/exchange-google-token")
