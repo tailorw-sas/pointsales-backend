@@ -73,6 +73,17 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
             <version>4.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.mailjet</groupId>
+            <artifactId>mailjet-client</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
