@@ -14,6 +14,9 @@ public class SendEmailRequest {
         this.message = message;
     }
 
+    public SendEmailRequest() {
+    }
+
     public String getToEmail() {
         return toEmail;
     }

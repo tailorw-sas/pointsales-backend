@@ -11,11 +11,11 @@ import com.kynsof.calendar.infrastructure.entity.specifications.QualificationDel
 import com.kynsof.calendar.infrastructure.entity.specifications.QualificationSpecifications;
 import com.kynsof.calendar.infrastructure.repository.command.QualificationWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.QualificationReadDataJPARepository;
-import com.kynsof.calendar.infrastructure.service.kafka.producer.ProducerEmailEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.kafka.config.SimpleEmailKafka;
+import com.kynsof.share.core.domain.kafka.producer.email.ProducerEmailEventService;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;

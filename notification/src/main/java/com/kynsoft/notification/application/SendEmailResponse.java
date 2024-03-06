@@ -11,6 +11,9 @@ public class SendEmailResponse {
         //this.message = "Message sent successfully!";
     }
 
+    public SendEmailResponse() {
+    }
+
     public Boolean getStatus() {
         return status;
     }
