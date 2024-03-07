@@ -36,6 +36,8 @@ public class Patients implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    private String photo;
+
     @OneToMany(mappedBy = "patient", orphanRemoval = true)
     private List<ContactInformation> contactInformation;
 
