@@ -228,6 +228,9 @@ public class UserService implements IUserService {
 
     @Override
     public Boolean changePassword(PasswordChangeRequest changeRequest) {
+        if(otpService.getOtpCode(changeRequest.getEmail()).equals(changeRequest.getOtp())){
+            return false;
+        }
         UsersResource userResource = keycloakProvider.getRealmResource()
                 .users();
         List<UserRepresentation> users = userResource
@@ -243,6 +246,6 @@ public class UserService implements IUserService {
             return true;
         }
 
-        return otpService.getOtpCode(changeRequest.getEmail()).equals(changeRequest.getOtp());
+        return true;
     }
 }
