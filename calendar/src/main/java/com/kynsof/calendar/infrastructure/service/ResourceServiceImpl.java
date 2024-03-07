@@ -82,13 +82,14 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Override
     public void delete(UUID id) {
-    
+
         ResourceDto objectDelete = this.findById(id);
         objectDelete.setStatus(EResourceStatus.INACTIVE);
 
         LocalDateTime localDateTime = LocalDateTime.now();
         localDateTime.atZone(ZoneId.of("America/Guayaquil"));
         objectDelete.setDeleteAt(localDateTime);
+        objectDelete.setDeleted(true);
 
         this.repositoryCommand.save(new Resource(objectDelete));
     }

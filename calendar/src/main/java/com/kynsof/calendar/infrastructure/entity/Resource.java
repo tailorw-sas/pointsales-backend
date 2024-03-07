@@ -5,6 +5,7 @@ import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.share.core.domain.BaseEntity;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -46,6 +47,9 @@ public class Resource extends BaseEntity {
     private EResourceStatus status;
 
     private Boolean expressAppointments;
+
+    @Column(nullable = true)
+    private boolean deleted;
 
     @JsonIgnoreProperties("resources")
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
@@ -97,6 +101,6 @@ public class Resource extends BaseEntity {
     }
 
     public ResourceDto toAggregate () {
-        return new ResourceDto(id, picture, name, registrationNumber, language, status, expressAppointments, createdAt, updatedAt, deletedAt);
+        return new ResourceDto(id, picture, name, registrationNumber, language, status, expressAppointments, createdAt, updatedAt, deletedAt, deleted);
     }
 }

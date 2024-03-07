@@ -36,6 +36,8 @@ public class ResourceDto implements Serializable {
 
     private LocalDateTime deleteAt;
 
+    private boolean deleted;
+
     public ResourceDto(UUID id, String picture, String name, String registrationNumber, String language, EResourceStatus status, Boolean expressAppointments) {
         this.id = id;
         this.picture = picture;
