@@ -46,9 +46,6 @@ public class AuthController {
                         .orElseGet(() -> Mono.just(ResponseEntity.status(HttpStatus.FORBIDDEN).<TokenResponse>body(null))));
     }
 
-
-
-
     @PreAuthorize("permitAll()")
     @PostMapping("/exchange-google-token")
     public Mono<?> exchangeGoogleTokenForKeycloakToken(@RequestBody GoogleTokenRequest googleTokenRequest) {
@@ -59,5 +56,15 @@ public class AuthController {
     public ResponseEntity<Boolean> forgotPassword(@RequestParam String email) {
        Boolean response = userService.triggerPasswordReset(email);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<Boolean> changePassword(@RequestBody PasswordChangeRequest request) {
+        // Implementa aquí la lógica para verificar el OTP y cambiar la contraseña
+        // Por ejemplo, podrías llamar a un servicio que maneje esta lógica
+
+        boolean successfulChange = true; // Esto debería ser el resultado de tu lógica de cambio de contraseña
+
+        return ResponseEntity.ok(successfulChange);
     }
 }
