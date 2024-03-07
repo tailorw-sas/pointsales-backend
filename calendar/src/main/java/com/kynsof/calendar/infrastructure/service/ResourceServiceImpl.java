@@ -73,7 +73,7 @@ public class ResourceServiceImpl implements IResourceService {
                     }
                     LocalDateTime localDateTime = LocalDateTime.now();
                     localDateTime.atZone(ZoneId.of("America/Guayaquil"));
-                    object.setUpdateAt(localDateTime);
+                    object.setUpdatedAt(localDateTime);
                     return this.repositoryCommand.save(object);
                 })
                 .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));

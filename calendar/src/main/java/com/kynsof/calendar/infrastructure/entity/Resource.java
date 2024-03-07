@@ -3,7 +3,15 @@ package com.kynsof.calendar.infrastructure.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import com.kynsof.calendar.domain.dto.ResourceDto;
-import jakarta.persistence.*;
+import com.kynsof.share.core.domain.BaseEntity;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -11,20 +19,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Resource {
-
-    @Id
-    private UUID id;
+public class Resource extends BaseEntity {
 
     private String picture;
 
@@ -79,17 +82,6 @@ public class Resource {
             inverseJoinColumns = @JoinColumn(name = "business_id")
     )
     private Set<Business> businesses = new HashSet<>();
-    
-    @Column(nullable = true)
-    private LocalDateTime createAt;
-
-    @Column(nullable = true)
-    private LocalDateTime updateAt;
-
-    @Column(nullable = true)
-    private LocalDateTime deleteAt;
-
-    // Resto del código...
 
     public Resource(ResourceDto resourceDto) {
         this.id = resourceDto.getId();
@@ -99,12 +91,12 @@ public class Resource {
         this.language = resourceDto.getLanguage();
         this.status = resourceDto.getStatus();
         this.expressAppointments = resourceDto.getExpressAppointments();
-        this.createAt = resourceDto.getCreateAt();
-        this.updateAt = resourceDto.getUpdateAt();
-        this.deleteAt = resourceDto.getDeleteAt();
+        this.createdAt = resourceDto.getCreateAt();
+        this.updatedAt = resourceDto.getUpdateAt();
+        this.deletedAt = resourceDto.getDeleteAt();
     }
 
     public ResourceDto toAggregate () {
-        return new ResourceDto(id, picture, name, registrationNumber, language, status, expressAppointments, createAt, updateAt, deleteAt);
+        return new ResourceDto(id, picture, name, registrationNumber, language, status, expressAppointments, createdAt, updatedAt, deletedAt);
     }
 }
