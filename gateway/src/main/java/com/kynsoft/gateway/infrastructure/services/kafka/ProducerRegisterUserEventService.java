@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.infrastructure.services.kafka.producer;
+package com.kynsoft.gateway.infrastructure.services.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

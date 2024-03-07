@@ -12,6 +12,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -53,9 +54,21 @@ public class AuthController {
     }
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<Boolean> forgotPassword(@RequestParam String email) {
+    public ResponseEntity<?> forgotPassword(@RequestParam String email) {
        Boolean response = userService.triggerPasswordReset(email);
-        return ResponseEntity.ok(response);
+        if (response) {
+            return ResponseEntity.ok().body(true);
+        } else {
+            ApiError apiError = new ApiError();
+            apiError.setErrorMessage("Error al recuperar la contraseña");
+            apiError.setStatus(400);
+            ErrorField error = new ErrorField();
+            error.setMessage("No existe un usuario con el correo " + email);
+            error.setField("email");
+            apiError.setErrors(Collections.singletonList(error));
+
+            return ResponseEntity.badRequest().body(apiError);
+        }
     }
 
     @PostMapping("/change-password")
