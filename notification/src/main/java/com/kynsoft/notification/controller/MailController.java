@@ -127,8 +127,8 @@ public class MailController {
                     new MailJetVar("otp_token", "Token1234")
             );
 
-
-            EmailRequest emailRequest = new EmailRequest(mailJetRecipients, vars, mailJetAttachments,"SubjectTest");
+          int  templateId =3931552;
+            EmailRequest emailRequest = new EmailRequest(mailJetRecipients, vars, mailJetAttachments,"SubjectTest", templateId);
             result = emailService.sendMailTemplateK(emailRequest);
 
             if (result) {
