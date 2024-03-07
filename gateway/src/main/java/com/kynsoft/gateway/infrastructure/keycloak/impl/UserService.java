@@ -218,7 +218,8 @@ public class UserService implements IUserService {
 
         if (!users.isEmpty()) {
             UserRepresentation user = users.get(0);
-            otpService.saveOtpCode(email, otpService.generateOtpCode());
+            String otpCode = otpService.generateOtpCode();
+            otpService.saveOtpCode(email, otpCode );
             //Yannier enviar la notificacion por kafka
             return true;
         }
