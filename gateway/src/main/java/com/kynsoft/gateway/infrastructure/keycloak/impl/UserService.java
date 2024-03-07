@@ -5,11 +5,13 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.kynsoft.gateway.application.dto.LoginDTO;
+import com.kynsoft.gateway.application.dto.PasswordChangeRequest;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.application.dto.TokenResponse;
+import com.kynsoft.gateway.domain.interfaces.IOtpService;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import com.kynsoft.gateway.infrastructure.keycloak.KeycloakProvider;
-import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserEventService;
+import com.kynsoft.gateway.infrastructure.services.kafka.ProducerRegisterUserEventService;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.resource.*;
@@ -38,6 +40,13 @@ public class UserService implements IUserService {
     private WebClient.Builder webClientBuilder;
     @Autowired
     private ProducerRegisterUserEventService producerRegisterUserEvent;
+
+    @Autowired
+    private final IOtpService otpService;
+
+    public UserService(IOtpService services) {
+        this.otpService = services;
+    }
 
     @Override
     public Mono<TokenResponse> authenticate(LoginDTO loginDTO) {
@@ -209,11 +218,30 @@ public class UserService implements IUserService {
 
         if (!users.isEmpty()) {
             UserRepresentation user = users.get(0);
-            if (user.isEmailVerified() && user.isEnabled()) {
-                userResource.get(user.getId()).executeActionsEmail(List.of("UPDATE_PASSWORD"));
-                return true;
-            }
+            otpService.saveOtpCode(email, otpService.generateOtpCode());
+            //Yannier enviar la notificacion por kafka
+            return true;
         }
         return false;
+    }
+
+    @Override
+    public Boolean changePassword(PasswordChangeRequest changeRequest) {
+        UsersResource userResource = keycloakProvider.getRealmResource()
+                .users();
+        List<UserRepresentation> users = userResource
+                .searchByEmail(changeRequest.getEmail(), true);
+
+        if (!users.isEmpty()) {
+            UserRepresentation user = users.get(0);
+            CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
+            credentialRepresentation.setTemporary(false);
+            credentialRepresentation.setType(OAuth2Constants.PASSWORD);
+            credentialRepresentation.setValue(changeRequest.getNewPassword());
+            user.setCredentials(Collections.singletonList(credentialRepresentation));
+            return true;
+        }
+
+        return otpService.getOtpCode(changeRequest.getEmail()).equals(changeRequest.getOtp());
     }
 }
