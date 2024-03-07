@@ -2,6 +2,7 @@ name: ci-registry
 
 env:
   SERVICE_NAME: 'registry'
+  SERVICE_PATH: 'registry'
 
 on:
   workflow_dispatch:
