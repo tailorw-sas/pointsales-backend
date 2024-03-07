@@ -97,7 +97,7 @@ public class EmailServiceMailjet implements IEmailService {
            request = new MailjetRequest(Email.resource)
                    .property(Email.FROMEMAIL, fromEmail)
                    .property(Email.FROMNAME, fromName)
-                   .property(Email.MJTEMPLATEID, 3931552)
+                   .property(Email.MJTEMPLATEID, emailRequest.getTemplateId())
                    .property(Email.MJTEMPLATELANGUAGE, true)
                    .property(Email.SUBJECT, emailRequest.getSubject())
                    .property(Email.RECIPIENTS, MailJetRecipient.createRecipientsJsonArray(emailRequest.getRecipientEmail()))
