@@ -72,12 +72,21 @@ public class AuthController {
     }
 
     @PostMapping("/change-password")
-    public ResponseEntity<Boolean> changePassword(@RequestBody PasswordChangeRequest request) {
-        // Implementa aquí la lógica para verificar el OTP y cambiar la contraseña
-        // Por ejemplo, podrías llamar a un servicio que maneje esta lógica
+    public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequest request) {
+         Boolean response = userService.changePassword(request);
 
-        boolean successfulChange = true; // Esto debería ser el resultado de tu lógica de cambio de contraseña
+        if (response) {
+            return ResponseEntity.ok().body(true);
+        } else {
+            ApiError apiError = new ApiError();
+            apiError.setErrorMessage("Error al recuperar la contraseña");
+            apiError.setStatus(400);
+            ErrorField error = new ErrorField();
+            error.setMessage("No existe un usuario con el correo " + request.getEmail());
+            error.setField("email");
+            apiError.setErrors(Collections.singletonList(error));
 
-        return ResponseEntity.ok(successfulChange);
+            return ResponseEntity.badRequest().body(apiError);
+        }
     }
 }

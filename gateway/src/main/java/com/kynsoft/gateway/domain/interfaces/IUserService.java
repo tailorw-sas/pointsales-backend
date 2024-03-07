@@ -1,6 +1,7 @@
 package com.kynsoft.gateway.domain.interfaces;
 
 import com.kynsoft.gateway.application.dto.LoginDTO;
+import com.kynsoft.gateway.application.dto.PasswordChangeRequest;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.application.dto.TokenResponse;
 import io.micrometer.common.lang.NonNull;
@@ -30,4 +31,5 @@ public interface IUserService {
 
     Mono<?> getKeycloakTokenUsingGoogleToken(String googleToken);
    Boolean triggerPasswordReset(String email);
+   Boolean changePassword(PasswordChangeRequest changeRequest);
 }

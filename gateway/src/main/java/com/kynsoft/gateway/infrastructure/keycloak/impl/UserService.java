@@ -5,6 +5,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.kynsoft.gateway.application.dto.LoginDTO;
+import com.kynsoft.gateway.application.dto.PasswordChangeRequest;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.application.dto.TokenResponse;
 import com.kynsoft.gateway.domain.interfaces.IOtpService;
@@ -222,5 +223,25 @@ public class UserService implements IUserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Boolean changePassword(PasswordChangeRequest changeRequest) {
+        UsersResource userResource = keycloakProvider.getRealmResource()
+                .users();
+        List<UserRepresentation> users = userResource
+                .searchByEmail(changeRequest.getEmail(), true);
+
+        if (!users.isEmpty()) {
+            UserRepresentation user = users.get(0);
+            CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
+            credentialRepresentation.setTemporary(false);
+            credentialRepresentation.setType(OAuth2Constants.PASSWORD);
+            credentialRepresentation.setValue(changeRequest.getNewPassword());
+            user.setCredentials(Collections.singletonList(credentialRepresentation));
+            return true;
+        }
+
+        return otpService.getOtpCode(changeRequest.getEmail()).equals(changeRequest.getOtp());
     }
 }
