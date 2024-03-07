@@ -21,6 +21,7 @@ public class BusinessDto implements Serializable {
     private byte[] logo;
     private String ruc;
     private EBusinessStatus status;
+    private boolean deleted;
 
     private LocalDateTime createAt;
     private LocalDateTime updateAt;

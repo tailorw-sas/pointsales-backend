@@ -4,6 +4,7 @@ import com.kynsof.calendar.domain.dto.BusinessDto;
 import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.share.core.domain.BaseEntity;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -35,6 +36,9 @@ public class Business extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private EBusinessStatus status;
 
+    @Column(nullable = true)
+    private boolean deleted;
+
     // Relación de muchos a muchos con Resource
     @ManyToMany(mappedBy = "businesses", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Resource> resources = new HashSet<>();
@@ -50,9 +54,10 @@ public class Business extends BaseEntity {
         this.logo = business.getLogo();
         this.ruc = business.getRuc();
         this.status = business.getStatus();
+        this.deleted = business.isDeleted();
     }
 
     public BusinessDto toAggregate () {
-        return new BusinessDto(id, name, description, logo, ruc, status, createdAt, updatedAt, deletedAt);
+        return new BusinessDto(id, name, description, logo, ruc, status, deleted, createdAt, updatedAt, deletedAt);
     }
 }

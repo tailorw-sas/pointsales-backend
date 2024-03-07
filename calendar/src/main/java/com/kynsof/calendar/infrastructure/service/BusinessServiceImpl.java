@@ -93,6 +93,7 @@ public class BusinessServiceImpl implements IBusinessService {
         LocalDateTime localDateTime = LocalDateTime.now();
         localDateTime.atZone(ZoneId.of("America/Guayaquil"));
         objectDelete.setDeleteAt(localDateTime);
+        objectDelete.setDeleted(true);
 
         this.repositoryCommand.save(new Business(objectDelete));
     }
