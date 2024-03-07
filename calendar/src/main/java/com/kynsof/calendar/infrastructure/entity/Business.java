@@ -2,24 +2,26 @@ package com.kynsof.calendar.infrastructure.entity;
 
 import com.kynsof.calendar.domain.dto.BusinessDto;
 import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
-import jakarta.persistence.*;
+import com.kynsof.share.core.domain.BaseEntity;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Business {
-
-    @Id
-    private UUID id;
+public class Business extends BaseEntity {
 
     private String name;
 
@@ -32,15 +34,6 @@ public class Business {
 
     @Enumerated(EnumType.STRING)
     private EBusinessStatus status;
-
-    @Column(nullable = true)
-    private LocalDateTime createAt;
-
-    @Column(nullable = true)
-    private LocalDateTime updateAt;
-
-    @Column(nullable = true)
-    private LocalDateTime deleteAt;
 
     // Relación de muchos a muchos con Resource
     @ManyToMany(mappedBy = "businesses", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -60,6 +53,6 @@ public class Business {
     }
 
     public BusinessDto toAggregate () {
-        return new BusinessDto(id, name, description, logo, ruc, status, createAt, updateAt, deleteAt);
+        return new BusinessDto(id, name, description, logo, ruc, status, createdAt, updatedAt, deletedAt);
     }
 }
