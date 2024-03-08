@@ -63,8 +63,33 @@ public class PatientsServiceImpl implements IPatientsService {
 
         this.repositoryQuery.findById(patientDto.getId())
                 .map(patient -> {
-                    updatePatient(patient, patientDto.getName(), patientDto.getLastName(), patientDto.getIdentification(),
-                            patientDto.getGender(), patientDto.getStatus());
+                    if (patientDto.getName() != null) {
+                        patient.setName(patientDto.getName());
+                    }
+                    if (patientDto.getLastName() != null) {
+                        patient.setLastName(patientDto.getLastName());
+                    }
+                    if (patientDto.getIdentification() != null) {
+                        patient.setIdentification(patientDto.getIdentification());
+                    }
+                    if (patientDto.getGender() != null) {
+                        patient.setGender(patientDto.getGender());
+                    }
+                    if (patientDto.getStatus() != null) {
+                        patient.setStatus(patientDto.getStatus());
+                    }
+                    if (patientDto.getWeight() != null) {
+                        patient.setWeight(patientDto.getWeight());
+                    }
+                    if (patientDto.getHeight() != null) {
+                        patient.setHeight(patientDto.getHeight());
+                    }
+                    if (patientDto.getHasDisability() != null) {
+                        patient.setHasDisability(patientDto.getHasDisability());
+                    }
+                    if (patientDto.getIsPregnant() != null) {
+                        patient.setIsPregnant(patientDto.getIsPregnant());
+                    }
 
                     return this.repositoryCommand.save(patient);
                 })
@@ -73,32 +98,56 @@ public class PatientsServiceImpl implements IPatientsService {
         return patientDto.getId();
     }
 
+
     @Override
-    public void updateDependent(DependentPatientDto patientDto) {
-        if (patientDto == null || patientDto.getId() == null) {
-            throw new IllegalArgumentException("Patient DTO or ID cannot be null");
+    public void updateDependent(DependentPatientDto dependentPatientDto) {
+        if (dependentPatientDto == null || dependentPatientDto.getId() == null) {
+            throw new IllegalArgumentException("DependentPatient DTO or ID cannot be null");
         }
 
-        this.repositoryQuery.findById(patientDto.getId())
-                .map(patient -> {
-                    updatePatient(patient, patientDto.getName(),
-                            patientDto.getLastName(), patientDto.getIdentification(),
-                            patientDto.getGender(), patientDto.getStatus());
-                    if (patientDto.getPrime() != null) patient.setPrime(new Patients(patientDto.getPrime()));
-                    return this.repositoryCommand.save(patient);
+        this.repositoryQuery.findById(dependentPatientDto.getId())
+                .map(dependentPatient -> {
+                    if (dependentPatientDto.getName() != null) {
+                        dependentPatient.setName(dependentPatientDto.getName());
+                    }
+                    if (dependentPatientDto.getLastName() != null) {
+                        dependentPatient.setLastName(dependentPatientDto.getLastName());
+                    }
+                    if (dependentPatientDto.getIdentification() != null) {
+                        dependentPatient.setIdentification(dependentPatientDto.getIdentification());
+                    }
+                    if (dependentPatientDto.getGender() != null) {
+                        dependentPatient.setGender(dependentPatientDto.getGender());
+                    }
+                    if (dependentPatientDto.getStatus() != null) {
+                        dependentPatient.setStatus(dependentPatientDto.getStatus());
+                    }
+                    if (dependentPatientDto.getWeight() != null) {
+                        dependentPatient.setWeight(dependentPatientDto.getWeight());
+                    }
+                    if (dependentPatientDto.getHeight() != null) {
+                        dependentPatient.setHeight(dependentPatientDto.getHeight());
+                    }
+                    if (dependentPatientDto.getHasDisability() != null) {
+                        dependentPatient.setHasDisability(dependentPatientDto.getHasDisability());
+                    }
+                    if (dependentPatientDto.getIsPregnant() != null) {
+                        dependentPatient.setIsPregnant(dependentPatientDto.getIsPregnant());
+                    }
+                    if (dependentPatientDto.getFamilyRelationship() != null) {
+                        dependentPatient.setFamilyRelationship(dependentPatientDto.getFamilyRelationship());
+                    }
+                    // Considera cómo actualizar la información del paciente principal (prime) si es necesario.
+                    // Esto puede implicar buscar el paciente principal por su ID y establecer la relación adecuadamente.
+
+                    return this.repositoryCommand.save(dependentPatient);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + patientDto.getId() + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Dependent patient with ID " + dependentPatientDto.getId() + " not found"));
 
     }
 
-    private void updatePatient(Patients patient, String name, String lastName, String identification, String gender, Status status) {
-        if (name != null) patient.setName(name);
-        if (lastName != null) patient.setLastName(lastName);
-        if (identification != null)
-            patient.setIdentification(identification);
-        if (gender != null) patient.setGender(gender);
-        if (status != null) patient.setStatus(status);
-    }
+
+
 
 
     @Cacheable(cacheNames = CacheConfig.USER_CACHE, unless = "#result == null")
