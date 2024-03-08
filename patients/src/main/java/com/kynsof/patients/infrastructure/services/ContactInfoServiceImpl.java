@@ -28,7 +28,6 @@ public class ContactInfoServiceImpl implements IContactInfoService {
 
     @Autowired
     private ContactInfoWriteDataJPARepository repositoryCommand;
-
     @Autowired
     private ContactInfoReadDataJPARepository repositoryQuery;
 
