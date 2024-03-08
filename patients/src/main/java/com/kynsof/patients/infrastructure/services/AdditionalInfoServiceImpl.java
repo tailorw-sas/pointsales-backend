@@ -71,7 +71,6 @@ public class AdditionalInfoServiceImpl implements IAdditionalInfoService {
         }
         throw new RuntimeException("Patients not found.");
     }
-
     @Override
     public PaginatedResponse findAll(Pageable pageable) {
         Page<AdditionalInformation> data = this.repositoryQuery.findAll( pageable);
