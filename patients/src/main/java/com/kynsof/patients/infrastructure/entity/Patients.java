@@ -2,6 +2,7 @@ package com.kynsof.patients.infrastructure.entity;
 
 import com.kynsof.patients.domain.dto.DependentPatientDto;
 import com.kynsof.patients.domain.dto.PatientDto;
+import com.kynsof.patients.domain.dto.enumTye.FamilyRelationship;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,8 +36,13 @@ public class Patients implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private Status status;
-
+    @Enumerated(EnumType.STRING)
+    private FamilyRelationship familyRelationship;
     private String photo;
+    private Double weight; // Peso
+    private Double height; // Talla
+    private Boolean hasDisability; // Tiene discapacidad
+    private Boolean isPregnant; // Está embarazada
 
     @OneToMany(mappedBy = "patient", orphanRemoval = true)
     private List<ContactInformation> contactInformation;
@@ -67,6 +73,10 @@ public class Patients implements Serializable {
         this.lastName = patients.getLastName();
         this.gender = patients.getGender();
         this.status = patients.getStatus();
+        this.weight = patients.getWeight();
+        this.height = patients.getHeight();
+        this.hasDisability = patients.getHasDisability();
+        this.isPregnant = patients.getIsPregnant();
     }
 
     public Patients(DependentPatientDto patients) {
@@ -77,9 +87,14 @@ public class Patients implements Serializable {
         this.gender = patients.getGender();
         this.status = patients.getStatus();
         this.setPrime(new Patients(patients.getPrime()));
+        this.weight = patients.getWeight();
+        this.height = patients.getHeight();
+        this.hasDisability = patients.getHasDisability();
+        this.isPregnant = patients.getIsPregnant();
+
     }
 
     public PatientDto toAggregate() {
-        return new PatientDto(id, identification, name, lastName, gender, status);
+        return new PatientDto(id, identification, name, lastName, gender, status, weight, height, hasDisability, isPregnant);
     }
 }

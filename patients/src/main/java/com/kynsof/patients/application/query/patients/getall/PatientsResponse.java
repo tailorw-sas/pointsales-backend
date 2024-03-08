@@ -19,12 +19,20 @@ public class PatientsResponse implements IResponse {
     private String name;
     private String lastName;
     private String gender;
+    private Double weight;
+    private Double height;
+    private Boolean hasDisability;
+    private Boolean isPregnant;
     public PatientsResponse(PatientDto patients) {
         this.id = patients.getId();
         this.identification = patients.getIdentification();
         this.name = patients.getName();
         this.lastName = patients.getLastName();
         this.gender = patients.getGender();
+        this.weight = patients.getWeight();
+        this.height = patients.getHeight();
+        this.hasDisability = patients.getHasDisability();
+        this.isPregnant = patients.getIsPregnant();
     }
 
 }

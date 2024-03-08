@@ -14,4 +14,8 @@ public class CreatePatientsRequest {
     private String lastName;
     private String gender;
     private LocalDate birthDate;
+    private Double weight;
+    private Double height;
+    private Boolean hasDisability;
+    private Boolean isPregnant;
 }

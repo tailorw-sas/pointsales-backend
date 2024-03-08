@@ -29,7 +29,12 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 command.getLastName(),
                 command.getGender(),
                 Status.ACTIVE,
-                prime
+                prime,
+                command.getWeight(),
+                command.getHeight(),
+                command.getHasDisability(),
+                command.getIsPregnant(),
+                command.getFamilyRelationship()
         ));
         command.setId(id);
     }
