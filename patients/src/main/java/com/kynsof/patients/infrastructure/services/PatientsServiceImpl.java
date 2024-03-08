@@ -11,8 +11,6 @@ import com.kynsof.patients.infrastructure.repositories.command.PatientsWriteData
 import com.kynsof.patients.infrastructure.repositories.query.InsuranceReadDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.PatientsReadDataJPARepository;
 import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerPatientsEventService;
-import com.kynsof.share.core.domain.exception.BusinessException;
-import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
@@ -110,8 +108,9 @@ public class PatientsServiceImpl implements IPatientsService {
         if (patient.isPresent()) {
             return patient.get().toAggregate();
         }
-        //throw new RuntimeException("Patients not found.");
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Patients not found.");
+      throw new RuntimeException("Patients not found.");
+       // throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Patients not found.");
+
     }
 
     @Override

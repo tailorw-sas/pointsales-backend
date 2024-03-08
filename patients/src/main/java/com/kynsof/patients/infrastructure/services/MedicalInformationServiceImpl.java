@@ -7,8 +7,6 @@ import com.kynsof.patients.domain.service.IMedicalInformationService;
 import com.kynsof.patients.infrastructure.entity.MedicalInformation;
 import com.kynsof.patients.infrastructure.repositories.command.MedicalInformationWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repositories.query.MedicalInformationReadDataJPARepository;
-import com.kynsof.share.core.domain.exception.BusinessException;
-import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
@@ -39,7 +37,7 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
             return medicalInformation.getId();
         } catch (Exception e) {
             String message = e.getMessage();
-            throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Medical Information not found.");
+            throw new RuntimeException("Patients not found.");
         }
     }
 
@@ -76,7 +74,8 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
         if (medicalInformation.isPresent()) {
             return medicalInformation.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Medical Information not found.");
+        //throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Medical Information not found.");
+        throw new RuntimeException("Patients not found.");
     }
 
     @Override

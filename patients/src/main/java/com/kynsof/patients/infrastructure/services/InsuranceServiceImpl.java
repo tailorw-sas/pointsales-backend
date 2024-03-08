@@ -6,8 +6,6 @@ import com.kynsof.patients.domain.dto.InsuranceDto;
 import com.kynsof.patients.domain.service.IInsuranceService;
 import com.kynsof.patients.infrastructure.entity.Insurance;
 import com.kynsof.patients.infrastructure.repositories.query.InsuranceReadDataJPARepository;
-import com.kynsof.share.core.domain.exception.BusinessException;
-import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
@@ -32,7 +30,8 @@ public class InsuranceServiceImpl implements IInsuranceService {
         if (insurance.isPresent()) {
             return insurance.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Contact Information not found.");
+      //  throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Contact Information not found.");
+        throw new RuntimeException("Patients not found.");
     }
 
     @Override

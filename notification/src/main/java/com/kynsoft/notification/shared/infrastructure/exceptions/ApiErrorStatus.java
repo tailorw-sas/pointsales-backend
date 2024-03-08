@@ -1,6 +1,7 @@
 package com.kynsoft.notification.shared.infrastructure.exceptions;
 
-import jakarta.annotation.Nullable;
+
+import io.micrometer.common.lang.Nullable;
 
 public enum ApiErrorStatus implements ApiErrorStatusCode {
 
