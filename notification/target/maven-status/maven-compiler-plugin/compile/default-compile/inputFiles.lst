@@ -1,0 +1,15 @@
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/infrastructure/config/JwtAuthenticationConverter.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/infrastructure/config/SecurityConfig.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/infrastructure/config/CorsProperties.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/application/SendEmailResponse.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/application/dto/MailJetVar.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/application/dto/MailJetRecipient.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/application/dto/EmailRequest.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/controller/MailController.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/infrastructure/config/OpenApiConfig.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/infrastructure/service/EmailServiceMailjet.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/ClientEmail.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/application/SendEmailRequest.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/domain/service/IEmailService.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/application/dto/MailJetAttachment.java
+/Users/keimermontes/Development/java/scheduled/notification/src/main/java/com/kynsoft/notification/infrastructure/service/kafka/consumer/ConsumerEmailEventService.java
