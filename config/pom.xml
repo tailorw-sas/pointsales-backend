@@ -13,7 +13,7 @@
     <version>1.0.0</version>
     <name>Config</name>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
     </properties>
     <dependencies>
@@ -24,11 +24,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
     <dependencyManagement>

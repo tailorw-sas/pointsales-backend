@@ -3,6 +3,7 @@ package com.kynsoft.notification.application.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class MailJetVar {
     public String Key;
     public Object Value;
 
-    public static JSONObject createVarsJsonObject(List<MailJetVar> vars) {
+    public static JSONObject createVarsJsonObject(List<MailJetVar> vars) throws JSONException {
         JSONObject varsJsonObject = new JSONObject();
 
         for (MailJetVar var : vars) {

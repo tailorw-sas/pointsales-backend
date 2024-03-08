@@ -11,15 +11,14 @@ import com.mailjet.client.MailjetResponse;
 import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.errors.MailjetSocketTimeoutException;
 import com.mailjet.client.resource.Email;
-import jakarta.mail.MessagingException;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-@Profile("mailjet")
+//@Profile("mailjet")
 @Service
 public class EmailServiceMailjet implements IEmailService {
 
@@ -65,6 +64,8 @@ public class EmailServiceMailjet implements IEmailService {
             return false;
         } catch (MailjetSocketTimeoutException e) {
             throw new RuntimeException(e);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -82,7 +83,7 @@ public class EmailServiceMailjet implements IEmailService {
     }
 
     @Override
-    public boolean sendMessageWithAttachmentArray(String toEmail, String subject, String text, MultipartFile[] file) throws MessagingException {
+    public boolean sendMessageWithAttachmentArray(String toEmail, String subject, String text, MultipartFile[] file) {
         return false;
     }
 

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class MailJetRecipient {
     private String email;
     private String name;
 
-    public static JSONArray createRecipientsJsonArray(List<MailJetRecipient> recipients) {
+    public static JSONArray createRecipientsJsonArray(List<MailJetRecipient> recipients) throws JSONException {
         JSONArray recipientsArray = new JSONArray();
 
         for (MailJetRecipient recipient : recipients) {

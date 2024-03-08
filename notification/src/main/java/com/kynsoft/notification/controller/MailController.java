@@ -7,10 +7,7 @@ import com.kynsoft.notification.application.dto.MailJetAttachment;
 import com.kynsoft.notification.application.dto.MailJetRecipient;
 import com.kynsoft.notification.application.dto.MailJetVar;
 import com.kynsoft.notification.domain.service.IEmailService;
-import com.kynsoft.notification.shared.application.ApiResponse2xx;
-import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,7 +30,7 @@ public class MailController {
     }
 
     @PostMapping("/send/simple")
-    public ResponseEntity<ApiResponse2xx<SendEmailResponse>> sendEmailSimple(@RequestBody SendEmailRequest email) {
+    public ResponseEntity<?>sendEmailSimple(@RequestBody SendEmailRequest email) {
         boolean result = emailService.sendMail(email.getToEmail(), email.getSubject(), email.getMessage());
         String msg = "";
         if (result) {
@@ -41,11 +38,11 @@ public class MailController {
         } else {
             msg = "Message sent failed!";
         }
-        return ResponseEntity.ok(new ApiResponse2xx<SendEmailResponse>(new SendEmailResponse(result, msg), HttpStatus.OK));
+        return ResponseEntity.ok(new SendEmailResponse(result, msg));
     }
 
     @PostMapping("/send/template")
-    public ResponseEntity<ApiResponse2xx<SendEmailResponse>> sendEmailTemplate(@RequestBody SendEmailRequest email) {
+    public ResponseEntity<?> sendEmailTemplate(@RequestBody SendEmailRequest email) {
         boolean result = emailService.sendMailHtml(email.getToEmail(), email.getSubject(), email.getMessage());
         String msg = "";
         if (result) {
@@ -53,11 +50,11 @@ public class MailController {
         } else {
             msg = "Message sent failed!";
         }
-        return ResponseEntity.ok(new ApiResponse2xx<SendEmailResponse>(new SendEmailResponse(result, msg), HttpStatus.OK));
+        return ResponseEntity.ok(new SendEmailResponse(result, msg));
     }
 
     @PostMapping("/send/attachment")
-    public ResponseEntity<ApiResponse2xx<SendEmailResponse>> sendEmailTemplateAttachment(
+    public ResponseEntity<?> sendEmailTemplateAttachment(
             @RequestParam(defaultValue = "") String email,
             @RequestParam(defaultValue = "") String subject,
             @RequestParam(defaultValue = "") String menssage,
@@ -73,16 +70,16 @@ public class MailController {
             } else {
                 msg = "Message sent failed!";
             }
-            return ResponseEntity.ok(new ApiResponse2xx<SendEmailResponse>(new SendEmailResponse(result, msg), HttpStatus.OK));
-        } catch (MessagingException ex) {
+            return ResponseEntity.ok(new SendEmailResponse(result, msg));
+        } catch (Exception ex) {
             //throw new BusinessException(ApiErrorStatus.MIDDLEWARE_MAIL_FAILED, "Please check the email provided.");
-            return ResponseEntity.ok(new ApiResponse2xx<SendEmailResponse>(new SendEmailResponse(result, msg), HttpStatus.OK));
+            return ResponseEntity.ok(new SendEmailResponse(result, msg));
         }
 
     }
 
     @PostMapping("/send/multi/attachment")
-    public ResponseEntity<ApiResponse2xx<SendEmailResponse>> sendEmailTemplateAttachmentArray(
+    public ResponseEntity<?> sendEmailTemplateAttachmentArray(
             @RequestParam(defaultValue = "") String email,
             @RequestParam(defaultValue = "") String subject,
             @RequestParam(defaultValue = "") String menssage,
@@ -98,19 +95,19 @@ public class MailController {
             } else {
                 msg = "Message sent failed!";
             }
-            return ResponseEntity.ok(new ApiResponse2xx<SendEmailResponse>(new SendEmailResponse(result, msg), HttpStatus.OK));
-        } catch (MessagingException ex) {
+            return ResponseEntity.ok(new SendEmailResponse(result, msg));
+        } catch (Exception ex) {
             //throw new BusinessException(ApiErrorStatus.MIDDLEWARE_MAIL_FAILED, "Please check the email provided.");
-            return ResponseEntity.ok(new ApiResponse2xx<SendEmailResponse>(new SendEmailResponse(result, msg), HttpStatus.OK));
+            return ResponseEntity.ok(new SendEmailResponse(result, msg));
         }
 
     }
     @PostMapping("/send/multi/keime")
-    public ResponseEntity<ApiResponse2xx<SendEmailResponse>> keimer(){
+    public ResponseEntity<?> keimer(){
         boolean result = true;
         String msg = "";
 //        if (fileParam.isEmpty()) {
-//            return ResponseEntity.ok(new ApiResponse2xx<SendEmailResponse>(new SendEmailResponse(result, msg), HttpStatus.OK));
+//            return ResponseEntity.ok(new SendEmailResponse(result, msg)));
 //        }
         try {
             List<MailJetAttachment> mailJetAttachments = new ArrayList<>();
@@ -136,9 +133,9 @@ public class MailController {
             } else {
                  msg = "Message sent failed!";
             }
-            return ResponseEntity.ok(new ApiResponse2xx<SendEmailResponse>(new SendEmailResponse(result, msg), HttpStatus.OK));
+            return ResponseEntity.ok(new SendEmailResponse(result, msg));
         } catch (Exception ex) {
-            return ResponseEntity.ok(new ApiResponse2xx<SendEmailResponse>(new SendEmailResponse(result, msg), HttpStatus.OK));
+            return ResponseEntity.ok(new SendEmailResponse(result, msg));
         }
     }
     public String convertFileToBase64(MultipartFile file) throws IOException {
