@@ -48,7 +48,7 @@ RUN mvn --no-transfer-progress clean package -DskipTests
 # FROM docker.io/oraclelinux:9-slim
 FROM bellsoft/liberica-openjdk-alpine:17.0.6
 
-EXPOSE 9909
+EXPOSE 8761
 
 #Configurar Zona Horaria
 RUN apk upgrade --no-cache
