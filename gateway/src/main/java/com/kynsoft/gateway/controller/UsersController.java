@@ -1,8 +1,8 @@
 package com.kynsoft.gateway.controller;
 
 
-import com.kynsoft.gateway.application.dto.user.ChangeStatusRequest;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.dto.user.ChangeStatusRequest;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
