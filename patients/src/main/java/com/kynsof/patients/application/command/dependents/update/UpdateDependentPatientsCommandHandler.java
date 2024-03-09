@@ -32,7 +32,8 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
                 command.getHeight(),
                 command.getHasDisability(),
                 command.getIsPregnant(),
-                command.getFamilyRelationship()
+                command.getFamilyRelationship(),
+                "photo"
         ));
     }
 }

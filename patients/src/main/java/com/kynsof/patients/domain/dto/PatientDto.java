@@ -23,4 +23,5 @@ public class PatientDto implements Serializable {
     private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
+    private String photo;
 }

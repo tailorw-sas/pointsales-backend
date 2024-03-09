@@ -29,7 +29,8 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
                 command.getWeight(),
                 command.getHeight(),
                 command.getHasDisability(),
-                command.getIsPregnant()
+                command.getIsPregnant(),
+                "photo"
         ));
         command.setId(id);
     }

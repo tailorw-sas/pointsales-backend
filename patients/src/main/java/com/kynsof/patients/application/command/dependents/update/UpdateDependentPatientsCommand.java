@@ -5,6 +5,7 @@ import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -24,10 +25,12 @@ public class UpdateDependentPatientsCommand implements ICommand {
     private Boolean isPregnant;
     private LocalDate birthDate;
     private FamilyRelationship familyRelationship;
+    private MultipartFile photo;
 
     public UpdateDependentPatientsCommand(UUID id,UUID primeId, String identification, String name, String lastName,
                                           String gender, Double weight, Double height, Boolean hasDisability,
-                                          Boolean isPregnant, LocalDate birthDate, FamilyRelationship familyRelationship){
+                                          Boolean isPregnant, LocalDate birthDate, FamilyRelationship familyRelationship,
+                                          MultipartFile photo){
         this.id = id;
         this.identification = identification;
         this.name = name;
@@ -40,13 +43,14 @@ public class UpdateDependentPatientsCommand implements ICommand {
         this.isPregnant = isPregnant;
         this.birthDate = birthDate;
         this.familyRelationship = familyRelationship;
+        this.photo = photo;
     }
 
     public static UpdateDependentPatientsCommand fromRequest(UUID id, UpdateDependentPatientsRequest request) {
         return new UpdateDependentPatientsCommand(id,request.getPrimeId(),request.getIdentification(),
                 request.getName(), request.getLastName(), request.getGender(),
                 request.getWeight(),request.getHeight(),request.getHasDisability(),request.getIsPregnant(),
-                request.getBirthDate(), request.getFamilyRelationship());
+                request.getBirthDate(), request.getFamilyRelationship(), request.getPhoto());
     }
 
 

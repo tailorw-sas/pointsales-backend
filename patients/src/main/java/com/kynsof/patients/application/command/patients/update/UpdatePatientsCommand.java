@@ -4,6 +4,7 @@ import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -21,9 +22,11 @@ public class UpdatePatientsCommand implements ICommand {
     private Boolean hasDisability;
     private Boolean isPregnant;
     private LocalDate birthDate;
+    private MultipartFile photo;
 
     public UpdatePatientsCommand(UUID id, String identification, String name, String lastName, String gender, Double weight,
-                                 Double height, Boolean hasDisability, Boolean isPregnant, LocalDate birthDate){
+                                 Double height, Boolean hasDisability, Boolean isPregnant, LocalDate birthDate,
+                                 MultipartFile photo){
 
         this.identification = identification;
         this.name = name;
@@ -35,11 +38,13 @@ public class UpdatePatientsCommand implements ICommand {
         this.isPregnant = isPregnant;
         this.birthDate = birthDate;
         this.id = id;
+        this.photo = photo;
     }
 
     public static UpdatePatientsCommand fromRequest(UUID id, UpdatePatientsRequest request) {
         return new UpdatePatientsCommand(id,request.getIdentification(), request.getName(), request.getLastName(), request.getGender(),
-                request.getWeight(),request.getHeight(),request.getHasDisability(),request.getIsPregnant(), request.getBirthDate());
+                request.getWeight(),request.getHeight(),request.getHasDisability(),request.getIsPregnant(),
+                request.getBirthDate(), request.getPhoto());
     }
 
 

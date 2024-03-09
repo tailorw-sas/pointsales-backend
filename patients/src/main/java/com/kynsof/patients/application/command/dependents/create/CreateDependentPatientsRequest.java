@@ -3,6 +3,7 @@ package com.kynsof.patients.application.command.dependents.create;
 import com.kynsof.patients.domain.dto.enumTye.FamilyRelationship;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -22,4 +23,5 @@ public class CreateDependentPatientsRequest {
     private Boolean hasDisability;
     private Boolean isPregnant;
     private FamilyRelationship familyRelationship;
+    private MultipartFile photo;
 }

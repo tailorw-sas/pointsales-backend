@@ -77,6 +77,7 @@ public class Patients implements Serializable {
         this.height = patients.getHeight();
         this.hasDisability = patients.getHasDisability();
         this.isPregnant = patients.getIsPregnant();
+        this.photo = patients.getPhoto();
     }
 
     public Patients(DependentPatientDto patients) {
@@ -91,10 +92,12 @@ public class Patients implements Serializable {
         this.height = patients.getHeight();
         this.hasDisability = patients.getHasDisability();
         this.isPregnant = patients.getIsPregnant();
+        this.photo = patients.getPhoto();
 
     }
 
     public PatientDto toAggregate() {
-        return new PatientDto(id, identification, name, lastName, gender, status, weight, height, hasDisability, isPregnant);
+        return new PatientDto(id, identification, name, lastName, gender, status, weight, height, hasDisability, isPregnant,
+                photo);
     }
 }

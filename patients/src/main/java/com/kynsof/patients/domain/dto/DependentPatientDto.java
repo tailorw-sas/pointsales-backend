@@ -24,4 +24,5 @@ public class DependentPatientDto {
     private Boolean hasDisability;
     private Boolean isPregnant;
     private FamilyRelationship familyRelationship;
+    private String photo;
 }

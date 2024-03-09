@@ -2,6 +2,7 @@ package com.kynsof.patients.application.command.patients.create;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -18,4 +19,5 @@ public class CreatePatientsRequest {
     private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
+    private MultipartFile photo;
 }

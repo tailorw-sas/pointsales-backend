@@ -27,7 +27,8 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
                 command.getWeight(),
                 command.getHeight(),
                 command.getHasDisability(),
-                command.getIsPregnant()
+                command.getIsPregnant(),
+                "photo"
         ));
 
     }
