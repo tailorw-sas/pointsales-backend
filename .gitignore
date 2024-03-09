@@ -1,2 +1,9 @@
 /gateway/target/
 /.idea/
+/notification/target
+/identity/target
+/calendar/target
+/config/target
+/patients/target
+/registry/target
+/store/target
