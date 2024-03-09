@@ -1,6 +1,7 @@
 package com.kynsoft.notification.controller;
 
-
+import com.kynsoft.notification.application.CustomMultipartFile;
+import com.kynsoft.notification.application.FileRequest;
 import com.kynsoft.notification.application.SendEmailResponse;
 import com.kynsoft.notification.application.dto.EmailRequest;
 import com.kynsoft.notification.application.dto.MailJetAttachment;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/files")
@@ -27,20 +29,20 @@ public class FileController {
 //    public FileController(AmazonClient amazonClient) {
 //        this.amazonClient = amazonClient;
 //    }
-
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile( @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadFile(@RequestBody FileRequest request) {
         try {
-        //    String fileUrl = amazonClient.save(file, folder);
-            return ResponseEntity.ok("fileUrl"+file.getName());
+            MultipartFile file = new CustomMultipartFile(request.getFile(), request.getFileName());
+            
+            //    String fileUrl = amazonClient.save(file, folder);
+            return ResponseEntity.ok("nombre del archivo: " + file.getName());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to upload file: " + e.getMessage());
         }
     }
 
-
     @PostMapping("/send/multi/keime")
-    public ResponseEntity<?> keimer(){
+    public ResponseEntity<?> keimer() {
         boolean result = true;
         String msg = "";
 //        if (fileParam.isEmpty()) {
@@ -54,16 +56,15 @@ public class FileController {
 //            mailJetAttachments.add(new MailJetAttachment("text/plain", "test.txt", "VGhpcyBpcyB5b3VyIGF0dGFjaGVkIGZpbGUhISEK"));
 
             List<MailJetRecipient> mailJetRecipients = new ArrayList<>();
-            mailJetRecipients.add(new MailJetRecipient("keimermo1989@gmail.com","Keimer"));
+            mailJetRecipients.add(new MailJetRecipient("keimermo1989@gmail.com", "Keimer"));
 
             List<MailJetVar> vars = Arrays.asList(
                     new MailJetVar("username", "NombreUsuario"),
                     new MailJetVar("otp_token", "Token1234")
             );
 
-            int  templateId =3931552;
-            EmailRequest emailRequest = new EmailRequest(mailJetRecipients, vars, mailJetAttachments,"SubjectTest", templateId);
-
+            int templateId = 3931552;
+            EmailRequest emailRequest = new EmailRequest(mailJetRecipients, vars, mailJetAttachments, "SubjectTest", templateId);
 
             if (result) {
                 msg = "Message sent successfully!";
