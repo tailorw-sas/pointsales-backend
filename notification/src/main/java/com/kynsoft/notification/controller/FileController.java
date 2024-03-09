@@ -29,8 +29,7 @@ public class FileController {
 //    }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile( @RequestParam("file") MultipartFile file
-                                           ) {
+    public ResponseEntity<?> uploadFile( @RequestParam("file") MultipartFile file) {
         try {
         //    String fileUrl = amazonClient.save(file, folder);
             return ResponseEntity.ok("fileUrl"+file.getName());
