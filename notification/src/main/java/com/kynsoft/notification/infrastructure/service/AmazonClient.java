@@ -24,6 +24,7 @@ import java.util.Date;
 
 @Service
 public class AmazonClient implements IAmazonClient {
+
     private S3Client s3Client;
     @Value("${aws.accessKey}")
     private String accessKey;
@@ -49,7 +50,7 @@ public class AmazonClient implements IAmazonClient {
 
     @Override
     public void uploadFile(InputStream streamToUpload, Long size, String contentType, String objectKey)
-            throws  AwsServiceException, SdkClientException, IOException {
+            throws AwsServiceException, SdkClientException, IOException {
 
         PutObjectRequest putObjectRequest = PutObjectRequest.builder().bucket(this.bucketName).key(objectKey).contentType(contentType).contentDisposition("inline").build();
 
@@ -72,21 +73,22 @@ public class AmazonClient implements IAmazonClient {
 
         return objectUrl;
     }
+
     @Override
     public void delete(String url) {
         if (!url.equals("")) {
-            
-        
-        String key = url;
 
-        if (url != null && url.contains(this.cloudfrontDomain)) {
-            key = url.replace(this.cloudfrontDomain, "");
-        }
+            String key = url;
 
-        DeleteObjectRequest req = DeleteObjectRequest.builder().bucket(this.bucketName).key(key).build();
-        this.s3Client.deleteObject(req);
+            if (url != null && url.contains(this.cloudfrontDomain)) {
+                key = url.replace(this.cloudfrontDomain, "");
+            }
+
+            DeleteObjectRequest req = DeleteObjectRequest.builder().bucket(this.bucketName).key(key).build();
+            this.s3Client.deleteObject(req);
         }
     }
+
     @Override
     public AFile loadFile(String url) {
         String filename = url.replace(this.cloudfrontDomain, "");
