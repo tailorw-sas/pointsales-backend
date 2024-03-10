@@ -1,7 +1,7 @@
 package com.kynsoft.notification.controller;
 
+import com.kynsof.share.core.application.FileRequest;
 import com.kynsof.share.core.infrastructure.util.CustomMultipartFile;
-import com.kynsoft.notification.application.FileRequest;
 import com.kynsoft.notification.domain.dto.AFile;
 import com.kynsoft.notification.infrastructure.service.AmazonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,6 @@ public class FileController {
             return ResponseEntity.badRequest().body("Failed to upload file: " + e.getMessage());
         }
     }
-
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteFile(@RequestParam("url") String fileUrl) {
