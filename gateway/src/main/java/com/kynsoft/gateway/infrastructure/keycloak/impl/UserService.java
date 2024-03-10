@@ -4,6 +4,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
 import com.kynsoft.gateway.application.dto.LoginDTO;
 import com.kynsoft.gateway.application.dto.PasswordChangeRequest;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
@@ -12,6 +13,7 @@ import com.kynsoft.gateway.domain.interfaces.IOtpService;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import com.kynsoft.gateway.infrastructure.keycloak.KeycloakProvider;
 import com.kynsoft.gateway.infrastructure.services.kafka.ProducerRegisterUserEventService;
+import com.kynsoft.gateway.infrastructure.services.kafka.ProducerTriggerPasswordResetEventService;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.resource.*;
@@ -43,6 +45,9 @@ public class UserService implements IUserService {
 
     @Autowired
     private final IOtpService otpService;
+
+    @Autowired
+    private ProducerTriggerPasswordResetEventService producerOtp;
 
     public UserService(IOtpService services) {
         this.otpService = services;
@@ -220,6 +225,7 @@ public class UserService implements IUserService {
             UserRepresentation user = users.get(0);
             String otpCode = otpService.generateOtpCode();
             otpService.saveOtpCode(email, otpCode );
+            producerOtp.create(new UserOtpKafka(email, otpCode));
             //Yannier enviar la notificacion por kafka
             return true;
         }
