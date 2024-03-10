@@ -1,6 +1,6 @@
 package com.kynsoft.notification.controller;
 
-import com.kynsoft.notification.application.CustomMultipartFile;
+import com.kynsof.share.core.infrastructure.util.CustomMultipartFile;
 import com.kynsoft.notification.application.FileRequest;
 import com.kynsoft.notification.domain.dto.AFile;
 import com.kynsoft.notification.infrastructure.service.AmazonClient;
