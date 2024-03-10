@@ -1,5 +1,6 @@
 package com.kynsof.calendar.application.command.business.create;
 
+import com.kynsof.share.core.application.FileRequest;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,7 @@ public class CreateBusinessRequest {
     private String latitude;
     private String longitude;
     private String description;
-    private byte[] logo;
+    private FileRequest logo;
     private String ruc;
 
 }

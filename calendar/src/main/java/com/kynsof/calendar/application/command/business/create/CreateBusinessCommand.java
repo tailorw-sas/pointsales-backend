@@ -1,5 +1,6 @@
 package com.kynsof.calendar.application.command.business.create;
 
+import com.kynsof.share.core.application.FileRequest;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -16,10 +17,10 @@ public class CreateBusinessCommand implements ICommand {
     private String latitude;
     private String longitude;
     private String description;
-    private byte[] logo;
+    private FileRequest logo;
     private String ruc;
 
-    public CreateBusinessCommand(String name, String latitude, String longitude, String description, byte[] logo, String ruc) {
+    public CreateBusinessCommand(String name, String latitude, String longitude, String description, FileRequest logo, String ruc) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.latitude = latitude;
