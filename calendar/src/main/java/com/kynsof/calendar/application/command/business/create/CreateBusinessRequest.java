@@ -1,6 +1,5 @@
 package com.kynsof.calendar.application.command.business.create;
 
-import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,9 +8,10 @@ import lombok.Setter;
 public class CreateBusinessRequest {
 
     private String name;
+    private String latitude;
+    private String longitude;
     private String description;
     private byte[] logo;
     private String ruc;
-    private EBusinessStatus status;
 
 }

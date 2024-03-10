@@ -26,6 +26,10 @@ public class Business extends BaseEntity {
 
     private String name;
 
+    private String latitude;
+
+    private String longitude;
+
     private String description;
 
     @Lob
@@ -50,6 +54,8 @@ public class Business extends BaseEntity {
     public Business(BusinessDto business) {
         this.id = business.getId();
         this.name = business.getName();
+        this.latitude = business.getLatitude();
+        this.longitude = business.getLongitude();
         this.description = business.getDescription();
         this.logo = business.getLogo();
         this.ruc = business.getRuc();
@@ -58,6 +64,6 @@ public class Business extends BaseEntity {
     }
 
     public BusinessDto toAggregate () {
-        return new BusinessDto(id, name, description, logo, ruc, status, deleted, createdAt, updatedAt, deletedAt);
+        return new BusinessDto(id, name, latitude, longitude, description, logo, ruc, status, deleted, createdAt, updatedAt, deletedAt);
     }
 }

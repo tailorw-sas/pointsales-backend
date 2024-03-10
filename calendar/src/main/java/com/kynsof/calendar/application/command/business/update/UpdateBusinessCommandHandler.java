@@ -19,6 +19,8 @@ public class UpdateBusinessCommandHandler  implements ICommandHandler<UpdateBusi
        service.update(new BusinessDto(
                 command.getId(),
                 command.getName(),
+                command.getLatitude(),
+                command.getLongitude(),
                 command.getDescription(),
                 command.getLogo(),
                 command.getRuc(),

@@ -16,6 +16,8 @@ import java.util.UUID;
 public class BusinessResponse implements IResponse {
     private UUID id;
     private String name;
+    private String latitude;
+    private String longitude;
     private String description;
     private byte[] logo;
     private String ruc;
@@ -27,6 +29,8 @@ public class BusinessResponse implements IResponse {
     public BusinessResponse(BusinessDto object) {
         this.id = object.getId();
         this.name = object.getName();
+        this.latitude = object.getLatitude();
+        this.longitude = object.getLongitude();
         this.description = object.getDescription();
         this.logo = object.getLogo();
         this.ruc = object.getRuc();

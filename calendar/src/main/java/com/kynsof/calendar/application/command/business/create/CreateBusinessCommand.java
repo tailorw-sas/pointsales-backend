@@ -1,6 +1,5 @@
 package com.kynsof.calendar.application.command.business.create;
 
-import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -14,22 +13,24 @@ public class CreateBusinessCommand implements ICommand {
 
     private UUID id;
     private String name;
+    private String latitude;
+    private String longitude;
     private String description;
     private byte[] logo;
     private String ruc;
-    private EBusinessStatus status;
 
-    public CreateBusinessCommand(String name, String description, byte[] logo, String ruc, EBusinessStatus status) {
+    public CreateBusinessCommand(String name, String latitude, String longitude, String description, byte[] logo, String ruc) {
         this.id = UUID.randomUUID();
         this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.description = description;
         this.logo = logo;
         this.ruc = ruc;
-        this.status = status;
     }
 
     public static CreateBusinessCommand fromRequest(CreateBusinessRequest request) {
-        return new CreateBusinessCommand(request.getName(), request.getDescription(), request.getLogo(), request.getRuc(), request.getStatus());
+        return new CreateBusinessCommand(request.getName(), request.getLatitude(), request.getLongitude(), request.getDescription(), request.getLogo(), request.getRuc());
     }
 
     @Override

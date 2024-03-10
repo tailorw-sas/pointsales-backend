@@ -19,10 +19,11 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
         service.create(new BusinessDto(
                 command.getId(),
                 command.getName(),
+                command.getLatitude(),
+                command.getLongitude(),
                 command.getDescription(),
                 command.getLogo(),
-                command.getRuc(),
-                command.getStatus()
+                command.getRuc()
         ));
     }
 }

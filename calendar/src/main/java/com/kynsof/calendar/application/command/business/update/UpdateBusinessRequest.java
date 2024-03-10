@@ -10,7 +10,9 @@ import java.util.UUID;
 @Setter
 public class UpdateBusinessRequest {
     private UUID id;
-    private String name;
+    private String name;    
+    private String latitude;
+    private String longitude;
     private String description;
     private byte[] logo;
     private String ruc;

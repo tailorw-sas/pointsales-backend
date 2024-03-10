@@ -17,6 +17,8 @@ import java.util.UUID;
 public class BusinessDto implements Serializable {
     private UUID id;
     private String name;
+    private String latitude;
+    private String longitude;
     private String description;
     private byte[] logo;
     private String ruc;
@@ -27,13 +29,25 @@ public class BusinessDto implements Serializable {
     private LocalDateTime updateAt;
     private LocalDateTime deleteAt;
 
-    public BusinessDto(UUID id, String name, String description, byte[] logo, String ruc, EBusinessStatus status) {
+    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, byte[] logo, String ruc, EBusinessStatus status) {
         this.id = id;
         this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.description = description;
         this.logo = logo;
         this.ruc = ruc;
         this.status = status;
+    }
+
+    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, byte[] logo, String ruc) {
+        this.id = id;
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.description = description;
+        this.logo = logo;
+        this.ruc = ruc;
     }
 
 }
