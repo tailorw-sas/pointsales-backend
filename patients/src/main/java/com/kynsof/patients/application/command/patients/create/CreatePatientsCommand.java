@@ -23,13 +23,13 @@ public class CreatePatientsCommand implements ICommand {
     private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
-    private String photo;
+    private byte[] photo;
     private int gestationTime;
     private CreatePatientContactInfoRequest createContactInfoRequest;
     private DisabilityType disabilityType;
 
     public CreatePatientsCommand(String identification, String name, String lastName, GenderType gender, Double weight,
-                                 Double height, Boolean hasDisability, Boolean isPregnant, String photo,
+                                 Double height, Boolean hasDisability, Boolean isPregnant, byte[] photo,
                                  int gestationTime, CreatePatientContactInfoRequest createContactInfoRequest,DisabilityType disabilityType){
 
         this.identification = identification;
