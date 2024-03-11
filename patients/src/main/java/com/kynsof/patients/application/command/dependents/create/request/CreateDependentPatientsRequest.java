@@ -1,26 +1,25 @@
-package com.kynsof.patients.application.command.dependents.create;
+package com.kynsof.patients.application.command.dependents.create.request;
 
-import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoRequest;
 import com.kynsof.patients.domain.dto.enumTye.DisabilityType;
 import com.kynsof.patients.domain.dto.enumTye.FamilyRelationship;
+import com.kynsof.patients.domain.dto.enumTye.GenderType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class CreateDependentPatientsRequest {
 
     private UUID primeId;
-    private MultipartFile photo;
+    private String photo;
     private String identification;
     private String name;
     private String lastName;
-    private LocalDate birthDate;
-    private String gender;
+    private GenderType gender;
     private Double weight;
     private Double height;
     private Boolean hasDisability;
@@ -28,6 +27,6 @@ public class CreateDependentPatientsRequest {
     private FamilyRelationship familyRelationship;
     private Boolean isPregnant;
     private int gestationTime;
-    private CreateContactInfoRequest createContactInfoRequest;
+    private CreateDependentContactInfoRequest contactInfo;
 
 }

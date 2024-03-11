@@ -1,6 +1,8 @@
 package com.kynsof.patients.domain.dto;
 
+import com.kynsof.patients.domain.dto.enumTye.DisabilityType;
 import com.kynsof.patients.domain.dto.enumTye.FamilyRelationship;
+import com.kynsof.patients.domain.dto.enumTye.GenderType;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +18,7 @@ public class DependentPatientDto {
     private String identification;
     private String name;
     private String lastName;
-    private String gender;
+    private GenderType gender;
     private Status status;
     private PatientDto prime;
     private Double weight;
@@ -25,4 +27,6 @@ public class DependentPatientDto {
     private Boolean isPregnant;
     private FamilyRelationship familyRelationship;
     private String photo;
+    private DisabilityType disabilityType;
+    private int gestationTime;
 }

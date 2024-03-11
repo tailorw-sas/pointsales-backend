@@ -9,5 +9,5 @@ public enum DisabilityType {
     NEURODIVERSITY,
     SPEECH,
     LEARNING,
-    UNDEFINED;
+    UNDEFINED
 }

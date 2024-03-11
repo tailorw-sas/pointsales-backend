@@ -35,7 +35,9 @@ public class CreateDependentByPatientIdCommandHandler implements ICommandHandler
                 dependent.getHasDisability(),
                 dependent.getIsPregnant(),
                 command.getFamilyRelationship(),
-                dependent.getPhoto()
+                dependent.getPhoto(),
+                dependent.getDisabilityType(),
+                dependent.getGestationTime()
         ));
         command.setId(dependent.getId());
     }
