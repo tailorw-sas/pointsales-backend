@@ -2,7 +2,10 @@ package com.kynsof.patients.controller;
 
 import com.kynsof.patients.application.command.dependents.create.CreateDependentPatientMessage;
 import com.kynsof.patients.application.command.dependents.create.CreateDependentPatientsCommand;
-import com.kynsof.patients.application.command.dependents.create.CreateDependentPatientsRequest;
+import com.kynsof.patients.application.command.dependents.create.request.CreateDependentPatientsRequest;
+import com.kynsof.patients.application.command.dependents.createByPatientId.CreateDependentByPatientIdCommand;
+import com.kynsof.patients.application.command.dependents.createByPatientId.CreateDependentByPatientIdMessage;
+import com.kynsof.patients.application.command.dependents.createByPatientId.CreateDependentByPatientIdRequest;
 import com.kynsof.patients.application.command.dependents.update.UpdateDependentPatientMessage;
 import com.kynsof.patients.application.command.dependents.update.UpdateDependentPatientsCommand;
 import com.kynsof.patients.application.command.dependents.update.UpdateDependentPatientsRequest;
@@ -24,9 +27,17 @@ public class DependentPatientsController {
     }
 
     @PostMapping("")
-    public ResponseEntity<CreateDependentPatientMessage> create(@RequestBody CreateDependentPatientsRequest request)  {
+    public ResponseEntity<?> create(@RequestBody CreateDependentPatientsRequest request)  {
         CreateDependentPatientsCommand createCommand = CreateDependentPatientsCommand.fromRequest(request);
         CreateDependentPatientMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/patientId")
+    public ResponseEntity<CreateDependentByPatientIdMessage> createByPatientId(@RequestBody CreateDependentByPatientIdRequest request)  {
+        CreateDependentByPatientIdCommand createCommand = CreateDependentByPatientIdCommand.fromRequest(request);
+        CreateDependentByPatientIdMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
     }

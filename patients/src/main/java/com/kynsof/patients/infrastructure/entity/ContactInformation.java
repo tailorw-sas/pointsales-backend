@@ -45,6 +45,7 @@ public class ContactInformation {
         this.address = contactInfoDto.getAddress();
         this.birthdayDate = contactInfoDto.getBirthdayDate();
         this.status = contactInfoDto.getStatus();
+        this.geographicLocation = new GeographicLocation(contactInfoDto.getGeographicLocation());
     }
 
     public ContactInfoDto toAggregate() {

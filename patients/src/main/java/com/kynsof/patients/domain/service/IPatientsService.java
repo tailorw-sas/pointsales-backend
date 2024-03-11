@@ -22,4 +22,6 @@ public interface IPatientsService {
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
     void createInsurance(UUID patientId, List<UUID> insuranceIds);
+
+    PatientDto findByIdentification(String identification);
 }

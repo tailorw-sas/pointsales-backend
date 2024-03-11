@@ -1,6 +1,9 @@
 package com.kynsof.patients.application.command.dependents.update;
 
+import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoRequest;
+import com.kynsof.patients.domain.dto.enumTye.DisabilityType;
 import com.kynsof.patients.domain.dto.enumTye.FamilyRelationship;
+import com.kynsof.patients.domain.dto.enumTye.GenderType;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -18,7 +21,7 @@ public class UpdateDependentPatientsCommand implements ICommand {
     private String identification;
     private String name;
     private String lastName;
-    private String gender;
+    private GenderType gender;
     private Double weight;
     private Double height;
     private Boolean hasDisability;
@@ -26,11 +29,15 @@ public class UpdateDependentPatientsCommand implements ICommand {
     private LocalDate birthDate;
     private FamilyRelationship familyRelationship;
     private MultipartFile photo;
+    private int gestationTime;
+    private CreateContactInfoRequest createContactInfoRequest;
+    private DisabilityType disabilityType;
 
     public UpdateDependentPatientsCommand(UUID id,UUID primeId, String identification, String name, String lastName,
-                                          String gender, Double weight, Double height, Boolean hasDisability,
+                                          GenderType gender, Double weight, Double height, Boolean hasDisability,
                                           Boolean isPregnant, LocalDate birthDate, FamilyRelationship familyRelationship,
-                                          MultipartFile photo){
+                                          MultipartFile photo, int gestationTime,
+                                          CreateContactInfoRequest createContactInfoRequest, DisabilityType disabilityType){
         this.id = id;
         this.identification = identification;
         this.name = name;
@@ -44,13 +51,18 @@ public class UpdateDependentPatientsCommand implements ICommand {
         this.birthDate = birthDate;
         this.familyRelationship = familyRelationship;
         this.photo = photo;
+        this.gestationTime = gestationTime;
+        this.createContactInfoRequest = createContactInfoRequest;
+        this.disabilityType = disabilityType;
+
     }
 
     public static UpdateDependentPatientsCommand fromRequest(UUID id, UpdateDependentPatientsRequest request) {
         return new UpdateDependentPatientsCommand(id,request.getPrimeId(),request.getIdentification(),
                 request.getName(), request.getLastName(), request.getGender(),
                 request.getWeight(),request.getHeight(),request.getHasDisability(),request.getIsPregnant(),
-                request.getBirthDate(), request.getFamilyRelationship(), request.getPhoto());
+                request.getBirthDate(), request.getFamilyRelationship(), request.getPhoto(),request.getGestationTime(),
+                request.getCreateContactInfoRequest(), request.getDisabilityType());
     }
 
 

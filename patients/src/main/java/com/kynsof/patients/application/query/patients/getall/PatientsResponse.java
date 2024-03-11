@@ -2,6 +2,7 @@ package com.kynsof.patients.application.query.patients.getall;
 
 
 import com.kynsof.patients.domain.dto.PatientDto;
+import com.kynsof.patients.domain.dto.enumTye.GenderType;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class PatientsResponse implements IResponse {
     private String identification;
     private String name;
     private String lastName;
-    private String gender;
+    private GenderType gender;
     private Double weight;
     private Double height;
     private Boolean hasDisability;

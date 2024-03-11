@@ -8,7 +8,6 @@ import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.share.core.domain.kafka.entity.UserKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +17,11 @@ import java.util.logging.Logger;
 
 @Service
 public class ConsumerUserEventService {
-    @Autowired
-    private IPatientsService service;
+    private final IPatientsService service;
+
+    public ConsumerUserEventService(IPatientsService service) {
+        this.service = service;
+    }
 
     // Ejemplo de un método listener
     @KafkaListener(topics = "user", groupId = "patient-user")
@@ -35,8 +37,8 @@ public class ConsumerUserEventService {
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
                 this.service.create(new PatientDto(UUID.fromString(eventRead.getId()),
-                        "", eventRead.getFirstname(), eventRead.getLastname(), "", Status.ACTIVE,
-                        null, null,null, null, null));
+                        "", eventRead.getFirstname(), eventRead.getLastname(), null, Status.ACTIVE,
+                        null, null,null, null, null, null, 0));
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion

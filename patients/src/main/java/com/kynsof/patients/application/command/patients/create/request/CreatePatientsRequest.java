@@ -1,15 +1,15 @@
-package com.kynsof.patients.application.command.patients.update;
+package com.kynsof.patients.application.command.patients.create.request;
 
-import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoRequest;
 import com.kynsof.patients.domain.dto.enumTye.DisabilityType;
 import com.kynsof.patients.domain.dto.enumTye.GenderType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
-public class UpdatePatientsRequest {
+@NoArgsConstructor
+public class CreatePatientsRequest {
 
     private String identification;
     private String name;
@@ -19,8 +19,8 @@ public class UpdatePatientsRequest {
     private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
-    private MultipartFile photo;
+    private String photo;
     private int gestationTime;
-    private CreateContactInfoRequest createContactInfoRequest;
+    private CreatePatientContactInfoRequest contactInfo;
     private DisabilityType disabilityType;
 }

@@ -2,7 +2,9 @@ package com.kynsof.patients.infrastructure.entity;
 
 import com.kynsof.patients.domain.dto.DependentPatientDto;
 import com.kynsof.patients.domain.dto.PatientDto;
+import com.kynsof.patients.domain.dto.enumTye.DisabilityType;
 import com.kynsof.patients.domain.dto.enumTye.FamilyRelationship;
+import com.kynsof.patients.domain.dto.enumTye.GenderType;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,7 +24,7 @@ import java.util.UUID;
 @Entity
 public class Patients implements Serializable {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private UUID id;
 
     @Column(unique = true, nullable = true)
@@ -31,26 +33,28 @@ public class Patients implements Serializable {
     private String name;
 
     private String lastName;
-
-    private String gender;
-
+    @Enumerated(EnumType.STRING)
+    private GenderType gender;
     @Enumerated(EnumType.STRING)
     private Status status;
     @Enumerated(EnumType.STRING)
     private FamilyRelationship familyRelationship;
     private String photo;
-    private Double weight; // Peso
-    private Double height; // Talla
-    private Boolean hasDisability; // Tiene discapacidad
-    private Boolean isPregnant; // Está embarazada
+    private Double weight;
+    private Double height;
+    private Boolean hasDisability;
+    @Enumerated(EnumType.STRING)
+    private DisabilityType disabilityType;
+    private Boolean isPregnant;
+    private int gestationTime = 0;
 
     @OneToMany(mappedBy = "patient", orphanRemoval = true)
     private List<ContactInformation> contactInformation;
 
-    @OneToOne(mappedBy = "patient",  orphanRemoval = true)
+    @OneToOne(mappedBy = "patient", orphanRemoval = true)
     private MedicalInformation medicalInformation;
 
-    @OneToOne(mappedBy = "patient",  orphanRemoval = true)
+    @OneToOne(mappedBy = "patient", orphanRemoval = true)
     private AdditionalInformation additionalInformation;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -78,6 +82,8 @@ public class Patients implements Serializable {
         this.hasDisability = patients.getHasDisability();
         this.isPregnant = patients.getIsPregnant();
         this.photo = patients.getPhoto();
+        this.disabilityType = patients.getDisabilityType();
+        this.gestationTime = patients.getGestationTime();
     }
 
     public Patients(DependentPatientDto patients) {
@@ -93,11 +99,13 @@ public class Patients implements Serializable {
         this.hasDisability = patients.getHasDisability();
         this.isPregnant = patients.getIsPregnant();
         this.photo = patients.getPhoto();
-
+        this.disabilityType = patients.getDisabilityType();
+        this.gestationTime = patients.getGestationTime();
+        this.familyRelationship = patients.getFamilyRelationship();
     }
 
     public PatientDto toAggregate() {
         return new PatientDto(id, identification, name, lastName, gender, status, weight, height, hasDisability, isPregnant,
-                photo);
+                photo, disabilityType, gestationTime);
     }
 }

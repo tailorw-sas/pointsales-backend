@@ -1,5 +1,7 @@
 package com.kynsof.patients.domain.dto;
 
+import com.kynsof.patients.domain.dto.enumTye.DisabilityType;
+import com.kynsof.patients.domain.dto.enumTye.GenderType;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,11 +19,13 @@ public class PatientDto implements Serializable {
     private String identification;
     private String name;
     private String lastName;
-    private String gender;
+    private GenderType gender;
     private Status status;
     private Double weight;
     private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
     private String photo;
+    private DisabilityType disabilityType;
+    private int gestationTime;
 }

@@ -31,7 +31,7 @@ public class GeographicLocation implements Serializable {
     public GeographicLocation() {
     }
 
-    public GeographicLocation(GeographicLocation geographiclocation) {
+    public GeographicLocation(GeographicLocationDto geographiclocation) {
         this.id = geographiclocation.getId();
         this.name = geographiclocation.getName();
         this.type = geographiclocation.getType();

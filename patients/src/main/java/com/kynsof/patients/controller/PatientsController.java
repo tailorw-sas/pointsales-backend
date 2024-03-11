@@ -2,7 +2,7 @@ package com.kynsof.patients.controller;
 
 import com.kynsof.patients.application.command.patients.create.CreatePatientMessage;
 import com.kynsof.patients.application.command.patients.create.CreatePatientsCommand;
-import com.kynsof.patients.application.command.patients.create.CreatePatientsRequest;
+import com.kynsof.patients.application.command.patients.create.request.CreatePatientsRequest;
 import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceCommand;
 import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceMessage;
 import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceRequest;
@@ -12,6 +12,7 @@ import com.kynsof.patients.application.command.patients.update.UpdatePatientMess
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsCommand;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsRequest;
 import com.kynsof.patients.application.query.patients.getById.FindPatientsByIdQuery;
+import com.kynsof.patients.application.query.patients.getByIdentification.FindPatientsByIdentificationQuery;
 import com.kynsof.patients.application.query.patients.getall.GetAllPatientsFilterQuery;
 import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import com.kynsof.patients.application.query.patients.search.GetSearchPatientsQuery;
@@ -76,6 +77,15 @@ public class PatientsController {
     public ResponseEntity<PatientsResponse> getById(@PathVariable UUID id) {
 
         FindPatientsByIdQuery query = new FindPatientsByIdQuery(id);
+        PatientsResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/identification/{identification}")
+    public ResponseEntity<PatientsResponse> getByIdentification(@PathVariable String identification) {
+
+        FindPatientsByIdentificationQuery query = new FindPatientsByIdentificationQuery(identification);
         PatientsResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
