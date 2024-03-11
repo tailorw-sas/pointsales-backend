@@ -1,7 +1,6 @@
 package com.kynsof.identity.infrastructure.identity;
 
 import com.kynsof.identity.domain.dto.RolDto;
-import com.kynsof.identity.domain.dto.Status;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,8 +29,7 @@ public class UserSystem implements Serializable {
     private String email;
     private String name;
     private String lastName;
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    private String status;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserRol> userRols = new ArrayList<>();
 
