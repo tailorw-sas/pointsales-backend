@@ -2,8 +2,11 @@ package com.kynsof.calendar.application.command.business.create;
 
 import com.kynsof.calendar.domain.dto.BusinessDto;
 import com.kynsof.calendar.domain.service.IBusinessService;
+import com.kynsof.calendar.infrastructure.service.kafka.producer.ProducerSaveFileEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.utils.FileNameGetExtension;
+import com.kynsof.share.core.domain.kafka.entity.FileKafka;
+import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,19 +14,17 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
 
     private final IBusinessService service;
 
+    @Autowired
+    private ProducerSaveFileEventService saveFileEventService;
+
     public CreateBusinessCommandHandler(IBusinessService service) {
         this.service = service;
     }
 
     @Override
     public void handle(CreateBusinessCommand command) {
-        System.err.println("··················································");
-        System.err.println("··················································");
-        System.err.println("··················································");
-        System.err.println("nombre: " + FileNameGetExtension.getExtension(command.getLogo().getFileName()));
-        System.err.println("··················································");
-        System.err.println("··················································");
-        System.err.println("··················································");
+
+        UUID idLogo = UUID.randomUUID();
         service.create(new BusinessDto(
                 command.getId(),
                 command.getName(),
@@ -31,7 +32,10 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
                 command.getLongitude(),
                 command.getDescription(),
                 command.getLogo().getFile(),
+                idLogo,
                 command.getRuc()
         ));
+        FileKafka fileSave = new FileKafka(idLogo, "Business", command.getLogo().getFileName(), command.getLogo().getFile());
+        saveFileEventService.create(fileSave);
     }
 }

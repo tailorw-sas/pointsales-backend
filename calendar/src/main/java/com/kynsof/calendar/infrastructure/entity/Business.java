@@ -17,6 +17,7 @@ import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
@@ -34,7 +35,7 @@ public class Business extends BaseEntity {
 
     @Lob
     private byte[] logo;
-
+    private UUID idLogo;
     private String ruc;
 
     @Enumerated(EnumType.STRING)
@@ -58,12 +59,13 @@ public class Business extends BaseEntity {
         this.longitude = business.getLongitude();
         this.description = business.getDescription();
         this.logo = business.getLogo();
+        this.idLogo = business.getIdLogo();
         this.ruc = business.getRuc();
         this.status = business.getStatus();
         this.deleted = business.isDeleted();
     }
 
     public BusinessDto toAggregate () {
-        return new BusinessDto(id, name, latitude, longitude, description, logo, ruc, status, deleted, createdAt, updatedAt, deletedAt);
+        return new BusinessDto(id, name, latitude, longitude, description, logo, idLogo, ruc, status, deleted, createdAt, updatedAt, deletedAt);
     }
 }
