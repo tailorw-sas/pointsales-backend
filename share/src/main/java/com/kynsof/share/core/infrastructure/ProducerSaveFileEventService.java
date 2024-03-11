@@ -1,4 +1,4 @@
-package com.kynsof.calendar.infrastructure.service.kafka.producer;
+package com.kynsof.share.core.infrastructure;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
