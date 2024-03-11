@@ -13,11 +13,11 @@ import java.util.UUID;
 @Component
 public class CreateCurrentMedicationCommandHandler implements ICommandHandler<CreateCurrentMedicationCommand> {
 
-    private final ICurrentMedicationService allergyService;
+    private final ICurrentMedicationService currentMedicationService;
     private final IMedicalInformationService medicalInformationService;
 
     public CreateCurrentMedicationCommandHandler(ICurrentMedicationService serviceImpl, IMedicalInformationService patientsService) {
-        this.allergyService = serviceImpl;
+        this.currentMedicationService = serviceImpl;
         this.medicalInformationService = patientsService;
     }
 
@@ -25,7 +25,7 @@ public class CreateCurrentMedicationCommandHandler implements ICommandHandler<Cr
     public void handle(CreateCurrentMedicationCommand command) {
         MedicalInformationDto medicalInformationDto = medicalInformationService.findById(command.getMedicalInformationId());
         UUID id =
-                allergyService.create(new CurrentMerdicationEntityDto(
+                currentMedicationService.create(new CurrentMerdicationEntityDto(
                 UUID.randomUUID(),
                 command.getDosage(),
                 command.getName(),

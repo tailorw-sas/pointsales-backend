@@ -1,5 +1,7 @@
 package com.kynsof.patients.application.command.dependents.create;
 
+import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoRequest;
+import com.kynsof.patients.domain.dto.enumTye.DisabilityType;
 import com.kynsof.patients.domain.dto.enumTye.FamilyRelationship;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +15,7 @@ import java.util.UUID;
 public class CreateDependentPatientsRequest {
 
     private UUID primeId;
+    private MultipartFile photo;
     private String identification;
     private String name;
     private String lastName;
@@ -21,7 +24,10 @@ public class CreateDependentPatientsRequest {
     private Double weight;
     private Double height;
     private Boolean hasDisability;
-    private Boolean isPregnant;
+    private DisabilityType disabilityType;
     private FamilyRelationship familyRelationship;
-    private MultipartFile photo;
+    private Boolean isPregnant;
+    private int gestationTime;
+    private CreateContactInfoRequest createContactInfoRequest;
+
 }
