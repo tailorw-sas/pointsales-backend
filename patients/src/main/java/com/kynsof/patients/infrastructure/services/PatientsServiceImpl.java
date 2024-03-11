@@ -158,7 +158,6 @@ public class PatientsServiceImpl implements IPatientsService {
             return patient.get().toAggregate();
         }
       throw new RuntimeException("Patients not found.");
-       // throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Patients not found.");
 
     }
 
@@ -199,6 +198,15 @@ public class PatientsServiceImpl implements IPatientsService {
         patient.setInsurances(insurances);
         repositoryCommand.save(patient);
 
+    }
+
+    @Override
+    public PatientDto findByIdentification(String identification) {
+        Optional<Patients> patient = this.repositoryQuery.findByIdentification(identification);
+        if (patient.isPresent()) {
+            return patient.get().toAggregate();
+        }
+        throw new RuntimeException("Patients not found.");
     }
 
     @Override
