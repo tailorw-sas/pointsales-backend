@@ -30,11 +30,6 @@ public class ConsumerSaveFileEventService {
     @KafkaListener(topics = "file", groupId = "file")
     public void listen(String event) {
         try {
-            System.err.println("#######################################################");
-            System.err.println("#######################################################");
-            System.err.println("SE EJECUTA CUANDO SE RECIBE UN FICHERO");
-            System.err.println("#######################################################");
-            System.err.println("#######################################################");
 
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
