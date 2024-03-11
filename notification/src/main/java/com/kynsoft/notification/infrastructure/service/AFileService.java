@@ -5,6 +5,8 @@ import com.kynsoft.notification.domain.dto.AFileDto;
 import com.kynsoft.notification.domain.service.IAFileService;
 import com.kynsoft.notification.infrastructure.entity.AFile;
 import com.kynsoft.notification.infrastructure.repository.command.FileWriteDataJPARepository;
+import com.kynsoft.notification.infrastructure.repository.query.FileReadDataJPARepository;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,9 @@ public class AFileService implements IAFileService {
 
     @Autowired
     private FileWriteDataJPARepository commandRepository;
+
+    @Autowired
+    private FileReadDataJPARepository queryRepository;
 
     @Override
     public void create(AFileDto object) {
@@ -33,7 +38,11 @@ public class AFileService implements IAFileService {
 
     @Override
     public AFileDto findById(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Optional<AFile> file = this.queryRepository.findById(id);
+        if (file.isPresent()) {
+            return file.get().toAggregate();
+        }
+        return null;
     }
-    
+
 }

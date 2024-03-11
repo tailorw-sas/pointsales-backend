@@ -56,4 +56,17 @@ public class FileController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @GetMapping("/load/by/id")
+    public ResponseEntity<AFileDto> loadFile(@RequestParam("id") UUID id) {
+
+        try {
+            AFileDto fileSave = this.fileService.findById(id);
+
+            AFileDto file = amazonClient.loadFile(fileSave.getUrl());
+            return ResponseEntity.ok(file);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
