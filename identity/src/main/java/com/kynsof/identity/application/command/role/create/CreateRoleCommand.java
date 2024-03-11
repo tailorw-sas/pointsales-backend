@@ -19,12 +19,12 @@ public class CreateRoleCommand implements ICommand {
         this.description = description;
     }
 
-    public static CreateRoleCommand fromRequest(CreateRoleRequest request) {
+    public static CreateRoleCommand fromRequest(RoleRequest request) {
         return new CreateRoleCommand(request.getName(), request.getDescription());
     }
 
     @Override
     public ICommandMessage getMessage() {
-        return new CreatRoleMessage(id);
+        return new CreateRoleMessage(id);
     }
 }

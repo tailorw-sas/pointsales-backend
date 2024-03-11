@@ -1,14 +1,15 @@
 package com.kynsof.identity.controller;
 
-import com.kynsof.identity.application.command.role.create.CreatRoleMessage;
 import com.kynsof.identity.application.command.role.create.CreateRoleCommand;
-import com.kynsof.identity.application.command.role.create.CreateRoleRequest;
+import com.kynsof.identity.application.command.role.create.CreateRoleMessage;
+import com.kynsof.identity.application.command.role.create.RoleRequest;
+import com.kynsof.identity.application.command.role.update.UpdateRoleCommand;
+import com.kynsof.identity.application.command.role.update.UpdateRoleMessage;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/roles")
@@ -21,9 +22,16 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity<CreatRoleMessage> createRole(@RequestBody CreateRoleRequest request) {
+    public ResponseEntity<CreateRoleMessage> createRole(@RequestBody RoleRequest request) {
         CreateRoleCommand command = CreateRoleCommand.fromRequest(request);
-        CreatRoleMessage response = mediator.send(command);
+        CreateRoleMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateRoleMessage> updateRole(@PathVariable UUID id, @RequestBody RoleRequest roleUpdateDto) {
+        UpdateRoleCommand command = UpdateRoleCommand.fromRequest(id,roleUpdateDto);
+        UpdateRoleMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 }

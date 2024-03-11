@@ -6,13 +6,13 @@ import lombok.Getter;
 import java.util.UUID;
 
 @Getter
-public class CreatRoleMessage implements ICommandMessage {
+public class CreateRoleMessage implements ICommandMessage {
 
     private final UUID id;
 
     private final String command = "CREATE_ROLE";
 
-    public CreatRoleMessage(UUID id) {
+    public CreateRoleMessage(UUID id) {
         this.id = id;
     }
 

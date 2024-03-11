@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateRoleRequest {
+public class RoleRequest {
     private String name;
     private String description;
 }

@@ -6,6 +6,7 @@ import com.kynsof.identity.domain.interfaces.IRoleService;
 import com.kynsof.identity.infrastructure.identity.RolSystem;
 import com.kynsof.identity.infrastructure.repositories.command.RolWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repositories.query.RolReadDataJPARepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,24 @@ public class RolServiceImpl implements IRoleService {
 
     @Override
     public UUID create(RolDto dto) {
-        RolSystem allergy =this.repositoryCommand.save(new RolSystem(dto));
+        RolSystem allergy = this.repositoryCommand.save(new RolSystem(dto));
         return allergy.getId();
+    }
+
+    @Override
+    public void update(RolDto roleUpdateDto) {
+        if (roleUpdateDto == null || roleUpdateDto.getId() == null) {
+            throw new IllegalArgumentException("Role DTO or ID cannot be null");
+        }
+
+        this.repositoryQuery.findById(roleUpdateDto.getId())
+                .map(role -> {
+                    if (roleUpdateDto.getName() != null) role.setName(roleUpdateDto.getName());
+                    if (roleUpdateDto.getDescription() != null) role.setDescription(roleUpdateDto.getDescription());
+
+                    return this.repositoryCommand.save(role);
+                })
+                .orElseThrow(() -> new EntityNotFoundException("Role with ID " + roleUpdateDto.getId() + " not found"));
     }
 
 //    @Override

@@ -17,7 +17,6 @@ public class CreateUserSystemCommand implements ICommand {
     private String lastName;
     private String  status;
 
-    // Constructor
     public CreateUserSystemCommand(String userName, String email, String name, String lastName, String status) {
         this.userName = userName;
         this.email = email;

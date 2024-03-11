@@ -6,4 +6,5 @@ import java.util.UUID;
 
 public interface IRoleService {
     UUID create(RolDto dto);
+    void update(RolDto dto);
 }
