@@ -1,6 +1,6 @@
 package com.kynsoft.notification.infrastructure.service;
 
-import com.kynsoft.notification.domain.dto.AFile;
+import com.kynsoft.notification.domain.dto.AFileDto;
 import com.kynsoft.notification.domain.service.IAmazonClient;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -90,9 +90,9 @@ public class AmazonClient implements IAmazonClient {
     }
 
     @Override
-    public AFile loadFile(String url) {
+    public AFileDto loadFile(String url) {
         String filename = url.replace(this.cloudfrontDomain, "");
 
-        return new AFile(filename, url);
+        return new AFileDto(filename, url);
     }
 }

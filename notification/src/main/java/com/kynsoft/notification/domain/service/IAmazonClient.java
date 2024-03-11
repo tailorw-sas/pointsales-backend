@@ -1,6 +1,6 @@
 package com.kynsoft.notification.domain.service;
 
-import com.kynsoft.notification.domain.dto.AFile;
+import com.kynsoft.notification.domain.dto.AFileDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -15,5 +15,5 @@ public interface IAmazonClient {
 
     void delete(String url);
 
-    AFile loadFile(String url);
+    AFileDto loadFile(String url);
 }

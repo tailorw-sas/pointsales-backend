@@ -2,8 +2,10 @@ package com.kynsoft.notification.controller;
 
 import com.kynsof.share.core.application.FileRequest;
 import com.kynsof.share.core.infrastructure.util.CustomMultipartFile;
-import com.kynsoft.notification.domain.dto.AFile;
+import com.kynsoft.notification.domain.dto.AFileDto;
+import com.kynsoft.notification.domain.service.IAFileService;
 import com.kynsoft.notification.infrastructure.service.AmazonClient;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +17,21 @@ public class FileController {
 
     private final AmazonClient amazonClient;
 
+    private final IAFileService fileService;
+
     @Autowired
-    public FileController(AmazonClient amazonClient) {
+    public FileController(AmazonClient amazonClient, IAFileService fileService) {
         this.amazonClient = amazonClient;
+        this.fileService = fileService;
     }
+
     @PostMapping("/upload")
     public ResponseEntity<?> uploadFile(@RequestBody FileRequest request) {
         try {
             MultipartFile file = new CustomMultipartFile(request.getFile(), request.getFileName());
             String fileUrl = amazonClient.save(file, request.getFileName());
-            return ResponseEntity.ok(fileUrl);
+            this.fileService.create(new AFileDto(UUID.randomUUID(), request.getFileName(), "", fileUrl));
+            return ResponseEntity.ok("OK");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to upload file: " + e.getMessage());
         }
@@ -41,9 +48,9 @@ public class FileController {
     }
 
     @GetMapping("/load")
-    public ResponseEntity<AFile> loadFile(@RequestParam("url") String fileUrl) {
+    public ResponseEntity<AFileDto> loadFile(@RequestParam("url") String fileUrl) {
         try {
-            AFile file = amazonClient.loadFile(fileUrl);
+            AFileDto file = amazonClient.loadFile(fileUrl);
             return ResponseEntity.ok(file);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
