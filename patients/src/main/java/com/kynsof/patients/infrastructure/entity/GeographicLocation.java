@@ -22,7 +22,7 @@ public class GeographicLocation implements Serializable {
     @Column(unique = false, nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private GeographicLocationType type;
 
     @ManyToOne(optional = true, fetch = FetchType.EAGER)

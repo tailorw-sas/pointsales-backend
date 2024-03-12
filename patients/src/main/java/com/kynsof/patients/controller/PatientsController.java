@@ -114,7 +114,7 @@ public class PatientsController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<ApiResponse<?>> extractToken(@AuthenticationPrincipal Jwt jwt) {
+    public ResponseEntity<ApiResponse<?>> me(@AuthenticationPrincipal Jwt jwt) {
             try {
                 String patientId = jwt.getClaim("sub");
                 FindPatientsByIdQuery query = new FindPatientsByIdQuery(UUID.fromString(patientId));
