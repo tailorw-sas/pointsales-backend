@@ -1,6 +1,7 @@
 package com.kynsof.patients.domain.service;
 
 import com.kynsof.patients.domain.dto.DependentPatientDto;
+import com.kynsof.patients.domain.dto.PatientByIdDto;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
@@ -16,7 +17,8 @@ public interface IPatientsService {
     void updateDependent(DependentPatientDto patients);
     void delete(UUID id);
 
-    PatientDto findById(UUID id);
+    PatientByIdDto findById(UUID id);
+    PatientDto findByIdSimple(UUID id);
     PaginatedResponse findAll(Pageable pageable);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);

@@ -12,6 +12,7 @@ import com.kynsof.patients.application.command.patients.update.UpdatePatientMess
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsCommand;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsRequest;
 import com.kynsof.patients.application.query.patients.getById.FindPatientsByIdQuery;
+import com.kynsof.patients.application.query.patients.getById.PatientByIdResponse;
 import com.kynsof.patients.application.query.patients.getByIdentification.FindPatientsByIdentificationQuery;
 import com.kynsof.patients.application.query.patients.getall.GetAllPatientsFilterQuery;
 import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
@@ -117,7 +118,7 @@ public class PatientsController {
             try {
                 String patientId = jwt.getClaim("sub");
                 FindPatientsByIdQuery query = new FindPatientsByIdQuery(UUID.fromString(patientId));
-                PatientsResponse response = mediator.send(query);
+                PatientByIdResponse response = mediator.send(query);
                 return ResponseEntity.ok(ApiResponse.success(response));
             } catch (Exception e) {
                 return ResponseEntity.ok(ApiResponse.fail(ApiError.withSingleError("error", "token", "Error al procesar el token")));

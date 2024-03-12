@@ -2,6 +2,7 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import com.kynsof.patients.domain.dto.DependentPatientDto;
+import com.kynsof.patients.domain.dto.PatientByIdDto;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IPatientsService;
@@ -146,18 +147,25 @@ public class PatientsServiceImpl implements IPatientsService {
 
     }
 
+    @Override
+    public PatientByIdDto findById(UUID id) {
+        Optional<Patients> patient = this.repositoryQuery.findById(id);
+        if (patient.isPresent()) {
+            PatientByIdDto patientByIdDto =  patient.get().toAggregateById();
+            return patientByIdDto;
+        }
+      throw new RuntimeException("Patients not found.");
 
-
-
+    }
 
     @Cacheable(cacheNames = CacheConfig.USER_CACHE, unless = "#result == null")
     @Override
-    public PatientDto findById(UUID id) {
+    public PatientDto findByIdSimple(UUID id) {
         Optional<Patients> patient = this.repositoryQuery.findById(id);
         if (patient.isPresent()) {
             return patient.get().toAggregate();
         }
-      throw new RuntimeException("Patients not found.");
+        throw new RuntimeException("Patients not found.");
 
     }
 
@@ -211,10 +219,11 @@ public class PatientsServiceImpl implements IPatientsService {
 
     @Override
     public void delete(UUID id) {
-        PatientDto patientDelete = this.findById(id);
-        patientDelete.setStatus(Status.INACTIVE);
+        Optional<Patients> patient = this.repositoryQuery.findById(id);
+        PatientDto patientDto = patient.get().toAggregate();
+        patientDto.setStatus(Status.INACTIVE);
 
-        this.repositoryCommand.save(new Patients(patientDelete));
+        this.repositoryCommand.save(new Patients(patientDto));
     }
 
 }

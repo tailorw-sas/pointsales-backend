@@ -24,7 +24,7 @@ public class CreateAdditionalInfoCommandHandler implements ICommandHandler<Creat
 
     @Override
     public void handle(CreateAdditionalInfoCommand command) {
-        PatientDto patientDto = patientsService.findById(command.getPatientId());
+        PatientDto patientDto = patientsService.findByIdSimple(command.getPatientId());
         UUID id = additionalInfoService.create(new AdditionalInformationDto(
                 UUID.randomUUID(),
                 new Patients(patientDto),

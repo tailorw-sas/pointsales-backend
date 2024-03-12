@@ -28,7 +28,7 @@ public class CreateContactInfoCommandHandler implements ICommandHandler<CreateCo
 
     @Override
     public void handle(CreateContactInfoCommand command) {
-        PatientDto patientDto = patientsService.findById(command.getPatientId());
+        PatientDto patientDto = patientsService.findByIdSimple(command.getPatientId());
         GeographicLocationDto geographicLocationDto = geographicLocationService.findById(command.getGeographicLocationId());
         UUID id = contactInfoService.create(new ContactInfoDto(
                 UUID.randomUUID(),

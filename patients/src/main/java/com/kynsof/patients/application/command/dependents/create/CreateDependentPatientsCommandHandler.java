@@ -32,7 +32,7 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
     @Override
     public void handle(CreateDependentPatientsCommand command) {
 
-        PatientDto prime = serviceImpl.findById(command.getPrimeId());
+        PatientDto prime = serviceImpl.findByIdSimple(command.getPrimeId());
         UUID idLogo = UUID.randomUUID();
         UUID id = serviceImpl.createDependent(new DependentPatientDto(
                 UUID.randomUUID(),
@@ -51,7 +51,7 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 command.getDisabilityType(),
                 command.getGestationTime()
         ));
-        PatientDto patientDto = serviceImpl.findById(id);
+        PatientDto patientDto = serviceImpl.findByIdSimple(id);
         GeographicLocationDto geographicLocationDto = geographicLocationService.findById(
                 command.getCreateContactInfoRequest().getGeographicLocationId());
         UUID idContactId = contactInfoService.create(new ContactInfoDto(

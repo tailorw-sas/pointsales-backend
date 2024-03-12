@@ -4,15 +4,18 @@ import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.infrastructure.entity.Patients;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class ContactInfoDto {
+@NoArgsConstructor
+public class ContactInfoDto implements Serializable {
     private UUID id;
     private Patients patient;
     private String email;

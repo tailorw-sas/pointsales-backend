@@ -27,7 +27,7 @@ public class CreateMedicalInformationCommandHandler implements ICommandHandler<C
 
     @Override
     public void handle(CreateMedicalInformationCommand command) {
-        PatientDto patientDto = patientsService.findById(command.getPatientId());
+        PatientDto patientDto = patientsService.findByIdSimple(command.getPatientId());
 
         List<AllergyDto> allergyDtos = command.getAllergies().stream()
                 .map(createAllergyRequest -> new AllergyDto(

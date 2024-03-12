@@ -19,8 +19,8 @@ public class ContactInformation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id; // Cambiado para evitar conflictos con el ID del paciente
 
-    @ManyToOne
-    @JoinColumn(name = "patientId", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "patients_id", referencedColumnName = "id")
     private Patients patient;
 
     private String email;
@@ -34,8 +34,8 @@ public class ContactInformation {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "geographic_location_id", nullable = true)
+    @ManyToOne()
+    @JoinColumn(name = "geographic_location_id")
     private GeographicLocation geographicLocation;
 
     public ContactInformation(ContactInfoDto contactInfoDto) {

@@ -50,7 +50,7 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
                 command.getGestationTime()
         ));
         command.setId(id);
-        PatientDto patientDto = serviceImpl.findById(id);
+        PatientDto patientDto = serviceImpl.findByIdSimple(id);
         GeographicLocationDto geographicLocationDto = geographicLocationService.findById(
                 command.getCreateContactInfoRequest().getGeographicLocationId());
         UUID idContactId = contactInfoService.create(new ContactInfoDto(
