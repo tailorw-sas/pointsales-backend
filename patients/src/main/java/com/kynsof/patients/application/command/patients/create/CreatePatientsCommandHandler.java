@@ -22,7 +22,7 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
     private final IContactInfoService contactInfoService;
     private final IGeographicLocationService geographicLocationService;
 
-    private ProducerSaveFileEventService saveFileEventService;
+    private final ProducerSaveFileEventService saveFileEventService;
     public CreatePatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
                                         IGeographicLocationService geographicLocationService, ProducerSaveFileEventService saveFileEventService) {
         this.serviceImpl = serviceImpl;
