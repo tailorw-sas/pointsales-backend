@@ -7,6 +7,8 @@ import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.kafka.entity.FileKafka;
+import com.kynsof.share.core.infrastructure.ProducerSaveFileEventService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -17,18 +19,21 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
     private final IPatientsService serviceImpl;
     private final IContactInfoService contactInfoService;
     private final IGeographicLocationService geographicLocationService;
+    private final ProducerSaveFileEventService saveFileEventService;
 
     public CreateDependentPatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
-                                                 IGeographicLocationService geographicLocationService) {
+                                                 IGeographicLocationService geographicLocationService, ProducerSaveFileEventService saveFileEventService) {
         this.serviceImpl = serviceImpl;
         this.contactInfoService = contactInfoService;
         this.geographicLocationService = geographicLocationService;
+        this.saveFileEventService = saveFileEventService;
     }
 
     @Override
     public void handle(CreateDependentPatientsCommand command) {
 
         PatientDto prime = serviceImpl.findById(command.getPrimeId());
+        UUID idLogo = UUID.randomUUID();
         UUID id = serviceImpl.createDependent(new DependentPatientDto(
                 UUID.randomUUID(),
                 command.getIdentification(),
@@ -42,7 +47,7 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 command.getHasDisability(),
                 command.getIsPregnant(),
                 command.getFamilyRelationship(),
-               " command.getPhoto()",
+                idLogo.toString(),
                 command.getDisabilityType(),
                 command.getGestationTime()
         ));
@@ -60,5 +65,7 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 geographicLocationDto
         ));
         command.setId(id);
+        FileKafka fileSave = new FileKafka(idLogo, "patients", command.getName()+".png", command.getPhoto());
+        saveFileEventService.create(fileSave);
     }
 }

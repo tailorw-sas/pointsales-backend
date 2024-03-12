@@ -63,7 +63,7 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
                 Status.ACTIVE,
                 geographicLocationDto
         ));
-        FileKafka fileSave = new FileKafka(idLogo, "calendar", command.getName()+".png", command.getPhoto());
+        FileKafka fileSave = new FileKafka(idLogo, "patients", command.getName()+".png", command.getPhoto());
         saveFileEventService.create(fileSave);
     }
 }
