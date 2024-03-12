@@ -175,13 +175,8 @@ public class UserService implements IUserService {
         }
 
         try {
-            // Obtener el recurso del usuario basado en el ID
             UserResource userResource = keycloakProvider.getUserResource().get(id);
-
-            // Crear un nuevo UserRepresentation para actualizar los detalles del usuario
             UserRepresentation user = userResource.toRepresentation();
-
-            // Actualizar los campos del usuario según los proporcionados por el DTO
             if (registerDTO.getUsername() != null) {
                 user.setUsername(registerDTO.getUsername());
             }
@@ -193,11 +188,9 @@ public class UserService implements IUserService {
             }
             if (registerDTO.getEmail() != null) {
                 user.setEmail(registerDTO.getEmail());
-                user.setEmailVerified(true); // Considerar si se debe verificar siempre el correo
+                user.setEmailVerified(true);
             }
-            user.setEnabled(true); // Considerar si se debe habilitar siempre el usuario
-
-            // Si se proporciona una contraseña, actualizarla
+            user.setEnabled(true);
             if (registerDTO.getPassword() != null && !registerDTO.getPassword().trim().isEmpty()) {
                 CredentialRepresentation credential = new CredentialRepresentation();
                 credential.setTemporary(false);
@@ -205,15 +198,11 @@ public class UserService implements IUserService {
                 credential.setValue(registerDTO.getPassword());
                 user.setCredentials(Collections.singletonList(credential));
             }
-
-            // Aplicar los cambios
             userResource.update(user);
         } catch (Exception e) {
-            // Manejar la excepción según corresponda
             throw new RuntimeException("Failed to update user.", e);
         }
     }
-
 
     public void deleteUser(String id) {
         keycloakProvider.getUserResource()
