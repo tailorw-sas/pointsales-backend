@@ -1,6 +1,8 @@
 package com.kynsoft.gateway.controller;
 
 
+import com.kynsof.share.core.domain.response.ApiError;
+import com.kynsof.share.core.domain.response.ApiResponse;
 import com.kynsoft.gateway.application.dto.*;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,6 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -54,39 +55,32 @@ public class AuthController {
     }
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<?> forgotPassword(@RequestParam String email) {
-       Boolean response = userService.triggerPasswordReset(email);
+    public ResponseEntity<ApiResponse<?>> forgotPassword(@RequestParam String email) {
+        Boolean response = userService.triggerPasswordReset(email);
         if (response) {
-            return ResponseEntity.ok().body(true);
+            return ResponseEntity.ok(ApiResponse.success(true));
         } else {
-            ApiError apiError = new ApiError();
-            apiError.setErrorMessage("Error al recuperar la contraseña");
-            apiError.setStatus(400);
-            ErrorField error = new ErrorField();
-            error.setMessage("No existe un usuario con el correo " + email);
-            error.setField("email");
-            apiError.setErrors(Collections.singletonList(error));
-
-            return ResponseEntity.badRequest().body(apiError);
+            ApiError apiError = ApiError.withSingleError(
+                    "Error al recuperar la contraseña",
+                    "email",
+                    "No existe un usuario con el correo " + email
+            );
+            return ResponseEntity.badRequest().body(ApiResponse.fail(apiError));
         }
     }
 
     @PostMapping("/change-password")
-    public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequest request) {
-         Boolean response = userService.changePassword(request);
-
+    public ResponseEntity<ApiResponse<?>> changePassword(@RequestBody PasswordChangeRequest request) {
+        Boolean response = userService.changePassword(request);
         if (response) {
-            return ResponseEntity.ok().body(true);
+            return ResponseEntity.ok(ApiResponse.success(true));
         } else {
-            ApiError apiError = new ApiError();
-            apiError.setErrorMessage("Error al recuperar la contraseña");
-            apiError.setStatus(400);
-            ErrorField error = new ErrorField();
-            error.setMessage("No existe un usuario con el correo " + request.getEmail());
-            error.setField("email");
-            apiError.setErrors(Collections.singletonList(error));
-
-            return ResponseEntity.badRequest().body(apiError);
+            ApiError apiError = ApiError.withSingleError(
+                    "Error al cambiar la contraseña",
+                    "email",
+                    "No existe un usuario con el correo " + request.getEmail()
+            );
+            return ResponseEntity.badRequest().body(ApiResponse.fail(apiError));
         }
     }
 }
