@@ -126,7 +126,7 @@ public class MailController {
 
           int  templateId =3931552;
             EmailRequest emailRequest = new EmailRequest(mailJetRecipients, vars, mailJetAttachments,"SubjectTest", templateId);
-            result = emailService.sendMailTemplateK(emailRequest);
+            result = emailService.sendEmailMailjet(emailRequest);
 
             if (result) {
                 msg = "Message sent successfully!";

@@ -258,8 +258,7 @@ public class UserService implements IUserService {
             UserRepresentation user = users.get(0);
             String otpCode = otpService.generateOtpCode();
             otpService.saveOtpCode(email, otpCode );
-            producerOtp.create(new UserOtpKafka(email, otpCode));
-            //Yannier enviar la notificacion por kafka
+            producerOtp.create(new UserOtpKafka(email, otpCode, user.getFirstName()));
             return true;
         }
         return false;
