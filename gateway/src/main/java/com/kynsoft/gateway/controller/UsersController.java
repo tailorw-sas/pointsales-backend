@@ -22,16 +22,16 @@ public class UsersController {
         this.userService = userService;
     }
 
-    @GetMapping("/list")
-    public Mono<ResponseEntity<?>> findAllUsers() {
-        return Mono.justOrEmpty(ResponseEntity.ok(userService.findAllUsers()));
-    }
+//    @GetMapping("/list")
+//    public Mono<ResponseEntity<?>> findAllUsers() {
+//        return Mono.justOrEmpty(ResponseEntity.ok(userService.findAllUsers()));
+//    }
 
 
-    @GetMapping("/find/{username}")
-    public Mono<ResponseEntity<?>> searchUserByUsername(@PathVariable String username) {
-        return Mono.justOrEmpty(ResponseEntity.ok(userService.searchUserByUsername(username)));
-    }
+//    @GetMapping("/find/{username}")
+//    public Mono<ResponseEntity<?>> searchUserByUsername(@PathVariable String username) {
+//        return Mono.justOrEmpty(ResponseEntity.ok(userService.searchUserByUsername(username)));
+//    }
 
     @PostMapping("/change_status")
     public Mono<ResponseEntity<?>> changeStatus(@RequestBody ChangeStatusRequest request) {
@@ -46,9 +46,9 @@ public class UsersController {
     }
 
 
-    @DeleteMapping("/delete/{id}")
-    public Mono<ResponseEntity<?>> deleteUser(@PathVariable String id) {
-        userService.deleteUser(id);
-        return Mono.justOrEmpty(ResponseEntity.ok("User deleted successfully"));
-    }
+//    @DeleteMapping("/delete/{id}")
+//    public Mono<ResponseEntity<?>> deleteUser(@PathVariable String id) {
+//        userService.deleteUser(id);
+//        return Mono.justOrEmpty(ResponseEntity.ok("User deleted successfully"));
+//    }
 }

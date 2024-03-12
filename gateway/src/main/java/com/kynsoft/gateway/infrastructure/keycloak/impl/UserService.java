@@ -89,9 +89,8 @@ public class UserService implements IUserService {
                 });
     }
 
-
     @Override
-    public String registerUser(@NonNull RegisterDTO registerDTO) {
+    public Mono<String> registerUser(@NonNull RegisterDTO registerDTO) {
         int status = 0;
         UsersResource usersResource = keycloakProvider.getUserResource();
 
@@ -139,16 +138,22 @@ public class UserService implements IUserService {
 
             this.producerRegisterUserEvent.create(registerDTO, id);
             // customerService.save(registerDTO);
-            return "User created successfully!!";
+            return Mono.just("User created successfully!!");
 
         } else if (status == 409) {
             log.error("User exist already!");
-            return "User exist already!";
+            return Mono.just("User exist already!");
         } else {
             log.error("Error creating user, please contact with the administrator.");
-            return "Error creating user, please contact with the administrator.";
+            return Mono.just("User exist already!");
         }
     }
+
+    private String extractUserIdFromLocationHeader(Response response) {
+        String path = response.getLocation().getPath();
+        return path.substring(path.lastIndexOf("/") + 1);
+    }
+
 
     public List<UserRepresentation> findAllUsers() {
         return keycloakProvider.getRealmResource()
@@ -162,25 +167,53 @@ public class UserService implements IUserService {
                 .searchByUsername(username, true);
     }
 
+    @Override
     public void updateUser(String id, @NonNull RegisterDTO registerDTO) {
+        // Validar el ID del usuario para asegurarse de que no esté vacío
+        if (id == null || id.trim().isEmpty()) {
+            throw new IllegalArgumentException("User ID cannot be null or empty.");
+        }
 
-        CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
-        credentialRepresentation.setTemporary(false);
-        credentialRepresentation.setType(OAuth2Constants.PASSWORD);
-        credentialRepresentation.setValue(registerDTO.getPassword());
+        try {
+            // Obtener el recurso del usuario basado en el ID
+            UserResource userResource = keycloakProvider.getUserResource().get(id);
 
-        UserRepresentation user = new UserRepresentation();
-        user.setUsername(registerDTO.getUsername());
-        user.setFirstName(registerDTO.getFirstname());
-        user.setLastName(registerDTO.getLastname());
-        user.setEmail(registerDTO.getEmail());
-        user.setEnabled(true);
-        user.setEmailVerified(true);
-        user.setCredentials(Collections.singletonList(credentialRepresentation));
+            // Crear un nuevo UserRepresentation para actualizar los detalles del usuario
+            UserRepresentation user = userResource.toRepresentation();
 
-        UserResource usersResource = keycloakProvider.getUserResource().get(id);
-        usersResource.update(user);
+            // Actualizar los campos del usuario según los proporcionados por el DTO
+            if (registerDTO.getUsername() != null) {
+                user.setUsername(registerDTO.getUsername());
+            }
+            if (registerDTO.getFirstname() != null) {
+                user.setFirstName(registerDTO.getFirstname());
+            }
+            if (registerDTO.getLastname() != null) {
+                user.setLastName(registerDTO.getLastname());
+            }
+            if (registerDTO.getEmail() != null) {
+                user.setEmail(registerDTO.getEmail());
+                user.setEmailVerified(true); // Considerar si se debe verificar siempre el correo
+            }
+            user.setEnabled(true); // Considerar si se debe habilitar siempre el usuario
+
+            // Si se proporciona una contraseña, actualizarla
+            if (registerDTO.getPassword() != null && !registerDTO.getPassword().trim().isEmpty()) {
+                CredentialRepresentation credential = new CredentialRepresentation();
+                credential.setTemporary(false);
+                credential.setType(CredentialRepresentation.PASSWORD);
+                credential.setValue(registerDTO.getPassword());
+                user.setCredentials(Collections.singletonList(credential));
+            }
+
+            // Aplicar los cambios
+            userResource.update(user);
+        } catch (Exception e) {
+            // Manejar la excepción según corresponda
+            throw new RuntimeException("Failed to update user.", e);
+        }
     }
+
 
     public void deleteUser(String id) {
         keycloakProvider.getUserResource()
