@@ -17,11 +17,15 @@ import com.kynsof.patients.application.query.patients.getall.GetAllPatientsFilte
 import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import com.kynsof.patients.application.query.patients.search.GetSearchPatientsQuery;
 import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.ApiError;
+import com.kynsof.share.core.domain.response.ApiResponse;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -108,4 +112,16 @@ public class PatientsController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse<?>> extractToken(@AuthenticationPrincipal Jwt jwt) {
+            try {
+                String patientId = jwt.getClaim("sub");
+                FindPatientsByIdQuery query = new FindPatientsByIdQuery(UUID.fromString(patientId));
+                PatientsResponse response = mediator.send(query);
+                return ResponseEntity.ok(ApiResponse.success(response));
+            } catch (Exception e) {
+                return ResponseEntity.ok(ApiResponse.fail(ApiError.withSingleError("error", "token", "Error al procesar el token")));
+            }
+
+    }
 }
