@@ -2,12 +2,13 @@ package com.kynsof.calendar.application.command.business.create;
 
 import com.kynsof.calendar.domain.dto.BusinessDto;
 import com.kynsof.calendar.domain.service.IBusinessService;
-import com.kynsof.calendar.infrastructure.service.kafka.producer.ProducerSaveFileEventService;
+import com.kynsof.share.core.infrastructure.ProducerSaveFileEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusinessCommand> {
@@ -35,7 +36,7 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
                 idLogo,
                 command.getRuc()
         ));
-        FileKafka fileSave = new FileKafka(idLogo, "Business", command.getLogo().getFileName(), command.getLogo().getFile());
+        FileKafka fileSave = new FileKafka(idLogo, "calendar", command.getLogo().getFileName(), command.getLogo().getFile());
         saveFileEventService.create(fileSave);
     }
 }

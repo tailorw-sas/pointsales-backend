@@ -1,5 +1,6 @@
 package com.kynsof.identity.infrastructure.identity;
 
+import com.kynsof.identity.domain.dto.RolDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-public class Rol {
+public class RolSystem {
     @Id
     @Column(name = "id")
     private UUID id;
@@ -28,4 +29,14 @@ public class Rol {
 
     @OneToMany(mappedBy = "rol")
     private List<RolPermission> rolPermissions = new ArrayList<>();
+
+    public RolSystem(RolDto dto) {
+        this.id = dto.getId();
+        this.name = dto.getName();
+        this.description = dto.getDescription();
+    }
+
+    public RolDto toAggregate() {
+        return new RolDto(this.id, this.name, this.description);
+    }
 }

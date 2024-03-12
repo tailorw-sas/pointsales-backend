@@ -24,7 +24,7 @@ public class RolPermission {
 
     @ManyToOne
     @JoinColumn(name = "rol_id")
-    private Rol rol;
+    private RolSystem rol;
 
     @ManyToOne
     @JoinColumn(name = "permission_id")

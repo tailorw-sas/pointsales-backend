@@ -26,14 +26,14 @@ public class CreateDependentPatientsCommand implements ICommand {
     private Boolean hasDisability;
     private Boolean isPregnant;
     private FamilyRelationship familyRelationship;
-    private String photo;
+    private byte[] photo;
     private int gestationTime;
     private CreateDependentContactInfoRequest createContactInfoRequest;
     private DisabilityType disabilityType;
 
     public CreateDependentPatientsCommand(UUID primeId, String identification, String name, String lastName, GenderType gender, Double weight,
                                           Double height, Boolean hasDisability, Boolean isPregnant,
-                                          FamilyRelationship familyRelationship, String photo, int gestationTime,
+                                          FamilyRelationship familyRelationship, byte[] photo, int gestationTime,
                                           CreateDependentContactInfoRequest createContactInfoRequest, DisabilityType disabilityType) {
         this.primeId = primeId;
         this.identification = identification;

@@ -1,9 +1,7 @@
 package com.kynsof.identity.infrastructure.identity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -11,8 +9,6 @@ import org.hibernate.annotations.GenericGenerator;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -29,7 +25,7 @@ public class UserRol {
 
     @ManyToOne
     @JoinColumn(name = "rol_id")
-    private Rol rol;
+    private RolSystem rol;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
