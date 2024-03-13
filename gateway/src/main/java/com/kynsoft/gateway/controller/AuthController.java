@@ -59,7 +59,6 @@ public class AuthController {
 //    public Mono<?> exchangeGoogleTokenForKeycloakToken(@RequestBody GoogleTokenRequest googleTokenRequest) {
 //        return userService.getKeycloakTokenUsingGoogleToken(googleTokenRequest.getGoogleToken());
 //    }
-
     @PostMapping("/forgot-password")
     public ResponseEntity<ApiResponse<?>> forgotPassword(@RequestParam String email) {
         Boolean response = userService.triggerPasswordReset(email);
