@@ -1,9 +1,5 @@
 FROM ghcr.io/graalvm/native-image:ol8-java17-22 AS builder
 
-
-#Configurar Zona Horaria
-ENV TZ=America/Guayaquil
-
 # Install tar and gzip to extract the Maven binaries
 RUN microdnf update \
     && microdnf install --nodocs \
@@ -43,7 +39,7 @@ ARG PACKAGE_TOKEN
 ENV PACKAGE_TOKEN ${PACKAGE_TOKEN}
 
 # Build
-RUN mvn dependency:go-offline -f pom.xml
+RUN mvn dependency:go-offline -f pom.xml -s rc-settings.xml
 # RUN mvn -B clean package -Pnative  --no-transfer-progress
 # RUN mvn package -Pnative -f pom.xml
 RUN mvn --no-transfer-progress clean package -DskipTests
@@ -52,7 +48,7 @@ RUN mvn --no-transfer-progress clean package -DskipTests
 # FROM docker.io/oraclelinux:9-slim
 FROM bellsoft/liberica-openjdk-alpine:17.0.6
 
-EXPOSE 8097
+EXPOSE 9908
 
 #Configurar Zona Horaria
 RUN apk upgrade --no-cache
@@ -61,5 +57,5 @@ ENV TZ="America/Guayaquil"
 
 # Copy the native executable into the containers
 WORKDIR /app
-COPY --from=builder /build/target/middlewaremail-0.0.1-SNAPSHOT.jar .
-ENTRYPOINT [ "java", "-jar", "/app/middlewaremail-0.0.1-SNAPSHOT.jar" ]
+COPY --from=builder /build/target/notification.jar .
+ENTRYPOINT [ "java", "-jar", "/app/notification.jar" ]
