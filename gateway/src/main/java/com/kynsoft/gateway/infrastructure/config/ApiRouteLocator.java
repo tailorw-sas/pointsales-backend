@@ -1,4 +1,5 @@
 package com.kynsoft.gateway.infrastructure.config;
+
 import com.kynsoft.gateway.application.dto.RouteDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.route.Route;
@@ -12,32 +13,32 @@ import java.net.URISyntaxException;
 @AllArgsConstructor
 public class ApiRouteLocator implements RouteLocator {
 
-  private final UpdateRouteContext updateRouteContext;
+    private final UpdateRouteContext updateRouteContext;
 
-  private final RouteLocatorBuilder routeLocatorBuilder;
-  
+    private final RouteLocatorBuilder routeLocatorBuilder;
 
-  @Override
-  public Flux<Route> getRoutes() {
-    RouteLocatorBuilder.Builder routesBuilder = routeLocatorBuilder.routes();
-    
-    for (RouteDTO route : updateRouteContext.getDefinitionsContext().getDefinitions()) {
 
-        String path = route.getUri().toString();
-      URI uri;
-        try {
-        path =  path.replace("http","https");
-          uri = new URI(path);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+    @Override
+    public Flux<Route> getRoutes() {
+        RouteLocatorBuilder.Builder routesBuilder = routeLocatorBuilder.routes();
+
+        for (RouteDTO route : updateRouteContext.getDefinitionsContext().getDefinitions()) {
+
+            String path = route.getUri().toString();
+            URI uri;
+            try {
+                path = path.replace("http", "https");
+                uri = new URI(path);
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+            routesBuilder.route(route.getName(),
+                    r -> r.path(route.getPath())
+                            .filters(f -> f.stripPrefix(1))
+                            .uri(uri));
         }
-        routesBuilder.route(route.getName(),
-                r -> r.path(route.getPath())
-                        .filters(f -> f.stripPrefix(1))
-                        .uri(uri));
+
+        return routesBuilder.build().getRoutes();
     }
-    
-    return routesBuilder.build().getRoutes();
-  }
 
 }

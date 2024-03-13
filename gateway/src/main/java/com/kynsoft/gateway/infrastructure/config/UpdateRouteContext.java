@@ -9,6 +9,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 
@@ -31,7 +33,17 @@ public class UpdateRouteContext implements ApplicationListener<RefreshRoutesEven
             if (!serviceId.toUpperCase().equals("UNKNOWN")) {
                 List<ServiceInstance> instances = discoveryClient.getInstances(serviceId);
                 for (ServiceInstance instance : instances) {
-                	definitionsContext.add(serviceId.toLowerCase(), new RouteDTO(serviceId.toLowerCase(), "/" + serviceId.toLowerCase() + "/**", instance.getUri()));
+                    String path = instance.getUri().toString();
+                    URI uri;
+                    try {
+                        path = path.replace("http", "https");
+                        uri = new URI(path);
+                    } catch (URISyntaxException e) {
+                        throw new RuntimeException(e);
+                    }
+                    definitionsContext.add(serviceId.toLowerCase(), new RouteDTO(serviceId.toLowerCase(), "/" + serviceId.toLowerCase() + "/**", uri));
+
+                	//definitionsContext.add(serviceId.toLowerCase(), new RouteDTO(serviceId.toLowerCase(), "/" + serviceId.toLowerCase() + "/**", instance.getUri()));
                 }
             }
         }
