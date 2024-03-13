@@ -18,9 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-
     private final IUserService userService;
-
     @Autowired
     public AuthController(IUserService userService) {
         this.userService = userService;
