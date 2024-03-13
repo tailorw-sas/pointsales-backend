@@ -7,9 +7,6 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import reactor.core.publisher.Flux;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 @AllArgsConstructor
 public class ApiRouteLocator implements RouteLocator {
 
@@ -24,18 +21,18 @@ public class ApiRouteLocator implements RouteLocator {
 
         for (RouteDTO route : updateRouteContext.getDefinitionsContext().getDefinitions()) {
 
-            String path = route.getUri().toString();
-            URI uri;
-            try {
-                path = path.replace("http", "https");
-                uri = new URI(path);
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
+//            String path = route.getUri().toString();
+//            URI uri;
+//            try {
+//                path = path.replace("http", "https");
+//                uri = new URI(path);
+//            } catch (URISyntaxException e) {
+//                throw new RuntimeException(e);
+//            }
             routesBuilder.route(route.getName(),
                     r -> r.path(route.getPath())
                             .filters(f -> f.stripPrefix(1))
-                            .uri(uri));
+                            .uri(route.getUri()));
         }
 
         return routesBuilder.build().getRoutes();
