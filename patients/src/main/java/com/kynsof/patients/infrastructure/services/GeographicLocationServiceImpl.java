@@ -3,6 +3,7 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.geographicLocation.getall.GeographicLocationResponse;
 import com.kynsof.patients.domain.dto.GeographicLocationDto;
+import com.kynsof.patients.domain.dto.enumTye.GeographicLocationType;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.infrastructure.entity.GeographicLocation;
 import com.kynsof.patients.infrastructure.repositories.query.GeographicLocationReadDataJPARepository;
@@ -32,22 +33,39 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
         if (location.isPresent()) {
             return location.get().toAggregate();
         }
-      //  throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Location Information not found.");
+        //  throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Location Information not found.");
         throw new RuntimeException("Patients not found.");
     }
 
     @Override
     public PaginatedResponse findAll(Pageable pageable) {
-        Page<GeographicLocation> data = this.repositoryQuery.findAll( pageable);
+        Page<GeographicLocation> data = this.repositoryQuery.findAll(pageable);
 
         return getPaginatedResponse(data);
     }
+
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        // Iterar sobre cada FilterCriteria en la lista
+        for (FilterCriteria filter : filterCriteria) {
+            if ("type".equals(filter.getKey()) && filter.getValue() instanceof String) {
+                // Intentar convertir el valor de String a GeographicLocationType
+                try {
+                    GeographicLocationType enumValue = GeographicLocationType.valueOf((String) filter.getValue());
+                    filter.setValue(enumValue);
+                } catch (IllegalArgumentException e) {
+                    // Manejar el caso en que el String no se pueda convertir a un valor Enum válido
+                    // Esto podría implicar lanzar una excepción, registrar un error, etc.
+                    System.err.println("Valor inválido para el tipo Enum GeographicLocationType: " + filter.getValue());
+                }
+            }
+        }
+
         GenericSpecificationsBuilder<GeographicLocation> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<GeographicLocation> data = this.repositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(data);
     }
+
     private PaginatedResponse getPaginatedResponse(Page<GeographicLocation> data) {
         List<GeographicLocationResponse> allergyResponses = new ArrayList<>();
         for (GeographicLocation p : data.getContent()) {

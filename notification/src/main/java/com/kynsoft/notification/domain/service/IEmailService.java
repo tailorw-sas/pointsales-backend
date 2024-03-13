@@ -10,6 +10,6 @@ public interface IEmailService {
     public boolean sendMailHtml(String toEmail, String subject, String message);
     public boolean sendMessageWithAttachment(String toEmail, String subject, String text, MultipartFile file);
     public boolean sendMessageWithAttachmentArray(String toEmail, String subject, String text, MultipartFile [] file);
-    boolean sendMailTemplateK(EmailRequest emailRequest) throws MailjetSocketTimeoutException, MailjetException;
+    boolean sendEmailMailjet(EmailRequest emailRequest) throws MailjetSocketTimeoutException, MailjetException;
 }
 

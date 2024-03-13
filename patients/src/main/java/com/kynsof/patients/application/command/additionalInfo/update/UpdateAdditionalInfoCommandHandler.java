@@ -22,7 +22,7 @@ public class UpdateAdditionalInfoCommandHandler implements ICommandHandler<Updat
 
     @Override
     public void handle(UpdateAdditionalInfoCommand command) {
-        PatientDto patientDto = patientsService.findById(command.getPatientId());
+        PatientDto patientDto = patientsService.findByIdSimple(command.getPatientId());
         additionalInfoService.update(new AdditionalInformationDto(
                 command.getId(),
                 new Patients(patientDto),

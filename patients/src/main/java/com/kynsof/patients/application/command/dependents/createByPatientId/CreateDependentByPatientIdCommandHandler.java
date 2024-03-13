@@ -19,8 +19,8 @@ public class CreateDependentByPatientIdCommandHandler implements ICommandHandler
     @Override
     public void handle(CreateDependentByPatientIdCommand command) {
 
-        PatientDto prime = serviceImpl.findById(command.getPrimeId());
-        PatientDto dependent = serviceImpl.findById(command.getPatientId());
+        PatientDto prime = serviceImpl.findByIdSimple(command.getPrimeId());
+        PatientDto dependent = serviceImpl.findByIdSimple(command.getPatientId());
 
         serviceImpl.updateDependent(new DependentPatientDto(
                 dependent.getId(),

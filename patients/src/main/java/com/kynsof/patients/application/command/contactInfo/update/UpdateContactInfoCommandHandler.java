@@ -27,7 +27,7 @@ public class UpdateContactInfoCommandHandler implements ICommandHandler<UpdateCo
 
     @Override
     public void handle(UpdateContactInfoCommand command) {
-        PatientDto patientDto = patientsService.findById(command.getPatientId());
+        PatientDto patientDto = patientsService.findByIdSimple(command.getPatientId());
         GeographicLocationDto geographicLocationDto = geographicLocationService.findById(command.getGeographicLocationId());
         contactInfoService.update(new ContactInfoDto(
                 command.getId(),

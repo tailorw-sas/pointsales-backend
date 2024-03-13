@@ -8,7 +8,7 @@ import java.util.UUID;
 @Getter
 public class FindPatientsByIdQuery  implements IQuery {
 
-    private UUID id;
+    private final UUID id;
 
     public FindPatientsByIdQuery(UUID id) {
         this.id = id;

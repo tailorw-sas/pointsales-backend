@@ -2,7 +2,8 @@ package com.kynsof.patients.controller;
 
 import com.kynsof.patients.application.query.geographicLocation.getById.FindByIdGeographicLocationQuery;
 import com.kynsof.patients.application.query.geographicLocation.getall.GeographicLocationResponse;
-import com.kynsof.patients.application.query.geographicLocation.getall.GetAllGeographicLocationQuery;
+import com.kynsof.patients.application.query.geographicLocation.search.GetSearchLocationsQuery;
+import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
@@ -23,18 +24,13 @@ public class GeographicLocationController {
         this.mediator = mediator;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
-                                                    @RequestParam(defaultValue = "0") Integer page,
-                                                    @RequestParam(defaultValue = "") UUID parentId,
-                                                    @RequestParam(defaultValue = "") String name,
-                                                    @RequestParam(defaultValue = "") String type)
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
     {
-        Pageable pageable = PageRequest.of(page, pageSize);
-        GetAllGeographicLocationQuery query = new GetAllGeographicLocationQuery(pageable,parentId, name, type);
-        PaginatedResponse response = mediator.send(query);
-
-        return ResponseEntity.ok(response);
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchLocationsQuery query = new GetSearchLocationsQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
     @GetMapping(path = "/{id}")

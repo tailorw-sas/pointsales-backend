@@ -88,7 +88,7 @@ public class EmailServiceMailjet implements IEmailService {
     }
 
     @Override
-    public boolean sendMailTemplateK(EmailRequest emailRequest) {
+    public boolean sendEmailMailjet(EmailRequest emailRequest) {
        try {
            MailjetClient client;
            MailjetRequest request;

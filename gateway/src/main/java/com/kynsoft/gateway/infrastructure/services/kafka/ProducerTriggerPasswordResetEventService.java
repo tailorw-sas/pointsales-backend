@@ -26,15 +26,7 @@ public class ProducerTriggerPasswordResetEventService {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(entity, EventType.CREATED));
-
             this.producer.send("otp", json);
-            
-            System.err.println("#######################################################");
-            System.err.println("#######################################################");
-            System.err.println("SE EJECUTA UN ENVIO DE CORREO PARA OTP..");
-            System.err.println("#######################################################");
-            System.err.println("#######################################################");
-
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ProducerTriggerPasswordResetEventService.class.getName()).log(Level.SEVERE, null, ex);
         }

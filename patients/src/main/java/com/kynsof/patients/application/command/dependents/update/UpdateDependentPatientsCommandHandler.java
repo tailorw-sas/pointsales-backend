@@ -19,7 +19,7 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
     @Override
     public void handle(UpdateDependentPatientsCommand command) {
 
-        PatientDto prime = serviceImpl.findById(command.getPrimeId());
+        PatientDto prime = serviceImpl.findByIdSimple(command.getPrimeId());
         serviceImpl.updateDependent(new DependentPatientDto(
                 command.getId(),
                 command.getIdentification(),
