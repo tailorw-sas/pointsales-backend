@@ -16,6 +16,6 @@ public class UserSystemDto {
     private String email;
     private String name;
     private String lastName;
-    private String status;
+    private Status status;
     private List<RolDto> roles;
 }

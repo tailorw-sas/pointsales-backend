@@ -1,6 +1,7 @@
 package com.kynsof.identity.infrastructure.identity;
 
 import com.kynsof.identity.domain.dto.RolDto;
+import com.kynsof.identity.domain.dto.Status;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Entity
 public class UserSystem implements Serializable {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private UUID id;
     @Column(unique = true)
     private String userName;
@@ -29,8 +29,9 @@ public class UserSystem implements Serializable {
     private String email;
     private String name;
     private String lastName;
-    private String status;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Enumerated(EnumType.STRING)
+    private Status status;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
     private List<UserRol> userRols = new ArrayList<>();
 
     public UserSystem(UserSystemDto dto) {
@@ -43,9 +44,12 @@ public class UserSystem implements Serializable {
     }
 
     public UserSystemDto toAggregate() {
-        List<RolDto> rolDtos = this.userRols.stream()
-                .map(userRol -> userRol.getRol().toAggregate())
-                .collect(Collectors.toList());
+        List<RolDto> rolDtos = new ArrayList<>();
+        if (!userRols.isEmpty()) {
+            rolDtos = this.userRols.stream()
+                    .map(userRol -> userRol.getRol().toAggregate())
+                    .toList();
+        }
 
         return new UserSystemDto(this.id, this.userName, this.email, this.name, this.lastName, this.status, rolDtos);
     }

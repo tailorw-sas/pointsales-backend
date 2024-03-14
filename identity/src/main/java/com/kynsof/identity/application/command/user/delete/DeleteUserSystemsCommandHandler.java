@@ -1,0 +1,22 @@
+package com.kynsof.identity.application.command.user.delete;
+
+import com.kynsof.identity.domain.interfaces.IUserSystemService;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DeleteUserSystemsCommandHandler implements ICommandHandler<DeleteUserSystemsCommand> {
+
+    private final IUserSystemService serviceImpl;
+
+    public DeleteUserSystemsCommandHandler(IUserSystemService serviceImpl) {
+        this.serviceImpl = serviceImpl;
+    }
+
+    @Override
+    public void handle(DeleteUserSystemsCommand command) {
+
+        serviceImpl.delete(command.getId());
+    }
+
+}

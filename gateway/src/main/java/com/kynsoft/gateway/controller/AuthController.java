@@ -18,9 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-
     private final IUserService userService;
-
     @Autowired
     public AuthController(IUserService userService) {
         this.userService = userService;
@@ -61,7 +59,6 @@ public class AuthController {
 //    public Mono<?> exchangeGoogleTokenForKeycloakToken(@RequestBody GoogleTokenRequest googleTokenRequest) {
 //        return userService.getKeycloakTokenUsingGoogleToken(googleTokenRequest.getGoogleToken());
 //    }
-
     @PostMapping("/forgot-password")
     public ResponseEntity<ApiResponse<?>> forgotPassword(@RequestParam String email) {
         Boolean response = userService.triggerPasswordReset(email);

@@ -1,13 +1,23 @@
 package com.kynsof.identity.infrastructure.services;
 
+import com.kynsof.identity.application.query.users.getall.UserSystemsResponse;
+import com.kynsof.identity.domain.dto.Status;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.identity.domain.interfaces.IUserSystemService;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
 import com.kynsof.identity.infrastructure.repositories.command.UserSystemsWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repositories.query.UserSystemReadDataJPARepository;
+import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,55 +35,68 @@ public class UserSystemServiceImpl implements IUserSystemService {
         return userSystem.getId();
     }
 
-//    @Override
-//    public UUID update(Rol dto) {
-//        if (dto == null || dto.getId() == null) {
-//            throw new IllegalArgumentException("Patient DTO or ID cannot be null");
-//        }
-//        Rol entity = this.repositoryCommand.save(dto);
-//        return entity.getId();
-//    }
-//
-//
-//    @Override
-//    public RolEntityDto findById(UUID id) {
-//        Optional<Rol> contactInformation = this.repositoryQuery.findById(id);
-//        if (contactInformation.isPresent()) {
-//            return contactInformation.get().toAggregate();
-//        }
-//       // throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Contact Information not found.");
-//        throw new RuntimeException("Patients not found.");
-//    }
-//
-//    @Override
-//    public PaginatedResponse findAll(Pageable pageable ) {
-//        Page<Rol> data = this.repositoryQuery.findAll( pageable);
-//        return getPaginatedResponse(data);
-//    }
-//
-//    @Override
-//    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-//        GenericSpecificationsBuilder<Rol> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-//        Page<Rol> data = this.repositoryQuery.findAll(specifications, pageable);
-//
-//        return getPaginatedResponse(data);
-//    }
-//
-//    private PaginatedResponse getPaginatedResponse(Page<Rol> data) {
-//        List<RolResponse> allergyResponses = new ArrayList<>();
-//        for (Rol p : data.getContent()) {
-//            allergyResponses.add(new RolResponse(p.toAggregate()));
-//        }
-//        return new PaginatedResponse(allergyResponses, data.getTotalPages(), data.getNumberOfElements(),
-//                data.getTotalElements(), data.getSize(), data.getNumber());
-//    }
-//
-//    @Override
-//    public void delete(UUID id) {
-//        RolEntityDto contactInfoDto = this.findById(id);
-//        contactInfoDto.setStatus(Status.INACTIVE);
-//
-//        this.repositoryCommand.save(new Rol(contactInfoDto));
-//    }
+    @Override
+    public void update(UserSystemDto userSystemDto) {
+        if (userSystemDto == null || userSystemDto.getId() == null) {
+            throw new IllegalArgumentException("UserSystem DTO or ID cannot be null");
+        }
+
+        this.repositoryQuery.findById(userSystemDto.getId())
+                .ifPresent(userSystem -> { // Cambia .map a .ifPresent para actuar solo si el objeto está presente.
+                    if (userSystemDto.getUserName() != null) {
+                        userSystem.setUserName(userSystemDto.getUserName());
+                    }
+                    if (userSystemDto.getEmail() != null) {
+                        userSystem.setEmail(userSystemDto.getEmail());
+                    }
+                    if (userSystemDto.getName() != null) {
+                        userSystem.setName(userSystemDto.getName());
+                    }
+                    if (userSystemDto.getLastName() != null) {
+                        userSystem.setLastName(userSystemDto.getLastName());
+                    }
+                    if (userSystemDto.getStatus() != null) {
+                        userSystem.setStatus(userSystemDto.getStatus());
+                    }
+
+
+                    this.repositoryCommand.save(userSystem);
+                });
+    }
+
+
+    @Override
+    public void delete(UUID id) {
+       UserSystemDto userSystemDto  = this.findById(id);
+        userSystemDto.setStatus(Status.INACTIVE);
+
+        this.repositoryCommand.save(new UserSystem(userSystemDto));
+    }
+
+    @Override
+    public UserSystemDto findById(UUID id) {
+        Optional<UserSystem> userSystem = this.repositoryQuery.findById(id);
+        if (userSystem.isPresent()) {
+            return userSystem.get().toAggregate();
+        }
+        throw new RuntimeException("User not found.");
+    }
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<UserSystem> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<UserSystem> data = this.repositoryQuery.findAll(specifications, pageable);
+
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<UserSystem> data) {
+        List<UserSystemsResponse> allergyResponses = new ArrayList<>();
+        for (UserSystem p : data.getContent()) {
+            allergyResponses.add(new UserSystemsResponse(p.toAggregate()));
+        }
+        return new PaginatedResponse(allergyResponses, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
 
 }
