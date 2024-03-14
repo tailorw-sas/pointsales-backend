@@ -1,9 +1,12 @@
 /gateway/target/
 /.idea/
-/notification/target
+/cloudBridges/target
 /identity/target
 /calendar/target
 /config/target
 /patients/target
 /registry/target
 /store/target
+/cloudBridges/target/classes/com/kynsoft/CloudBridges.class
+/cloudBridges/target/cloudBridges-1.0.0.jar
+/cloudBridges/target/cloudBridges-1.0.0.jar.original
