@@ -1,6 +1,6 @@
 package com.kynsof.identity.application.command.user.update;
 
-import com.kynsof.identity.domain.dto.Status;
+import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -16,10 +16,10 @@ public class UpdateUserSystemCommand implements ICommand {
     private String email;
     private String name;
     private String lastName;
-    private Status status;
+    private UserStatus status;
 
 
-    public UpdateUserSystemCommand(UUID id, String userName, String email, String name, String lastName, Status status) {
+    public UpdateUserSystemCommand(UUID id, String userName, String email, String name, String lastName, UserStatus status) {
         this.id = id;
         this.userName = userName;
         this.email = email;

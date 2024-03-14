@@ -1,7 +1,7 @@
-package com.kynsof.identity.application.query.users.getall;
+package com.kynsof.identity.application.query.users.getSearch;
 
 
-import com.kynsof.identity.domain.dto.Status;
+import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class UserSystemsResponse implements IResponse {
     private String email;
     private String name;
     private String lastName;
-    private Status status;
+    private UserStatus status;
 
     public UserSystemsResponse(UserSystemDto contactInfoDto) {
         this.id = contactInfoDto.getId();

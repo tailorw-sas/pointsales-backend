@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.query.users.getall;
+package com.kynsof.identity.application.query.users.getSearch;
 
 import com.kynsof.identity.domain.interfaces.IUserSystemService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;

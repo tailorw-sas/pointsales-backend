@@ -1,6 +1,7 @@
 package com.kynsof.identity.application.command.role.create;
 
-import com.kynsof.identity.domain.dto.RolDto;
+import com.kynsof.identity.domain.dto.RoleDto;
+import com.kynsof.identity.domain.dto.RoleStatusEnm;
 import com.kynsof.identity.domain.interfaces.IRoleService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,8 @@ public class CreateRoleCommandHandler implements ICommandHandler<CreateRoleComma
 
     @Override
     public void handle(CreateRoleCommand command) {
-      UUID id=  roleService.create(new RolDto(UUID.randomUUID(), command.getName(), command.getDescription()));
+      UUID id=  roleService.create(new RoleDto(UUID.randomUUID(), command.getName(), command.getDescription(),
+              RoleStatusEnm.ACTIVE));
       command.setId(id);
     }
 }

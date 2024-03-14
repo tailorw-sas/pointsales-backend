@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.query.users.getall;
+package com.kynsof.identity.application.query.roles.getSearch;
 
 import com.kynsof.share.core.domain.bus.query.IQuery;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetSearchUserSystemsQuery implements IQuery {
+public class GetSearchRoleSystemsQuery implements IQuery {
 
     private Pageable pageable;
     private List<FilterCriteria> filter;

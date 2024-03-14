@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-public class UserRol {
+public class UserRole {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -25,7 +25,7 @@ public class UserRol {
 
     @ManyToOne
     @JoinColumn(name = "rol_id")
-    private RolSystem rol;
+    private RoleSystem role;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

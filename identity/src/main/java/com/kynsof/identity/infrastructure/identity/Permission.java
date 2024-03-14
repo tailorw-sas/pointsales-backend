@@ -1,9 +1,7 @@
 package com.kynsof.identity.infrastructure.identity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.kynsof.identity.domain.dto.PermissionStatusEnm;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +23,9 @@ public class Permission {
     @Column(unique = true)
     private String code;
     private String description;
+    @Enumerated(EnumType.STRING)
+    private PermissionStatusEnm status;
 
     @OneToMany(mappedBy = "permission")
-    private List<RolPermission> rolPermissions = new ArrayList<>();
+    private List<RolePermission> rolPermissions = new ArrayList<>();
 }

@@ -1,5 +1,5 @@
 package com.kynsof.identity.domain.dto;
 
-public enum Status {
+public enum PermissionStatusEnm {
     ACTIVE, INACTIVE
 }

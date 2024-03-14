@@ -1,7 +1,7 @@
 package com.kynsof.identity.infrastructure.identity;
 
-import com.kynsof.identity.domain.dto.RolDto;
-import com.kynsof.identity.domain.dto.Status;
+import com.kynsof.identity.domain.dto.RoleDto;
+import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,9 +30,9 @@ public class UserSystem implements Serializable {
     private String name;
     private String lastName;
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private UserStatus status;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
-    private List<UserRol> userRols = new ArrayList<>();
+    private List<UserRole> userRols = new ArrayList<>();
 
     public UserSystem(UserSystemDto dto) {
         this.id = dto.getId();
@@ -44,10 +44,10 @@ public class UserSystem implements Serializable {
     }
 
     public UserSystemDto toAggregate() {
-        List<RolDto> rolDtos = new ArrayList<>();
+        List<RoleDto> rolDtos = new ArrayList<>();
         if (!userRols.isEmpty()) {
             rolDtos = this.userRols.stream()
-                    .map(userRol -> userRol.getRol().toAggregate())
+                    .map(userRol -> userRol.getRole().toAggregate())
                     .toList();
         }
 

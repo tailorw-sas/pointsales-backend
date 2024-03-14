@@ -15,7 +15,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-public class RolPermission {
+public class RolePermission {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -23,8 +23,8 @@ public class RolPermission {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "rol_id")
-    private RolSystem rol;
+    @JoinColumn(name = "role_id")
+    private RoleSystem role;
 
     @ManyToOne
     @JoinColumn(name = "permission_id")

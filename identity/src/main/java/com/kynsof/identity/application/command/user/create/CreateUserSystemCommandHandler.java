@@ -1,6 +1,6 @@
 package com.kynsof.identity.application.command.user.create;
 
-import com.kynsof.identity.domain.dto.Status;
+import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.identity.domain.interfaces.IUserSystemService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
@@ -28,7 +28,7 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
                 command.getEmail(),
                 command.getName(),
                 command.getLastName(),
-                Status.ACTIVE,
+                UserStatus.ACTIVE,
                 new ArrayList<>()
         );
 

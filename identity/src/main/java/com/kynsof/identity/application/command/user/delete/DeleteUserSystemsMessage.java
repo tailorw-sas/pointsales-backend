@@ -12,7 +12,7 @@ public class DeleteUserSystemsMessage implements ICommandMessage {
 
     private final UUID id;
 
-    private final String command = "DELETE_PATIENT";
+    private final String command = "DELETE_USER";
 
     public DeleteUserSystemsMessage(UUID id) {
         this.id = id;

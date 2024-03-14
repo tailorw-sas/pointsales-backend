@@ -1,19 +1,29 @@
 package com.kynsof.identity.infrastructure.services;
 
 
-import com.kynsof.identity.domain.dto.RolDto;
+import com.kynsof.identity.application.query.roles.getSearch.RoleSystemsResponse;
+import com.kynsof.identity.domain.dto.RoleDto;
+import com.kynsof.identity.domain.dto.RoleStatusEnm;
 import com.kynsof.identity.domain.interfaces.IRoleService;
-import com.kynsof.identity.infrastructure.identity.RolSystem;
-import com.kynsof.identity.infrastructure.repositories.command.RolWriteDataJPARepository;
-import com.kynsof.identity.infrastructure.repositories.query.RolReadDataJPARepository;
+import com.kynsof.identity.infrastructure.identity.RoleSystem;
+import com.kynsof.identity.infrastructure.repository.command.RolWriteDataJPARepository;
+import com.kynsof.identity.infrastructure.repository.query.RolReadDataJPARepository;
+import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class RolServiceImpl implements IRoleService {
+public class RoleServiceImpl implements IRoleService {
 
     @Autowired
     private RolWriteDataJPARepository repositoryCommand;
@@ -22,13 +32,13 @@ public class RolServiceImpl implements IRoleService {
     private RolReadDataJPARepository repositoryQuery;
 
     @Override
-    public UUID create(RolDto dto) {
-        RolSystem allergy = this.repositoryCommand.save(new RolSystem(dto));
+    public UUID create(RoleDto dto) {
+        RoleSystem allergy = this.repositoryCommand.save(new RoleSystem(dto));
         return allergy.getId();
     }
 
     @Override
-    public void update(RolDto roleUpdateDto) {
+    public void update(RoleDto roleUpdateDto) {
         if (roleUpdateDto == null || roleUpdateDto.getId() == null) {
             throw new IllegalArgumentException("Role DTO or ID cannot be null");
         }
@@ -43,15 +53,40 @@ public class RolServiceImpl implements IRoleService {
                 .orElseThrow(() -> new EntityNotFoundException("Role with ID " + roleUpdateDto.getId() + " not found"));
     }
 
-//    @Override
-//    public UUID update(Rol dto) {
-//        if (dto == null || dto.getId() == null) {
-//            throw new IllegalArgumentException("Patient DTO or ID cannot be null");
-//        }
-//        Rol entity = this.repositoryCommand.save(dto);
-//        return entity.getId();
-//    }
-//
+    @Override
+    public void delete(UUID id) {
+
+    }
+
+    @Override
+    public RoleDto findById(UUID id) {
+        Optional<RoleSystem> rolSystem = this.repositoryQuery.findById(id);
+        if (rolSystem.isPresent()) {
+            return rolSystem.get().toAggregate();
+        }
+        throw new RuntimeException("RolSystem not found.");
+    }
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        UserSystemServiceImpl.filterCreteria(filterCriteria);
+
+        GenericSpecificationsBuilder<RoleSystem> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<RoleSystem> data = this.repositoryQuery.findAll(specifications, pageable);
+
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<RoleSystem> data) {
+        List<RoleSystemsResponse> allergyResponses = new ArrayList<>();
+        for (RoleSystem p : data.getContent()) {
+            allergyResponses.add(new RoleSystemsResponse(p.toAggregate()));
+        }
+        return new PaginatedResponse(allergyResponses, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+
 //
 //    @Override
 //    public RolEntityDto findById(UUID id) {

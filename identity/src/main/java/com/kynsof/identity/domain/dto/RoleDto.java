@@ -9,8 +9,9 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RolDto {
+public class RoleDto {
     private UUID id;
     private String name;
     private String description;
+    private RoleStatusEnm status;
 }

@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.query.users.getById;
+package com.kynsof.identity.application.query.roles.getById;
 
 
 import com.kynsof.identity.domain.dto.RoleDto;
@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserSystemsByIdResponse implements IResponse {
+public class RoleSystemsByIdResponse implements IResponse {
     private UUID id;
     private String userName;
     private String email;
@@ -24,7 +24,7 @@ public class UserSystemsByIdResponse implements IResponse {
     private UserStatus status;
     private List<RoleDto> roles;
 
-    public UserSystemsByIdResponse(UserSystemDto userSystemDto) {
+    public RoleSystemsByIdResponse(UserSystemDto userSystemDto) {
         this.id = userSystemDto.getId();
         this.userName = userSystemDto.getUserName();
         this.email = userSystemDto.getEmail();

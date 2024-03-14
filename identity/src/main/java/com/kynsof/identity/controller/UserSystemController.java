@@ -10,7 +10,7 @@ import com.kynsof.identity.application.command.user.update.UpdateUserSystemMessa
 import com.kynsof.identity.application.command.user.update.UpdateUserSystemRequest;
 import com.kynsof.identity.application.query.users.getById.FindByIdUserSystemsQuery;
 import com.kynsof.identity.application.query.users.getById.UserSystemsByIdResponse;
-import com.kynsof.identity.application.query.users.getall.GetSearchUserSystemsQuery;
+import com.kynsof.identity.application.query.users.getSearch.GetSearchUserSystemsQuery;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;

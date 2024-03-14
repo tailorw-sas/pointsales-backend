@@ -1,12 +1,13 @@
 package com.kynsof.identity.infrastructure.services;
 
-import com.kynsof.identity.application.query.users.getall.UserSystemsResponse;
-import com.kynsof.identity.domain.dto.Status;
+import com.kynsof.identity.application.query.users.getSearch.UserSystemsResponse;
+import com.kynsof.identity.domain.dto.RoleStatusEnm;
+import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.identity.domain.interfaces.IUserSystemService;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
-import com.kynsof.identity.infrastructure.repositories.command.UserSystemsWriteDataJPARepository;
-import com.kynsof.identity.infrastructure.repositories.query.UserSystemReadDataJPARepository;
+import com.kynsof.identity.infrastructure.repository.command.UserSystemsWriteDataJPARepository;
+import com.kynsof.identity.infrastructure.repository.query.UserSystemReadDataJPARepository;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
@@ -68,7 +69,7 @@ public class UserSystemServiceImpl implements IUserSystemService {
     @Override
     public void delete(UUID id) {
        UserSystemDto userSystemDto  = this.findById(id);
-        userSystemDto.setStatus(Status.INACTIVE);
+        userSystemDto.setStatus(UserStatus.INACTIVE);
 
         this.repositoryCommand.save(new UserSystem(userSystemDto));
     }
@@ -84,10 +85,25 @@ public class UserSystemServiceImpl implements IUserSystemService {
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        filterCreteria(filterCriteria);
+
         GenericSpecificationsBuilder<UserSystem> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<UserSystem> data = this.repositoryQuery.findAll(specifications, pageable);
 
         return getPaginatedResponse(data);
+    }
+
+    static void filterCreteria(List<FilterCriteria> filterCriteria) {
+        for (FilterCriteria filter : filterCriteria) {
+            if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
+                try {
+                    RoleStatusEnm enumValue = RoleStatusEnm.valueOf((String) filter.getValue());
+                    filter.setValue(enumValue);
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Valor inválido para el tipo Enum RoleStatus: " + filter.getValue());
+                }
+            }
+        }
     }
 
     private PaginatedResponse getPaginatedResponse(Page<UserSystem> data) {

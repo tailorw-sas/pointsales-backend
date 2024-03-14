@@ -1,4 +1,4 @@
-package com.kynsof.identity.infrastructure.repositories.query;
+package com.kynsof.identity.infrastructure.repository.query;
 
 import com.kynsof.identity.infrastructure.identity.UserSystem;
 import org.springframework.data.domain.Page;

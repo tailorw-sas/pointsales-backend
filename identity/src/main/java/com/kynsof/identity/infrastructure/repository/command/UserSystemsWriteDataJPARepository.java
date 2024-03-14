@@ -1,4 +1,4 @@
-package com.kynsof.identity.infrastructure.repositories.command;
+package com.kynsof.identity.infrastructure.repository.command;
 
 import com.kynsof.identity.infrastructure.identity.UserSystem;
 import org.springframework.data.jpa.repository.JpaRepository;
