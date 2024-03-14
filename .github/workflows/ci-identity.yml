@@ -1,4 +1,4 @@
-name: ci-patients
+name: ci-identity
 
 env:
   SERVICE_NAME: 'identity'
