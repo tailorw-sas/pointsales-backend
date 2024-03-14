@@ -1,8 +1,8 @@
-name: ci-notification
+name: ci-cloudBridges
 
 env:
-  SERVICE_NAME: 'notification'
-  SERVICE_PATH: 'notification'
+  SERVICE_NAME: 'cloudBridges'
+  SERVICE_PATH: 'cloudBridges'
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
     branches:
       - 'dev'
     paths:
-      - 'notification/**'
+      - 'cloudBridges/**'
 jobs:
   build-push:
     runs-on: ubuntu-latest
@@ -38,4 +38,4 @@ jobs:
             "PACKAGE_TOKEN=${{secrets.PACKAGE_TOKEN}}"
           context: "{{defaultContext}}:${{ env.SERVICE_PATH }}"
           push: true
-          tags: kmontes2020/medinec-notification:v1
+          tags: kmontes2020/medinec-cloudBridges:v1
