@@ -61,7 +61,7 @@ public class MedicalInformationController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping(path = "/{id}")
+    @PatchMapping(path = "/{id}")
     public ResponseEntity<UpdateMedicalInformationMessage> update(@PathVariable UUID id, @RequestBody UpdateMedicalInformationRequest request) {
 
         UpdateMedicalInformationCommand command = UpdateMedicalInformationCommand.fromRequest(id,request );

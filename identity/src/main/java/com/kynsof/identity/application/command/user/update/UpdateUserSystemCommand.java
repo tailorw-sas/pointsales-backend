@@ -1,5 +1,6 @@
-package com.kynsof.identity.application.command.user.create;
+package com.kynsof.identity.application.command.user.update;
 
+import com.kynsof.identity.domain.dto.Status;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -9,32 +10,37 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class CreateUserSystemCommand implements ICommand {
+public class UpdateUserSystemCommand implements ICommand {
     private UUID id;
     private String userName;
     private String email;
     private String name;
     private String lastName;
+    private Status status;
 
 
-    public CreateUserSystemCommand(String userName, String email, String name, String lastName) {
+    public UpdateUserSystemCommand(UUID id, String userName, String email, String name, String lastName, Status status) {
+        this.id = id;
         this.userName = userName;
         this.email = email;
         this.name = name;
         this.lastName = lastName;
+        this.status = status;
     }
 
-    public static CreateUserSystemCommand fromRequest(CreateUserSystemRequest request) {
-        return new CreateUserSystemCommand(
+    public static UpdateUserSystemCommand fromRequest(UUID id, UpdateUserSystemRequest request) {
+        return new UpdateUserSystemCommand(
+                id,
                 request.getUserName(),
                 request.getEmail(),
                 request.getName(),
-                request.getLastName()
+                request.getLastName(),
+                request.getStatus()
         );
     }
 
     @Override
     public ICommandMessage getMessage() {
-        return new CreateUserSystemMessage(id);
+        return new UpdateUserSystemMessage();
     }
 }

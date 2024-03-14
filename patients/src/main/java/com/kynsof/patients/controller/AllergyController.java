@@ -61,7 +61,7 @@ public class AllergyController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping(path = "/{id}")
+    @PatchMapping(path = "/{id}")
     public ResponseEntity<UpdateAllergyMessage> updateAllergy(@PathVariable UUID id, @RequestBody UpdateAllergyEntityRequest request) {
 
         UpdateAllergyCommand command = UpdateAllergyCommand.fromRequest(id,request );
