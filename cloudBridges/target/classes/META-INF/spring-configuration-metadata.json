@@ -12,12 +12,6 @@
       "sourceMethod": "dataSourceProperties()"
     },
     {
-      "name": "spring.datasource",
-      "type": "javax.sql.DataSource",
-      "sourceType": "com.kynsoft.notification.infrastructure.repository.config.PostgresDBWriteConfiguration",
-      "sourceMethod": "datasource(org.springframework.boot.autoconfigure.jdbc.DataSourceProperties)"
-    },
-    {
       "name": "spring.datasource.xa",
       "type": "org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$Xa",
       "sourceType": "org.springframework.boot.autoconfigure.jdbc.DataSourceProperties",
@@ -28,12 +22,6 @@
       "type": "org.springframework.boot.autoconfigure.jdbc.DataSourceProperties",
       "sourceType": "com.kynsoft.notification.infrastructure.repository.config.PostgresDBReadConfiguration",
       "sourceMethod": "dataSourceProperties()"
-    },
-    {
-      "name": "spring.read-datasource",
-      "type": "javax.sql.DataSource",
-      "sourceType": "com.kynsoft.notification.infrastructure.repository.config.PostgresDBReadConfiguration",
-      "sourceMethod": "datasource(org.springframework.boot.autoconfigure.jdbc.DataSourceProperties)"
     },
     {
       "name": "spring.read-datasource.xa",
