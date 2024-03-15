@@ -57,5 +57,5 @@ ENV TZ="America/Guayaquil"
 
 # Copy the native executable into the containers
 WORKDIR /app
-COPY --from=builder /build/target/notification-1.0.0.jar .
-ENTRYPOINT [ "java", "-jar", "/app/notification-1.0.0.jar" ]
+COPY --from=builder /build/target/cloudBridges-1.0.0.jar .
+ENTRYPOINT [ "java", "-jar", "/app/cloudBridges-1.0.0.jar" ]
