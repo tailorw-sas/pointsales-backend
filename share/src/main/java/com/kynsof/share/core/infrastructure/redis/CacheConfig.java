@@ -25,6 +25,7 @@ public class CacheConfig {
     public static final String RESOURCE_CACHE = "resource-cache";
     public static final String SCHEDULE_CACHE = "schedule-cache";
     public static final String SERVICE_CACHE = "service-cache";
+    public static final String IMAGE_CACHE = "image-cache";
 
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
@@ -37,7 +38,7 @@ public class CacheConfig {
         redisCacheConfigurationMap.put(RESOURCE_CACHE, createConfig(1, ChronoUnit.MINUTES));
         redisCacheConfigurationMap.put(SCHEDULE_CACHE, createConfig(1, ChronoUnit.MINUTES));
         redisCacheConfigurationMap.put(SERVICE_CACHE, createConfig(1, ChronoUnit.MINUTES));
-
+        redisCacheConfigurationMap.put(IMAGE_CACHE, createConfig(24, ChronoUnit.HOURS));
         return RedisCacheManager
             .builder(redisConnectionFactory)
             .withInitialCacheConfigurations(redisCacheConfigurationMap)

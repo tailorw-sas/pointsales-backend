@@ -12,6 +12,12 @@
       "sourceMethod": "dataSourceProperties()"
     },
     {
+      "name": "spring.datasource",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.kynsoft.notification.infrastructure.repository.config.PostgresDBWriteConfiguration",
+      "sourceMethod": "datasource(org.springframework.boot.autoconfigure.jdbc.DataSourceProperties)"
+    },
+    {
       "name": "spring.datasource.xa",
       "type": "org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$Xa",
       "sourceType": "org.springframework.boot.autoconfigure.jdbc.DataSourceProperties",
@@ -24,6 +30,12 @@
       "sourceMethod": "dataSourceProperties()"
     },
     {
+      "name": "spring.read-datasource",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.kynsoft.notification.infrastructure.repository.config.PostgresDBReadConfiguration",
+      "sourceMethod": "datasource(org.springframework.boot.autoconfigure.jdbc.DataSourceProperties)"
+    },
+    {
       "name": "spring.read-datasource.xa",
       "type": "org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$Xa",
       "sourceType": "org.springframework.boot.autoconfigure.jdbc.DataSourceProperties",
@@ -34,8 +46,7 @@
     {
       "name": "http.cors-enabled",
       "type": "java.lang.Boolean",
-      "sourceType": "com.kynsoft.notification.infrastructure.config.CorsProperties",
-      "defaultValue": false
+      "sourceType": "com.kynsoft.notification.infrastructure.config.CorsProperties"
     },
     {
       "name": "spring.datasource.driver-class-name",
