@@ -1,0 +1,9 @@
+kubectl apply -f kubernetes-config/namespace.yaml
+kubectl apply -f kubernetes-config/deployments/secrets/
+kubectl apply -f kubernetes-config/deployments/
+kubectl apply -f kubernetes-config/Services/
+
+
+
+jdbc:postgresql://zeus-ro.postgres-prod.svc.cluster.local:5432/medinec-treatment
+jdbc:postgresql://zeus-rw.postgres-prod.svc.cluster.local:5432/medinec-treatment

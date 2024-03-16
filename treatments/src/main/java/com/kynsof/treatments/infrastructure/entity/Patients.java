@@ -22,7 +22,6 @@ public class Patients {
     @Column(name="id")
     private UUID id;
 
-    @Column(unique = true)
     private String identification;
 
     private String name;

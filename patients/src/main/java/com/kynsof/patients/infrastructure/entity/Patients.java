@@ -29,7 +29,7 @@ public class Patients implements Serializable {
     @Column(name = "id")
     private UUID id;
 
-    @Column(unique = true, nullable = true)
+    @Column(nullable = true)
     private String identification;
 
     private String name;

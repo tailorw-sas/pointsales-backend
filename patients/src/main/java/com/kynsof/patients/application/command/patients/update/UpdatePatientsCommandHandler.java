@@ -13,10 +13,13 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
 
     public UpdatePatientsCommandHandler(IPatientsService serviceImpl) {
         this.serviceImpl = serviceImpl;
+
     }
 
     @Override
     public void handle(UpdatePatientsCommand command) {
+
+        String idLogo = null;
         serviceImpl.update(new PatientDto(
                 command.getId(),
                 command.getIdentification(),
@@ -28,7 +31,7 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
                 command.getHeight(),
                 command.getHasDisability(),
                 command.getIsPregnant(),
-                "photo",
+                idLogo,
                 command.getDisabilityType(),
                 command.getGestationTime()
         ));

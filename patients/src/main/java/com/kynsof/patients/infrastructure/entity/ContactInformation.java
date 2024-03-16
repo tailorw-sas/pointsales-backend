@@ -39,7 +39,7 @@ public class ContactInformation {
     private GeographicLocation geographicLocation;
 
     public ContactInformation(ContactInfoDto contactInfoDto) {
-        this.patient = contactInfoDto.getPatient();
+        this.patient = new Patients(contactInfoDto.getPatient());
         this.email = contactInfoDto.getEmail();
         this.telephone = contactInfoDto.getTelephone();
         this.address = contactInfoDto.getAddress();
@@ -49,7 +49,7 @@ public class ContactInformation {
     }
 
     public ContactInfoDto toAggregate() {
-        return new ContactInfoDto(getId(), getPatient(), getEmail(), getTelephone(), getAddress(), getBirthdayDate(), getStatus(),
+        return new ContactInfoDto(getId(), getPatient().toAggregate(), getEmail(), getTelephone(), getAddress(), getBirthdayDate(), getStatus(),
                 geographicLocation.toAggregate());
     }
 }

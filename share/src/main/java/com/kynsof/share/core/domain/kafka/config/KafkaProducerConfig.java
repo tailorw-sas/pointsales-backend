@@ -30,7 +30,7 @@ public class KafkaProducerConfig {
         configProps.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
         configProps.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
         configProps.put(SaslConfigs.SASL_JAAS_CONFIG,
-                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"" + "user1" + "\" password=\"" + "rA0I6FIHJz" + "\";");
+                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"" + "user1" + "\" password=\"" + "AkC7B1ooWO" + "\";");
 
         return new DefaultKafkaProducerFactory<>(configProps);
     }

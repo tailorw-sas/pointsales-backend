@@ -6,7 +6,6 @@ import com.kynsof.patients.domain.dto.enumTye.FamilyRelationship;
 import com.kynsof.patients.domain.dto.enumTye.GenderType;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -26,7 +25,7 @@ public class UpdateDependentPatientsRequest {
     private Boolean isPregnant;
     private LocalDate birthDate;
     private FamilyRelationship familyRelationship;
-    private MultipartFile photo;
+    private byte[] photo;
     private int gestationTime;
     private CreateContactInfoRequest createContactInfoRequest;
     private DisabilityType disabilityType;

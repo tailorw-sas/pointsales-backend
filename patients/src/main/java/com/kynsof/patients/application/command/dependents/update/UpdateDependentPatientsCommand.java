@@ -8,7 +8,6 @@ import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -28,7 +27,7 @@ public class UpdateDependentPatientsCommand implements ICommand {
     private Boolean isPregnant;
     private LocalDate birthDate;
     private FamilyRelationship familyRelationship;
-    private MultipartFile photo;
+    private byte[] photo;
     private int gestationTime;
     private CreateContactInfoRequest createContactInfoRequest;
     private DisabilityType disabilityType;
@@ -36,7 +35,7 @@ public class UpdateDependentPatientsCommand implements ICommand {
     public UpdateDependentPatientsCommand(UUID id,UUID primeId, String identification, String name, String lastName,
                                           GenderType gender, Double weight, Double height, Boolean hasDisability,
                                           Boolean isPregnant, LocalDate birthDate, FamilyRelationship familyRelationship,
-                                          MultipartFile photo, int gestationTime,
+                                          byte[] photo, int gestationTime,
                                           CreateContactInfoRequest createContactInfoRequest, DisabilityType disabilityType){
         this.id = id;
         this.identification = identification;
