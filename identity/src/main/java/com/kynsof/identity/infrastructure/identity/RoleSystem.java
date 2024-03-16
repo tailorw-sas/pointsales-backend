@@ -15,8 +15,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Data
-@Audited
+//@Data
+//@Audited
 public class RoleSystem {
     @Id
     @Column(name = "id")
