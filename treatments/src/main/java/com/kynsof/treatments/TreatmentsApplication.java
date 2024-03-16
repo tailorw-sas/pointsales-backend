@@ -10,4 +10,5 @@ public class TreatmentsApplication {
 		SpringApplication.run(TreatmentsApplication.class, args);
 	}
 
+
 }
