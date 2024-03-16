@@ -7,5 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CloudBridges {
     public static void main(String[] args) {
         SpringApplication.run(CloudBridges.class, args);
+
     }
 }
