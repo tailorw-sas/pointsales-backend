@@ -12,6 +12,7 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
 
     private final IPatientsService serviceImpl;
 
+
     public UpdateDependentPatientsCommandHandler(IPatientsService serviceImpl) {
         this.serviceImpl = serviceImpl;
     }
@@ -20,6 +21,10 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
     public void handle(UpdateDependentPatientsCommand command) {
 
         PatientDto prime = serviceImpl.findByIdSimple(command.getPrimeId());
+        String idLogo = null;
+//        if (command.getPhoto() != null) {
+//          idLogo = sendFileService.sendImage(command.getName(),command.getPhoto());
+//        }
         serviceImpl.updateDependent(new DependentPatientDto(
                 command.getId(),
                 command.getIdentification(),
@@ -33,7 +38,7 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
                 command.getHasDisability(),
                 command.getIsPregnant(),
                 command.getFamilyRelationship(),
-                "photo",
+                idLogo,
                 command.getDisabilityType(),
                 command.getGestationTime()
         ));

@@ -14,8 +14,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Data
-@Audited
+//@Data
+//@Audited
 public class Permission {
     @Id
     @Column(name = "id")

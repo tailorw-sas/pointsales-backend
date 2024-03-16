@@ -1,7 +1,6 @@
 package com.kynsof.patients.domain.dto;
 
 import com.kynsof.patients.domain.dto.enumTye.Status;
-import com.kynsof.patients.infrastructure.entity.Patients;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ContactInfoDto implements Serializable {
     private UUID id;
-    private Patients patient;
+    private PatientDto patient;
     private String email;
     private String telephone;
     private String address;

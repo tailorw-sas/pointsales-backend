@@ -7,7 +7,6 @@ import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
@@ -23,14 +22,14 @@ public class UpdatePatientsCommand implements ICommand {
     private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
-    private MultipartFile photo;
+    private byte[] photo;
     private int gestationTime;
     private CreateContactInfoRequest createContactInfoRequest;
     private DisabilityType disabilityType;
 
-    public UpdatePatientsCommand(UUID id, String identification, String name, String lastName, GenderType gender, Double weight,
-                                 Double height, Boolean hasDisability, Boolean isPregnant,
-                                 MultipartFile photo, int gestationTime,
+    public UpdatePatientsCommand(UUID id, String identification, String name, String lastName, GenderType gender,
+                                 Double weight, Double height, Boolean hasDisability, Boolean isPregnant,
+                                 byte[] photo, int gestationTime,
                                  CreateContactInfoRequest createContactInfoRequest, DisabilityType disabilityType){
 
         this.identification = identification;

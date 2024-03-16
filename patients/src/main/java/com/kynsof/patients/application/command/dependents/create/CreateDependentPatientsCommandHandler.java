@@ -1,14 +1,14 @@
 package com.kynsof.patients.application.command.dependents.create;
 
-import com.kynsof.patients.domain.dto.*;
+import com.kynsof.patients.domain.dto.ContactInfoDto;
+import com.kynsof.patients.domain.dto.DependentPatientDto;
+import com.kynsof.patients.domain.dto.GeographicLocationDto;
+import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
-import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.entity.FileKafka;
-import com.kynsof.share.core.infrastructure.ProducerSaveFileEventService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -19,21 +19,24 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
     private final IPatientsService serviceImpl;
     private final IContactInfoService contactInfoService;
     private final IGeographicLocationService geographicLocationService;
-    private final ProducerSaveFileEventService saveFileEventService;
+
 
     public CreateDependentPatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
-                                                 IGeographicLocationService geographicLocationService, ProducerSaveFileEventService saveFileEventService) {
+                                                 IGeographicLocationService geographicLocationService
+    ) {
         this.serviceImpl = serviceImpl;
         this.contactInfoService = contactInfoService;
         this.geographicLocationService = geographicLocationService;
-        this.saveFileEventService = saveFileEventService;
     }
 
     @Override
     public void handle(CreateDependentPatientsCommand command) {
 
         PatientDto prime = serviceImpl.findByIdSimple(command.getPrimeId());
-        UUID idLogo = UUID.randomUUID();
+        String idLogo = null;
+//        if (command.getPhoto() != null) {
+//            idLogo = sendFileService.sendImage(command.getName(),command.getPhoto());
+//        }
         UUID id = serviceImpl.createDependent(new DependentPatientDto(
                 UUID.randomUUID(),
                 command.getIdentification(),
@@ -47,7 +50,7 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 command.getHasDisability(),
                 command.getIsPregnant(),
                 command.getFamilyRelationship(),
-                idLogo.toString(),
+                idLogo,
                 command.getDisabilityType(),
                 command.getGestationTime()
         ));
@@ -56,7 +59,7 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 command.getCreateContactInfoRequest().getGeographicLocationId());
         UUID idContactId = contactInfoService.create(new ContactInfoDto(
                 UUID.randomUUID(),
-                new Patients(patientDto),
+                patientDto,
                 command.getCreateContactInfoRequest().getEmail(),
                 command.getCreateContactInfoRequest().getEmail(),
                 command.getCreateContactInfoRequest().getAddress(),
@@ -65,7 +68,5 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 geographicLocationDto
         ));
         command.setId(id);
-        FileKafka fileSave = new FileKafka(idLogo, "patients", command.getName()+".png", command.getPhoto());
-        saveFileEventService.create(fileSave);
     }
 }

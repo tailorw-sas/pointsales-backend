@@ -5,7 +5,6 @@ import com.kynsof.patients.domain.dto.enumTye.DisabilityType;
 import com.kynsof.patients.domain.dto.enumTye.GenderType;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -19,7 +18,7 @@ public class UpdatePatientsRequest {
     private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
-    private MultipartFile photo;
+    private byte[] photo;
     private int gestationTime;
     private CreateContactInfoRequest createContactInfoRequest;
     private DisabilityType disabilityType;

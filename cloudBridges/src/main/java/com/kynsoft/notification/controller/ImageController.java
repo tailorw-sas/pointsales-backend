@@ -29,7 +29,7 @@ public class ImageController {
         byte[] imageBytes = imageDownloadService.downloadImage(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .contentType(MediaType.IMAGE_JPEG) // Ajusta según el tipo de imagen
+                .contentType(MediaType.IMAGE_JPEG)
                 .body(imageBytes);
     }
 }

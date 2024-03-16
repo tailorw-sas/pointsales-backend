@@ -31,7 +31,8 @@ public class ContactInfoServiceImpl implements IContactInfoService {
 
     @Override
     public UUID create(ContactInfoDto dto) {
-        this.repositoryCommand.save(new ContactInformation(dto));
+        ContactInformation contactInformation = new ContactInformation(dto);
+        this.repositoryCommand.save(contactInformation);
         return dto.getId();
     }
 
@@ -46,8 +47,6 @@ public class ContactInfoServiceImpl implements IContactInfoService {
                     if (contactInfoDto.getAddress() != null) patient.setAddress(contactInfoDto.getAddress());
                     if (contactInfoDto.getTelephone() != null) patient.setTelephone(contactInfoDto.getTelephone());
                     if (contactInfoDto.getBirthdayDate() != null) patient.setBirthdayDate(contactInfoDto.getBirthdayDate());
-                    if (contactInfoDto.getPatient() != null) patient.setPatient(contactInfoDto.getPatient());
-
                     return this.repositoryCommand.save(patient);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + contactInfoDto.getId() + " not found"));
