@@ -69,12 +69,24 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-        UserSystemServiceImpl.filterCreteria(filterCriteria);
+       filterCreteria(filterCriteria);
 
         GenericSpecificationsBuilder<RoleSystem> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<RoleSystem> data = this.repositoryQuery.findAll(specifications, pageable);
 
         return getPaginatedResponse(data);
+    }
+    private void filterCreteria(List<FilterCriteria> filterCriteria) {
+        for (FilterCriteria filter : filterCriteria) {
+            if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
+                try {
+                    RoleStatusEnm enumValue = RoleStatusEnm.valueOf((String) filter.getValue());
+                    filter.setValue(enumValue);
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Valor inválido para el tipo Enum Empresa: " + filter.getValue());
+                }
+            }
+        }
     }
 
     private PaginatedResponse getPaginatedResponse(Page<RoleSystem> data) {

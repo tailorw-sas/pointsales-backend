@@ -1,9 +1,12 @@
 package com.kynsof.identity.infrastructure.identity;
+
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.envers.Audited;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
