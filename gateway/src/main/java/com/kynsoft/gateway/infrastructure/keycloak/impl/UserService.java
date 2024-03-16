@@ -15,7 +15,6 @@ import com.kynsoft.gateway.infrastructure.keycloak.KeycloakProvider;
 import com.kynsoft.gateway.infrastructure.services.kafka.ProducerRegisterUserEventService;
 import com.kynsoft.gateway.infrastructure.services.kafka.ProducerTriggerPasswordResetEventService;
 import lombok.extern.slf4j.Slf4j;
-import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.resource.*;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -258,21 +257,26 @@ public class UserService implements IUserService {
         if(!otpService.getOtpCode(changeRequest.getEmail()).equals(changeRequest.getOtp())){
             return false;
         }
-        UsersResource userResource = keycloakProvider.getRealmResource()
-                .users();
-        List<UserRepresentation> users = userResource
-                .searchByEmail(changeRequest.getEmail(), true);
 
+        UsersResource userResource = keycloakProvider.getRealmResource().users();
+        List<UserRepresentation> users = userResource.searchByEmail(changeRequest.getEmail(), true);
+
+        // Asegurarse de que se encontró al menos un usuario con ese correo electrónico
         if (!users.isEmpty()) {
             UserRepresentation user = users.get(0);
-            CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
-            credentialRepresentation.setTemporary(false);
-            credentialRepresentation.setType(OAuth2Constants.PASSWORD);
-            credentialRepresentation.setValue(changeRequest.getNewPassword());
-            user.setCredentials(Collections.singletonList(credentialRepresentation));
-            return true;
-        }
 
+            // Crear una nueva representación de credencial para la contraseña
+            CredentialRepresentation credential = new CredentialRepresentation();
+            credential.setType(CredentialRepresentation.PASSWORD);
+            credential.setTemporary(false); // Puedes decidir si la contraseña es temporal o no
+            credential.setValue(changeRequest.getNewPassword());
+
+            // Obtener el ID del usuario y utilizarlo para resetear la contraseña
+            String userId = user.getId();
+            userResource.get(userId).resetPassword(credential);
+
+
+    }
         return true;
     }
 }
