@@ -20,7 +20,7 @@ public class RedisOtpService implements IOtpService {
     @Override
     public Boolean saveOtpCode(String email, String otpCode) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
-        valueOperations.set(email, otpCode, 5, TimeUnit.MINUTES);
+        valueOperations.set(email, otpCode, 20, TimeUnit.MINUTES);
         return true;
     }
 
