@@ -46,8 +46,7 @@
     {
       "name": "http.cors-enabled",
       "type": "java.lang.Boolean",
-      "sourceType": "com.kynsoft.notification.infrastructure.config.CorsProperties",
-      "defaultValue": false
+      "sourceType": "com.kynsoft.notification.infrastructure.config.CorsProperties"
     },
     {
       "name": "spring.datasource.driver-class-name",

@@ -4,12 +4,16 @@ import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.envers.Audited;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +23,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@Audited
+@EntityListeners(AuditingEntityListener.class)
 public class UserSystem implements Serializable {
     @Id
     @Column(name = "id")
@@ -33,6 +39,18 @@ public class UserSystem implements Serializable {
     private UserStatus status;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
     private List<UserRole> userRols = new ArrayList<>();
+
+    @CreatedBy
+    private String createdBy;
+
+    @LastModifiedBy
+    private String lastModifiedBy;
+
+    @CreatedDate
+    private LocalDateTime createdDate;
+
+    @LastModifiedDate
+    private LocalDateTime lastModifiedDate;
 
     public UserSystem(UserSystemDto dto) {
         this.id = dto.getId();

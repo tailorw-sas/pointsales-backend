@@ -16,8 +16,8 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
 
     @Override
     public void handle(UpdateUserSystemCommand command) {
-
-        UserSystemDto userSystemDto = this.systemService.findById(command.getId());
-        systemService.update(userSystemDto);
+        systemService.update(new UserSystemDto(command.getId(), command.getUserName(),
+                command.getEmail(), command.getName(), command.getLastName(), command.getStatus(),
+                null));
     }
 }

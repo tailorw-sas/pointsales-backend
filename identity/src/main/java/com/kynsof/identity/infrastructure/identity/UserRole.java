@@ -1,10 +1,12 @@
 package com.kynsof.identity.infrastructure.identity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.envers.Audited;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -12,6 +14,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@Data
+@Audited
 public class UserRole {
     @Id
     @GeneratedValue(generator = "UUID")
