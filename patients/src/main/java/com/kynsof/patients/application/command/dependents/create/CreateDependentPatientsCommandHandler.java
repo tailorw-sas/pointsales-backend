@@ -9,6 +9,8 @@ import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.kafka.entity.FileKafka;
+import com.kynsof.share.core.infrastructure.ProducerSaveFileEventService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -19,14 +21,16 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
     private final IPatientsService serviceImpl;
     private final IContactInfoService contactInfoService;
     private final IGeographicLocationService geographicLocationService;
+    private final ProducerSaveFileEventService saveFileEventService;
 
 
     public CreateDependentPatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
-                                                 IGeographicLocationService geographicLocationService
+                                                 IGeographicLocationService geographicLocationService, ProducerSaveFileEventService saveFileEventService
     ) {
         this.serviceImpl = serviceImpl;
         this.contactInfoService = contactInfoService;
         this.geographicLocationService = geographicLocationService;
+        this.saveFileEventService = saveFileEventService;
     }
 
     @Override
@@ -34,9 +38,13 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
 
         PatientDto prime = serviceImpl.findByIdSimple(command.getPrimeId());
         String idLogo = null;
-//        if (command.getPhoto() != null) {
-//            idLogo = sendFileService.sendImage(command.getName(),command.getPhoto());
-//        }
+        if (command.getPhoto() != null && command.getPhoto().length > 1) {
+            UUID photoId = UUID.randomUUID();
+            FileKafka fileSave = new FileKafka(photoId, "patients", command.getName() + ".png", command.getPhoto());
+            saveFileEventService.create(fileSave);
+            idLogo = photoId.toString();
+        }
+
         UUID id = serviceImpl.createDependent(new DependentPatientDto(
                 UUID.randomUUID(),
                 command.getIdentification(),

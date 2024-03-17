@@ -1,7 +1,6 @@
 package com.kynsof.identity.infrastructure.services;
 
 import com.kynsof.identity.application.query.users.getSearch.UserSystemsResponse;
-import com.kynsof.identity.domain.dto.RoleStatusEnm;
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.identity.domain.interfaces.IUserSystemService;
@@ -93,11 +92,11 @@ public class UserSystemServiceImpl implements IUserSystemService {
         return getPaginatedResponse(data);
     }
 
-    static void filterCreteria(List<FilterCriteria> filterCriteria) {
+    private void filterCreteria(List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
             if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
                 try {
-                    RoleStatusEnm enumValue = RoleStatusEnm.valueOf((String) filter.getValue());
+                    UserStatus enumValue = UserStatus.valueOf((String) filter.getValue());
                     filter.setValue(enumValue);
                 } catch (IllegalArgumentException e) {
                     System.err.println("Valor inválido para el tipo Enum RoleStatus: " + filter.getValue());
