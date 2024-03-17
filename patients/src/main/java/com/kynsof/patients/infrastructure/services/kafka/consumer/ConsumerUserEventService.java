@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.patients.domain.dto.PatientDto;
+import com.kynsof.patients.domain.dto.enumTye.GenderType;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.share.core.domain.kafka.entity.UserKafka;
@@ -53,10 +54,12 @@ public class ConsumerUserEventService {
                 //Definir accion
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN DELETED");
+                System.err.println("SE EJECUTA UN UPDATED");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-
+                this.service.update(new PatientDto(UUID.fromString(eventRead.getId()),
+                        "", eventRead.getFirstname(), eventRead.getLastname(), GenderType.OTHER, Status.ACTIVE,
+                        null, null,null, null, null, null, 0));
             }
 
         } catch (JsonProcessingException ex) {
