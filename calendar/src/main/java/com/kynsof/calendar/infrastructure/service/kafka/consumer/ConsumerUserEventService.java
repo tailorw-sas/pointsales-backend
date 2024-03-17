@@ -54,10 +54,11 @@ public class ConsumerUserEventService {
                 //Definir accion
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN DELETED");
+                System.err.println("SE EJECUTA UN EVENTO DE ACTUALIZACION");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
 
+                this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(), eventRead.getLastname(), "", PatientStatus.ACTIVE));
             }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerUserEventService.class.getName()).log(Level.SEVERE, null, ex);

@@ -54,7 +54,7 @@ public class PatientsServiceImpl implements IPatientsService {
 
         return patientDto.getId();
     }
-
+ 
     @Cacheable(cacheNames = CacheConfig.QUALIFICATION_CACHE, unless = "#result == null")
     @Override
     public PatientDto findById(UUID id) {
