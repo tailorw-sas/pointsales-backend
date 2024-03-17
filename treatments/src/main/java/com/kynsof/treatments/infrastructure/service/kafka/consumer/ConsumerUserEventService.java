@@ -32,7 +32,7 @@ public class ConsumerUserEventService {
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                this.service.create(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(), eventRead.getLastname(), "", Status.ACTIVE, null));
+                this.service.create(new PatientDto(UUID.fromString(eventRead.getId()), eventRead.getIdentification(), eventRead.getFirstname(), eventRead.getLastname(), eventRead.getGender(), Status.ACTIVE, null));
 
             }
             if (eventType.equals(EventType.DELETED)) {
@@ -42,16 +42,16 @@ public class ConsumerUserEventService {
                 System.err.println("SE EJECUTA UN DELETED");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-
+                
             }
             if (eventType.equals(EventType.UPDATED)) {
                 //Definir accion
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN DELETED");
+                System.err.println("SE EJECUTA UN UPDATE");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-
+                this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), eventRead.getIdentification(), eventRead.getFirstname(), eventRead.getLastname(), eventRead.getGender(), Status.ACTIVE, null));
             }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerUserEventService.class.getName()).log(Level.SEVERE, null, ex);

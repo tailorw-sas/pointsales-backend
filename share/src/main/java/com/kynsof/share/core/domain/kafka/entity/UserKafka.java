@@ -15,6 +15,10 @@ public class UserKafka implements Serializable {
     private String email;
     private String firstname;
     private String lastname;
+    private String identification;
+    private String phone;
+    private String gender;
+    private String status;
 
     public UserKafka() {
     }

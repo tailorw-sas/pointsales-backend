@@ -17,12 +17,15 @@ public class Patient {
     @Id
     @Column(name="id")
     private UUID id;
+
+    @Column(nullable = true, unique = false)
     private String identification;
 
     private String name;
 
     private String lastName;
 
+    @Column(nullable = true, unique = false)
     private String gender;
 
     @Enumerated(EnumType.STRING)

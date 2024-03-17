@@ -32,7 +32,7 @@ public class ConsumerUserEventService {
             
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                this.service.create(new CustomerDto(UUID.fromString(eventRead.getId()), eventRead.getFirstname(), eventRead.getLastname(), eventRead.getEmail(), ""));
+                this.service.create(new CustomerDto(UUID.fromString(eventRead.getId()), eventRead.getFirstname(), eventRead.getLastname(), eventRead.getEmail(), eventRead.getPhone()));
 
             }
             if (eventType.equals(EventType.DELETED)) {
@@ -48,10 +48,10 @@ public class ConsumerUserEventService {
                 //Definir accion
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN DELETED");
+                System.err.println("SE EJECUTA UN UPDATED");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-
+                this.service.update(new CustomerDto(UUID.fromString(eventRead.getId()), eventRead.getFirstname(), eventRead.getLastname(), eventRead.getEmail(), eventRead.getPhone()));
             }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerUserEventService.class.getName()).log(Level.SEVERE, null, ex);
