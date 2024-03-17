@@ -20,7 +20,7 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
     private final IPatientsService serviceImpl;
     private final IContactInfoService contactInfoService;
     private final IGeographicLocationService geographicLocationService;
-  private final ProducerSaveFileEventService saveFileEventService;
+    private final ProducerSaveFileEventService saveFileEventService;
 
     public CreatePatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
                                         IGeographicLocationService geographicLocationService,
