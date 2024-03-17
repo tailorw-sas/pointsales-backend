@@ -32,7 +32,7 @@ public class ConsumerUserEventService {
             
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                this.service.create(new CustomerDto(UUID.fromString(eventRead.getId()), eventRead.getFirstname(), eventRead.getLastname(), eventRead.getEmail(), ""));
+                this.service.create(new CustomerDto(UUID.fromString(eventRead.getId()), eventRead.getFirstname(), eventRead.getLastname(), eventRead.getEmail(), eventRead.getPhone()));
 
             }
             if (eventType.equals(EventType.DELETED)) {
