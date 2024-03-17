@@ -82,7 +82,6 @@ public class UserService implements IUserService {
                     if (response.statusCode().equals(HttpStatus.OK)) {
                         return response.bodyToMono(TokenResponse.class).map(Optional::of);
                     } else {
-                        // Retornar un Optional.empty() para representar el caso de fallo.
                         return Mono.just(Optional.empty());
                     }
                 });
@@ -236,7 +235,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Boolean triggerPasswordReset(String email) {
+    public Boolean getOtpForwardPassword(String email) {
         UsersResource userResource = keycloakProvider.getRealmResource()
                 .users();
         List<UserRepresentation> users = userResource
@@ -245,7 +244,7 @@ public class UserService implements IUserService {
         if (!users.isEmpty()) {
             UserRepresentation user = users.get(0);
             String otpCode = otpService.generateOtpCode();
-            otpService.saveOtpCode(email, otpCode );
+            otpService.saveOtpCode(email, otpCode);
             producerOtp.create(new UserOtpKafka(email, otpCode, user.getFirstName()));
             return true;
         }
@@ -253,19 +252,16 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Boolean changePassword(PasswordChangeRequest changeRequest) {
-        if(!otpService.getOtpCode(changeRequest.getEmail()).equals(changeRequest.getOtp())){
+    public Boolean forwardPassword(PasswordChangeRequest changeRequest) {
+        if (!otpService.getOtpCode(changeRequest.getEmail()).equals(changeRequest.getOtp())) {
             return false;
         }
 
         UsersResource userResource = keycloakProvider.getRealmResource().users();
         List<UserRepresentation> users = userResource.searchByEmail(changeRequest.getEmail(), true);
-
-        // Asegurarse de que se encontró al menos un usuario con ese correo electrónico
         if (!users.isEmpty()) {
             UserRepresentation user = users.get(0);
 
-            // Crear una nueva representación de credencial para la contraseña
             CredentialRepresentation credential = new CredentialRepresentation();
             credential.setType(CredentialRepresentation.PASSWORD);
             credential.setTemporary(false); // Puedes decidir si la contraseña es temporal o no
@@ -274,9 +270,27 @@ public class UserService implements IUserService {
             // Obtener el ID del usuario y utilizarlo para resetear la contraseña
             String userId = user.getId();
             userResource.get(userId).resetPassword(credential);
-
-
-    }
+        }
         return true;
     }
+
+    public Mono<Boolean> changeUserPassword(String userId, String oldPassword, String newPassword) {
+        // Primero, obtén el username a partir del userId, ya que necesitas el username para solicitar un token
+        UserResource userResource = keycloakProvider.getRealmResource().users().get(userId);
+        UserRepresentation userRepresentation = userResource.toRepresentation();
+        String username = userRepresentation.getUsername();
+
+        Mono<TokenResponse> authenticate = authenticate(new LoginDTO(username, oldPassword));
+        CredentialRepresentation newCredential = new CredentialRepresentation();
+        newCredential.setType(CredentialRepresentation.PASSWORD);
+        newCredential.setTemporary(false);
+        newCredential.setValue(newPassword);
+
+        userResource.resetPassword(newCredential);
+
+        return Mono.just(true); // Retorna true para indicar éxito en el cambio de contraseña
+        
+
+    }
+
 }

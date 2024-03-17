@@ -61,7 +61,7 @@ public class AuthController {
 //    }
     @PostMapping("/forgot-password")
     public ResponseEntity<ApiResponse<?>> forgotPassword(@RequestParam String email) {
-        Boolean response = userService.triggerPasswordReset(email);
+        Boolean response = userService.getOtpForwardPassword(email);
         if (response) {
             return ResponseEntity.ok(ApiResponse.success(true));
         } else {
@@ -76,7 +76,7 @@ public class AuthController {
 
     @PostMapping("/change-password")
     public ResponseEntity<ApiResponse<?>> changePassword(@RequestBody PasswordChangeRequest request) {
-        Boolean response = userService.changePassword(request);
+        Boolean response = userService.forwardPassword(request);
         if (response) {
             return ResponseEntity.ok(ApiResponse.success(true));
         } else {
