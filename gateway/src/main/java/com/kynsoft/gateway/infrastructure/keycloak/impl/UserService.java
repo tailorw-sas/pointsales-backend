@@ -14,6 +14,7 @@ import com.kynsoft.gateway.domain.interfaces.IUserService;
 import com.kynsoft.gateway.infrastructure.keycloak.KeycloakProvider;
 import com.kynsoft.gateway.infrastructure.services.kafka.ProducerRegisterUserEventService;
 import com.kynsoft.gateway.infrastructure.services.kafka.ProducerTriggerPasswordResetEventService;
+import com.kynsoft.gateway.infrastructure.services.kafka.ProducerUpdateUserEventService;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.resource.*;
 import org.keycloak.representations.idm.CredentialRepresentation;
@@ -41,6 +42,8 @@ public class UserService implements IUserService {
     private WebClient.Builder webClientBuilder;
     @Autowired
     private ProducerRegisterUserEventService producerRegisterUserEvent;
+    @Autowired
+    private ProducerUpdateUserEventService producerUpdateUserEventService;
 
     @Autowired
     private final IOtpService otpService;
@@ -160,6 +163,7 @@ public class UserService implements IUserService {
                 .list();
     }
 
+    @Override
     public List<UserRepresentation> searchUserByUsername(String username) {
         return keycloakProvider.getRealmResource()
                 .users()
@@ -198,6 +202,7 @@ public class UserService implements IUserService {
                 user.setCredentials(Collections.singletonList(credential));
             }
             userResource.update(user);
+            this.producerUpdateUserEventService.update(new RegisterDTO(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), "", null), id);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update user.", e);
         }
