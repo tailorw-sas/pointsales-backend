@@ -48,7 +48,7 @@ public class ConsumerUserEventService {
                 //Definir accion
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN DELETED");
+                System.err.println("SE EJECUTA UN UPDATE");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
                 this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), eventRead.getIdentification(), eventRead.getFirstname(), eventRead.getLastname(), eventRead.getGender(), Status.ACTIVE, null));
