@@ -33,7 +33,7 @@ public class CacheConfig {
         redisCacheConfigurationMap.put(USER_CACHE, createConfig(1, ChronoUnit.MINUTES));
         redisCacheConfigurationMap.put(QUALIFICATION_CACHE, createConfig(1, ChronoUnit.MINUTES));
         redisCacheConfigurationMap.put(BUSINESS_CACHE, createConfig(1, ChronoUnit.MINUTES));
-        redisCacheConfigurationMap.put(PATIENTS_CACHE, createConfig(1, ChronoUnit.MINUTES));
+        redisCacheConfigurationMap.put(PATIENTS_CACHE, createConfig(10, ChronoUnit.MINUTES));
         redisCacheConfigurationMap.put(RECEIPT_CACHE, createConfig(1, ChronoUnit.MINUTES));
         redisCacheConfigurationMap.put(RESOURCE_CACHE, createConfig(1, ChronoUnit.MINUTES));
         redisCacheConfigurationMap.put(SCHEDULE_CACHE, createConfig(1, ChronoUnit.MINUTES));
