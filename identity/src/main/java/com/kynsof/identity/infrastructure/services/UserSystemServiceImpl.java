@@ -7,6 +7,7 @@ import com.kynsof.identity.domain.interfaces.IUserSystemService;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
 import com.kynsof.identity.infrastructure.repository.command.UserSystemsWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserSystemReadDataJPARepository;
+import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerRegisterUserSystemEventService;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
@@ -28,10 +29,14 @@ public class UserSystemServiceImpl implements IUserSystemService {
     @Autowired
     private UserSystemReadDataJPARepository repositoryQuery;
 
+    @Autowired
+    private ProducerRegisterUserSystemEventService producerRegisterUserSystemEventService;
+
     @Override
     public UUID create(UserSystemDto userSystemDto) {
         UserSystem data = new UserSystem(userSystemDto);
         UserSystem userSystem = this.repositoryCommand.save(data);
+        this.producerRegisterUserSystemEventService.create(userSystemDto);
         return userSystem.getId();
     }
 
