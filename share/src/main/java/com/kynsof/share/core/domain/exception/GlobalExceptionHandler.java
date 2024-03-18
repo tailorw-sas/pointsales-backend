@@ -85,6 +85,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<?>> handleCustomUnauthorizedException(CustomUnauthorizedException ex) {
         ApiError apiError = new ApiError("An unexpected null value was encountered.", null);
         ApiResponse<?> apiResponse = ApiResponse.fail(apiError);
-        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(apiResponse, HttpStatus.FORBIDDEN);
     }
 }

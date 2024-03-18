@@ -100,12 +100,10 @@ public class AuthService {
                     TokenResponse.class);
             return response.getBody();
         } catch (HttpClientErrorException ex) {
-            if (ex.getStatusCode() == HttpStatus.UNAUTHORIZED) {
-                throw new CustomUnauthorizedException("Unauthorized: Refresh token is invalid or expired.",
-                        new ErrorField("token", "Refresh token not found"));
-            } else {
-                throw new RuntimeException("An error occurred while refreshing the token: " + ex.getMessage(), ex);
-            }
+
+            throw new CustomUnauthorizedException("Unauthorized: Refresh token is invalid or expired.",
+                    new ErrorField("token", "Refresh token not found"));
+
         }
     }
 

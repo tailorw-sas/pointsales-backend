@@ -12,13 +12,11 @@ import com.kynsoft.gateway.application.command.registry.RegistryMessage;
 import com.kynsoft.gateway.application.command.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpCommand;
 import com.kynsoft.gateway.application.command.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpMessage;
 import com.kynsoft.gateway.application.dto.*;
+import com.kynsoft.gateway.application.query.getById.RefreshTokenQuery;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -40,7 +38,7 @@ public class AuthController {
     }
 
 
-   // @PreAuthorize("permitAll()")
+    // @PreAuthorize("permitAll()")
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<Boolean>> registerUser(@RequestBody RegisterDTO registerDTO) {
         RegistryCommand command = new RegistryCommand(registerDTO.getUsername(), registerDTO.getEmail(), registerDTO.getFirstname(),
@@ -50,12 +48,12 @@ public class AuthController {
     }
 
     @PostMapping("/refresh-token")
-    @PreAuthorize("permitAll()")
-    public Mono<ResponseEntity<?>> refreshToken(@RequestBody TokenRefreshRequest request) {
-        return userService.refreshToken(request.getRefreshToken())
-                .flatMap(tokenResponseOptional -> tokenResponseOptional
-                        .map(tokenResponse -> Mono.just(ResponseEntity.ok(tokenResponse)))
-                        .orElseGet(() -> Mono.just(ResponseEntity.status(HttpStatus.FORBIDDEN).body(null))));
+    //   @PreAuthorize("permitAll()")
+    public ResponseEntity<ApiResponse<TokenResponse>> refreshToken(@RequestBody TokenRefreshRequest request) {
+        RefreshTokenQuery query = new RefreshTokenQuery(request.getRefreshToken());
+        TokenResponse response = mediator.send(query);
+        return ResponseEntity.ok(ApiResponse.success(response));
+
     }
 
     //    @PreAuthorize("permitAll()")
@@ -72,20 +70,9 @@ public class AuthController {
 
     @PostMapping("/change-password")
     public ResponseEntity<ApiResponse<?>> changePassword(@RequestBody PasswordChangeRequest request) {
-        ForwardPasswordCommand command = new ForwardPasswordCommand(request.getEmail(),request.getNewPassword(),
+        ForwardPasswordCommand command = new ForwardPasswordCommand(request.getEmail(), request.getNewPassword(),
                 request.getOtp());
         ForwardPasswordMessage response = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(response.getResult()));
-//        Boolean response = userService.forwardPassword(request);
-//        if (response) {
-//            return ResponseEntity.ok(ApiResponse.success(true));
-//        } else {
-//            ApiError apiError = ApiError.withSingleError(
-//                    "Error al cambiar la contraseña",
-//                    "email",
-//                    "No existe un usuario con el correo " + request.getEmail()
-//            );
-//            return ResponseEntity.badRequest().body(ApiResponse.fail(apiError));
-//        }
     }
 }
