@@ -18,7 +18,6 @@ public class Patient {
     @Column(name="id")
     private UUID id;
 
-    @Column(nullable = true, unique = false)
     private String identification;
 
     private String name;
