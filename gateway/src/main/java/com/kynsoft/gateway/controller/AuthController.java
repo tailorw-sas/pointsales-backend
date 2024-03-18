@@ -13,7 +13,6 @@ import com.kynsoft.gateway.application.command.sendPasswordRecoveryOtp.SendPassw
 import com.kynsoft.gateway.application.command.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpMessage;
 import com.kynsoft.gateway.application.dto.*;
 import com.kynsoft.gateway.application.query.getById.RefreshTokenQuery;
-import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +20,16 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private final IUserService userService;
+
     private final IMediator mediator;
 
     @Autowired
-    public AuthController(IUserService userService, IMediator mediator) {
-        this.userService = userService;
+    public AuthController( IMediator mediator) {
+
         this.mediator = mediator;
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/authenticate")
     public ResponseEntity<TokenResponse> authenticate(@RequestBody LoginDTO loginDTO) {
         AuthenticateCommand authenticateCommand = new AuthenticateCommand(loginDTO.getUsername(), loginDTO.getPassword());
