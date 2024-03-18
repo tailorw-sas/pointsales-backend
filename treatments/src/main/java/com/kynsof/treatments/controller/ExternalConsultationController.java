@@ -1,5 +1,6 @@
 package com.kynsof.treatments.controller;
 
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationCommand;
 import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationMessage;
@@ -10,7 +11,6 @@ import com.kynsof.treatments.application.command.externalConsultation.update.Upd
 import com.kynsof.treatments.application.query.externalConsultation.getById.FindByIdExternalConsultationQuery;
 import com.kynsof.treatments.application.query.externalConsultation.getall.ExternalConsultationResponse;
 import com.kynsof.treatments.application.query.externalConsultation.getall.GetAllExternalConsultationQuery;
-import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +42,7 @@ public class ExternalConsultationController {
     public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
                                                     @RequestParam(defaultValue = "0") Integer page,
                                                     @RequestParam(defaultValue = "") UUID patientId,
-                                                           @RequestParam(defaultValue = "") UUID doctorId)
+                                                    @RequestParam(defaultValue = "") UUID doctorId)
     {
         Pageable pageable = PageRequest.of(page, pageSize);
         GetAllExternalConsultationQuery query = new GetAllExternalConsultationQuery(pageable, doctorId, patientId);

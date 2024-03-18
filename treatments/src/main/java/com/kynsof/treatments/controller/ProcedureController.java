@@ -1,10 +1,10 @@
 package com.kynsof.treatments.controller;
 
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.query.procedure.getAll.GetAllProcedureQuery;
 import com.kynsof.treatments.application.query.procedure.getAll.ProcedureResponse;
 import com.kynsof.treatments.application.query.procedure.getByCode.FindByCodeProcedureQuery;
-import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class ProcedureController {
     public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
                                                     @RequestParam(defaultValue = "0") Integer page,
                                                     @RequestParam(defaultValue = "") String name,
-                                                           @RequestParam(defaultValue = "") String code,
+                                                    @RequestParam(defaultValue = "") String code,
                                                     @RequestParam(defaultValue = "") String type )
     {
         Pageable pageable = PageRequest.of(page, pageSize);

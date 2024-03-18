@@ -1,5 +1,6 @@
 package com.kynsof.treatments.controller;
 
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.examOrder.create.CreateExamOrderCommand;
 import com.kynsof.treatments.application.command.examOrder.create.CreateExamOrderMessage;
@@ -7,7 +8,6 @@ import com.kynsof.treatments.application.command.examOrder.create.CreateExamOrde
 import com.kynsof.treatments.application.query.examOrder.getById.FindByIdExamOrderQuery;
 import com.kynsof.treatments.application.query.examOrder.getall.ExamOrderResponse;
 import com.kynsof.treatments.application.query.examOrder.getall.GetAllExamOrderQuery;
-import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

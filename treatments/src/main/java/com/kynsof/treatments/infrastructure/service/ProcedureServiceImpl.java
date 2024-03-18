@@ -1,11 +1,11 @@
 package com.kynsof.treatments.infrastructure.service;
 
 
-import com.kynsof.treatments.application.query.procedure.getAll.ProcedureResponse;
-import com.kynsof.treatments.domain.dto.PaginatedResponse;
-import com.kynsof.treatments.domain.dto.ProcedureDto;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.treatments.application.query.procedure.getAll.ProcedureResponse;
+import com.kynsof.treatments.domain.dto.ProcedureDto;
 import com.kynsof.treatments.domain.service.IProcedureService;
 import com.kynsof.treatments.infrastructure.entity.Procedure;
 import com.kynsof.treatments.infrastructure.entity.specifications.ProcedureSpecifications;

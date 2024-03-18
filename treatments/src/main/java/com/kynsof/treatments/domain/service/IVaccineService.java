@@ -1,6 +1,6 @@
 package com.kynsof.treatments.domain.service;
 
-import com.kynsof.treatments.domain.dto.PaginatedResponse;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.treatments.domain.dto.VaccineDto;
 import org.springframework.data.domain.Pageable;
 

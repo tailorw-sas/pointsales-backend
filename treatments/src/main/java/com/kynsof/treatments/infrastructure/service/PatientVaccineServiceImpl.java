@@ -1,11 +1,13 @@
 package com.kynsof.treatments.infrastructure.service;
 
 
-import com.kynsof.treatments.application.query.patientVaccine.getall.PatientVaccineResponse;
-import com.kynsof.treatments.domain.dto.PaginatedResponse;
-import com.kynsof.treatments.domain.dto.PatientVaccineDto;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import com.kynsof.treatments.application.query.patientVaccine.getall.PatientVaccineResponse;
+import com.kynsof.treatments.domain.dto.PatientVaccineDto;
 import com.kynsof.treatments.domain.service.IPatientVaccineService;
 import com.kynsof.treatments.infrastructure.entity.PatientVaccine;
 import com.kynsof.treatments.infrastructure.entity.specifications.PatientVaccineSpecifications;
@@ -60,13 +62,25 @@ public class PatientVaccineServiceImpl implements IPatientVaccineService {
         PatientVaccineSpecifications specifications = new PatientVaccineSpecifications( patientId);
         Page<PatientVaccine> data = this.repositoryQuery.findAll(specifications, pageable);
 
-        List<PatientVaccineResponse> allergyResponses = new ArrayList<>();
+        return getPaginatedResponse(data);
+    }
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<PatientVaccine> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<PatientVaccine> data = this.repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<PatientVaccine> data) {
+        List<PatientVaccineResponse> patientVaccineResponses = new ArrayList<>();
         for (PatientVaccine p : data.getContent()) {
-            allergyResponses.add(new PatientVaccineResponse(p.toAggregate()));
+            patientVaccineResponses.add(new PatientVaccineResponse(p.toAggregate()));
         }
-        return new PaginatedResponse(allergyResponses, data.getTotalPages(), data.getNumberOfElements(),
+        return new PaginatedResponse(patientVaccineResponses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
+
 
     @Override
     public void delete(UUID id) {
