@@ -52,10 +52,24 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponse.fail(apiError));
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ApiResponse<?>> handleUserNotFoundException(UserNotFoundException ex) {
+        ApiError apiError = new ApiError("User not found",
+                List.of(ex.getErrorField())); // Asume que ApiError puede aceptar una lista de ErrorField
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.fail(apiError));
+    }
+
     @ExceptionHandler(javax.ws.rs.NotFoundException.class)
     public ResponseEntity<ApiResponse<?>> handleNotFoundException(javax.ws.rs.NotFoundException ex) {
         ApiError apiError = new ApiError(ex.getMessage(), null); // Asume que tienes un constructor ApiError que acepte solo el mensaje de error.
         ApiResponse<?> apiResponse = ApiResponse.fail(apiError);
         return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ApiResponse<?>> handleNullPointerException(NullPointerException ex) {
+        ApiError apiError = new ApiError("An unexpected null value was encountered.", null);
+        ApiResponse<?> apiResponse = ApiResponse.fail(apiError);
+        return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

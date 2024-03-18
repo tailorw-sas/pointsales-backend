@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.share.core.domain.kafka.entity.UserSystemKakfa;
 import com.kynsof.share.core.domain.kafka.event.EventType;
-import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -37,7 +36,7 @@ public class ConsumerUserSystemEventService {
                 System.err.println("SE EJECUTA UN CREATED");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                this.service.registerUser(new RegisterDTO(eventRead.getUserName(), eventRead.getEmail(), eventRead.getName(), eventRead.getLastName(), "", null));
+              //  this.service.registerUser(new RegisterDTO(eventRead.getUserName(), eventRead.getEmail(), eventRead.getName(), eventRead.getLastName(), "", null));
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion

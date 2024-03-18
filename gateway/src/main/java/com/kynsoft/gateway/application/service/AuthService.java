@@ -1,12 +1,17 @@
 package com.kynsoft.gateway.application.service;
 
 import com.kynsof.share.core.domain.exception.UserAlreadyExistsException;
+import com.kynsof.share.core.domain.exception.UserNotFoundException;
+import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsoft.gateway.application.dto.LoginDTO;
+import com.kynsoft.gateway.application.dto.PasswordChangeRequest;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.application.dto.TokenResponse;
+import com.kynsoft.gateway.domain.interfaces.IOtpService;
 import com.kynsoft.gateway.infrastructure.keycloak.KeycloakProvider;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserEventService;
+import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerTriggerPasswordResetEventService;
 import io.micrometer.common.lang.NonNull;
 import org.keycloak.admin.client.resource.ClientResource;
 import org.keycloak.admin.client.resource.RealmResource;
@@ -32,14 +37,17 @@ public class AuthService {
 
     private final KeycloakProvider keycloakProvider;
     private final RestTemplate restTemplate;
-
     private final ProducerRegisterUserEventService producerRegisterUserEvent;
+    private final IOtpService otpService;
+    private final ProducerTriggerPasswordResetEventService producerOtp;
 
     @Autowired
-    public AuthService(KeycloakProvider keycloakProvider, RestTemplate restTemplate, ProducerRegisterUserEventService producerRegisterUserEvent) {
+    public AuthService(KeycloakProvider keycloakProvider, RestTemplate restTemplate, ProducerRegisterUserEventService producerRegisterUserEvent, IOtpService otpService, ProducerTriggerPasswordResetEventService producerOtp) {
         this.keycloakProvider = keycloakProvider;
         this.restTemplate = restTemplate;
         this.producerRegisterUserEvent = producerRegisterUserEvent;
+        this.otpService = otpService;
+        this.producerOtp = producerOtp;
     }
 
     public TokenResponse authenticate(LoginDTO loginDTO) {
@@ -62,7 +70,7 @@ public class AuthService {
                 entity,
                 TokenResponse.class);
 
-        if(response.getStatusCode() == HttpStatus.OK) {
+        if (response.getStatusCode() == HttpStatus.OK) {
             return response.getBody();
         } else {
             throw new RuntimeException("Authentication failed");
@@ -87,7 +95,7 @@ public class AuthService {
 
             setNewUserPassword(registerDTO.getPassword(), userId, usersResource);
             assignRolesToUser(registerDTO.getRoles(), userId);
-             producerRegisterUserEvent.create(registerDTO, userId);
+            producerRegisterUserEvent.create(registerDTO, userId);
             return true;
         } else if (response.getStatus() == 409) {
             throw new UserAlreadyExistsException("User already exists", new ErrorField("email", "Email is already in use"));
@@ -95,6 +103,43 @@ public class AuthService {
         } else {
             return false;
         }
+    }
+
+    public Boolean sendPasswordRecoveryOtp(String email) {
+        UsersResource userResource = keycloakProvider.getRealmResource().users();
+        List<UserRepresentation> users = userResource
+                .searchByEmail(email, true);
+
+        if (!users.isEmpty()) {
+            UserRepresentation user = users.get(0);
+            String otpCode = otpService.generateOtpCode();
+            otpService.saveOtpCode(email, otpCode);
+            producerOtp.create(new UserOtpKafka(email, otpCode, user.getFirstName()));
+            return true;
+        }
+        throw new UserNotFoundException("User not found", new ErrorField("email", "Email not found"));
+    }
+
+    public Boolean forwardPassword(PasswordChangeRequest changeRequest) {
+        if (!otpService.getOtpCode(changeRequest.getEmail()).equals(changeRequest.getOtp())) {
+            return false;
+        }
+
+        UsersResource userResource = keycloakProvider.getRealmResource().users();
+        List<UserRepresentation> users = userResource.searchByEmail(changeRequest.getEmail(), true);
+        if (!users.isEmpty()) {
+            UserRepresentation user = users.get(0);
+
+            CredentialRepresentation credential = new CredentialRepresentation();
+            credential.setType(CredentialRepresentation.PASSWORD);
+            credential.setTemporary(false);
+            credential.setValue(changeRequest.getNewPassword());
+
+            String userId = user.getId();
+            userResource.get(userId).resetPassword(credential);
+            return true;
+        }
+        throw new UserNotFoundException("User not found", new ErrorField("email/password", "Change Password not found"));
     }
 
     private String extractUserIdFromLocation(String path) {

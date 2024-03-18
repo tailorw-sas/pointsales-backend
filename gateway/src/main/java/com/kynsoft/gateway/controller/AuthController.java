@@ -1,13 +1,16 @@
 package com.kynsoft.gateway.controller;
 
 
-import com.kynsof.share.core.domain.response.ApiError;
 import com.kynsof.share.core.domain.response.ApiResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsoft.gateway.application.command.autenticate.AuthenticateCommand;
 import com.kynsoft.gateway.application.command.autenticate.AuthenticateMessage;
+import com.kynsoft.gateway.application.command.forwardPassword.ForwardPasswordCommand;
+import com.kynsoft.gateway.application.command.forwardPassword.ForwardPasswordMessage;
 import com.kynsoft.gateway.application.command.registry.RegistryCommand;
 import com.kynsoft.gateway.application.command.registry.RegistryMessage;
+import com.kynsoft.gateway.application.command.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpCommand;
+import com.kynsoft.gateway.application.command.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpMessage;
 import com.kynsoft.gateway.application.dto.*;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,15 +47,6 @@ public class AuthController {
                 registerDTO.getLastname(), registerDTO.getPassword(), registerDTO.getRoles());
         RegistryMessage registryMessage = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(registryMessage.getResult()));
-//        return userService.registerUser(registerDTO)
-//                .map(response -> ResponseEntity.ok(ApiResponse.success(response)))
-//                .onErrorResume(e -> {
-//                    if (e instanceof CustomException ce) {
-//                        return Mono.just(ResponseEntity.status(ce.getStatus()).body(ApiResponse.fail(ce.getApiError())));
-//                    }
-//                    ApiError apiError = new ApiError("An unexpected error occurred", List.of());
-//                    return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponse.fail(apiError)));
-//                });
     }
 
     @PostMapping("/refresh-token")
@@ -71,31 +65,27 @@ public class AuthController {
 //    }
     @PostMapping("/forgot-password")
     public ResponseEntity<ApiResponse<?>> forgotPassword(@RequestParam String email) {
-        Boolean response = userService.getOtpForwardPassword(email);
-        if (response) {
-            return ResponseEntity.ok(ApiResponse.success(true));
-        } else {
-            ApiError apiError = ApiError.withSingleError(
-                    "Error al recuperar la contraseña",
-                    "email",
-                    "No existe un usuario con el correo " + email
-            );
-            return ResponseEntity.badRequest().body(ApiResponse.fail(apiError));
-        }
+        SendPasswordRecoveryOtpCommand command = new SendPasswordRecoveryOtpCommand(email);
+        SendPasswordRecoveryOtpMessage sendPasswordRecoveryOtpMessage = mediator.send(command);
+        return ResponseEntity.ok(ApiResponse.success(sendPasswordRecoveryOtpMessage.getResult()));
     }
 
     @PostMapping("/change-password")
     public ResponseEntity<ApiResponse<?>> changePassword(@RequestBody PasswordChangeRequest request) {
-        Boolean response = userService.forwardPassword(request);
-        if (response) {
-            return ResponseEntity.ok(ApiResponse.success(true));
-        } else {
-            ApiError apiError = ApiError.withSingleError(
-                    "Error al cambiar la contraseña",
-                    "email",
-                    "No existe un usuario con el correo " + request.getEmail()
-            );
-            return ResponseEntity.badRequest().body(ApiResponse.fail(apiError));
-        }
+        ForwardPasswordCommand command = new ForwardPasswordCommand(request.getEmail(),request.getNewPassword(),
+                request.getOtp());
+        ForwardPasswordMessage response = mediator.send(command);
+        return ResponseEntity.ok(ApiResponse.success(response.getResult()));
+//        Boolean response = userService.forwardPassword(request);
+//        if (response) {
+//            return ResponseEntity.ok(ApiResponse.success(true));
+//        } else {
+//            ApiError apiError = ApiError.withSingleError(
+//                    "Error al cambiar la contraseña",
+//                    "email",
+//                    "No existe un usuario con el correo " + request.getEmail()
+//            );
+//            return ResponseEntity.badRequest().body(ApiResponse.fail(apiError));
+//        }
     }
 }
