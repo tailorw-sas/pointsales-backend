@@ -29,7 +29,6 @@ public class AuthController {
         this.mediator = mediator;
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/authenticate")
     public ResponseEntity<TokenResponse> authenticate(@RequestBody LoginDTO loginDTO) {
         AuthenticateCommand authenticateCommand = new AuthenticateCommand(loginDTO.getUsername(), loginDTO.getPassword());
