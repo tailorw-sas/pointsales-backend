@@ -1,30 +1,23 @@
 package com.kynsoft.gateway.infrastructure.config;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Bean;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.CorsWebFilter;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
-@Configuration
-@RequiredArgsConstructor
-public class CorsConfig {
-	
-    private final CorsProperties corsProperties;
+    @Setter
+    @Getter
+    @Configuration
+    @ConfigurationProperties(prefix = "https")
+    public class CorsConfig {
+        private CorsConfiguration cors = new CorsConfiguration();
 
-    @Bean
-    @ConditionalOnProperty(prefix = "http", name = "cors-enabled", matchIfMissing = false, havingValue = "true")
-    public CorsWebFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = corsProperties.getCors();
-        
-        if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
-            source.registerCorsConfiguration("/**", config);
+        // Initialize cors to allow all origins
+        public CorsConfig() {
+            cors.addAllowedOrigin("*"); // Allow any origin
+            cors.addAllowedMethod("*"); // Allow any HTTP methods
+            cors.addAllowedHeader("*"); // Allow any headers
         }
-        
-        return new CorsWebFilter(source);
-    }
 
-}
+    }
