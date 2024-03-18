@@ -1,29 +1,24 @@
 package com.kynsoft.gateway.infrastructure.config;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.cors.CorsConfiguration;
 
+@Setter
+@Getter
 @Configuration
-@ConfigurationProperties(prefix = "http")
-@Validated
+@ConfigurationProperties(prefix = "https")
 public class CorsProperties {
-	
-	private boolean corsEnabled;
-	private final CorsConfiguration cors = new CorsConfiguration();
-	
-	public boolean isCorsEnabled() {
-		return corsEnabled;
-	}
-	
-	public void setCorsEnabled(boolean corsEnabled) {
-		this.corsEnabled = corsEnabled;
-	}
-	
-	public CorsConfiguration getCors() {
-		return cors;
-	}
 
+	private CorsConfiguration cors = new CorsConfiguration();
+
+	// Initialize cors to allow all origins
+	public CorsProperties() {
+		cors.addAllowedOrigin("*"); // Allow any origin
+		cors.addAllowedMethod("*"); // Allow any HTTP methods
+		cors.addAllowedHeader("*"); // Allow any headers
+	}
 }
