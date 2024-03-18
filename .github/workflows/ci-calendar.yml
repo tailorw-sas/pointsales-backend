@@ -12,6 +12,7 @@ on:
     paths:
       - .github/workflows/ci-calendar.yml
       - 'calendar/**'
+      - 'share/**'
 jobs:
   build-push:
     runs-on: ubuntu-latest

@@ -12,6 +12,7 @@ on:
     paths:
       - .github/workflows/ci-patients.yml
       - 'patients/**'
+      - 'share/**'
 jobs:
   build-push:
     runs-on: ubuntu-latest

@@ -12,6 +12,7 @@ on:
     paths:
       - .github/workflows/ci-cloudBridges.yml
       - 'cloudBridges/**'
+      - 'share/**'
 jobs:
   build-push:
     runs-on: ubuntu-latest

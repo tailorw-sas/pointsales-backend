@@ -12,6 +12,7 @@ on:
     paths:
       - .github/workflows/ci-treatments.yml
       - 'treatments/**'
+      - 'share/**'
 jobs:
   build-push:
     runs-on: ubuntu-latest

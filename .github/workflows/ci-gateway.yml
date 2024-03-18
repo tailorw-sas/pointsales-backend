@@ -11,6 +11,7 @@ on:
       - 'dev'
     paths:
       - 'gateway/**'
+      - 'share/**'
 
 jobs:
   build-push:

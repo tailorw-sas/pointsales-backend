@@ -12,6 +12,7 @@ on:
     paths:
       - .github/workflows/ci-registry.yml
       - 'registry/**'
+      - 'share/**'
 jobs:
   build-push:
     runs-on: ubuntu-latest
