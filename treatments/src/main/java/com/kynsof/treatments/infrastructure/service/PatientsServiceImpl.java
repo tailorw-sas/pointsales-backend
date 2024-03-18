@@ -60,7 +60,6 @@ public class PatientsServiceImpl implements IPatientsService {
         if (patient.isPresent()) {
             return patient.get().toAggregate();
         }
-        //throw new RuntimeException("Patients not found.");
         throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Patients not found.");
     }
 

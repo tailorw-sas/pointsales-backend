@@ -8,6 +8,7 @@ import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.treatments.application.query.patientVaccine.getall.PatientVaccineResponse;
 import com.kynsof.treatments.domain.dto.PatientVaccineDto;
+import com.kynsof.treatments.domain.dto.enumDto.VaccinationStatus;
 import com.kynsof.treatments.domain.service.IPatientVaccineService;
 import com.kynsof.treatments.infrastructure.entity.PatientVaccine;
 import com.kynsof.treatments.infrastructure.entity.specifications.PatientVaccineSpecifications;
@@ -67,6 +68,16 @@ public class PatientVaccineServiceImpl implements IPatientVaccineService {
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        for (FilterCriteria filter : filterCriteria) {
+            if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
+                try {
+                    VaccinationStatus enumValue = VaccinationStatus.valueOf((String) filter.getValue());
+                    filter.setValue(enumValue);
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Valor inválido para el tipo Enum RoleStatus: " + filter.getValue());
+                }
+            }
+        }
         GenericSpecificationsBuilder<PatientVaccine> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<PatientVaccine> data = this.repositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(data);
