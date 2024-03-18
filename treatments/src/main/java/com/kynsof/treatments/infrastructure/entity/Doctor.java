@@ -20,7 +20,7 @@ public class Doctor {
     @Column(name="id")
     private UUID id;
 
-    @Column(unique = true)
+    @Column(unique = false)
     private String identification;
 
     private String name;
