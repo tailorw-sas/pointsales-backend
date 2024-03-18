@@ -24,7 +24,6 @@ public class Patient {
 
     private String lastName;
 
-    @Column(nullable = true, unique = false)
     private String gender;
 
     @Enumerated(EnumType.STRING)

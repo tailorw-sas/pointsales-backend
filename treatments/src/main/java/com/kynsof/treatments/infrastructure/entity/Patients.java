@@ -25,7 +25,6 @@ public class Patients {
     private String identification;
 
     private String name;
-
     private String lastName;
 
     private String gender;
