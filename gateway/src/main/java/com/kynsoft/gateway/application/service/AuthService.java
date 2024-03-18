@@ -83,7 +83,6 @@ public class AuthService {
     public TokenResponse refreshToken(String refreshToken) throws CustomUnauthorizedException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("client_id", keycloakProvider.getClient_id());
         map.add("grant_type", "refresh_token");
