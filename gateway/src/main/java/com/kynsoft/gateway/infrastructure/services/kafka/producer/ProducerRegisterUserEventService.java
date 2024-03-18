@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.infrastructure.services.kafka;
+package com.kynsoft.gateway.infrastructure.services.kafka.producer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,25 +14,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ProducerUpdateUserEventService {
+public class ProducerRegisterUserEventService {
     private final KafkaTemplate<String, String> producer;
 
-    public ProducerUpdateUserEventService(KafkaTemplate<String, String> producer) {
+    public ProducerRegisterUserEventService(KafkaTemplate<String, String> producer) {
         this.producer = producer;
     }
 
     @Async
-    public void update(RegisterDTO entity, String clientId) {
+    public void create(RegisterDTO entity, String clientId) {
 
         try {
             UserKafka event = new UserKafka(clientId, entity.getUsername(), entity.getEmail(), entity.getFirstname(), entity.getLastname(), "", "", "", "");
 
             ObjectMapper objectMapper = new ObjectMapper();
-            String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.UPDATED));
+            String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
 
             this.producer.send("user", json);
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ProducerUpdateUserEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProducerRegisterUserEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
