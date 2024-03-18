@@ -39,9 +39,23 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // This annotation ensures a 500 status is returned.
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ApiResponse<?>> handleAllUncaughtException(Exception ex, WebRequest request) {
         ApiError apiError = new ApiError("An unexpected error occurred.", List.of(new ErrorField("internal", "Internal server error.")));
         return ResponseEntity.internalServerError().body(ApiResponse.fail(apiError));
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ApiResponse<?>> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
+        ApiError apiError = new ApiError("A user with the given details already exists",
+                List.of(ex.getErrorField())); // Asume que ApiError puede aceptar una lista de ErrorField
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponse.fail(apiError));
+    }
+
+    @ExceptionHandler(javax.ws.rs.NotFoundException.class)
+    public ResponseEntity<ApiResponse<?>> handleNotFoundException(javax.ws.rs.NotFoundException ex) {
+        ApiError apiError = new ApiError(ex.getMessage(), null); // Asume que tienes un constructor ApiError que acepte solo el mensaje de error.
+        ApiResponse<?> apiResponse = ApiResponse.fail(apiError);
+        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
     }
 }

@@ -3,19 +3,16 @@ package com.kynsoft.gateway.infrastructure.services.kafka.consumer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.share.core.domain.kafka.entity.UserKafka;
 import com.kynsof.share.core.domain.kafka.entity.UserSystemKakfa;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
-import java.util.Set;
-import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class ConsumerUserSystemEventService {
@@ -40,7 +37,7 @@ public class ConsumerUserSystemEventService {
                 System.err.println("SE EJECUTA UN CREATED");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                this.service.registerUser(new RegisterDTO(eventRead.getUserName(), eventRead.getEmail(), eventRead.getName(), eventRead.getLastName(), "", Set.of()));
+                this.service.registerUser(new RegisterDTO(eventRead.getUserName(), eventRead.getEmail(), eventRead.getName(), eventRead.getLastName(), "", null));
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion

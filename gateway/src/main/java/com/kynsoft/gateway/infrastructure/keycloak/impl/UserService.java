@@ -25,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -54,6 +55,9 @@ public class UserService implements IUserService {
     public UserService(IOtpService services) {
         this.otpService = services;
     }
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public Mono<TokenResponse> authenticate(LoginDTO loginDTO) {
@@ -201,7 +205,7 @@ public class UserService implements IUserService {
                 user.setCredentials(Collections.singletonList(credential));
             }
             userResource.update(user);
-            this.producerUpdateUserEventService.update(new RegisterDTO(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), "", null), id);
+           // this.producerUpdateUserEventService.update(new RegisterDTO(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), "", null), id);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update user.", e);
         }
