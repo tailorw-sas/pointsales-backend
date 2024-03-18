@@ -1,9 +1,9 @@
 package com.kynsof.treatments.infrastructure.service;
 
-import com.kynsof.treatments.domain.dto.PatientDto;
-import com.kynsof.treatments.domain.dto.enumDto.Status;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.treatments.domain.dto.PatientDto;
+import com.kynsof.treatments.domain.dto.enumDto.Status;
 import com.kynsof.treatments.domain.service.IPatientsService;
 import com.kynsof.treatments.infrastructure.entity.Patients;
 import com.kynsof.treatments.infrastructure.repositories.command.PatientsWriteDataJPARepository;

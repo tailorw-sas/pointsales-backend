@@ -1,7 +1,7 @@
 package com.kynsof.calendar.domain.dto;
 
-import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

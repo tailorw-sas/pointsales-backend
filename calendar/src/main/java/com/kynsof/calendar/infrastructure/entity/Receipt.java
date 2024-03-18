@@ -1,7 +1,7 @@
 package com.kynsof.calendar.infrastructure.entity;
 
-import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import com.kynsof.calendar.domain.dto.ReceiptDto;
+import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
