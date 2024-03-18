@@ -55,9 +55,9 @@ jobs:
       - name: Connect to OpenVPN
         uses: kota65535/github-openvpn-connect-action@v2
         with:
-          config_file: vpnconfig/vpnserver.ovpn
-          username: ${{ secrets.OVPN_USERNAME }}
-          password: ${{ secrets.OVPN_PASSWORD }}
+          config_file: vpnconfig/vpnserver1.ovpn
+          username: keimer
+          password: zlxk149hp/I2LzmV
 
       - name: Enable kubectl
         uses: tale/kubectl-action@v1
