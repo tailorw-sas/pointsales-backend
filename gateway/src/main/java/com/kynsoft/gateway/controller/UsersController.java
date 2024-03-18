@@ -1,18 +1,22 @@
 package com.kynsoft.gateway.controller;
 
 
+import com.kynsof.share.core.domain.response.ApiError;
+import com.kynsof.share.core.domain.response.ApiResponse;
+import com.kynsoft.gateway.application.dto.ChangePasswordRequest;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.application.dto.user.ChangeStatusRequest;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/users")
-@PreAuthorize("hasRole('ADMIN_CLIENT')")
+//@PreAuthorize("hasRole('ADMIN_CLIENT')")
 public class UsersController {
 
     private final IUserService userService;
@@ -22,10 +26,10 @@ public class UsersController {
         this.userService = userService;
     }
 
-//    @GetMapping("/list")
-//    public Mono<ResponseEntity<?>> findAllUsers() {
-//        return Mono.justOrEmpty(ResponseEntity.ok(userService.findAllUsers()));
-//    }
+    @GetMapping("/list")
+    public Mono<ResponseEntity<?>> findAllUsers() {
+        return Mono.justOrEmpty(ResponseEntity.ok("userService.findAllUsers()"));
+    }
 
 
 //    @GetMapping("/find/{username}")
@@ -51,4 +55,16 @@ public class UsersController {
 //        userService.deleteUser(id);
 //        return Mono.justOrEmpty(ResponseEntity.ok("User deleted successfully"));
 //    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<ApiResponse<?>> me(@AuthenticationPrincipal Jwt jwt, @RequestBody ChangePasswordRequest request) {
+        try {
+            String userId = jwt.getClaim("sub");
+            Mono<Boolean> response = userService.changeUserPassword(userId,request.getOldPassword(),request.getNewPassword());
+            return ResponseEntity.ok(ApiResponse.success(response));
+        } catch (Exception e) {
+            return ResponseEntity.ok(ApiResponse.fail(ApiError.withSingleError("error", "token", "Error al procesar el token")));
+        }
+
+    }
 }

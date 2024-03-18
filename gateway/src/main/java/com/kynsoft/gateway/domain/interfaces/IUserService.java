@@ -44,7 +44,7 @@ public interface IUserService {
      * @param email El correo electrónico del usuario para el restablecimiento de la contraseña.
      * @return Un booleano que indica si el proceso se inició correctamente.
      */
-    Boolean triggerPasswordReset(String email);
+    Boolean getOtpForwardPassword(String email);
 
     /**
      * Cambia la contraseña de un usuario.
@@ -52,7 +52,7 @@ public interface IUserService {
      * @param changeRequest Información para el cambio de contraseña.
      * @return Un booleano que indica si la contraseña se cambió correctamente.
      */
-    Boolean changePassword(PasswordChangeRequest changeRequest);
+    Boolean forwardPassword(PasswordChangeRequest changeRequest);
 
     /**
      * Cambia el estado de un usuario (por ejemplo, habilitar o deshabilitar la cuenta).
@@ -65,8 +65,10 @@ public interface IUserService {
     List<UserRepresentation> searchUserByUsername(String username);
     void updateUser(String id, RegisterDTO registerDTO);
 
-    // Cualquier otro método relevante para la gestión de usuarios.
+    Mono<Boolean> changeUserPassword(String userId, String oldPassword, String newPassword);
 }
+
+
 
 //    Mono<TokenResponse> authenticate(LoginDTO loginDTO);
 //
