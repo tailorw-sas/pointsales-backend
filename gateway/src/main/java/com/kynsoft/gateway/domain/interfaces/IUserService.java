@@ -1,6 +1,5 @@
 package com.kynsoft.gateway.domain.interfaces;
 
-import com.kynsoft.gateway.application.dto.PasswordChangeRequest;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.application.dto.TokenResponse;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -21,22 +20,6 @@ public interface IUserService {
      * @return Un Mono que emite un Optional<TokenResponse> en caso de éxito.
      */
     Mono<Optional<TokenResponse>> refreshToken(String refreshToken);
-
-    /**
-     * Inicia un proceso de restablecimiento de contraseña para un usuario basado en su correo electrónico.
-     *
-     * @param email El correo electrónico del usuario para el restablecimiento de la contraseña.
-     * @return Un booleano que indica si el proceso se inició correctamente.
-     */
-    Boolean getOtpForwardPassword(String email);
-
-    /**
-     * Cambia la contraseña de un usuario.
-     *
-     * @param changeRequest Información para el cambio de contraseña.
-     * @return Un booleano que indica si la contraseña se cambió correctamente.
-     */
-    Boolean forwardPassword(PasswordChangeRequest changeRequest);
 
     /**
      * Cambia el estado de un usuario (por ejemplo, habilitar o deshabilitar la cuenta).

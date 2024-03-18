@@ -4,8 +4,6 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
-import com.kynsoft.gateway.application.dto.PasswordChangeRequest;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import com.kynsoft.gateway.application.dto.TokenResponse;
 import com.kynsoft.gateway.domain.interfaces.IOtpService;
@@ -16,7 +14,6 @@ import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerTrigge
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerUpdateUserEventService;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.resource.UserResource;
-import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -168,46 +165,6 @@ public class UserService implements IUserService {
             return Mono.just(false);
         }
         return Mono.just(false);
-    }
-
-    @Override
-    public Boolean getOtpForwardPassword(String email) {
-        UsersResource userResource = keycloakProvider.getRealmResource()
-                .users();
-        List<UserRepresentation> users = userResource
-                .searchByEmail(email, true);
-
-        if (!users.isEmpty()) {
-            UserRepresentation user = users.get(0);
-            String otpCode = otpService.generateOtpCode();
-            otpService.saveOtpCode(email, otpCode);
-            producerOtp.create(new UserOtpKafka(email, otpCode, user.getFirstName()));
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public Boolean forwardPassword(PasswordChangeRequest changeRequest) {
-        if (!otpService.getOtpCode(changeRequest.getEmail()).equals(changeRequest.getOtp())) {
-            return false;
-        }
-
-        UsersResource userResource = keycloakProvider.getRealmResource().users();
-        List<UserRepresentation> users = userResource.searchByEmail(changeRequest.getEmail(), true);
-        if (!users.isEmpty()) {
-            UserRepresentation user = users.get(0);
-
-            CredentialRepresentation credential = new CredentialRepresentation();
-            credential.setType(CredentialRepresentation.PASSWORD);
-            credential.setTemporary(false); // Puedes decidir si la contraseña es temporal o no
-            credential.setValue(changeRequest.getNewPassword());
-
-            // Obtener el ID del usuario y utilizarlo para resetear la contraseña
-            String userId = user.getId();
-            userResource.get(userId).resetPassword(credential);
-        }
-        return true;
     }
 
     public Mono<Boolean> changeUserPassword(String userId, String oldPassword, String newPassword) {

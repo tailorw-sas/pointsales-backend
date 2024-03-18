@@ -5,7 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.share.core.domain.kafka.entity.UserSystemKakfa;
 import com.kynsof.share.core.domain.kafka.event.EventType;
-import com.kynsoft.gateway.domain.interfaces.IUserService;
+import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
 @Service
 public class ConsumerUserSystemEventService {
     @Autowired
-    private IUserService service;
+    private AuthService service;
 
     // Ejemplo de un método listener
     @KafkaListener(topics = "user-system", groupId = "user-system-gateway")
@@ -36,7 +37,7 @@ public class ConsumerUserSystemEventService {
                 System.err.println("SE EJECUTA UN CREATED");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-              //  this.service.registerUser(new RegisterDTO(eventRead.getUserName(), eventRead.getEmail(), eventRead.getName(), eventRead.getLastName(), "", null));
+                this.service.registerUser(new RegisterDTO(eventRead.getUserName(), eventRead.getEmail(), eventRead.getName(), eventRead.getLastName(), "", null));
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion

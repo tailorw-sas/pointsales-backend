@@ -1,5 +1,6 @@
 package com.kynsoft.gateway.application.service;
 
+import com.kynsof.share.core.domain.exception.CustomUnauthorizedException;
 import com.kynsof.share.core.domain.exception.UserAlreadyExistsException;
 import com.kynsof.share.core.domain.exception.UserNotFoundException;
 import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
@@ -25,6 +26,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.ws.rs.core.Response;
@@ -74,6 +76,36 @@ public class AuthService {
             return response.getBody();
         } else {
             throw new RuntimeException("Authentication failed");
+        }
+    }
+
+
+    public TokenResponse refreshToken(String refreshToken) throws CustomUnauthorizedException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("client_id", keycloakProvider.getClient_id());
+        map.add("grant_type", "refresh_token");
+        map.add("refresh_token", refreshToken);
+        map.add("client_secret", keycloakProvider.getClient_secret());
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
+        try {
+            ResponseEntity<TokenResponse> response = restTemplate.exchange(
+                    keycloakProvider.getTokenUri(),
+                    HttpMethod.POST,
+                    request,
+                    TokenResponse.class);
+            return response.getBody();
+        } catch (HttpClientErrorException ex) {
+            if (ex.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+                throw new CustomUnauthorizedException("Unauthorized: Refresh token is invalid or expired.",
+                        new ErrorField("token", "Refresh token not found"));
+            } else {
+                throw new RuntimeException("An error occurred while refreshing the token: " + ex.getMessage(), ex);
+            }
         }
     }
 

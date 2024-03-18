@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
@@ -71,5 +72,19 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError("An unexpected null value was encountered.", null);
         ApiResponse<?> apiResponse = ApiResponse.fail(apiError);
         return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ResponseEntity<ApiResponse<?>> handleHttpClientErrorException(HttpClientErrorException ex) {
+        HttpStatus status = (HttpStatus) ex.getStatusCode();
+        ApiError apiError = new ApiError("HTTP Error: " + ex.getMessage(), null);
+        ApiResponse<?> apiResponse = ApiResponse.fail(apiError);
+        return new ResponseEntity<>(apiResponse, status);
+    }
+
+    @ExceptionHandler(CustomUnauthorizedException.class)
+    public ResponseEntity<ApiResponse<?>> handleCustomUnauthorizedException(CustomUnauthorizedException ex) {
+        ApiError apiError = new ApiError("An unexpected null value was encountered.", null);
+        ApiResponse<?> apiResponse = ApiResponse.fail(apiError);
+        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
     }
 }
