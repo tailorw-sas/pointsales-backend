@@ -76,14 +76,14 @@ public class Patients implements Serializable {
         this.identification = patients.getIdentification();
         this.name = patients.getName();
         this.lastName = patients.getLastName();
-        this.gender = patients.getGender();
+        this.gender = patients.getGender() != null ? patients.getGender() : GenderType.UNDEFINED ;
         this.status = patients.getStatus();
         this.weight = patients.getWeight();
         this.height = patients.getHeight();
         this.hasDisability = patients.getHasDisability();
         this.isPregnant = patients.getIsPregnant();
         this.photo = patients.getPhoto();
-        this.disabilityType = patients.getDisabilityType();
+        this.disabilityType = patients.getDisabilityType() != null ? patients.getDisabilityType() : DisabilityType.UNDEFINED;
         this.gestationTime = patients.getGestationTime();
     }
 
@@ -92,7 +92,7 @@ public class Patients implements Serializable {
         this.identification = patients.getIdentification();
         this.name = patients.getName();
         this.lastName = patients.getLastName();
-        this.gender = patients.getGender();
+        this.gender = patients.getGender() != null ? patients.getGender() : GenderType.OTHER;
         this.status = patients.getStatus();
         this.setPrime(new Patients(patients.getPrime()));
         this.weight = patients.getWeight();
@@ -100,9 +100,9 @@ public class Patients implements Serializable {
         this.hasDisability = patients.getHasDisability();
         this.isPregnant = patients.getIsPregnant();
         this.photo = patients.getPhoto();
-        this.disabilityType = patients.getDisabilityType();
+        this.disabilityType = patients.getDisabilityType() != null ? patients.getDisabilityType() : DisabilityType.UNDEFINED;
         this.gestationTime = patients.getGestationTime();
-        this.familyRelationship = patients.getFamilyRelationship();
+        this.familyRelationship = patients.getFamilyRelationship() != null ? patients.getFamilyRelationship() : FamilyRelationship.UNDEFINED;
     }
 
     public PatientDto toAggregate() {

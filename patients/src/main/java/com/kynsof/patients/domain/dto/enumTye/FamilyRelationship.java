@@ -5,5 +5,6 @@ public enum FamilyRelationship {
     SPOUSE,
     CHILD,
     SIBLING,
-    OTHER
+    OTHER,
+    UNDEFINED
 }
