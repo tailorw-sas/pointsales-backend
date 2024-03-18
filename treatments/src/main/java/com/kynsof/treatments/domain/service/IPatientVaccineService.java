@@ -20,5 +20,5 @@ public interface IPatientVaccineService {
     PatientVaccineDto findById(UUID id);
 
     PaginatedResponse findAll(Pageable pageable, UUID patientId);
-    com.kynsof.share.core.domain.response.PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }
