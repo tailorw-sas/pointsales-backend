@@ -15,7 +15,9 @@ import com.kynsoft.gateway.application.dto.*;
 import com.kynsoft.gateway.application.query.getById.RefreshTokenQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -28,12 +30,12 @@ public class AuthController {
 
         this.mediator = mediator;
     }
-
+    @PreAuthorize("permitAll()")
     @PostMapping("/authenticate")
-    public ResponseEntity<TokenResponse> authenticate(@RequestBody LoginDTO loginDTO) {
+    public Mono<ResponseEntity<TokenResponse>> authenticate(@RequestBody LoginDTO loginDTO) {
         AuthenticateCommand authenticateCommand = new AuthenticateCommand(loginDTO.getUsername(), loginDTO.getPassword());
         AuthenticateMessage response = mediator.send(authenticateCommand);
-        return ResponseEntity.ok(response.getTokenResponse());
+        return Mono.just(ResponseEntity.ok(response.getTokenResponse()));
     }
 
 
