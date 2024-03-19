@@ -6,7 +6,7 @@ import com.kynsof.identity.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.infrastructure.identity.Business;
 import com.kynsof.identity.infrastructure.repository.command.BusinessWriteDataJPARepository;
-import com.kynsof.identity.infrastructure.repository.kafka.ProducerBusinessEventService;
+import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerBusinessEventService;
 import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
