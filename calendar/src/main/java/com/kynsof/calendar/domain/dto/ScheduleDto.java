@@ -36,25 +36,29 @@ public class ScheduleDto implements Serializable {
     private int initialStock;
 
     private EStatusSchedule status;
+    private ServiceDto service;
 
-    public ScheduleDto(UUID id, ResourceDto resource, LocalDate date, LocalTime startTime, LocalTime endingTime, int stock, EStatusSchedule status) {
-        this.id = id;
-        this.resource = resource;
-        this.date = date;
-        this.startTime = startTime;
-        this.endingTime = endingTime;
-        this.stock = stock;
-        this.status = status;
-    }
+//    public ScheduleDto(UUID id, ResourceDto resource, LocalDate date, LocalTime startTime, LocalTime endingTime, int stock, EStatusSchedule status,
+//                       ServiceDto service) {
+//        this.id = id;
+//        this.resource = resource;
+//        this.date = date;
+//        this.startTime = startTime;
+//        this.endingTime = endingTime;
+//        this.stock = stock;
+//        this.status = status;
+//        this.service = service;
+//    }
 
-    public ScheduleDto(UUID id, ResourceDto resource, BusinessDto business, LocalDate date, LocalTime startTime, LocalTime endingTime, int stock) {
-        this.id = id;
-        this.resource = resource;
-        this.business = business;
-        this.date = date;
-        this.startTime = startTime;
-        this.endingTime = endingTime;
-        this.stock = stock;
-    }
+//    public ScheduleDto(UUID id, ResourceDto resource, BusinessDto business, LocalDate date, LocalTime startTime,
+//                       LocalTime endingTime, int stock) {
+//        this.id = id;
+//        this.resource = resource;
+//        this.business = business;
+//        this.date = date;
+//        this.startTime = startTime;
+//        this.endingTime = endingTime;
+//        this.stock = stock;
+//    }
 
 }

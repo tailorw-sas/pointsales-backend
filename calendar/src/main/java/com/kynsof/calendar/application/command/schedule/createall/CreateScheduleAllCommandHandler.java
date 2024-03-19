@@ -32,23 +32,23 @@ public class CreateScheduleAllCommandHandler implements ICommandHandler<CreateSc
 
     @Override
     public void handle(CreateScheduleAllCommand command) {
-        ResourceDto _resource = this.serviceResource.findById(command.getIdResource());
-        BusinessDto _business = this.serviceBusiness.findById(command.getIdBusiness());
-
-        List<ScheduleDto> schedule = new ArrayList<>();
-        for (int i = 0; i < command.getSchedules().size(); i++) {
-            this.service.validate(_resource, command.getDate(), command.getSchedules().get(i).getStartTime(), command.getSchedules().get(i).getEndingTime());
-            ScheduleDto __schedule = new ScheduleDto(
-                    UUID.randomUUID(),
-                    _resource,
-                    _business,
-                    command.getDate(),
-                    command.getSchedules().get(i).getStartTime(),
-                    command.getSchedules().get(i).getEndingTime(), 1);
-            __schedule.setStatus(EStatusSchedule.ACTIVE);
-            schedule.add(__schedule);
-        }
-        this.service.createAll(schedule);
+//        ResourceDto _resource = this.serviceResource.findById(command.getIdResource());
+//        BusinessDto _business = this.serviceBusiness.findById(command.getIdBusiness());
+//
+//        List<ScheduleDto> schedule = new ArrayList<>();
+//        for (int i = 0; i < command.getSchedules().size(); i++) {
+//            this.service.validate(_resource, command.getDate(), command.getSchedules().get(i).getStartTime(), command.getSchedules().get(i).getEndingTime());
+//            ScheduleDto __schedule = new ScheduleDto(
+//                    UUID.randomUUID(),
+//                    _resource,
+//                    _business,
+//                    command.getDate(),
+//                    command.getSchedules().get(i).getStartTime(),
+//                    command.getSchedules().get(i).getEndingTime(), 1);
+//            __schedule.setStatus(EStatusSchedule.ACTIVE);
+//            schedule.add(__schedule);
+//        }
+//        this.service.createAll(schedule);
 
     }
 }

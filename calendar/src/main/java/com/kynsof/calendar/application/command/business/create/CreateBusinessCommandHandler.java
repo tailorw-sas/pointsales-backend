@@ -32,11 +32,10 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
                 command.getLatitude(),
                 command.getLongitude(),
                 command.getDescription(),
-                command.getLogo().getFile(),
                 idLogo,
                 command.getRuc()
         ));
-        FileKafka fileSave = new FileKafka(idLogo, "calendar", command.getLogo().getFileName(), command.getLogo().getFile());
+        FileKafka fileSave = new FileKafka(idLogo, "calendar", command.getName(), command.getLogo());
         saveFileEventService.create(fileSave);
     }
 }

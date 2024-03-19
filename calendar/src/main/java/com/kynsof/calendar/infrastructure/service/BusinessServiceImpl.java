@@ -63,9 +63,7 @@ public class BusinessServiceImpl implements IBusinessService {
                     if (objectDto.getStatus() != null) {
                         object.setStatus(objectDto.getStatus());
                     }
-                    if (objectDto.getLogo() != null) {
-                        object.setLogo(objectDto.getLogo());
-                    }
+
                     if (objectDto.getName() != null) {
                         object.setName(objectDto.getName());
                     }
