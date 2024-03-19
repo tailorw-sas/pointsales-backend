@@ -38,7 +38,7 @@ public class ConsumerUserEventService {
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
                 this.service.create(new PatientDto(UUID.fromString(eventRead.getId()),
-                        "", eventRead.getFirstname(), eventRead.getLastname(), null, Status.ACTIVE,
+                        "", eventRead.getFirstname(), eventRead.getLastname(), GenderType.UNDEFINED, Status.ACTIVE,
                         null, null,null, null, null, null, 0));
             }
             if (eventType.equals(EventType.DELETED)) {

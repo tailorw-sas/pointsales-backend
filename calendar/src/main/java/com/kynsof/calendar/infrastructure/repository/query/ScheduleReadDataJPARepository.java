@@ -40,4 +40,12 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
     @Query("SELECT s FROM Schedule s WHERE s.date = :date AND s.resource = :resource AND (:time >= s.startTime AND :time <= s.endingTime) AND s.id != :id")
     List<Schedule> findByDateAndTimeInRangeAndIdScheduleNotEqual(@Param("resource") Resource resource, @Param("date") LocalDate date, @Param("time") LocalTime time, @Param("id") UUID id);
 
+
+    @Query("SELECT s FROM Schedule s WHERE s.resource.id = :resourceId " +
+                  "AND s.date = :date " +
+                  "AND ((s.startTime < :endTime AND s.endingTime > :startTime))")
+    List<Schedule> findOverlappingSchedules(@Param("resourceId") UUID resourceId,
+                                            @Param("date") LocalDate date,
+                                            @Param("startTime") LocalTime startTime,
+                                            @Param("endTime") LocalTime endingTime);
 }

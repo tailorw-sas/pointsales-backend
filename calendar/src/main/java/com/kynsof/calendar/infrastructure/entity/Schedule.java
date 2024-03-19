@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,6 +21,8 @@ import java.util.UUID;
 public class Schedule {
 
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
     @Column
@@ -31,29 +34,28 @@ public class Schedule {
     @Column
     private LocalTime endingTime;
 
-    @JsonIgnore
     @Column
     private int stock;
 
     @JsonIgnore
-    @Column(updatable = false, nullable = true)
     private int initialStock;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private EStatusSchedule status;
 
     @JsonIgnoreProperties({"picture", "services", "qualifications"})
-    @ManyToOne(optional = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_pk_resource", nullable = true)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "resource_id")
     private Resource resource;
 
     @JsonIgnoreProperties({"logo", "description", "resources", "services", "schedules", "receipts"})
-    @ManyToOne(optional = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "business_id", nullable = true)
+    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "business_id")
     private Business business;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "service_id") // Nombre de la columna de clave foránea en la tabla de Schedule
+    @JoinColumn(name = "service_id")
     private Services service;
     @PrePersist
     public void prePersist() {
@@ -69,6 +71,7 @@ public class Schedule {
         this.startTime = scheduleDto.getStartTime();
         this.endingTime = scheduleDto.getEndingTime();
         this.stock = scheduleDto.getStock();
+        this.initialStock = scheduleDto.getInitialStock();
         this.status = scheduleDto.getStatus();
         this.service = new Services(scheduleDto.getService());
     }

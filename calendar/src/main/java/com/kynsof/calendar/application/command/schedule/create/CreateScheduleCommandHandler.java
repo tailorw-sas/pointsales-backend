@@ -12,6 +12,8 @@ import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class CreateScheduleCommandHandler implements ICommandHandler<CreateScheduleCommand> {
 
@@ -32,7 +34,9 @@ public class CreateScheduleCommandHandler implements ICommandHandler<CreateSched
         ResourceDto _resource = this.serviceResource.findById(command.getResourceId());
         BusinessDto _business = this.serviceBusiness.findById(command.getBusinessId());
         ServiceDto _service = this.serviceService.findById(command.getServiceId());
-        service.create(new ScheduleDto(command.getId(), _resource, _business, command.getDate(), command.getStartTime(), command.getEndingTime(),
+        UUID id = UUID.randomUUID();
+        service.create(new ScheduleDto(id, _resource, _business, command.getDate(), command.getStartTime(), command.getEndingTime(),
                 command.getStock(), command.getStock(), EStatusSchedule.ACTIVE,_service));
+        command.setId(id);
     }
 }

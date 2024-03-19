@@ -34,9 +34,6 @@ public class BusinessResponse implements IResponse {
         this.description = object.getDescription();
         this.ruc = object.getRuc();
         this.status = object.getStatus();
-        this.createAt = object.getCreateAt();
-        this.updateAt = object.getUpdateAt();
-        this.deleteAt = object.getDeleteAt();
     }
 
     public BusinessResponse(UUID id, String name) {
