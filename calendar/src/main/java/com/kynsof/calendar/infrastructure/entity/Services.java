@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -23,6 +24,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Services {
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
     @Enumerated(EnumType.STRING)
@@ -40,7 +43,7 @@ public class Services {
     private String description;
 
     @JsonIgnoreProperties("services")
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "services")
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<Resource> resources = new HashSet<>();
 
     // Relación de muchos a muchos con Business
@@ -53,8 +56,7 @@ public class Services {
     )
     private Set<Business> businesses = new HashSet<>();
 
-    @JsonIgnoreProperties("service") // Evita la serialización bidireccional
-    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "service")
     private Set<Schedule> schedules = new HashSet<>();
     
     @Column(nullable = true)

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -24,10 +23,6 @@ public class BusinessDto implements Serializable {
     private String ruc;
     private EBusinessStatus status;
     private boolean deleted;
-
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
-    private LocalDateTime deleteAt;
 
     public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String ruc, EBusinessStatus status) {
         this.id = id;

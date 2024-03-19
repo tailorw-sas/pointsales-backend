@@ -3,6 +3,9 @@ package com.kynsof.share.core.infrastructure.specifications;
 import jakarta.persistence.criteria.*;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,6 +35,14 @@ public class GenericSpecification<T> implements Specification<T> {
 
         if (value instanceof String && isValidUUID((String) value)) {
             value = UUID.fromString((String) value);
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE; // Define el formato esperado
+
+        try {
+            value = LocalDate.parse(value.toString(), formatter);
+        } catch (DateTimeParseException ignored) {
+
         }
 
         return switch (criteria.getOperation()) {

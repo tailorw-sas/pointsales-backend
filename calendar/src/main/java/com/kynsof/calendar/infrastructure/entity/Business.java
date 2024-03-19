@@ -16,7 +16,11 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-public class Business extends BaseEntity {
+public class Business{
+    @Id
+    @Column(name="id")
+    private UUID id;
+
 
     private String name;
 
@@ -38,11 +42,11 @@ public class Business extends BaseEntity {
     private boolean deleted;
 
     // Relación de muchos a muchos con Resource
-    @ManyToMany(mappedBy = "businesses", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(mappedBy = "businesses")
     private Set<Resource> resources = new HashSet<>();
 
    // @JsonIgnoreProperties("businesses")
-    @ManyToMany(mappedBy = "businesses", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(mappedBy = "businesses")
     private Set<Services> services = new HashSet<>();
 
     public Business(BusinessDto business) {
@@ -58,6 +62,6 @@ public class Business extends BaseEntity {
     }
 
     public BusinessDto toAggregate () {
-        return new BusinessDto(id, name, latitude, longitude, description, idLogo, ruc, status, deleted, createdAt, updatedAt, deletedAt);
+        return new BusinessDto(id, name, latitude, longitude, description, idLogo, ruc, status, deleted);
     }
 }

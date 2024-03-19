@@ -15,7 +15,6 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import com.kynsof.share.utils.ConfigureTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -42,9 +41,6 @@ public class BusinessServiceImpl implements IBusinessService {
     @Override
     public void create(BusinessDto object) {
         object.setStatus(EBusinessStatus.ACTIVE);
-
-        object.setCreateAt(ConfigureTimeZone.getTimeZone());
-
         this.repositoryCommand.save(new Business(object));
         businessEventService.create(object);
     }
@@ -70,7 +66,7 @@ public class BusinessServiceImpl implements IBusinessService {
                     if (objectDto.getRuc() != null) {
                         object.setRuc(objectDto.getRuc());
                     }
-                    object.setUpdatedAt(ConfigureTimeZone.getTimeZone());
+
                     return this.repositoryCommand.save(object);
                 })
                 .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));
@@ -82,8 +78,6 @@ public class BusinessServiceImpl implements IBusinessService {
 
         BusinessDto objectDelete = this.findById(id);
         objectDelete.setStatus(EBusinessStatus.INACTIVE);
-
-        objectDelete.setDeleteAt(ConfigureTimeZone.getTimeZone());
         objectDelete.setDeleted(true);
 
         this.repositoryCommand.save(new Business(objectDelete));

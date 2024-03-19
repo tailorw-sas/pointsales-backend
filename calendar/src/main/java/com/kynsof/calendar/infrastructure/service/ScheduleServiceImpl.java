@@ -11,8 +11,10 @@ import com.kynsof.calendar.infrastructure.entity.specifications.ScheduleSpecific
 import com.kynsof.calendar.infrastructure.repository.command.ScheduleWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.CustomUnauthorizedException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
@@ -42,6 +44,16 @@ public class ScheduleServiceImpl implements IScheduleService {
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        for (FilterCriteria filter : filterCriteria) {
+            if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
+                try {
+                    EStatusSchedule enumValue = EStatusSchedule.valueOf((String) filter.getValue());
+                    filter.setValue(enumValue);
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Valor inválido para el tipo Enum EStatusSchedule: " + filter.getValue());
+                }
+            }
+        }
         GenericSpecificationsBuilder<Schedule> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<Schedule> data = this.repositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(data);
@@ -154,20 +166,26 @@ public class ScheduleServiceImpl implements IScheduleService {
 
     @Override
     public Schedule create(ScheduleDto schedule) {
+        List<Schedule> overlappingSchedules = repositoryQuery.findOverlappingSchedules(
+                schedule.getResource().getId(),
+                schedule.getDate(),
+                schedule.getStartTime(),
+                schedule.getEndingTime());
 
-        schedule.setStatus(EStatusSchedule.ACTIVE);
-        Schedule _schedule = repositoryCommand.save(new Schedule(schedule));
+        if (overlappingSchedules.isEmpty()){
+            return repositoryCommand.save(new Schedule(schedule));
+        }
 
-        return _schedule;
+        throw new CustomUnauthorizedException("Ya existe un tarea programada para este servicio",
+                new ErrorField("Recurso", "Ya existe un tarea programada para este servicio"));
     }
 
     @Override
     public Schedule changeStatus(Schedule schedule, EStatusSchedule status) {
 
         schedule.setStatus(status);
-        Schedule _schedule = repositoryCommand.save(schedule);
 
-        return _schedule;
+        return repositoryCommand.save(schedule);
     }
 
     @Override
