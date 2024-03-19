@@ -45,6 +45,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     }
 
     @Override
+  //  @Cacheable(cacheNames = CacheConfig.USER_CACHE, unless = "#result == null")
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
             if ("type".equals(filter.getKey()) && filter.getValue() instanceof String) {
