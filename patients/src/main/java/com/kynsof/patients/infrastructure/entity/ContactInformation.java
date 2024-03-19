@@ -17,7 +17,7 @@ import java.util.UUID;
 public class ContactInformation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id; // Cambiado para evitar conflictos con el ID del paciente
+    private UUID id;
 
     @OneToOne
     @JoinColumn(name = "patients_id", referencedColumnName = "id")

@@ -1,4 +1,4 @@
-package com.kynsof.patients.infrastructure.repositories.command;
+package com.kynsof.patients.infrastructure.repository.command;
 
 import com.kynsof.patients.infrastructure.entity.AdditionalInformation;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -5,8 +5,8 @@ import com.kynsof.patients.domain.dto.ContactInfoDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.infrastructure.entity.ContactInformation;
-import com.kynsof.patients.infrastructure.repositories.command.ContactInfoWriteDataJPARepository;
-import com.kynsof.patients.infrastructure.repositories.query.ContactInfoReadDataJPARepository;
+import com.kynsof.patients.infrastructure.repository.command.ContactInfoWriteDataJPARepository;
+import com.kynsof.patients.infrastructure.repository.query.ContactInfoReadDataJPARepository;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
@@ -47,9 +47,10 @@ public class ContactInfoServiceImpl implements IContactInfoService {
                     if (contactInfoDto.getAddress() != null) patient.setAddress(contactInfoDto.getAddress());
                     if (contactInfoDto.getTelephone() != null) patient.setTelephone(contactInfoDto.getTelephone());
                     if (contactInfoDto.getBirthdayDate() != null) patient.setBirthdayDate(contactInfoDto.getBirthdayDate());
+                    if (contactInfoDto.getEmail() != null) patient.setEmail(contactInfoDto.getEmail());
                     return this.repositoryCommand.save(patient);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + contactInfoDto.getId() + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("ContactInfo with ID " + contactInfoDto.getId() + " not found"));
 
         return contactInfoDto.getId();
     }
@@ -61,8 +62,7 @@ public class ContactInfoServiceImpl implements IContactInfoService {
         if (contactInformation.isPresent()) {
             return contactInformation.get().toAggregate();
         }
-        //throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Contact Information not found.");
-        throw new RuntimeException("Patients not found.");
+        throw new RuntimeException("ContactInfo not found.");
     }
 
     @Override
@@ -78,6 +78,15 @@ public class ContactInfoServiceImpl implements IContactInfoService {
         Page<ContactInformation> data = this.repositoryQuery.findAll(specifications, pageable);
 
         return getPaginatedResponse(data);
+    }
+
+    @Override
+    public ContactInfoDto findByPatientId(UUID patientId) {
+        Optional<ContactInformation> contactInformation = this.repositoryQuery.findByPatientId(patientId);
+        if (contactInformation.isPresent()) {
+            return contactInformation.get().toAggregate();
+        }
+      return new ContactInfoDto();
     }
 
     private PaginatedResponse getPaginatedResponse(Page<ContactInformation> data) {
