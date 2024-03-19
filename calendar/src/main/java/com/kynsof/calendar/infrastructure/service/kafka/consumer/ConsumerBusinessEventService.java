@@ -2,6 +2,9 @@ package com.kynsof.calendar.infrastructure.service.kafka.consumer;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kynsof.calendar.domain.dto.BusinessDto;
+import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
+import com.kynsof.calendar.domain.service.IBusinessService;
 import com.kynsof.share.core.domain.kafka.entity.BusinessKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -9,11 +12,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class ConsumerBusinessEventService {
 
-    @KafkaListener(topics = "business")
+    @Autowired
+    private IBusinessService service;
+
+    @KafkaListener(topics = "busines", groupId = "busines-calendar")
     public void consumer(String event) {
 
         try {
@@ -31,8 +38,7 @@ public class ConsumerBusinessEventService {
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
 
-                System.err.println("BusinessKafka: " + eventRead.toString());
-                System.err.println("Type: " + eventType.name());
+                this.service.create(new BusinessDto(eventRead.getId(), eventRead.getName(), "", "", eventRead.getDescription(), eventRead.getRuc(), EBusinessStatus.ACTIVE));
 
             }
             if (eventType.equals(EventType.DELETED)) {
