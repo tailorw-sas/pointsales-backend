@@ -27,8 +27,7 @@ public class ProducerBusinessEventService {
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
-
-            this.producer.send("business", json);
+            this.producer.send("busines", json);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ProducerBusinessEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
