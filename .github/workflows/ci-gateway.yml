@@ -11,6 +11,7 @@ on:
       - 'dev'
     paths:
       - 'gateway/**'
+      - 'share/**'
 
 jobs:
   build-push:
@@ -48,18 +49,16 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install OpenVPN
-        if: github.ref == 'refs/heads/test'
         run: |
           sudo apt update
           sudo apt install -y openvpn openvpn-systemd-resolved
 
       - name: Connect to OpenVPN
-        if: github.ref == 'refs/heads/dev'
         uses: kota65535/github-openvpn-connect-action@v2
         with:
-          config_file: vpnconfig/vpnserver.ovpn
-          username: ${{ secrets.OVPN_USERNAME }}
-          password: ${{ secrets.OVPN_PASSWORD }}
+          config_file: vpnconfig/vpnserver1.ovpn
+          username: keimer
+          password: zlxk149hp/I2LzmV
 
       - name: Enable kubectl
         uses: tale/kubectl-action@v1
@@ -68,4 +67,4 @@ jobs:
 
       - name: Redeploy
         run: |
-          kubectl -n ${{ vars.K8S_NAMESPACE }} patch deployment rc-${{  env.SERVICE_NAME }} -p "{\"spec\": {\"template\": {\"metadata\": { \"labels\": {  \"redeploy\": \"$(date +%s)\"}}}}}"
+          kubectl -n ${{ vars.K8S_NAMESPACE }} patch deployment ${{  env.SERVICE_NAME }} -p "{\"spec\": {\"template\": {\"metadata\": { \"labels\": {  \"redeploy\": \"$(date +%s)\"}}}}}"

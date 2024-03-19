@@ -4,11 +4,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
-import com.kynsoft.gateway.application.dto.LoginDTO;
-import com.kynsoft.gateway.application.dto.PasswordChangeRequest;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
-import com.kynsoft.gateway.application.dto.TokenResponse;
 import com.kynsoft.gateway.domain.interfaces.IOtpService;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import com.kynsoft.gateway.infrastructure.keycloak.KeycloakProvider;
@@ -16,21 +12,20 @@ import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegist
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerTriggerPasswordResetEventService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerUpdateUserEventService;
 import lombok.extern.slf4j.Slf4j;
-import org.keycloak.admin.client.resource.*;
+import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
-import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import javax.ws.rs.core.Response;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -55,100 +50,8 @@ public class UserService implements IUserService {
         this.otpService = services;
     }
 
-    @Override
-    public Mono<TokenResponse> authenticate(LoginDTO loginDTO) {
-        WebClient webClient = webClientBuilder.baseUrl(keycloakProvider.getTokenUri()).build();
-        Mono<TokenResponse> response = webClient.post()
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromFormData("client_id", keycloakProvider.getClient_id())
-                        .with("grant_type", keycloakProvider.getGrant_type())
-                        .with("username", loginDTO.getUsername())
-                        .with("password", loginDTO.getPassword())
-                        .with("client_secret", keycloakProvider.getClient_secret()))
-                .retrieve()
-                .bodyToMono(TokenResponse.class);
-        return response;
-    }
-
-    @Override
-    public Mono<Optional<TokenResponse>> refreshToken(String refreshToken) {
-        WebClient webClient = webClientBuilder.baseUrl(keycloakProvider.getTokenUri()).build();
-        return webClient.post()
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromFormData("client_id", keycloakProvider.getClient_id())
-                        .with("grant_type", "refresh_token")
-                        .with("refresh_token", refreshToken)
-                        .with("client_secret", keycloakProvider.getClient_secret()))
-                .exchangeToMono(response -> {
-                    if (response.statusCode().equals(HttpStatus.OK)) {
-                        return response.bodyToMono(TokenResponse.class).map(Optional::of);
-                    } else {
-                        return Mono.just(Optional.empty());
-                    }
-                });
-    }
-
-    @Override
-    public Mono<String> registerUser(@NonNull RegisterDTO registerDTO) {
-        int status = 0;
-        UsersResource usersResource = keycloakProvider.getUserResource();
-
-        UserRepresentation userRepresentation = new UserRepresentation();
-        userRepresentation.setFirstName(registerDTO.getFirstname());
-        userRepresentation.setLastName(registerDTO.getLastname());
-        userRepresentation.setEmail(registerDTO.getEmail());
-        userRepresentation.setUsername(registerDTO.getUsername());
-        userRepresentation.setEnabled(true);
-        userRepresentation.setEmailVerified(true);
-        Response response = usersResource.create(userRepresentation);
-
-        status = response.getStatus();
-
-        if (status == 201) {
-            String path = response.getLocation().getPath();
-            String id = path.substring(path.lastIndexOf("/") + 1);
-
-            CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
-            credentialRepresentation.setTemporary(false);
-            credentialRepresentation.setType(CredentialRepresentation.PASSWORD);
-            credentialRepresentation.setValue(registerDTO.getPassword());
-
-            usersResource.get(id).resetPassword(credentialRepresentation);
-            // usersResource.get(id).sendVerifyEmail();
-
-            RealmResource realmResource = keycloakProvider.getRealmResource();
-
-            String clientId = realmResource.clients().findByClientId(keycloakProvider.getClient_id()).get(0).getId();
-
-            ClientResource clientResource = realmResource.clients().get(clientId);
-            RoleMappingResource roleMappingResource = usersResource.get(id).roles();
-            RolesResource rolesResource = clientResource.roles();
-
-            List<RoleRepresentation> rolesToAdd = new ArrayList<>();
-
-            for (String roleName : registerDTO.getRoles()) {
-                RoleRepresentation role = rolesResource.get(roleName).toRepresentation();
-                rolesToAdd.add(role);
-            }
-
-            if (!rolesToAdd.isEmpty()) {
-                roleMappingResource.clientLevel(clientId).add(rolesToAdd);
-            }
-
-            this.producerRegisterUserEvent.create(registerDTO, id);
-            // customerService.save(registerDTO);
-            return Mono.just("User created successfully!!");
-
-        } else if (status == 409) {
-            log.error("User exist already!");
-            return Mono.just("User exist already!");
-        } else {
-            log.error("Error creating user, please contact with the administrator.");
-            return Mono.just("User exist already!");
-        }
-    }
+    @Autowired
+    private RestTemplate restTemplate;
 
     private String extractUserIdFromLocationHeader(Response response) {
         String path = response.getLocation().getPath();
@@ -201,7 +104,7 @@ public class UserService implements IUserService {
                 user.setCredentials(Collections.singletonList(credential));
             }
             userResource.update(user);
-            this.producerUpdateUserEventService.update(new RegisterDTO(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), "", null), id);
+           // this.producerUpdateUserEventService.update(new RegisterDTO(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), "", null), id);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update user.", e);
         }
@@ -239,53 +142,13 @@ public class UserService implements IUserService {
         return Mono.just(false);
     }
 
-    @Override
-    public Boolean getOtpForwardPassword(String email) {
-        UsersResource userResource = keycloakProvider.getRealmResource()
-                .users();
-        List<UserRepresentation> users = userResource
-                .searchByEmail(email, true);
-
-        if (!users.isEmpty()) {
-            UserRepresentation user = users.get(0);
-            String otpCode = otpService.generateOtpCode();
-            otpService.saveOtpCode(email, otpCode);
-            producerOtp.create(new UserOtpKafka(email, otpCode, user.getFirstName()));
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public Boolean forwardPassword(PasswordChangeRequest changeRequest) {
-        if (!otpService.getOtpCode(changeRequest.getEmail()).equals(changeRequest.getOtp())) {
-            return false;
-        }
-
-        UsersResource userResource = keycloakProvider.getRealmResource().users();
-        List<UserRepresentation> users = userResource.searchByEmail(changeRequest.getEmail(), true);
-        if (!users.isEmpty()) {
-            UserRepresentation user = users.get(0);
-
-            CredentialRepresentation credential = new CredentialRepresentation();
-            credential.setType(CredentialRepresentation.PASSWORD);
-            credential.setTemporary(false); // Puedes decidir si la contraseña es temporal o no
-            credential.setValue(changeRequest.getNewPassword());
-
-            // Obtener el ID del usuario y utilizarlo para resetear la contraseña
-            String userId = user.getId();
-            userResource.get(userId).resetPassword(credential);
-        }
-        return true;
-    }
-
     public Mono<Boolean> changeUserPassword(String userId, String oldPassword, String newPassword) {
         // Primero, obtén el username a partir del userId, ya que necesitas el username para solicitar un token
         UserResource userResource = keycloakProvider.getRealmResource().users().get(userId);
         UserRepresentation userRepresentation = userResource.toRepresentation();
         String username = userRepresentation.getUsername();
 
-        Mono<TokenResponse> authenticate = authenticate(new LoginDTO(username, oldPassword));
+     //   Mono<TokenResponse> authenticate = authenticate(new LoginDTO(username, oldPassword));
         CredentialRepresentation newCredential = new CredentialRepresentation();
         newCredential.setType(CredentialRepresentation.PASSWORD);
         newCredential.setTemporary(false);

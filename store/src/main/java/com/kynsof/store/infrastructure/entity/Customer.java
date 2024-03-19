@@ -1,7 +1,10 @@
 package com.kynsof.store.infrastructure.entity;
 
 import com.kynsof.store.domain.dto.CustomerDto;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

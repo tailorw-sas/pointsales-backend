@@ -1,5 +1,6 @@
 package com.kynsof.treatments.domain.dto;
 
+import com.kynsof.treatments.domain.dto.enumDto.RouteOfAdministration;
 import com.kynsof.treatments.domain.dto.enumDto.VaccineType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,4 +18,7 @@ public class VaccineDto {
     private VaccineType type;
     private Integer minAge;
     private Integer maxAge;
+    private String dose;
+    private RouteOfAdministration routeOfAdministration;
+    private String preventableDiseases;
 }

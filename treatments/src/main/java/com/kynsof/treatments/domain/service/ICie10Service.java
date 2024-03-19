@@ -1,7 +1,7 @@
 package com.kynsof.treatments.domain.service;
 
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.treatments.domain.dto.Cie10Dto;
-import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import org.springframework.data.domain.Pageable;
 
 public interface ICie10Service {

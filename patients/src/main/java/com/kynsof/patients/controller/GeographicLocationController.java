@@ -23,7 +23,6 @@ public class GeographicLocationController {
 
         this.mediator = mediator;
     }
-
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
     {

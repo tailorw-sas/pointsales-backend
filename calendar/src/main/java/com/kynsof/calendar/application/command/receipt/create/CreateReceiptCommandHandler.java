@@ -1,7 +1,10 @@
 package com.kynsof.calendar.application.command.receipt.create;
 
+import com.kynsof.calendar.domain.dto.PatientDto;
+import com.kynsof.calendar.domain.dto.ReceiptDto;
+import com.kynsof.calendar.domain.dto.ScheduleDto;
+import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
-import com.kynsof.calendar.domain.dto.*;
 import com.kynsof.calendar.domain.service.IPatientsService;
 import com.kynsof.calendar.domain.service.IReceiptService;
 import com.kynsof.calendar.domain.service.IScheduleService;

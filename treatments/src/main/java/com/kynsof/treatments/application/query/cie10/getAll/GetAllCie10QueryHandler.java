@@ -1,7 +1,7 @@
 package com.kynsof.treatments.application.query.cie10.getAll;
 
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
-import com.kynsof.treatments.domain.dto.PaginatedResponse;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.treatments.domain.service.ICie10Service;
 import org.springframework.stereotype.Component;
 

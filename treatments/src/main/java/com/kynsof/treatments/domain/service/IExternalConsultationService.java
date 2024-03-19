@@ -1,7 +1,7 @@
 package com.kynsof.treatments.domain.service;
 
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
-import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import com.kynsof.treatments.infrastructure.entity.ExternalConsultation;
 import org.springframework.data.domain.Pageable;
 
@@ -13,5 +13,5 @@ public interface IExternalConsultationService {
     UUID update(ExternalConsultation externalConsultation);
      void delete(UUID id);
     ExternalConsultationDto findById(UUID id);
-     PaginatedResponse findAll(Pageable pageable, UUID doctorId,  UUID patientId);
+     PaginatedResponse findAll(Pageable pageable, UUID doctorId, UUID patientId);
 }

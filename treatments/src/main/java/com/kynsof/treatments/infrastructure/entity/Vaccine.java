@@ -1,6 +1,7 @@
 package com.kynsof.treatments.infrastructure.entity;
 
 import com.kynsof.treatments.domain.dto.VaccineDto;
+import com.kynsof.treatments.domain.dto.enumDto.RouteOfAdministration;
 import com.kynsof.treatments.domain.dto.enumDto.VaccineType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,11 @@ public class Vaccine {
     private VaccineType type;
     private Integer minAge;
     private Integer maxAge;
+    private String dose;
+    @Enumerated(EnumType.STRING)
+    private RouteOfAdministration routeOfAdministration;
+    private String preventableDiseases;
+
 
     public Vaccine(VaccineDto vaccine) {
         this.id = vaccine.getId();
@@ -34,9 +40,13 @@ public class Vaccine {
         this.type = vaccine.getType();
         this.minAge = vaccine.getMinAge();
         this.maxAge = vaccine.getMaxAge();
+        this.dose = vaccine.getDose();
+        this.routeOfAdministration = vaccine.getRouteOfAdministration();
+        this.preventableDiseases = vaccine.getPreventableDiseases();
     }
 
     public VaccineDto toAggregate() {
-        return new VaccineDto(this.id, this.name, this.description, this.type, this.minAge,this.maxAge);
+        return new VaccineDto(this.id, this.name, this.description, this.type, this.minAge,this.maxAge,
+                this.dose,this.routeOfAdministration, this.preventableDiseases);
     }
 }

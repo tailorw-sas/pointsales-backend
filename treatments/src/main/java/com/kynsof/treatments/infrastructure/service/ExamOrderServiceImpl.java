@@ -1,11 +1,11 @@
 package com.kynsof.treatments.infrastructure.service;
 
 
-import com.kynsof.treatments.application.query.examOrder.getall.ExamOrderResponse;
-import com.kynsof.treatments.domain.dto.ExamOrderDto;
-import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.treatments.application.query.examOrder.getall.ExamOrderResponse;
+import com.kynsof.treatments.domain.dto.ExamOrderDto;
 import com.kynsof.treatments.domain.service.IExamOrderService;
 import com.kynsof.treatments.infrastructure.entity.ExamOrder;
 import com.kynsof.treatments.infrastructure.entity.specifications.ExamOrderSpecifications;

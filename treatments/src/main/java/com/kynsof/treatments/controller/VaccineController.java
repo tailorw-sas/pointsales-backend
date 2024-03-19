@@ -1,10 +1,10 @@
 package com.kynsof.treatments.controller;
 
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.query.vaccine.getById.FindByIdVaccineQuery;
 import com.kynsof.treatments.application.query.vaccine.getall.GetAllVaccineQuery;
 import com.kynsof.treatments.application.query.vaccine.getall.VaccineResponse;
-import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

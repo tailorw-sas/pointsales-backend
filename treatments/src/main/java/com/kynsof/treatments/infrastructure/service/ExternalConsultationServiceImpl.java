@@ -1,11 +1,11 @@
 package com.kynsof.treatments.infrastructure.service;
 
 
-import com.kynsof.treatments.application.query.externalConsultation.getall.ExternalConsultationResponse;
-import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
-import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.treatments.application.query.externalConsultation.getall.ExternalConsultationResponse;
+import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
 import com.kynsof.treatments.infrastructure.entity.ExternalConsultation;
 import com.kynsof.treatments.infrastructure.entity.specifications.ExternalConsultationSpecifications;

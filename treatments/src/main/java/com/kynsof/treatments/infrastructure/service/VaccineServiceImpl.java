@@ -3,8 +3,8 @@ package com.kynsof.treatments.infrastructure.service;
 
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.treatments.application.query.vaccine.getall.VaccineResponse;
-import com.kynsof.treatments.domain.dto.PaginatedResponse;
 import com.kynsof.treatments.domain.dto.VaccineDto;
 import com.kynsof.treatments.domain.service.IVaccineService;
 import com.kynsof.treatments.infrastructure.entity.Vaccine;

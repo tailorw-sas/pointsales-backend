@@ -1,6 +1,8 @@
 package com.kynsof.share.core.infrastructure.specifications;
 
-public enum SearchOperation {
+import java.io.Serializable;
+
+public enum SearchOperation implements Serializable {
     LIKE,
     EQUALS,
     GREATER_THAN,
