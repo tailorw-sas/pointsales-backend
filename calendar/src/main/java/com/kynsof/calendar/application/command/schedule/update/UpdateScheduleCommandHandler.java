@@ -11,17 +11,21 @@ import org.springframework.stereotype.Component;
 public class UpdateScheduleCommandHandler  implements ICommandHandler<UpdateScheduleCommand> {
 
 
-    private final IScheduleService service;
+    private final IScheduleService scheduleService;
     private final IResourceService serviceResource;
     
     public UpdateScheduleCommandHandler(IScheduleService service, IResourceService serviceResource) {
-        this.service = service;
+        this.scheduleService = service;
         this.serviceResource = serviceResource;
     }
 
     @Override
     public void handle(UpdateScheduleCommand command) {
-       ResourceDto resource = serviceResource.findById(command.getIdResource());
-       service.update(new ScheduleDto(command.getId(), resource, command.getDate(), command.getStartTime(), command.getEndingTime(), 1, command.getStatus()));
+       ResourceDto _resource = serviceResource.findById(command.getIdResource());
+       ScheduleDto _scheduled = scheduleService.findById(command.getId());
+
+
+        scheduleService.update(new ScheduleDto(command.getId(), _resource, _scheduled.getBusiness(), command.getDate(), command.getStartTime(), command.getEndingTime(), command.getStock(),
+               _scheduled.getInitialStock(), command.getStatus(), _scheduled.getService()));
     }
 }

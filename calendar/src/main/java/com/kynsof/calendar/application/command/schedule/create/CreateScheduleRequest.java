@@ -2,7 +2,6 @@ package com.kynsof.calendar.application.command.schedule.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -11,11 +10,11 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class CreateScheduleRequest {
-    private UUID idResource;
-    private UUID idBusiness;
+    private UUID resourceId;
+    private UUID businessId;
+    private UUID serviceId;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endingTime;

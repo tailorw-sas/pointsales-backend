@@ -52,39 +52,14 @@ public class Schedule {
     @JoinColumn(name = "business_id", nullable = true)
     private Business business;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "service_id") // Nombre de la columna de clave foránea en la tabla de Schedule
+    private Services service;
     @PrePersist
     public void prePersist() {
         this.initialStock = this.stock;
     }
 
-    public Schedule(LocalDate date, LocalTime startTime, LocalTime endingTime) {
-        this.date = date;
-        this.startTime = startTime;
-        this.endingTime = endingTime;
-    }
-
-    public Schedule(UUID id, LocalDate date, LocalTime startTime, LocalTime endingTime, EStatusSchedule status) {
-        this.id = id;
-        this.date = date;
-        this.startTime = startTime;
-        this.endingTime = endingTime;
-        this.status = status;
-    }
-
-    public Schedule(UUID id, LocalDate date, LocalTime startTime, LocalTime endingTime, Resource resource) {
-        this.id = id;
-        this.date = date;
-        this.startTime = startTime;
-        this.endingTime = endingTime;
-        this.resource = resource;
-    }
-
-    public Schedule(LocalDate date, LocalTime startTime, LocalTime endingTime, Resource resource) {
-        this.date = date;
-        this.startTime = startTime;
-        this.endingTime = endingTime;
-        this.resource = resource;
-    }
 
     public Schedule(ScheduleDto scheduleDto) {
         this.id = scheduleDto.getId();
@@ -95,10 +70,12 @@ public class Schedule {
         this.endingTime = scheduleDto.getEndingTime();
         this.stock = scheduleDto.getStock();
         this.status = scheduleDto.getStatus();
+        this.service = new Services(scheduleDto.getService());
     }
 
     public ScheduleDto toAggregate () {
-        return new ScheduleDto(id, resource.toAggregate(), business.toAggregate(), date, startTime, endingTime, stock, initialStock, status);
+        return new ScheduleDto(id, resource.toAggregate(), business.toAggregate(), date, startTime, endingTime, stock,
+                initialStock, status, service.toAggregate());
     }
 
 }

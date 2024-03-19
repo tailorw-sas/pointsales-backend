@@ -52,6 +52,10 @@ public class Services {
             inverseJoinColumns = @JoinColumn(name = "business_id")
     )
     private Set<Business> businesses = new HashSet<>();
+
+    @JsonIgnoreProperties("service") // Evita la serialización bidireccional
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Schedule> schedules = new HashSet<>();
     
     @Column(nullable = true)
     private LocalDateTime createAt;

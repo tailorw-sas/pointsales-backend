@@ -30,12 +30,12 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/schedule")
-public class ScheduleController {
+@RequestMapping("/api/scheduled")
+public class ScheduledController {
 
     private final IMediator mediator;
 
-    public ScheduleController(IMediator mediator){
+    public ScheduledController(IMediator mediator){
 
         this.mediator = mediator;
     }

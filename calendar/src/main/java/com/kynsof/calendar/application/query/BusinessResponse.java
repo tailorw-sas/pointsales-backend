@@ -32,7 +32,6 @@ public class BusinessResponse implements IResponse {
         this.latitude = object.getLatitude();
         this.longitude = object.getLongitude();
         this.description = object.getDescription();
-        this.logo = object.getLogo();
         this.ruc = object.getRuc();
         this.status = object.getStatus();
         this.createAt = object.getCreateAt();

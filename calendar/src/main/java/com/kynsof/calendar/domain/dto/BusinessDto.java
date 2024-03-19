@@ -20,7 +20,6 @@ public class BusinessDto implements Serializable {
     private String latitude;
     private String longitude;
     private String description;
-    private byte[] logo;
     private UUID idLogo;
     private String ruc;
     private EBusinessStatus status;
@@ -30,24 +29,22 @@ public class BusinessDto implements Serializable {
     private LocalDateTime updateAt;
     private LocalDateTime deleteAt;
 
-    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, byte[] logo, String ruc, EBusinessStatus status) {
+    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String ruc, EBusinessStatus status) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.description = description;
-        this.logo = logo;
         this.ruc = ruc;
         this.status = status;
     }
 
-    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, byte[] logo, UUID idLogo, String ruc) {
+    public BusinessDto(UUID id, String name, String latitude, String longitude, String description,  UUID idLogo, String ruc) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.description = description;
-        this.logo = logo;
         this.idLogo = idLogo;
         this.ruc = ruc;
     }
