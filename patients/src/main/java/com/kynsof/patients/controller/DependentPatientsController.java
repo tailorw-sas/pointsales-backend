@@ -42,7 +42,7 @@ public class DependentPatientsController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping(path = "/{id}")
+    @PatchMapping(path = "/{id}")
     public ResponseEntity<UpdateDependentPatientMessage> update(@PathVariable UUID id, @RequestBody UpdateDependentPatientsRequest request) {
 
         UpdateDependentPatientsCommand command = UpdateDependentPatientsCommand.fromRequest(id,request );

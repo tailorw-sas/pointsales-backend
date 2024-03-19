@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.command.dependents.update;
 
-import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoRequest;
+import com.kynsof.patients.application.command.dependents.create.request.CreateDependentContactInfoRequest;
 import com.kynsof.patients.domain.dto.enumTye.DisabilityType;
 import com.kynsof.patients.domain.dto.enumTye.FamilyRelationship;
 import com.kynsof.patients.domain.dto.enumTye.GenderType;
@@ -27,6 +27,6 @@ public class UpdateDependentPatientsRequest {
     private FamilyRelationship familyRelationship;
     private byte[] photo;
     private int gestationTime;
-    private CreateContactInfoRequest createContactInfoRequest;
+    private CreateDependentContactInfoRequest contactInfo;
     private DisabilityType disabilityType;
 }

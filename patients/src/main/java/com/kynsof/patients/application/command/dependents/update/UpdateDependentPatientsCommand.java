@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.command.dependents.update;
 
-import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoRequest;
+import com.kynsof.patients.application.command.dependents.create.request.CreateDependentContactInfoRequest;
 import com.kynsof.patients.domain.dto.enumTye.DisabilityType;
 import com.kynsof.patients.domain.dto.enumTye.FamilyRelationship;
 import com.kynsof.patients.domain.dto.enumTye.GenderType;
@@ -29,14 +29,14 @@ public class UpdateDependentPatientsCommand implements ICommand {
     private FamilyRelationship familyRelationship;
     private byte[] photo;
     private int gestationTime;
-    private CreateContactInfoRequest createContactInfoRequest;
+    private CreateDependentContactInfoRequest createContactInfoRequest;
     private DisabilityType disabilityType;
 
     public UpdateDependentPatientsCommand(UUID id,UUID primeId, String identification, String name, String lastName,
                                           GenderType gender, Double weight, Double height, Boolean hasDisability,
                                           Boolean isPregnant, LocalDate birthDate, FamilyRelationship familyRelationship,
                                           byte[] photo, int gestationTime,
-                                          CreateContactInfoRequest createContactInfoRequest, DisabilityType disabilityType){
+                                          CreateDependentContactInfoRequest createContactInfoRequest, DisabilityType disabilityType){
         this.id = id;
         this.identification = identification;
         this.name = name;
@@ -61,7 +61,7 @@ public class UpdateDependentPatientsCommand implements ICommand {
                 request.getName(), request.getLastName(), request.getGender(),
                 request.getWeight(),request.getHeight(),request.getHasDisability(),request.getIsPregnant(),
                 request.getBirthDate(), request.getFamilyRelationship(), request.getPhoto(),request.getGestationTime(),
-                request.getCreateContactInfoRequest(), request.getDisabilityType());
+                request.getContactInfo(), request.getDisabilityType());
     }
 
 

@@ -6,7 +6,7 @@ import com.kynsof.patients.domain.dto.GeographicLocationDto;
 import com.kynsof.patients.domain.dto.enumTye.GeographicLocationType;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.infrastructure.entity.GeographicLocation;
-import com.kynsof.patients.infrastructure.repositories.query.GeographicLocationReadDataJPARepository;
+import com.kynsof.patients.infrastructure.repository.query.GeographicLocationReadDataJPARepository;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;

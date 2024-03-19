@@ -1,4 +1,4 @@
-package com.kynsof.patients.infrastructure.repositories.query;
+package com.kynsof.patients.infrastructure.repository.query;
 
 import com.kynsof.patients.infrastructure.entity.MedicalInformation;
 import org.springframework.data.domain.Page;
