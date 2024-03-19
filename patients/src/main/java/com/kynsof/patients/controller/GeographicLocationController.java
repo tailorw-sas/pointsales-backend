@@ -6,8 +6,6 @@ import com.kynsof.patients.application.query.geographicLocation.search.GetSearch
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsof.share.core.infrastructure.redis.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +23,8 @@ public class GeographicLocationController {
 
         this.mediator = mediator;
     }
-    @Cacheable(cacheNames = CacheConfig.USER_CACHE, unless = "#result == null")
     @PostMapping("/search")
-    public ResponseEntity<?> search(@RequestBody SearchRequest request)
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
     {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
         GetSearchLocationsQuery query = new GetSearchLocationsQuery(pageable, request.getFilter(),request.getQuery());
