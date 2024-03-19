@@ -14,7 +14,7 @@ public class CorsConfig {
     public CorsWebFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("http://localhost:5173");
-        config.addAllowedOrigin("https://example.com"); // Añade más orígenes según sea necesario
+        config.addAllowedOrigin("https://medinec-admin.kynsoft.net"); // Añade más orígenes según sea necesario
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
