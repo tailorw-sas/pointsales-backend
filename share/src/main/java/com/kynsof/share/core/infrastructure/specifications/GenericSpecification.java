@@ -56,27 +56,52 @@ public class GenericSpecification<T> implements Specification<T> {
             case IN -> {
                 CriteriaBuilder.In<Object> inClause = builder.in(path);
                 if (value instanceof List) {
-                    ((List<?>) value).forEach(inClause::value);
+                    ((List<?>) value).forEach(item -> {
+                        UUID uuid = convertToUUID(item.toString());
+                        if (uuid != null) {
+                            inClause.value(uuid);
+                        }
+                    });
                 } else {
-                    inClause.value(value);
+                    UUID uuid = convertToUUID(value.toString());
+                    if (uuid != null) {
+                        inClause.value(uuid);
+                    }
                 }
                 yield inClause;
             }
             case NOT_IN -> {
                 CriteriaBuilder.In<Object> inClause = builder.in(path);
                 if (value instanceof List) {
-                    ((List<?>) value).forEach(v -> inClause.value(v));
+                    ((List<?>) value).forEach(item -> {
+                        UUID uuid = convertToUUID(item.toString());
+                        if (uuid != null) {
+                            inClause.value(uuid);
+                        }
+                    });
                 } else {
-                    inClause.value(value);
+                    UUID uuid = convertToUUID(value.toString());
+                    if (uuid != null) {
+                        inClause.value(uuid);
+                    }
                 }
                 yield builder.not(inClause);
             }
+
             case IS_NULL -> builder.isNull(path);
             case IS_NOT_NULL -> builder.isNotNull(path);
             case IS_TRUE -> builder.isTrue(path.as(Boolean.class));
             case IS_FALSE -> builder.isFalse(path.as(Boolean.class));
             default -> throw new IllegalArgumentException("Operación no soportada: " + criteria.getOperation());
         };
+    }
+
+    private UUID convertToUUID(String str) {
+        try {
+            return UUID.fromString(str);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     private boolean isValidUUID(String str) {
