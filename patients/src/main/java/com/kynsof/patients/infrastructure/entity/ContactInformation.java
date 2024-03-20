@@ -35,7 +35,7 @@ public class ContactInformation {
     private Status status;
 
     @ManyToOne()
-    @JoinColumn(name = "geographic_location_id")
+    @JoinColumn(name = "geographic_location_id",nullable = true)
     private GeographicLocation geographicLocation;
 
     public ContactInformation(ContactInfoDto contactInfoDto) {
@@ -45,7 +45,7 @@ public class ContactInformation {
         this.address = contactInfoDto.getAddress();
         this.birthdayDate = contactInfoDto.getBirthdayDate();
         this.status = contactInfoDto.getStatus();
-        this.geographicLocation = new GeographicLocation(contactInfoDto.getGeographicLocation());
+        this.geographicLocation =contactInfoDto.getGeographicLocation() != null ? new GeographicLocation(contactInfoDto.getGeographicLocation()) : null;
     }
 
     public ContactInfoDto toAggregate() {
