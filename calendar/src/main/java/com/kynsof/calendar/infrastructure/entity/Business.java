@@ -1,9 +1,10 @@
 package com.kynsof.calendar.infrastructure.entity;
 
 import com.kynsof.calendar.domain.dto.BusinessDto;
-import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
-import com.kynsof.share.core.domain.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,26 +21,9 @@ public class Business{
     @Id
     @Column(name="id")
     private UUID id;
-
-
     private String name;
-
     private String latitude;
-
     private String longitude;
-
-    private String description;
-
-    @Lob
-    private byte[] logo;
-    private UUID idLogo;
-    private String ruc;
-
-    @Enumerated(EnumType.STRING)
-    private EBusinessStatus status;
-
-    @Column(nullable = true)
-    private boolean deleted;
 
     // Relación de muchos a muchos con Resource
     @ManyToMany(mappedBy = "businesses")
@@ -54,14 +38,9 @@ public class Business{
         this.name = business.getName();
         this.latitude = business.getLatitude();
         this.longitude = business.getLongitude();
-        this.description = business.getDescription();
-        this.idLogo = business.getIdLogo();
-        this.ruc = business.getRuc();
-        this.status = business.getStatus();
-        this.deleted = business.isDeleted();
     }
 
     public BusinessDto toAggregate () {
-        return new BusinessDto(id, name, latitude, longitude, description, idLogo, ruc, status, deleted);
+        return new BusinessDto(id, name, latitude, longitude);
     }
 }

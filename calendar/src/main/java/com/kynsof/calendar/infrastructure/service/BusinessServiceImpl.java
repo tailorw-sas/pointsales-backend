@@ -2,13 +2,10 @@ package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.BusinessResponse;
 import com.kynsof.calendar.domain.dto.BusinessDto;
-import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.calendar.domain.service.IBusinessService;
 import com.kynsof.calendar.infrastructure.entity.Business;
-import com.kynsof.calendar.infrastructure.entity.specifications.BusinessSpecifications;
 import com.kynsof.calendar.infrastructure.repository.command.BusinessWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.BusinessReadDataJPARepository;
-import com.kynsof.calendar.infrastructure.service.kafka.producer.ProducerBusinessEventService;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -35,14 +32,9 @@ public class BusinessServiceImpl implements IBusinessService {
     @Autowired
     private BusinessReadDataJPARepository repositoryQuery;
 
-    @Autowired
-    ProducerBusinessEventService businessEventService;
-
     @Override
     public void create(BusinessDto object) {
-        object.setStatus(EBusinessStatus.ACTIVE);
         this.repositoryCommand.save(new Business(object));
-        businessEventService.create(object);
     }
 
     @Override
@@ -53,18 +45,8 @@ public class BusinessServiceImpl implements IBusinessService {
 
         this.repositoryQuery.findById(objectDto.getId())
                 .map(object -> {
-                    if (objectDto.getDescription() != null) {
-                        object.setDescription(objectDto.getDescription());
-                    }
-                    if (objectDto.getStatus() != null) {
-                        object.setStatus(objectDto.getStatus());
-                    }
-
                     if (objectDto.getName() != null) {
                         object.setName(objectDto.getName());
-                    }
-                    if (objectDto.getRuc() != null) {
-                        object.setRuc(objectDto.getRuc());
                     }
 
                     return this.repositoryCommand.save(object);
@@ -75,10 +57,7 @@ public class BusinessServiceImpl implements IBusinessService {
 
     @Override
     public void delete(UUID id) {
-
         BusinessDto objectDelete = this.findById(id);
-        objectDelete.setStatus(EBusinessStatus.INACTIVE);
-        objectDelete.setDeleted(true);
 
         this.repositoryCommand.save(new Business(objectDelete));
     }
@@ -94,19 +73,6 @@ public class BusinessServiceImpl implements IBusinessService {
 
         throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Business not found.");
 
-    }
-
-    @Override
-    public PaginatedResponse findAll(Pageable pageable, UUID idObject, String filter) {
-        BusinessSpecifications specifications = new BusinessSpecifications(idObject, filter);
-        Page<Business> data = this.repositoryQuery.findAll(specifications, pageable);
-
-        List<BusinessResponse> objects = new ArrayList<>();
-        for (Business o : data.getContent()) {
-            objects.add(new BusinessResponse(o.toAggregate()));
-        }
-        return new PaginatedResponse(objects, data.getTotalPages(), data.getNumberOfElements(),
-                data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
     @Override

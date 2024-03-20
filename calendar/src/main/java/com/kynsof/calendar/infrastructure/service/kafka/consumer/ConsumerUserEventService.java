@@ -25,11 +25,6 @@ public class ConsumerUserEventService {
     @KafkaListener(topics = "user", groupId = "calendar-user")
     public void listen(String event) {
         try {
-            System.err.println("#######################################################");
-            System.err.println("#######################################################");
-            System.err.println("SE EJECUTA UN CREATED DESDE PATIENT");
-            System.err.println("#######################################################");
-            System.err.println("#######################################################");
 
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
@@ -43,21 +38,9 @@ public class ConsumerUserEventService {
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN DELETED");
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-
             }
             if (eventType.equals(EventType.UPDATED)) {
                 //Definir accion
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN EVENTO DE ACTUALIZACION");
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-
                 this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(), eventRead.getLastname(), "", PatientStatus.ACTIVE));
             }
         } catch (JsonProcessingException ex) {

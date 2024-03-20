@@ -1,6 +1,5 @@
 package com.kynsof.calendar.domain.dto;
 
-import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,30 +17,4 @@ public class BusinessDto implements Serializable {
     private String name;
     private String latitude;
     private String longitude;
-    private String description;
-    private UUID idLogo;
-    private String ruc;
-    private EBusinessStatus status;
-    private boolean deleted;
-
-    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String ruc, EBusinessStatus status) {
-        this.id = id;
-        this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.description = description;
-        this.ruc = ruc;
-        this.status = status;
-    }
-
-    public BusinessDto(UUID id, String name, String latitude, String longitude, String description,  UUID idLogo, String ruc) {
-        this.id = id;
-        this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.description = description;
-        this.idLogo = idLogo;
-        this.ruc = ruc;
-    }
-
 }

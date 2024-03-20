@@ -13,6 +13,5 @@ public interface IBusinessService {
     public void update(BusinessDto object);
     public void delete(UUID id);
     public BusinessDto findById(UUID id);
-    public PaginatedResponse findAll(Pageable pageable, UUID idObject, String filter);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }

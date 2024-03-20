@@ -18,11 +18,6 @@ public class ConsumerPatientEventService {
     @KafkaListener(topics = "patient", groupId = "calendar-patient")
     public void listen(String event) {
         try {
-            System.err.println("#######################################################");
-            System.err.println("#######################################################");
-            System.err.println("SE EJECUTA UN CREATED DESDE PATIENT");
-            System.err.println("#######################################################");
-            System.err.println("#######################################################");
 
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
