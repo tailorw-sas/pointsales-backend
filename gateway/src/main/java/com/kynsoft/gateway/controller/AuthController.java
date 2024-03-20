@@ -1,6 +1,5 @@
 package com.kynsoft.gateway.controller;
 
-
 import com.kynsof.share.core.domain.response.ApiResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsoft.gateway.application.command.autenticate.AuthenticateCommand;
@@ -9,6 +8,8 @@ import com.kynsoft.gateway.application.command.forwardPassword.ForwardPasswordCo
 import com.kynsoft.gateway.application.command.forwardPassword.ForwardPasswordMessage;
 import com.kynsoft.gateway.application.command.registry.RegistryCommand;
 import com.kynsoft.gateway.application.command.registry.RegistryMessage;
+import com.kynsoft.gateway.application.command.registrySystemUser.RegistrySystemUserCommand;
+import com.kynsoft.gateway.application.command.registrySystemUser.RegistrySystemUserMessage;
 import com.kynsoft.gateway.application.command.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpCommand;
 import com.kynsoft.gateway.application.command.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpMessage;
 import com.kynsoft.gateway.application.dto.*;
@@ -38,13 +39,20 @@ public class AuthController {
         return Mono.just(ResponseEntity.ok(response.getTokenResponse()));
     }
 
-
     // @PreAuthorize("permitAll()")
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<Boolean>> registerUser(@RequestBody RegisterDTO registerDTO) {
         RegistryCommand command = new RegistryCommand(registerDTO.getUsername(), registerDTO.getEmail(), registerDTO.getFirstname(),
                 registerDTO.getLastname(), registerDTO.getPassword(), registerDTO.getRoles());
         RegistryMessage registryMessage = mediator.send(command);
+        return ResponseEntity.ok(ApiResponse.success(registryMessage.getResult()));
+    }
+
+    @PostMapping("/register/system/user")
+    public ResponseEntity<ApiResponse<Boolean>> registerSystemUser(@RequestBody RegisterDTO registerDTO) {
+        RegistrySystemUserCommand command = new RegistrySystemUserCommand(registerDTO.getUsername(), registerDTO.getEmail(), registerDTO.getFirstname(),
+                registerDTO.getLastname(), registerDTO.getPassword(), registerDTO.getRoles());
+        RegistrySystemUserMessage registryMessage = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(registryMessage.getResult()));
     }
 

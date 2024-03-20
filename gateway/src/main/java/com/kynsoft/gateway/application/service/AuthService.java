@@ -12,6 +12,7 @@ import com.kynsoft.gateway.application.dto.TokenResponse;
 import com.kynsoft.gateway.domain.interfaces.IOtpService;
 import com.kynsoft.gateway.infrastructure.keycloak.KeycloakProvider;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserEventService;
+import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserSystemEventService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerTriggerPasswordResetEventService;
 import io.micrometer.common.lang.NonNull;
 import org.keycloak.admin.client.resource.ClientResource;
@@ -42,14 +43,18 @@ public class AuthService {
     private final ProducerRegisterUserEventService producerRegisterUserEvent;
     private final IOtpService otpService;
     private final ProducerTriggerPasswordResetEventService producerOtp;
-
+    private final ProducerRegisterUserSystemEventService producerRegisterUserSystemEvent;
     @Autowired
-    public AuthService(KeycloakProvider keycloakProvider, RestTemplate restTemplate, ProducerRegisterUserEventService producerRegisterUserEvent, IOtpService otpService, ProducerTriggerPasswordResetEventService producerOtp) {
+    public AuthService(KeycloakProvider keycloakProvider, RestTemplate restTemplate, 
+            ProducerRegisterUserEventService producerRegisterUserEvent, 
+            IOtpService otpService, ProducerTriggerPasswordResetEventService producerOtp,
+            ProducerRegisterUserSystemEventService producerRegisterUserSystemEvent) {
         this.keycloakProvider = keycloakProvider;
         this.restTemplate = restTemplate;
         this.producerRegisterUserEvent = producerRegisterUserEvent;
         this.otpService = otpService;
         this.producerOtp = producerOtp;
+        this.producerRegisterUserSystemEvent = producerRegisterUserSystemEvent;
     }
 
     public TokenResponse authenticate(LoginDTO loginDTO) {
@@ -106,7 +111,7 @@ public class AuthService {
         }
     }
 
-    public Boolean registerUser(@NonNull RegisterDTO registerDTO) {
+    public Boolean registerUser(@NonNull RegisterDTO registerDTO, boolean isSystemUser) {
         UsersResource usersResource = keycloakProvider.getUserResource();
 
         UserRepresentation userRepresentation = new UserRepresentation();
@@ -124,7 +129,12 @@ public class AuthService {
 
             setNewUserPassword(registerDTO.getPassword(), userId, usersResource);
             assignRolesToUser(registerDTO.getRoles(), userId);
-            producerRegisterUserEvent.create(registerDTO, userId);
+            if (!isSystemUser) {
+                producerRegisterUserEvent.create(registerDTO, userId);
+            } else {
+                this.producerRegisterUserSystemEvent.create(registerDTO, userId);
+            }
+
             return true;
         } else if (response.getStatus() == 409) {
             throw new UserAlreadyExistsException("User already exists", new ErrorField("email", "Email is already in use"));
