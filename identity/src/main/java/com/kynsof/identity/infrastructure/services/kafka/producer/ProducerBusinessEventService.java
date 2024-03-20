@@ -23,7 +23,7 @@ public class ProducerBusinessEventService {
     public void create(BusinessDto entity) {
 
         try {
-            BusinessKafka event = new BusinessKafka(entity.getId(), entity.getName(), entity.getDescription(), entity.getRuc(), entity.getStatus().name());
+            BusinessKafka event = new BusinessKafka(entity.getId(), entity.getName(), entity.getLatitude(), entity.getLongitude());
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
