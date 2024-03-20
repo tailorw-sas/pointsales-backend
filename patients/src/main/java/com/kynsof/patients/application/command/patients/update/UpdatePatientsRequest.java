@@ -20,6 +20,6 @@ public class UpdatePatientsRequest {
     private Boolean isPregnant;
     private byte[] photo;
     private int gestationTime;
-    private CreateContactInfoRequest createContactInfoRequest;
+    private CreateContactInfoRequest contactInfo;
     private DisabilityType disabilityType;
 }
