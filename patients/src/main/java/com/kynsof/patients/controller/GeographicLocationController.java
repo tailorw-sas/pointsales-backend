@@ -26,6 +26,7 @@ public class GeographicLocationController {
         this.mediator = mediator;
     }
     @PostMapping("/search")
+    @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
     {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
