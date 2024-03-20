@@ -2,6 +2,7 @@ package com.kynsoft.gateway.infrastructure.keycloak;
 
 import com.kynsoft.gateway.application.dto.role.RoleRequest;
 import com.kynsoft.gateway.domain.interfaces.IRoleService;
+import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterRoleEventService;
 import org.keycloak.admin.client.resource.ClientResource;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -17,6 +18,9 @@ public class RoleService implements IRoleService {
 
     @Autowired
     private KeycloakProvider keycloakProvider;
+
+    @Autowired
+    private ProducerRegisterRoleEventService producerRegisterRoleEventService;
 
     @Override
     public String createRole(RoleRequest request) {
@@ -39,6 +43,9 @@ public class RoleService implements IRoleService {
 
         clientResource.roles().create(role);
         RoleRepresentation createdRole = clientResource.roles().get(request.getName()).toRepresentation();
+
+        this.producerRegisterRoleEventService.create(createdRole.getId(), request.getName(), request.getDescription());
+
         return createdRole.getId();
     }
 
