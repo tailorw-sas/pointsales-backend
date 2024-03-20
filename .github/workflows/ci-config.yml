@@ -12,7 +12,6 @@ on:
     paths:
       - .github/workflows/ci-config.yml
       - 'config/**'
-      - 'share/**'
 jobs:
   build-push:
     runs-on: ubuntu-latest
