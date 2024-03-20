@@ -10,7 +10,7 @@ import java.util.List;
 @Value
 @RequiredArgsConstructor
 @Builder
-public class RegisterDTO implements Serializable {
+public class UserRequest implements Serializable {
 
     String username;
     String email;

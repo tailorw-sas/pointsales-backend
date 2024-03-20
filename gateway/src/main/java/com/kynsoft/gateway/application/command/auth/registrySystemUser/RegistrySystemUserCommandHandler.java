@@ -1,7 +1,7 @@
 package com.kynsoft.gateway.application.command.auth.registrySystemUser;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.dto.UserRequest;
 import com.kynsoft.gateway.application.service.AuthService;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ public class RegistrySystemUserCommandHandler implements ICommandHandler<Registr
 
     @Override
     public void handle(RegistrySystemUserCommand command) {
-        Boolean registerUser = authService.registerUser(new RegisterDTO(
+        Boolean registerUser = authService.registerUser(new UserRequest(
                 command.getUsername(), command.getEmail(),command.getFirstname(),
                 command.getLastname(),command.getPassword(), command.getRoles()
         ), true);

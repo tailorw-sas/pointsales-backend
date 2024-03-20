@@ -5,7 +5,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.kynsoft.gateway.application.dto.LoginDTO;
-import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.dto.UserRequest;
 import com.kynsoft.gateway.application.dto.TokenResponse;
 import com.kynsoft.gateway.application.service.AuthService;
 import com.kynsoft.gateway.domain.interfaces.IOtpService;
@@ -78,7 +78,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void updateUser(String id, @NonNull RegisterDTO registerDTO) {
+    public void updateUser(String id, @NonNull UserRequest userRequest) {
         // Validar el ID del usuario para asegurarse de que no esté vacío
         if (id == null || id.trim().isEmpty()) {
             throw new IllegalArgumentException("User ID cannot be null or empty.");
@@ -87,29 +87,29 @@ public class UserService implements IUserService {
         try {
             UserResource userResource = keycloakProvider.getUserResource().get(id);
             UserRepresentation user = userResource.toRepresentation();
-            if (registerDTO.getUsername() != null) {
-                user.setUsername(registerDTO.getUsername());
+            if (userRequest.getUsername() != null) {
+                user.setUsername(userRequest.getUsername());
             }
-            if (registerDTO.getFirstname() != null) {
-                user.setFirstName(registerDTO.getFirstname());
+            if (userRequest.getFirstname() != null) {
+                user.setFirstName(userRequest.getFirstname());
             }
-            if (registerDTO.getLastname() != null) {
-                user.setLastName(registerDTO.getLastname());
+            if (userRequest.getLastname() != null) {
+                user.setLastName(userRequest.getLastname());
             }
-            if (registerDTO.getEmail() != null) {
-                user.setEmail(registerDTO.getEmail());
+            if (userRequest.getEmail() != null) {
+                user.setEmail(userRequest.getEmail());
                 user.setEmailVerified(true);
             }
             user.setEnabled(true);
-            if (registerDTO.getPassword() != null && !registerDTO.getPassword().trim().isEmpty()) {
+            if (userRequest.getPassword() != null && !userRequest.getPassword().trim().isEmpty()) {
                 CredentialRepresentation credential = new CredentialRepresentation();
                 credential.setTemporary(false);
                 credential.setType(CredentialRepresentation.PASSWORD);
-                credential.setValue(registerDTO.getPassword());
+                credential.setValue(userRequest.getPassword());
                 user.setCredentials(Collections.singletonList(credential));
             }
             userResource.update(user);
-            // this.producerUpdateUserEventService.update(new RegisterDTO(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), "", null), id);
+            // this.producerUpdateUserEventService.update(new UserRequest(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), "", null), id);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update user.", e);
         }

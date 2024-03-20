@@ -1,6 +1,6 @@
 package com.kynsoft.gateway.domain.interfaces;
 
-import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.dto.UserRequest;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import java.util.List;
@@ -12,7 +12,7 @@ public interface IUserService {
     void changeStatus(UUID id, String status);
 
     List<UserRepresentation> searchUserByUsername(String username);
-    void updateUser(String id, RegisterDTO registerDTO);
+    void updateUser(String id, UserRequest userRequest);
 
     Boolean changeUserPassword(String userId, String oldPassword, String newPassword);
 }

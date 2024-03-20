@@ -6,8 +6,10 @@ import com.kynsof.share.core.domain.response.ApiResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsoft.gateway.application.command.user.changePassword.ChangePasswordCommand;
 import com.kynsoft.gateway.application.command.user.changePassword.ChangePasswordMessage;
+import com.kynsoft.gateway.application.command.user.update.UpdateUserCommand;
+import com.kynsoft.gateway.application.command.user.update.UpdateUserMessage;
 import com.kynsoft.gateway.application.dto.ChangePasswordRequest;
-import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.dto.UserRequest;
 import com.kynsoft.gateway.application.dto.user.ChangeStatusRequest;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +51,15 @@ public class UsersController {
     }
 
     @PatchMapping("/update/{id}")
-    public Mono<ResponseEntity<?>> updateUser(@PathVariable String id, @RequestBody RegisterDTO registerDTO) {
-        userService.updateUser(id, registerDTO);
-        return Mono.justOrEmpty(ResponseEntity.ok("User updated successfully"));
+    public ResponseEntity<ApiResponse<?>> updateUser(@PathVariable String id, @RequestBody UserRequest userRequest) {
+        try {
+            UpdateUserCommand command = new UpdateUserCommand(id, userRequest.getUsername(), userRequest.getEmail(),
+                    userRequest.getFirstname(), userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
+            UpdateUserMessage response = mediator.send(command);
+            return ResponseEntity.ok(ApiResponse.success(response.getResult()));
+        } catch (Exception e) {
+            return ResponseEntity.ok(ApiResponse.fail(ApiError.withSingleError("error", "user/password", "User o Password incorrectos")));
+        }
     }
 
 

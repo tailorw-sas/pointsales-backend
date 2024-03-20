@@ -41,17 +41,17 @@ public class AuthController {
 
     // @PreAuthorize("permitAll()")
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<Boolean>> registerUser(@RequestBody RegisterDTO registerDTO) {
-        RegistryCommand command = new RegistryCommand(registerDTO.getUsername(), registerDTO.getEmail(), registerDTO.getFirstname(),
-                registerDTO.getLastname(), registerDTO.getPassword(), registerDTO.getRoles());
+    public ResponseEntity<ApiResponse<Boolean>> registerUser(@RequestBody UserRequest userRequest) {
+        RegistryCommand command = new RegistryCommand(userRequest.getUsername(), userRequest.getEmail(), userRequest.getFirstname(),
+                userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
         RegistryMessage registryMessage = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(registryMessage.getResult()));
     }
 
     @PostMapping("/register/system/user")
-    public ResponseEntity<ApiResponse<Boolean>> registerSystemUser(@RequestBody RegisterDTO registerDTO) {
-        RegistrySystemUserCommand command = new RegistrySystemUserCommand(registerDTO.getUsername(), registerDTO.getEmail(), registerDTO.getFirstname(),
-                registerDTO.getLastname(), registerDTO.getPassword(), registerDTO.getRoles());
+    public ResponseEntity<ApiResponse<Boolean>> registerSystemUser(@RequestBody UserRequest userRequest) {
+        RegistrySystemUserCommand command = new RegistrySystemUserCommand(userRequest.getUsername(), userRequest.getEmail(), userRequest.getFirstname(),
+                userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
         RegistrySystemUserMessage registryMessage = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(registryMessage.getResult()));
     }

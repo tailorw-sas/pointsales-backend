@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.share.core.domain.kafka.entity.UserKafka;
 import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
-import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.dto.UserRequest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class ProducerUpdateUserEventService {
     }
 
     @Async
-    public void update(RegisterDTO entity, String clientId) {
+    public void update(UserRequest entity, String clientId) {
 
         try {
             UserKafka event = new UserKafka(clientId, entity.getUsername(), entity.getEmail(), entity.getFirstname(), entity.getLastname(), "", "", "", "");

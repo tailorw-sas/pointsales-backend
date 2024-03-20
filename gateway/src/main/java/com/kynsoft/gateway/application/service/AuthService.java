@@ -7,7 +7,7 @@ import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsoft.gateway.application.dto.LoginDTO;
 import com.kynsoft.gateway.application.dto.PasswordChangeRequest;
-import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.dto.UserRequest;
 import com.kynsoft.gateway.application.dto.TokenResponse;
 import com.kynsoft.gateway.domain.interfaces.IOtpService;
 import com.kynsoft.gateway.infrastructure.keycloak.KeycloakProvider;
@@ -111,14 +111,14 @@ public class AuthService {
         }
     }
 
-    public Boolean registerUser(@NonNull RegisterDTO registerDTO, boolean isSystemUser) {
+    public Boolean registerUser(@NonNull UserRequest userRequest, boolean isSystemUser) {
         UsersResource usersResource = keycloakProvider.getUserResource();
 
         UserRepresentation userRepresentation = new UserRepresentation();
-        userRepresentation.setFirstName(registerDTO.getFirstname());
-        userRepresentation.setLastName(registerDTO.getLastname());
-        userRepresentation.setEmail(registerDTO.getEmail());
-        userRepresentation.setUsername(registerDTO.getUsername());
+        userRepresentation.setFirstName(userRequest.getFirstname());
+        userRepresentation.setLastName(userRequest.getLastname());
+        userRepresentation.setEmail(userRequest.getEmail());
+        userRepresentation.setUsername(userRequest.getUsername());
         userRepresentation.setEnabled(true);
         userRepresentation.setEmailVerified(true);
 
@@ -127,12 +127,12 @@ public class AuthService {
         if (response.getStatus() == 201) {
             String userId = extractUserIdFromLocation(response.getLocation().getPath());
 
-            setNewUserPassword(registerDTO.getPassword(), userId, usersResource);
-            assignRolesToUser(registerDTO.getRoles(), userId);
+            setNewUserPassword(userRequest.getPassword(), userId, usersResource);
+            assignRolesToUser(userRequest.getRoles(), userId);
             if (!isSystemUser) {
-                producerRegisterUserEvent.create(registerDTO, userId);
+                producerRegisterUserEvent.create(userRequest, userId);
             } else {
-                this.producerRegisterUserSystemEvent.create(registerDTO, userId);
+                this.producerRegisterUserSystemEvent.create(userRequest, userId);
             }
 
             return true;
