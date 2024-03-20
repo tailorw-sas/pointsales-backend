@@ -32,7 +32,10 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
 
     @Override
     public void handle(UpdatePatientsCommand command) {
-
+        ContactInfoDto contactInfoDto = contactInfoService.findByPatientId(command.getId());
+        PatientDto patientDto = serviceImpl.findByIdSimple(command.getId());
+        GeographicLocationDto geographicLocationDto = geographicLocationService.findById(
+                command.getCreateContactInfoRequest().getGeographicLocationId());
         String idLogo = null;
         if (command.getPhoto() != null && command.getPhoto().length > 1) {
             UUID photoId = UUID.randomUUID();
@@ -40,6 +43,7 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
             saveFileEventService.create(fileSave);
             idLogo = photoId.toString();
         }
+
         serviceImpl.update(new PatientDto(
                 command.getId(),
                 command.getIdentification(),
@@ -56,19 +60,25 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
                 command.getGestationTime()
         ));
 
-        PatientDto patientDto = serviceImpl.findByIdSimple(command.getId());
-        GeographicLocationDto geographicLocationDto = geographicLocationService.findById(
-                command.getCreateContactInfoRequest().getGeographicLocationId());
-        UUID idContactId = contactInfoService.create(new ContactInfoDto(
-                UUID.randomUUID(),
-                patientDto,
-                command.getCreateContactInfoRequest().getEmail(),
-                command.getCreateContactInfoRequest().getTelephone(),
-                command.getCreateContactInfoRequest().getAddress(),
-                command.getCreateContactInfoRequest().getBirthdayDate(),
-                Status.ACTIVE,
-                geographicLocationDto
-        ));
+
+        if (contactInfoDto.getEmail() == null) {
+            contactInfoDto.setPatient(patientDto);
+            contactInfoDto.setAddress(command.getCreateContactInfoRequest().getAddress());
+            contactInfoDto.setTelephone(command.getCreateContactInfoRequest().getTelephone());
+            contactInfoDto.setBirthdayDate(command.getCreateContactInfoRequest().getBirthdayDate());
+            contactInfoDto.setEmail(command.getCreateContactInfoRequest().getEmail());
+            contactInfoDto.setGeographicLocation(geographicLocationDto);
+            contactInfoDto.setStatus(Status.ACTIVE);
+            contactInfoService.create(contactInfoDto);
+        } else {
+            contactInfoDto.setAddress(command.getCreateContactInfoRequest().getAddress());
+            contactInfoDto.setTelephone(command.getCreateContactInfoRequest().getTelephone());
+            contactInfoDto.setBirthdayDate(command.getCreateContactInfoRequest().getBirthdayDate());
+            contactInfoDto.setGeographicLocation(geographicLocationDto);
+            contactInfoDto.setEmail(command.getCreateContactInfoRequest().getEmail());
+            contactInfoDto.setStatus(Status.ACTIVE);
+            contactInfoService.update(contactInfoDto);
+        }
 
     }
 }
