@@ -22,7 +22,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     SCHEDULE_IS_NOT_AVAIBLE(617, Series.DOMAIN_ERROR, "The selected schedule is not available."),
     COLUMN_UNIQUE(618, Series.DOMAIN_ERROR, "Duplicate key value violates unique constraint."),
     QUALIFICATION_DESCRIPTION_NOT_NULL(619, Series.DOMAIN_ERROR, "Qualification description not null!"),
-    QUALIFICATION_DESCRIPTION_UNIQUE(620, Series.DOMAIN_ERROR, "Qualification description unique!");
+    QUALIFICATION_DESCRIPTION_UNIQUE(620, Series.DOMAIN_ERROR, "Qualification description unique!"),
+    PERMISSION_NOT_FOUND(621, Series.DOMAIN_ERROR, "Permission not found.");
 
     private static final DomainErrorMessage[] VALUES;
 
