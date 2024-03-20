@@ -1,5 +1,9 @@
 package com.kynsoft.gateway.controller;
 
+import com.kynsof.share.core.domain.response.ApiResponse;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
+import com.kynsoft.gateway.application.command.role.create.CreateRoleCommand;
+import com.kynsoft.gateway.application.command.role.create.CreateRoleMessage;
 import com.kynsoft.gateway.application.dto.role.RoleRequest;
 import com.kynsoft.gateway.domain.interfaces.IRoleService;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -9,19 +13,21 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/role")
-@PreAuthorize("hasRole('ADMIN_CLIENT')")
+//@PreAuthorize("hasRole('ADMIN_CLIENT')")
 public class RoleController {
     private final IRoleService roleService;
+    
+    private final IMediator mediator;
 
     @Autowired
-    public RoleController(IRoleService roleService) {
+    public RoleController(IRoleService roleService, IMediator mediator) {
         this.roleService = roleService;
+        this.mediator = mediator;
     }
 
     @PreAuthorize("permitAll()")
@@ -32,9 +38,12 @@ public class RoleController {
     }
 
     @PostMapping("")
-    public Mono<ResponseEntity<?>> createRole(@RequestBody RoleRequest registerDTO) throws URISyntaxException {
-        String response = roleService.createRole(registerDTO);
-        return Mono.justOrEmpty(ResponseEntity.created(new URI("/role")).body(response));
+    public ResponseEntity<ApiResponse<Boolean>> createRole(@RequestBody RoleRequest registerDTO) throws URISyntaxException {
+        CreateRoleCommand command = new CreateRoleCommand(registerDTO.getName(), registerDTO.getDescription());
+        CreateRoleMessage roleMessage = this.mediator.send(command);
+        return ResponseEntity.ok(ApiResponse.success(roleMessage.getResult()));
+//        String response = roleService.createRole(registerDTO);
+//        return Mono.justOrEmpty(ResponseEntity.created(new URI("/role")).body(response));
     }
 
 }
