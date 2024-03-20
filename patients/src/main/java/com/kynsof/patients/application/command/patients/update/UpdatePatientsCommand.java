@@ -50,7 +50,7 @@ public class UpdatePatientsCommand implements ICommand {
     public static UpdatePatientsCommand fromRequest(UUID id, UpdatePatientsRequest request) {
         return new UpdatePatientsCommand(id,request.getIdentification(), request.getName(), request.getLastName(), request.getGender(),
                 request.getWeight(),request.getHeight(),request.getHasDisability(),request.getIsPregnant(),
-                 request.getPhoto(),request.getGestationTime(), request.getCreateContactInfoRequest(), request.getDisabilityType());
+                 request.getPhoto(),request.getGestationTime(), request.getContactInfo(), request.getDisabilityType());
     }
 
 
