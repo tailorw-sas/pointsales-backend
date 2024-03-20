@@ -1,5 +1,6 @@
 package com.kynsof.identity.infrastructure.services;
 
+import com.kynsof.identity.application.query.permission.getById.PermissionrResponse;
 import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.enumType.PermissionStatusEnm;
 import com.kynsof.identity.domain.interfaces.service.IPermissionService;
@@ -10,10 +11,13 @@ import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +59,32 @@ public class PermissionServiceImpl implements IPermissionService {
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        filterCreteria(filterCriteria);
+        GenericSpecificationsBuilder<Permission> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<Permission> data = this.queryRepository.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
     }
-    
+
+    private void filterCreteria(List<FilterCriteria> filterCriteria) {
+        for (FilterCriteria filter : filterCriteria) {
+            if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
+                try {
+                    PermissionStatusEnm enumValue = PermissionStatusEnm.valueOf((String) filter.getValue());
+                    filter.setValue(enumValue);
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Valor inválido para el tipo Enum Permisos: " + filter.getValue());
+                }
+            }
+        }
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<Permission> data) {
+        List<PermissionrResponse> patients = new ArrayList<>();
+        for (Permission o : data.getContent()) {
+            patients.add(new PermissionrResponse(o.toAggregate()));
+        }
+        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
 }
