@@ -17,6 +17,7 @@ public class PermissionDto {
     private String code;
     private String description;
     private PermissionStatusEnm status;
+    private boolean deleted;
 
     /**
      * Usar este constructor en el create.
@@ -28,6 +29,20 @@ public class PermissionDto {
         this.id = id;
         this.code = code;
         this.description = description;
+    }
+
+    /**
+     * Usar este constructor en el update.
+     * @param id
+     * @param code
+     * @param description
+     * @param status 
+     */
+    public PermissionDto(UUID id, String code, String description, PermissionStatusEnm status) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+        this.status = status;
     }
 
 }

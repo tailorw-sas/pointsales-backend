@@ -31,6 +31,9 @@ public class Permission {
     private String description;
     @Enumerated(EnumType.STRING)
     private PermissionStatusEnm status;
+    
+    @Column(nullable = true)
+    private boolean deleted;
 
     @OneToMany(mappedBy = "permission")
     private List<RolePermission> rolPermissions = new ArrayList<>();
@@ -40,9 +43,10 @@ public class Permission {
         this.code = permissionDto.getCode();
         this.description = permissionDto.getDescription();
         this.status = permissionDto.getStatus();
+        this.deleted = permissionDto.isDeleted();
     }
 
     public PermissionDto toAggregate() {
-        return new PermissionDto(this.id, this.code, this.description, this.status);
+        return new PermissionDto(this.id, this.code, this.description, this.status, this.deleted);
     }
 }

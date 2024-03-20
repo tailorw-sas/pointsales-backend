@@ -3,6 +3,8 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.permission.create.CreatePermissionCommand;
 import com.kynsof.identity.application.command.permission.create.CreatePermissionMessage;
 import com.kynsof.identity.application.command.permission.create.CreatePermissionRequest;
+import com.kynsof.identity.application.command.permission.delete.DeletePermissionCommand;
+import com.kynsof.identity.application.command.permission.delete.DeletePermissionMessage;
 import com.kynsof.identity.application.command.permission.update.UpdatePermissionCommand;
 import com.kynsof.identity.application.command.permission.update.UpdatePermissionMessage;
 import com.kynsof.identity.application.command.permission.update.UpdatePermissionRequest;
@@ -60,6 +62,15 @@ public class PermissionController {
         GetSearchPermissionQuery query = new GetSearchPermissionQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DeletePermissionMessage> delete(@PathVariable("id") UUID id) {
+
+        DeletePermissionCommand command = new DeletePermissionCommand(id);
+        DeletePermissionMessage response = mediator.send(command);
+
+        return ResponseEntity.ok(response);
     }
 
 }
