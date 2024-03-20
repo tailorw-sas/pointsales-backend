@@ -3,9 +3,11 @@ package com.kynsof.patients.infrastructure.services.kafka.consumer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kynsof.patients.domain.dto.ContactInfoDto;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.dto.enumTye.GenderType;
 import com.kynsof.patients.domain.dto.enumTye.Status;
+import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.share.core.domain.kafka.entity.UserKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
@@ -19,9 +21,11 @@ import java.util.logging.Logger;
 @Service
 public class ConsumerUserEventService {
     private final IPatientsService service;
+    private final IContactInfoService contactInfoService;
 
-    public ConsumerUserEventService(IPatientsService service) {
+    public ConsumerUserEventService(IPatientsService service, IContactInfoService contactInfoService) {
         this.service = service;
+        this.contactInfoService = contactInfoService;
     }
 
     // Ejemplo de un método listener
@@ -37,9 +41,15 @@ public class ConsumerUserEventService {
             
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                this.service.create(new PatientDto(UUID.fromString(eventRead.getId()),
+               UUID patientId = this.service.create(new PatientDto(UUID.fromString(eventRead.getId()),
                         "", eventRead.getFirstname(), eventRead.getLastname(), GenderType.UNDEFINED, Status.ACTIVE,
                         null, null,null, null, null, null, 0));
+
+               PatientDto patientDto = this.service.findByIdSimple(patientId);
+               this.contactInfoService.create(new ContactInfoDto(UUID.randomUUID(),patientDto, eventRead.getEmail(),
+                       eventRead.getPhone(),null, null,Status.ACTIVE,null
+                       ));
+
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion
