@@ -16,12 +16,10 @@ public class BusinessKafka implements Serializable {
     private UUID id;
     @JsonProperty("name")
     private String name;
-    @JsonProperty("description")
-    private String description;
-    @JsonProperty("ruc")
-    private String ruc;
-    @JsonProperty("status")
-    private String status;
+    @JsonProperty("latitude")
+    private String latitude;
+    @JsonProperty("longitude")
+    private String longitude;
 
     public BusinessKafka() {
     }
