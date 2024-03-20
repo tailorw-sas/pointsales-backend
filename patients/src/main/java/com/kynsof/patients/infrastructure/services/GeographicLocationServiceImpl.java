@@ -31,7 +31,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     private GeographicLocationReadDataJPARepository repositoryQuery;
 
     @Override
-    @Cacheable(cacheNames = CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public GeographicLocationDto findById(UUID id) {
         Optional<GeographicLocation> location = this.repositoryQuery.findById(id);
         if (location.isPresent()) {
@@ -49,7 +49,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public LocationHierarchyDto findCantonAndProvinceIdsByParroquiaId(UUID parroquiaId) {
         Optional<GeographicLocation> parroquiaOptional = repositoryQuery.findById(parroquiaId);
 
@@ -76,7 +76,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
             if ("type".equals(filter.getKey()) && filter.getValue() instanceof String) {
