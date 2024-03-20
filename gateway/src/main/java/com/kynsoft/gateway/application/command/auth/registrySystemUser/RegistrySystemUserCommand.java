@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.application.command.registry;
+package com.kynsoft.gateway.application.command.auth.registrySystemUser;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RegistryCommand implements ICommand {
+public class RegistrySystemUserCommand implements ICommand {
     private Boolean resul;
     private final String username;
     private final String email;
@@ -18,9 +18,7 @@ public class RegistryCommand implements ICommand {
     private final String password;
     private final List<String> roles;
 
-
-
-    public RegistryCommand(String username, String email, String firstname, String lastname, String password, List<String> roles) {
+    public RegistrySystemUserCommand(String username, String email, String firstname, String lastname, String password, List<String> roles) {
 
         this.username = username;
         this.email = email;
@@ -30,13 +28,8 @@ public class RegistryCommand implements ICommand {
         this.roles = roles;
     }
 
-//    public static AuthenticateCommand fromRequest(CreateAllergyEntityRequest request) {
-//        return new AuthenticateCommand(request.getMedicalInformationId(), request.getCode(), request.getName());
-//    }
-
-
     @Override
     public ICommandMessage getMessage() {
-        return new RegistryMessage(resul);
+        return new RegistrySystemUserMessage(resul);
     }
 }

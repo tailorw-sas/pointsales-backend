@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.application.command.autenticate;
+package com.kynsoft.gateway.application.command.auth.autenticate;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;

@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.application.command.registry;
+package com.kynsoft.gateway.application.command.auth.registry;
 
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;

@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.application.command.sendPasswordRecoveryOtp;
+package com.kynsoft.gateway.application.command.auth.forwardPassword;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
@@ -7,14 +7,19 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SendPasswordRecoveryOtpCommand implements ICommand {
+public class ForwardPasswordCommand implements ICommand {
     private Boolean resul;
     private final String email;
+    private  final String newPassword;
+    private final String otp;
 
 
 
-    public SendPasswordRecoveryOtpCommand(String email) {
+    public ForwardPasswordCommand(String email, String newPassword, String otp) {
+
         this.email = email;
+        this.newPassword = newPassword;
+        this.otp = otp;
     }
 
 //    public static AuthenticateCommand fromRequest(CreateAllergyEntityRequest request) {
@@ -24,6 +29,6 @@ public class SendPasswordRecoveryOtpCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return new SendPasswordRecoveryOtpMessage(resul);
+        return new ForwardPasswordMessage(resul);
     }
 }

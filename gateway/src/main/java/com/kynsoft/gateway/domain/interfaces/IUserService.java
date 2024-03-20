@@ -2,7 +2,6 @@ package com.kynsoft.gateway.domain.interfaces;
 
 import com.kynsoft.gateway.application.dto.RegisterDTO;
 import org.keycloak.representations.idm.UserRepresentation;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +14,6 @@ public interface IUserService {
     List<UserRepresentation> searchUserByUsername(String username);
     void updateUser(String id, RegisterDTO registerDTO);
 
-    Mono<Boolean> changeUserPassword(String userId, String oldPassword, String newPassword);
+    Boolean changeUserPassword(String userId, String oldPassword, String newPassword);
 }
 

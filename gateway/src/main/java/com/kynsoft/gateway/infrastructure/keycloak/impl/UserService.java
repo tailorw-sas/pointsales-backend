@@ -4,7 +4,10 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.kynsoft.gateway.application.dto.LoginDTO;
 import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.dto.TokenResponse;
+import com.kynsoft.gateway.application.service.AuthService;
 import com.kynsoft.gateway.domain.interfaces.IOtpService;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import com.kynsoft.gateway.infrastructure.keycloak.KeycloakProvider;
@@ -52,6 +55,8 @@ public class UserService implements IUserService {
 
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private AuthService authService;
 
     private String extractUserIdFromLocationHeader(Response response) {
         String path = response.getLocation().getPath();
@@ -104,7 +109,7 @@ public class UserService implements IUserService {
                 user.setCredentials(Collections.singletonList(credential));
             }
             userResource.update(user);
-           // this.producerUpdateUserEventService.update(new RegisterDTO(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), "", null), id);
+            // this.producerUpdateUserEventService.update(new RegisterDTO(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), "", null), id);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update user.", e);
         }
@@ -142,23 +147,19 @@ public class UserService implements IUserService {
         return Mono.just(false);
     }
 
-    public Mono<Boolean> changeUserPassword(String userId, String oldPassword, String newPassword) {
-        // Primero, obtén el username a partir del userId, ya que necesitas el username para solicitar un token
+    public Boolean changeUserPassword(String userId, String oldPassword, String newPassword) {
+
         UserResource userResource = keycloakProvider.getRealmResource().users().get(userId);
         UserRepresentation userRepresentation = userResource.toRepresentation();
         String username = userRepresentation.getUsername();
+        TokenResponse tokenResponse = authService.authenticate(new LoginDTO(username,oldPassword));
 
-     //   Mono<TokenResponse> authenticate = authenticate(new LoginDTO(username, oldPassword));
         CredentialRepresentation newCredential = new CredentialRepresentation();
         newCredential.setType(CredentialRepresentation.PASSWORD);
         newCredential.setTemporary(false);
         newCredential.setValue(newPassword);
-
         userResource.resetPassword(newCredential);
-
-        return Mono.just(true); // Retorna true para indicar éxito en el cambio de contraseña
-        
-
+        return true;
     }
 
 }

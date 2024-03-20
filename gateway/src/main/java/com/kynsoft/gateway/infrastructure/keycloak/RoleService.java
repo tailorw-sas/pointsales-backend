@@ -23,7 +23,7 @@ public class RoleService implements IRoleService {
     private ProducerRegisterRoleEventService producerRegisterRoleEventService;
 
     @Override
-    public String createRole(RoleRequest request) {
+    public void createRole(RoleRequest request) {
         RealmResource realmResource = keycloakProvider.getRealmResource();
 
         ClientResource clientResource = realmResource.clients().findByClientId(keycloakProvider.getClient_id()).stream()
@@ -46,7 +46,7 @@ public class RoleService implements IRoleService {
 
         this.producerRegisterRoleEventService.create(createdRole.getId(), request.getName(), request.getDescription());
 
-        return createdRole.getId();
+        createdRole.getId();
     }
 
     @Override

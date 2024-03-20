@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.application.command.sendPasswordRecoveryOtp;
+package com.kynsoft.gateway.application.command.auth.sendPasswordRecoveryOtp;
 
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
