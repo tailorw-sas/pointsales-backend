@@ -10,10 +10,8 @@ import com.kynsof.patients.infrastructure.entity.GeographicLocation;
 import com.kynsof.patients.infrastructure.repository.query.GeographicLocationReadDataJPARepository;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,7 +29,6 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     private GeographicLocationReadDataJPARepository repositoryQuery;
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public GeographicLocationDto findById(UUID id) {
         Optional<GeographicLocation> location = this.repositoryQuery.findById(id);
         if (location.isPresent()) {
@@ -49,7 +46,6 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public LocationHierarchyDto findCantonAndProvinceIdsByParroquiaId(UUID parroquiaId) {
         Optional<GeographicLocation> parroquiaOptional = repositoryQuery.findById(parroquiaId);
 
@@ -76,7 +72,6 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
             if ("type".equals(filter.getKey()) && filter.getValue() instanceof String) {

@@ -6,11 +6,11 @@ import lombok.Getter;
 import java.util.UUID;
 
 @Getter
-public class FindByIdGeographicLocationQuery implements IQuery {
+public class LocationHierarchyQuery implements IQuery {
 
     private final UUID id;
 
-    public FindByIdGeographicLocationQuery(UUID id) {
+    public LocationHierarchyQuery(UUID id) {
         this.id = id;
     }
 

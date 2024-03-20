@@ -1,5 +1,6 @@
 package com.kynsof.patients.controller;
 
+import com.kynsof.patients.application.query.geographicLocation.findCantonAndProvinceIdsByParroquiaId.LocationHierarchyQuery;
 import com.kynsof.patients.application.query.geographicLocation.findCantonAndProvinceIdsByParroquiaId.LocationHierarchyResponse;
 import com.kynsof.patients.application.query.geographicLocation.getById.FindByIdGeographicLocationQuery;
 import com.kynsof.patients.application.query.geographicLocation.getall.GeographicLocationResponse;
@@ -45,7 +46,7 @@ public class GeographicLocationController {
     @GetMapping(path = "/parroquia/{id}")
     public ResponseEntity<LocationHierarchyResponse> FindByIdGeographicLocation(@PathVariable UUID id) {
 
-        FindByIdGeographicLocationQuery query = new FindByIdGeographicLocationQuery(id);
+        LocationHierarchyQuery query = new LocationHierarchyQuery(id);
         LocationHierarchyResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
