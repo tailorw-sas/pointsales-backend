@@ -3,6 +3,7 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.geographicLocation.getall.GeographicLocationResponse;
 import com.kynsof.patients.domain.dto.GeographicLocationDto;
+import com.kynsof.patients.domain.dto.LocationHierarchyDto;
 import com.kynsof.patients.domain.dto.enumTye.GeographicLocationType;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.infrastructure.entity.GeographicLocation;
@@ -45,6 +46,33 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
         Page<GeographicLocation> data = this.repositoryQuery.findAll(pageable);
 
         return getPaginatedResponse(data);
+    }
+
+    @Override
+    @Cacheable(cacheNames = CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    public LocationHierarchyDto findCantonAndProvinceIdsByParroquiaId(UUID parroquiaId) {
+        Optional<GeographicLocation> parroquiaOptional = repositoryQuery.findById(parroquiaId);
+
+        if (parroquiaOptional.isEmpty()) {
+            throw new RuntimeException("Location not found.");
+        }
+
+        GeographicLocation parroquia = parroquiaOptional.get();
+        if (parroquia.getType() != GeographicLocationType.PARROQUIA || parroquia.getParent() == null) {
+            throw new RuntimeException("Location not found.");
+        }
+
+        GeographicLocation canton = parroquia.getParent();
+        if (canton.getType() != GeographicLocationType.CANTON || canton.getParent() == null) {
+            throw new RuntimeException("Location not found.");
+        }
+
+        GeographicLocation province = canton.getParent();
+        if (province.getType() != GeographicLocationType.PROVINCE) {
+            throw new RuntimeException("Location not found.");
+        }
+
+        return new LocationHierarchyDto(province.getId(), canton.getId());
     }
 
     @Override
