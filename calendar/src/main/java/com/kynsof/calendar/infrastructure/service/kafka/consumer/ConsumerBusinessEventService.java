@@ -3,7 +3,6 @@ package com.kynsof.calendar.infrastructure.service.kafka.consumer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.calendar.domain.dto.BusinessDto;
-import com.kynsof.calendar.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.calendar.domain.service.IBusinessService;
 import com.kynsof.share.core.domain.kafka.entity.BusinessKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
@@ -31,7 +30,7 @@ public class ConsumerBusinessEventService {
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
             if (eventType.equals(EventType.CREATED)) {
-                this.service.create(new BusinessDto(eventRead.getId(), eventRead.getName(), "", ""));
+                this.service.create(new BusinessDto(eventRead.getId(), eventRead.getName(), eventRead.getLatitude(), eventRead.getLongitude()));
 
             }
             if (eventType.equals(EventType.DELETED)) {
