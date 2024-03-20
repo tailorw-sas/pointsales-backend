@@ -3,7 +3,10 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.permission.create.CreatePermissionCommand;
 import com.kynsof.identity.application.command.permission.create.CreatePermissionMessage;
 import com.kynsof.identity.application.command.permission.create.CreatePermissionRequest;
+import com.kynsof.identity.application.query.permission.getById.FindPermissionByIdQuery;
+import com.kynsof.identity.application.query.permission.getById.PermissionrResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
+import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,4 +27,14 @@ public class PermissionController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<PermissionrResponse> getById(@PathVariable UUID id) {
+
+        FindPermissionByIdQuery query = new FindPermissionByIdQuery(id);
+        PermissionrResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
 }
