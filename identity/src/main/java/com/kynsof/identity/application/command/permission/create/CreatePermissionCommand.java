@@ -12,19 +12,17 @@ import java.util.UUID;
 public class CreatePermissionCommand implements ICommand {
 
     private UUID id;
-    private String name;
     private String code;
     private String description;
 
-    public CreatePermissionCommand(String name, String code, String description) {
+    public CreatePermissionCommand(String code, String description) {
         this.id = UUID.randomUUID();
-        this.name = name;
         this.code = code;
         this.description = description;
     }
 
     public static CreatePermissionCommand fromRequest(CreatePermissionRequest request) {
-        return new CreatePermissionCommand(request.getName(), request.getCode(), request.getDescription());
+        return new CreatePermissionCommand(request.getCode(), request.getDescription());
     }
 
     @Override

@@ -11,7 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreatePermissionRequest {
 
-    private String name;
     private String code;
     private String description;
 }

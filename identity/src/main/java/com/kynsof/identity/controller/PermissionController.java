@@ -3,7 +3,9 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.permission.create.CreatePermissionCommand;
 import com.kynsof.identity.application.command.permission.create.CreatePermissionMessage;
 import com.kynsof.identity.application.command.permission.create.CreatePermissionRequest;
-import com.kynsof.identity.application.query.business.search.GetSearchBusinessQuery;
+import com.kynsof.identity.application.command.permission.update.UpdatePermissionCommand;
+import com.kynsof.identity.application.command.permission.update.UpdatePermissionMessage;
+import com.kynsof.identity.application.command.permission.update.UpdatePermissionRequest;
 import com.kynsof.identity.application.query.permission.getById.FindPermissionByIdQuery;
 import com.kynsof.identity.application.query.permission.getById.PermissionrResponse;
 import com.kynsof.identity.application.query.permission.search.GetSearchPermissionQuery;
@@ -31,6 +33,14 @@ public class PermissionController {
         CreatePermissionCommand createCommand = CreatePermissionCommand.fromRequest(request);
         CreatePermissionMessage response = mediator.send(createCommand);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping()
+    public ResponseEntity<UpdatePermissionMessage> update(@RequestBody UpdatePermissionRequest request) {
+
+        UpdatePermissionCommand command = UpdatePermissionCommand.fromRequest(request);
+        UpdatePermissionMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 

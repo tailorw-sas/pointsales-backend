@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PermissionServiceImpl implements IPermissionService {
 
-    @Autowired 
+    @Autowired
     private PermissionWriteDataJPARepository writeRepository;
 
     @Autowired
@@ -38,8 +38,26 @@ public class PermissionServiceImpl implements IPermissionService {
     }
 
     @Override
-    public void update(PermissionDto dto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(PermissionDto objectDto) {
+        if (objectDto.getId() == null) {
+            throw new BusinessException(DomainErrorMessage.PERMISSION_OR_ID_NULL, "Permission DTO or ID cannot be null.");
+        }
+
+        this.queryRepository.findById(objectDto.getId())
+                .map(object -> {
+                    if (objectDto.getDescription() != null) {
+                        object.setDescription(objectDto.getDescription());
+                    }
+                    if (objectDto.getStatus() != null) {
+                        object.setStatus(objectDto.getStatus());
+                    }
+                    if (objectDto.getCode() != null) {
+                        object.setCode(objectDto.getCode());
+                    }
+                    return this.queryRepository.save(object);
+                })
+                .orElseThrow(() -> new BusinessException(DomainErrorMessage.PERMISSION_NOT_FOUND, "Permission not found."));
+
     }
 
     @Override
