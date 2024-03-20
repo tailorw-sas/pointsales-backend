@@ -2,8 +2,7 @@ package com.kynsof.patients.infrastructure.services;
 
 
 import com.kynsof.patients.application.query.geographicLocation.getall.GeographicLocationResponse;
-import com.kynsof.patients.domain.dto.GeographicLocationDto;
-import com.kynsof.patients.domain.dto.LocationHierarchyDto;
+import com.kynsof.patients.domain.dto.*;
 import com.kynsof.patients.domain.dto.enumTye.GeographicLocationType;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.infrastructure.entity.GeographicLocation;
@@ -72,7 +71,9 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
             throw new RuntimeException("Location not found.");
         }
 
-        return new LocationHierarchyDto(province.getId(), canton.getId());
+        return new LocationHierarchyDto(new ProvinceDto(province.getId(),province.getName()),
+                new CantonDto(canton.getId(),canton.getName()),
+                new ParroquiaDto(parroquia.getId(),parroquia.getName()));
     }
 
     @Override
