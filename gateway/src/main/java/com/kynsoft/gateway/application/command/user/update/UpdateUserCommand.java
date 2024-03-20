@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.application.command.registry;
+package com.kynsoft.gateway.application.command.user.update;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
@@ -9,19 +9,19 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RegistryCommand implements ICommand {
+public class UpdateUserCommand implements ICommand {
     private Boolean resul;
+    private final String userId;
     private final String username;
     private final String email;
     private final String firstname;
     private final String lastname;
     private final String password;
-    private final List<String> roles;
+    private final  List<String> roles;
 
 
-
-    public RegistryCommand(String username, String email, String firstname, String lastname, String password, List<String> roles) {
-
+    public UpdateUserCommand(String userId, String username, String email, String firstname, String lastname, String password, List<String> roles) {
+        this.userId = userId;
         this.username = username;
         this.email = email;
         this.firstname = firstname;
@@ -30,13 +30,8 @@ public class RegistryCommand implements ICommand {
         this.roles = roles;
     }
 
-//    public static AuthenticateCommand fromRequest(CreateAllergyEntityRequest request) {
-//        return new AuthenticateCommand(request.getMedicalInformationId(), request.getCode(), request.getName());
-//    }
-
-
     @Override
     public ICommandMessage getMessage() {
-        return new RegistryMessage(resul);
+        return new UpdateUserMessage(resul);
     }
 }

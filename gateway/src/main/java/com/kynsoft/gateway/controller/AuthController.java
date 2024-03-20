@@ -2,16 +2,16 @@ package com.kynsoft.gateway.controller;
 
 import com.kynsof.share.core.domain.response.ApiResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsoft.gateway.application.command.autenticate.AuthenticateCommand;
-import com.kynsoft.gateway.application.command.autenticate.AuthenticateMessage;
-import com.kynsoft.gateway.application.command.forwardPassword.ForwardPasswordCommand;
-import com.kynsoft.gateway.application.command.forwardPassword.ForwardPasswordMessage;
-import com.kynsoft.gateway.application.command.registry.RegistryCommand;
-import com.kynsoft.gateway.application.command.registry.RegistryMessage;
-import com.kynsoft.gateway.application.command.registrySystemUser.RegistrySystemUserCommand;
-import com.kynsoft.gateway.application.command.registrySystemUser.RegistrySystemUserMessage;
-import com.kynsoft.gateway.application.command.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpCommand;
-import com.kynsoft.gateway.application.command.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpMessage;
+import com.kynsoft.gateway.application.command.auth.autenticate.AuthenticateCommand;
+import com.kynsoft.gateway.application.command.auth.autenticate.AuthenticateMessage;
+import com.kynsoft.gateway.application.command.auth.forwardPassword.ForwardPasswordCommand;
+import com.kynsoft.gateway.application.command.auth.forwardPassword.ForwardPasswordMessage;
+import com.kynsoft.gateway.application.command.auth.registry.RegistryCommand;
+import com.kynsoft.gateway.application.command.auth.registry.RegistryMessage;
+import com.kynsoft.gateway.application.command.auth.registrySystemUser.RegistrySystemUserCommand;
+import com.kynsoft.gateway.application.command.auth.registrySystemUser.RegistrySystemUserMessage;
+import com.kynsoft.gateway.application.command.auth.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpCommand;
+import com.kynsoft.gateway.application.command.auth.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpMessage;
 import com.kynsoft.gateway.application.dto.*;
 import com.kynsoft.gateway.application.query.getById.RefreshTokenQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,17 +41,17 @@ public class AuthController {
 
     // @PreAuthorize("permitAll()")
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<Boolean>> registerUser(@RequestBody RegisterDTO registerDTO) {
-        RegistryCommand command = new RegistryCommand(registerDTO.getUsername(), registerDTO.getEmail(), registerDTO.getFirstname(),
-                registerDTO.getLastname(), registerDTO.getPassword(), registerDTO.getRoles());
+    public ResponseEntity<ApiResponse<Boolean>> registerUser(@RequestBody UserRequest userRequest) {
+        RegistryCommand command = new RegistryCommand(userRequest.getUsername(), userRequest.getEmail(), userRequest.getFirstname(),
+                userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
         RegistryMessage registryMessage = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(registryMessage.getResult()));
     }
 
     @PostMapping("/register/system/user")
-    public ResponseEntity<ApiResponse<Boolean>> registerSystemUser(@RequestBody RegisterDTO registerDTO) {
-        RegistrySystemUserCommand command = new RegistrySystemUserCommand(registerDTO.getUsername(), registerDTO.getEmail(), registerDTO.getFirstname(),
-                registerDTO.getLastname(), registerDTO.getPassword(), registerDTO.getRoles());
+    public ResponseEntity<ApiResponse<Boolean>> registerSystemUser(@RequestBody UserRequest userRequest) {
+        RegistrySystemUserCommand command = new RegistrySystemUserCommand(userRequest.getUsername(), userRequest.getEmail(), userRequest.getFirstname(),
+                userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
         RegistrySystemUserMessage registryMessage = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(registryMessage.getResult()));
     }

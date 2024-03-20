@@ -1,6 +1,6 @@
 package com.kynsoft.gateway.application.service.kafka;
 
-import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.dto.UserRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +13,7 @@ public class CustomerService {
 		this.customerEventsService = customerEventsService;
 	}
 
-	public RegisterDTO save(RegisterDTO customer) {
+	public UserRequest save(UserRequest customer) {
 		System.out.println("Received " + customer);
 		try {
 		this.customerEventsService.publish(customer);

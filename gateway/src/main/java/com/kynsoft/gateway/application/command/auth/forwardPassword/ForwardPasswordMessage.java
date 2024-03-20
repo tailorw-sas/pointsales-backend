@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.application.command.forwardPassword;
+package com.kynsoft.gateway.application.command.auth.forwardPassword;
 
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;

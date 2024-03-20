@@ -4,7 +4,7 @@ package com.kynsoft.gateway.application.service.kafka;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.share.core.domain.kafka.event.EventType;
-import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.dto.UserRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public class CustomerEventsService {
     }
 
 
-    public void publish(RegisterDTO customer) {
+    public void publish(UserRequest customer) {
 
 
         CustomerCreatedEvent created = new CustomerCreatedEvent();

@@ -3,8 +3,13 @@ package com.kynsoft.gateway.controller;
 
 import com.kynsof.share.core.domain.response.ApiError;
 import com.kynsof.share.core.domain.response.ApiResponse;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
+import com.kynsoft.gateway.application.command.user.changePassword.ChangePasswordCommand;
+import com.kynsoft.gateway.application.command.user.changePassword.ChangePasswordMessage;
+import com.kynsoft.gateway.application.command.user.update.UpdateUserCommand;
+import com.kynsoft.gateway.application.command.user.update.UpdateUserMessage;
 import com.kynsoft.gateway.application.dto.ChangePasswordRequest;
-import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.dto.UserRequest;
 import com.kynsoft.gateway.application.dto.user.ChangeStatusRequest;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +25,12 @@ import reactor.core.publisher.Mono;
 public class UsersController {
 
     private final IUserService userService;
+    private final IMediator mediator;
 
     @Autowired
-    public UsersController(IUserService userService) {
+    public UsersController(IUserService userService, IMediator mediator) {
         this.userService = userService;
+        this.mediator = mediator;
     }
 
     @GetMapping("/list")
@@ -44,9 +51,15 @@ public class UsersController {
     }
 
     @PatchMapping("/update/{id}")
-    public Mono<ResponseEntity<?>> updateUser(@PathVariable String id, @RequestBody RegisterDTO registerDTO) {
-        userService.updateUser(id, registerDTO);
-        return Mono.justOrEmpty(ResponseEntity.ok("User updated successfully"));
+    public ResponseEntity<ApiResponse<?>> updateUser(@PathVariable String id, @RequestBody UserRequest userRequest) {
+        try {
+            UpdateUserCommand command = new UpdateUserCommand(id, userRequest.getUsername(), userRequest.getEmail(),
+                    userRequest.getFirstname(), userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
+            UpdateUserMessage response = mediator.send(command);
+            return ResponseEntity.ok(ApiResponse.success(response.getResult()));
+        } catch (Exception e) {
+            return ResponseEntity.ok(ApiResponse.fail(ApiError.withSingleError("error", "user/password", "User o Password incorrectos")));
+        }
     }
 
 
@@ -57,13 +70,14 @@ public class UsersController {
 //    }
 
     @PostMapping("/change-password")
-    public ResponseEntity<ApiResponse<?>> me(@AuthenticationPrincipal Jwt jwt, @RequestBody ChangePasswordRequest request) {
+    public ResponseEntity<ApiResponse<?>> changePassword(@AuthenticationPrincipal Jwt jwt, @RequestBody ChangePasswordRequest request) {
         try {
             String userId = jwt.getClaim("sub");
-            Mono<Boolean> response = userService.changeUserPassword(userId,request.getOldPassword(),request.getNewPassword());
-            return ResponseEntity.ok(ApiResponse.success(response));
+            ChangePasswordCommand command = new ChangePasswordCommand(userId, request.getNewPassword(), request.getOldPassword());
+            ChangePasswordMessage response = mediator.send(command);
+            return ResponseEntity.ok(ApiResponse.success(response.getResult()));
         } catch (Exception e) {
-            return ResponseEntity.ok(ApiResponse.fail(ApiError.withSingleError("error", "token", "Error al procesar el token")));
+            return ResponseEntity.ok(ApiResponse.fail(ApiError.withSingleError("error", "user/password", "User o Password incorrectos")));
         }
 
     }

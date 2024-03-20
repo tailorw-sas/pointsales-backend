@@ -1,6 +1,5 @@
-package com.kynsoft.gateway.application.command.registrySystemUser;
+package com.kynsoft.gateway.application.command.auth.registrySystemUser;
 
-import com.kynsoft.gateway.application.command.registry.*;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;

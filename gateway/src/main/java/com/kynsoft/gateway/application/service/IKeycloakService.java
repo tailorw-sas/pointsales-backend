@@ -1,6 +1,6 @@
 package com.kynsoft.gateway.application.service;
 
-import com.kynsoft.gateway.application.dto.RegisterDTO;
+import com.kynsoft.gateway.application.dto.UserRequest;
 import com.kynsoft.gateway.application.dto.TokenResponse;
 import com.kynsoft.gateway.application.dto.role.RoleRequest;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -19,11 +19,11 @@ public interface IKeycloakService {
 
     int countUsers();
 
-    String registerUser(RegisterDTO registerDTO);
+    String registerUser(UserRequest userRequest);
 
     void deleteUser(String id);
 
-    void updateUser(String id, RegisterDTO userDTO);
+    void updateUser(String id, UserRequest userDTO);
 
     List<RoleRepresentation> findAllRoles();
 
