@@ -25,6 +25,7 @@ public class ContactInfoResponse implements IResponse {
     private String address;
 
     private LocalDate birthdayDate;
+    private UUID geographicLocationId;
 
     public ContactInfoResponse(ContactInfoDto contactInfoDto) {
         this.id = contactInfoDto.getId();
@@ -33,6 +34,8 @@ public class ContactInfoResponse implements IResponse {
         this.telephone = contactInfoDto.getTelephone();
         this.address = contactInfoDto.getAddress();
         this.birthdayDate = contactInfoDto.getBirthdayDate();
+        this.geographicLocationId = contactInfoDto.getGeographicLocation() != null
+                ? contactInfoDto.getGeographicLocation().getId() : null;
     }
 
 }
