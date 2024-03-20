@@ -23,6 +23,7 @@
         <module>share</module>
         <module>identity</module>
         <module>cloudBridges</module>
+        <module>chat</module>
     </modules>
     <build>
 
