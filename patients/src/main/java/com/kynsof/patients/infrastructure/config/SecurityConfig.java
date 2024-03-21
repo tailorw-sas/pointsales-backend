@@ -4,6 +4,7 @@ package com.kynsof.patients.infrastructure.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,6 +14,10 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoders;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.util.pattern.PathPatternParser;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -58,16 +63,20 @@ public class SecurityConfig {
     	return ReactiveJwtDecoders.fromIssuerLocation(jwkSetUri);
     }
     
-//    @Bean
-//    @ConditionalOnProperty(prefix = "http", name = "cors-enabled", matchIfMissing = false, havingValue = "true")
-//    public CorsWebFilter corsFilter() {
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration config = corsProperties.getCors();
-//        if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
-//            source.registerCorsConfiguration("/**", config);
-//        }
-//        return new CorsWebFilter(source);
-//    }
+   @Bean
+    @ConditionalOnProperty(prefix = "http", name = "cors-enabled", matchIfMissing = false, havingValue = "true")
+    public CorsWebFilter corsFilter() {
+       CorsConfiguration config = new CorsConfiguration();
+       config.addAllowedOrigin("http://localhost:5173");
+       config.addAllowedOrigin("http://localhost:8080");
+       config.addAllowedOrigin("https://medinec-admin.kynsoft.net"); // Añade más orígenes según sea necesario
+       config.addAllowedMethod("*");
+       config.addAllowedHeader("*");
+       config.setAllowCredentials(true);
+       UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
+       source.registerCorsConfiguration("/**", config);
+        return new CorsWebFilter(source);
+    }
 
 }
 
