@@ -8,8 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -29,11 +29,11 @@ public class RoleSystem {
     @Enumerated(EnumType.STRING)
     private RoleStatusEnm status;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserRole> userRoles = new ArrayList<>();
+    @ManyToMany(mappedBy = "roles")
+    private Set<Permission> permissions = new HashSet<>();
 
-    @OneToMany(mappedBy = "role")
-    private List<RolePermission> rolPermissions = new ArrayList<>();
+    @ManyToMany(mappedBy = "roles")
+    private Set<UserSystem> users = new HashSet<>();
 
     public RoleSystem(RoleDto dto) {
         this.id = dto.getId();

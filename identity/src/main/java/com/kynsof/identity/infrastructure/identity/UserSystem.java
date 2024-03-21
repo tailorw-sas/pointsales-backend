@@ -16,7 +16,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -38,8 +40,12 @@ public class UserSystem implements Serializable {
     private String lastName;
     @Enumerated(EnumType.STRING)
     private UserStatus status;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
-    private List<UserRole> userRols = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "user_rol",
+               joinColumns = @JoinColumn(name = "user_id"),
+               inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private Set<RoleSystem> roles = new HashSet<>();
 
     @CreatedBy
     private String createdBy;
@@ -64,9 +70,9 @@ public class UserSystem implements Serializable {
 
     public UserSystemDto toAggregate() {
         List<RoleDto> rolDtos = new ArrayList<>();
-        if (!userRols.isEmpty()) {
-            rolDtos = this.userRols.stream()
-                    .map(userRol -> userRol.getRole().toAggregate())
+        if (!roles.isEmpty()) {
+            rolDtos = this.roles.stream()
+                    .map(userRol -> userRol.toAggregate())
                     .toList();
         }
 

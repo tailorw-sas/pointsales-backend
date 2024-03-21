@@ -1,6 +1,7 @@
 package com.kynsof.identity.domain.dto;
 
 import com.kynsof.identity.domain.dto.enumType.PermissionStatusEnm;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,17 +19,20 @@ public class PermissionDto {
     private String description;
     private PermissionStatusEnm status;
     private boolean deleted;
+    private Set<RoleDto> roles;
 
     /**
      * Usar este constructor en el create.
      * @param id
      * @param code
      * @param description 
+     * @param roles 
      */
-    public PermissionDto(UUID id, String code, String description) {
+    public PermissionDto(UUID id, String code, String description, Set<RoleDto> roles) {
         this.id = id;
         this.code = code;
         this.description = description;
+        this.roles = Set.copyOf(roles);
     }
 
     /**
