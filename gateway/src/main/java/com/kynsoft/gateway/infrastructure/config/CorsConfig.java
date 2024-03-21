@@ -13,11 +13,12 @@ public class CorsConfig {
     @Bean
     public CorsWebFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:5173");
-        config.addAllowedOrigin("https://medinec-admin.kynsoft.net"); // Añade más orígenes según sea necesario
+        config.addAllowedOrigin("*");
+//        config.addAllowedOrigin("http://localhost:5173");
+//        config.addAllowedOrigin("https://medinec-admin.kynsoft.net"); // Añade más orígenes según sea necesario
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
-        config.setAllowCredentials(true);
+//        config.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
         source.registerCorsConfiguration("/**", config);
 

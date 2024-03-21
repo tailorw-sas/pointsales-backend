@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -30,7 +31,7 @@ public class SecurityConfig {
             // -- Swagger UI v2
             "/api/**",};
         return httpSecurity
-        	//	.cors(Customizer.withDefaults())
+        		.cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeExchange(exchanges -> exchanges
         				.pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()

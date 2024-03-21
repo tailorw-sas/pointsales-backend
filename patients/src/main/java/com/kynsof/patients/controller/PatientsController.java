@@ -79,10 +79,10 @@ public class PatientsController {
         return ResponseEntity.ok(data);
     }
     @GetMapping(path = "/{id}")
-    public ResponseEntity<PatientsResponse> getById(@PathVariable UUID id) {
+    public ResponseEntity<PatientByIdResponse> getById(@PathVariable UUID id) {
 
         FindPatientsByIdQuery query = new FindPatientsByIdQuery(id);
-        PatientsResponse response = mediator.send(query);
+        PatientByIdResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }
