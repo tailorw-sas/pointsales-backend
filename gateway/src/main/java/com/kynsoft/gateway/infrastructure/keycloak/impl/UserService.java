@@ -1,12 +1,8 @@
 package com.kynsoft.gateway.infrastructure.keycloak.impl;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.kynsoft.gateway.application.dto.LoginDTO;
-import com.kynsoft.gateway.application.dto.UserRequest;
 import com.kynsoft.gateway.application.dto.TokenResponse;
+import com.kynsoft.gateway.application.dto.UserRequest;
 import com.kynsoft.gateway.application.service.AuthService;
 import com.kynsoft.gateway.domain.interfaces.IOtpService;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
@@ -23,7 +19,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import javax.ws.rs.core.Response;
 import java.util.Collections;
@@ -130,22 +125,22 @@ public class UserService implements IUserService {
     }
 
 
-    public Mono<?> getKeycloakTokenUsingGoogleToken(String googleToken) {
-        String googleCLientId = keycloakProvider.getGoogleClientId();
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance())
-                .setAudience(Collections.singletonList(googleCLientId))
-                .build();
-
-        try {
-            GoogleIdToken idToken = verifier.verify(googleToken);
-            if (idToken != null)
-                return Mono.just(true);
-        } catch (Exception e) {
-            // Log and handle the exception
-            return Mono.just(false);
-        }
-        return Mono.just(false);
-    }
+//    public Mono<?> getKeycloakTokenUsingGoogleToken(String googleToken) {
+//        String googleCLientId = keycloakProvider.getGoogleClientId();
+//        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance())
+//                .setAudience(Collections.singletonList(googleCLientId))
+//                .build();
+//
+//        try {
+//            GoogleIdToken idToken = verifier.verify(googleToken);
+//            if (idToken != null)
+//                return Mono.just(true);
+//        } catch (Exception e) {
+//            // Log and handle the exception
+//            return Mono.just(false);
+//        }
+//        return Mono.just(false);
+//    }
 
     public Boolean changeUserPassword(String userId, String oldPassword, String newPassword) {
 

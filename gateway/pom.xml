@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.5</version>
+		<version>3.2.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.kynsoft</groupId>
@@ -18,12 +18,12 @@
 		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<lombok.version>1.18.30</lombok.version>
-		<spring-boot.version>3.1.5</spring-boot.version>
+		<spring-boot.version>3.2.4</spring-boot.version>
 		<spring-boot-maven-plugin.version>3.2.2</spring-boot-maven-plugin.version>
-		<spring-cloud.version>2022.0.4</spring-cloud.version>
-		<springdoc-openapi.version>2.2.0</springdoc-openapi.version>
+		<spring-cloud.version>2023.0.0</spring-cloud.version>
+		<springdoc-openapi.version>2.4.0</springdoc-openapi.version>
 		<spring-security-oauth2.version>2.5.2.RELEASE</spring-security-oauth2.version>
-		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
 	</properties>
 
 	<dependencyManagement>
@@ -173,7 +173,7 @@
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-boot-starter</artifactId>
-			<version>3.0.0</version> <!-- Verifica la última versión en el repositorio Maven -->
+			<version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -187,23 +187,10 @@
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.google.api-client</groupId>
-			<artifactId>google-api-client</artifactId>
-			<version>1.32.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.http-client</groupId>
-			<artifactId>google-http-client-jackson2</artifactId>
-			<version>1.40.1</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka-clients</artifactId>
 		</dependency>
 	</dependencies>
 

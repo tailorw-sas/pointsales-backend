@@ -6,12 +6,11 @@ import com.kynsof.share.core.domain.kafka.entity.UserSystemKakfa;
 import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import com.kynsoft.gateway.application.dto.UserRequest;
-import java.util.UUID;
-
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
