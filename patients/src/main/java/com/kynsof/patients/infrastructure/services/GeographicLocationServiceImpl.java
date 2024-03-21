@@ -48,7 +48,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
+//    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public LocationHierarchyDto findCantonAndProvinceIdsByParroquiaId(UUID parroquiaId) {
         Optional<GeographicLocation> parroquiaOptional = repositoryQuery.findById(parroquiaId);
 
