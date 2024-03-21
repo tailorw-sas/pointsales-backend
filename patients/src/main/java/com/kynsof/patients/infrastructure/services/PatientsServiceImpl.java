@@ -100,6 +100,10 @@ public class PatientsServiceImpl implements IPatientsService {
                         patient.setDisabilityType(patientDto.getDisabilityType());
                     }
 
+                    if (patientDto.getPhoto() != null) {
+                        patient.setPhoto(patientDto.getPhoto());
+                    }
+
                     return this.repositoryCommand.save(patient);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + patientDto.getId() + " not found"));
