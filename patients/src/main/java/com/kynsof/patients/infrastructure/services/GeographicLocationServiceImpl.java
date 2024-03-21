@@ -2,7 +2,7 @@ package com.kynsof.patients.infrastructure.services;
 
 
 import com.kynsof.patients.application.query.geographicLocation.getall.GeographicLocationResponse;
-import com.kynsof.patients.domain.dto.GeographicLocationDto;
+import com.kynsof.patients.domain.dto.*;
 import com.kynsof.patients.domain.dto.enumTye.GeographicLocationType;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.infrastructure.entity.GeographicLocation;
@@ -30,7 +30,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     private GeographicLocationReadDataJPARepository repositoryQuery;
 
     @Override
-    @Cacheable(cacheNames = CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public GeographicLocationDto findById(UUID id) {
         Optional<GeographicLocation> location = this.repositoryQuery.findById(id);
         if (location.isPresent()) {
@@ -48,7 +48,36 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    public LocationHierarchyDto findCantonAndProvinceIdsByParroquiaId(UUID parroquiaId) {
+        Optional<GeographicLocation> parroquiaOptional = repositoryQuery.findById(parroquiaId);
+
+        if (parroquiaOptional.isEmpty()) {
+            throw new RuntimeException("Location not found.");
+        }
+
+        GeographicLocation parroquia = parroquiaOptional.get();
+        if (parroquia.getType() != GeographicLocationType.PARROQUIA || parroquia.getParent() == null) {
+            throw new RuntimeException("Location not found.");
+        }
+
+        GeographicLocation canton = parroquia.getParent();
+        if (canton.getType() != GeographicLocationType.CANTON || canton.getParent() == null) {
+            throw new RuntimeException("Location not found.");
+        }
+
+        GeographicLocation province = canton.getParent();
+        if (province.getType() != GeographicLocationType.PROVINCE) {
+            throw new RuntimeException("Location not found.");
+        }
+
+        return new LocationHierarchyDto(new ProvinceDto(province.getId(),province.getName()),
+                new CantonDto(canton.getId(),canton.getName()),
+                new ParroquiaDto(parroquia.getId(),parroquia.getName()));
+    }
+
+    @Override
+    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
             if ("type".equals(filter.getKey()) && filter.getValue() instanceof String) {

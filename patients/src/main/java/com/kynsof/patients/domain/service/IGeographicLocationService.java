@@ -1,6 +1,7 @@
 package com.kynsof.patients.domain.service;
 
 import com.kynsof.patients.domain.dto.GeographicLocationDto;
+import com.kynsof.patients.domain.dto.LocationHierarchyDto;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,7 @@ public interface IGeographicLocationService {
     GeographicLocationDto findById(UUID id);
 
     PaginatedResponse findAll(Pageable pageable);
+    LocationHierarchyDto findCantonAndProvinceIdsByParroquiaId(UUID parroquiaId);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }

@@ -64,7 +64,7 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
                 UUID.randomUUID(),
                 patientDto,
                 command.getCreateContactInfoRequest().getEmail(),
-                command.getCreateContactInfoRequest().getEmail(),
+                command.getCreateContactInfoRequest().getTelephone(),
                 command.getCreateContactInfoRequest().getAddress(),
                 command.getCreateContactInfoRequest().getBirthdayDate(),
                 Status.ACTIVE,
