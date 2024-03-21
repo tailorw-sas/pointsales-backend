@@ -11,11 +11,14 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
 @RestController
+@PreAuthorize("permitAll()")
 @RequestMapping("/api/locations")
 public class GeographicLocationController {
 
@@ -26,13 +29,14 @@ public class GeographicLocationController {
         this.mediator = mediator;
     }
     @PostMapping("/search")
-    @CrossOrigin(origins = "http://localhost:5176")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    @PreAuthorize("permitAll()")
+    @CrossOrigin(origins = "http://localhost:9000")
+    public Mono<ResponseEntity<PaginatedResponse>> search(@RequestBody SearchRequest request)
     {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
         GetSearchLocationsQuery query = new GetSearchLocationsQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
-        return ResponseEntity.ok(data);
+        return Mono.just(ResponseEntity.ok(data));
     }
 
     @GetMapping(path = "/{id}")
