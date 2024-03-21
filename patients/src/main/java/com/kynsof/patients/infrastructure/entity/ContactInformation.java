@@ -1,6 +1,7 @@
 package com.kynsof.patients.infrastructure.entity;
 
 import com.kynsof.patients.domain.dto.ContactInfoDto;
+import com.kynsof.patients.domain.dto.GeographicLocationDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -49,7 +50,9 @@ public class ContactInformation {
     }
 
     public ContactInfoDto toAggregate() {
+        GeographicLocationDto geographicLocationDto = geographicLocation != null ? geographicLocation.toAggregate() : null;
         return new ContactInfoDto(getId(), getPatient().toAggregate(), getEmail(), getTelephone(), getAddress(), getBirthdayDate(), getStatus(),
-                geographicLocation.toAggregate());
+                geographicLocationDto
+                );
     }
 }
