@@ -121,15 +121,13 @@
         </dependency>
 
         <dependency>
-<<<<<<< HEAD
+
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-=======
->>>>>>> 35ff46491cf4706daffeb72112a3aec68707539f
             <groupId>io.netty</groupId>
             <artifactId>netty-resolver-dns-native-macos</artifactId>
         </dependency>
