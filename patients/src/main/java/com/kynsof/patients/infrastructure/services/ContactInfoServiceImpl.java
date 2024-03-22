@@ -5,6 +5,7 @@ import com.kynsof.patients.domain.dto.ContactInfoDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.infrastructure.entity.ContactInformation;
+import com.kynsof.patients.infrastructure.entity.GeographicLocation;
 import com.kynsof.patients.infrastructure.repository.command.ContactInfoWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.ContactInfoReadDataJPARepository;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -43,12 +44,14 @@ public class ContactInfoServiceImpl implements IContactInfoService {
         }
 
         this.repositoryQuery.findById(contactInfoDto.getId())
-                .map(patient -> {
-                    if (contactInfoDto.getAddress() != null) patient.setAddress(contactInfoDto.getAddress());
-                    if (contactInfoDto.getTelephone() != null) patient.setTelephone(contactInfoDto.getTelephone());
-                    if (contactInfoDto.getBirthdayDate() != null) patient.setBirthdayDate(contactInfoDto.getBirthdayDate());
-                    if (contactInfoDto.getEmail() != null) patient.setEmail(contactInfoDto.getEmail());
-                    return this.repositoryCommand.save(patient);
+                .map(contactInformation -> {
+                    if (contactInfoDto.getAddress() != null) contactInformation.setAddress(contactInfoDto.getAddress());
+                    if (contactInfoDto.getTelephone() != null) contactInformation.setTelephone(contactInfoDto.getTelephone());
+                    if (contactInfoDto.getBirthdayDate() != null) contactInformation.setBirthdayDate(contactInfoDto.getBirthdayDate());
+                    if (contactInfoDto.getEmail() != null) contactInformation.setEmail(contactInfoDto.getEmail());
+                    if (contactInfoDto.getGeographicLocation() != null)
+                        contactInformation.setGeographicLocation(new GeographicLocation(contactInfoDto.getGeographicLocation()));
+                    return this.repositoryCommand.save(contactInformation);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("ContactInfo with ID " + contactInfoDto.getId() + " not found"));
 

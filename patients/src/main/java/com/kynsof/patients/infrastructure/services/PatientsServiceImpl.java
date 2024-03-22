@@ -97,6 +97,18 @@ public class PatientsServiceImpl implements IPatientsService {
                         patient.setIsPregnant(patientDto.getIsPregnant());
                     }
 
+                    if (patientDto.getGestationTime()> 0) {
+                        patient.setGestationTime(patientDto.getGestationTime());
+                    }
+
+                    if (patientDto.getDisabilityType() != null) {
+                        patient.setDisabilityType(patientDto.getDisabilityType());
+                    }
+
+                    if (patientDto.getPhoto() != null) {
+                        patient.setPhoto(patientDto.getPhoto());
+                    }
+
                     return this.repositoryCommand.save(patient);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + patientDto.getId() + " not found"));

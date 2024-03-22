@@ -29,7 +29,7 @@ public class KafkaConsumerConfig {
     @Profile("dev")
     public DefaultKafkaConsumerFactory<String, String> devConsumerFactory() {
         Map<String, Object> configProps = createBaseProps();
-        addSaslConfig(configProps, "user1", "AkC7B1ooWO");
+//        addSaslConfig(configProps, "user1", "AkC7B1ooWO");
         return new DefaultKafkaConsumerFactory<>(configProps);
     }
 

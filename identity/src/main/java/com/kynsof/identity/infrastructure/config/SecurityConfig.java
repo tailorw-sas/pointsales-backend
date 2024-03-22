@@ -49,20 +49,20 @@ public class SecurityConfig {
                         .pathMatchers(AUTH_WHITELIST).permitAll()
                         .anyExchange().authenticated()
                 )
-                .oauth2ResourceServer(oauth2 -> oauth2
-                                .jwt(jwtSpec -> jwtSpec
-                                                .jwtDecoder(jwtDecoder())
-                                                .jwtAuthenticationConverter(jwtAuthenticationConverter)
-                                )
-                )
+//                .oauth2ResourceServer(oauth2 -> oauth2
+//                                .jwt(jwtSpec -> jwtSpec
+//                                                .jwtDecoder(jwtDecoder())
+//                                                .jwtAuthenticationConverter(jwtAuthenticationConverter)
+//                                )
+//                )
                 
                 .build();
     }
-
-    @Bean
-    public ReactiveJwtDecoder jwtDecoder() {
-    	return ReactiveJwtDecoders.fromIssuerLocation(jwkSetUri);
-    }
+//
+//    @Bean
+//    public ReactiveJwtDecoder jwtDecoder() {
+//    	return ReactiveJwtDecoders.fromIssuerLocation(jwkSetUri);
+//    }
     
     @Bean
     @ConditionalOnProperty(prefix = "http", name = "cors-enabled", matchIfMissing = false, havingValue = "true")
