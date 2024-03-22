@@ -155,6 +155,10 @@ public class PatientsServiceImpl implements IPatientsService {
                     if (dependentPatientDto.getFamilyRelationship() != null) {
                         dependentPatient.setFamilyRelationship(dependentPatientDto.getFamilyRelationship());
                     }
+
+                    if (dependentPatientDto.getPhoto() != null) {
+                        dependentPatient.setPhoto(dependentPatientDto.getPhoto());
+                    }
                     // Considera cómo actualizar la información del paciente principal (prime) si es necesario.
                     // Esto puede implicar buscar el paciente principal por su ID y establecer la relación adecuadamente.
 
