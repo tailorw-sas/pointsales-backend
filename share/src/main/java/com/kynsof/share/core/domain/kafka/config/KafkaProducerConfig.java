@@ -25,10 +25,10 @@ public class KafkaProducerConfig {
     @Profile("dev")
     public ProducerFactory<String, String> devProducerFactory() {
         Map<String, Object> configProps = createBaseProps();
-//        configProps.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
-//        configProps.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
-//        configProps.put(SaslConfigs.SASL_JAAS_CONFIG,
-//                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"user1\" password=\"AkC7B1ooWO\";");
+        configProps.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
+        configProps.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
+        configProps.put(SaslConfigs.SASL_JAAS_CONFIG,
+                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"user1\" password=\"AkC7B1ooWO\";");
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
