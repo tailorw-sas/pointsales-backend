@@ -20,6 +20,7 @@ public class CreatePermissionCommand implements ICommand {
         this.id = UUID.randomUUID();
         this.code = code;
         this.description = description;
+        this.module = module;
     }
 
     public static CreatePermissionCommand fromRequest(CreatePermissionRequest request) {

@@ -22,6 +22,7 @@ public class UpdatePermissionCommand implements ICommand {
         this.id = id;
         this.code = code;
         this.description = description;
+        this.module = module;
         this.status = status;
     }
 
