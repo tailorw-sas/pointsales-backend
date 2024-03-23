@@ -33,4 +33,7 @@ public class RolePermission {
 
     @Column(nullable = true)
     private LocalDateTime deletedAt;
+
+    @Column()
+    private boolean deleted;
 }

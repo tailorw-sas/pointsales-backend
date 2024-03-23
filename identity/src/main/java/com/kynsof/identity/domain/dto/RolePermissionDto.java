@@ -18,4 +18,5 @@ public class RolePermissionDto {
     private RoleSystem role;
     private Permission permission;
     private LocalDateTime deletedAt;
+    private boolean deleted;
 }
