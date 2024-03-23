@@ -9,7 +9,6 @@ import com.kynsoft.notification.application.dto.MailJetRecipient;
 import com.kynsoft.notification.application.dto.MailJetVar;
 import com.kynsoft.notification.domain.service.IEmailService;
 import com.mailjet.client.errors.MailjetException;
-import com.mailjet.client.errors.MailjetSocketTimeoutException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -46,7 +45,7 @@ public class ConsumerTriggerPasswordResetEventService {
             this.service.sendEmailMailjet(emailRequest);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerTriggerPasswordResetEventService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MailjetSocketTimeoutException | MailjetException e) {
+        } catch (  MailjetException e) {
             throw new RuntimeException(e);
         }
     }
