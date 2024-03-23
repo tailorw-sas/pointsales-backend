@@ -24,6 +24,7 @@ public class Permission {
     @Column(unique = true)
     private String code;
     private String description;
+    private String module;
     @Enumerated(EnumType.STRING)
     private PermissionStatusEnm status;
 
@@ -40,19 +41,10 @@ public class Permission {
         this.description = permissionDto.getDescription();
         this.status = permissionDto.getStatus();
         this.deleted = permissionDto.isDeleted();
-//        permissionDto.getRoles().stream()
-//                .map(RoleSystem::new)
-//                .forEach(this.roles::add);
     }
 
     public PermissionDto toAggregate() {
         List<RoleDto> rolDtos = new ArrayList<>();
-//        if (!roles.isEmpty()) {
-//            rolDtos = this.roles.stream()
-//                    .map(userRol -> userRol.toAggregate())
-//                    .toList();
-//        }
-
         return new PermissionDto(this.id, this.code, this.description, this.status, this.deleted, Set.copyOf(rolDtos));
     }
 }
