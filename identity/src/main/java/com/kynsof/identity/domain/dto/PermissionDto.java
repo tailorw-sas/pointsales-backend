@@ -25,12 +25,13 @@ public class PermissionDto {
      * @param id
      * @param code
      * @param description 
-     * @param roles 
+     * @param module 
      */
-    public PermissionDto(UUID id, String code, String description, Set<RoleDto> roles) {
+    public PermissionDto(UUID id, String code, String description, String module) {
         this.id = id;
         this.code = code;
         this.description = description;
+        this.module = module;
     }
 
     /**

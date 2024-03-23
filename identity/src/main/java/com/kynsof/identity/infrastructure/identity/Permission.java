@@ -36,6 +36,7 @@ public class Permission {
         this.id = permissionDto.getId();
         this.code = permissionDto.getCode();
         this.description = permissionDto.getDescription();
+        this.module = permissionDto.getModule();
         this.status = permissionDto.getStatus();
     }
 
