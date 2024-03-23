@@ -19,12 +19,14 @@ public class PermissionrResponse implements IResponse {
     private UUID id;
     private String code;
     private String description;
+    private String module;
     private PermissionStatusEnm status;
 
     public PermissionrResponse(PermissionDto response) {
         this.id = response.getId();
         this.code = response.getCode();
         this.description = response.getDescription();
+        this.module = response.getModule();
         this.status = response.getStatus();
     }
 
