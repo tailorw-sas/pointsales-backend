@@ -48,6 +48,9 @@ public class PermissionServiceImpl implements IPermissionService {
                     if (objectDto.getDescription() != null) {
                         object.setDescription(objectDto.getDescription());
                     }
+                    if (objectDto.getModule() != null) {
+                        object.setModule(objectDto.getModule());
+                    }
                     if (objectDto.getStatus() != null) {
                         object.setStatus(objectDto.getStatus());
                     }

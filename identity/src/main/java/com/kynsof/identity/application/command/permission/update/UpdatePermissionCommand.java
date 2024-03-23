@@ -15,9 +15,10 @@ public class UpdatePermissionCommand implements ICommand {
     private UUID id;
     private String code;
     private String description;
+    private String module;
     private PermissionStatusEnm status;
 
-    public UpdatePermissionCommand(UUID id, String code, String description, PermissionStatusEnm status) {
+    public UpdatePermissionCommand(UUID id, String code, String description, String module, PermissionStatusEnm status) {
         this.id = id;
         this.code = code;
         this.description = description;
@@ -25,7 +26,7 @@ public class UpdatePermissionCommand implements ICommand {
     }
 
     public static UpdatePermissionCommand fromRequest(UpdatePermissionRequest request) {
-        return new UpdatePermissionCommand(request.getId(), request.getCode(), request.getDescription(), request.getStatus());
+        return new UpdatePermissionCommand(request.getId(), request.getCode(), request.getDescription(), request.getModule(), request.getStatus());
     }
 
     @Override

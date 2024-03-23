@@ -1,7 +1,6 @@
 package com.kynsof.identity.infrastructure.identity;
 
 import com.kynsof.identity.domain.dto.PermissionDto;
-import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.enumType.PermissionStatusEnm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,6 +40,6 @@ public class Permission {
     }
 
     public PermissionDto toAggregate() {
-        return new PermissionDto(this.id, this.code, this.description, this.status);
+        return new PermissionDto(this.id, this.code, this.description, this.module, this.status);
     }
 }
