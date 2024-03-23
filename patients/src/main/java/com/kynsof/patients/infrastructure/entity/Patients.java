@@ -13,8 +13,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -70,6 +72,10 @@ public class Patients implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "insurance_id")
     )
     private List<Insurance> insurances;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
 
     public Patients(PatientDto patients) {
         this.id = patients.getId();

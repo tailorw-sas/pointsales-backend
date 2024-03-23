@@ -29,11 +29,12 @@ public class RoleSystem {
     @Enumerated(EnumType.STRING)
     private RoleStatusEnm status;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<Permission> permissions = new HashSet<>();
+    // Relationships
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UserRoleBusiness> userRoleBusinesses = new HashSet<>();
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<UserSystem> users = new HashSet<>();
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<RolePermission> rolePermissions = new HashSet<>();
 
     public RoleSystem(RoleDto dto) {
         this.id = dto.getId();

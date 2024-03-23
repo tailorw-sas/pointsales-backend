@@ -3,6 +3,7 @@ package com.kynsoft.notification.controller;
 import com.kynsof.share.core.application.FileRequest;
 import com.kynsof.share.core.infrastructure.util.CustomMultipartFile;
 import com.kynsoft.notification.domain.dto.AFileDto;
+import com.kynsoft.notification.domain.dto.FileInfoDto;
 import com.kynsoft.notification.domain.service.IAFileService;
 import com.kynsoft.notification.infrastructure.service.AmazonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -69,5 +71,23 @@ public class FileController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @GetMapping()
+    public List<FileInfoDto> listFiles(@RequestParam("bucketName") String bucketName) {
+        return amazonClient.listAllFiles(bucketName);
+    }
+
+    @GetMapping("/delete/key")
+    public String deleteFileByKey( @RequestParam("key") String key) {
+
+            amazonClient.deleteFileByKey(key);
+            return "Archivo eliminado con éxito.";
+
+    }
+
+    @GetMapping("/buckets")
+    public List<String> listBuckets() {
+        return amazonClient.listAllBuckets();
     }
 }

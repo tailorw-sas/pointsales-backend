@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -26,6 +28,9 @@ public class Business {
     @Enumerated(EnumType.STRING)
     private EBusinessStatus status;
     private boolean deleted;
+
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UserRoleBusiness> userRoleBusinesses = new HashSet<>();
 
     public Business(BusinessDto business) {
         this.id = business.getId();

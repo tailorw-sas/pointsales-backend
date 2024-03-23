@@ -41,11 +41,9 @@ public class UserSystem implements Serializable {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @ManyToMany
-    @JoinTable(name = "user_rol",
-               joinColumns = @JoinColumn(name = "user_id"),
-               inverseJoinColumns = @JoinColumn(name = "rol_id"))
-    private Set<RoleSystem> roles = new HashSet<>();
+    // Relationship with User_Role_Clinic
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UserRoleBusiness> userRolesClinics = new HashSet<>();
 
     @CreatedBy
     private String createdBy;
@@ -70,11 +68,11 @@ public class UserSystem implements Serializable {
 
     public UserSystemDto toAggregate() {
         List<RoleDto> rolDtos = new ArrayList<>();
-        if (!roles.isEmpty()) {
-            rolDtos = this.roles.stream()
-                    .map(userRol -> userRol.toAggregate())
-                    .toList();
-        }
+//        if (!roles.isEmpty()) {
+//            rolDtos = this.roles.stream()
+//                    .map(userRol -> userRol.toAggregate())
+//                    .toList();
+//        }
 
         return new UserSystemDto(this.id, this.userName, this.email, this.name, this.lastName, this.status, rolDtos);
     }

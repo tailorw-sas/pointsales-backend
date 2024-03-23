@@ -30,7 +30,7 @@ public class PatientByIdResponse implements IResponse {
     private String photo;
     private int gestationTime = 0;
     private DisabilityType disabilityType;
-    private ContactInfoResponse contactInfoResponse;
+    private ContactInfoResponse contactInfo;
     private FamilyRelationship familyRelationship;
 
     public PatientByIdResponse(PatientByIdDto patients) {
@@ -48,7 +48,7 @@ public class PatientByIdResponse implements IResponse {
         gestationTime = patients.getGestationTime();
         familyRelationship = patients.getFamilyRelationship();
         if (patients.getContactInfoDto() != null) {
-            this.contactInfoResponse = new ContactInfoResponse(patients.getContactInfoDto());
+            this.contactInfo = new ContactInfoResponse(patients.getContactInfoDto());
         }
     }
 

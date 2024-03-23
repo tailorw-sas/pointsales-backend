@@ -1,6 +1,7 @@
 package com.kynsoft.notification.infrastructure.service;
 
 import com.kynsoft.notification.domain.dto.AFileDto;
+import com.kynsoft.notification.domain.dto.FileInfoDto;
 import com.kynsoft.notification.domain.service.IAmazonClient;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,13 +15,14 @@ import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AmazonClient implements IAmazonClient {
@@ -94,5 +96,31 @@ public class AmazonClient implements IAmazonClient {
         String filename = url.replace(this.cloudfrontDomain, "");
 
         return new AFileDto(filename, url);
+    }
+
+    public List<FileInfoDto> listAllFiles(String bucketName) {
+        ListObjectsV2Request req = ListObjectsV2Request.builder().bucket(bucketName).build();
+        ListObjectsV2Response result = s3Client.listObjectsV2(req);
+
+        return result.contents().stream()
+                .map(s3Object -> new FileInfoDto(s3Object.key(), this.cloudfrontDomain))
+                .collect(Collectors.toList());
+    }
+
+    public void deleteFileByKey(String key) {
+        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                .bucket(bucketName)
+                .key(key)
+                .build();
+        s3Client.deleteObject(deleteObjectRequest);
+    }
+
+    public List<String> listAllBuckets() {
+        ListBucketsResponse listBucketsResponse = s3Client.listBuckets();
+        List<Bucket> buckets = listBucketsResponse.buckets();
+
+        return buckets.stream()
+                .map(Bucket::name)
+                .collect(Collectors.toList());
     }
 }
