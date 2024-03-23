@@ -28,9 +28,6 @@ public class Permission {
     @Enumerated(EnumType.STRING)
     private PermissionStatusEnm status;
 
-    @Column(nullable = true)
-    private boolean deleted;
-
     // Relationships
     @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<RolePermission> rolePermissions = new HashSet<>();
@@ -40,11 +37,9 @@ public class Permission {
         this.code = permissionDto.getCode();
         this.description = permissionDto.getDescription();
         this.status = permissionDto.getStatus();
-        this.deleted = permissionDto.isDeleted();
     }
 
     public PermissionDto toAggregate() {
-        List<RoleDto> rolDtos = new ArrayList<>();
-        return new PermissionDto(this.id, this.code, this.description, this.status, this.deleted, Set.copyOf(rolDtos));
+        return new PermissionDto(this.id, this.code, this.description, this.status);
     }
 }

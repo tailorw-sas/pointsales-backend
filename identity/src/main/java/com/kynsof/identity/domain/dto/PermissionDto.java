@@ -17,9 +17,8 @@ public class PermissionDto {
     private UUID id;
     private String code;
     private String description;
+    private String module;
     private PermissionStatusEnm status;
-    private boolean deleted;
-    private Set<RoleDto> roles;
 
     /**
      * Usar este constructor en el create.
@@ -32,7 +31,6 @@ public class PermissionDto {
         this.id = id;
         this.code = code;
         this.description = description;
-        this.roles = Set.copyOf(roles);
     }
 
     /**

@@ -33,7 +33,6 @@ public class PermissionServiceImpl implements IPermissionService {
     @Override
     public UUID create(PermissionDto dto) {
         dto.setStatus(PermissionStatusEnm.ACTIVE);
-        dto.setDeleted(false);
         this.writeRepository.save(new Permission(dto));
         return dto.getId();
     }
@@ -65,7 +64,6 @@ public class PermissionServiceImpl implements IPermissionService {
     public void delete(UUID id) {
         PermissionDto objectDelete = this.findById(id);
         objectDelete.setStatus(PermissionStatusEnm.INACTIVE);
-        objectDelete.setDeleted(true);
         this.writeRepository.save(new Permission(objectDelete));
     }
 
