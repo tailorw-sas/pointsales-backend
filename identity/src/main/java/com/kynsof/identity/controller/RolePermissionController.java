@@ -3,6 +3,8 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.rolpermission.create.CreateRolPermissionCommand;
 import com.kynsof.identity.application.command.rolpermission.create.CreateRolPermissionMessage;
 import com.kynsof.identity.application.command.rolpermission.create.CreateRolPermissionRequest;
+import com.kynsof.identity.application.command.rolpermission.delete.DeleteRolPermissionCommand;
+import com.kynsof.identity.application.command.rolpermission.delete.DeleteRolPermissionMessage;
 import com.kynsof.identity.application.query.rolpermission.getById.FindRolPermissionByIdQuery;
 import com.kynsof.identity.application.query.rolpermission.getById.RolPermissionResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -32,6 +34,15 @@ public class RolePermissionController {
 
         FindRolPermissionByIdQuery query = new FindRolPermissionByIdQuery(id);
         RolPermissionResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DeleteRolPermissionMessage> delete(@PathVariable("id") UUID id) {
+
+        DeleteRolPermissionCommand command = new DeleteRolPermissionCommand(id);
+        DeleteRolPermissionMessage response = mediator.send(command);
 
         return ResponseEntity.ok(response);
     }
