@@ -7,8 +7,13 @@ import com.kynsof.identity.application.command.rolpermission.delete.DeleteRolPer
 import com.kynsof.identity.application.command.rolpermission.delete.DeleteRolPermissionMessage;
 import com.kynsof.identity.application.query.rolpermission.getById.FindRolPermissionByIdQuery;
 import com.kynsof.identity.application.query.rolpermission.getById.RolPermissionResponse;
+import com.kynsof.identity.application.query.rolpermission.search.GetSearchRolPermissionQuery;
+import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import java.util.UUID;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +50,15 @@ public class RolePermissionController {
         DeleteRolPermissionMessage response = mediator.send(command);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchRolPermissionQuery query = new GetSearchRolPermissionQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
 }
