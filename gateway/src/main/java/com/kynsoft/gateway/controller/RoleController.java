@@ -4,7 +4,7 @@ import com.kynsof.share.core.domain.response.ApiResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsoft.gateway.application.command.role.create.CreateRoleCommand;
 import com.kynsoft.gateway.application.command.role.create.CreateRoleMessage;
-import com.kynsoft.gateway.application.dto.role.RoleRequest;
+import com.kynsoft.gateway.domain.dto.role.RoleRequest;
 import com.kynsoft.gateway.domain.interfaces.IRoleService;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;

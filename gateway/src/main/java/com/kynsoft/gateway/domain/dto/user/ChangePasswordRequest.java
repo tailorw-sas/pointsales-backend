@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.application.dto;
+package com.kynsoft.gateway.domain.dto.user;
 
 import lombok.Getter;
 import lombok.Setter;

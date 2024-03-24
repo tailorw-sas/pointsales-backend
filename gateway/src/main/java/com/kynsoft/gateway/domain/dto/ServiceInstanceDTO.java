@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.application.dto;
+package com.kynsoft.gateway.domain.dto;
 
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;

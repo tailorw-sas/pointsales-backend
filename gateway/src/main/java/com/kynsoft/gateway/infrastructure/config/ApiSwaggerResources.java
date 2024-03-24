@@ -1,6 +1,6 @@
 package com.kynsoft.gateway.infrastructure.config;
 
-import com.kynsoft.gateway.application.dto.RouteDTO;
+import com.kynsoft.gateway.domain.dto.RouteDTO;
 import lombok.AllArgsConstructor;
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;

@@ -1,6 +1,6 @@
 package com.kynsoft.gateway.infrastructure.config;
 
-import com.kynsoft.gateway.application.dto.RouteDTO;
+import com.kynsoft.gateway.domain.dto.RouteDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;

@@ -1,6 +1,6 @@
-package com.kynsoft.gateway.infrastructure.keycloak;
+package com.kynsoft.gateway.infrastructure.services.keycloak;
 
-import com.kynsoft.gateway.application.dto.role.RoleRequest;
+import com.kynsoft.gateway.domain.dto.role.RoleRequest;
 import com.kynsoft.gateway.domain.interfaces.IRoleService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterRoleEventService;
 import org.keycloak.admin.client.resource.ClientResource;

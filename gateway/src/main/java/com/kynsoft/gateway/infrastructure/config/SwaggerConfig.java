@@ -1,6 +1,6 @@
 package com.kynsoft.gateway.infrastructure.config;
 
-import com.kynsoft.gateway.application.dto.RouteDTO;
+import com.kynsoft.gateway.domain.dto.RouteDTO;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.properties.AbstractSwaggerUiConfigProperties.SwaggerUrl;
 import org.springdoc.core.properties.SwaggerUiConfigProperties;

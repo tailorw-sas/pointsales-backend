@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.application.dto;
+package com.kynsoft.gateway.domain.dto.user;
 
 import lombok.*;
 
@@ -11,7 +11,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Builder
 public class UserRequest implements Serializable {
-
     String username;
     String email;
     String firstname;

@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.application.dto.role;
+package com.kynsoft.gateway.domain.dto.role;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,12 +1,10 @@
-package com.kynsoft.gateway.infrastructure.keycloak.impl;
+package com.kynsoft.gateway.infrastructure.services.keycloak;
 
-import com.kynsoft.gateway.application.dto.LoginDTO;
-import com.kynsoft.gateway.application.dto.TokenResponse;
-import com.kynsoft.gateway.application.dto.UserRequest;
-import com.kynsoft.gateway.application.service.AuthService;
+import com.kynsoft.gateway.domain.dto.user.LoginRequest;
+import com.kynsoft.gateway.domain.dto.TokenResponse;
+import com.kynsoft.gateway.domain.dto.user.UserRequest;
 import com.kynsoft.gateway.domain.interfaces.IOtpService;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
-import com.kynsoft.gateway.infrastructure.keycloak.KeycloakProvider;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserEventService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerTriggerPasswordResetEventService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerUpdateUserEventService;
@@ -104,7 +102,7 @@ public class UserService implements IUserService {
                 user.setCredentials(Collections.singletonList(credential));
             }
             userResource.update(user);
-            // this.producerUpdateUserEventService.update(new UserRequest(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), "", null), id);
+            this.producerUpdateUserEventService.update(new UserRequest(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), "", null), id);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update user.", e);
         }
@@ -147,7 +145,7 @@ public class UserService implements IUserService {
         UserResource userResource = keycloakProvider.getRealmResource().users().get(userId);
         UserRepresentation userRepresentation = userResource.toRepresentation();
         String username = userRepresentation.getUsername();
-        TokenResponse tokenResponse = authService.authenticate(new LoginDTO(username,oldPassword));
+        TokenResponse tokenResponse = authService.authenticate(new LoginRequest(username,oldPassword));
 
         CredentialRepresentation newCredential = new CredentialRepresentation();
         newCredential.setType(CredentialRepresentation.PASSWORD);

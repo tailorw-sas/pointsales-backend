@@ -1,8 +1,8 @@
 package com.kynsoft.gateway.application.command.auth.registrySystemUser;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsoft.gateway.application.dto.UserRequest;
-import com.kynsoft.gateway.application.service.AuthService;
+import com.kynsoft.gateway.domain.dto.user.UserRequest;
+import com.kynsoft.gateway.infrastructure.services.keycloak.AuthService;
 import org.springframework.stereotype.Component;
 
 @Component
