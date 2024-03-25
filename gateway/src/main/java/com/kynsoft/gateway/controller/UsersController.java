@@ -8,9 +8,9 @@ import com.kynsoft.gateway.application.command.user.changePassword.ChangePasswor
 import com.kynsoft.gateway.application.command.user.changePassword.ChangePasswordMessage;
 import com.kynsoft.gateway.application.command.user.update.UpdateUserCommand;
 import com.kynsoft.gateway.application.command.user.update.UpdateUserMessage;
-import com.kynsoft.gateway.application.dto.ChangePasswordRequest;
-import com.kynsoft.gateway.application.dto.UserRequest;
-import com.kynsoft.gateway.application.dto.user.ChangeStatusRequest;
+import com.kynsoft.gateway.domain.dto.user.ChangePasswordRequest;
+import com.kynsoft.gateway.domain.dto.user.UserRequest;
+import com.kynsoft.gateway.domain.dto.user.ChangeStatusRequest;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

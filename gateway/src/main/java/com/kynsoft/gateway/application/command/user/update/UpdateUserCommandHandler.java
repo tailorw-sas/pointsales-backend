@@ -2,7 +2,7 @@ package com.kynsoft.gateway.application.command.user.update;
 
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsoft.gateway.application.dto.UserRequest;
+import com.kynsoft.gateway.domain.dto.user.UserRequest;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.stereotype.Component;
 

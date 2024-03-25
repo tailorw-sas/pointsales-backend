@@ -1,16 +1,16 @@
-package com.kynsoft.gateway.application.service;
+package com.kynsoft.gateway.infrastructure.services.keycloak;
 
 import com.kynsof.share.core.domain.exception.CustomUnauthorizedException;
 import com.kynsof.share.core.domain.exception.UserAlreadyExistsException;
 import com.kynsof.share.core.domain.exception.UserNotFoundException;
 import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
 import com.kynsof.share.core.domain.response.ErrorField;
-import com.kynsoft.gateway.application.dto.LoginDTO;
-import com.kynsoft.gateway.application.dto.PasswordChangeRequest;
-import com.kynsoft.gateway.application.dto.UserRequest;
-import com.kynsoft.gateway.application.dto.TokenResponse;
+import com.kynsoft.gateway.domain.dto.user.LoginRequest;
+import com.kynsoft.gateway.domain.dto.PasswordChangeRequest;
+import com.kynsoft.gateway.domain.dto.user.UserRequest;
+import com.kynsoft.gateway.domain.dto.TokenResponse;
 import com.kynsoft.gateway.domain.interfaces.IOtpService;
-import com.kynsoft.gateway.infrastructure.keycloak.KeycloakProvider;
+import com.kynsoft.gateway.infrastructure.services.keycloak.KeycloakProvider;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserEventService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserSystemEventService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerTriggerPasswordResetEventService;
@@ -57,7 +57,7 @@ public class AuthService {
         this.producerRegisterUserSystemEvent = producerRegisterUserSystemEvent;
     }
 
-    public TokenResponse authenticate(LoginDTO loginDTO) {
+    public TokenResponse authenticate(LoginRequest loginDTO) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));

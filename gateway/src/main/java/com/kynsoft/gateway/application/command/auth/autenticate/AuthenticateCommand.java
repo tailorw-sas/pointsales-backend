@@ -2,7 +2,7 @@ package com.kynsoft.gateway.application.command.auth.autenticate;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsoft.gateway.application.dto.TokenResponse;
+import com.kynsoft.gateway.domain.dto.TokenResponse;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.infrastructure.keycloak;
+package com.kynsoft.gateway.infrastructure.services.keycloak;
 
 import lombok.Getter;
 import org.jboss.resteasy.client.jaxrs.internal.ResteasyClientBuilderImpl;

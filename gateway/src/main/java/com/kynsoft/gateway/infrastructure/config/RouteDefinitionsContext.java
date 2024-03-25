@@ -1,6 +1,6 @@
 package com.kynsoft.gateway.infrastructure.config;
 
-import com.kynsoft.gateway.application.dto.RouteDTO;
+import com.kynsoft.gateway.domain.dto.RouteDTO;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

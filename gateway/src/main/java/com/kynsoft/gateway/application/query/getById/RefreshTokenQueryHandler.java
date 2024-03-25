@@ -1,8 +1,8 @@
 package com.kynsoft.gateway.application.query.getById;
 
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
-import com.kynsoft.gateway.application.dto.TokenResponse;
-import com.kynsoft.gateway.application.service.AuthService;
+import com.kynsoft.gateway.domain.dto.TokenResponse;
+import com.kynsoft.gateway.infrastructure.services.keycloak.AuthService;
 import org.springframework.stereotype.Component;
 
 @Component

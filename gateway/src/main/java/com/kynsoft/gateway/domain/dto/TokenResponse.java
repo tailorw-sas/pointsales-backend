@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.application.dto;
+package com.kynsoft.gateway.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kynsof.share.core.domain.bus.query.IResponse;

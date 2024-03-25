@@ -1,6 +1,6 @@
 package com.kynsoft.gateway.domain.interfaces;
 
-import com.kynsoft.gateway.application.dto.role.RoleRequest;
+import com.kynsoft.gateway.domain.dto.role.RoleRequest;
 import org.keycloak.representations.idm.RoleRepresentation;
 
 import java.util.List;

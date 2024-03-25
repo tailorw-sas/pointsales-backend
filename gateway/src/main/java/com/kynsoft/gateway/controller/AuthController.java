@@ -12,8 +12,12 @@ import com.kynsoft.gateway.application.command.auth.registrySystemUser.RegistryS
 import com.kynsoft.gateway.application.command.auth.registrySystemUser.RegistrySystemUserMessage;
 import com.kynsoft.gateway.application.command.auth.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpCommand;
 import com.kynsoft.gateway.application.command.auth.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpMessage;
-import com.kynsoft.gateway.application.dto.*;
 import com.kynsoft.gateway.application.query.getById.RefreshTokenQuery;
+import com.kynsoft.gateway.domain.dto.PasswordChangeRequest;
+import com.kynsoft.gateway.domain.dto.TokenRefreshRequest;
+import com.kynsoft.gateway.domain.dto.TokenResponse;
+import com.kynsoft.gateway.domain.dto.user.LoginRequest;
+import com.kynsoft.gateway.domain.dto.user.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,7 +37,7 @@ public class AuthController {
     }
     @PreAuthorize("permitAll()")
     @PostMapping("/authenticate")
-    public Mono<ResponseEntity<TokenResponse>> authenticate(@RequestBody LoginDTO loginDTO) {
+    public Mono<ResponseEntity<TokenResponse>> authenticate(@RequestBody LoginRequest loginDTO) {
         AuthenticateCommand authenticateCommand = new AuthenticateCommand(loginDTO.getUsername(), loginDTO.getPassword());
         AuthenticateMessage response = mediator.send(authenticateCommand);
         return Mono.just(ResponseEntity.ok(response.getTokenResponse()));

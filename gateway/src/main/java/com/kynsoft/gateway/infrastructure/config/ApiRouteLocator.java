@@ -1,6 +1,6 @@
 package com.kynsoft.gateway.infrastructure.config;
 
-import com.kynsoft.gateway.application.dto.RouteDTO;
+import com.kynsoft.gateway.domain.dto.RouteDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.route.RouteLocator;

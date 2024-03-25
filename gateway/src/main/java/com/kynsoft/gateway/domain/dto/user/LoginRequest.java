@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.application.dto;
+package com.kynsoft.gateway.domain.dto.user;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Builder
 @Getter
 @Setter
-public class LoginDTO implements Serializable {
+public class LoginRequest implements Serializable {
     @Serial
     private static final long serialVersionUID = -6587730290416571673L;
     String username;

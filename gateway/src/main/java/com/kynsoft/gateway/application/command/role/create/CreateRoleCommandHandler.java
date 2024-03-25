@@ -1,7 +1,7 @@
 package com.kynsoft.gateway.application.command.role.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsoft.gateway.application.dto.role.RoleRequest;
+import com.kynsoft.gateway.domain.dto.role.RoleRequest;
 import com.kynsoft.gateway.domain.interfaces.IRoleService;
 import org.springframework.stereotype.Component;
 

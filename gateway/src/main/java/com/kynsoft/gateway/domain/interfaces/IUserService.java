@@ -1,6 +1,6 @@
 package com.kynsoft.gateway.domain.interfaces;
 
-import com.kynsoft.gateway.application.dto.UserRequest;
+import com.kynsoft.gateway.domain.dto.user.UserRequest;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import java.util.List;
