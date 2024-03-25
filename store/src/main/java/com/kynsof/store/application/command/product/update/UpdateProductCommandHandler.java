@@ -27,8 +27,11 @@ public class UpdateProductCommandHandler implements ICommandHandler<UpdateProduc
     public void handle(UpdateProductCommand command) {
         SupplierEntityDto supplierEntityDto = supplierService.findById(command.getSupplierId());
         SubcategoryEntityDto subcategoryEntityDto = subcategoryService.findById(command.getSubcategoryId());
-        ProductEntityDto productEntityDto = new ProductEntityDto(command.getProductId(), command.getName(), command.getDescription(), command.getPrice(), command.getQuantityInStock(),
-                command.getStatus(),command.getSubcategoryId(),command.getSupplierId(), supplierEntityDto,subcategoryEntityDto);
+        ProductEntityDto productEntityDto = new ProductEntityDto(command.getProductId(), command.getName(),
+                command.getDescription(), command.getPrice(),command.getCost(),
+                command.getQuantityInStock(),
+                command.getStatus(),command.getSubcategoryId(),
+                command.getSupplierId(), supplierEntityDto,subcategoryEntityDto);
          productService.update(productEntityDto);
     }
 }
