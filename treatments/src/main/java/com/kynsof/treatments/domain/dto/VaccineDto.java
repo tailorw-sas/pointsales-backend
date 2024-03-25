@@ -16,8 +16,8 @@ public class VaccineDto {
     private String name;
     private String description;
     private VaccineType type;
-    private Integer minAge;
-    private Integer maxAge;
+    private double minAge;
+    private double maxAge;
     private String dose;
     private RouteOfAdministration routeOfAdministration;
     private String preventableDiseases;
