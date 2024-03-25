@@ -31,7 +31,11 @@ public class ApiRouteLocator implements RouteLocator {
 //            }
             routesBuilder.route(route.getName(),
                     r -> r.path(route.getPath())
-                            .filters(f -> f.stripPrefix(1))
+                            .filters(f ->
+                                    f.stripPrefix(1)
+                                            .dedupeResponseHeader("Access-Control-Allow-Credentials", "RETAIN_FIRST")
+                                            .dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_FIRST")
+                                            .dedupeResponseHeader("Access-Control-Request-Headers", "RETAIN_FIRST"))
                             .uri(route.getUri()));
         }
 

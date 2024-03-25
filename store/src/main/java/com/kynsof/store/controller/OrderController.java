@@ -4,7 +4,7 @@ package com.kynsof.store.controller;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsof.store.application.command.create.CreateOrderMessage;
+import com.kynsof.store.application.command.order.create.CreateOrderMessage;
 import com.kynsof.store.application.command.order.create.CreateOrderCommand;
 import com.kynsof.store.application.command.order.create.OrderRequest;
 import com.kynsof.store.application.command.order.update.UpdateOrderCommand;

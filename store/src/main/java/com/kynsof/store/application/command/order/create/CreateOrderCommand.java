@@ -2,7 +2,6 @@ package com.kynsof.store.application.command.order.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.store.application.command.create.CreateOrderMessage;
 import com.kynsof.store.application.command.order.OrderDetailRequest;
 import lombok.Getter;
 import lombok.Setter;

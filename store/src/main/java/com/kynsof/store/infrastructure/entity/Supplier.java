@@ -2,6 +2,7 @@ package com.kynsof.store.infrastructure.entity;
 
 import com.kynsof.store.domain.dto.SupplierEntityDto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class Supplier {
     private String name;
     private String address;
     private String phone;
+    @Email
     private String email;
     @OneToMany(mappedBy = "supplier")
     private List<Product> products;
