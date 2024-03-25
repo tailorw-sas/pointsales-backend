@@ -7,7 +7,9 @@ import com.kynsof.identity.domain.interfaces.IRoleService;
 import com.kynsof.identity.domain.interfaces.service.IPermissionService;
 import com.kynsof.identity.domain.interfaces.service.IRolePermissionService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import java.time.LocalDateTime;
+import com.kynsof.share.utils.ConfigureTimeZone;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 
@@ -31,10 +33,12 @@ public class CreateRolPermissionCommandHandler implements ICommandHandler<Create
     @Override
     public void handle(CreateRolPermissionCommand command) {
         RoleDto role = this.roleService.findById(command.getIdRol());
-
+        List<RolePermissionDto> permissions = new ArrayList<>();
+        
         for (UUID permission : command.getPermissions()) {
             PermissionDto p = this.permissionService.findById(permission);
-            this.service.create(new RolePermissionDto(UUID.randomUUID(), role, p, LocalDateTime.now(), false));
+            permissions.add(new RolePermissionDto(UUID.randomUUID(), role, p, ConfigureTimeZone.getTimeZone(), false));
         }
+        this.service.create(permissions);
     }
 }

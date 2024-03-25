@@ -5,6 +5,9 @@ import com.kynsof.identity.application.command.rolpermission.create.CreateRolPer
 import com.kynsof.identity.application.command.rolpermission.create.CreateRolPermissionRequest;
 import com.kynsof.identity.application.command.rolpermission.delete.DeleteRolPermissionCommand;
 import com.kynsof.identity.application.command.rolpermission.delete.DeleteRolPermissionMessage;
+import com.kynsof.identity.application.command.rolpermission.update.UpdateRolPermissionCommand;
+import com.kynsof.identity.application.command.rolpermission.update.UpdateRolPermissionMessage;
+import com.kynsof.identity.application.command.rolpermission.update.UpdateRolPermissionRequest;
 import com.kynsof.identity.application.query.rolpermission.getById.FindRolPermissionByIdQuery;
 import com.kynsof.identity.application.query.rolpermission.getById.RolPermissionResponse;
 import com.kynsof.identity.application.query.rolpermission.search.GetSearchRolPermissionQuery;
@@ -31,6 +34,14 @@ public class RolePermissionController {
     public ResponseEntity<CreateRolPermissionMessage> createRole(@RequestBody CreateRolPermissionRequest request) {
         CreateRolPermissionCommand command = CreateRolPermissionCommand.fromRequest(request);
         CreateRolPermissionMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping()
+    public ResponseEntity<UpdateRolPermissionMessage> update(@RequestBody UpdateRolPermissionRequest request) {
+
+        UpdateRolPermissionCommand command = UpdateRolPermissionCommand.fromRequest(request);
+        UpdateRolPermissionMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 

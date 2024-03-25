@@ -8,7 +8,7 @@ public class CreateRolPermissionMessage implements ICommandMessage {
 
     private final boolean id;
 
-    private final String command = "CREATE_BUSINESS";
+    private final String command = "CREATE_ROL_PERMISSION";
 
     public CreateRolPermissionMessage(boolean id) {
         this.id = id;

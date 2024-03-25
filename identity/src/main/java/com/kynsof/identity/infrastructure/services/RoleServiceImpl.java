@@ -3,8 +3,10 @@ package com.kynsof.identity.infrastructure.services;
 
 import com.kynsof.identity.application.query.roles.getSearch.RoleSystemsResponse;
 import com.kynsof.identity.domain.dto.RoleDto;
+import com.kynsof.identity.domain.dto.RolePermissionDto;
 import com.kynsof.identity.domain.dto.RoleStatusEnm;
 import com.kynsof.identity.domain.interfaces.IRoleService;
+import com.kynsof.identity.infrastructure.identity.RolePermission;
 import com.kynsof.identity.infrastructure.identity.RoleSystem;
 import com.kynsof.identity.infrastructure.repository.command.RolWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.RolReadDataJPARepository;
@@ -98,6 +100,18 @@ public class RoleServiceImpl implements IRoleService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    @Override
+    public List<RolePermissionDto> findPermissionForRoleById(UUID id) {
+        Optional<RoleSystem> rolSystem = this.repositoryQuery.findById(id);
+        if (rolSystem.isPresent()) {
+            List<RolePermissionDto> permissions = new ArrayList<>();
+            for (RolePermission rolePermission : rolSystem.get().getRolePermissions()) {
+                permissions.add(rolePermission.toAggregate());
+            }
+            return permissions;
+        }
+        throw new RuntimeException("RolSystem not found.");
+    }
 
 //
 //    @Override

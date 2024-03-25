@@ -20,6 +20,7 @@ import java.util.UUID;
 //@Data
 //@Audited
 public class RoleSystem {
+
     @Id
     @Column(name = "id")
     private UUID id;
@@ -30,10 +31,10 @@ public class RoleSystem {
     private RoleStatusEnm status;
 
     // Relationships
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserRoleBusiness> userRoleBusinesses = new HashSet<>();
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<RolePermission> rolePermissions = new HashSet<>();
 
     public RoleSystem(RoleDto dto) {

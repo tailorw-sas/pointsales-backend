@@ -1,7 +1,10 @@
 package com.kynsof.identity.infrastructure.services;
 
 import com.kynsof.identity.application.query.rolpermission.getById.RolPermissionResponse;
+import com.kynsof.identity.domain.dto.PermissionDto;
+import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RolePermissionDto;
+import com.kynsof.identity.domain.interfaces.IRoleService;
 import com.kynsof.identity.domain.interfaces.service.IRolePermissionService;
 import com.kynsof.identity.infrastructure.identity.RolePermission;
 import com.kynsof.identity.infrastructure.repository.command.RolPermissionWriteDataJPARepository;
@@ -30,15 +33,30 @@ public class RolePermissionServiceImpl implements IRolePermissionService {
     @Autowired
     private RolPermissionReadDataJPARepository repositoryQuery;
 
+    @Autowired
+    private IRoleService roleService;
+
     @Override
-    public UUID create(RolePermissionDto dto) {
-        RolePermission response = this.repositoryCommand.save(new RolePermission(dto));
-        return response.getId();
+    public void create(List<RolePermissionDto> permissions) {
+        List<RolePermission> savePermissions = new ArrayList<>();
+        for (RolePermissionDto permission : permissions) {
+            permission.setDeleted(false);
+            permission.setDeletedAt(null);
+            System.err.println("#################################");
+            System.err.println("#################################");
+            System.err.println("Valor> " + permission.getId());
+            System.err.println("#################################");
+            System.err.println("#################################");
+            savePermissions.add(new RolePermission(permission));
+        }
+        this.repositoryCommand.saveAll(savePermissions);
     }
 
     @Override
-    public void update(RolePermissionDto dto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(RoleDto role, List<PermissionDto> permissions) {
+        List<RolePermissionDto> rolesPermissions = this.roleService.findPermissionForRoleById(role.getId());
+
+        System.err.println("Cantidad de permisos: " + rolesPermissions.size());
     }
 
     @Override
@@ -47,8 +65,20 @@ public class RolePermissionServiceImpl implements IRolePermissionService {
 
         deleteObject.setDeleted(true);
         deleteObject.setDeletedAt(ConfigureTimeZone.getTimeZone());
-        
+
         this.repositoryCommand.save(new RolePermission(deleteObject));
+    }
+
+    @Override
+    public void delete(List<RolePermissionDto> deletePermissions) {
+        List<RolePermission> savePermissions = new ArrayList<>();
+        for (RolePermissionDto deletePermission : deletePermissions) {
+            deletePermission.setDeleted(true);
+            deletePermission.setDeletedAt(ConfigureTimeZone.getTimeZone());
+            
+            savePermissions.add(new RolePermission(deletePermission));
+        }
+        this.repositoryCommand.saveAll(savePermissions);
     }
 
     @Override
