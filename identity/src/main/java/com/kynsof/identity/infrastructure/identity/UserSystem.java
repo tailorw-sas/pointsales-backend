@@ -28,6 +28,7 @@ import java.util.UUID;
 @Entity
 //@Audited
 //@EntityListeners(AuditingEntityListener.class)
+@Table(name = "user_system")
 public class UserSystem implements Serializable {
     @Id
     @Column(name = "id")
