@@ -12,16 +12,17 @@ import java.util.UUID;
 public class CreateServiceTypeCommand implements ICommand {
 
     private UUID id;
-
     private String name;
+    private final byte[] picture;
 
-    public CreateServiceTypeCommand(String name) {
+    public CreateServiceTypeCommand(String name, byte[] picture) {
+        this.picture = picture;
         this.id = UUID.randomUUID();
         this.name = name;
     }
 
     public static CreateServiceTypeCommand fromRequest(CreateServiceTypeRequest request) {
-        return new CreateServiceTypeCommand(request.getName());
+        return new CreateServiceTypeCommand(request.getName(), request.getPicture());
     }
 
     @Override

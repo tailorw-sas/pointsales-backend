@@ -14,11 +14,13 @@ import java.util.UUID;
 public class ServiceTypeResponse implements IResponse {
     private UUID id;
     private String name;
+    private UUID picture;
 
 
     public ServiceTypeResponse(ServiceTypeDto object) {
         this.id = object.getId();
         this.name = object.getName();
+        this.picture = object.getPicture();
     }
 
 }

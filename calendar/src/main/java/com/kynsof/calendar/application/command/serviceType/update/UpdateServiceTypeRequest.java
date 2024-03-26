@@ -10,4 +10,5 @@ import java.util.UUID;
 public class UpdateServiceTypeRequest {
     private UUID id;
     private String name;
+    private byte[] picture;
 }

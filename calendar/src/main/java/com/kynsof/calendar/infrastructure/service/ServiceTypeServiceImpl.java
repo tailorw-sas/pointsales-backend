@@ -49,6 +49,10 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
                         object.setName(objectDto.getName());
                     }
 
+                    if (objectDto.getPicture() != null) {
+                        object.setPicture(objectDto.getPicture());
+                    }
+
                     return this.repositoryCommand.save(object);
                 })
                 .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));

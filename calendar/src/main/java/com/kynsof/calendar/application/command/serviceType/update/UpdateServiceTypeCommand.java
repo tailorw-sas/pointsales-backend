@@ -12,16 +12,17 @@ import java.util.UUID;
 public class UpdateServiceTypeCommand implements ICommand {
 
     private UUID id;
-
     private String name;
+    private final byte[] picture;
 
-    public UpdateServiceTypeCommand(UUID id, String description) {
+    public UpdateServiceTypeCommand(UUID id, String description, byte[] picture) {
         this.id = id;
         this.name = description;
+        this.picture = picture;
     }
 
     public static UpdateServiceTypeCommand fromRequest(UpdateServiceTypeRequest request) {
-        return new UpdateServiceTypeCommand(request.getId(), request.getName());
+        return new UpdateServiceTypeCommand(request.getId(), request.getName(), request.getPicture() );
     }
 
     @Override

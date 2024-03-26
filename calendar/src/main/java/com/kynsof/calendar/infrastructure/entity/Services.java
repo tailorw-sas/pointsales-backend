@@ -46,7 +46,6 @@ public class Services {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Resource> resources = new HashSet<>();
 
-    // Relación de muchos a muchos con Business
     @JsonIgnoreProperties("services")
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
