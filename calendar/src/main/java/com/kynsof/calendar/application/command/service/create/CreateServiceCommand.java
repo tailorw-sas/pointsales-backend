@@ -12,14 +12,14 @@ import java.util.UUID;
 public class CreateServiceCommand implements ICommand {
 
     private UUID id;
-    private String picture;
+    private byte[] picture;
     private String name;
     private String description;
     private UUID serviceTypeId;
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
 
-    public CreateServiceCommand(String name, String picture, String description, UUID serviceTypeId, Double normalAppointmentPrice, Double expressAppointmentPrice) {
+    public CreateServiceCommand(String name, byte[] picture, String description, UUID serviceTypeId, Double normalAppointmentPrice, Double expressAppointmentPrice) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.picture = picture;

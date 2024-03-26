@@ -13,13 +13,13 @@ public class UpdateServiceCommand implements ICommand {
 
     private UUID id;
     private UUID serviceTypeId;
-    private String picture;
+    private byte[] picture;
     private String name;
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
     private String description;
 
-    public UpdateServiceCommand(UUID id, UUID serviceTypeId, String picture, String name, Double normalAppointmentPrice, Double expressAppointmentPrice, String description) {
+    public UpdateServiceCommand(UUID id, UUID serviceTypeId, byte[] picture, String name, Double normalAppointmentPrice, Double expressAppointmentPrice, String description) {
         this.id = id;
         this.serviceTypeId = serviceTypeId;
         this.picture = picture;

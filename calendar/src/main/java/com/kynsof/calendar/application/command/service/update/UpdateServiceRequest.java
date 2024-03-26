@@ -10,7 +10,7 @@ import java.util.UUID;
 public class UpdateServiceRequest {
     private UUID id;
     private UUID serviceTypeId;
-    private String picture;
+    private byte[] picture;
     private String name;
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;

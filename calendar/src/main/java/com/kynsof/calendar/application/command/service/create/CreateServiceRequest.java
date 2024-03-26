@@ -1,6 +1,5 @@
 package com.kynsof.calendar.application.command.service.create;
 
-import com.kynsof.calendar.domain.dto.enumType.EServiceType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +10,7 @@ import java.util.UUID;
 public class CreateServiceRequest {
 
     private UUID serviceTypeId;
-    private String picture;
+    private byte[] picture;
     private String name;
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
