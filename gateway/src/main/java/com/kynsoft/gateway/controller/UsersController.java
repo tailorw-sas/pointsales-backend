@@ -19,6 +19,8 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/users")
 //@PreAuthorize("hasRole('ADMIN_CLIENT')")
@@ -63,11 +65,11 @@ public class UsersController {
     }
 
 
-//    @DeleteMapping("/delete/{id}")
-//    public Mono<ResponseEntity<?>> deleteUser(@PathVariable String id) {
-//        userService.deleteUser(id);
-//        return Mono.justOrEmpty(ResponseEntity.ok("User deleted successfully"));
-//    }
+    @DeleteMapping("/delete/{id}")
+    public Mono<ResponseEntity<?>> deleteUser(@PathVariable UUID id) {
+        userService.changeStatus(id, "delete");
+        return Mono.justOrEmpty(ResponseEntity.ok("User deleted successfully"));
+    }
 
     @PostMapping("/change-password")
     public ResponseEntity<ApiResponse<?>> changePassword(@AuthenticationPrincipal Jwt jwt, @RequestBody ChangePasswordRequest request) {
