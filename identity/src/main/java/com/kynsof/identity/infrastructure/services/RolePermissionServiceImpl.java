@@ -6,9 +6,12 @@ import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RolePermissionDto;
 import com.kynsof.identity.domain.interfaces.IRoleService;
 import com.kynsof.identity.domain.interfaces.service.IRolePermissionService;
+import com.kynsof.identity.domain.rules.RolPermissionMustBeUniqueRule;
+import com.kynsof.identity.infrastructure.identity.Permission;
 import com.kynsof.identity.infrastructure.identity.RolePermission;
 import com.kynsof.identity.infrastructure.repository.command.RolPermissionWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.RolPermissionReadDataJPARepository;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -23,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RolePermissionServiceImpl implements IRolePermissionService {
@@ -37,16 +41,21 @@ public class RolePermissionServiceImpl implements IRolePermissionService {
     private IRoleService roleService;
 
     @Override
+    @Transactional
     public void create(List<RolePermissionDto> permissions) {
         List<RolePermission> savePermissions = new ArrayList<>();
         for (RolePermissionDto permission : permissions) {
+            System.err.println("#############################################");
+            System.err.println("#############################################");
+            System.err.println("#############################################");
+            System.err.println("Permiso: " + permission.getPermission().getId());
+            System.err.println("#############################################");
+            System.err.println("#############################################");
+            System.err.println("#############################################");
+            RulesChecker.checkRule(new RolPermissionMustBeUniqueRule(this, permission));
+
             permission.setDeleted(false);
             permission.setDeletedAt(null);
-//            System.err.println("#################################");
-//            System.err.println("#################################");
-//            System.err.println("Valor> " + permission.getId());
-//            System.err.println("#################################");
-//            System.err.println("#################################");
             savePermissions.add(new RolePermission(permission));
         }
         this.repositoryCommand.saveAll(savePermissions);
@@ -105,6 +114,11 @@ public class RolePermissionServiceImpl implements IRolePermissionService {
         }
         return new PaginatedResponse(rolesPermissions, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public Long countByPermissionAndDeletedFalse(RolePermissionDto rolPermission) {
+        return this.repositoryQuery.countByPermissionAndDeletedFalse(new Permission(rolPermission.getPermission()));
     }
 
 }

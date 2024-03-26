@@ -3,6 +3,7 @@ package com.kynsof.identity.domain.interfaces.service;
 import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RolePermissionDto;
+import com.kynsof.identity.infrastructure.identity.Permission;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import org.springframework.data.domain.Pageable;
@@ -18,4 +19,5 @@ public interface IRolePermissionService {
     RolePermissionDto findById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    Long countByPermissionAndDeletedFalse(RolePermissionDto rolPermission);
 }
