@@ -4,11 +4,13 @@ import com.kynsof.calendar.domain.dto.enumType.EServiceType;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 public class CreateServiceRequest {
 
-    private EServiceType type;
+    private UUID serviceTypeId;
     private String picture;
     private String name;
     private Double normalAppointmentPrice;

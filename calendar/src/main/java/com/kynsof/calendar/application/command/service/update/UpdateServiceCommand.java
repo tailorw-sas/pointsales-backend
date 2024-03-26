@@ -1,6 +1,5 @@
 package com.kynsof.calendar.application.command.service.update;
 
-import com.kynsof.calendar.domain.dto.enumType.EServiceType;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -13,16 +12,16 @@ import java.util.UUID;
 public class UpdateServiceCommand implements ICommand {
 
     private UUID id;
-    private EServiceType type;
+    private UUID serviceTypeId;
     private String picture;
     private String name;
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
     private String description;
 
-    public UpdateServiceCommand(UUID id, EServiceType type, String picture, String name, Double normalAppointmentPrice, Double expressAppointmentPrice, String description) {
+    public UpdateServiceCommand(UUID id, UUID serviceTypeId, String picture, String name, Double normalAppointmentPrice, Double expressAppointmentPrice, String description) {
         this.id = id;
-        this.type = type;
+        this.serviceTypeId = serviceTypeId;
         this.picture = picture;
         this.name = name;
         this.normalAppointmentPrice = normalAppointmentPrice;
@@ -32,7 +31,7 @@ public class UpdateServiceCommand implements ICommand {
 
 
     public static UpdateServiceCommand fromRequest(UpdateServiceRequest request) {
-        return new UpdateServiceCommand(request.getId(), request.getType(), request.getPicture(), request.getName(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(), request.getDescription());
+        return new UpdateServiceCommand(request.getId(), request.getServiceTypeId(), request.getPicture(), request.getName(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(), request.getDescription());
     }
 
     @Override

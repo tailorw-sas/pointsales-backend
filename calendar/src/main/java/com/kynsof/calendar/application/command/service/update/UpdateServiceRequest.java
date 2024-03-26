@@ -1,6 +1,5 @@
 package com.kynsof.calendar.application.command.service.update;
 
-import com.kynsof.calendar.domain.dto.enumType.EServiceType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,7 @@ import java.util.UUID;
 @Setter
 public class UpdateServiceRequest {
     private UUID id;
-    private EServiceType type;
+    private UUID serviceTypeId;
     private String picture;
     private String name;
     private Double normalAppointmentPrice;

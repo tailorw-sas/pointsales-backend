@@ -3,7 +3,6 @@ package com.kynsof.calendar.infrastructure.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
-import com.kynsof.calendar.domain.dto.enumType.EServiceType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -28,8 +27,9 @@ public class Services {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @Enumerated(EnumType.STRING)
-    private EServiceType type;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_type_id") // Asume una columna foreign key service_type_id
+    private ServiceType type;
 
     @Enumerated(EnumType.STRING)
     private EServiceStatus status;
@@ -70,7 +70,7 @@ public class Services {
 
     public Services(ServiceDto object) {
         this.id = object.getId();
-        this.type = object.getType();
+        this.type = new ServiceType(object.getType());
         this.status = object.getStatus();
         this.picture = object.getPicture();
         this.name = object.getName();
@@ -83,6 +83,7 @@ public class Services {
     }
 
     public ServiceDto toAggregate () {
-        return new ServiceDto(id, type, status, picture, name, normalAppointmentPrice, expressAppointmentPrice, description, createAt, updateAt, deleteAt);
+        return new ServiceDto(id, type.toAggregate(), status, picture, name, normalAppointmentPrice,
+                expressAppointmentPrice, description, createAt, updateAt, deleteAt);
     }
 }

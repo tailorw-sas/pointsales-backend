@@ -1,7 +1,6 @@
 package com.kynsof.calendar.domain.dto;
 
 import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
-import com.kynsof.calendar.domain.dto.enumType.EServiceType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ServiceDto implements Serializable {
     private UUID id;
-    private EServiceType type;
+    private ServiceTypeDto type;
     private EServiceStatus status;
     private String picture;
     private String name;
@@ -28,7 +27,7 @@ public class ServiceDto implements Serializable {
     private LocalDateTime updateAt;
     private LocalDateTime deleteAt;
 
-    public ServiceDto(UUID id, EServiceType type, String picture, String name, Double normalAppointmentPrice, Double expressAppointmentPrice, String description) {
+    public ServiceDto(UUID id, ServiceTypeDto type, String picture, String name, Double normalAppointmentPrice, Double expressAppointmentPrice, String description) {
         this.id = id;
         this.type = type;
         this.picture = picture;
