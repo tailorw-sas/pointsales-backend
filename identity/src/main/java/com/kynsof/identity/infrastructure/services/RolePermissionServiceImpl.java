@@ -42,11 +42,11 @@ public class RolePermissionServiceImpl implements IRolePermissionService {
         for (RolePermissionDto permission : permissions) {
             permission.setDeleted(false);
             permission.setDeletedAt(null);
-            System.err.println("#################################");
-            System.err.println("#################################");
-            System.err.println("Valor> " + permission.getId());
-            System.err.println("#################################");
-            System.err.println("#################################");
+//            System.err.println("#################################");
+//            System.err.println("#################################");
+//            System.err.println("Valor> " + permission.getId());
+//            System.err.println("#################################");
+//            System.err.println("#################################");
             savePermissions.add(new RolePermission(permission));
         }
         this.repositoryCommand.saveAll(savePermissions);

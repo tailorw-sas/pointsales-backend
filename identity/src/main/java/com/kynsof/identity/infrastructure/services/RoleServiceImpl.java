@@ -106,53 +106,12 @@ public class RoleServiceImpl implements IRoleService {
         if (rolSystem.isPresent()) {
             List<RolePermissionDto> permissions = new ArrayList<>();
             for (RolePermission rolePermission : rolSystem.get().getRolePermissions()) {
-                permissions.add(rolePermission.toAggregate());
+                if (!rolePermission.isDeleted()) {
+                    permissions.add(rolePermission.toAggregate());
+                }
             }
             return permissions;
         }
         throw new RuntimeException("RolSystem not found.");
     }
-
-//
-//    @Override
-//    public RolEntityDto findById(UUID id) {
-//        Optional<Rol> contactInformation = this.repositoryQuery.findById(id);
-//        if (contactInformation.isPresent()) {
-//            return contactInformation.get().toAggregate();
-//        }
-//       // throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Contact Information not found.");
-//        throw new RuntimeException("Patients not found.");
-//    }
-//
-//    @Override
-//    public PaginatedResponse findAll(Pageable pageable ) {
-//        Page<Rol> data = this.repositoryQuery.findAll( pageable);
-//        return getPaginatedResponse(data);
-//    }
-//
-//    @Override
-//    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-//        GenericSpecificationsBuilder<Rol> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-//        Page<Rol> data = this.repositoryQuery.findAll(specifications, pageable);
-//
-//        return getPaginatedResponse(data);
-//    }
-//
-//    private PaginatedResponse getPaginatedResponse(Page<Rol> data) {
-//        List<RolResponse> allergyResponses = new ArrayList<>();
-//        for (Rol p : data.getContent()) {
-//            allergyResponses.add(new RolResponse(p.toAggregate()));
-//        }
-//        return new PaginatedResponse(allergyResponses, data.getTotalPages(), data.getNumberOfElements(),
-//                data.getTotalElements(), data.getSize(), data.getNumber());
-//    }
-//
-//    @Override
-//    public void delete(UUID id) {
-//        RolEntityDto contactInfoDto = this.findById(id);
-//        contactInfoDto.setStatus(Status.INACTIVE);
-//
-//        this.repositoryCommand.save(new Rol(contactInfoDto));
-//    }
-
 }
