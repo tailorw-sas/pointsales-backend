@@ -45,13 +45,6 @@ public class RolePermissionServiceImpl implements IRolePermissionService {
     public void create(List<RolePermissionDto> permissions) {
         List<RolePermission> savePermissions = new ArrayList<>();
         for (RolePermissionDto permission : permissions) {
-            System.err.println("#############################################");
-            System.err.println("#############################################");
-            System.err.println("#############################################");
-            System.err.println("Permiso: " + permission.getPermission().getId());
-            System.err.println("#############################################");
-            System.err.println("#############################################");
-            System.err.println("#############################################");
             RulesChecker.checkRule(new RolPermissionMustBeUniqueRule(this, permission));
 
             permission.setDeleted(false);
