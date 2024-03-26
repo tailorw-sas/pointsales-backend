@@ -27,7 +27,7 @@ public class Services {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "service_type_id") // Asume una columna foreign key service_type_id
     private ServiceType type;
 
