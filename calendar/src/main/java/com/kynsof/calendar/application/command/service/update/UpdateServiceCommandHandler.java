@@ -5,26 +5,40 @@ import com.kynsof.calendar.domain.dto.ServiceTypeDto;
 import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.kafka.entity.FileKafka;
+import com.kynsof.share.core.infrastructure.ProducerSaveFileEventService;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class UpdateServiceCommandHandler  implements ICommandHandler<UpdateServiceCommand> {
 
     private final IServiceService service;
     private final IServiceTypeService serviceTypeService;
+    private final ProducerSaveFileEventService saveFileEventService;
 
-    public UpdateServiceCommandHandler(IServiceService service, IServiceTypeService serviceTypeService) {
+    public UpdateServiceCommandHandler(IServiceService service, IServiceTypeService serviceTypeService, ProducerSaveFileEventService saveFileEventService) {
         this.service = service;
         this.serviceTypeService = serviceTypeService;
+        this.saveFileEventService = saveFileEventService;
     }
 
     @Override
     public void handle(UpdateServiceCommand command) {
         ServiceTypeDto serviceTypeDto = serviceTypeService.findById(command.getServiceTypeId());
+
+        String idLogo = "";
+        if (command.getPicture() != null && command.getPicture().length > 1) {
+            UUID photoId = UUID.randomUUID();
+            FileKafka fileSave = new FileKafka(photoId, "calendar", command.getName() + ".png", command.getPicture());
+            saveFileEventService.create(fileSave);
+            idLogo = photoId.toString();
+        }
        service.update(new ServiceDto(
                command.getId(), 
                serviceTypeDto,
-               command.getPicture(), 
+               idLogo,
                command.getName(), 
                command.getNormalAppointmentPrice(), 
                command.getExpressAppointmentPrice(), 
