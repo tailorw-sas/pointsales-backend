@@ -11,13 +11,19 @@ import com.kynsof.identity.application.command.user.update.UpdateUserSystemReque
 import com.kynsof.identity.application.query.users.getById.FindByIdUserSystemsQuery;
 import com.kynsof.identity.application.query.users.getById.UserSystemsByIdResponse;
 import com.kynsof.identity.application.query.users.getSearch.GetSearchUserSystemsQuery;
+import com.kynsof.identity.application.query.users.userMe.UserMeQuery;
+import com.kynsof.identity.application.query.users.userMe.UserMeResponse;
 import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.ApiError;
+import com.kynsof.share.core.domain.response.ApiResponse;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -68,11 +74,22 @@ public class UserSystemController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
-    {
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
-        GetSearchUserSystemsQuery query = new GetSearchUserSystemsQuery(pageable, request.getFilter(),request.getQuery());
+        GetSearchUserSystemsQuery query = new GetSearchUserSystemsQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @GetMapping(path = "/me")
+    public ResponseEntity<?> me(@AuthenticationPrincipal Jwt jwt) {
+        try {
+            String userId = jwt.getClaim("sub");
+            UserMeQuery query = new UserMeQuery(UUID.fromString(userId));
+            UserMeResponse response = mediator.send(query);
+            return ResponseEntity.ok(ApiResponse.success(response));
+        } catch (Exception e) {
+            return ResponseEntity.ok(ApiResponse.fail(ApiError.withSingleError("error", "token", "Error al procesar el token")));
+        }
     }
 }

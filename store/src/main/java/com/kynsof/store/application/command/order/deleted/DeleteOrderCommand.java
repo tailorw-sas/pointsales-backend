@@ -1,4 +1,4 @@
-package com.kynsof.store.application.command.deleted;
+package com.kynsof.store.application.command.order.deleted;
 
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
@@ -10,16 +10,15 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class DeleteOrderDetailCommand implements ICommand {
-    private final UUID orderDetailId;
+public class DeleteOrderCommand implements ICommand {
+    private final UUID orderId;
 
-    public DeleteOrderDetailCommand(UUID orderDetailId) {
-        this.orderDetailId = orderDetailId;
+    public DeleteOrderCommand(UUID orderId) {
+        this.orderId = orderId;
     }
 
     @Override
     public ICommandMessage getMessage() {
         return null;
     }
-
 }

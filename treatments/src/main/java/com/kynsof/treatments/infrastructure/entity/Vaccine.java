@@ -25,8 +25,8 @@ public class Vaccine {
     private String description;
     @Enumerated(EnumType.STRING)
     private VaccineType type;
-    private Integer minAge;
-    private Integer maxAge;
+    private double minAge;
+    private double maxAge;
     private String dose;
     @Enumerated(EnumType.STRING)
     private RouteOfAdministration routeOfAdministration;

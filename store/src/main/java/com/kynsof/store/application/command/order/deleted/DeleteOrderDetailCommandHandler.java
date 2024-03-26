@@ -1,4 +1,4 @@
-package com.kynsof.store.application.command.deleted;
+package com.kynsof.store.application.command.order.deleted;
 
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;

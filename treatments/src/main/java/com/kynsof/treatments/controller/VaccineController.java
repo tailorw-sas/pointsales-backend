@@ -3,6 +3,8 @@ package com.kynsof.treatments.controller;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.query.vaccine.getById.FindByIdVaccineQuery;
+import com.kynsof.treatments.application.query.vaccine.getEligibleVaccines.EligibleVaccinesResponse;
+import com.kynsof.treatments.application.query.vaccine.getEligibleVaccines.GetEligibleVaccinesQuery;
 import com.kynsof.treatments.application.query.vaccine.getall.GetAllVaccineQuery;
 import com.kynsof.treatments.application.query.vaccine.getall.VaccineResponse;
 import org.springframework.data.domain.PageRequest;
@@ -49,6 +51,13 @@ public class VaccineController {
 
         FindByIdVaccineQuery query = new FindByIdVaccineQuery(id);
         VaccineResponse response = mediator.send(query);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/eligible/{age}")
+    public ResponseEntity<?> getEligibleVaccines(@PathVariable double age) {
+        GetEligibleVaccinesQuery query = new GetEligibleVaccinesQuery(age);
+        EligibleVaccinesResponse response = mediator.send(query);
         return ResponseEntity.ok(response);
     }
 

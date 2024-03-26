@@ -19,6 +19,7 @@ public class Product {
     private String name;
     private String description;
     private Double price;
+    private Double cost;
     private Integer quantityInStock;
     private String status;
     @ManyToOne
@@ -33,6 +34,7 @@ public class Product {
         this.name = productDto.getName();
         this.description = productDto.getDescription();
         this.price = productDto.getPrice();
+        this.cost = productDto.getCost();
         this.quantityInStock = productDto.getQuantityInStock();
         this.status = productDto.getStatus();
         this.supplier = new Supplier(productDto.getSupplierEntityDto());
@@ -43,7 +45,9 @@ public class Product {
         UUID subcategoryId = this.subcategory != null ? this.subcategory.getId() : null;
         UUID supplierId = this.supplier != null ? this.supplier.getId() : null;
         assert this.supplier != null;
-        return new ProductEntityDto(this.id, this.name, this.description, this.price, this.quantityInStock, this.status,
-                subcategoryId, supplierId, this.supplier.toAggregate(),this.subcategory.toAggregate());
+        return new ProductEntityDto(this.id, this.name, this.description, this.price,cost,
+                this.quantityInStock, this.status,
+                subcategoryId, supplierId,
+                this.supplier.toAggregate(),this.subcategory.toAggregate());
     }
 }

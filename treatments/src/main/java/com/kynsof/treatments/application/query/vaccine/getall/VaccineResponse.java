@@ -18,8 +18,8 @@ public class VaccineResponse implements IResponse {
     private String name;
     private String description;
     private VaccineType type;
-    private Integer minAge;
-    private Integer maxAge;
+    private double minAge;
+    private double maxAge;
 
 
     public VaccineResponse(VaccineDto dto) {

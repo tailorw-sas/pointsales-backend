@@ -14,6 +14,7 @@ public class ProductEntityDto {
     private String name;
     private String description;
     private Double price;
+    private Double cost;
     private Integer quantityInStock;
     private String status;
     private UUID subcategoryId;

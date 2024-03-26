@@ -27,7 +27,8 @@ public class CreateProductCommandHandler implements ICommandHandler<CreateProduc
     public void handle(CreateProductCommand command) {
         SupplierEntityDto supplierEntityDto = supplierService.findById(command.getSupplierId());
         SubcategoryEntityDto subcategoryEntityDto = subcategoryService.findById(command.getSubcategoryId());
-        ProductEntityDto productEntityDto = new ProductEntityDto(command.getId(), command.getName(), command.getDescription(), command.getPrice(), command.getQuantityInStock(),
+        ProductEntityDto productEntityDto = new ProductEntityDto(command.getId(), command.getName(), command.getDescription(), command.getPrice(),
+                command.getCost(),command.getQuantityInStock(),
                 command.getStatus(),command.getSubcategoryId(),command.getSupplierId(), supplierEntityDto,subcategoryEntityDto);
        UUID id = productService.create(productEntityDto);
        command.setId(id);

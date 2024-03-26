@@ -35,6 +35,17 @@ public class VaccineServiceImpl implements IVaccineService {
         throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Vaccine not found.");
     }
 
+
+    @Override
+    public List<VaccineResponse> getEligibleVaccines(double age) {
+        List<Vaccine> vaccines = this.repositoryQuery.findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual(age);
+        List<VaccineResponse> vaccineResponses = new ArrayList<>();
+        for (Vaccine p : vaccines) {
+            vaccineResponses.add(new VaccineResponse(p.toAggregate()));
+        }
+       return vaccineResponses;
+    }
+
     @Override
     public PaginatedResponse findAll(Pageable pageable, String name, String description) {
         Cie10Specifications specifications = new Cie10Specifications(name, description);

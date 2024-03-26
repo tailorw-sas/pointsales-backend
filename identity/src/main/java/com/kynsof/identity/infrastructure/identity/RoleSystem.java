@@ -19,6 +19,7 @@ import java.util.UUID;
 @Entity
 //@Data
 //@Audited
+@Table(name = "role_system")
 public class RoleSystem {
 
     @Id

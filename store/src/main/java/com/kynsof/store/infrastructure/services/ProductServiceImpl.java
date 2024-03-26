@@ -46,6 +46,7 @@ public class ProductServiceImpl implements IProductService {
                     product.setName(productDto.getName() != null ? productDto.getName() : product.getName());
                     product.setDescription(productDto.getDescription() != null ? productDto.getDescription() : product.getDescription());
                     product.setPrice(productDto.getPrice() != null ? productDto.getPrice() : product.getPrice());
+                    product.setCost(productDto.getCost() != null ? productDto.getPrice() : product.getPrice());
                     product.setQuantityInStock(productDto.getQuantityInStock() != null ? productDto.getQuantityInStock() : product.getQuantityInStock());
                     product.setStatus(productDto.getStatus() != null ? productDto.getStatus() : product.getStatus());
 

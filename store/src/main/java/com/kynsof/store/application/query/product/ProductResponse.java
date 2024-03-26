@@ -16,6 +16,7 @@ public class ProductResponse implements IResponse {
     private String name;
     private String description;
     private Double price;
+    private Double cost;
     private Integer quantityInStock;
     private String status;
     private UUID subcategoryId;
@@ -26,6 +27,7 @@ public class ProductResponse implements IResponse {
         this.name = productDto.getName();
         this.description = productDto.getDescription();
         this.price = productDto.getPrice();
+        this.cost = productDto.getCost();
         this.quantityInStock = productDto.getQuantityInStock();
         this.status = productDto.getStatus();
         this.subcategoryId = productDto.getSubcategoryId();

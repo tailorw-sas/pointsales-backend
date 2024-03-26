@@ -5,6 +5,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class Customer {
 
     private String firstName;
     private String lastName;
+    @Email
     private String email;
     private String phone;
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
