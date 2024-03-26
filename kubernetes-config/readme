@@ -1,7 +1,7 @@
-kubectl apply -f kubernetes-config/namespace.yaml
-kubectl apply -f kubernetes-config/deployments/secrets/
-kubectl apply -f kubernetes-config/deployments/
-kubectl apply -f kubernetes-config/Services/
+kubectl apply -f namespace.yaml
+kubectl apply -f deployments/secrets/
+kubectl apply -f deployments/
+kubectl apply -f Services/
 
 
 

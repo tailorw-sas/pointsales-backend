@@ -81,7 +81,7 @@ public class QualificationController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping()
+    @PatchMapping()
     public ResponseEntity<UpdateQualificationMessage> update(@RequestBody UpdateQualificationRequest request) {
 
         UpdateQualificationCommand command = UpdateQualificationCommand.fromRequest(request);

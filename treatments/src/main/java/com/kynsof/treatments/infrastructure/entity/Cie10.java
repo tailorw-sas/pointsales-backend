@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-public class Cie10 {
+public class Cie10 implements Serializable {
     @Id
     @Column(name="id")
     private UUID id;

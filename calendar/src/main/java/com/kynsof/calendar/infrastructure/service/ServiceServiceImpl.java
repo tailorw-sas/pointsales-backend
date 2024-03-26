@@ -58,9 +58,9 @@ public class ServiceServiceImpl implements IServiceService {
                     if (objectDto.getStatus() != null) {
                         object.setStatus(objectDto.getStatus());
                     }
-                    if (objectDto.getType() != null) {
-                        object.setType(objectDto.getType());
-                    }
+//                    if (objectDto.getType() != null) {
+//                        object.setType(objectDto.getType());
+//                    }
                     if (objectDto.getName() != null) {
                         object.setName(objectDto.getName());
                     }

@@ -1,17 +1,19 @@
-package com.kynsof.treatments.domain.dto;
+package com.kynsof.calendar.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.UUID;
 
-@AllArgsConstructor
 @Getter
 @Setter
-public class Cie10Dto implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ServiceTypeDto  implements Serializable {
     private UUID id;
-    private String code;
     private String name;
+    private UUID picture;
 }
