@@ -21,22 +21,16 @@ public class ApiRouteLocator implements RouteLocator {
 
         for (RouteDTO route : updateRouteContext.getDefinitionsContext().getDefinitions()) {
 
-//            String path = route.getUri().toString();
-//            URI uri;
-//            try {
-//                path = path.replace("http", "https");
-//                uri = new URI(path);
-//            } catch (URISyntaxException e) {
-//                throw new RuntimeException(e);
-//            }
-            routesBuilder.route(route.getName(),
-                    r -> r.path(route.getPath())
-                            .filters(f ->
-                                    f.stripPrefix(1)
-                                            .dedupeResponseHeader("Access-Control-Allow-Credentials", "RETAIN_FIRST")
-                                            .dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_FIRST")
-                                            .dedupeResponseHeader("Access-Control-Request-Headers", "RETAIN_FIRST"))
-                            .uri(route.getUri()));
+            if (!route.getName().equalsIgnoreCase("config-service")) {
+                routesBuilder.route(route.getName(),
+                        r -> r.path(route.getPath())
+                                .filters(f ->
+                                        f.stripPrefix(1)
+                                                .dedupeResponseHeader("Access-Control-Allow-Credentials", "RETAIN_FIRST")
+                                                .dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_FIRST")
+                                                .dedupeResponseHeader("Access-Control-Request-Headers", "RETAIN_FIRST"))
+                                .uri(route.getUri()));
+            }
         }
 
         return routesBuilder.build().getRoutes();

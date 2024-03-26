@@ -21,7 +21,9 @@ public class ApiSwaggerResources implements SwaggerResourcesProvider {
         resources.add(swaggerResource("gateway", "/v3/api-docs", "3.0"));
         
         for (RouteDTO route : updateRouteContext.getDefinitionsContext().getDefinitions()) {
-        	resources.add(swaggerResource(route.getName(), route.getUri() + "/v3/api-docs", "3.0"));
+            if (!route.getName().equalsIgnoreCase("config-service")) {
+                resources.add(swaggerResource(route.getName(), route.getUri() + "/v3/api-docs", "3.0"));
+            }
         }
         
         return resources;
