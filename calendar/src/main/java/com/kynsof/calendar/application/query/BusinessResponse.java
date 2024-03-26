@@ -16,12 +16,14 @@ public class BusinessResponse implements IResponse {
     private String name;
     private String latitude;
     private String longitude;
+    private UUID logo;
 
     public BusinessResponse(BusinessDto object) {
         this.id = object.getId();
         this.name = object.getName();
         this.latitude = object.getLatitude();
         this.longitude = object.getLongitude();
+        this.logo = object.getLogo();
     }
 
     public BusinessResponse(UUID id, String name) {

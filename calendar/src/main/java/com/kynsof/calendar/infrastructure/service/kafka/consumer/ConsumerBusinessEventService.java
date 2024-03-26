@@ -6,12 +6,12 @@ import com.kynsof.calendar.domain.dto.BusinessDto;
 import com.kynsof.calendar.domain.service.IBusinessService;
 import com.kynsof.share.core.domain.kafka.entity.BusinessKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class ConsumerBusinessEventService {
@@ -30,7 +30,8 @@ public class ConsumerBusinessEventService {
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
             if (eventType.equals(EventType.CREATED)) {
-                this.service.create(new BusinessDto(eventRead.getId(), eventRead.getName(), eventRead.getLatitude(), eventRead.getLongitude()));
+                this.service.create(new BusinessDto(eventRead.getId(), eventRead.getName(), eventRead.getLatitude(),
+                        eventRead.getLongitude(), eventRead.getLogo()));
 
             }
             if (eventType.equals(EventType.DELETED)) {

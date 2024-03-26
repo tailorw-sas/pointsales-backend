@@ -24,6 +24,7 @@ public class Business{
     private String name;
     private String latitude;
     private String longitude;
+    private UUID logo;
 
     // Relación de muchos a muchos con Resource
     @ManyToMany(mappedBy = "businesses")
@@ -38,9 +39,11 @@ public class Business{
         this.name = business.getName();
         this.latitude = business.getLatitude();
         this.longitude = business.getLongitude();
+        this.logo = business.getLogo();
+
     }
 
     public BusinessDto toAggregate () {
-        return new BusinessDto(id, name, latitude, longitude);
+        return new BusinessDto(id, name, latitude, longitude, logo);
     }
 }

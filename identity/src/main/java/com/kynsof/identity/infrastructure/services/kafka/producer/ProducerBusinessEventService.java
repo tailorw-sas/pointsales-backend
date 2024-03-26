@@ -9,6 +9,7 @@ import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,11 +24,12 @@ public class ProducerBusinessEventService {
     public void create(BusinessDto entity) {
 
         try {
-            BusinessKafka event = new BusinessKafka(entity.getId(), entity.getName(), entity.getLatitude(), entity.getLongitude());
+            BusinessKafka event = new BusinessKafka(entity.getId(), entity.getName(), entity.getLatitude(), entity.getLongitude(),
+                    UUID.fromString(entity.getLogo()));
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
-            this.producer.send("busines", json);
+            this.producer.send("business", json);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ProducerBusinessEventService.class.getName()).log(Level.SEVERE, null, ex);
         }

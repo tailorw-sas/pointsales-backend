@@ -6,6 +6,7 @@ import com.kynsof.calendar.domain.service.IBusinessService;
 import com.kynsof.calendar.infrastructure.entity.Business;
 import com.kynsof.calendar.infrastructure.repository.command.BusinessWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.BusinessReadDataJPARepository;
+import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +33,9 @@ public class BusinessServiceImpl implements IBusinessService {
 
     @Autowired
     private BusinessReadDataJPARepository repositoryQuery;
+
+    @Autowired
+    private ScheduleReadDataJPARepository scheduleReadDataJPARepository;
 
     @Override
     public void create(BusinessDto object) {
@@ -79,6 +84,13 @@ public class BusinessServiceImpl implements IBusinessService {
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         GenericSpecificationsBuilder<Business> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<Business> data = this.repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+    }
+
+    @Override
+    public PaginatedResponse findBusinessesWithAvailableStockByDateAndService(LocalDate date, UUID serviceId,
+                                                                              Pageable pageable) {
+        Page<Business> data =  scheduleReadDataJPARepository.findBusinessesWithAvailableStockByDateAndService(date, serviceId, pageable);
         return getPaginatedResponse(data);
     }
 

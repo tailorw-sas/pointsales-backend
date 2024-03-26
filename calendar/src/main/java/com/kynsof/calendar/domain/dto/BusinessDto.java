@@ -17,4 +17,5 @@ public class BusinessDto implements Serializable {
     private String name;
     private String latitude;
     private String longitude;
+    private UUID logo;
 }

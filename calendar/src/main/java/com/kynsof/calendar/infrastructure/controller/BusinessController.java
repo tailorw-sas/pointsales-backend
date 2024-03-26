@@ -1,6 +1,8 @@
 package com.kynsof.calendar.infrastructure.controller;
 
 import com.kynsof.calendar.application.query.BusinessResponse;
+import com.kynsof.calendar.application.query.business.findBusinessesWithAvailableStock.FindBusinessesWithAvailableStockQuery;
+import com.kynsof.calendar.application.query.business.findBusinessesWithAvailableStock.findBusinessesWithAvailableStockByDateAndServiceRequest;
 import com.kynsof.calendar.application.query.business.getbyid.FindBusinessByIdQuery;
 import com.kynsof.calendar.application.query.business.search.GetSearchBusinessQuery;
 import com.kynsof.share.core.domain.request.SearchRequest;
@@ -9,14 +11,9 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/business")
@@ -44,6 +41,16 @@ public class BusinessController {
         FindBusinessByIdQuery query = new FindBusinessByIdQuery(id);
         BusinessResponse response = mediator.send(query);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/with-available-stock")
+    public ResponseEntity<?> findBusinessesWithAvailableStock(
+            @RequestBody findBusinessesWithAvailableStockByDateAndServiceRequest request) {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        FindBusinessesWithAvailableStockQuery query = new FindBusinessesWithAvailableStockQuery(pageable, request.getDate(),
+                request.getServiceId());
+        PaginatedResponse response= mediator.send(query);
         return ResponseEntity.ok(response);
     }
 

@@ -87,25 +87,25 @@ public class ScheduleServiceImpl implements IScheduleService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
-    @Override
-    public List<Schedule> getAllScheduleForResource(UUID id) {
-        return repositoryQuery.findByResourceId(id);
-    }
+//    @Override
+//    public List<Schedule> getAllScheduleForResource(UUID id) {
+//        return repositoryQuery.findByResourceId(id);
+//    }
+//
+//    @Override
+//    public List<Schedule> getAllScheduleForResourceAndStatus(UUID id, EStatusSchedule status) {
+//        return repositoryQuery.findByResourceIdAndStatus(id, status);
+//    }
 
-    @Override
-    public List<Schedule> getAllScheduleForResourceAndStatus(UUID id, EStatusSchedule status) {
-        return repositoryQuery.findByResourceIdAndStatus(id, status);
-    }
+//    @Override
+//    public List<Schedule> findByResourceIdAndDateAndStatus(UUID id, LocalDate date) {
+//        return repositoryQuery.findByResourceIdAndDateAndStatus(id, date, EStatusSchedule.ACTIVE);
+//    }
 
-    @Override
-    public List<Schedule> findByResourceIdAndDateAndStatus(UUID id, LocalDate date) {
-        return repositoryQuery.findByResourceIdAndDateAndStatus(id, date, EStatusSchedule.ACTIVE);
-    }
-
-    @Override
-    public List<Schedule> findActiveSchedulesAfterDateAndTime(LocalDate date, LocalTime time) {
-        return this.repositoryQuery.findActiveSchedulesAfterDateAndTime(date, time);
-    }
+//    @Override
+//    public List<Schedule> findActiveSchedulesAfterDateAndTime(LocalDate date, LocalTime time) {
+//        return this.repositoryQuery.findActiveSchedulesAfterDateAndTime(date, time);
+//    }
 
     @Override
     public boolean findByResourceAndDateAndStartTimeAndEndingTime(Resource resource, LocalDate date, LocalTime startTime, LocalTime endingTime) {
@@ -145,10 +145,10 @@ public class ScheduleServiceImpl implements IScheduleService {
         throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Schedule not found.");
     }
 
-    @Override
-    public List<Schedule> findByDateAndEndingTimeAndStatus(LocalDate date, LocalTime endingTime) {
-        return this.repositoryQuery.findByDateAndEndingTimeAndStatus(date, endingTime);
-    }
+//    @Override
+//    public List<Schedule> findByDateAndEndingTimeAndStatus(LocalDate date, LocalTime endingTime) {
+//        return this.repositoryQuery.findByDateAndEndingTimeAndStatus(date, endingTime);
+//    }
 
     @Override
     public void delete(UUID id) {
