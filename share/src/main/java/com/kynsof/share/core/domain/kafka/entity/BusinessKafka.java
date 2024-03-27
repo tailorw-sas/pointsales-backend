@@ -20,7 +20,8 @@ public class BusinessKafka implements Serializable {
     private String latitude;
     @JsonProperty("longitude")
     private String longitude;
-
+    @JsonProperty("longitude")
+    private UUID logo;
     public BusinessKafka() {
     }
 
