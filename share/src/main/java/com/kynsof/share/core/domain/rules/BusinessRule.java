@@ -1,16 +1,17 @@
 package com.kynsof.share.core.domain.rules;
 
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.response.ErrorField;
 
 public abstract class BusinessRule {
 
     private final DomainErrorMessage error;
 
-    private final String message;
+    private final ErrorField errorField;
 
-    protected BusinessRule(DomainErrorMessage error, String message) {
+    protected BusinessRule(DomainErrorMessage error, ErrorField errorField) {
         this.error = error;
-        this.message = message;
+        this.errorField = errorField;
     }
 
     public abstract boolean isBroken();
@@ -19,7 +20,8 @@ public abstract class BusinessRule {
         return error;
     }
 
-    public String getMessage() {
-        return message;
+    public ErrorField getErrorField() {
+        return errorField;
     }
+
 }

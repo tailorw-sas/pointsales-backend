@@ -13,12 +13,12 @@ public class BusinessRuleValidationException extends RuntimeException {
     private final String details;
 
     public BusinessRuleValidationException(BusinessRule brokenRule) {
-        super(brokenRule.getMessage());
+        super(brokenRule.getError().getReasonPhrase());
 
         this.brokenRule = brokenRule;
         this.status = brokenRule.getError().value();
         this.message = brokenRule.getError().getReasonPhrase();
-        this.details = brokenRule.getMessage();
+        this.details = brokenRule.getErrorField().getMessage();
     }
 
     public BusinessRule getBrokenRule() {

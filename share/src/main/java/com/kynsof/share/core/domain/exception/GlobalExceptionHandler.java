@@ -55,16 +55,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessRuleValidationException.class)
     public ResponseEntity<ApiResponse<?>> handleBusinessRuleValidationException(BusinessRuleValidationException ex) {
-        ApiError apiError = new ApiError(ex.getDetails(),
-                List.of()); // Asume que ApiError puede aceptar una lista de ErrorField
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponse.fail(apiError));
+        ApiError apiError = new ApiError(ex.getStatus(), ex.getMessage(),
+                List.of(ex.getBrokenRule().getErrorField())); // Asume que ApiError puede aceptar una lista de ErrorField
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.fail(apiError));
     }
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ApiResponse<?>> handleBusinessException(BusinessException ex) {
-        ApiError apiError = new ApiError(ex.getDetails(),
-                List.of()); // Asume que ApiError puede aceptar una lista de ErrorField
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponse.fail(apiError));
+        ApiError apiError = new ApiError(ex.getStatus(), ex.getDetails()); // Asume que ApiError puede aceptar una lista de ErrorField
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.fail(apiError));
     }
 
     @ExceptionHandler(UserNotFoundException.class)

@@ -1,7 +1,5 @@
 package com.kynsof.share.core.domain.response;
 
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,12 +7,28 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class ApiError {
+    private int status;
     private String errorMessage;
     private List<ErrorField> errors;
 
+    public ApiError(int status, String errorMessage, List<ErrorField> errors) {
+        this.status = status;
+        this.errorMessage = errorMessage;
+        this.errors = errors;
+    }
+
     public ApiError() {
+    }
+
+    public ApiError(int status, String errorMessage) {
+        this.status = status;
+        this.errorMessage = errorMessage;
+    }
+
+    public ApiError(String errorMessage, List<ErrorField> errors) {
+        this.errorMessage = errorMessage;
+        this.errors = errors;
     }
 
     public ApiError(String errorMessage) {
