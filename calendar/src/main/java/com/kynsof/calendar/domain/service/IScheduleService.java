@@ -40,4 +40,6 @@ public interface IScheduleService {
     boolean validateStartTimeAndEndingTimeEqual(LocalTime startTime, LocalTime endingTime);
     List<LocalDate> getBusinessDays(LocalDate startDate, LocalDate endDate);
     void validate(ResourceDto resource, LocalDate validateDate, LocalTime startTime, LocalTime endingTime);
+
+    List<LocalDate> getAvailableDatesByServiceId(UUID serviceId);
 }

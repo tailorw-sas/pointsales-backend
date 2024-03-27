@@ -68,4 +68,7 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
     Page<Schedule> findSchedulesWithStockByBusinessServiceAndDate(UUID businessId, UUID serviceId, LocalDate date, Pageable pageable);
 
 
+    @Query("SELECT DISTINCT s.date FROM Schedule s WHERE s.service.id = :serviceId AND s.date >= CURRENT_DATE ORDER BY s.date ASC")
+    List<LocalDate> findDistinctAvailableDatesByServiceId(UUID serviceId);
+
 }

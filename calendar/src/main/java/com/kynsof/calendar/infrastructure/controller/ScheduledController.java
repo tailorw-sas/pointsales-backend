@@ -14,6 +14,8 @@ import com.kynsof.calendar.application.command.schedule.update.UpdateScheduleCom
 import com.kynsof.calendar.application.command.schedule.update.UpdateScheduleMessage;
 import com.kynsof.calendar.application.query.ScheduleResponse;
 import com.kynsof.calendar.application.query.schedule.getAll.FindScheduleWithFilterQuery;
+import com.kynsof.calendar.application.query.schedule.getAvailableDatesByServiceId.GetAvailableDatesByServiceIdQuery;
+import com.kynsof.calendar.application.query.schedule.getAvailableDatesByServiceId.GetAvailableDatesByServiceIdResponse;
 import com.kynsof.calendar.application.query.schedule.getbyid.FindScheduleByIdQuery;
 import com.kynsof.calendar.application.query.schedule.search.GetSearchScheduleQuery;
 import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
@@ -116,4 +118,10 @@ public class ScheduledController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/available-dates")
+    public ResponseEntity<GetAvailableDatesByServiceIdResponse> getAvailableDatesByServiceId(@RequestParam UUID serviceId) {
+        GetAvailableDatesByServiceIdQuery query = new GetAvailableDatesByServiceIdQuery(serviceId);
+        GetAvailableDatesByServiceIdResponse availableDates = mediator.send(query);
+        return ResponseEntity.ok(availableDates);
+    }
 }
