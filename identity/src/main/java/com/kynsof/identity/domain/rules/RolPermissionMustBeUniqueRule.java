@@ -3,6 +3,7 @@ package com.kynsof.identity.domain.rules;
 import com.kynsof.identity.domain.dto.RolePermissionDto;
 import com.kynsof.identity.domain.interfaces.service.IRolePermissionService;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.rules.BusinessRule;
 
 public class RolPermissionMustBeUniqueRule extends BusinessRule {
@@ -12,7 +13,13 @@ public class RolPermissionMustBeUniqueRule extends BusinessRule {
     private RolePermissionDto rolePermission;
 
     public RolPermissionMustBeUniqueRule(IRolePermissionService service, RolePermissionDto rolePermission) {
-        super(DomainErrorMessage.QUALIFICATION_DESCRIPTION_UNIQUE, "Ya existe una relacion entre el rol y el permiso!");
+        super(
+                DomainErrorMessage.RELATIONSHIP_MUST_BE_UNIQUE, 
+                new ErrorField("Permission", 
+                        "The permission code: " + 
+                                rolePermission.getPermission().getCode() + 
+                                " is already related to the role " + rolePermission.getRole().getName())
+        );
         this.service = service;
         this.rolePermission = rolePermission;
     }
