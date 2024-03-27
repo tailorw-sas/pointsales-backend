@@ -1,4 +1,4 @@
-package com.kynsoft.gateway.infrastructure.config;
+package com.kynsof.store.infrastructure.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
