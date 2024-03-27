@@ -54,27 +54,16 @@ public class BusinessServiceImpl implements IBusinessService {
             throw new BusinessException(DomainErrorMessage.BUSINESS_OR_ID_NULL, "Business DTO or ID cannot be null.");
         }
 
-        this.repositoryQuery.findById(objectDto.getId())
-                .map(object -> {
-                    if (objectDto.getDescription() != null) {
-                        object.setDescription(objectDto.getDescription());
-                    }
-                    if (objectDto.getStatus() != null) {
-                        object.setStatus(objectDto.getStatus());
-                    }
-                    if (objectDto.getLogo() != null) {
-                        object.setLogo(objectDto.getLogo());
-                    }
-                    if (objectDto.getName() != null) {
-                        object.setName(objectDto.getName());
-                    }
-                    if (objectDto.getRuc() != null) {
-                        object.setRuc(objectDto.getRuc());
-                    }
-                    return this.repositoryCommand.save(object);
-                })
+        Business object = this.repositoryQuery.findById(objectDto.getId())
                 .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));
+        
+        object.setDescription(objectDto.getDescription() != null ? objectDto.getDescription() : object.getDescription());
+        object.setStatus(objectDto.getStatus() != null ? objectDto.getStatus() : object.getStatus());
+        object.setLogo(objectDto.getLogo() != null ? objectDto.getLogo() : object.getLogo());
+        object.setName(objectDto.getName() != null ? objectDto.getName() : object.getName());
+        object.setRuc(objectDto.getRuc() != null ? objectDto.getRuc() : object.getRuc());
 
+        this.repositoryCommand.save(object);
     }
 
     @Override
