@@ -6,12 +6,17 @@ import com.kynsof.identity.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.infrastructure.identity.Business;
 import com.kynsof.identity.infrastructure.repository.command.BusinessWriteDataJPARepository;
-import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerBusinessEventService;
+import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerCreateBusinessEventService;
 import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARepository;
+import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerUpdateBusinessEventService;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.kafka.entity.FileKafka;
+import com.kynsof.share.core.domain.kafka.producer.s3.ProducerDeleteFileEventService;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.share.utils.ConfigureTimeZone;
@@ -36,27 +41,34 @@ public class BusinessServiceImpl implements IBusinessService {
     private BusinessReadDataJPARepository repositoryQuery;
 
     @Autowired
-    ProducerBusinessEventService businessEventService;
+    private ProducerCreateBusinessEventService createBusinessEventService;
+
+    @Autowired
+    private ProducerUpdateBusinessEventService updateBusinessEventService;
+
+    @Autowired
+    private ProducerDeleteFileEventService deleteFileEventService;
 
     @Override
     public void create(BusinessDto object) {
-        object.setStatus(EBusinessStatus.ACTIVE);
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(object, "Business", "Business DTO cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(object.getId(), "Business.id", "Business ID cannot be null."));
 
+        object.setStatus(EBusinessStatus.ACTIVE);
         object.setCreateAt(ConfigureTimeZone.getTimeZone());
 
         this.repositoryCommand.save(new Business(object));
-        businessEventService.create(object);
+        createBusinessEventService.create(object);
     }
 
     @Override
     public void update(BusinessDto objectDto) {
-        if (objectDto.getId() == null) {
-            throw new BusinessException(DomainErrorMessage.BUSINESS_OR_ID_NULL, "Business DTO or ID cannot be null.");
-        }
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(objectDto, "Business", "Business DTO cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(objectDto.getId(), "Business.id", "Business ID cannot be null."));
 
         Business object = this.repositoryQuery.findById(objectDto.getId())
                 .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));
-        
+
         object.setDescription(objectDto.getDescription() != null ? objectDto.getDescription() : object.getDescription());
         object.setStatus(objectDto.getStatus() != null ? objectDto.getStatus() : object.getStatus());
         object.setLogo(objectDto.getLogo() != null ? objectDto.getLogo() : object.getLogo());
@@ -64,6 +76,8 @@ public class BusinessServiceImpl implements IBusinessService {
         object.setRuc(objectDto.getRuc() != null ? objectDto.getRuc() : object.getRuc());
 
         this.repositoryCommand.save(object);
+        this.updateBusinessEventService.update(objectDto);
+        this.deleteFileEventService.delete(new FileKafka(object.getId(), "identity", "", null));
     }
 
     @Override

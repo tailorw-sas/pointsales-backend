@@ -1,4 +1,4 @@
-package com.kynsof.share.core.infrastructure;
+package com.kynsof.share.core.domain.kafka.producer.s3;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -26,7 +26,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     PERMISSION_NOT_FOUND(621, Series.DOMAIN_ERROR, "Permission not found."),
     PERMISSION_OR_ID_NULL(622, Series.DOMAIN_ERROR, "Permission DTO or ID cannot be null."),
     ROLE_PERMISSION_NOT_FOUND(623, Series.DOMAIN_ERROR, "RolPermission not found."),
-    RELATIONSHIP_MUST_BE_UNIQUE(624, Series.DOMAIN_ERROR, "Existing relationship.");
+    RELATIONSHIP_MUST_BE_UNIQUE(624, Series.DOMAIN_ERROR, "Existing relationship."),
+    OBJECT_NOT_NULL(625, Series.DOMAIN_ERROR, "Object not null.");
 
     private static final DomainErrorMessage[] VALUES;
 
