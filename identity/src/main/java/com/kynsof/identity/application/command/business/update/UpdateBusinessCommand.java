@@ -1,6 +1,7 @@
 package com.kynsof.identity.application.command.business.update;
 
 import com.kynsof.identity.domain.dto.enumType.EBusinessStatus;
+import com.kynsof.share.core.application.FileRequest;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -17,11 +18,11 @@ public class UpdateBusinessCommand implements ICommand {
     private String latitude;
     private String longitude;
     private String description;
-    private byte[] logo;
+    private FileRequest logo;
     private String ruc;
     private EBusinessStatus status;
 
-    public UpdateBusinessCommand(UUID id, String name, String latitude, String longitude, String description, byte[] logo, String ruc, EBusinessStatus status) {
+    public UpdateBusinessCommand(UUID id, String name, String latitude, String longitude, String description, FileRequest logo, String ruc, EBusinessStatus status) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;

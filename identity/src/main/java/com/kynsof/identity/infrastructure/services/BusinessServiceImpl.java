@@ -6,11 +6,14 @@ import com.kynsof.identity.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.infrastructure.identity.Business;
 import com.kynsof.identity.infrastructure.repository.command.BusinessWriteDataJPARepository;
-import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerBusinessEventService;
+import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerCreateBusinessEventService;
 import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARepository;
+import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerUpdateBusinessEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.kafka.entity.FileKafka;
+import com.kynsof.share.core.domain.kafka.producer.s3.ProducerDeleteFileEventService;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
@@ -38,7 +41,13 @@ public class BusinessServiceImpl implements IBusinessService {
     private BusinessReadDataJPARepository repositoryQuery;
 
     @Autowired
-    ProducerBusinessEventService businessEventService;
+    private ProducerCreateBusinessEventService createBusinessEventService;
+
+    @Autowired
+    private ProducerUpdateBusinessEventService updateBusinessEventService;
+
+    @Autowired
+    private ProducerDeleteFileEventService deleteFileEventService;
 
     @Override
     public void create(BusinessDto object) {
@@ -49,7 +58,7 @@ public class BusinessServiceImpl implements IBusinessService {
         object.setCreateAt(ConfigureTimeZone.getTimeZone());
 
         this.repositoryCommand.save(new Business(object));
-        businessEventService.create(object);
+        createBusinessEventService.create(object);
     }
 
     @Override
@@ -67,6 +76,8 @@ public class BusinessServiceImpl implements IBusinessService {
         object.setRuc(objectDto.getRuc() != null ? objectDto.getRuc() : object.getRuc());
 
         this.repositoryCommand.save(object);
+        this.updateBusinessEventService.update(objectDto);
+        this.deleteFileEventService.delete(new FileKafka(object.getId(), "identity", "", null));
     }
 
     @Override
