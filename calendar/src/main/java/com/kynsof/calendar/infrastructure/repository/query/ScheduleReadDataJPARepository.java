@@ -50,6 +50,9 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
                                             @Param("startTime") LocalTime startTime,
                                             @Param("endTime") LocalTime endingTime);
 
+
+
+    //Keimer dev
     @Query("SELECT DISTINCT s.business FROM Schedule s " +
             "WHERE s.date = :date " +
             "AND s.service.id = :serviceId " +
@@ -57,6 +60,12 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
     Page<Business> findBusinessesWithAvailableStockByDateAndService(@Param("date") LocalDate date,
                                                                     @Param("serviceId") UUID serviceId,
                                                                     Pageable pageable);
+
+
+    @Query("SELECT s FROM Schedule s JOIN s.service ser JOIN s.business bus " +
+            "WHERE ser.id = :serviceId AND bus.id = :businessId AND s.date = :date " +
+            "AND s.stock > 0")
+    Page<Schedule> findSchedulesWithStockByBusinessServiceAndDate(UUID businessId, UUID serviceId, LocalDate date, Pageable pageable);
 
 
 }

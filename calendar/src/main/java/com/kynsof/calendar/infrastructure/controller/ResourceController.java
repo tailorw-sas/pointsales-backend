@@ -9,6 +9,8 @@ import com.kynsof.calendar.application.command.resource.update.UpdateResourceCom
 import com.kynsof.calendar.application.command.resource.update.UpdateResourceMessage;
 import com.kynsof.calendar.application.command.resource.update.UpdateResourceRequest;
 import com.kynsof.calendar.application.query.ResourceResponse;
+import com.kynsof.calendar.application.query.resource.findResourcesWithAvailableSchedules.ScheduleSearchCriteriaRequest;
+import com.kynsof.calendar.application.query.resource.findResourcesWithAvailableSchedules.findResourcesWithAvailableSchedulesQuery;
 import com.kynsof.calendar.application.query.resource.getAll.FindResourceWithFilterQuery;
 import com.kynsof.calendar.application.query.resource.getbyid.FindResourceByIdQuery;
 import com.kynsof.calendar.application.query.resource.search.GetSearchResourceQuery;
@@ -87,6 +89,19 @@ public class ResourceController {
         UpdateResourceCommand command = UpdateResourceCommand.fromRequest(request);
         UpdateResourceMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
+    }
+
+
+    @PostMapping("/available")
+    public ResponseEntity<PaginatedResponse> findResourcesWithAvailableSchedules(@RequestBody ScheduleSearchCriteriaRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        findResourcesWithAvailableSchedulesQuery query = new findResourcesWithAvailableSchedulesQuery(pageable,
+                request.getDate(),
+                request.getServiceId(),
+                request.getBusinessId());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
 }

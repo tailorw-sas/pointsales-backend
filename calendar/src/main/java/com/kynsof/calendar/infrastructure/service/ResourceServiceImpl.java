@@ -2,12 +2,16 @@ package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.ResourceResponse;
 import com.kynsof.calendar.domain.dto.ResourceDto;
+import com.kynsof.calendar.domain.dto.ResourceWithSchedulesDto;
+import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.calendar.infrastructure.entity.Resource;
+import com.kynsof.calendar.infrastructure.entity.Schedule;
 import com.kynsof.calendar.infrastructure.entity.specifications.ResourceSpecifications;
 import com.kynsof.calendar.infrastructure.repository.command.ResourceWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ResourceReadDataJPARepository;
+import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -21,10 +25,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ResourceServiceImpl implements IResourceService {
@@ -35,6 +38,9 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Autowired
     private ResourceReadDataJPARepository repositoryQuery;
+    @Autowired
+
+    private ScheduleReadDataJPARepository scheduleReadDataJPARepository;
 
     @Override
     public void create(ResourceDto object) {
@@ -128,6 +134,29 @@ public class ResourceServiceImpl implements IResourceService {
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public PaginatedResponse findResourcesWithAvailableSchedules(UUID businessId, UUID serviceId, LocalDate date, Pageable pageable) {
+        Page<Schedule> schedules = scheduleReadDataJPARepository.findSchedulesWithStockByBusinessServiceAndDate(businessId, serviceId, date, pageable);
+
+
+        Map<UUID, List<Schedule>> schedulesByResourceId = schedules.stream()
+                .collect(Collectors.groupingBy(s -> s.getResource().getId()));
+
+        List<ResourceWithSchedulesDto> resourcesWithSchedules = new ArrayList<>();
+        schedulesByResourceId.forEach((resourceId, schedulesList) -> {
+            Resource resource = schedulesList.get(0).getResource();
+            List<ScheduleDto> scheduleDtos = schedulesList.stream()
+                    .map(Schedule::toAggregate)
+                    .collect(Collectors.toList());
+
+            resourcesWithSchedules.add(new ResourceWithSchedulesDto(resource.toAggregate(), scheduleDtos));
+        });
+
+
+        return new PaginatedResponse(resourcesWithSchedules, schedules.getTotalPages(), schedules.getNumberOfElements(),
+                schedules.getTotalElements(), schedules.getSize(), schedules.getNumber());
     }
 
 }
