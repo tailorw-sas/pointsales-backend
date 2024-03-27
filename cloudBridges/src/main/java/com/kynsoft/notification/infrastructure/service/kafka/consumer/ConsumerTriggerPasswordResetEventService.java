@@ -40,7 +40,7 @@ public class ConsumerTriggerPasswordResetEventService {
                     new MailJetVar("otp_token", otpKafka.getOtpCode())
             );
 
-            int  templateId =3931552;
+            int  templateId =5826460;
             EmailRequest emailRequest = new EmailRequest(mailJetRecipients, vars, new ArrayList<>(),"Código Otp", templateId);
             this.service.sendEmailMailjet(emailRequest);
         } catch (JsonProcessingException ex) {
