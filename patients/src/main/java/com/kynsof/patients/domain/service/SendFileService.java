@@ -1,7 +1,7 @@
 package com.kynsof.patients.domain.service;
 
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
-import com.kynsof.share.core.infrastructure.ProducerSaveFileEventService;
+import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 
 import java.util.UUID;
 
