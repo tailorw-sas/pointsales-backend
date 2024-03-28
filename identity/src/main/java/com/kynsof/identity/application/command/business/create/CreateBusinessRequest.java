@@ -12,7 +12,7 @@ public class CreateBusinessRequest {
     private String latitude;
     private String longitude;
     private String description;
-    private FileRequest logo;
+    private  byte [] logo;
     private String ruc;
 
 }
