@@ -32,7 +32,7 @@ public class BusinessController {
         this.mediator = mediator;
     }
 
-    @PostMapping("")
+    @PostMapping()
     public ResponseEntity<CreateBusinessMessage> create(@RequestBody CreateBusinessRequest request)  {
         CreateBusinessCommand createCommand = CreateBusinessCommand.fromRequest(request);
         CreateBusinessMessage response = mediator.send(createCommand);
