@@ -18,11 +18,15 @@ public class CreateGeographicLocationCommandHandler implements ICommandHandler<C
 
     @Override
     public void handle(CreateGeographicLocationCommand command) {
+        GeographicLocationDto parent = null;
+        if (command.getParent() != null)
+            parent = this.geographicLocationService.findById(command.getParent());
+
         GeographicLocationDto geographicLocationDto = new GeographicLocationDto(
                 command.getId(),
                 command.getName(),
                 command.getType(),
-                null
+                parent
         );
         this.geographicLocationService.create(geographicLocationDto);
 

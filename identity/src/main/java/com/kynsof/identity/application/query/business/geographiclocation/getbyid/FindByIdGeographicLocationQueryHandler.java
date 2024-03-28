@@ -17,8 +17,8 @@ public class FindByIdGeographicLocationQueryHandler implements IQueryHandler<Fin
 
     @Override
     public GeographicLocationResponse handle(FindByIdGeographicLocationQuery query) {
-        GeographicLocationDto contactInfoDto = serviceImpl.findById(query.getId());
+        GeographicLocationDto geographicLocationDto = serviceImpl.findById(query.getId());
 
-        return new GeographicLocationResponse(contactInfoDto);
+        return new GeographicLocationResponse(geographicLocationDto);
     }
 }
