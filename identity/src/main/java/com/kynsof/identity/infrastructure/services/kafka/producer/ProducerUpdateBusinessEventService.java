@@ -29,7 +29,7 @@ public class ProducerUpdateBusinessEventService {
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.UPDATED));
-            this.producer.send("business", json);
+            this.producer.send("busines", json);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ProducerUpdateBusinessEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
