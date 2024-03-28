@@ -1,6 +1,6 @@
 package com.kynsof.identity.application.query.roles.getSearch;
 
-import com.kynsof.identity.domain.interfaces.IRoleService;
+import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import org.springframework.stereotype.Component;

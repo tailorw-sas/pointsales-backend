@@ -4,8 +4,8 @@ import com.kynsof.identity.application.query.rolpermission.getById.RolPermission
 import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RolePermissionDto;
-import com.kynsof.identity.domain.interfaces.IRoleService;
 import com.kynsof.identity.domain.interfaces.service.IRolePermissionService;
+import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.identity.domain.rules.RolPermissionMustBeUniqueRule;
 import com.kynsof.identity.infrastructure.identity.Permission;
 import com.kynsof.identity.infrastructure.identity.RolePermission;
@@ -18,15 +18,16 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.share.utils.ConfigureTimeZone;
-import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import org.springframework.data.domain.Page;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RolePermissionServiceImpl implements IRolePermissionService {

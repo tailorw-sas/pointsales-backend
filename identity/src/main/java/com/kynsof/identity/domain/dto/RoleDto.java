@@ -11,7 +11,7 @@ public class RoleDto {
     private UUID id;
     private String name;
     private String description;
-    private RoleStatusEnm status;
+    private com.kynsof.identity.domain.dto.RoleStatusEnm status;
 
     /**
      * Usar este constructor en le create y update
@@ -20,7 +20,7 @@ public class RoleDto {
      * @param description
      * @param status 
      */
-    public RoleDto(UUID id, String name, String description, RoleStatusEnm status) {
+    public RoleDto(UUID id, String name, String description, com.kynsof.identity.domain.dto.RoleStatusEnm status) {
         this.id = id;
         this.name = name;
         this.description = description;

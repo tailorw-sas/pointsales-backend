@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RoleStatusEnm;
-import com.kynsof.identity.domain.interfaces.IRoleService;
+import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.share.core.domain.kafka.entity.RoleKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.beans.factory.annotation.Autowired;

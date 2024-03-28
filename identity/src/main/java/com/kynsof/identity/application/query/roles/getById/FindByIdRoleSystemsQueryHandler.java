@@ -2,7 +2,7 @@ package com.kynsof.identity.application.query.roles.getById;
 
 import com.kynsof.identity.application.query.roles.getSearch.RoleSystemsResponse;
 import com.kynsof.identity.domain.dto.RoleDto;
-import com.kynsof.identity.domain.interfaces.IRoleService;
+import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
