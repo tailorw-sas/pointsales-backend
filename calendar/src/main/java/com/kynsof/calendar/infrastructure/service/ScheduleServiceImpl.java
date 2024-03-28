@@ -41,8 +41,8 @@ public class ScheduleServiceImpl implements IScheduleService {
     
     @Autowired
     private ScheduleWriteDataJPARepository repositoryCommand;
-    public List<LocalDate> getAvailableDatesByServiceId(UUID serviceId) {
-        return repositoryQuery.findDistinctAvailableDatesByServiceId(serviceId);
+    public List<LocalDate> findDistinctAvailableDatesByServiceIdAndDateRange(UUID serviceId, LocalDate startDate, LocalDate endDate) {
+        return repositoryQuery.findDistinctAvailableDatesByServiceIdAndDateRange(serviceId, startDate, endDate);
     }
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {

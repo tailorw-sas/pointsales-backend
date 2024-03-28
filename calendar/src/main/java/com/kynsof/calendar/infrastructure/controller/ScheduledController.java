@@ -14,6 +14,7 @@ import com.kynsof.calendar.application.command.schedule.update.UpdateScheduleCom
 import com.kynsof.calendar.application.command.schedule.update.UpdateScheduleMessage;
 import com.kynsof.calendar.application.query.ScheduleResponse;
 import com.kynsof.calendar.application.query.schedule.getAll.FindScheduleWithFilterQuery;
+import com.kynsof.calendar.application.query.schedule.getAvailableDatesByServiceId.AvailableDatesRequest;
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesByServiceId.GetAvailableDatesByServiceIdQuery;
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesByServiceId.GetAvailableDatesByServiceIdResponse;
 import com.kynsof.calendar.application.query.schedule.getbyid.FindScheduleByIdQuery;
@@ -118,9 +119,10 @@ public class ScheduledController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/available-dates")
-    public ResponseEntity<GetAvailableDatesByServiceIdResponse> getAvailableDatesByServiceId(@RequestParam UUID serviceId) {
-        GetAvailableDatesByServiceIdQuery query = new GetAvailableDatesByServiceIdQuery(serviceId);
+    @PostMapping("/available-dates")
+    public ResponseEntity<GetAvailableDatesByServiceIdResponse> getAvailableDatesByServiceId(@RequestBody AvailableDatesRequest request) {
+        GetAvailableDatesByServiceIdQuery query = new GetAvailableDatesByServiceIdQuery(request.getServiceId(),
+                request.getStartDate(), request.getFinalDate());
         GetAvailableDatesByServiceIdResponse availableDates = mediator.send(query);
         return ResponseEntity.ok(availableDates);
     }

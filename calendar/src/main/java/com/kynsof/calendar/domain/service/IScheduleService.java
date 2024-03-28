@@ -41,5 +41,5 @@ public interface IScheduleService {
     List<LocalDate> getBusinessDays(LocalDate startDate, LocalDate endDate);
     void validate(ResourceDto resource, LocalDate validateDate, LocalTime startTime, LocalTime endingTime);
 
-    List<LocalDate> getAvailableDatesByServiceId(UUID serviceId);
+    List<LocalDate> findDistinctAvailableDatesByServiceIdAndDateRange(UUID serviceId,LocalDate startDate, LocalDate endDate);
 }

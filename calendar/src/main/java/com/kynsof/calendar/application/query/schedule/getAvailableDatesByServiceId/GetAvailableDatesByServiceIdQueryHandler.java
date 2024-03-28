@@ -18,7 +18,8 @@ public class GetAvailableDatesByServiceIdQueryHandler implements IQueryHandler<G
 
     @Override
     public GetAvailableDatesByServiceIdResponse handle(GetAvailableDatesByServiceIdQuery query) {
-        List<LocalDate> response = service.getAvailableDatesByServiceId(query.getServiceId());
+        List<LocalDate> response = service.findDistinctAvailableDatesByServiceIdAndDateRange(query.getServiceId(), query.getStarDate(),
+                query.getFinalDate());
 
         return new GetAvailableDatesByServiceIdResponse(response);
     }
