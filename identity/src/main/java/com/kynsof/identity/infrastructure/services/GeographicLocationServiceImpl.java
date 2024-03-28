@@ -12,8 +12,10 @@ import com.kynsof.identity.domain.interfaces.service.IGeographicLocationService;
 import com.kynsof.identity.infrastructure.identity.GeographicLocation;
 import com.kynsof.identity.infrastructure.repository.command.GeographicLocationWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.GeographicLocationReadDataJPARepository;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,9 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
 
     @Override
     public void create(GeographicLocationDto object) {
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(object, "GeographicLocation", "Business DTO cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(object.getId(), "GeographicLocation.id", "Business ID cannot be null."));
+
         this.repositoryCommand.save(new GeographicLocation(object));
     }
 
