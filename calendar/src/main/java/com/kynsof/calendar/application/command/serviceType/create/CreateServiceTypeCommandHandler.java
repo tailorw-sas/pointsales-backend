@@ -4,7 +4,7 @@ import com.kynsof.calendar.domain.dto.ServiceTypeDto;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
-import com.kynsof.share.core.infrastructure.ProducerSaveFileEventService;
+import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
