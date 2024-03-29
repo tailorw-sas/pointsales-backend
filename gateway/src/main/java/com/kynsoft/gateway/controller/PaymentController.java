@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @RestController
 @RequestMapping("/api/payments") // Ajusta la ruta según tus necesidades
 public class PaymentController {
@@ -27,10 +29,10 @@ public class PaymentController {
             @RequestHeader(value = "User-Agent", required = false, defaultValue = "Unknown") String userAgent,
             @RequestBody PaymentData paymentData) {
 //        // Obtiene la dirección IP del cliente
-//        String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
-//
-//        paymentData.setUserAgent(userAgent);
-//        paymentData.setIpAddress(ipAddress); // Asume que PaymentData tiene un setter para ipAddress
+        String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
+
+        paymentData.setUserAgent(userAgent);
+        paymentData.setIpAddress(ipAddress); // Asume que PaymentData tiene un setter para ipAddress
 
         PaymentResponse paymentResponse = paymentServiceClient.paymentTransactions(paymentData);
 

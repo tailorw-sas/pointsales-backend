@@ -138,7 +138,7 @@ class PaymentServiceClient implements IPaymentServiceClient {
     public TransactionsState getTransactionsState(Integer requestId) {
         try {
             String serviceUrl = String.format("%s/placetopay/%s/information/%s",
-                    paymentServiceConfig.getPaymentServiceBaseUrl(),
+                    "http://payment:8080",
                     paymentServiceConfig.getPaymentServiceClientId(),
                     requestId);
             logger.error("URL-PAYMENT:" + serviceUrl);
