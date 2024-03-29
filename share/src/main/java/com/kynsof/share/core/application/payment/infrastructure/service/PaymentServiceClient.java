@@ -120,6 +120,8 @@ class PaymentServiceClient implements IPaymentServiceClient {
                     request,
                     PaymentResponse.class);
 
+            logger.error("Response:"+responseEntity.getStatusCode());
+
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
                 return responseEntity.getBody();
             } else {
