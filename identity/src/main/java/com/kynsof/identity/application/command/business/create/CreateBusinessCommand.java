@@ -18,8 +18,9 @@ public class CreateBusinessCommand implements ICommand {
     private String description;
     private  byte [] logo;
     private String ruc;
+    private UUID geographicLocation;
 
-    public CreateBusinessCommand(String name, String latitude, String longitude, String description,  byte [] logo, String ruc) {
+    public CreateBusinessCommand(String name, String latitude, String longitude, String description,  byte [] logo, String ruc, UUID geographicLocation) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.latitude = latitude;
@@ -27,10 +28,19 @@ public class CreateBusinessCommand implements ICommand {
         this.description = description;
         this.logo = logo;
         this.ruc = ruc;
+        this.geographicLocation = geographicLocation;
     }
 
     public static CreateBusinessCommand fromRequest(CreateBusinessRequest request) {
-        return new CreateBusinessCommand(request.getName(), request.getLatitude(), request.getLongitude(), request.getDescription(), request.getLogo(), request.getRuc());
+        return new CreateBusinessCommand(
+                request.getName(), 
+                request.getLatitude(), 
+                request.getLongitude(), 
+                request.getDescription(), 
+                request.getLogo(), 
+                request.getRuc(), 
+                request.getGeographicLocation()
+        );
     }
 
     @Override

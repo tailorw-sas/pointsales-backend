@@ -5,6 +5,7 @@ import com.kynsof.identity.domain.dto.BusinessDto;
 import com.kynsof.identity.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.infrastructure.identity.Business;
+import com.kynsof.identity.infrastructure.identity.GeographicLocation;
 import com.kynsof.identity.infrastructure.repository.command.BusinessWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerCreateBusinessEventService;
 import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARepository;
@@ -74,8 +75,10 @@ public class BusinessServiceImpl implements IBusinessService {
         object.setLogo(objectDto.getLogo() != null ? objectDto.getLogo() : object.getLogo());
         object.setName(objectDto.getName() != null ? objectDto.getName() : object.getName());
         object.setRuc(objectDto.getRuc() != null ? objectDto.getRuc() : object.getRuc());
+        object.setGeographicLocation(objectDto.getGeographicLocationDto() != null ? new GeographicLocation(objectDto.getGeographicLocationDto()) : object.getGeographicLocation());
 
         this.repositoryCommand.save(object);
+        objectDto.setLogo(object.getLogo());
         this.updateBusinessEventService.update(objectDto);
         this.deleteFileEventService.delete(new FileKafka(object.getId(), "identity", "", null));
     }

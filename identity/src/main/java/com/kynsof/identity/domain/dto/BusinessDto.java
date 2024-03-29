@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Getter
 @Setter
-
 public class BusinessDto implements Serializable {
     private UUID id;
     private String name;
@@ -25,9 +24,10 @@ public class BusinessDto implements Serializable {
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
     private LocalDateTime deleteAt;
-    
 
-    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String logo,  String ruc, EBusinessStatus status) {
+    private GeographicLocationDto geographicLocationDto;
+
+    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String logo,  String ruc, EBusinessStatus status, GeographicLocationDto geographicLocationDto) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
@@ -36,6 +36,7 @@ public class BusinessDto implements Serializable {
         this.logo = logo;
         this.ruc = ruc;
         this.status = status;
+        this.geographicLocationDto = geographicLocationDto;
     }
 
     public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String string) {

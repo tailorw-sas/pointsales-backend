@@ -18,4 +18,5 @@ public class UpdateBusinessRequest {
     private FileRequest logo;
     private String ruc;
     private EBusinessStatus status;
+    private UUID geographicLocation;
 }

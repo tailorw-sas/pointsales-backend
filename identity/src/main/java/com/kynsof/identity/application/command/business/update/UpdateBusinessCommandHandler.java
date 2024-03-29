@@ -1,7 +1,9 @@
 package com.kynsof.identity.application.command.business.update;
 
 import com.kynsof.identity.domain.dto.BusinessDto;
+import com.kynsof.identity.domain.dto.GeographicLocationDto;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
+import com.kynsof.identity.domain.interfaces.service.IGeographicLocationService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
@@ -18,12 +20,16 @@ public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusin
     @Autowired
     private ProducerSaveFileEventService saveFileEventService;
 
+    @Autowired
+    private IGeographicLocationService geographicLocationService;
+
     public UpdateBusinessCommandHandler(IBusinessService service) {
         this.service = service;
     }
 
     @Override
     public void handle(UpdateBusinessCommand command) {
+        GeographicLocationDto location = this.geographicLocationService.findById(command.getGeographicLocation());
         /**
          * Verifica que logoId venga en null, si esta en null, es porque no se
          * cambio.
@@ -37,7 +43,8 @@ public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusin
                 command.getDescription(),
                 logoId != null ? logoId.toString() : null,
                 command.getRuc(),
-                command.getStatus()
+                command.getStatus(),
+                location
         ));
         if (logoId != null) {
             FileKafka fileSave = new FileKafka(logoId, "identity", command.getLogo().getFileName(),

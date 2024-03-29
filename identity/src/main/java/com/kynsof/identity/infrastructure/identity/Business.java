@@ -32,6 +32,10 @@ public class Business {
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserRoleBusiness> userRoleBusinesses = new HashSet<>();
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "geographicLocation_id")
+    private GeographicLocation geographicLocation;
+
     public Business(BusinessDto business) {
         this.id = business.getId();
         this.name = business.getName();
@@ -42,10 +46,11 @@ public class Business {
         this.ruc = business.getRuc();
         this.status = business.getStatus();
         this.deleted = business.isDeleted();
+        this.geographicLocation = new GeographicLocation(business.getGeographicLocationDto());
     }
 
     public BusinessDto toAggregate () {
         return new BusinessDto(id, name, latitude, longitude, description, logo,
-                ruc, status);
+                ruc, status, geographicLocation.toAggregate());
     }
 }
