@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.query.rolpermission.getbyid;
+package com.kynsof.identity.application.query.userrolbusiness.getbyid;
 
 import com.kynsof.share.core.domain.bus.query.IQuery;
 import lombok.Getter;

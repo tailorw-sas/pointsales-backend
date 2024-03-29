@@ -6,8 +6,8 @@ import com.kynsof.identity.application.command.userrolbusiness.create.CreateUser
 import com.kynsof.identity.application.command.userrolbusiness.update.UpdateUserRoleBusinessCommand;
 import com.kynsof.identity.application.command.userrolbusiness.update.UpdateUserRoleBusinessMessage;
 import com.kynsof.identity.application.command.userrolbusiness.update.UpdateUserRoleBusinessRequest;
-import com.kynsof.identity.application.query.rolpermission.getbyid.FindByIdUserRoleBusinessQuery;
-import com.kynsof.identity.application.query.rolpermission.getbyid.UserRoleBusinessResponse;
+import com.kynsof.identity.application.query.userrolbusiness.getbyid.FindByIdUserRoleBusinessQuery;
+import com.kynsof.identity.application.query.userrolbusiness.getbyid.UserRoleBusinessResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;

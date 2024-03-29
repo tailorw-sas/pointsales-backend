@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.query.rolpermission.getbyid;
+package com.kynsof.identity.application.query.userrolbusiness.getbyid;
 
 import com.kynsof.identity.domain.dto.UserRoleBusinessDto;
 import com.kynsof.identity.domain.interfaces.service.IUserRoleBusinessService;

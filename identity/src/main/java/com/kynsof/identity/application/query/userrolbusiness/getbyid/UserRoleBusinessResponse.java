@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.query.rolpermission.getbyid;
+package com.kynsof.identity.application.query.userrolbusiness.getbyid;
 
 import com.kynsof.identity.application.query.business.search.BusinessResponse;
 import com.kynsof.identity.application.query.roles.getById.RoleSystemsByIdResponse;
