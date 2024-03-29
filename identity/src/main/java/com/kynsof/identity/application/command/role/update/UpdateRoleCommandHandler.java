@@ -1,7 +1,7 @@
 package com.kynsof.identity.application.command.role.update;
 
 import com.kynsof.identity.domain.dto.RoleDto;
-import com.kynsof.identity.domain.interfaces.IRoleService;
+import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 

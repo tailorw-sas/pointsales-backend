@@ -7,7 +7,9 @@ import com.kynsof.identity.application.command.role.delete.DeleteRoleSystemsComm
 import com.kynsof.identity.application.command.role.delete.DeleteRoleSystemsMessage;
 import com.kynsof.identity.application.command.role.update.UpdateRoleCommand;
 import com.kynsof.identity.application.command.role.update.UpdateRoleMessage;
+import com.kynsof.identity.application.query.roles.getById.FindByIdRoleSystemsQuery;
 import com.kynsof.identity.application.query.roles.getSearch.GetSearchRoleSystemsQuery;
+import com.kynsof.identity.application.query.roles.getSearch.RoleSystemsResponse;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -57,5 +59,14 @@ public class RoleController {
         GetSearchRoleSystemsQuery query = new GetSearchRoleSystemsQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<?> getById(@PathVariable UUID id) {
+
+        FindByIdRoleSystemsQuery query = new FindByIdRoleSystemsQuery(id);
+        RoleSystemsResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
     }
 }

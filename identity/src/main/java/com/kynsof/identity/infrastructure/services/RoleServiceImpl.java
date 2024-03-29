@@ -5,7 +5,7 @@ import com.kynsof.identity.application.query.roles.getSearch.RoleSystemsResponse
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RolePermissionDto;
 import com.kynsof.identity.domain.dto.RoleStatusEnm;
-import com.kynsof.identity.domain.interfaces.IRoleService;
+import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.identity.infrastructure.identity.RolePermission;
 import com.kynsof.identity.infrastructure.identity.RoleSystem;
 import com.kynsof.identity.infrastructure.repository.command.RolWriteDataJPARepository;

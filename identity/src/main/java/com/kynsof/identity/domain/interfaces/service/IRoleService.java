@@ -1,4 +1,4 @@
-package com.kynsof.identity.domain.interfaces;
+package com.kynsof.identity.domain.interfaces.service;
 
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RolePermissionDto;

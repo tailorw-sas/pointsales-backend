@@ -3,15 +3,16 @@ package com.kynsof.identity.application.command.rolpermission.update;
 import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RolePermissionDto;
-import com.kynsof.identity.domain.interfaces.IRoleService;
 import com.kynsof.identity.domain.interfaces.service.IPermissionService;
 import com.kynsof.identity.domain.interfaces.service.IRolePermissionService;
+import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.utils.ConfigureTimeZone;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateRolPermissionCommandHandler implements ICommandHandler<UpdateRolPermissionCommand> {
