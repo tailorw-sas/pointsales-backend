@@ -16,4 +16,5 @@ public interface IUserRoleBusinessService {
     UserRoleBusinessDto findById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    Long countByUserIdAndRoleIdAndBusinessId(UserRoleBusinessDto userRoleBusinessDto);
 }

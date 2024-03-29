@@ -8,7 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.UUID;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface UserRoleBusinessReadDataJPARepository extends JpaRepository<UserRoleBusiness, UUID>, JpaSpecificationExecutor<UserRoleBusiness> {
     Page<UserRoleBusiness> findAll(Specification specification, Pageable pageable);
+
+    @Query("SELECT COUNT(u) FROM UserRoleBusiness u WHERE u.user.id = :userId AND u.role.id = :roleId AND u.business.id = :businessId")
+    Long countByUserIdAndRoleIdAndBusinessId(@Param("userId") UUID userId, @Param("roleId") UUID roleId, @Param("businessId") UUID businessId);
+
 }
