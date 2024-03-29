@@ -1,5 +1,9 @@
 package com.kynsof.identity.infrastructure.identity;
 
+import com.kynsof.identity.domain.dto.BusinessDto;
+import com.kynsof.identity.domain.dto.RoleDto;
+import com.kynsof.identity.domain.dto.UserRoleBusinessDto;
+import com.kynsof.identity.domain.dto.UserSystemDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +31,19 @@ public class UserRoleBusiness {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "business_id")
     private Business business;
+
+    public UserRoleBusiness(UUID id, UserSystemDto user, RoleDto role, BusinessDto business) {
+        this.id = id;
+        this.user = new UserSystem(user);
+        this.role = new RoleSystem(role);
+        this.business = new Business(business);
+    }
+
+    public UserRoleBusiness(UserRoleBusinessDto userRoleBusinessDto) {
+        this.id = userRoleBusinessDto.getId();
+        this.user = new UserSystem(userRoleBusinessDto.getUser());
+        this.role = new RoleSystem(userRoleBusinessDto.getRole());
+        this.business = new Business(userRoleBusinessDto.getBusiness());
+    }
+
 }

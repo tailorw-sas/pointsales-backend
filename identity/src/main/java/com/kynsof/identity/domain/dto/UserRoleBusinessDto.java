@@ -5,8 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
+import lombok.AllArgsConstructor;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class UserRoleBusinessDto {
