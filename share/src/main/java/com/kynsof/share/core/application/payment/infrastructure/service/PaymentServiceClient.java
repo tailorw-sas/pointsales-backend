@@ -111,6 +111,7 @@ class PaymentServiceClient implements IPaymentServiceClient {
             String serviceUrl = paymentServiceConfig.getPaymentServiceBaseUrl() + "/placetopay/" +
                     paymentServiceConfig.getPaymentServiceClientId() + "/transactions";
             paymentData.setExpiration(getDateTimePlus15MinutesAsString());
+            logger.error("URL:"+serviceUrl);
             ResponseEntity<PaymentResponse> responseEntity = restTemplate.exchange(
                     serviceUrl,
                     HttpMethod.POST,

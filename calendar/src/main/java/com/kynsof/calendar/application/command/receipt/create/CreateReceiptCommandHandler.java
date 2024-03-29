@@ -42,7 +42,8 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
                 _patient, 
                 _schedule, 
                 _service, 
-                EStatusReceipt.PRE_RESERVE
+                EStatusReceipt.PRE_RESERVE,
+                command.getRequestId()
         ));
     }
 }

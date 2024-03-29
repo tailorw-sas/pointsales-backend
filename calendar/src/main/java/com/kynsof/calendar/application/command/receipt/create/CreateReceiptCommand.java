@@ -18,7 +18,10 @@ public class CreateReceiptCommand implements ICommand {
     private UUID user;
     private UUID schedule;
     private UUID service;
-    public CreateReceiptCommand(Double price, Boolean express, String reasons, UUID user, UUID schedule, UUID service) {
+    private final String requestId;
+    public CreateReceiptCommand(Double price, Boolean express, String reasons, UUID user, UUID schedule, UUID service,
+                                String requestId) {
+        this.requestId = requestId;
         this.id = UUID.randomUUID();
         this.price = price;
         this.express = express;
@@ -29,7 +32,9 @@ public class CreateReceiptCommand implements ICommand {
     }
 
     public static CreateReceiptCommand fromRequest(CreateReceiptRequest request) {
-        return new CreateReceiptCommand(request.getPrice(), request.getExpress(), request.getReasons(), request.getUser(), request.getSchedule(), request.getService());
+        return new CreateReceiptCommand(request.getPrice(), request.getExpress(),
+                request.getReasons(), request.getUser(), request.getSchedule(), request.getService(),
+                request.getRequestId() );
     }
 
     @Override

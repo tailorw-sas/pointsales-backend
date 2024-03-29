@@ -48,14 +48,11 @@ public class Receipt {
     @JoinColumn(name = "fk_pk_service", unique = false)
     private Services service;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private EStatusReceipt status;
 
-    public Receipt(Patient user, Schedule schedule, Services service) {
-        this.user = user;
-        this.schedule = schedule;
-        this.service = service;
-    }
+    private String requestId;
+
 
     public Receipt(ReceiptDto receipt) {
         this.id = receipt.getId();
@@ -66,9 +63,11 @@ public class Receipt {
         this.user = new Patient(receipt.getUser());
         this.schedule = receipt.getSchedule() != null ? new Schedule(receipt.getSchedule()) : null;
         this.service = new Services(receipt.getService());
+        this.requestId = receipt.getRequestId();
     }
 
     public ReceiptDto toAggregate() {
-        return new ReceiptDto(id, price, express, reasons, user.toAggregate(), schedule.toAggregate(), service.toAggregate(), status);
+        return new ReceiptDto(id, price, express, reasons, user.toAggregate(), schedule.toAggregate(),
+                service.toAggregate(), status, requestId);
     }
 }
