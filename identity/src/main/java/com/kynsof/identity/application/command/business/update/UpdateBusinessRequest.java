@@ -1,7 +1,6 @@
 package com.kynsof.identity.application.command.business.update;
 
 import com.kynsof.identity.domain.dto.enumType.EBusinessStatus;
-import com.kynsof.share.core.application.FileRequest;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +14,7 @@ public class UpdateBusinessRequest {
     private String latitude;
     private String longitude;
     private String description;
-    private FileRequest logo;
+    private byte [] logo;
     private String ruc;
     private EBusinessStatus status;
     private UUID geographicLocation;

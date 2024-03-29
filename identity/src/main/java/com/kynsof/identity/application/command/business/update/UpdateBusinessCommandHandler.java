@@ -47,8 +47,8 @@ public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusin
                 location
         ));
         if (logoId != null) {
-            FileKafka fileSave = new FileKafka(logoId, "identity", command.getLogo().getFileName(),
-                command.getLogo().getFile());
+            FileKafka fileSave = new FileKafka(logoId, "identity", UUID.randomUUID().toString(),
+                command.getLogo());
             saveFileEventService.create(fileSave);
         }
     }
