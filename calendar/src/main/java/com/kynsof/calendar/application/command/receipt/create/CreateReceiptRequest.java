@@ -16,5 +16,5 @@ public class CreateReceiptRequest {
     private UUID user;
     private UUID schedule;
     private UUID service;
-
+    private String requestId;
 }

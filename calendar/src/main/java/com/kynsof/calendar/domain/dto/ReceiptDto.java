@@ -23,5 +23,5 @@ public class ReceiptDto implements Serializable {
     private ScheduleDto schedule;
     private ServiceDto service;
     private EStatusReceipt status;
-
+    private String requestId;
 }

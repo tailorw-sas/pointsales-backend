@@ -108,14 +108,19 @@ class PaymentServiceClient implements IPaymentServiceClient {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<PaymentData> request = new HttpEntity<>(paymentData, headers);
-            String serviceUrl = paymentServiceConfig.getPaymentServiceBaseUrl() + "/placetopay/" +
+//            String serviceUrl = paymentServiceConfig.getPaymentServiceBaseUrl() + "/placetopay/" +
+//                    paymentServiceConfig.getPaymentServiceClientId() + "/transactions";
+            String serviceUrl = "http://payment.medinec.svc.cluster.local:5008" + "/placetopay/" +
                     paymentServiceConfig.getPaymentServiceClientId() + "/transactions";
             paymentData.setExpiration(getDateTimePlus15MinutesAsString());
+            logger.error("URL-ERROR:"+serviceUrl);
             ResponseEntity<PaymentResponse> responseEntity = restTemplate.exchange(
                     serviceUrl,
                     HttpMethod.POST,
                     request,
                     PaymentResponse.class);
+
+            logger.error("Response:"+responseEntity.getStatusCode());
 
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
                 return responseEntity.getBody();
