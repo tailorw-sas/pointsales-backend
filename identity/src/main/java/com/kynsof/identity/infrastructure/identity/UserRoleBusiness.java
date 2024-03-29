@@ -20,15 +20,15 @@ public class UserRoleBusiness {
     @Id
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserSystem user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private RoleSystem role;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "business_id")
     private Business business;
 
@@ -46,4 +46,7 @@ public class UserRoleBusiness {
         this.business = new Business(userRoleBusinessDto.getBusiness());
     }
 
+    public UserRoleBusinessDto toAggregate () {
+        return new UserRoleBusinessDto(id, user.toAggregate(), role.toAggregate(), business.toAggregate());
+    }
 }
