@@ -7,11 +7,15 @@ import com.kynsof.identity.infrastructure.identity.UserRoleBusiness;
 import com.kynsof.identity.infrastructure.repository.command.UserRoleBusinessWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserRoleBusinessReadDataJPARepository;
 import com.kynsof.share.core.domain.RulesChecker;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -42,15 +46,19 @@ public class UserRoleBusinessServiceImpl implements IUserRoleBusinessService {
     @Override
     public Long countByUserIdAndRoleIdAndBusinessId(UserRoleBusinessDto userRoleBusinessDto) {
         return this.queryRepository.countByUserIdAndRoleIdAndBusinessId(
-                userRoleBusinessDto.getUser().getId(), 
-                userRoleBusinessDto.getRole().getId(), 
+                userRoleBusinessDto.getUser().getId(),
+                userRoleBusinessDto.getRole().getId(),
                 userRoleBusinessDto.getBusiness().getId()
         );
     }
 
     @Override
     public void update(List<UserRoleBusinessDto> userRoleBusiness) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<UserRoleBusiness> userRoleBusinesses = userRoleBusiness.stream()
+                .map(UserRoleBusiness::new)
+                .collect(Collectors.toList());
+
+        this.commandRepository.saveAll(userRoleBusinesses);
     }
 
     @Override
@@ -65,12 +73,17 @@ public class UserRoleBusinessServiceImpl implements IUserRoleBusinessService {
 
     @Override
     public UserRoleBusinessDto findById(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Optional<UserRoleBusiness> object = this.queryRepository.findById(id);
+        if (object.isPresent()) {
+            return object.get().toAggregate();
+        }
+
+        throw new BusinessException(DomainErrorMessage.USER_ROLE_BUSINESS_NOT_FOUND, "UserRoleBusiness not found.");
     }
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }
