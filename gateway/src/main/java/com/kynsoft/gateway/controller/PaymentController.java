@@ -32,7 +32,7 @@ public class PaymentController {
         String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
 
         paymentData.setUserAgent(userAgent);
-        paymentData.setIpAddress(ipAddress); // Asume que PaymentData tiene un setter para ipAddress
+      //  paymentData.setIpAddress(ipAddress); // Asume que PaymentData tiene un setter para ipAddress
 
         PaymentResponse paymentResponse = paymentServiceClient.paymentTransactions(paymentData);
 
