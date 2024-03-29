@@ -110,7 +110,7 @@ class PaymentServiceClient implements IPaymentServiceClient {
             HttpEntity<PaymentData> request = new HttpEntity<>(paymentData, headers);
 //            String serviceUrl = paymentServiceConfig.getPaymentServiceBaseUrl() + "/placetopay/" +
 //                    paymentServiceConfig.getPaymentServiceClientId() + "/transactions";
-            String serviceUrl = "http://payment:5008" + "/placetopay/" +
+            String serviceUrl = "http://payment.medinec.svc.cluster.local:5008" + "/placetopay/" +
                     paymentServiceConfig.getPaymentServiceClientId() + "/transactions";
             paymentData.setExpiration(getDateTimePlus15MinutesAsString());
             logger.error("URL-ERROR:"+serviceUrl);
