@@ -11,7 +11,6 @@ public class CreatAdditionalInfoMessage implements ICommandMessage {
     private final UUID id;
 
     private final String command = "CREATE_ADDITIONAL_INFO";
-
     public CreatAdditionalInfoMessage(UUID id) {
         this.id = id;
     }
