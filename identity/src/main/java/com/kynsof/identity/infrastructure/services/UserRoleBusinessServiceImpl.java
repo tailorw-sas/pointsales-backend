@@ -1,5 +1,6 @@
 package com.kynsof.identity.infrastructure.services;
 
+import com.kynsof.identity.application.query.userrolbusiness.getbyid.UserRoleBusinessResponse;
 import com.kynsof.identity.domain.dto.UserRoleBusinessDto;
 import com.kynsof.identity.domain.interfaces.service.IUserRoleBusinessService;
 import com.kynsof.identity.domain.rules.UserRoleBusinessMustBeUniqueRule;
@@ -11,12 +12,14 @@ import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,7 +86,18 @@ public class UserRoleBusinessServiceImpl implements IUserRoleBusinessService {
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        GenericSpecificationsBuilder<UserRoleBusiness> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<UserRoleBusiness> data = this.queryRepository.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<UserRoleBusiness> data) {
+        List<UserRoleBusinessResponse> patients = new ArrayList<>();
+        for (UserRoleBusiness o : data.getContent()) {
+            patients.add(new UserRoleBusinessResponse(o.toAggregate()));
+        }
+        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
 }
