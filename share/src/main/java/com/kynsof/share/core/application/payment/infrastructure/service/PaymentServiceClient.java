@@ -108,19 +108,19 @@ class PaymentServiceClient implements IPaymentServiceClient {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<PaymentData> request = new HttpEntity<>(paymentData, headers);
-            String serviceUrl = "http://"+paymentServiceConfig.getPaymentServiceBaseUrl() + "/placetopay/" +
+            String serviceUrl = "http://" + paymentServiceConfig.getPaymentServiceBaseUrl() + "/placetopay/" +
                     paymentServiceConfig.getPaymentServiceClientId() + "/transactions";
 //            String serviceUrl = "http://payment:8080" + "/placetopay/" +
 //                    paymentServiceConfig.getPaymentServiceClientId() + "/transactions";
             paymentData.setExpiration(getDateTimePlus15MinutesAsString());
-            logger.error("URL-ERROR:"+serviceUrl);
+            logger.error("URL-ERROR:" + serviceUrl);
             ResponseEntity<PaymentResponse> responseEntity = restTemplate.exchange(
                     serviceUrl,
                     HttpMethod.POST,
                     request,
                     PaymentResponse.class);
 
-            logger.error("Response:"+responseEntity.getStatusCode());
+            logger.error("Response:" + responseEntity.getStatusCode());
 
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
                 return responseEntity.getBody();
@@ -141,7 +141,7 @@ class PaymentServiceClient implements IPaymentServiceClient {
                     paymentServiceConfig.getPaymentServiceBaseUrl(),
                     paymentServiceConfig.getPaymentServiceClientId(),
                     requestId);
-
+            logger.error("URL-PAYMENT:" + serviceUrl);
             HttpHeaders headers = new HttpHeaders();
             headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
@@ -161,6 +161,7 @@ class PaymentServiceClient implements IPaymentServiceClient {
             throw new RuntimeException("Falló al obtener el estado de la transacción.", e);
         }
     }
+
     public String getDateTimePlus15MinutesAsString() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime newTime = now.plusMinutes(paymentServiceConfig.getPaymentExpirationMinutes());
