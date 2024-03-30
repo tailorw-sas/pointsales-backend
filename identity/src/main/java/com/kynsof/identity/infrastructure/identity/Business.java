@@ -1,7 +1,6 @@
 package com.kynsof.identity.infrastructure.identity;
 
 import com.kynsof.identity.domain.dto.BusinessDto;
-import com.kynsof.identity.domain.dto.GeographicLocationDto;
 import com.kynsof.identity.domain.dto.enumType.EBusinessStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -47,7 +46,7 @@ public class Business {
         this.ruc = business.getRuc();
         this.status = business.getStatus();
         this.deleted = business.isDeleted();
-        this.geographicLocation = new GeographicLocation(business.getGeographicLocationDto());
+        this.geographicLocation = business.getGeographicLocationDto() != null ? new GeographicLocation(business.getGeographicLocationDto()) : null;
     }
 
     public BusinessDto toAggregate () {
