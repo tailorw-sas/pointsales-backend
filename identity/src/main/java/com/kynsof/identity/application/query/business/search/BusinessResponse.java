@@ -1,5 +1,6 @@
 package com.kynsof.identity.application.query.business.search;
 
+import com.kynsof.identity.application.query.business.geographiclocation.getall.GeographicLocationResponse;
 import com.kynsof.identity.domain.dto.BusinessDto;
 import com.kynsof.identity.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.share.core.domain.bus.query.IResponse;
@@ -26,6 +27,8 @@ public class BusinessResponse implements IResponse {
     private LocalDateTime updateAt;
     private LocalDateTime deleteAt;
 
+    private GeographicLocationResponse geolocation;
+
     public BusinessResponse(BusinessDto object) {
         this.id = object.getId();
         this.name = object.getName();
@@ -38,6 +41,7 @@ public class BusinessResponse implements IResponse {
         this.createAt = object.getCreateAt();
         this.updateAt = object.getUpdateAt();
         this.deleteAt = object.getDeleteAt();
+        this.geolocation = object.getGeographicLocationDto() != null ? new GeographicLocationResponse(object.getGeographicLocationDto()) : null;
     }
 
     public BusinessResponse(UUID id, String name) {

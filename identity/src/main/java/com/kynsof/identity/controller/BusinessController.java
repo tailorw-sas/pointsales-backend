@@ -40,8 +40,6 @@ public class BusinessController {
         return ResponseEntity.ok(response);
     }
 
-
-
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
     {

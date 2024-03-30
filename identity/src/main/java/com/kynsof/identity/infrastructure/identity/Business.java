@@ -1,6 +1,7 @@
 package com.kynsof.identity.infrastructure.identity;
 
 import com.kynsof.identity.domain.dto.BusinessDto;
+import com.kynsof.identity.domain.dto.GeographicLocationDto;
 import com.kynsof.identity.domain.dto.enumType.EBusinessStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -50,7 +51,16 @@ public class Business {
     }
 
     public BusinessDto toAggregate () {
-        return new BusinessDto(id, name, latitude, longitude, description, logo,
-                ruc, status, geographicLocation.toAggregate());
+        return new BusinessDto(
+                id, 
+                name, 
+                latitude, 
+                longitude, 
+                description, 
+                logo,
+                ruc, 
+                status, 
+                geographicLocation != null ? geographicLocation.toAggregate() : null
+        );
     }
 }
