@@ -32,13 +32,14 @@ public class ConsumerBusinessEventService {
             if (eventType.equals(EventType.CREATED)) {
                 this.service.create(new BusinessDto(eventRead.getId(), eventRead.getName(), eventRead.getLatitude(),
                         eventRead.getLongitude(), eventRead.getLogo()));
-
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion
             }
             if (eventType.equals(EventType.UPDATED)) {
                 //Definir accion
+                this.service.update(new BusinessDto(eventRead.getId(), eventRead.getName(), eventRead.getLatitude(),
+                        eventRead.getLongitude(), eventRead.getLogo()));
             }
         } catch (Exception ex) {
             Logger.getLogger(ConsumerBusinessEventService.class.getName()).log(Level.SEVERE, null, ex);
