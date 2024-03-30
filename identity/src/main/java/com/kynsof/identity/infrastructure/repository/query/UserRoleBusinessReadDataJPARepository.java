@@ -14,7 +14,7 @@ import org.springframework.data.repository.query.Param;
 public interface UserRoleBusinessReadDataJPARepository extends JpaRepository<UserRoleBusiness, UUID>, JpaSpecificationExecutor<UserRoleBusiness> {
     Page<UserRoleBusiness> findAll(Specification specification, Pageable pageable);
 
-    @Query("SELECT COUNT(u) FROM UserRoleBusiness u WHERE u.user.id = :userId AND u.role.id = :roleId AND u.business.id = :businessId")
-    Long countByUserIdAndRoleIdAndBusinessId(@Param("userId") UUID userId, @Param("roleId") UUID roleId, @Param("businessId") UUID businessId);
+    @Query("SELECT COUNT(u) FROM UserRoleBusiness u WHERE u.user.id = :userId AND u.role.id = :roleId AND u.business.id = :businessId AND u.deleted = :deleted")
+    Long countByUserIdAndRoleIdAndBusinessIdAndDeleted(@Param("userId") UUID userId, @Param("roleId") UUID roleId, @Param("businessId") UUID businessId, @Param("deleted") boolean deleted);
 
 }

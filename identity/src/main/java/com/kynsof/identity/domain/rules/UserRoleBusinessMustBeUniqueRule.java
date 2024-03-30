@@ -26,7 +26,7 @@ public class UserRoleBusinessMustBeUniqueRule extends BusinessRule {
 
     @Override
     public boolean isBroken() {
-        Long cant = service.countByUserIdAndRoleIdAndBusinessId(userRoleBusinessDto);
+        Long cant = service.countByUserIdAndRoleIdAndBusinessIdAndDeletedFalse(userRoleBusinessDto);
         return cant > 0;
     }
 

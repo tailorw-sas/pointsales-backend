@@ -47,11 +47,12 @@ public class UserRoleBusinessServiceImpl implements IUserRoleBusinessService {
     }
 
     @Override
-    public Long countByUserIdAndRoleIdAndBusinessId(UserRoleBusinessDto userRoleBusinessDto) {
-        return this.queryRepository.countByUserIdAndRoleIdAndBusinessId(
+    public Long countByUserIdAndRoleIdAndBusinessIdAndDeletedFalse(UserRoleBusinessDto userRoleBusinessDto) {
+        return this.queryRepository.countByUserIdAndRoleIdAndBusinessIdAndDeleted(
                 userRoleBusinessDto.getUser().getId(),
                 userRoleBusinessDto.getRole().getId(),
-                userRoleBusinessDto.getBusiness().getId()
+                userRoleBusinessDto.getBusiness().getId(),
+                false
         );
     }
 
