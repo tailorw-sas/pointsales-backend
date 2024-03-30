@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class AFileService implements IAFileService {
+public class AFileServiceImpl implements IAFileService {
 
     @Autowired
     private FileWriteDataJPARepository commandRepository;

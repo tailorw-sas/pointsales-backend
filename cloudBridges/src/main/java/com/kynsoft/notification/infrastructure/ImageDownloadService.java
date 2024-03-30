@@ -1,4 +1,4 @@
-package com.kynsoft.notification.application;
+package com.kynsoft.notification.infrastructure;
 
 
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;

@@ -1,4 +1,4 @@
-package com.kynsoft.notification.application.dto;
+package com.kynsoft.notification.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
