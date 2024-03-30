@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
+import com.kynsof.share.core.domain.kafka.event.EventType;
 import com.kynsof.share.core.infrastructure.util.CustomMultipartFile;
 import com.kynsoft.notification.domain.dto.AFileDto;
 import com.kynsoft.notification.domain.service.IAFileService;
@@ -35,13 +36,45 @@ public class ConsumerSaveFileEventService {
             JsonNode rootNode = objectMapper.readTree(event);
 
             FileKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), FileKafka.class);
+            EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
-            MultipartFile file = new CustomMultipartFile(eventRead.getFile(), eventRead.getFileName());
-            try {
-                String fileUrl = amazonClient.save(file, eventRead.getFileName());
-                this.fileService.create(new AFileDto(eventRead.getId(), eventRead.getFileName(), eventRead.getMicroServiceName(), fileUrl));
-            } catch (IOException ex) {
-                Logger.getLogger(ConsumerSaveFileEventService.class.getName()).log(Level.SEVERE, null, ex);
+            if (eventType.equals(EventType.CREATED)) {
+                //Definir accion
+                System.err.println("#######################################################");
+                System.err.println("#######################################################");
+                System.err.println("CREATED");
+                System.err.println("#######################################################");
+                System.err.println("#######################################################");
+
+                MultipartFile file = new CustomMultipartFile(eventRead.getFile(), eventRead.getFileName());
+                try {
+                    String fileUrl = amazonClient.save(file, eventRead.getFileName());
+                    this.fileService.create(new AFileDto(eventRead.getId(), eventRead.getFileName(), eventRead.getMicroServiceName(), fileUrl));
+                } catch (IOException ex) {
+                    Logger.getLogger(ConsumerSaveFileEventService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+            if (eventType.equals(EventType.DELETED)) {
+                System.err.println("#######################################################");
+                System.err.println("#######################################################");
+                System.err.println("DELETED");
+                System.err.println("#######################################################");
+                System.err.println("#######################################################");
+                    AFileDto deleteFile = this.fileService.findById(eventRead.getId());
+                    amazonClient.delete(deleteFile.getUrl());
+                    this.fileService.delete(eventRead.getId());
+
+            }
+            if (eventType.equals(EventType.UPDATED)) {
+                //Definir accion
+                System.err.println("#######################################################");
+                System.err.println("#######################################################");
+                System.err.println("SE EJECUTA UN EVENTO DE ACTUALIZACION");
+                System.err.println("#######################################################");
+                System.err.println("#######################################################");
+
+                //this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(), eventRead.getLastname(), "", PatientStatus.ACTIVE));
             }
 
         } catch (JsonProcessingException ex) {
