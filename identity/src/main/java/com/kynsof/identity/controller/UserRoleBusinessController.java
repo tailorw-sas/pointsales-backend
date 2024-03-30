@@ -3,6 +3,8 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.userrolbusiness.create.CreateUserRoleBusinessCommand;
 import com.kynsof.identity.application.command.userrolbusiness.create.CreateUserRoleBusinessMessage;
 import com.kynsof.identity.application.command.userrolbusiness.create.CreateUserRoleBusinessRequest;
+import com.kynsof.identity.application.command.userrolbusiness.delete.DeleteUserRolBusinessCommand;
+import com.kynsof.identity.application.command.userrolbusiness.delete.DeleteUserRolBusinessMessage;
 import com.kynsof.identity.application.command.userrolbusiness.update.UpdateUserRoleBusinessCommand;
 import com.kynsof.identity.application.command.userrolbusiness.update.UpdateUserRoleBusinessMessage;
 import com.kynsof.identity.application.command.userrolbusiness.update.UpdateUserRoleBusinessRequest;
@@ -47,6 +49,15 @@ public class UserRoleBusinessController {
 
         FindByIdUserRoleBusinessQuery query = new FindByIdUserRoleBusinessQuery(id);
         UserRoleBusinessResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DeleteUserRolBusinessMessage> delete(@PathVariable("id") UUID id) {
+
+        DeleteUserRolBusinessCommand command = new DeleteUserRolBusinessCommand(id);
+        DeleteUserRolBusinessMessage response = mediator.send(command);
 
         return ResponseEntity.ok(response);
     }

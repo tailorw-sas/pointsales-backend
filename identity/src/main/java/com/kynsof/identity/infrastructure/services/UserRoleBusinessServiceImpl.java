@@ -66,7 +66,9 @@ public class UserRoleBusinessServiceImpl implements IUserRoleBusinessService {
 
     @Override
     public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        UserRoleBusinessDto delete = this.findById(id);
+        delete.setDeleted(true);
+        this.commandRepository.save(new UserRoleBusiness(delete));
     }
 
     @Override

@@ -32,6 +32,9 @@ public class UserRoleBusiness {
     @JoinColumn(name = "business_id")
     private Business business;
 
+    @Column(nullable = true)
+    private boolean deleted;
+
     public UserRoleBusiness(UUID id, UserSystemDto user, RoleDto role, BusinessDto business) {
         this.id = id;
         this.user = new UserSystem(user);
@@ -44,6 +47,7 @@ public class UserRoleBusiness {
         this.user = new UserSystem(userRoleBusinessDto.getUser());
         this.role = new RoleSystem(userRoleBusinessDto.getRole());
         this.business = new Business(userRoleBusinessDto.getBusiness());
+        this.deleted = userRoleBusinessDto.isDeleted();
     }
 
     public UserRoleBusinessDto toAggregate () {

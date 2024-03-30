@@ -5,10 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
-import lombok.AllArgsConstructor;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class UserRoleBusinessDto {
@@ -16,4 +14,13 @@ public class UserRoleBusinessDto {
     private UserSystemDto user;
     private RoleDto role;
     private BusinessDto business;
+    private boolean deleted = false;
+
+    public UserRoleBusinessDto(UUID id, UserSystemDto user, RoleDto role, BusinessDto business) {
+        this.id = id;
+        this.user = user;
+        this.role = role;
+        this.business = business;
+    }
+
 }
