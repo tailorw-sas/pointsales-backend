@@ -7,10 +7,12 @@ import com.kynsof.identity.domain.interfaces.service.IPermissionService;
 import com.kynsof.identity.infrastructure.identity.Permission;
 import com.kynsof.identity.infrastructure.repository.command.PermissionWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.PermissionReadDataJPARepository;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,28 +41,18 @@ public class PermissionServiceImpl implements IPermissionService {
 
     @Override
     public void update(PermissionDto objectDto) {
-        if (objectDto.getId() == null) {
-            throw new BusinessException(DomainErrorMessage.PERMISSION_OR_ID_NULL, "Permission DTO or ID cannot be null.");
-        }
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(objectDto, "Permission", "Permission DTO cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(objectDto.getId(), "Permission.id", "Permission ID cannot be null."));
 
-        this.queryRepository.findById(objectDto.getId())
-                .map(object -> {
-                    if (objectDto.getDescription() != null) {
-                        object.setDescription(objectDto.getDescription());
-                    }
-                    if (objectDto.getModule() != null) {
-                        object.setModule(objectDto.getModule());
-                    }
-                    if (objectDto.getStatus() != null) {
-                        object.setStatus(objectDto.getStatus());
-                    }
-                    if (objectDto.getCode() != null) {
-                        object.setCode(objectDto.getCode());
-                    }
-                    return this.queryRepository.save(object);
-                })
+        Permission object = this.queryRepository.findById(objectDto.getId())
                 .orElseThrow(() -> new BusinessException(DomainErrorMessage.PERMISSION_NOT_FOUND, "Permission not found."));
 
+        object.setDescription(objectDto.getDescription() != null ? objectDto.getDescription() : object.getDescription());
+        object.setModule(objectDto.getModule()!= null ? objectDto.getModule(): object.getModule());
+        object.setCode(objectDto.getCode()!= null ? objectDto.getCode(): object.getCode());
+        object.setStatus(objectDto.getStatus() != object.getStatus() ? objectDto.getStatus() : object.getStatus());
+
+        this.queryRepository.save(object);
     }
 
     @Override
