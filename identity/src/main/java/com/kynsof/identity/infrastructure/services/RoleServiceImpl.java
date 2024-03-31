@@ -115,6 +115,6 @@ public class RoleServiceImpl implements IRoleService {
             }
             return permissions;
         }
-        throw new RuntimeException("RolSystem not found.");
+        throw new BusinessException(DomainErrorMessage.ROLE_NOT_FOUND, "Role not found.");
     }
 }
