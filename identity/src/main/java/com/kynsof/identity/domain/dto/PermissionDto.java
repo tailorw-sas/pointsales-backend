@@ -18,6 +18,8 @@ public class PermissionDto {
     private String module;
     private PermissionStatusEnm status;
 
+    private boolean deleted = false;
+
     /**
      * Usar este constructor en el create.
      *
