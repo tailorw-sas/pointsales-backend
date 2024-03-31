@@ -1,6 +1,5 @@
 package com.kynsof.identity.infrastructure.services;
 
-
 import com.kynsof.identity.application.query.roles.getSearch.RoleSystemsResponse;
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RolePermissionDto;
@@ -10,10 +9,13 @@ import com.kynsof.identity.infrastructure.identity.RolePermission;
 import com.kynsof.identity.infrastructure.identity.RoleSystem;
 import com.kynsof.identity.infrastructure.repository.command.RolWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.RolReadDataJPARepository;
+import com.kynsof.share.core.domain.RulesChecker;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,18 +43,18 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public void update(RoleDto roleUpdateDto) {
-        if (roleUpdateDto == null || roleUpdateDto.getId() == null) {
-            throw new IllegalArgumentException("Role DTO or ID cannot be null");
-        }
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(roleUpdateDto, "Role", "Role DTO cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(roleUpdateDto.getId(), "Role.id", "Role ID cannot be null."));
 
-        this.repositoryQuery.findById(roleUpdateDto.getId())
-                .map(role -> {
-                    if (roleUpdateDto.getName() != null) role.setName(roleUpdateDto.getName());
-                    if (roleUpdateDto.getDescription() != null) role.setDescription(roleUpdateDto.getDescription());
+        RoleSystem object = this.repositoryQuery.findById(roleUpdateDto.getId())
+                .orElseThrow(() -> new BusinessException(DomainErrorMessage.ROLE_NOT_FOUND, "Role not found."));
 
-                    return this.repositoryCommand.save(role);
-                })
-                .orElseThrow(() -> new EntityNotFoundException("Role with ID " + roleUpdateDto.getId() + " not found"));
+        object.setDescription(roleUpdateDto.getDescription() != null ? roleUpdateDto.getDescription() : object.getDescription());
+        object.setName(roleUpdateDto.getName() != null ? roleUpdateDto.getName() : object.getName());
+        object.setStatus(roleUpdateDto.getStatus() != object.getStatus() ? roleUpdateDto.getStatus() : object.getStatus());
+
+        this.repositoryCommand.save(object);
+
     }
 
     @Override
@@ -71,13 +73,14 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-       filterCreteria(filterCriteria);
+        filterCreteria(filterCriteria);
 
         GenericSpecificationsBuilder<RoleSystem> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<RoleSystem> data = this.repositoryQuery.findAll(specifications, pageable);
 
         return getPaginatedResponse(data);
     }
+
     private void filterCreteria(List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
             if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
