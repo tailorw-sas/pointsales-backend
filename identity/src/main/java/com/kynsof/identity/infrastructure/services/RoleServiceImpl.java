@@ -68,7 +68,7 @@ public class RoleServiceImpl implements IRoleService {
         if (rolSystem.isPresent()) {
             return rolSystem.get().toAggregate();
         }
-        throw new RuntimeException("RolSystem not found.");
+        throw new BusinessException(DomainErrorMessage.ROLE_NOT_FOUND, "Role not found.");
     }
 
     @Override
