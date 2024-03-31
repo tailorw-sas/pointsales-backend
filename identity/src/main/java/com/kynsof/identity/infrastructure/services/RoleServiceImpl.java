@@ -59,7 +59,10 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public void delete(UUID id) {
-
+        RoleDto delete = this.findById(id);
+        delete.setDeleted(true);
+        delete.setStatus(RoleStatusEnm.INACTIVE);
+        this.repositoryCommand.save(new RoleSystem(delete));
     }
 
     @Override

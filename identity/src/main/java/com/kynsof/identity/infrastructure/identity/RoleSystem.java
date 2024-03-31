@@ -17,8 +17,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-//@Data
-//@Audited
 @Table(name = "role_system")
 public class RoleSystem {
 
@@ -30,6 +28,9 @@ public class RoleSystem {
     private String description;
     @Enumerated(EnumType.STRING)
     private RoleStatusEnm status;
+
+    @Column(nullable = true)
+    private boolean deleted;
 
     // Relationships
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -43,6 +44,7 @@ public class RoleSystem {
         this.name = dto.getName();
         this.description = dto.getDescription();
         this.status = dto.getStatus();
+        this.deleted = dto.isDeleted();
     }
 
     public RoleDto toAggregate() {

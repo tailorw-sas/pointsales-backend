@@ -1,17 +1,21 @@
 package com.kynsof.identity.domain.dto;
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 public class RoleDto {
     private UUID id;
     private String name;
     private String description;
-    private com.kynsof.identity.domain.dto.RoleStatusEnm status;
+    private RoleStatusEnm status;
+
+    private boolean deleted;
 
     /**
      * Usar este constructor en le create y update
@@ -20,7 +24,7 @@ public class RoleDto {
      * @param description
      * @param status 
      */
-    public RoleDto(UUID id, String name, String description, com.kynsof.identity.domain.dto.RoleStatusEnm status) {
+    public RoleDto(UUID id, String name, String description, RoleStatusEnm status) {
         this.id = id;
         this.name = name;
         this.description = description;
