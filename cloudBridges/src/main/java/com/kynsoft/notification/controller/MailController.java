@@ -2,10 +2,10 @@ package com.kynsoft.notification.controller;
 
 import com.kynsoft.notification.application.SendEmailRequest;
 import com.kynsoft.notification.application.SendEmailResponse;
-import com.kynsoft.notification.application.dto.EmailRequest;
-import com.kynsoft.notification.application.dto.MailJetAttachment;
-import com.kynsoft.notification.application.dto.MailJetRecipient;
-import com.kynsoft.notification.application.dto.MailJetVar;
+import com.kynsoft.notification.domain.dto.EmailRequest;
+import com.kynsoft.notification.domain.dto.MailJetAttachment;
+import com.kynsoft.notification.domain.dto.MailJetRecipient;
+import com.kynsoft.notification.domain.dto.MailJetVar;
 import com.kynsoft.notification.domain.service.IEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

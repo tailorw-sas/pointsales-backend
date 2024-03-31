@@ -1,7 +1,7 @@
 package com.kynsoft.notification.controller;
 
 
-import com.kynsoft.notification.application.ImageDownloadService;
+import com.kynsoft.notification.infrastructure.ImageDownloadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

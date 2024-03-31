@@ -1,6 +1,6 @@
 package com.kynsoft.notification.domain.service;
 
-import com.kynsoft.notification.application.dto.EmailRequest;
+import com.kynsoft.notification.domain.dto.EmailRequest;
 import com.mailjet.client.errors.MailjetException;
 import org.springframework.web.multipart.MultipartFile;
 
