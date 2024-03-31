@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -23,9 +22,6 @@ public class BusinessResponse implements IResponse {
     private String logo;
     private String ruc;
     private EBusinessStatus status;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
-    private LocalDateTime deleteAt;
 
     private GeographicLocationResponse geolocation;
 
@@ -38,9 +34,6 @@ public class BusinessResponse implements IResponse {
         this.logo = object.getLogo();
         this.ruc = object.getRuc();
         this.status = object.getStatus();
-        this.createAt = object.getCreateAt();
-        this.updateAt = object.getUpdateAt();
-        this.deleteAt = object.getDeleteAt();
         this.geolocation = object.getGeographicLocationDto() != null ? new GeographicLocationResponse(object.getGeographicLocationDto()) : null;
     }
 
