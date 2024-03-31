@@ -10,12 +10,13 @@ import java.util.UUID;
 
 @Getter
 public class UpdateRoleCommand implements ICommand {
+
     private final UUID id;
     private final String name;
     private final String description;
-    private RoleStatusEnm status;
-    public UpdateRoleCommand(UUID id, String name, String description, RoleStatusEnm status) {
+    private final RoleStatusEnm status;
 
+    public UpdateRoleCommand(UUID id, String name, String description, RoleStatusEnm status) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -28,6 +29,6 @@ public class UpdateRoleCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return null;
+        return new UpdateRoleMessage(id);
     }
 }

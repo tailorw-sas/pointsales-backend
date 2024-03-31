@@ -39,10 +39,11 @@ public class RoleController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<UpdateRoleMessage> updateRole(@PathVariable UUID id, @RequestBody RoleRequest roleUpdateDto) {
-        UpdateRoleCommand command = UpdateRoleCommand.fromRequest(id,roleUpdateDto);
+        UpdateRoleCommand command = UpdateRoleCommand.fromRequest(id, roleUpdateDto);
         UpdateRoleMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteServices(@PathVariable("id") UUID id) {
 
@@ -53,10 +54,9 @@ public class RoleController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
-    {
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
-        GetSearchRoleSystemsQuery query = new GetSearchRoleSystemsQuery(pageable, request.getFilter(),request.getQuery());
+        GetSearchRoleSystemsQuery query = new GetSearchRoleSystemsQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
