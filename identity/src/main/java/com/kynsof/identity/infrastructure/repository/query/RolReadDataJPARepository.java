@@ -17,4 +17,6 @@ public interface RolReadDataJPARepository extends JpaRepository<RoleSystem, UUID
 
     @Query("SELECT distinct r FROM RoleSystem r JOIN r.userRoleBusinesses urb WHERE urb.user.id = :userId AND urb.business.id = :businessId")
     List<RoleSystem> findRolesByUserIdAndBusinessId(UUID userId, UUID businessId);
+
+    Long countByName(String name);
 }

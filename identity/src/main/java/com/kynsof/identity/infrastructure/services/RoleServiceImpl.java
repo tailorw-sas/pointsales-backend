@@ -5,6 +5,7 @@ import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RolePermissionDto;
 import com.kynsof.identity.domain.dto.RoleStatusEnm;
 import com.kynsof.identity.domain.interfaces.service.IRoleService;
+import com.kynsof.identity.domain.rules.RolNameMustBeUniqueRule;
 import com.kynsof.identity.infrastructure.identity.RolePermission;
 import com.kynsof.identity.infrastructure.identity.RoleSystem;
 import com.kynsof.identity.infrastructure.repository.command.RolWriteDataJPARepository;
@@ -37,8 +38,9 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public UUID create(RoleDto dto) {
-        RoleSystem allergy = this.repositoryCommand.save(new RoleSystem(dto));
-        return allergy.getId();
+        RulesChecker.checkRule(new RolNameMustBeUniqueRule(this, dto));
+        RoleSystem rol = this.repositoryCommand.save(new RoleSystem(dto));
+        return rol.getId();
     }
 
     @Override
@@ -120,4 +122,10 @@ public class RoleServiceImpl implements IRoleService {
         }
         throw new BusinessException(DomainErrorMessage.ROLE_NOT_FOUND, "Role not found.");
     }
+
+    @Override
+    public Long countByName(String name) {
+        return this.repositoryQuery.countByName(name);
+    }
+
 }

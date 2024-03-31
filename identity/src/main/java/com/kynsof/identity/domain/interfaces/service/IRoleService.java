@@ -18,4 +18,5 @@ public interface IRoleService {
     List<RolePermissionDto> findPermissionForRoleById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    Long countByName(String name);
 }
