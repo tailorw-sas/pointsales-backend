@@ -23,7 +23,7 @@ public class Permission {
     @Column(unique = true)
     private String code;
     private String description;
-    private String module;
+
     @Enumerated(EnumType.STRING)
     private PermissionStatusEnm status;
 
@@ -34,16 +34,20 @@ public class Permission {
     @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<RolePermission> rolePermissions = new HashSet<>();
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "module_id")
+    private SystemModule module;
+
     public Permission(PermissionDto permissionDto) {
         this.id = permissionDto.getId();
         this.code = permissionDto.getCode();
         this.description = permissionDto.getDescription();
-        this.module = permissionDto.getModule();
+        this.module = new SystemModule(permissionDto.getModule());
         this.status = permissionDto.getStatus();
         this.deleted = permissionDto.isDeleted();
     }
 
     public PermissionDto toAggregate() {
-        return new PermissionDto(this.id, this.code, this.description, this.module, this.status);
+        return new PermissionDto(this.id, this.code, this.description, this.module.toAggregate(), this.status);
     }
 }

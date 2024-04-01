@@ -16,6 +16,6 @@ public class UpdatePermissionRequest {
     private UUID id;
     private String code;
     private String description;
-    private String module;
+    private UUID idModule;
     private PermissionStatusEnm status;
 }

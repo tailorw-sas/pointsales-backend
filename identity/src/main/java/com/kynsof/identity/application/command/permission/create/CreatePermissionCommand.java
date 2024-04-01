@@ -14,17 +14,17 @@ public class CreatePermissionCommand implements ICommand {
     private UUID id;
     private String code;
     private String description;
-    private String module;
+    private UUID idModule;
 
-    public CreatePermissionCommand(String code, String description, String module) {
+    public CreatePermissionCommand(String code, String description, UUID idModule) {
         this.id = UUID.randomUUID();
         this.code = code;
         this.description = description;
-        this.module = module;
+        this.idModule = idModule;
     }
 
     public static CreatePermissionCommand fromRequest(CreatePermissionRequest request) {
-        return new CreatePermissionCommand(request.getCode(), request.getDescription(), request.getModule());
+        return new CreatePermissionCommand(request.getCode(), request.getDescription(), request.getIdModule());
     }
 
     @Override

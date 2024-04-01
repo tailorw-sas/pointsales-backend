@@ -15,7 +15,7 @@ public class PermissionDto {
     private UUID id;
     private String code;
     private String description;
-    private String module;
+    private ModuleDto module;
     private PermissionStatusEnm status;
 
     private boolean deleted = false;
@@ -28,7 +28,7 @@ public class PermissionDto {
      * @param description
      * @param module
      */
-    public PermissionDto(UUID id, String code, String description, String module) {
+    public PermissionDto(UUID id, String code, String description, ModuleDto module) {
         this.id = id;
         this.code = code;
         this.description = description;
@@ -44,7 +44,7 @@ public class PermissionDto {
      * @param module
      * @param status
      */
-    public PermissionDto(UUID id, String code, String description, String module, PermissionStatusEnm status) {
+    public PermissionDto(UUID id, String code, String description, ModuleDto module, PermissionStatusEnm status) {
         this.id = id;
         this.code = code;
         this.description = description;

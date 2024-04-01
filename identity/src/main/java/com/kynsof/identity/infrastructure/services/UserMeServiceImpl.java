@@ -64,7 +64,7 @@ public class UserMeServiceImpl implements IUserMeService {
 
                 List<PermissionInfo> permissionsInfo = permissions.stream()
                         .map(permission -> {
-                            PermissionInfo pInfo = new PermissionInfo(permission.getId(), permission.getModule(), permission.getCode(), permission.getDescription());
+                            PermissionInfo pInfo = new PermissionInfo(permission.getId(), permission.getModule().toAggregate(), permission.getCode(), permission.getDescription());
                             uniquePermissions.add(pInfo);
                             return pInfo;
                         }).collect(Collectors.toList());

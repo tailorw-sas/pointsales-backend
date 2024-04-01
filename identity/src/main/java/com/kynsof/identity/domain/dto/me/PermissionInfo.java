@@ -1,5 +1,6 @@
 package com.kynsof.identity.domain.dto.me;
 
+import com.kynsof.identity.domain.dto.ModuleDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PermissionInfo {
     private UUID id;
-    private String module;
+    private ModuleDto module;
     private String code;
     private String name;
 
