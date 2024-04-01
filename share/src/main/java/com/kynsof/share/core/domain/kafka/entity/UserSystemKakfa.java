@@ -1,5 +1,6 @@
 package com.kynsof.share.core.domain.kafka.entity;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,4 +16,5 @@ public class UserSystemKakfa {
     private String email;
     private String name;
     private String lastName;
+    List<String> roles;
 }
