@@ -31,7 +31,8 @@ public class ProducerRegisterUserSystemEventService {
                     entity.getUsername(), 
                     entity.getEmail(), 
                     entity.getFirstname(), 
-                    entity.getLastname()
+                    entity.getLastname(),
+                    entity.getRoles()
             );
 
             ObjectMapper objectMapper = new ObjectMapper();
