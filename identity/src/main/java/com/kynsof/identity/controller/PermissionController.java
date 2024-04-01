@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/`permission`")
+@RequestMapping("/api/permission")
 public class PermissionController {
 
     private final IMediator mediator;
