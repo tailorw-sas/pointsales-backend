@@ -5,17 +5,20 @@ import com.kynsof.identity.application.command.module.create.CreateModuleMessage
 import com.kynsof.identity.application.command.module.create.CreateModuleRequest;
 import com.kynsof.identity.application.command.module.update.UpdateModuleCommand;
 import com.kynsof.identity.application.command.module.update.UpdateModuleMessage;
+import com.kynsof.identity.application.query.module.buildStructure.BuildStructureQuery;
+import com.kynsof.identity.application.query.module.buildStructure.ModuleBuildResponse;
 import com.kynsof.identity.application.query.module.getbyid.FindModuleByIdQuery;
 import com.kynsof.identity.application.query.module.getbyid.ModuleResponse;
 import com.kynsof.identity.application.query.module.search.GetSearchModuleQuery;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/module")
@@ -35,7 +38,12 @@ public class ModuleController {
 
         return ResponseEntity.ok(response);
     }
-
+    @GetMapping(path = "/build")
+    public ResponseEntity<ModuleBuildResponse> build() {
+        BuildStructureQuery query = new BuildStructureQuery();
+        ModuleBuildResponse response = mediator.send(query);
+        return ResponseEntity.ok(response);
+    }
     @GetMapping(path = "/{id}")
     public ResponseEntity<ModuleResponse> getById(@PathVariable UUID id) {
 
