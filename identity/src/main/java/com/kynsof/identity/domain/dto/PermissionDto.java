@@ -35,6 +35,12 @@ public class PermissionDto {
         this.module = module;
     }
 
+    public PermissionDto(UUID id, String code, String description) {
+        this.id = id;
+        this.code = code;
+        this.description = description;
+    }
+
     /**
      * Usar este constructor en el update.
      *

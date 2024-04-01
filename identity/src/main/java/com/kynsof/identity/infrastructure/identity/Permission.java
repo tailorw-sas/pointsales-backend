@@ -31,7 +31,7 @@ public class Permission {
     private boolean deleted;
 
     // Relationships
-    @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<RolePermission> rolePermissions = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)

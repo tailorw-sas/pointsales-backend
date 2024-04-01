@@ -1,7 +1,10 @@
 package com.kynsof.identity.application.query.module.getbyid;
 
 import com.kynsof.identity.domain.dto.ModuleDto;
+import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,12 +19,14 @@ public class ModuleResponse implements IResponse {
     private String name;
     private String description;
     private byte [] image;
+    Set<PermissionDto> permissions = new HashSet<>();
 
     public ModuleResponse(ModuleDto object) {
         this.id = object.getId();
         this.name = object.getName();
         this.description = object.getDescription();
         this.image = object.getImage();
+        permissions.addAll(object.getPermissions());
     }
 
     public ModuleResponse(UUID id, String name) {
