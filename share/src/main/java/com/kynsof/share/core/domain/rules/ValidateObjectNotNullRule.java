@@ -5,7 +5,7 @@ import com.kynsof.share.core.domain.response.ErrorField;
 
 public class ValidateObjectNotNullRule<T> extends BusinessRule {
 
-    private T object;
+    private final T object;
 
     public ValidateObjectNotNullRule(T objectValidate, String objectName, String msg) {
         super(DomainErrorMessage.OBJECT_NOT_NULL, new ErrorField(objectName, msg));
