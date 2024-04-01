@@ -17,17 +17,21 @@ public class UpdatePermissionCommand implements ICommand {
     private String description;
     private UUID idModule;
     private PermissionStatusEnm status;
+    private String action;
 
-    public UpdatePermissionCommand(UUID id, String code, String description, UUID idModule, PermissionStatusEnm status) {
+    public UpdatePermissionCommand(UUID id, String code, String description, UUID idModule, PermissionStatusEnm status,
+                                   String action) {
         this.id = id;
         this.code = code;
         this.description = description;
         this.idModule = idModule;
         this.status = status;
+        this.action = action;
     }
 
     public static UpdatePermissionCommand fromRequest(UpdatePermissionRequest request) {
-        return new UpdatePermissionCommand(request.getId(), request.getCode(), request.getDescription(), request.getModuleId(), request.getStatus());
+        return new UpdatePermissionCommand(request.getId(), request.getCode(), request.getDescription(),
+                request.getModuleId(), request.getStatus(), request.getAction());
     }
 
     @Override

@@ -23,6 +23,7 @@ public class Permission {
     @Column(unique = true)
     private String code;
     private String description;
+    private String action;
 
     @Enumerated(EnumType.STRING)
     private PermissionStatusEnm status;
@@ -42,12 +43,13 @@ public class Permission {
         this.id = permissionDto.getId();
         this.code = permissionDto.getCode();
         this.description = permissionDto.getDescription();
+        this.action = permissionDto.getDescription();
         this.module = new SystemModule(permissionDto.getModule());
         this.status = permissionDto.getStatus();
         this.deleted = permissionDto.isDeleted();
     }
 
     public PermissionDto toAggregate() {
-        return new PermissionDto(this.id, this.code, this.description, this.module.toAggregate(), this.status);
+        return new PermissionDto(this.id, this.code, this.description, this.module.toAggregate(), this.status, this.action);
     }
 }

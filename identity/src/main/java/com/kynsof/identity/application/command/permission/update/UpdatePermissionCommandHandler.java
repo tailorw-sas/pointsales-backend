@@ -21,6 +21,7 @@ public class UpdatePermissionCommandHandler  implements ICommandHandler<UpdatePe
     @Override
     public void handle(UpdatePermissionCommand command) {
        ModuleDto module = this.serviceModule.findById(command.getIdModule());
-       service.update(new PermissionDto(command.getId(), command.getCode(), command.getDescription(), module, command.getStatus()));
+       service.update(new PermissionDto(command.getId(), command.getCode(), command.getDescription(), module,
+               command.getStatus(), command.getAction()));
     }
 }
