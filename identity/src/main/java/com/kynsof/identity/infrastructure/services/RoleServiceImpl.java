@@ -3,7 +3,7 @@ package com.kynsof.identity.infrastructure.services;
 import com.kynsof.identity.application.query.roles.getSearch.RoleSystemsResponse;
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RolePermissionDto;
-import com.kynsof.identity.domain.dto.RoleStatusEnm;
+import com.kynsof.identity.domain.dto.enumType.RoleStatusEnm;
 import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.identity.domain.rules.RolNameMustBeUniqueRule;
 import com.kynsof.identity.infrastructure.identity.RolePermission;

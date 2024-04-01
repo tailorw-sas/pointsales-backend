@@ -1,10 +1,11 @@
 package com.kynsof.identity.domain.dto;
 
+import com.kynsof.identity.domain.dto.enumType.RoleStatusEnm;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
-import lombok.Getter;
-import lombok.Setter;
 
 @Setter
 @Getter

@@ -1,7 +1,7 @@
 package com.kynsof.identity.infrastructure.identity;
 
 import com.kynsof.identity.domain.dto.RoleDto;
-import com.kynsof.identity.domain.dto.RoleStatusEnm;
+import com.kynsof.identity.domain.dto.enumType.RoleStatusEnm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
