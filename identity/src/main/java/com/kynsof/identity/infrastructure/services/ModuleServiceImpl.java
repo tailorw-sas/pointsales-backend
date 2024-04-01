@@ -2,6 +2,8 @@ package com.kynsof.identity.infrastructure.services;
 
 import com.kynsof.identity.application.query.module.getbyid.ModuleResponse;
 import com.kynsof.identity.domain.dto.ModuleDto;
+import com.kynsof.identity.domain.dto.moduleDto.ModuleDataDto;
+import com.kynsof.identity.domain.dto.moduleDto.ModuleNodeDto;
 import com.kynsof.identity.domain.interfaces.service.IModuleService;
 import com.kynsof.identity.infrastructure.identity.SystemModule;
 import com.kynsof.identity.infrastructure.repository.command.ModuleWriteDataJPARepository;
@@ -83,5 +85,36 @@ public class ModuleServiceImpl implements IModuleService {
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
+
+
+    public List<ModuleNodeDto> buildStructure() {
+        // Inicializa tu estructura root aquí.
+        List<SystemModule> modules = queryRepository.findAll();
+        List<ModuleNodeDto> root = new ArrayList<>();
+
+        for (SystemModule module : modules) {
+            ModuleNodeDto moduleNode = new ModuleNodeDto();
+            moduleNode.setKey(module.getId().toString());
+            moduleNode.setData(new ModuleDataDto(module.getName(), "Module", module.getName()));
+
+            // Asumiendo que puedes acceder a los permisos relacionados de alguna manera desde el módulo
+//            List<ModuleNodeDto> permissionsNodes = module.get().stream().map(permission -> {
+//                ModuleNodeDto permissionNode = new ModuleNodeDto();
+//                permissionNode.setKey(permission.getId().toString());
+//                ModuleDataDto permissionData = new ModuleDataDto(permission.getDescription(), "Permission", permission.getCode());
+//                permissionNode.setData(permissionData);
+//                // No children para permisos
+//                return permissionNode;
+//            }).collect(Collectors.toList());
+
+        //    moduleNode.setChildren(permissionsNodes); // Agrega los permisos como hijos del módulo
+
+            root.add(moduleNode);
+        }
+
+        return root;
+    }
+
+
 
 }
