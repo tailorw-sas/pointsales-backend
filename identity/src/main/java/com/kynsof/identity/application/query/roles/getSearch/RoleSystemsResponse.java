@@ -2,7 +2,7 @@ package com.kynsof.identity.application.query.roles.getSearch;
 
 
 import com.kynsof.identity.domain.dto.RoleDto;
-import com.kynsof.identity.domain.dto.RoleStatusEnm;
+import com.kynsof.identity.domain.dto.enumType.RoleStatusEnm;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

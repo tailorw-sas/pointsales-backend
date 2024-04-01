@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.identity.domain.dto.RoleDto;
-import com.kynsof.identity.domain.dto.RoleStatusEnm;
+import com.kynsof.identity.domain.dto.enumType.RoleStatusEnm;
 import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.share.core.domain.kafka.entity.RoleKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
