@@ -13,15 +13,15 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 
 @Service
 public class ModuleServiceImpl implements IModuleService {
@@ -39,8 +39,8 @@ public class ModuleServiceImpl implements IModuleService {
 
     @Override
     public void update(ModuleDto object) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(object, "Module", "Module DTO cannot be null."));
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(object.getId(), "Module.id", "Module ID cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(object, "Module", "Module DTO cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(object.getId(), "Module.id", "Module ID cannot be null."));
 
         SystemModule objectUpdate = this.queryRepository.findById(object.getId())
                 .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Module not found."));
