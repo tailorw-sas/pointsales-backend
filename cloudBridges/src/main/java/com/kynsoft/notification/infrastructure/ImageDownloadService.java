@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Base64;
 import java.util.UUID;
 
 @Service
@@ -33,5 +34,10 @@ public class ImageDownloadService {
         } else {
             throw new RuntimeException("Failed to download image from: " + fileSave.getUrl());
         }
+    }
+
+    public String downloadImageAsBase64(UUID id) {
+        byte[] imageBytes = downloadImage(id);
+        return Base64.getEncoder().encodeToString(imageBytes);
     }
 }

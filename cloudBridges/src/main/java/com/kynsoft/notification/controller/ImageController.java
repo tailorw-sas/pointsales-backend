@@ -29,7 +29,21 @@ public class ImageController {
         byte[] imageBytes = imageDownloadService.downloadImage(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .contentType(MediaType.IMAGE_JPEG)
+                .contentType(MediaType.IMAGE_PNG)
                 .body(imageBytes);
+    }
+
+    @GetMapping("/get-image-base64")
+    public ResponseEntity<String> getImageAsBase64(@RequestParam("id") UUID id) {
+        try {
+            String imageBase64 = imageDownloadService.downloadImageAsBase64(id);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(imageBase64);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al obtener la imagen: " + e.getMessage());
+        }
     }
 }

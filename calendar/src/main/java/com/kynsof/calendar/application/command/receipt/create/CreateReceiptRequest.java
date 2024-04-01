@@ -13,8 +13,7 @@ public class CreateReceiptRequest {
     private Double price;
     private Boolean express;
     private String reasons;
-    private UUID user;
-    private UUID schedule;
-    private UUID service;
-    private String requestId;
+    private UUID userId;
+    private UUID scheduleId;
+    private UUID serviceId;
 }
