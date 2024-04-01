@@ -3,6 +3,8 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.module.create.CreateModuleCommand;
 import com.kynsof.identity.application.command.module.create.CreateModuleMessage;
 import com.kynsof.identity.application.command.module.create.CreateModuleRequest;
+import com.kynsof.identity.application.command.module.update.UpdateModuleCommand;
+import com.kynsof.identity.application.command.module.update.UpdateModuleMessage;
 import com.kynsof.identity.application.query.module.getbyid.FindModuleByIdQuery;
 import com.kynsof.identity.application.query.module.getbyid.ModuleResponse;
 import com.kynsof.identity.application.query.module.search.GetSearchModuleQuery;
@@ -50,6 +52,14 @@ public class ModuleController {
         GetSearchModuleQuery query = new GetSearchModuleQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @PatchMapping(path = "/{id}")
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody CreateModuleRequest request) {
+
+        UpdateModuleCommand command = UpdateModuleCommand.fromRequest(request, id);
+        UpdateModuleMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.kynsof.identity.application.command.module.create;
 
-import com.kynsof.identity.application.command.business.create.*;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;

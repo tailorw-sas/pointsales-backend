@@ -6,10 +6,12 @@ import com.kynsof.identity.domain.interfaces.service.IModuleService;
 import com.kynsof.identity.infrastructure.identity.SystemModule;
 import com.kynsof.identity.infrastructure.repository.command.ModuleWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.ModuleReadDataJPARepository;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import java.util.ArrayList;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +39,17 @@ public class ModuleServiceImpl implements IModuleService {
 
     @Override
     public void update(ModuleDto object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(object, "Module", "Module DTO cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(object.getId(), "Module.id", "Module ID cannot be null."));
+
+        SystemModule objectUpdate = this.queryRepository.findById(object.getId())
+                .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Module not found."));
+        
+        objectUpdate.setDescription(object.getDescription() != null ? object.getDescription() : objectUpdate.getDescription());
+        objectUpdate.setImage(object.getImage() != null ? object.getImage() : objectUpdate.getImage());
+        objectUpdate.setName(object.getName() != null ? object.getName() : objectUpdate.getName());
+
+        this.commandRepository.save(objectUpdate);        
     }
 
     @Override
