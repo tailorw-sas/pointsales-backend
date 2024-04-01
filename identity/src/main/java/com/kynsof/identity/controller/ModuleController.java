@@ -5,8 +5,13 @@ import com.kynsof.identity.application.command.module.create.CreateModuleMessage
 import com.kynsof.identity.application.command.module.create.CreateModuleRequest;
 import com.kynsof.identity.application.query.module.getbyid.FindModuleByIdQuery;
 import com.kynsof.identity.application.query.module.getbyid.ModuleResponse;
+import com.kynsof.identity.application.query.module.search.GetSearchModuleQuery;
+import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import java.util.UUID;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +41,15 @@ public class ModuleController {
         ModuleResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchModuleQuery query = new GetSearchModuleQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
 }
