@@ -24,7 +24,7 @@ public class CreatePermissionCommand implements ICommand {
     }
 
     public static CreatePermissionCommand fromRequest(CreatePermissionRequest request) {
-        return new CreatePermissionCommand(request.getCode(), request.getDescription(), request.getIdModule());
+        return new CreatePermissionCommand(request.getCode(), request.getDescription(), request.getModuleId());
     }
 
     @Override

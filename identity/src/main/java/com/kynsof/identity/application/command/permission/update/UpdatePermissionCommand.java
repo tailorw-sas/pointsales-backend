@@ -27,7 +27,7 @@ public class UpdatePermissionCommand implements ICommand {
     }
 
     public static UpdatePermissionCommand fromRequest(UpdatePermissionRequest request) {
-        return new UpdatePermissionCommand(request.getId(), request.getCode(), request.getDescription(), request.getIdModule(), request.getStatus());
+        return new UpdatePermissionCommand(request.getId(), request.getCode(), request.getDescription(), request.getModuleId(), request.getStatus());
     }
 
     @Override
