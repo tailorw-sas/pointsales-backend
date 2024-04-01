@@ -17,12 +17,8 @@ public class ConfirmPaymentReceiptCommand implements ICommand {
     private final UUID scheduleId;
     private final UUID serviceId;
     private final EStatusReceipt status;
-    private final String requestId;
-    private final String authorizationCode;
-    private final String sessionId;
     public ConfirmPaymentReceiptCommand(UUID receiptId, UUID userId, UUID scheduleId, UUID serviceId,
-                                        EStatusReceipt status, String requestId, String authorizationCode,
-                                        String sessionId) {
+                                        EStatusReceipt status) {
 
 
         this.receiptId = receiptId;
@@ -30,15 +26,11 @@ public class ConfirmPaymentReceiptCommand implements ICommand {
         this.scheduleId = scheduleId;
         this.serviceId = serviceId;
         this.status = status;
-        this.requestId = requestId;
-        this.authorizationCode = authorizationCode;
-        this.sessionId = sessionId;
     }
 
     public static ConfirmPaymentReceiptCommand fromRequest(UUID receiptId, ConfirmPaymentReceiptRequest request) {
         return new ConfirmPaymentReceiptCommand(receiptId, request.getUserId(), request.getScheduleId(),
-                request.getServiceId(), request.getStatus(), request.getRequestId(), request.getAuthorizationCode(),
-                request.getSessionId());
+                request.getServiceId(), request.getStatus());
     }
 
     @Override

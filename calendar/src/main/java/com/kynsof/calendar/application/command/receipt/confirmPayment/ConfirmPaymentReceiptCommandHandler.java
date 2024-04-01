@@ -1,5 +1,10 @@
 package com.kynsof.calendar.application.command.receipt.confirmPayment;
 
+import com.kynsof.calendar.domain.dto.PatientDto;
+import com.kynsof.calendar.domain.dto.ReceiptDto;
+import com.kynsof.calendar.domain.dto.ScheduleDto;
+import com.kynsof.calendar.domain.dto.ServiceDto;
+import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import com.kynsof.calendar.domain.service.IPatientsService;
 import com.kynsof.calendar.domain.service.IReceiptService;
 import com.kynsof.calendar.domain.service.IScheduleService;
@@ -25,20 +30,14 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
 
     @Override
     public void handle(ConfirmPaymentReceiptCommand command) {
-//        PatientDto _patient = this.servicePatient.findById(command.getUser());
-//        ScheduleDto _schedule = this.serviceSchedule.findById(command.getSchedule());
-//        ServiceDto _service = this.serviceService.findById(command.getService());
-//
-//        service.create(new ReceiptDto(
-//                command.getId(),
-//                command.getPrice(),
-//                command.getExpress(),
-//                command.getReasons(),
-//                _patient,
-//                _schedule,
-//                _service,
-//                EStatusReceipt.PRE_RESERVE,""
-//
-//        ));
+        PatientDto _patient = this.servicePatient.findById(command.getUserId());
+        ScheduleDto _schedule = this.serviceSchedule.findById(command.getScheduleId());
+        ServiceDto _service = this.serviceService.findById(command.getServiceId());
+        ReceiptDto _receipt = this.service.findById(command.getReceiptId());
+           _receipt.setStatus(EStatusReceipt.PENDING_PAY);
+
+        service.update(
+               _receipt, command.getScheduleId(),command.getServiceId(), EStatusReceipt.PENDING_PAY, _service.getNormalAppointmentPrice(),
+                _receipt.getExpress(),_receipt.getReasons());
     }
 }

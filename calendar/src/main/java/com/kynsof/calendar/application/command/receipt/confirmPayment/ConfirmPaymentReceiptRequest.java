@@ -15,7 +15,7 @@ public class ConfirmPaymentReceiptRequest {
     private UUID scheduleId;
     private UUID serviceId;
     private EStatusReceipt status;
-    private String requestId;
-    private String authorizationCode;
-    private String sessionId;
+//    private String requestId;
+//    private String authorizationCode;
+//    private String sessionId;
 }
