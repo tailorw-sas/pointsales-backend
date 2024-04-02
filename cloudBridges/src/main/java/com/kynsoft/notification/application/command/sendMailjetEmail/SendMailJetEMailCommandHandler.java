@@ -7,7 +7,7 @@ import com.kynsoft.notification.domain.service.IEmailService;
 import com.kynsoft.notification.domain.service.ITemplateEntityService;
 import org.springframework.stereotype.Component;
 
-;import java.util.ArrayList;
+import java.util.ArrayList;
 
 @Component
 public class SendMailJetEMailCommandHandler implements ICommandHandler<SendMailJetEMailCommand> {
