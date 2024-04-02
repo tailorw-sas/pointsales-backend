@@ -4,9 +4,10 @@ import com.kynsoft.gateway.domain.dto.role.RoleRequest;
 import org.keycloak.representations.idm.RoleRepresentation;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface IRoleService {
-    void createRole(RoleRequest request);
+    UUID createRole(RoleRequest request);
     List<RoleRepresentation> findAllRoles();
     void assignRolesToUser(String userId, List<String> roleIds);
 }

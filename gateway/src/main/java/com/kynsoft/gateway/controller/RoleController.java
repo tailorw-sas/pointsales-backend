@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/role")
@@ -38,10 +39,10 @@ public class RoleController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ApiResponse<Boolean>> createRole(@RequestBody RoleRequest registerDTO) throws URISyntaxException {
+    public ResponseEntity<ApiResponse<UUID>> createRole(@RequestBody RoleRequest registerDTO) throws URISyntaxException {
         CreateRoleCommand command = new CreateRoleCommand(registerDTO.getName(), registerDTO.getDescription());
         CreateRoleMessage roleMessage = this.mediator.send(command);
-        return ResponseEntity.ok(ApiResponse.success(roleMessage.getResult()));
+        return ResponseEntity.ok(ApiResponse.success(roleMessage.getId()));
 //        String response = roleService.createRole(registerDTO);
 //        return Mono.justOrEmpty(ResponseEntity.created(new URI("/role")).body(response));
     }
