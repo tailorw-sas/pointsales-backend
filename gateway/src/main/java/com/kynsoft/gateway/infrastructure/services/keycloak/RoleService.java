@@ -1,6 +1,7 @@
 package com.kynsoft.gateway.infrastructure.services.keycloak;
 
-import com.kynsof.share.core.domain.exception.UserAlreadyExistsException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.AlreadyExistsException;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsoft.gateway.domain.dto.role.RoleRequest;
 import com.kynsoft.gateway.domain.interfaces.IRoleService;
@@ -52,7 +53,8 @@ public class RoleService implements IRoleService {
 
             createdRole.getId();
         }catch (ClientErrorException ex){
-            throw new UserAlreadyExistsException("Role already exists", new ErrorField("name", "Name is already in use"));
+            throw new AlreadyExistsException(DomainErrorMessage.ROLE_EXIT.toString(), new ErrorField("name",
+                    DomainErrorMessage.ROLE_EXIT.name()));
         }
 
     }
