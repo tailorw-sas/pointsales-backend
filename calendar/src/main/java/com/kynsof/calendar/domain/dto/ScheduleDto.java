@@ -1,6 +1,5 @@
 package com.kynsof.calendar.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +21,6 @@ public class ScheduleDto implements Serializable {
 
     private ResourceDto resource;
 
-    @JsonIgnoreProperties({"logo", "description", "resources", "services", "schedules", "receipts"})
     private BusinessDto business;
 
     private LocalDate date;
@@ -37,28 +35,5 @@ public class ScheduleDto implements Serializable {
 
     private EStatusSchedule status;
     private ServiceDto service;
-
-//    public ScheduleDto(UUID id, ResourceDto resource, LocalDate date, LocalTime startTime, LocalTime endingTime, int stock, EStatusSchedule status,
-//                       ServiceDto service) {
-//        this.id = id;
-//        this.resource = resource;
-//        this.date = date;
-//        this.startTime = startTime;
-//        this.endingTime = endingTime;
-//        this.stock = stock;
-//        this.status = status;
-//        this.service = service;
-//    }
-
-//    public ScheduleDto(UUID id, ResourceDto resource, BusinessDto business, LocalDate date, LocalTime startTime,
-//                       LocalTime endingTime, int stock) {
-//        this.id = id;
-//        this.resource = resource;
-//        this.business = business;
-//        this.date = date;
-//        this.startTime = startTime;
-//        this.endingTime = endingTime;
-//        this.stock = stock;
-//    }
 
 }
