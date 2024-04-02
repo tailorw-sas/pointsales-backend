@@ -45,7 +45,7 @@ public class AuthController {
 
     // @PreAuthorize("permitAll()")
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<Boolean>> registerUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<ApiResponse<String>> registerUser(@RequestBody UserRequest userRequest) {
         RegistryCommand command = new RegistryCommand(userRequest.getUsername(), userRequest.getEmail(), userRequest.getFirstname(),
                 userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
         RegistryMessage registryMessage = mediator.send(command);
@@ -53,7 +53,7 @@ public class AuthController {
     }
 
     @PostMapping("/register/system/user")
-    public ResponseEntity<ApiResponse<Boolean>> registerSystemUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<ApiResponse<String>> registerSystemUser(@RequestBody UserRequest userRequest) {
         RegistrySystemUserCommand command = new RegistrySystemUserCommand(userRequest.getUsername(), userRequest.getEmail(), userRequest.getFirstname(),
                 userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
         RegistrySystemUserMessage registryMessage = mediator.send(command);

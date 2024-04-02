@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 public class RegistrySystemUserCommand implements ICommand {
-    private Boolean resul;
+    private String resul;
     private final String username;
     private final String email;
     private final String firstname;

@@ -44,9 +44,10 @@ public class AuthService {
     private final IOtpService otpService;
     private final ProducerTriggerPasswordResetEventService producerOtp;
     private final ProducerRegisterUserSystemEventService producerRegisterUserSystemEvent;
+
     @Autowired
-    public AuthService(KeycloakProvider keycloakProvider, RestTemplate restTemplate, 
-            ProducerRegisterUserEventService producerRegisterUserEvent, 
+    public AuthService(KeycloakProvider keycloakProvider, RestTemplate restTemplate,
+            ProducerRegisterUserEventService producerRegisterUserEvent,
             IOtpService otpService, ProducerTriggerPasswordResetEventService producerOtp,
             ProducerRegisterUserSystemEventService producerRegisterUserSystemEvent) {
         this.keycloakProvider = keycloakProvider;
@@ -84,7 +85,6 @@ public class AuthService {
         }
     }
 
-
     public TokenResponse refreshToken(String refreshToken) throws CustomUnauthorizedException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -111,7 +111,7 @@ public class AuthService {
         }
     }
 
-    public Boolean registerUser(@NonNull UserRequest userRequest, boolean isSystemUser) {
+    public String registerUser(@NonNull UserRequest userRequest, boolean isSystemUser) {
         UsersResource usersResource = keycloakProvider.getUserResource();
 
         UserRepresentation userRepresentation = new UserRepresentation();
@@ -135,12 +135,12 @@ public class AuthService {
                 this.producerRegisterUserSystemEvent.create(userRequest, userId);
             }
 
-            return true;
+            return userId;
         } else if (response.getStatus() == 409) {
             throw new UserAlreadyExistsException("User already exists", new ErrorField("email", "Email is already in use"));
 
         } else {
-            return false;
+            return null;
         }
     }
 
@@ -194,7 +194,9 @@ public class AuthService {
     }
 
     private void assignRolesToUser(List<String> roles, String userId) {
-        if (roles == null || roles.isEmpty()) return;
+        if (roles == null || roles.isEmpty()) {
+            return;
+        }
 
         UsersResource usersResource = keycloakProvider.getUserResource();
         RealmResource realmResource = keycloakProvider.getRealmResource();

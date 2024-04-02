@@ -6,10 +6,10 @@ import lombok.Getter;
 @Getter
 public class RegistrySystemUserMessage implements ICommandMessage {
 
-    private final Boolean result;
+    private final String result;
     private final String command = "REGISTRY_SYSTEM_USER";
 
-    public RegistrySystemUserMessage(Boolean result) {
+    public RegistrySystemUserMessage(String result) {
         this.result = result;
     }
 
