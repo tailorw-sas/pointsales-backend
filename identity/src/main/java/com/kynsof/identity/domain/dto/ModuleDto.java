@@ -16,11 +16,11 @@ import lombok.AllArgsConstructor;
 public class ModuleDto {
     protected UUID id;
     private String name;
-    private byte [] image;
+    private UUID image;
     private String description;
     private Set<PermissionDto> permissions = new HashSet<>();
 
-    public ModuleDto(UUID id, String name, byte[] image, String description) {
+    public ModuleDto(UUID id, String name, UUID image, String description) {
         this.id = id;
         this.name = name;
         this.image = image;

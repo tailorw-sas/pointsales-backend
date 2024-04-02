@@ -18,7 +18,7 @@ public class ModuleResponse implements IResponse {
     private UUID id;
     private String name;
     private String description;
-    private byte [] image;
+    private UUID image;
     Set<PermissionDto> permissions = new HashSet<>();
 
     public ModuleResponse(ModuleDto object) {

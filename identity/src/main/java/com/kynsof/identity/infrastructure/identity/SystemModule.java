@@ -21,7 +21,7 @@ public class SystemModule {
     @Column(name = "id")
     protected UUID id;
     private String name;
-    private byte[] image;
+    private UUID image;
     private String description;
 
     @OneToMany(mappedBy = "module", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
