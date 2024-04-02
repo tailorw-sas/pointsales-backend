@@ -13,6 +13,7 @@ public class CreateBusinessRequest {
     private String description;
     private  byte [] logo;
     private String ruc;
+    private String address;;
     private UUID geographicLocation;
 
 }

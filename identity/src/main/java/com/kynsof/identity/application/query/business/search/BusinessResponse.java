@@ -21,6 +21,7 @@ public class BusinessResponse implements IResponse {
     private String description;
     private String logo;
     private String ruc;
+    private String address;
     private EBusinessStatus status;
 
     private GeographicLocationResponse geolocation;
@@ -35,6 +36,7 @@ public class BusinessResponse implements IResponse {
         this.ruc = object.getRuc();
         this.status = object.getStatus();
         this.geolocation = object.getGeographicLocationDto() != null ? new GeographicLocationResponse(object.getGeographicLocationDto()) : null;
+        this.address = object.getAddress() != null ? object.getAddress() : null;
     }
 
     public BusinessResponse(UUID id, String name) {

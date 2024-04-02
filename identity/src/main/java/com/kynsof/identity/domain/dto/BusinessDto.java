@@ -18,6 +18,7 @@ public class BusinessDto implements Serializable {
     private String description;
     private String logo;
     private String ruc;
+    private String address;
     private EBusinessStatus status;
     private boolean deleted;
 
@@ -27,7 +28,7 @@ public class BusinessDto implements Serializable {
 
     private GeographicLocationDto geographicLocationDto;
 
-    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String logo,  String ruc, EBusinessStatus status, GeographicLocationDto geographicLocationDto) {
+    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String logo,  String ruc, EBusinessStatus status, GeographicLocationDto geographicLocationDto, String address) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
@@ -37,6 +38,7 @@ public class BusinessDto implements Serializable {
         this.ruc = ruc;
         this.status = status;
         this.geographicLocationDto = geographicLocationDto;
+        this.address = address;
     }
 
     public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String string) {
