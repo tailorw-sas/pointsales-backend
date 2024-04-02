@@ -29,8 +29,8 @@ public class ScheduleResponse implements IResponse {
 
     public ScheduleResponse(ScheduleDto schedule) {
         this.id = schedule.getId();
-        this.resource = new ResourceResponse(schedule.getResource().getId(), schedule.getResource().getName());
-        this.business = new BusinessResponse(schedule.getBusiness().getId(), schedule.getBusiness().getName());
+        this.resource = new ResourceResponse(schedule.getResource());
+        this.business = new BusinessResponse(schedule.getBusiness());
         this.date = schedule.getDate();
         this.startTime = schedule.getStartTime();
         this.endingTime = schedule.getEndingTime();
