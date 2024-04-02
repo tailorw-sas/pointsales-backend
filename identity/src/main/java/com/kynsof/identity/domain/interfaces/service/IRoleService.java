@@ -2,6 +2,7 @@ package com.kynsof.identity.domain.interfaces.service;
 
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RolePermissionDto;
+import com.kynsof.identity.domain.dto.roleDto.RoleWithModulesResponse;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import org.springframework.data.domain.Pageable;
@@ -19,4 +20,6 @@ public interface IRoleService {
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     Long countByName(String name);
+
+    RoleWithModulesResponse getRoleWithModulesAndPermissions(UUID roleId);
 }

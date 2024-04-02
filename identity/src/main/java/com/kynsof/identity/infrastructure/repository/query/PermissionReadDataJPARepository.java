@@ -9,10 +9,16 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public interface PermissionReadDataJPARepository extends JpaRepository<Permission, UUID>, JpaSpecificationExecutor<Permission> {
     Page<Permission> findAll(Specification specification, Pageable pageable);
     @Query("SELECT distinct p FROM Permission p JOIN p.rolePermissions rp WHERE rp.role.id = :roleId")
     List<Permission> findPermissionsByRoleId(UUID roleId);
+
+    @Query("SELECT p FROM Permission p " +
+            "JOIN p.rolePermissions rp " +
+            "WHERE p.module.id = :moduleId AND rp.role.id = :roleId AND rp.deleted = false ")
+    Set<Permission> findPermissionsByModuleIdAndRoleId(UUID moduleId, UUID roleId);
 }
