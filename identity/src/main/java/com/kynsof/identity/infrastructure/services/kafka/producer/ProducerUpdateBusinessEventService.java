@@ -24,7 +24,7 @@ public class ProducerUpdateBusinessEventService {
     public void update(BusinessDto entity) {
 
         try {
-            BusinessKafka event = new BusinessKafka(entity.getId(), entity.getName(), entity.getLatitude(), entity.getLongitude(),
+            BusinessKafka event = new BusinessKafka(entity.getId(), entity.getName(), entity.getLatitude(), entity.getLongitude(), entity.getAddress(),
                     UUID.fromString(entity.getLogo()));
 
             ObjectMapper objectMapper = new ObjectMapper();
