@@ -1,5 +1,6 @@
 package com.kynsof.identity.infrastructure.identity;
 
+import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.enumType.RoleStatusEnm;
 import jakarta.persistence.*;
@@ -8,10 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -49,6 +47,10 @@ public class RoleSystem {
     }
 
     public RoleDto toAggregate() {
-        return new RoleDto(this.id, this.name, this.description, this.status, new ArrayList<>());
+        List<PermissionDto> permissionDtos = rolePermissions.stream()
+                .filter(rp -> !rp.isDeleted())
+                .map(rolePermission -> rolePermission.getPermission().toAggregate())
+                .toList();
+        return new RoleDto(this.id, this.name, this.description, this.status, permissionDtos);
     }
 }
