@@ -31,7 +31,7 @@ public class TemplateEntity {
     @Column(nullable = true, length = 1024)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "mailjet_config_id")
     private MailjetConfiguration mailjetConfig;
 

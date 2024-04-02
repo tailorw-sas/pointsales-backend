@@ -57,6 +57,12 @@ public class TemplateEntityServiceImpl implements ITemplateEntityService {
         return getPaginatedResponse(data);
     }
 
+    @Override
+    public TemplateDto findByTemplateCode(String templateCode) {
+        Optional<TemplateEntity> templateEntity = this.queryRepository.findByTemplateCode(templateCode);
+        return templateEntity.map(TemplateEntity::toAggregate).orElse(null);
+    }
+
     private PaginatedResponse getPaginatedResponse(Page<TemplateEntity> data) {
         List<TemplateEntityResponse> response = new ArrayList<>();
         for (TemplateEntity p : data.getContent()) {

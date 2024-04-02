@@ -1,5 +1,6 @@
 package com.kynsof.calendar.infrastructure.service.kafka.consumer;
 
+import com.kynsof.calendar.domain.dto.PaymentStatus;
 import com.kynsof.calendar.domain.service.IBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -15,10 +16,10 @@ public class ConsumerPaymentEventService {
     private IBusinessService service;
 
     @KafkaListener(topics = "payment", groupId = "payment-calendar")
-    public void consumer(String event) {
+    public void consumer(PaymentStatus event) {
 
         try {
-            String status = event;
+            String status = event.getStatus();
         } catch (Exception ex) {
             Logger.getLogger(ConsumerPaymentEventService.class.getName()).log(Level.SEVERE, null, ex);
         }

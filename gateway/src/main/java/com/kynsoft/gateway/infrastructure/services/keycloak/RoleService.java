@@ -16,6 +16,7 @@ import javax.ws.rs.ClientErrorException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class RoleService implements IRoleService {
@@ -27,7 +28,7 @@ public class RoleService implements IRoleService {
     private ProducerRegisterRoleEventService producerRegisterRoleEventService;
 
     @Override
-    public void createRole(RoleRequest request) {
+    public UUID createRole(RoleRequest request) {
         try {
             RealmResource realmResource = keycloakProvider.getRealmResource();
 
@@ -51,7 +52,7 @@ public class RoleService implements IRoleService {
 
             this.producerRegisterRoleEventService.create(createdRole.getId(), request.getName(), request.getDescription());
 
-            createdRole.getId();
+           return UUID.fromString(createdRole.getId());
         }catch (ClientErrorException ex){
             throw new AlreadyExistsException(DomainErrorMessage.ROLE_EXIT.toString(), new ErrorField("name",
                     DomainErrorMessage.ROLE_EXIT.name()));

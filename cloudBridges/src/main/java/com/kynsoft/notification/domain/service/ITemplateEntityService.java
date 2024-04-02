@@ -15,4 +15,5 @@ public interface ITemplateEntityService {
     void delete(UUID id);
     TemplateDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    TemplateDto findByTemplateCode(String templateCode);
 }

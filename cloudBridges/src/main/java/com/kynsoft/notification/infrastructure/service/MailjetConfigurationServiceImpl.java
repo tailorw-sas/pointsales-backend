@@ -7,6 +7,7 @@ import com.kynsoft.notification.application.query.mailjetConfiguration.getById.M
 import com.kynsoft.notification.domain.dto.MailjetConfigurationDto;
 import com.kynsoft.notification.domain.service.IMailjetConfigurationService;
 import com.kynsoft.notification.infrastructure.entity.MailjetConfiguration;
+import com.kynsoft.notification.infrastructure.entity.TemplateEntity;
 import com.kynsoft.notification.infrastructure.repository.command.MailjetConfigurationWriteDataJPARepository;
 import com.kynsoft.notification.infrastructure.repository.query.MailjetConfigurationReadDataJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;

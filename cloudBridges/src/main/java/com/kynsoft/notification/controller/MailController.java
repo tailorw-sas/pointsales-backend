@@ -1,6 +1,5 @@
 package com.kynsoft.notification.controller;
 
-import com.kynsoft.notification.application.SendEmailRequest;
 import com.kynsoft.notification.application.SendEmailResponse;
 import com.kynsoft.notification.domain.dto.EmailRequest;
 import com.kynsoft.notification.domain.dto.MailJetAttachment;
@@ -9,7 +8,9 @@ import com.kynsoft.notification.domain.dto.MailJetVar;
 import com.kynsoft.notification.domain.service.IEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -29,79 +30,79 @@ public class MailController {
         this.emailService = emailService;
     }
 
-    @PostMapping("/send/simple")
-    public ResponseEntity<?>sendEmailSimple(@RequestBody SendEmailRequest email) {
-        boolean result = emailService.sendMail(email.getToEmail(), email.getSubject(), email.getMessage());
-        String msg = "";
-        if (result) {
-            msg = "Message sent successfully!";
-        } else {
-            msg = "Message sent failed!";
-        }
-        return ResponseEntity.ok(new SendEmailResponse(result, msg));
-    }
+//    @PostMapping("/send/simple")
+//    public ResponseEntity<?>sendEmailSimple(@RequestBody SendEmailRequest email) {
+//        boolean result = emailService.sendMail(email.getToEmail(), email.getSubject(), email.getMessage());
+//        String msg = "";
+//        if (result) {
+//            msg = "Message sent successfully!";
+//        } else {
+//            msg = "Message sent failed!";
+//        }
+//        return ResponseEntity.ok(new SendEmailResponse(result, msg));
+//    }
 
-    @PostMapping("/send/template")
-    public ResponseEntity<?> sendEmailTemplate(@RequestBody SendEmailRequest email) {
-        boolean result = emailService.sendMailHtml(email.getToEmail(), email.getSubject(), email.getMessage());
-        String msg = "";
-        if (result) {
-            msg = "Message sent successfully!";
-        } else {
-            msg = "Message sent failed!";
-        }
-        return ResponseEntity.ok(new SendEmailResponse(result, msg));
-    }
+//    @PostMapping("/send/template")
+//    public ResponseEntity<?> sendEmailTemplate(@RequestBody SendEmailRequest email) {
+//        boolean result = emailService.sendMailHtml(email.getToEmail(), email.getSubject(), email.getMessage());
+//        String msg = "";
+//        if (result) {
+//            msg = "Message sent successfully!";
+//        } else {
+//            msg = "Message sent failed!";
+//        }
+//        return ResponseEntity.ok(new SendEmailResponse(result, msg));
+//    }
 
-    @PostMapping("/send/attachment")
-    public ResponseEntity<?> sendEmailTemplateAttachment(
-            @RequestParam(defaultValue = "") String email,
-            @RequestParam(defaultValue = "") String subject,
-            @RequestParam(defaultValue = "") String menssage,
-            @RequestParam("file") MultipartFile file) {
+//    @PostMapping("/send/attachment")
+//    public ResponseEntity<?> sendEmailTemplateAttachment(
+//            @RequestParam(defaultValue = "") String email,
+//            @RequestParam(defaultValue = "") String subject,
+//            @RequestParam(defaultValue = "") String menssage,
+//            @RequestParam("file") MultipartFile file) {
+//
+//        String msg = "";
+//        boolean result = true;
+//        try {
+//            result = emailService.sendMessageWithAttachment(email, subject, menssage, file);
+//
+//            if (result) {
+//                msg = "Message sent successfully!";
+//            } else {
+//                msg = "Message sent failed!";
+//            }
+//            return ResponseEntity.ok(new SendEmailResponse(result, msg));
+//        } catch (Exception ex) {
+//            //throw new BusinessException(ApiErrorStatus.MIDDLEWARE_MAIL_FAILED, "Please check the email provided.");
+//            return ResponseEntity.ok(new SendEmailResponse(result, msg));
+//        }
+//
+//    }
 
-        String msg = "";
-        boolean result = true;
-        try {
-            result = emailService.sendMessageWithAttachment(email, subject, menssage, file);
-
-            if (result) {
-                msg = "Message sent successfully!";
-            } else {
-                msg = "Message sent failed!";
-            }
-            return ResponseEntity.ok(new SendEmailResponse(result, msg));
-        } catch (Exception ex) {
-            //throw new BusinessException(ApiErrorStatus.MIDDLEWARE_MAIL_FAILED, "Please check the email provided.");
-            return ResponseEntity.ok(new SendEmailResponse(result, msg));
-        }
-
-    }
-
-    @PostMapping("/send/multi/attachment")
-    public ResponseEntity<?> sendEmailTemplateAttachmentArray(
-            @RequestParam(defaultValue = "") String email,
-            @RequestParam(defaultValue = "") String subject,
-            @RequestParam(defaultValue = "") String menssage,
-            @RequestParam("files") MultipartFile[] files) {
-
-        String msg = "";
-        boolean result = true;
-        try {
-            result = emailService.sendMessageWithAttachmentArray(email, subject, menssage, files);
-
-            if (result) {
-                msg = "Message sent successfully!";
-            } else {
-                msg = "Message sent failed!";
-            }
-            return ResponseEntity.ok(new SendEmailResponse(result, msg));
-        } catch (Exception ex) {
-            //throw new BusinessException(ApiErrorStatus.MIDDLEWARE_MAIL_FAILED, "Please check the email provided.");
-            return ResponseEntity.ok(new SendEmailResponse(result, msg));
-        }
-
-    }
+//    @PostMapping("/send/multi/attachment")
+//    public ResponseEntity<?> sendEmailTemplateAttachmentArray(
+//            @RequestParam(defaultValue = "") String email,
+//            @RequestParam(defaultValue = "") String subject,
+//            @RequestParam(defaultValue = "") String menssage,
+//            @RequestParam("files") MultipartFile[] files) {
+//
+//        String msg = "";
+//        boolean result = true;
+//        try {
+//            result = emailService.sendMessageWithAttachmentArray(email, subject, menssage, files);
+//
+//            if (result) {
+//                msg = "Message sent successfully!";
+//            } else {
+//                msg = "Message sent failed!";
+//            }
+//            return ResponseEntity.ok(new SendEmailResponse(result, msg));
+//        } catch (Exception ex) {
+//            //throw new BusinessException(ApiErrorStatus.MIDDLEWARE_MAIL_FAILED, "Please check the email provided.");
+//            return ResponseEntity.ok(new SendEmailResponse(result, msg));
+//        }
+//
+//    }
     @PostMapping("/send/multi/keime")
     public ResponseEntity<?> keimer(){
         boolean result = true;
@@ -129,7 +130,7 @@ public class MailController {
          // int  templateId =3931552;
            int  templateId =5826460;
             EmailRequest emailRequest = new EmailRequest(mailJetRecipients, vars, mailJetAttachments,"SubjectTest", templateId);
-            result = emailService.sendEmailMailjet(emailRequest);
+         //   result = emailService.sendEmailMailjet(emailRequest);
 
             if (result) {
                 msg = "Message sent successfully!";
