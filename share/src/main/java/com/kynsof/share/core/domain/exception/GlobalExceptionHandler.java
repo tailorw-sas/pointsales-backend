@@ -42,34 +42,35 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ApiResponse<?>> handleAllUncaughtException(Exception ex, WebRequest request) {
-        ApiError apiError = new ApiError("An unexpected error occurred.", List.of(new ErrorField("internal", "Internal server error.")));
+        ApiError apiError = new ApiError("An unexpected error occurred.",
+                List.of(new ErrorField("internal", "Internal server error.")));
         return ResponseEntity.internalServerError().body(ApiResponse.fail(apiError));
     }
 
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<ApiResponse<?>> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
-        ApiError apiError = new ApiError("A user with the given details already exists",
-                List.of(ex.getErrorField())); // Asume que ApiError puede aceptar una lista de ErrorField
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<ApiResponse<?>> handleAlreadyExistsException(AlreadyExistsException ex) {
+        ApiError apiError = new ApiError( ex.getMessage(),
+                List.of(ex.getErrorField()));
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponse.fail(apiError));
     }
 
     @ExceptionHandler(BusinessRuleValidationException.class)
     public ResponseEntity<ApiResponse<?>> handleBusinessRuleValidationException(BusinessRuleValidationException ex) {
         ApiError apiError = new ApiError(ex.getStatus(), ex.getMessage(),
-                List.of(ex.getBrokenRule().getErrorField())); // Asume que ApiError puede aceptar una lista de ErrorField
+                List.of(ex.getBrokenRule().getErrorField()));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.fail(apiError));
     }
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ApiResponse<?>> handleBusinessException(BusinessException ex) {
-        ApiError apiError = new ApiError(ex.getStatus(), ex.getDetails()); // Asume que ApiError puede aceptar una lista de ErrorField
+        ApiError apiError = new ApiError(ex.getStatus(), ex.getDetails());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.fail(apiError));
     }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ApiResponse<?>> handleUserNotFoundException(UserNotFoundException ex) {
-        ApiError apiError = new ApiError("User not found",
-                List.of(ex.getErrorField())); // Asume que ApiError puede aceptar una lista de ErrorField
+        ApiError apiError = new ApiError(ex.getMessage(),
+                List.of(ex.getErrorField()));
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.fail(apiError));
     }
 

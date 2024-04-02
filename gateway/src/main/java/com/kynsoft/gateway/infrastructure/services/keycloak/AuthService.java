@@ -1,7 +1,7 @@
 package com.kynsoft.gateway.infrastructure.services.keycloak;
 
 import com.kynsof.share.core.domain.exception.CustomUnauthorizedException;
-import com.kynsof.share.core.domain.exception.UserAlreadyExistsException;
+import com.kynsof.share.core.domain.exception.AlreadyExistsException;
 import com.kynsof.share.core.domain.exception.UserNotFoundException;
 import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
 import com.kynsof.share.core.domain.response.ErrorField;
@@ -10,7 +10,6 @@ import com.kynsoft.gateway.domain.dto.PasswordChangeRequest;
 import com.kynsoft.gateway.domain.dto.user.UserRequest;
 import com.kynsoft.gateway.domain.dto.TokenResponse;
 import com.kynsoft.gateway.domain.interfaces.IOtpService;
-import com.kynsoft.gateway.infrastructure.services.keycloak.KeycloakProvider;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserEventService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserSystemEventService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerTriggerPasswordResetEventService;
@@ -137,7 +136,7 @@ public class AuthService {
 
             return userId;
         } else if (response.getStatus() == 409) {
-            throw new UserAlreadyExistsException("User already exists", new ErrorField("email", "Email is already in use"));
+            throw new AlreadyExistsException("User already exists", new ErrorField("email", "Email is already in use"));
 
         } else {
             return null;

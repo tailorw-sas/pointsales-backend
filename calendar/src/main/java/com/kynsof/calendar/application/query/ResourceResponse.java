@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -21,9 +20,9 @@ public class ResourceResponse implements IResponse {
     private String language;
     private EResourceStatus status;
     private Boolean expressAppointments;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
-    private LocalDateTime deleteAt;
+//    private LocalDateTime createAt;
+//    private LocalDateTime updateAt;
+//    private LocalDateTime deleteAt;
 
     public ResourceResponse(ResourceDto object) {
         this.id = object.getId();
@@ -33,9 +32,9 @@ public class ResourceResponse implements IResponse {
         this.language = object.getLanguage();
         this.status = object.getStatus();
         this.expressAppointments = object.getExpressAppointments();
-        this.createAt = object.getCreateAt();
-        this.updateAt = object.getUpdateAt();
-        this.deleteAt = object.getDeleteAt();
+//        this.createAt = object.getCreateAt();
+//        this.updateAt = object.getUpdateAt();
+//        this.deleteAt = object.getDeleteAt();
     }
 
     public ResourceResponse(UUID id, String name) {

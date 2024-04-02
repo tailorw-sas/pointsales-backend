@@ -26,6 +26,9 @@ public class Patient {
 
     private String gender;
 
+
+    private UUID logo;
+
     @Enumerated(EnumType.STRING)
     private PatientStatus status;
 
@@ -36,9 +39,10 @@ public class Patient {
         this.lastName = patients.getLastName();
         this.gender = patients.getGender();
         this.status = patients.getStatus();
+        this.logo = patients.getLogo();
     }
 
     public PatientDto toAggregate() {
-        return new PatientDto(id, identification, name, lastName, gender, status);
+        return new PatientDto(id, identification, name, lastName, gender, status, logo);
     }
 }

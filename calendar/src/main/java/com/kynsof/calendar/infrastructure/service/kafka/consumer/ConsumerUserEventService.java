@@ -34,14 +34,16 @@ public class ConsumerUserEventService {
 
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                this.service.create(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(), eventRead.getLastname(), "", PatientStatus.ACTIVE));                
+                this.service.create(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(), eventRead.getLastname(), "", PatientStatus.ACTIVE,
+                      null));
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion
             }
             if (eventType.equals(EventType.UPDATED)) {
                 //Definir accion
-                this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(), eventRead.getLastname(), "", PatientStatus.ACTIVE));
+                this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(),
+                        eventRead.getLastname(), "", PatientStatus.ACTIVE,null));
             }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerUserEventService.class.getName()).log(Level.SEVERE, null, ex);

@@ -9,6 +9,7 @@ import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,7 +26,7 @@ public class ProducerPatientsEventService {
         try {
 
             PatientKafka event = new PatientKafka(entity.getId(), entity.getIdentification(), entity.getName(), entity.getLastName(),
-                    entity.getGender().toString(), entity.getStatus().name());
+                    entity.getGender().toString(), entity.getStatus().name(), UUID.fromString(entity.getPhoto()));
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));

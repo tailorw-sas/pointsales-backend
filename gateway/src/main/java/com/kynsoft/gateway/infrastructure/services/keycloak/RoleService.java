@@ -1,5 +1,8 @@
 package com.kynsoft.gateway.infrastructure.services.keycloak;
 
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.AlreadyExistsException;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsoft.gateway.domain.dto.role.RoleRequest;
 import com.kynsoft.gateway.domain.interfaces.IRoleService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterRoleEventService;
@@ -9,6 +12,7 @@ import org.keycloak.representations.idm.RoleRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.ClientErrorException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,34 +28,46 @@ public class RoleService implements IRoleService {
 
     @Override
     public void createRole(RoleRequest request) {
+        try {
+            RealmResource realmResource = keycloakProvider.getRealmResource();
+
+            ClientResource clientResource = realmResource.clients().findByClientId(keycloakProvider.getClient_id()).stream()
+                    .findFirst()
+                    .map(clientRepresentation -> realmResource.clients().get(clientRepresentation.getId()))
+                    .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+
+
+            RoleRepresentation role = new RoleRepresentation();
+            role.setName(request.getName());
+            role.setDescription(request.getDescription());
+
+            // Agregar atributo de estado
+            Map<String, List<String>> attributes = new HashMap<>();
+            attributes.put("status", List.of("ACTIVE"));
+            role.setAttributes(attributes);
+
+            clientResource.roles().create(role);
+            RoleRepresentation createdRole = clientResource.roles().get(request.getName()).toRepresentation();
+
+            this.producerRegisterRoleEventService.create(createdRole.getId(), request.getName(), request.getDescription());
+
+            createdRole.getId();
+        }catch (ClientErrorException ex){
+            throw new AlreadyExistsException(DomainErrorMessage.ROLE_EXIT.toString(), new ErrorField("name",
+                    DomainErrorMessage.ROLE_EXIT.name()));
+        }
+
+    }
+
+    @Override
+    public List<RoleRepresentation> findAllRoles() {
         RealmResource realmResource = keycloakProvider.getRealmResource();
 
         ClientResource clientResource = realmResource.clients().findByClientId(keycloakProvider.getClient_id()).stream()
                 .findFirst()
                 .map(clientRepresentation -> realmResource.clients().get(clientRepresentation.getId()))
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
-
-
-        RoleRepresentation role = new RoleRepresentation();
-        role.setName(request.getName());
-        role.setDescription(request.getDescription());
-
-        // Agregar atributo de estado
-        Map<String, List<String>> attributes = new HashMap<>();
-        attributes.put("status", List.of("ACTIVE"));
-        role.setAttributes(attributes);
-
-        clientResource.roles().create(role);
-        RoleRepresentation createdRole = clientResource.roles().get(request.getName()).toRepresentation();
-
-        this.producerRegisterRoleEventService.create(createdRole.getId(), request.getName(), request.getDescription());
-
-        createdRole.getId();
-    }
-
-    @Override
-    public List<RoleRepresentation> findAllRoles() {
-        return keycloakProvider.getRealmResource().clients().get("client-id").roles().list();
+        return  clientResource.roles().list();
     }
 
     @Override

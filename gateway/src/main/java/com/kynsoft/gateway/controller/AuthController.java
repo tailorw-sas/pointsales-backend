@@ -8,8 +8,6 @@ import com.kynsoft.gateway.application.command.auth.forwardPassword.ForwardPassw
 import com.kynsoft.gateway.application.command.auth.forwardPassword.ForwardPasswordMessage;
 import com.kynsoft.gateway.application.command.auth.registry.RegistryCommand;
 import com.kynsoft.gateway.application.command.auth.registry.RegistryMessage;
-import com.kynsoft.gateway.application.command.auth.registrySystemUser.RegistrySystemUserCommand;
-import com.kynsoft.gateway.application.command.auth.registrySystemUser.RegistrySystemUserMessage;
 import com.kynsoft.gateway.application.command.auth.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpCommand;
 import com.kynsoft.gateway.application.command.auth.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpMessage;
 import com.kynsoft.gateway.application.query.getById.RefreshTokenQuery;
@@ -52,13 +50,6 @@ public class AuthController {
         return ResponseEntity.ok(ApiResponse.success(registryMessage.getResult()));
     }
 
-    @PostMapping("/register/system/user")
-    public ResponseEntity<ApiResponse<String>> registerSystemUser(@RequestBody UserRequest userRequest) {
-        RegistrySystemUserCommand command = new RegistrySystemUserCommand(userRequest.getUsername(), userRequest.getEmail(), userRequest.getFirstname(),
-                userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
-        RegistrySystemUserMessage registryMessage = mediator.send(command);
-        return ResponseEntity.ok(ApiResponse.success(registryMessage.getResult()));
-    }
 
     @PostMapping("/refresh-token")
     //   @PreAuthorize("permitAll()")

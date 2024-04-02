@@ -29,7 +29,9 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     RELATIONSHIP_MUST_BE_UNIQUE(624, Series.DOMAIN_ERROR, "Existing relationship."),
     OBJECT_NOT_NULL(625, Series.DOMAIN_ERROR, "Object not null."),
     USER_ROLE_BUSINESS_NOT_FOUND(626, Series.DOMAIN_ERROR, "UserRoleBusiness not found."),
-    ROLE_NOT_FOUND(627, Series.DOMAIN_ERROR, "Role not found.");
+    ROLE_NOT_FOUND(627, Series.DOMAIN_ERROR, "Role not found."),
+    ROLE_EXIT(628, Series.DOMAIN_ERROR, "Role not found.");
+
 
     private static final DomainErrorMessage[] VALUES;
 

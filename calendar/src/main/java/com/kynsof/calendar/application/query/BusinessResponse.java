@@ -26,9 +26,4 @@ public class BusinessResponse implements IResponse {
         this.logo = object.getLogo();
     }
 
-    public BusinessResponse(UUID id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
 }
