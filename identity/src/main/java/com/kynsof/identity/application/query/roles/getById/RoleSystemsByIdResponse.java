@@ -19,13 +19,13 @@ public class RoleSystemsByIdResponse implements IResponse {
     private UUID id;
     private String name;
     private String description;
-    private List<PermissionSearchResponse> permissionSearchResponses;
+    private List<PermissionSearchResponse> permissions;
 
     public RoleSystemsByIdResponse(RoleDto roleDto) {
         this.id = roleDto.getId();
         this.name = roleDto.getName();
         this.description = roleDto.getDescription();
-        this.permissionSearchResponses = roleDto.getPermissionDtos().stream().map(PermissionSearchResponse::new).collect(Collectors.toList());
+        this.permissions = roleDto.getPermissionDtos().stream().map(PermissionSearchResponse::new).collect(Collectors.toList());
     }
 
 }
