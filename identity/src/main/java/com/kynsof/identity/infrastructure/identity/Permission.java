@@ -37,14 +37,14 @@ public class Permission {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "module_id")
-    private SystemModule module;
+    private ModuleSystem module;
 
     public Permission(PermissionDto permissionDto) {
         this.id = permissionDto.getId();
         this.code = permissionDto.getCode();
         this.description = permissionDto.getDescription();
         this.action = permissionDto.getDescription();
-        this.module = new SystemModule(permissionDto.getModule());
+        this.module = new ModuleSystem(permissionDto.getModule());
         this.status = permissionDto.getStatus();
         this.deleted = permissionDto.isDeleted();
     }

@@ -5,7 +5,7 @@ import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.identity.domain.dto.moduleDto.ModuleDataDto;
 import com.kynsof.identity.domain.dto.moduleDto.ModuleNodeDto;
 import com.kynsof.identity.domain.interfaces.service.IModuleService;
-import com.kynsof.identity.infrastructure.identity.SystemModule;
+import com.kynsof.identity.infrastructure.identity.ModuleSystem;
 import com.kynsof.identity.infrastructure.repository.command.ModuleWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.ModuleReadDataJPARepository;
 import com.kynsof.share.core.domain.RulesChecker;
@@ -37,7 +37,7 @@ public class ModuleServiceImpl implements IModuleService {
 
     @Override
     public void create(ModuleDto object) {
-        this.commandRepository.save(new SystemModule(object));
+        this.commandRepository.save(new ModuleSystem(object));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ModuleServiceImpl implements IModuleService {
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(object, "Module", "Module DTO cannot be null."));
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(object.getId(), "Module.id", "Module ID cannot be null."));
 
-        SystemModule objectUpdate = this.queryRepository.findById(object.getId())
+        ModuleSystem objectUpdate = this.queryRepository.findById(object.getId())
                 .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Module not found."));
         
         objectUpdate.setDescription(object.getDescription() != null ? object.getDescription() : objectUpdate.getDescription());
@@ -62,7 +62,7 @@ public class ModuleServiceImpl implements IModuleService {
 
     @Override
     public ModuleDto findById(UUID id) {
-        Optional<SystemModule> object = this.queryRepository.findById(id);
+        Optional<ModuleSystem> object = this.queryRepository.findById(id);
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
@@ -74,13 +74,13 @@ public class ModuleServiceImpl implements IModuleService {
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         GenericSpecificationsBuilder<ModuleResponse> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-        Page<SystemModule> data = this.queryRepository.findAll(specifications, pageable);
+        Page<ModuleSystem> data = this.queryRepository.findAll(specifications, pageable);
         return getPaginatedResponse(data);
     }
 
-    private PaginatedResponse getPaginatedResponse(Page<SystemModule> data) {
+    private PaginatedResponse getPaginatedResponse(Page<ModuleSystem> data) {
         List<ModuleResponse> patients = new ArrayList<>();
-        for (SystemModule o : data.getContent()) {
+        for (ModuleSystem o : data.getContent()) {
             patients.add(new ModuleResponse(o.toAggregate()));
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
@@ -89,10 +89,10 @@ public class ModuleServiceImpl implements IModuleService {
 
 
     public List<ModuleNodeDto> buildStructure() {
-        List<SystemModule> modules = queryRepository.findAll();
+        List<ModuleSystem> modules = queryRepository.findAll();
         List<ModuleNodeDto> root = new ArrayList<>();
 
-        for (SystemModule module : modules) {
+        for (ModuleSystem module : modules) {
             ModuleNodeDto moduleNode = new ModuleNodeDto();
             moduleNode.setKey(module.getId().toString());
             moduleNode.setData(new ModuleDataDto(module.getName(), "Module", module.getName()));

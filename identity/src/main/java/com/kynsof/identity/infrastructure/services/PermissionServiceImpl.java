@@ -5,7 +5,7 @@ import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.enumType.PermissionStatusEnm;
 import com.kynsof.identity.domain.interfaces.service.IPermissionService;
 import com.kynsof.identity.infrastructure.identity.Permission;
-import com.kynsof.identity.infrastructure.identity.SystemModule;
+import com.kynsof.identity.infrastructure.identity.ModuleSystem;
 import com.kynsof.identity.infrastructure.repository.command.PermissionWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.PermissionReadDataJPARepository;
 import com.kynsof.share.core.domain.RulesChecker;
@@ -50,7 +50,7 @@ public class PermissionServiceImpl implements IPermissionService {
                 .orElseThrow(() -> new BusinessException(DomainErrorMessage.PERMISSION_NOT_FOUND, "Permission not found."));
 
         object.setDescription(objectDto.getDescription() != null ? objectDto.getDescription() : object.getDescription());
-        object.setModule(objectDto.getModule() != null ? new SystemModule(objectDto.getModule()): object.getModule());
+        object.setModule(objectDto.getModule() != null ? new ModuleSystem(objectDto.getModule()): object.getModule());
         object.setCode(objectDto.getCode()!= null ? objectDto.getCode(): object.getCode());
         object.setStatus(objectDto.getStatus() != object.getStatus() ? objectDto.getStatus() : object.getStatus());
 
