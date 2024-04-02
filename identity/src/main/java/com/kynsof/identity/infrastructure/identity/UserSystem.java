@@ -69,6 +69,8 @@ public class UserSystem implements Serializable {
         this.name = dto.getName();
         this.lastName = dto.getLastName();
         this.status = dto.getStatus();
+        this.userType = dto.getUserType() != null ? dto.getUserType() : UserType.UNDEFINED;
+        this.image = dto.getIdImage() != null ? dto.getIdImage() : null;
     }
 
     public UserSystemDto toAggregate() {
@@ -78,7 +80,9 @@ public class UserSystem implements Serializable {
 //                    .map(userRol -> userRol.toAggregate())
 //                    .toList();
 //        }
-
-        return new UserSystemDto(this.id, this.userName, this.email, this.name, this.lastName, this.status, rolDtos);
+        UserSystemDto dto = new UserSystemDto(this.id, this.userName, this.email, this.name, this.lastName, this.status, rolDtos);
+        dto.setUserType(userType);
+        dto.setIdImage(image);
+        return dto;
     }
 }
