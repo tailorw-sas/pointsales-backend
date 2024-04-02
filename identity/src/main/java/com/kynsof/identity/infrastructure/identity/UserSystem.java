@@ -3,6 +3,7 @@ package com.kynsof.identity.infrastructure.identity;
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
+import com.kynsof.identity.domain.dto.enumType.UserType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,6 +42,9 @@ public class UserSystem implements Serializable {
     private String lastName;
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+    private UUID image;
 
     // Relationship with User_Role_Clinic
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

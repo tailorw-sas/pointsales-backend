@@ -58,7 +58,12 @@ public class UserSystemServiceImpl implements IUserSystemService {
                     if (userSystemDto.getStatus() != null) {
                         userSystem.setStatus(userSystemDto.getStatus());
                     }
-
+                    if (userSystemDto.getUserType() != null) {
+                        userSystem.setUserType(userSystemDto.getUserType());
+                    }
+                    if (userSystemDto.getIdImage() != null) {
+                        userSystem.setImage(userSystemDto.getIdImage());
+                    }
 
                     this.repositoryCommand.save(userSystem);
                 });
