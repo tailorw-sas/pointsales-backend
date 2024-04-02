@@ -35,7 +35,7 @@ public class ConsumerEmailEventService {
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
             System.out.println("Received event: " + event);
-            this.service.sendMail(eventRead.getToEmail(), eventRead.getSubject(), eventRead.getMessage());
+         //   this.service.sendMail(eventRead.getToEmail(), eventRead.getSubject(), eventRead.getMessage());
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerEmailEventService.class.getName()).log(Level.SEVERE, null, ex);
         }

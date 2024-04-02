@@ -8,29 +8,24 @@ import com.kynsoft.notification.domain.service.IEmailService;
 import com.mailjet.client.MailjetClient;
 import com.mailjet.client.MailjetRequest;
 import com.mailjet.client.MailjetResponse;
-import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.resource.Email;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 //@Profile("mailjet")
 @Service
 public class EmailServiceMailjet implements IEmailService {
 
-    @Value("${mailjet.apiKey}")
-    private String mailjetApiKey;
-
-    @Value("${mailjet.apiSecret}")
-    private String mailjetApiSecret;
-
-    @Value("${mailjet.fromEmail}")
-    private String fromEmail;
-
-    @Value("${mailjet.fromName}")
-    private String fromName;
+//    @Value("${mailjet.apiKey}")
+//    private String mailjetApiKey;
+//
+//    @Value("${mailjet.apiSecret}")
+//    private String mailjetApiSecret;
+//
+//    @Value("${mailjet.fromEmail}")
+//    private String fromEmail;
+//
+//    @Value("${mailjet.fromName}")
+//    private String fromName;
 
     //private final MailjetClient client;
 
@@ -38,52 +33,53 @@ public class EmailServiceMailjet implements IEmailService {
 
     }
 
+//    @Override
+//    public boolean sendMail(String toEmail, String subject, String message) {
+//        try {
+//
+//            MailjetClient client1 = new MailjetClient(mailjetApiKey, mailjetApiSecret);
+//            MailjetRequest request = new MailjetRequest(Email.resource)
+//                    .property(Email.FROMEMAIL, fromEmail)
+//                    .property(Email.FROMNAME, fromName)
+//                    .property(Email.SUBJECT, subject)
+//                    .property(Email.TEXTPART, subject)
+//                    .property(Email.HTMLPART, "<h3>Dear passenger, welcome to <a href=\"https://www.mailjet.com/\">Mailjet</a>!<br />May the delivery force be with you!")
+//                    .property(Email.RECIPIENTS, new JSONArray()
+//                            .put(new JSONObject()
+//                                    .put("Email", toEmail)));
+//            MailjetResponse  response = client1.post(request);
+//            System.out.println(response.getStatus());
+//            System.out.println(response.getData());
+//
+//            return response.getStatus() == 200;
+//        } catch (MailjetException e) {
+//            return false;
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+//    @Override
+//    public boolean sendMailHtml(String toEmail, String subject, String message) {
+//        // Similar a sendMail, pero asegúrate de que el HTML esté bien formado
+//        return sendMail(toEmail, subject, message); // Simplificado para el ejemplo
+//    }
+//
+//    @Override
+//    public boolean sendMessageWithAttachment(String toEmail, String subject, String text, MultipartFile file) {
+//        // Implementación con archivo adjunto usando la API de Mailjet
+//        // Mailjet API v3.1 no soporta directamente MultipartFile; necesitarás convertirlo.
+//        return false; // Simplificado para el ejemplo
+//    }
+//
+//    @Override
+//    public boolean sendMessageWithAttachmentArray(String toEmail, String subject, String text, MultipartFile[] file) {
+//        return false;
+//    }
+
     @Override
-    public boolean sendMail(String toEmail, String subject, String message) {
-        try {
-
-            MailjetClient client1 = new MailjetClient(mailjetApiKey, mailjetApiSecret);
-            MailjetRequest request = new MailjetRequest(Email.resource)
-                    .property(Email.FROMEMAIL, fromEmail)
-                    .property(Email.FROMNAME, fromName)
-                    .property(Email.SUBJECT, subject)
-                    .property(Email.TEXTPART, subject)
-                    .property(Email.HTMLPART, "<h3>Dear passenger, welcome to <a href=\"https://www.mailjet.com/\">Mailjet</a>!<br />May the delivery force be with you!")
-                    .property(Email.RECIPIENTS, new JSONArray()
-                            .put(new JSONObject()
-                                    .put("Email", toEmail)));
-            MailjetResponse  response = client1.post(request);
-            System.out.println(response.getStatus());
-            System.out.println(response.getData());
-
-            return response.getStatus() == 200;
-        } catch (MailjetException e) {
-            return false;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public boolean sendMailHtml(String toEmail, String subject, String message) {
-        // Similar a sendMail, pero asegúrate de que el HTML esté bien formado
-        return sendMail(toEmail, subject, message); // Simplificado para el ejemplo
-    }
-
-    @Override
-    public boolean sendMessageWithAttachment(String toEmail, String subject, String text, MultipartFile file) {
-        // Implementación con archivo adjunto usando la API de Mailjet
-        // Mailjet API v3.1 no soporta directamente MultipartFile; necesitarás convertirlo.
-        return false; // Simplificado para el ejemplo
-    }
-
-    @Override
-    public boolean sendMessageWithAttachmentArray(String toEmail, String subject, String text, MultipartFile[] file) {
-        return false;
-    }
-
-    @Override
-    public boolean sendEmailMailjet(EmailRequest emailRequest) {
+    public boolean sendEmailMailjet(EmailRequest emailRequest, String mailjetApiKey,String mailjetApiSecret,
+                                    String fromEmail, String fromName) {
        try {
            MailjetClient client;
            MailjetRequest request;
