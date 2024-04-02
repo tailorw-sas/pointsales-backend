@@ -21,6 +21,7 @@ public class CreatePermissionCommandHandler implements ICommandHandler<CreatePer
     @Override
     public void handle(CreatePermissionCommand command) {
         ModuleDto module = this.serviceModule.findById(command.getIdModule());
-        service.create(new PermissionDto(command.getId(), command.getCode(), command.getDescription(), module));
+        service.create(new PermissionDto(command.getId(), command.getCode(), command.getDescription(), module,
+                command.getAction()));
     }
 }

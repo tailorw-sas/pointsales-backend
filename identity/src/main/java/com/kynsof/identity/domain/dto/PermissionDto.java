@@ -17,7 +17,7 @@ public class PermissionDto {
     private String description;
     private ModuleDto module;
     private PermissionStatusEnm status;
-
+    private String action;
     private boolean deleted = false;
 
     /**
@@ -28,11 +28,12 @@ public class PermissionDto {
      * @param description
      * @param module
      */
-    public PermissionDto(UUID id, String code, String description, ModuleDto module) {
+    public PermissionDto(UUID id, String code, String description, ModuleDto module, String action) {
         this.id = id;
         this.code = code;
         this.description = description;
         this.module = module;
+        this.action = action;
     }
 
     public PermissionDto(UUID id, String code, String description) {
@@ -50,12 +51,13 @@ public class PermissionDto {
      * @param module
      * @param status
      */
-    public PermissionDto(UUID id, String code, String description, ModuleDto module, PermissionStatusEnm status) {
+    public PermissionDto(UUID id, String code, String description, ModuleDto module, PermissionStatusEnm status, String action) {
         this.id = id;
         this.code = code;
         this.description = description;
         this.module = module;
         this.status = status;
+        this.action = action;
     }
 
 }

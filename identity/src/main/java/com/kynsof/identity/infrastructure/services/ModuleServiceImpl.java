@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ModuleServiceImpl implements IModuleService {
@@ -88,7 +89,6 @@ public class ModuleServiceImpl implements IModuleService {
 
 
     public List<ModuleNodeDto> buildStructure() {
-        // Inicializa tu estructura root aquí.
         List<SystemModule> modules = queryRepository.findAll();
         List<ModuleNodeDto> root = new ArrayList<>();
 
@@ -97,17 +97,15 @@ public class ModuleServiceImpl implements IModuleService {
             moduleNode.setKey(module.getId().toString());
             moduleNode.setData(new ModuleDataDto(module.getName(), "Module", module.getName()));
 
-            // Asumiendo que puedes acceder a los permisos relacionados de alguna manera desde el módulo
-//            List<ModuleNodeDto> permissionsNodes = module.get().stream().map(permission -> {
-//                ModuleNodeDto permissionNode = new ModuleNodeDto();
-//                permissionNode.setKey(permission.getId().toString());
-//                ModuleDataDto permissionData = new ModuleDataDto(permission.getDescription(), "Permission", permission.getCode());
-//                permissionNode.setData(permissionData);
-//                // No children para permisos
-//                return permissionNode;
-//            }).collect(Collectors.toList());
+            List<ModuleNodeDto> permissionsNodes = module.getPermissions().stream().map(permission -> {
+                ModuleNodeDto permissionNode = new ModuleNodeDto();
+                permissionNode.setKey(permission.getId().toString());
+                ModuleDataDto permissionData = new ModuleDataDto(permission.getDescription(), "Permission", permission.getCode());
+                permissionNode.setData(permissionData);
+                return permissionNode;
+            }).collect(Collectors.toList());
 
-        //    moduleNode.setChildren(permissionsNodes); // Agrega los permisos como hijos del módulo
+            moduleNode.setChildren(permissionsNodes); // Agrega los permisos como hijos del módulo
 
             root.add(moduleNode);
         }

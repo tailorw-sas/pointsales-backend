@@ -15,20 +15,21 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-public class PermissionrResponse implements IResponse {
+public class PermissionResponse implements IResponse {
 
     private UUID id;
     private String code;
     private String description;
     private ModuleResponse module;
     private PermissionStatusEnm status;
-
-    public PermissionrResponse(PermissionDto response) {
+    private String action;
+    public PermissionResponse(PermissionDto response) {
         this.id = response.getId();
         this.code = response.getCode();
         this.description = response.getDescription();
         this.module = new ModuleResponse(response.getModule());
         this.status = response.getStatus();
+        this.action = response.getAction();
     }
 
 }

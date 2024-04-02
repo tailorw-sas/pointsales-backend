@@ -6,7 +6,7 @@ import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FindPermissionByIdQueryHandler implements IQueryHandler<FindPermissionByIdQuery, PermissionrResponse>  {
+public class FindPermissionByIdQueryHandler implements IQueryHandler<FindPermissionByIdQuery, PermissionResponse>  {
 
     private final IPermissionService service;
 
@@ -15,9 +15,9 @@ public class FindPermissionByIdQueryHandler implements IQueryHandler<FindPermiss
     }
 
     @Override
-    public PermissionrResponse handle(FindPermissionByIdQuery query) {
+    public PermissionResponse handle(FindPermissionByIdQuery query) {
         PermissionDto response = service.findById(query.getId());
 
-        return new PermissionrResponse(response);
+        return new PermissionResponse(response);
     }
 }

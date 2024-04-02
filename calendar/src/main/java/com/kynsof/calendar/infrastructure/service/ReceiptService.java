@@ -66,6 +66,7 @@ public class ReceiptService implements IReceiptService {
 
         ScheduleDto _schedule = receipt.getSchedule();
         _schedule.setStatus(EStatusSchedule.PRE_RESERVE);
+        _schedule.setStock(_schedule.getStock()-1);
         this.scheduleServiceImpl.changeStatus(new Schedule(_schedule), EStatusSchedule.PRE_RESERVE);
 
         receipt.setSchedule(_schedule);

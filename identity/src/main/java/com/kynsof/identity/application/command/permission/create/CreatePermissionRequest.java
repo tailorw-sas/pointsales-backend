@@ -16,4 +16,5 @@ public class CreatePermissionRequest {
     private String code;
     private String description;
     private UUID moduleId;
+    private String action;
 }
