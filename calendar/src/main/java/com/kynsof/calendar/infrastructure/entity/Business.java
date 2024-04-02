@@ -24,6 +24,7 @@ public class Business{
     private String name;
     private String latitude;
     private String longitude;
+    private String address;
     private UUID logo;
 
     // Relación de muchos a muchos con Resource
@@ -40,10 +41,11 @@ public class Business{
         this.latitude = business.getLatitude();
         this.longitude = business.getLongitude();
         this.logo = business.getLogo();
+        this.address = business.getAddress();
 
     }
 
     public BusinessDto toAggregate () {
-        return new BusinessDto(id, name, latitude, longitude, logo);
+        return new BusinessDto(id, name, latitude, longitude, address, logo);
     }
 }

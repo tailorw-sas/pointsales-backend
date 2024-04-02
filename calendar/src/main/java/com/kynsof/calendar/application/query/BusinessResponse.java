@@ -16,6 +16,7 @@ public class BusinessResponse implements IResponse {
     private String name;
     private String latitude;
     private String longitude;
+    private String address;
     private UUID logo;
 
     public BusinessResponse(BusinessDto object) {
@@ -24,6 +25,7 @@ public class BusinessResponse implements IResponse {
         this.latitude = object.getLatitude();
         this.longitude = object.getLongitude();
         this.logo = object.getLogo();
+        this.address = object.getAddress();
     }
 
 }
