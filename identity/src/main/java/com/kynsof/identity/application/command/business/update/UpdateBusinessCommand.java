@@ -21,8 +21,9 @@ public class UpdateBusinessCommand implements ICommand {
     private String ruc;
     private EBusinessStatus status;
     private UUID geographicLocation;
+    private String address;
 
-    public UpdateBusinessCommand(UUID id, String name, String latitude, String longitude, String description, byte [] logo, String ruc, EBusinessStatus status, UUID geographicLocation) {
+    public UpdateBusinessCommand(UUID id, String name, String latitude, String longitude, String description, byte [] logo, String ruc, EBusinessStatus status, UUID geographicLocation, String address) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
@@ -32,6 +33,7 @@ public class UpdateBusinessCommand implements ICommand {
         this.ruc = ruc;
         this.status = status;
         this.geographicLocation = geographicLocation;
+        this.address = address;
     }
 
     public static UpdateBusinessCommand fromRequest(UpdateBusinessRequest request) {
@@ -44,7 +46,8 @@ public class UpdateBusinessCommand implements ICommand {
                 request.getLogo(), 
                 request.getRuc(), 
                 request.getStatus(), 
-                request.getGeographicLocation()
+                request.getGeographicLocation(),
+                request.getAddress()
                 );
     }
 

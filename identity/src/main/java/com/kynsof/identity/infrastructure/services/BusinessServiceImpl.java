@@ -77,6 +77,7 @@ public class BusinessServiceImpl implements IBusinessService {
         object.setLongitude(objectDto.getLongitude()!= null ? objectDto.getLongitude(): object.getLongitude());
         object.setLatitude(objectDto.getLatitude()!= null ? objectDto.getLatitude(): object.getLatitude());
         object.setRuc(objectDto.getRuc() != null ? objectDto.getRuc() : object.getRuc());
+        object.setAddress(objectDto.getAddress()!= null ? objectDto.getAddress(): object.getAddress());
         object.setGeographicLocation(objectDto.getGeographicLocationDto() != null ? new GeographicLocation(objectDto.getGeographicLocationDto()) : object.getGeographicLocation());
 
         this.repositoryCommand.save(object);

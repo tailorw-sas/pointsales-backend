@@ -25,6 +25,8 @@ public class Business {
     private String description;
     private String logo;
     private String ruc;
+    @Column(nullable = true)
+    private String address;
     @Enumerated(EnumType.STRING)
     private EBusinessStatus status;
     private boolean deleted;
@@ -47,6 +49,7 @@ public class Business {
         this.status = business.getStatus();
         this.deleted = business.isDeleted();
         this.geographicLocation = business.getGeographicLocationDto() != null ? new GeographicLocation(business.getGeographicLocationDto()) : null;
+        this.address = business.getAddress();
     }
 
     public BusinessDto toAggregate () {
@@ -59,7 +62,8 @@ public class Business {
                 logo,
                 ruc, 
                 status, 
-                geographicLocation != null ? geographicLocation.toAggregate() : null
+                geographicLocation != null ? geographicLocation.toAggregate() : null,
+                address
         );
     }
 }
