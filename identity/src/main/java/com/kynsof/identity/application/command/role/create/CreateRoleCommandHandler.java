@@ -6,6 +6,7 @@ import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Component
@@ -20,7 +21,7 @@ public class CreateRoleCommandHandler implements ICommandHandler<CreateRoleComma
     @Override
     public void handle(CreateRoleCommand command) {
       UUID id=  roleService.create(new RoleDto(UUID.randomUUID(), command.getName(), command.getDescription(),
-              RoleStatusEnm.ACTIVE));
+              RoleStatusEnm.ACTIVE, new ArrayList<>()));
       command.setId(id);
     }
 }

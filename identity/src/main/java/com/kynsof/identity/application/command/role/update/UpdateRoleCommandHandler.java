@@ -5,6 +5,8 @@ import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 public class UpdateRoleCommandHandler implements ICommandHandler<UpdateRoleCommand> {
 
@@ -16,6 +18,7 @@ public class UpdateRoleCommandHandler implements ICommandHandler<UpdateRoleComma
 
     @Override
     public void handle(UpdateRoleCommand command) {
-        roleService.update(new RoleDto(command.getId(),command.getName(),command.getDescription(), command.getStatus()));
+        roleService.update(new RoleDto(command.getId(),command.getName(),command.getDescription(), command.getStatus(),
+                new ArrayList<>()));
     }
 }

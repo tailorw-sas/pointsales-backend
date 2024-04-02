@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -48,6 +49,6 @@ public class RoleSystem {
     }
 
     public RoleDto toAggregate() {
-        return new RoleDto(this.id, this.name, this.description, this.status);
+        return new RoleDto(this.id, this.name, this.description, this.status, new ArrayList<>());
     }
 }

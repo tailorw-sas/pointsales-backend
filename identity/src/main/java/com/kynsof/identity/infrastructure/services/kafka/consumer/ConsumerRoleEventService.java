@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,7 +39,8 @@ public class ConsumerRoleEventService {
                 System.err.println("SE EJECUTA UN CREATED");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                this.service.create(new RoleDto(eventRead.getId(), eventRead.getName(), eventRead.getDescription(), RoleStatusEnm.ACTIVE));
+                this.service.create(new RoleDto(eventRead.getId(), eventRead.getName(), eventRead.getDescription(),
+                        RoleStatusEnm.ACTIVE, new ArrayList<>()));
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion
