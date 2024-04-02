@@ -1,11 +1,11 @@
 package com.kynsof.identity.infrastructure.services;
 
-import com.kynsof.identity.application.query.permission.getById.PermissionResponse;
+import com.kynsof.identity.application.query.permission.search.PermissionSearchResponse;
 import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.enumType.PermissionStatusEnm;
 import com.kynsof.identity.domain.interfaces.service.IPermissionService;
-import com.kynsof.identity.infrastructure.identity.Permission;
 import com.kynsof.identity.infrastructure.identity.ModuleSystem;
+import com.kynsof.identity.infrastructure.identity.Permission;
 import com.kynsof.identity.infrastructure.repository.command.PermissionWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.PermissionReadDataJPARepository;
 import com.kynsof.share.core.domain.RulesChecker;
@@ -97,9 +97,9 @@ public class PermissionServiceImpl implements IPermissionService {
     }
 
     private PaginatedResponse getPaginatedResponse(Page<Permission> data) {
-        List<PermissionResponse> patients = new ArrayList<>();
+        List<PermissionSearchResponse> patients = new ArrayList<>();
         for (Permission o : data.getContent()) {
-            patients.add(new PermissionResponse(o.toAggregate()));
+            patients.add(new PermissionSearchResponse(o.toAggregate()));
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
