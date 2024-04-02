@@ -4,6 +4,8 @@ package com.kynsoft.gateway.controller;
 import com.kynsof.share.core.domain.response.ApiError;
 import com.kynsof.share.core.domain.response.ApiResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
+import com.kynsoft.gateway.application.command.auth.registrySystemUser.RegistrySystemUserCommand;
+import com.kynsoft.gateway.application.command.auth.registrySystemUser.RegistrySystemUserMessage;
 import com.kynsoft.gateway.application.command.user.changePassword.ChangePasswordCommand;
 import com.kynsoft.gateway.application.command.user.changePassword.ChangePasswordMessage;
 import com.kynsoft.gateway.application.command.user.update.UpdateUserCommand;
@@ -39,7 +41,13 @@ public class UsersController {
     public Mono<ResponseEntity<?>> findAllUsers() {
         return Mono.justOrEmpty(ResponseEntity.ok("userService.findAllUsers()"));
     }
-
+    @PostMapping("/register")
+    public ResponseEntity<ApiResponse<String>> registerSystemUser(@RequestBody UserRequest userRequest) {
+        RegistrySystemUserCommand command = new RegistrySystemUserCommand(userRequest.getUsername(), userRequest.getEmail(), userRequest.getFirstname(),
+                userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
+        RegistrySystemUserMessage registryMessage = mediator.send(command);
+        return ResponseEntity.ok(ApiResponse.success(registryMessage.getResult()));
+    }
 
 //    @GetMapping("/find/{username}")
 //    public Mono<ResponseEntity<?>> searchUserByUsername(@PathVariable String username) {

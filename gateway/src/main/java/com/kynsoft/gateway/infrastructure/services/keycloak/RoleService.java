@@ -51,7 +51,13 @@ public class RoleService implements IRoleService {
 
     @Override
     public List<RoleRepresentation> findAllRoles() {
-        return keycloakProvider.getRealmResource().clients().get("client-id").roles().list();
+        RealmResource realmResource = keycloakProvider.getRealmResource();
+
+        ClientResource clientResource = realmResource.clients().findByClientId(keycloakProvider.getClient_id()).stream()
+                .findFirst()
+                .map(clientRepresentation -> realmResource.clients().get(clientRepresentation.getId()))
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+        return  clientResource.roles().list();
     }
 
     @Override
