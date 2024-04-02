@@ -3,6 +3,7 @@ package com.kynsof.identity.application.query.users.getSearch;
 
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
+import com.kynsof.identity.domain.dto.enumType.UserType;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,8 @@ public class UserSystemsResponse implements IResponse {
     private String name;
     private String lastName;
     private UserStatus status;
+    private UserType userType;
+    private UUID image;
 
     public UserSystemsResponse(UserSystemDto contactInfoDto) {
         this.id = contactInfoDto.getId();
@@ -28,6 +31,8 @@ public class UserSystemsResponse implements IResponse {
         this.name = contactInfoDto.getName();
         this.lastName = contactInfoDto.getLastName();
         this.status = contactInfoDto.getStatus();
+        this.image = contactInfoDto.getIdImage() != null ? contactInfoDto.getIdImage() : null;
+        this.userType = contactInfoDto.getUserType() != null ? contactInfoDto.getUserType() : UserType.UNDEFINED;
     }
 
 }
