@@ -1,13 +1,12 @@
 package com.kynsof.identity.application.query.roles.getById;
 
-import com.kynsof.identity.application.query.roles.getSearch.RoleSystemsResponse;
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FindByIdRoleSystemsQueryHandler implements IQueryHandler<FindByIdRoleSystemsQuery, RoleSystemsResponse>  {
+public class FindByIdRoleSystemsQueryHandler implements IQueryHandler<FindByIdRoleSystemsQuery, RoleSystemsByIdResponse>  {
 
     private final IRoleService serviceImpl;
 
@@ -16,9 +15,9 @@ public class FindByIdRoleSystemsQueryHandler implements IQueryHandler<FindByIdRo
     }
 
     @Override
-    public RoleSystemsResponse handle(FindByIdRoleSystemsQuery query) {
-        RoleDto userSystemDto = serviceImpl.findById(query.getId());
+    public RoleSystemsByIdResponse handle(FindByIdRoleSystemsQuery query) {
+        RoleDto roleDto = serviceImpl.findById(query.getId());
 
-        return new RoleSystemsResponse(userSystemDto);
+        return new RoleSystemsByIdResponse(roleDto);
     }
 }
