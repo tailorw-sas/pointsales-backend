@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -23,9 +22,9 @@ public class ServicesResponse implements IResponse {
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
     private String description;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
-    private LocalDateTime deleteAt;
+//    private LocalDateTime createAt;
+//    private LocalDateTime updateAt;
+//    private LocalDateTime deleteAt;
 
     public ServicesResponse(ServiceDto object) {
         this.id = object.getId();
@@ -36,9 +35,9 @@ public class ServicesResponse implements IResponse {
         this.normalAppointmentPrice = object.getNormalAppointmentPrice();
         this.expressAppointmentPrice = object.getExpressAppointmentPrice();
         this.description = object.getDescription();
-        this.createAt = object.getCreateAt();
-        this.updateAt = object.getUpdateAt();
-        this.deleteAt = object.getDeleteAt();
+//        this.createAt = object.getCreateAt();
+//        this.updateAt = object.getUpdateAt();
+//        this.deleteAt = object.getDeleteAt();
     }
 
 }

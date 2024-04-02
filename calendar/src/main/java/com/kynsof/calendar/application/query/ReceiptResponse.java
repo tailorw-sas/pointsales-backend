@@ -2,7 +2,6 @@ package com.kynsof.calendar.application.query;
 
 import com.kynsof.calendar.domain.dto.PatientDto;
 import com.kynsof.calendar.domain.dto.ReceiptDto;
-import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
@@ -21,7 +20,7 @@ public class ReceiptResponse implements IResponse {
     private String reasons;
     private PatientDto user;
     private ScheduleResponse schedule;
-    private ServiceDto service;
+    private ServicesResponse service;
     private EStatusReceipt status;
 
     public ReceiptResponse(ReceiptDto object) {
@@ -31,7 +30,7 @@ public class ReceiptResponse implements IResponse {
         this.reasons = object.getReasons();
         this.user = object.getUser();
         this.schedule = new ScheduleResponse(object.getSchedule());
-        this.service = object.getService();
+        this.service = new ServicesResponse(object.getService());
         this.status = object.getStatus();
     }
 
