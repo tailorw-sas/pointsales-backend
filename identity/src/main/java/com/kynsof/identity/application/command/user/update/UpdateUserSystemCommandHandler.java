@@ -2,6 +2,7 @@ package com.kynsof.identity.application.command.user.update;
 
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.identity.domain.interfaces.IUserSystemService;
+import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerUpdateUserSystemEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
@@ -19,6 +20,9 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
 
     @Autowired
     private ProducerSaveFileEventService saveFileEventService;
+
+    @Autowired
+    private ProducerUpdateUserSystemEventService updateUserSystemEventService;
 
     public UpdateUserSystemCommandHandler(IUserSystemService allergyService) {
         this.systemService = allergyService;
@@ -44,6 +48,7 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
             FileKafka fileSave = new FileKafka(idImage, "identity", UUID.randomUUID().toString(),
                     command.getImage());
             saveFileEventService.create(fileSave);
+            updateUserSystemEventService.update(objectToUpdate);
         }
 
         systemService.update(objectToUpdate);
