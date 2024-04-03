@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.command.userrolbusiness.update;
+package com.kynsof.identity.application.command.userPermisionBusiness.update;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;

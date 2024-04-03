@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.command.userrolbusiness.create.lote;
+package com.kynsof.identity.application.command.userPermisionBusiness.create.lote;
 
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;

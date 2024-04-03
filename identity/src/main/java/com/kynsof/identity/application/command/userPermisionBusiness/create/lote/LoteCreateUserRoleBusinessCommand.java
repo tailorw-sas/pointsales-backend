@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.command.userrolbusiness.create.lote;
+package com.kynsof.identity.application.command.userPermisionBusiness.create.lote;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
@@ -10,9 +10,9 @@ import lombok.Setter;
 @Setter
 public class LoteCreateUserRoleBusinessCommand implements ICommand {
 
-    private List<LoteUserRoleBusinessRequest> payload;
+    private List<LoteUserPermissionBusinessRequest> payload;
 
-    public LoteCreateUserRoleBusinessCommand(List<LoteUserRoleBusinessRequest> payload) {
+    public LoteCreateUserRoleBusinessCommand(List<LoteUserPermissionBusinessRequest> payload) {
         this.payload = List.copyOf(payload);        
     }
 

@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.command.userrolbusiness.update;
+package com.kynsof.identity.application.command.userPermisionBusiness.update;
 
 import java.util.List;
 import lombok.Getter;

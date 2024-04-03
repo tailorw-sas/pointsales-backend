@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.command.userrolbusiness.update;
+package com.kynsof.identity.application.command.userPermisionBusiness.create;
 
 import com.kynsof.identity.domain.dto.*;
 import com.kynsof.identity.domain.interfaces.IUserSystemService;
@@ -10,9 +10,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Component
-public class UpdateUserRoleBusinessCommandHandler implements ICommandHandler<UpdateUserRoleBusinessCommand> {
+public class CreateUserRoleBusinessCommandHandler implements ICommandHandler<CreateUserRoleBusinessCommand> {
 
     private final IUserRoleBusinessService service;
 
@@ -22,8 +23,8 @@ public class UpdateUserRoleBusinessCommandHandler implements ICommandHandler<Upd
 
     private final IUserSystemService userSystemService;
 
-    public UpdateUserRoleBusinessCommandHandler(IUserRoleBusinessService service, 
-                                             IPermissionService permissionService,
+    public CreateUserRoleBusinessCommandHandler(IUserRoleBusinessService service,
+                                                IPermissionService permissionService,
                                              IBusinessService businessService,
                                              IUserSystemService userSystemService) {
         this.service = service;
@@ -33,30 +34,16 @@ public class UpdateUserRoleBusinessCommandHandler implements ICommandHandler<Upd
     }
 
     @Override
-    public void handle(UpdateUserRoleBusinessCommand command) {
+    public void handle(CreateUserRoleBusinessCommand command) {
         List<UserRoleBusinessDto> userRoleBusinessDtos = new ArrayList<>();
 
-        for (UserRoleBusinessUpdateRequest userRoleBusinessRequest : command.getPayload()) {
-            
-            UserRoleBusinessDto toUpdate = this.service.findById(userRoleBusinessRequest.getId());
-            
+        for (UserRoleBusinessRequest userRoleBusinessRequest : command.getPayload()) {
             UserSystemDto userSystemDto = this.userSystemService.findById(userRoleBusinessRequest.getUserId());
             PermissionDto roleDto = this.permissionService.findById(userRoleBusinessRequest.getPermissionId());
             BusinessDto businessDto = this.businessService.findById(userRoleBusinessRequest.getBusinessId());
-
-            UserRoleBusinessDto payloadUpdate = new UserRoleBusinessDto(userRoleBusinessRequest.getId(), userSystemDto, roleDto, businessDto);
-            if (validate(payloadUpdate, toUpdate)) {
-                userRoleBusinessDtos.add(payloadUpdate);
-            }
-
+            userRoleBusinessDtos.add(new UserRoleBusinessDto(UUID.randomUUID(), userSystemDto, roleDto, businessDto));
         }
 
-        this.service.update(userRoleBusinessDtos);
-    }
-
-    private boolean validate(UserRoleBusinessDto payloadUpdate, UserRoleBusinessDto toUpdate) {
-        return !(payloadUpdate.getBusiness().getId().equals(toUpdate.getBusiness().getId()) &&
-                payloadUpdate.getPermission().getId().equals(toUpdate.getPermission().getId()) &&
-                payloadUpdate.getUser().getId().equals(toUpdate.getUser().getId()));
+        this.service.create(userRoleBusinessDtos);
     }
 }

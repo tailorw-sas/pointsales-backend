@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.command.userrolbusiness.create.lote;
+package com.kynsof.identity.application.command.userPermisionBusiness.create.lote;
 
 import com.kynsof.identity.domain.dto.*;
 import com.kynsof.identity.domain.interfaces.IUserSystemService;
@@ -37,11 +37,11 @@ public class LoteCreateUserRoleBusinessCommandHandler implements ICommandHandler
     public void handle(LoteCreateUserRoleBusinessCommand command) {
         List<UserRoleBusinessDto> userRoleBusinessDtos = new ArrayList<>();
 
-        for (LoteUserRoleBusinessRequest userRoleBusinessRequest : command.getPayload()) {
-            UserSystemDto userSystemDto = this.userSystemService.findById(userRoleBusinessRequest.getUser());
-            BusinessDto businessDto = this.businessService.findById(userRoleBusinessRequest.getBusiness());
+        for (LoteUserPermissionBusinessRequest userRoleBusinessRequest : command.getPayload()) {
+            UserSystemDto userSystemDto = this.userSystemService.findById(userRoleBusinessRequest.getUserId());
+            BusinessDto businessDto = this.businessService.findById(userRoleBusinessRequest.getBusinessId());
 
-            for (UUID role : userRoleBusinessRequest.getRoles()) {
+            for (UUID role : userRoleBusinessRequest.getPermissionIds()) {
                 PermissionDto roleDto = this.permissionService.findById(role);
                 userRoleBusinessDtos.add(new UserRoleBusinessDto(UUID.randomUUID(), userSystemDto, roleDto, businessDto));
             }

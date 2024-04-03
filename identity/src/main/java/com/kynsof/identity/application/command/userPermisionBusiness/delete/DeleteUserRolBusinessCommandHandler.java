@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.command.userrolbusiness.delete;
+package com.kynsof.identity.application.command.userPermisionBusiness.delete;
 
 import com.kynsof.identity.domain.interfaces.service.IUserRoleBusinessService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;

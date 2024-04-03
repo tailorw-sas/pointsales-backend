@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.command.userrolbusiness.create;
+package com.kynsof.identity.application.command.userPermisionBusiness.create;
 
 import java.util.List;
 import lombok.Getter;
