@@ -48,7 +48,7 @@ public class UserSystem implements Serializable {
 
     // Relationship with User_Role_Clinic
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<UserRoleBusiness> userRolesClinics = new HashSet<>();
+    private Set<UserPermissionBusiness> userRolesClinics = new HashSet<>();
 
     @CreatedBy
     private String createdBy;

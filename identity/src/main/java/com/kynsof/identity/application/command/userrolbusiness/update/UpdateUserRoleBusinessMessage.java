@@ -8,7 +8,7 @@ public class UpdateUserRoleBusinessMessage implements ICommandMessage {
 
     private final boolean id;
 
-    private final String command = "UPDATE_USER_ROLE_BUSINESS";
+    private final String command = "UPDATE_USER_PERMISSION_BUSINESS";
 
     public UpdateUserRoleBusinessMessage(boolean id) {
         this.id = id;

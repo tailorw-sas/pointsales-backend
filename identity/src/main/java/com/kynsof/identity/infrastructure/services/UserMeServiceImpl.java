@@ -6,18 +6,14 @@ import com.kynsof.identity.domain.dto.me.RolePermissionsDto;
 import com.kynsof.identity.domain.dto.me.UserMeDto;
 import com.kynsof.identity.domain.interfaces.service.IUserMeService;
 import com.kynsof.identity.infrastructure.identity.Business;
-import com.kynsof.identity.infrastructure.identity.Permission;
-import com.kynsof.identity.infrastructure.identity.RoleSystem;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
 import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.PermissionReadDataJPARepository;
-import com.kynsof.identity.infrastructure.repository.query.RolReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserSystemReadDataJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class UserMeServiceImpl implements IUserMeService {
@@ -27,8 +23,6 @@ public class UserMeServiceImpl implements IUserMeService {
     @Autowired
     private UserSystemReadDataJPARepository userSystemReadDataJPARepository;
 
-    @Autowired
-    private RolReadDataJPARepository rolReadDataJPARepository;
 
     @Autowired
     private BusinessReadDataJPARepository businessReadDataJPARepository;
@@ -57,22 +51,7 @@ public class UserMeServiceImpl implements IUserMeService {
 
             Set<PermissionInfo> uniquePermissions = new HashSet<>();
             List<RolePermissionsDto> roleInfoList = new ArrayList<>();
-
-            List<RoleSystem> roles = rolReadDataJPARepository.findRolesByUserIdAndBusinessId(userId, business.getId());
-            for (RoleSystem role : roles) {
-                List<Permission> permissions = permissionReadDataJPARepository.findPermissionsByRoleId(role.getId());
-
-                List<PermissionInfo> permissionsInfo = permissions.stream()
-                        .map(permission -> {
-                            PermissionInfo pInfo = new PermissionInfo(permission.getId(), permission.getModule().toAggregate(), permission.getCode(), permission.getDescription());
-                            uniquePermissions.add(pInfo);
-                            return pInfo;
-                        }).collect(Collectors.toList());
-
-                RolePermissionsDto roleInfo = new RolePermissionsDto(role.getId(), role.getName(), permissionsInfo);
-                roleInfoList.add(roleInfo);
-            }
-
+            
             businessInfo.setRoles(roleInfoList);
             businessInfo.setUniquePermissions(uniquePermissions);
             businessInfoList.add(businessInfo);

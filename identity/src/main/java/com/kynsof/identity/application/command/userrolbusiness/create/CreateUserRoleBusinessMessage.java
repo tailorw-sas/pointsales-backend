@@ -6,12 +6,12 @@ import lombok.Getter;
 @Getter
 public class CreateUserRoleBusinessMessage implements ICommandMessage {
 
-    private final boolean id;
+    private final boolean result;
 
-    private final String command = "CREATE_USER_ROLE_BUSINESS";
+    private final String command = "CREATE_USER_PERMISSION_BUSINESS";
 
-    public CreateUserRoleBusinessMessage(boolean id) {
-        this.id = id;
+    public CreateUserRoleBusinessMessage(boolean result) {
+        this.result = result;
     }
 
 }

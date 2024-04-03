@@ -1,9 +1,6 @@
 package com.kynsof.identity.infrastructure.identity;
 
-import com.kynsof.identity.domain.dto.BusinessDto;
-import com.kynsof.identity.domain.dto.RoleDto;
-import com.kynsof.identity.domain.dto.UserRoleBusinessDto;
-import com.kynsof.identity.domain.dto.UserSystemDto;
+import com.kynsof.identity.domain.dto.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +12,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "user_role_business")
-public class UserRoleBusiness {
+@Table(name = "user_permission_business")
+public class UserPermissionBusiness {
     @Id
     private UUID id;
 
@@ -25,8 +22,8 @@ public class UserRoleBusiness {
     private UserSystem user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
-    private RoleSystem role;
+    @JoinColumn(name = "permission_id")
+    private Permission permission;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "business_id")
@@ -35,22 +32,22 @@ public class UserRoleBusiness {
     @Column(nullable = true)
     private boolean deleted;
 
-    public UserRoleBusiness(UUID id, UserSystemDto user, RoleDto role, BusinessDto business) {
+    public UserPermissionBusiness(UUID id, UserSystemDto user, PermissionDto permissionDto, BusinessDto business) {
         this.id = id;
         this.user = new UserSystem(user);
-        this.role = new RoleSystem(role);
+        this.permission = new Permission(permissionDto);
         this.business = new Business(business);
     }
 
-    public UserRoleBusiness(UserRoleBusinessDto userRoleBusinessDto) {
+    public UserPermissionBusiness(UserRoleBusinessDto userRoleBusinessDto) {
         this.id = userRoleBusinessDto.getId();
         this.user = new UserSystem(userRoleBusinessDto.getUser());
-        this.role = new RoleSystem(userRoleBusinessDto.getRole());
+        this.permission = new Permission(userRoleBusinessDto.getPermission());
         this.business = new Business(userRoleBusinessDto.getBusiness());
         this.deleted = userRoleBusinessDto.isDeleted();
     }
 
     public UserRoleBusinessDto toAggregate () {
-        return new UserRoleBusinessDto(id, user.toAggregate(), role.toAggregate(), business.toAggregate());
+        return new UserRoleBusinessDto(id, user.toAggregate(), permission.toAggregate(), business.toAggregate());
     }
 }

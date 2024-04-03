@@ -27,7 +27,6 @@ public class ModuleSystem {
 
     @OneToMany(mappedBy = "module", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Permission> permissions = new HashSet<>();
-
     public ModuleSystem(ModuleDto module) {
         this.id = module.getId();
         this.name = module.getName();

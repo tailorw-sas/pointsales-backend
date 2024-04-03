@@ -1,12 +1,9 @@
 package com.kynsof.identity.application.command.userrolbusiness.create;
 
-import com.kynsof.identity.domain.dto.BusinessDto;
-import com.kynsof.identity.domain.dto.RoleDto;
-import com.kynsof.identity.domain.dto.UserRoleBusinessDto;
-import com.kynsof.identity.domain.dto.UserSystemDto;
+import com.kynsof.identity.domain.dto.*;
 import com.kynsof.identity.domain.interfaces.IUserSystemService;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
-import com.kynsof.identity.domain.interfaces.service.IRoleService;
+import com.kynsof.identity.domain.interfaces.service.IPermissionService;
 import com.kynsof.identity.domain.interfaces.service.IUserRoleBusinessService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
@@ -20,18 +17,18 @@ public class CreateUserRoleBusinessCommandHandler implements ICommandHandler<Cre
 
     private final IUserRoleBusinessService service;
 
-    private final IRoleService roleService;
+    private final IPermissionService permissionService;
 
     private final IBusinessService businessService;
 
     private final IUserSystemService userSystemService;
 
-    public CreateUserRoleBusinessCommandHandler(IUserRoleBusinessService service, 
-                                             IRoleService roleService, 
+    public CreateUserRoleBusinessCommandHandler(IUserRoleBusinessService service,
+                                                IPermissionService permissionService,
                                              IBusinessService businessService,
                                              IUserSystemService userSystemService) {
         this.service = service;
-        this.roleService = roleService;
+        this.permissionService = permissionService;
         this.businessService = businessService;
         this.userSystemService = userSystemService;
     }
@@ -41,9 +38,9 @@ public class CreateUserRoleBusinessCommandHandler implements ICommandHandler<Cre
         List<UserRoleBusinessDto> userRoleBusinessDtos = new ArrayList<>();
 
         for (UserRoleBusinessRequest userRoleBusinessRequest : command.getPayload()) {
-            UserSystemDto userSystemDto = this.userSystemService.findById(userRoleBusinessRequest.getUser());
-            RoleDto roleDto = this.roleService.findById(userRoleBusinessRequest.getRole());
-            BusinessDto businessDto = this.businessService.findById(userRoleBusinessRequest.getBusiness());
+            UserSystemDto userSystemDto = this.userSystemService.findById(userRoleBusinessRequest.getUserId());
+            PermissionDto roleDto = this.permissionService.findById(userRoleBusinessRequest.getPermissionId());
+            BusinessDto businessDto = this.businessService.findById(userRoleBusinessRequest.getBusinessId());
             userRoleBusinessDtos.add(new UserRoleBusinessDto(UUID.randomUUID(), userSystemDto, roleDto, businessDto));
         }
 

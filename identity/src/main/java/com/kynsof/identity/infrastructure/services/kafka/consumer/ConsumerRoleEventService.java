@@ -3,23 +3,18 @@ package com.kynsof.identity.infrastructure.services.kafka.consumer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.identity.domain.dto.RoleDto;
-import com.kynsof.identity.domain.dto.enumType.RoleStatusEnm;
-import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.share.core.domain.kafka.entity.RoleKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
 public class ConsumerRoleEventService {
-    @Autowired
-    private IRoleService service;
+   // @Autowired
+   // private IRoleService service;
 
     // Ejemplo de un método listener
     @KafkaListener(topics = "role", groupId = "role-identity")
@@ -39,8 +34,8 @@ public class ConsumerRoleEventService {
                 System.err.println("SE EJECUTA UN CREATED");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                this.service.create(new RoleDto(eventRead.getId(), eventRead.getName(), eventRead.getDescription(),
-                        RoleStatusEnm.ACTIVE, new ArrayList<>()));
+//                this.service.create(new RoleDto(eventRead.getId(), eventRead.getName(), eventRead.getDescription(),
+//                        RoleStatusEnm.ACTIVE, new ArrayList<>()));
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion

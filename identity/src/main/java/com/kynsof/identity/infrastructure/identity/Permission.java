@@ -31,13 +31,12 @@ public class Permission {
     @Column(nullable = true)
     private boolean deleted;
 
-    // Relationships
-    @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<RolePermission> rolePermissions = new HashSet<>();
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "module_id")
     private ModuleSystem module;
+
+    @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UserPermissionBusiness> userRoleBusinesses = new HashSet<>();
 
     public Permission(PermissionDto permissionDto) {
         this.id = permissionDto.getId();
