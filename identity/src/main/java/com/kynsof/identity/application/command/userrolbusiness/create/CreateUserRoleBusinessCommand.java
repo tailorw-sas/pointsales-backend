@@ -1,6 +1,5 @@
 package com.kynsof.identity.application.command.userrolbusiness.create;
 
-import com.kynsof.identity.application.command.rolpermission.create.*;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import java.util.List;

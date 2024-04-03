@@ -22,7 +22,6 @@ import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,18 +56,7 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public void update(RoleDto roleUpdateDto) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(roleUpdateDto, "Role", "Role DTO cannot be null."));
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(roleUpdateDto.getId(), "Role.id", "Role ID cannot be null."));
-
-        RoleSystem object = this.repositoryQuery.findById(roleUpdateDto.getId())
-                .orElseThrow(() -> new BusinessException(DomainErrorMessage.ROLE_NOT_FOUND, "Role not found."));
-
-        object.setDescription(roleUpdateDto.getDescription() != null ? roleUpdateDto.getDescription() : object.getDescription());
-        object.setName(roleUpdateDto.getName() != null ? roleUpdateDto.getName() : object.getName());
-        object.setStatus(roleUpdateDto.getStatus() != object.getStatus() ? roleUpdateDto.getStatus() : object.getStatus());
-
-        this.repositoryCommand.save(object);
-
+        this.repositoryCommand.save(new RoleSystem(roleUpdateDto));
     }
 
     @Override

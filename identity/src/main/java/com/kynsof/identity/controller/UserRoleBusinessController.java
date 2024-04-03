@@ -3,6 +3,9 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.userrolbusiness.create.CreateUserRoleBusinessCommand;
 import com.kynsof.identity.application.command.userrolbusiness.create.CreateUserRoleBusinessMessage;
 import com.kynsof.identity.application.command.userrolbusiness.create.CreateUserRoleBusinessRequest;
+import com.kynsof.identity.application.command.userrolbusiness.create.lote.LoteCreateUserRoleBusinessCommand;
+import com.kynsof.identity.application.command.userrolbusiness.create.lote.LoteCreateUserRoleBusinessMessage;
+import com.kynsof.identity.application.command.userrolbusiness.create.lote.LoteCreateUserRoleBusinessRequest;
 import com.kynsof.identity.application.command.userrolbusiness.delete.DeleteUserRolBusinessCommand;
 import com.kynsof.identity.application.command.userrolbusiness.delete.DeleteUserRolBusinessMessage;
 import com.kynsof.identity.application.command.userrolbusiness.update.UpdateUserRoleBusinessCommand;
@@ -34,6 +37,13 @@ public class UserRoleBusinessController {
     public ResponseEntity<CreateUserRoleBusinessMessage> create(@RequestBody CreateUserRoleBusinessRequest request) {
         CreateUserRoleBusinessCommand command = CreateUserRoleBusinessCommand.fromRequest(request);
         CreateUserRoleBusinessMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/create/lote")
+    public ResponseEntity<LoteCreateUserRoleBusinessMessage> createLote(@RequestBody LoteCreateUserRoleBusinessRequest request) {
+        LoteCreateUserRoleBusinessCommand command = LoteCreateUserRoleBusinessCommand.fromRequest(request);
+        LoteCreateUserRoleBusinessMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 
