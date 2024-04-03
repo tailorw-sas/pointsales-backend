@@ -35,10 +35,10 @@ public class UpdateUserSystemStepTowCommandHandler implements ICommandHandler<Up
             FileKafka fileSave = new FileKafka(idImage, "identity", UUID.randomUUID().toString(),
                     command.getImage());
             saveFileEventService.create(fileSave);
-            updateUserSystemEventService.update(update);
         }
 
         update.setUserType(command.getUserType());
         systemService.update(update);
+        updateUserSystemEventService.update(update);
     }
 }
