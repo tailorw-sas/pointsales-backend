@@ -4,11 +4,18 @@ import com.kynsof.identity.application.query.roles.getSearch.RoleSystemsResponse
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RolePermissionDto;
 import com.kynsof.identity.domain.dto.enumType.RoleStatusEnm;
+import com.kynsof.identity.domain.dto.roleDto.ModuleWithPermissionsDto;
+import com.kynsof.identity.domain.dto.roleDto.PermissionRoleDto;
+import com.kynsof.identity.domain.dto.roleDto.RoleWithModulesResponse;
 import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.identity.domain.rules.RolNameMustBeUniqueRule;
+import com.kynsof.identity.infrastructure.identity.ModuleSystem;
+import com.kynsof.identity.infrastructure.identity.Permission;
 import com.kynsof.identity.infrastructure.identity.RolePermission;
 import com.kynsof.identity.infrastructure.identity.RoleSystem;
 import com.kynsof.identity.infrastructure.repository.command.RolWriteDataJPARepository;
+import com.kynsof.identity.infrastructure.repository.query.ModuleReadDataJPARepository;
+import com.kynsof.identity.infrastructure.repository.query.PermissionReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.RolReadDataJPARepository;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
@@ -17,15 +24,14 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleServiceImpl implements IRoleService {
@@ -35,6 +41,12 @@ public class RoleServiceImpl implements IRoleService {
 
     @Autowired
     private RolReadDataJPARepository repositoryQuery;
+
+    @Autowired
+    private ModuleReadDataJPARepository moduleReadDataJPARepository;
+
+    @Autowired
+    private PermissionReadDataJPARepository permissionReadDataJPARepository;
 
     @Override
     public UUID create(RoleDto dto) {
@@ -128,4 +140,26 @@ public class RoleServiceImpl implements IRoleService {
         return this.repositoryQuery.countByName(name);
     }
 
+    @Override
+    public RoleWithModulesResponse getRoleWithModulesAndPermissions(UUID roleId) {
+        RoleSystem role = repositoryQuery.findById(roleId)
+                .orElseThrow(() -> new EntityNotFoundException("Role not found"));
+
+        List<ModuleWithPermissionsDto> modulesWithPermissions = new ArrayList<>();
+
+        List<ModuleSystem> modules = moduleReadDataJPARepository.findModulesByRoleId(roleId);
+
+        for (ModuleSystem module : modules) {
+            Set<Permission> permissions = permissionReadDataJPARepository.findPermissionsByModuleIdAndRoleId(module.getId(), roleId);
+
+            List<PermissionRoleDto> permissionDtos = permissions.stream()
+                    .map(permission -> new PermissionRoleDto(permission.getId(), permission.getCode(), permission.getDescription(), permission.getAction()))
+                    .collect(Collectors.toList());
+
+            ModuleWithPermissionsDto moduleDto = new ModuleWithPermissionsDto(module.getId(), module.getName(), module.getDescription(), permissionDtos);
+            modulesWithPermissions.add(moduleDto);
+        }
+
+        return new RoleWithModulesResponse(role.getId(), role.getName(), role.getDescription(), modulesWithPermissions);
+    }
 }

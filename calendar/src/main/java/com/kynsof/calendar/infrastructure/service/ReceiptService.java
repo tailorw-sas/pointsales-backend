@@ -117,35 +117,37 @@ public class ReceiptService implements IReceiptService {
     }
 
     @Override
-    public void update(ReceiptDto receipt, UUID idSchedule, UUID idService, EStatusReceipt status, Double price, boolean express, String reasons) {
+    public void update(ReceiptDto receipt) {
+
+        this.receiptRepositoryCommand.save(new Receipt(receipt));
         /**
          * El cliente no puede cambiar el status a CONFIRMED, por lo cual, en la
          * peticion se debe de enviar status PRE-RESERVE o CANCEL.
          */
-        receipt.setExpress(express);
-        receipt.setPrice(price);
-        receipt.setReasons(reasons);
-        switch (status) {
-            case CANCEL: {
-                this.changeState(receipt, status);
-            }
-            case PRE_RESERVE: {
-                if (receipt.getStatus().equals(EStatusReceipt.PRE_RESERVE)) {
-                    this.changeServiceScheduleStatus(receipt, idSchedule, idService, status, EStatusSchedule.PRE_RESERVE);
-                }
-            }
-            case CONFIRMED: {
-                //Que se mantengan las condiciones de la pre-reserva
-                if ((Objects.equals(receipt.getSchedule().getId(), idSchedule))
-                        && (Objects.equals(receipt.getService().getId(), idService))) {
-                    this.changeState(receipt, status);
-                }
-                this.changeServiceScheduleStatus(receipt, idSchedule, idService, status, EStatusSchedule.RESERVED);
-            }
-            default: {
-                throw new BusinessException(DomainErrorMessage.STATUS_NOT_ACCEPTED, "Status not accepted.");
-            }
-        }
+//        receipt.setExpress(express);
+//        receipt.setPrice(price);
+//        receipt.setReasons(reasons);
+//        switch (status) {
+//            case CANCEL: {
+//                this.changeState(receipt, status);
+//            }
+//            case PRE_RESERVE: {
+//                if (receipt.getStatus().equals(EStatusReceipt.PRE_RESERVE)) {
+//                    this.changeServiceScheduleStatus(receipt, idSchedule, idService, status, EStatusSchedule.PRE_RESERVE);
+//                }
+//            }
+//            case CONFIRMED: {
+//                //Que se mantengan las condiciones de la pre-reserva
+//                if ((Objects.equals(receipt.getSchedule().getId(), idSchedule))
+//                        && (Objects.equals(receipt.getService().getId(), idService))) {
+//                    this.changeState(receipt, status);
+//                }
+//                this.changeServiceScheduleStatus(receipt, idSchedule, idService, status, EStatusSchedule.RESERVED);
+//            }
+//            default: {
+//                throw new BusinessException(DomainErrorMessage.STATUS_NOT_ACCEPTED, "Status not accepted.");
+//            }
+//        }
     }
 
     public void changeState(ReceiptDto receipt, EStatusReceipt status) {

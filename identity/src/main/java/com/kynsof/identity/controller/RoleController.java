@@ -8,8 +8,10 @@ import com.kynsof.identity.application.command.role.delete.DeleteRoleSystemsMess
 import com.kynsof.identity.application.command.role.update.UpdateRoleCommand;
 import com.kynsof.identity.application.command.role.update.UpdateRoleMessage;
 import com.kynsof.identity.application.query.roles.getById.FindByIdRoleSystemsQuery;
+import com.kynsof.identity.application.query.roles.getById.RoleSystemsByIdResponse;
+import com.kynsof.identity.application.query.roles.getRoleWithModulesAndPermissions.GetRoleWithModulesAndPermissionsQuery;
 import com.kynsof.identity.application.query.roles.getSearch.GetSearchRoleSystemsQuery;
-import com.kynsof.identity.application.query.roles.getSearch.RoleSystemsResponse;
+import com.kynsof.identity.domain.dto.roleDto.RoleWithModulesResponse;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -65,7 +67,16 @@ public class RoleController {
     public ResponseEntity<?> getById(@PathVariable UUID id) {
 
         FindByIdRoleSystemsQuery query = new FindByIdRoleSystemsQuery(id);
-        RoleSystemsResponse response = mediator.send(query);
+        RoleSystemsByIdResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/tree/{id}")
+    public ResponseEntity<?> FindByIdRoleSystems(@PathVariable UUID id) {
+
+        GetRoleWithModulesAndPermissionsQuery query = new GetRoleWithModulesAndPermissionsQuery(id);
+        RoleWithModulesResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }

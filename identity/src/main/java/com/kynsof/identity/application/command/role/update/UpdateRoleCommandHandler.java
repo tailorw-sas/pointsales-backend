@@ -16,6 +16,10 @@ public class UpdateRoleCommandHandler implements ICommandHandler<UpdateRoleComma
 
     @Override
     public void handle(UpdateRoleCommand command) {
-        roleService.update(new RoleDto(command.getId(),command.getName(),command.getDescription(), command.getStatus()));
+        RoleDto roleDto = roleService.findById(command.getId());
+        roleDto.setDescription(command.getDescription());
+        roleDto.setName(command.getName());
+        roleDto.setStatus(command.getStatus());
+        roleService.update(roleDto);
     }
 }

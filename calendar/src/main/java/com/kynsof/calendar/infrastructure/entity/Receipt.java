@@ -52,6 +52,9 @@ public class Receipt {
     private EStatusReceipt status;
 
     private String requestId;
+    private String authorizationCode;
+    private String reference;
+    private String sessionId;
 
 
     public Receipt(ReceiptDto receipt) {
@@ -64,10 +67,13 @@ public class Receipt {
         this.schedule = receipt.getSchedule() != null ? new Schedule(receipt.getSchedule()) : null;
         this.service = new Services(receipt.getService());
         this.requestId = receipt.getRequestId();
+        this.authorizationCode = receipt.getAuthorizationCode();
+        this.reference = receipt.getReference();
+        this.sessionId = receipt.getSessionId();
     }
 
     public ReceiptDto toAggregate() {
         return new ReceiptDto(id, price, express, reasons, user.toAggregate(), schedule.toAggregate(),
-                service.toAggregate(), status, requestId);
+                service.toAggregate(), status, requestId, authorizationCode, reference,sessionId);
     }
 }
