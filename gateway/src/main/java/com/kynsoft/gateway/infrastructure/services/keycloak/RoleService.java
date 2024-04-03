@@ -75,5 +75,10 @@ public class RoleService implements IRoleService {
     public void assignRolesToUser(String userId, List<String> roleIds) {
         // Lógica para asignar roles a usuario
     }
+
+    @Override
+    public UUID updateRole(RoleRequest request, UUID idRole) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
 
