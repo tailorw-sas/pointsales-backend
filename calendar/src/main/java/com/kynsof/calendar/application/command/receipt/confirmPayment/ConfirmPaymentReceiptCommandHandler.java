@@ -4,6 +4,7 @@ import com.kynsof.calendar.domain.dto.PatientDto;
 import com.kynsof.calendar.domain.dto.ReceiptDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.dto.ServiceDto;
+import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import com.kynsof.calendar.domain.service.IPatientsService;
 import com.kynsof.calendar.domain.service.IReceiptService;
 import com.kynsof.calendar.domain.service.IScheduleService;
@@ -33,10 +34,39 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
         ScheduleDto _schedule = this.serviceSchedule.findById(command.getScheduleId());
         ServiceDto _service = this.serviceService.findById(command.getServiceId());
         ReceiptDto _receipt = this.service.findById(command.getReceiptId());
-           _receipt.setStatus(command.getStatus());
 
-        service.update(
-               _receipt, command.getScheduleId(),command.getServiceId(), command.getStatus(), _service.getNormalAppointmentPrice(),
-                _receipt.getExpress(),_receipt.getReasons());
+        _receipt.setAuthorizationCode(command.getAuthorizationCode());
+        _receipt.setRequestId(command.getRequestId());
+        _receipt.setReference(command.getReference());
+        _receipt.setSessionId(command.getSessionId());
+
+        if(command.getStatus().equals(EStatusReceipt.CONFIRMED)){
+            //TO DO
+            //Validar el pago
+            //Enviar Correo de confirmacion
+            _receipt.setStatus(command.getStatus());
+
+        }
+
+        if(command.getStatus().equals(EStatusReceipt.CANCEL)){
+            //TO DO
+            //Liverar el stock
+            //Enviar Correo de cancelado
+            _receipt.setStatus(command.getStatus());
+            _schedule.setStock(_schedule.getStock()+1);
+
+        }
+        if(command.getStatus().equals(EStatusReceipt.REJECTED)){
+            //TO DO
+            //Validar el estado del pago, si el estado es pendiente de pago o pago hacer el proceso de confirmado ,sino cambiar el estado
+            //Liverar el stock
+            //Enviar Correo de cancelado
+            _receipt.setStatus(command.getStatus());
+
+        }
+
+
+
+        service.update( _receipt);
     }
 }

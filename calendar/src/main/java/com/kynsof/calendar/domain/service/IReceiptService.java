@@ -14,7 +14,7 @@ public interface IReceiptService {
     public void create(ReceiptDto object);
     public void delete(UUID id);
     public ReceiptDto findById(UUID id);
-    void update(ReceiptDto receipt, UUID idSchedule, UUID idService, EStatusReceipt status, Double price, boolean express, String reasons);
+    void update(ReceiptDto receipt);
     PaginatedResponse findAll(Pageable pageable, String filter, UUID resource, UUID user, UUID service, UUID schedule, LocalDate date, LocalDate startDate, LocalDate endDate, EStatusReceipt status);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }

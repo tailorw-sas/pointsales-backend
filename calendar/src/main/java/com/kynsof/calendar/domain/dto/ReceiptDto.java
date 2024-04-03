@@ -24,4 +24,7 @@ public class ReceiptDto implements Serializable {
     private ServiceDto service;
     private EStatusReceipt status;
     private String requestId;
+    private String authorizationCode;
+    private String reference;
+    private String sessionId;
 }
