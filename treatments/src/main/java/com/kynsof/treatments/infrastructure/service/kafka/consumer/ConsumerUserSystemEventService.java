@@ -38,7 +38,7 @@ public class ConsumerUserSystemEventService {
                 System.err.println("SE EJECUTA UN CREATED");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                this.service.create(new DoctorDto(eventRead.getId(), "", eventRead.getName(), eventRead.getLastName(), Status.ACTIVE));
+                this.service.create(new DoctorDto(eventRead.getId(), "", eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage(), Status.ACTIVE));
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion
@@ -51,13 +51,9 @@ public class ConsumerUserSystemEventService {
             }
             if (eventType.equals(EventType.UPDATED)) {
                 //Definir accion
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN EVENTO DE ACTUALIZACION");
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-
-                //this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(), eventRead.getLastname(), "", PatientStatus.ACTIVE));
+                //Definir accion
+                DoctorDto doctorDto = new DoctorDto(eventRead.getId(), "", eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage(), Status.ACTIVE);
+                this.service.create(doctorDto);
             }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerUserSystemEventService.class.getName()).log(Level.SEVERE, null, ex);

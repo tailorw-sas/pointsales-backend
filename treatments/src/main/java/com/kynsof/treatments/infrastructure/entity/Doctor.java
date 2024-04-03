@@ -27,6 +27,9 @@ public class Doctor {
 
     private String lastName;
 
+    @Column(nullable = true)
+    private UUID image;
+
     @Enumerated(EnumType.STRING)
     private Status status;
 
@@ -35,10 +38,11 @@ public class Doctor {
         this.identification = doctor.getIdentification();
         this.name = doctor.getName();
         this.lastName = doctor.getLastName();
+        this.image = doctor.getImage();
         this.status = doctor.getStatus();
     }
 
     public DoctorDto toAggregate() {
-        return new DoctorDto(this.id, this.identification, this.name,this.lastName,this.status);
+        return new DoctorDto(this.id, this.identification, this.name, this.lastName, this.image, this.status);
     }
 }
