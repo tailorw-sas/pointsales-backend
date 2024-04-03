@@ -17,4 +17,5 @@ public class UserSystemKakfa {
     private String name;
     private String lastName;
     List<String> roles;
+    private UUID idImage;
 }
