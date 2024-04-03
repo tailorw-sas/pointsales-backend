@@ -40,7 +40,7 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
         _receipt.setReference(command.getReference());
         _receipt.setSessionId(command.getSessionId());
 
-        if(command.getStatus().equals(EStatusReceipt.CONFIRMED)){
+        if(command.getStatus().equals(EStatusReceipt.APPROVED)){
             //TO DO
             //Validar el pago
             //Enviar Correo de confirmacion
