@@ -14,6 +14,7 @@ import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -43,8 +44,10 @@ public class Resource extends BaseEntity {
     @Column(nullable = true)
     private boolean deleted;
 
+    private UUID image;
+
     @JsonIgnoreProperties("resources")
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
@@ -56,7 +59,7 @@ public class Resource extends BaseEntity {
     private Set<Services> services = new HashSet<>();
 
     @JsonIgnoreProperties({"qualifications", "resources"})
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
@@ -68,7 +71,7 @@ public class Resource extends BaseEntity {
     private Set<Qualification> qualifications = new HashSet<>();
 
     // Relación de muchos a muchos con Business
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
@@ -87,12 +90,13 @@ public class Resource extends BaseEntity {
         this.language = resourceDto.getLanguage();
         this.status = resourceDto.getStatus();
         this.expressAppointments = resourceDto.getExpressAppointments();
+        this.image = resourceDto.getImage();
         this.createdAt = resourceDto.getCreateAt();
         this.updatedAt = resourceDto.getUpdateAt();
         this.deletedAt = resourceDto.getDeleteAt();
     }
 
     public ResourceDto toAggregate () {
-        return new ResourceDto(id, picture, name, registrationNumber, language, status, expressAppointments, createdAt, updatedAt, deletedAt, deleted);
+        return new ResourceDto(id, picture, name, registrationNumber, language, status, expressAppointments, image, createdAt, updatedAt, deletedAt, deleted);
     }
 }

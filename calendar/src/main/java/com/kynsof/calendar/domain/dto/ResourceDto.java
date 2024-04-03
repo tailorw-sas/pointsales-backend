@@ -30,6 +30,8 @@ public class ResourceDto implements Serializable {
 
     private Boolean expressAppointments;
 
+    private UUID image;
+
     private LocalDateTime createAt;
 
     private LocalDateTime updateAt;
