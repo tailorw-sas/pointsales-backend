@@ -5,6 +5,8 @@ import com.kynsoft.gateway.domain.dto.user.UserRequest;
 import com.kynsoft.gateway.infrastructure.services.keycloak.AuthService;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class RegistrySystemUserCommandHandler implements ICommandHandler<RegistrySystemUserCommand> {
     private final AuthService authService;
@@ -20,6 +22,6 @@ public class RegistrySystemUserCommandHandler implements ICommandHandler<Registr
                 command.getUsername(), command.getEmail(),command.getFirstname(),
                 command.getLastname(),command.getPassword(), command.getRoles()
         ), true);
-        command.setResul(registerUser);
+        command.setId(UUID.fromString(registerUser));
     }
 }

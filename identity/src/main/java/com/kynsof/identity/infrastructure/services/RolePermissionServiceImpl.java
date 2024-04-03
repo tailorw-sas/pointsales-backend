@@ -6,12 +6,10 @@ import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.RolePermissionDto;
 import com.kynsof.identity.domain.interfaces.service.IRolePermissionService;
 import com.kynsof.identity.domain.interfaces.service.IRoleService;
-import com.kynsof.identity.domain.rules.RolPermissionMustBeUniqueRule;
 import com.kynsof.identity.infrastructure.identity.Permission;
 import com.kynsof.identity.infrastructure.identity.RolePermission;
 import com.kynsof.identity.infrastructure.repository.command.RolPermissionWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.RolPermissionReadDataJPARepository;
-import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -46,7 +44,7 @@ public class RolePermissionServiceImpl implements IRolePermissionService {
     public void create(List<RolePermissionDto> permissions) {
         List<RolePermission> savePermissions = new ArrayList<>();
         for (RolePermissionDto permission : permissions) {
-            RulesChecker.checkRule(new RolPermissionMustBeUniqueRule(this, permission));
+         //   RulesChecker.checkRule(new RolPermissionMustBeUniqueRule(this, permission));
 
             permission.setDeleted(false);
             permission.setDeletedAt(null);

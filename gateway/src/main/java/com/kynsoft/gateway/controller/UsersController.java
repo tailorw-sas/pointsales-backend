@@ -42,11 +42,11 @@ public class UsersController {
         return Mono.justOrEmpty(ResponseEntity.ok("userService.findAllUsers()"));
     }
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<String>> registerSystemUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<ApiResponse<?>> registerSystemUser(@RequestBody UserRequest userRequest) {
         RegistrySystemUserCommand command = new RegistrySystemUserCommand(userRequest.getUsername(), userRequest.getEmail(), userRequest.getFirstname(),
                 userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
         RegistrySystemUserMessage registryMessage = mediator.send(command);
-        return ResponseEntity.ok(ApiResponse.success(registryMessage.getResult()));
+        return ResponseEntity.ok(ApiResponse.success(registryMessage.getId()));
     }
 
 //    @GetMapping("/find/{username}")
