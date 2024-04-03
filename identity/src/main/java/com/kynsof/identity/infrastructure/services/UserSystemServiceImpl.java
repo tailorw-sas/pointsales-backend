@@ -37,38 +37,8 @@ public class UserSystemServiceImpl implements IUserSystemService {
 
     @Override
     public void update(UserSystemDto userSystemDto) {
-        if (userSystemDto == null || userSystemDto.getId() == null) {
-            throw new IllegalArgumentException("UserSystem DTO or ID cannot be null");
-        }
-
-        this.repositoryQuery.findById(userSystemDto.getId())
-                .ifPresent(userSystem -> { // Cambia .map a .ifPresent para actuar solo si el objeto está presente.
-                    if (userSystemDto.getUserName() != null) {
-                        userSystem.setUserName(userSystemDto.getUserName());
-                    }
-                    if (userSystemDto.getEmail() != null) {
-                        userSystem.setEmail(userSystemDto.getEmail());
-                    }
-                    if (userSystemDto.getName() != null) {
-                        userSystem.setName(userSystemDto.getName());
-                    }
-                    if (userSystemDto.getLastName() != null) {
-                        userSystem.setLastName(userSystemDto.getLastName());
-                    }
-                    if (userSystemDto.getStatus() != null) {
-                        userSystem.setStatus(userSystemDto.getStatus());
-                    }
-                    if (userSystemDto.getUserType() != null) {
-                        userSystem.setUserType(userSystemDto.getUserType());
-                    }
-                    if (userSystemDto.getIdImage() != null) {
-                        userSystem.setImage(userSystemDto.getIdImage());
-                    }
-
-                    this.repositoryCommand.save(userSystem);
-                });
+        this.repositoryCommand.save(new UserSystem(userSystemDto));
     }
-
 
     @Override
     public void delete(UUID id) {
