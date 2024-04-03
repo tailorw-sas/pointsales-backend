@@ -20,7 +20,6 @@ public class CreateReceiptCommand implements ICommand {
     private UUID service;
     public CreateReceiptCommand(Double price, Boolean express, String reasons, UUID user, UUID schedule, UUID service) {
 
-        this.id = UUID.randomUUID();
         this.price = price;
         this.express = express;
         this.reasons = reasons;

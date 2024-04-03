@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IReceiptService {
-    public void create(ReceiptDto object);
+    UUID  create(ReceiptDto object);
     public void delete(UUID id);
     public ReceiptDto findById(UUID id);
     void update(ReceiptDto receipt);

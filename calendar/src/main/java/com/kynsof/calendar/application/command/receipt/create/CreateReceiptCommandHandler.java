@@ -12,6 +12,8 @@ import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceiptCommand> {
 
@@ -34,8 +36,8 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
         ScheduleDto _schedule = this.serviceSchedule.findById(command.getSchedule());
         ServiceDto _service = this.serviceService.findById(command.getService());
 
-        service.create(new ReceiptDto(
-                command.getId(), 
+      UUID id=  service.create(new ReceiptDto(
+                UUID.randomUUID(),
                 command.getPrice(), 
                 command.getExpress(), 
                 command.getReasons(), 
@@ -49,5 +51,6 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
                 ""
 
         ));
+      command.setId(id);
     }
 }
