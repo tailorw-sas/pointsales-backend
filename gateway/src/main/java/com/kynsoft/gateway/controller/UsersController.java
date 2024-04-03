@@ -46,7 +46,7 @@ public class UsersController {
         RegistrySystemUserCommand command = new RegistrySystemUserCommand(userRequest.getUsername(), userRequest.getEmail(), userRequest.getFirstname(),
                 userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
         RegistrySystemUserMessage registryMessage = mediator.send(command);
-        return ResponseEntity.ok(ApiResponse.success(registryMessage.getResult()));
+        return ResponseEntity.ok(ApiResponse.success(registryMessage.getId()));
     }
 
 //    @GetMapping("/find/{username}")

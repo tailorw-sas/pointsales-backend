@@ -3,14 +3,16 @@ package com.kynsoft.gateway.application.command.auth.registrySystemUser;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 
+import java.util.UUID;
+
 @Getter
 public class RegistrySystemUserMessage implements ICommandMessage {
 
-    private final String result;
+    private final UUID id;
     private final String command = "REGISTRY_SYSTEM_USER";
 
-    public RegistrySystemUserMessage(String result) {
-        this.result = result;
+    public RegistrySystemUserMessage(UUID result) {
+        this.id = result;
     }
 
 }

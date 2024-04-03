@@ -6,11 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class RegistrySystemUserCommand implements ICommand {
-    private String resul;
+    private UUID id;
     private final String username;
     private final String email;
     private final String firstname;
@@ -18,7 +19,8 @@ public class RegistrySystemUserCommand implements ICommand {
     private final String password;
     private final List<String> roles;
 
-    public RegistrySystemUserCommand(String username, String email, String firstname, String lastname, String password, List<String> roles) {
+    public RegistrySystemUserCommand(String username, String email, String firstname, String lastname, String password,
+                                     List<String> roles) {
 
         this.username = username;
         this.email = email;
@@ -30,6 +32,6 @@ public class RegistrySystemUserCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return new RegistrySystemUserMessage(resul);
+        return new RegistrySystemUserMessage(id);
     }
 }
