@@ -8,6 +8,7 @@ import com.kynsof.calendar.domain.dto.enumType.PatientStatus;
 import com.kynsof.calendar.domain.service.IPatientsService;
 import com.kynsof.share.core.domain.kafka.entity.PatientKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,15 @@ public class ConsumerPatientEventService {
             PatientKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), PatientKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
-            this.service.update(new PatientDto(eventRead.getId(), eventRead.getIdentification(), eventRead.getName(),
-                    eventRead.getLastName(), eventRead.getGender(), PatientStatus.ACTIVE,eventRead.getLogo()));
+            this.service.create(new PatientDto(
+                    UUID.fromString(eventRead.getId()), 
+                    eventRead.getIdentification(), 
+                    eventRead.getName(),
+                    eventRead.getLastName(), 
+                    eventRead.getGender(), 
+                    PatientStatus.ACTIVE,
+                    eventRead.getLogo() != null ? UUID.fromString(eventRead.getLogo()) : null
+            ));
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerPatientEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
