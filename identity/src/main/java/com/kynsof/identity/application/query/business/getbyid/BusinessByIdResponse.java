@@ -9,13 +9,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
 @Getter
 @Setter
-public class BusinessByIdResponse implements IResponse {
+public class BusinessByIdResponse implements IResponse, Serializable {
     private UUID id;
     private String name;
     private String latitude;
@@ -40,8 +41,11 @@ public class BusinessByIdResponse implements IResponse {
         this.status = object.getStatus();
         this.geolocation = object.getGeographicLocationDto() != null ? new GeographicLocationResponse(object.getGeographicLocationDto()) : null;
         this.address = object.getAddress() != null ? object.getAddress() : null;
-        List<ModuleResponse> moduleDtoList = object.getModuleDtoList().stream()
-                .map(ModuleResponse::new)
+        modules = object.getModuleDtoList().stream()
+                .map(moduleDto ->
+                {
+                    return new ModuleResponse(moduleDto.getId(), moduleDto.getName());
+                })
                 .toList();
     }
 
