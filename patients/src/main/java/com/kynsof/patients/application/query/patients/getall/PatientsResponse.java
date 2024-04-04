@@ -18,7 +18,7 @@ public class PatientsResponse implements IResponse {
 
     private String identification;
     private String firstName;
-    private String lastName;
+    private String name;
     private GenderType gender;
     private Double weight;
     private Double height;
@@ -29,7 +29,7 @@ public class PatientsResponse implements IResponse {
         this.id = patients.getId();
         this.identification = patients.getIdentification();
         this.firstName = patients.getName();
-        this.lastName = patients.getLastName();
+        this.name = patients.getLastName();
         this.gender = patients.getGender();
         this.weight = patients.getWeight();
         this.height = patients.getHeight();
