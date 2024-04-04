@@ -43,8 +43,15 @@ public class ConsumerDependentPatientsEventService {
             }
             if (eventType.equals(EventType.UPDATED)) {
                 //Definir accion
-                this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(),
-                        eventRead.getLastname(), "", PatientStatus.ACTIVE, null));
+                this.service.update(new PatientDto(
+                        UUID.fromString(eventRead.getId()), 
+                        eventRead.getIdentification(), 
+                        eventRead.getFirstname(),
+                        eventRead.getLastname(), 
+                        eventRead.getGender(), 
+                        PatientStatus.ACTIVE, 
+                        eventRead.getPhone() != null ? UUID.fromString(eventRead.getPhone()) : null
+                ));
             }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerDependentPatientsEventService.class.getName()).log(Level.SEVERE, null, ex);
