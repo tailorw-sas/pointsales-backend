@@ -11,7 +11,6 @@ import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.patients.infrastructure.repository.command.PatientsWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.InsuranceReadDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.PatientsReadDataJPARepository;
-import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerDependentPatientsEventService;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
@@ -42,8 +41,7 @@ public class PatientsServiceImpl implements IPatientsService {
 
 
 
-    @Autowired
-    private ProducerDependentPatientsEventService dependentPatientsEventService;
+
 
     @Override
     public UUID create(PatientDto patients) {
@@ -55,7 +53,7 @@ public class PatientsServiceImpl implements IPatientsService {
     @Override
     public UUID createDependent(DependentPatientDto patients) {
         Patients entity = this.repositoryCommand.save(new Patients(patients));
-        this.dependentPatientsEventService.create(patients);
+        //this.dependentPatientsEventService.create(patients);
         return entity.getId();
     }
 

@@ -2,7 +2,7 @@ package com.kynsof.patients.infrastructure.services.kafka.producer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.patients.domain.dto.DependentPatientDto;
+import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.share.core.domain.kafka.entity.UserKafka;
 import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
@@ -20,7 +20,7 @@ public class ProducerDependentPatientsEventService {
         this.producer = producer;
     }
 
-    public void create(DependentPatientDto entity) {
+    public void create(PatientDto entity) {
 
         try {
 
