@@ -85,7 +85,12 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
 
     @Override
     public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.commandRepository.deleteById(id);
+    }
+
+    @Override
+    public void delete(List<UUID> objects) {
+        this.commandRepository.deleteAllById(objects);
     }
 
     @Override

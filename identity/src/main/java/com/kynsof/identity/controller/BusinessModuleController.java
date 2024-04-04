@@ -3,6 +3,11 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.businessmodule.create.CreateBusinessModuleCommand;
 import com.kynsof.identity.application.command.businessmodule.create.CreateBusinessModuleMessage;
 import com.kynsof.identity.application.command.businessmodule.create.CreateBusinessModuleRequest;
+import com.kynsof.identity.application.command.businessmodule.delete.DeleteBusinessModuleCommand;
+import com.kynsof.identity.application.command.businessmodule.delete.DeleteBusinessModuleMessage;
+import com.kynsof.identity.application.command.businessmodule.deleteall.DeleteAllBusinessModuleCommand;
+import com.kynsof.identity.application.command.businessmodule.deleteall.DeleteAllBusinessModuleMessage;
+import com.kynsof.identity.application.command.businessmodule.deleteall.DeleteAllBusinessModuleRequest;
 import com.kynsof.identity.application.command.businessmodule.update.UpdateBusinessModuleCommand;
 import com.kynsof.identity.application.command.businessmodule.update.UpdateBusinessModuleMessage;
 import com.kynsof.identity.application.command.businessmodule.update.UpdateBusinessModuleRequest;
@@ -16,6 +21,7 @@ import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,6 +62,24 @@ public class BusinessModuleController {
 
         FindBusinessModuleByIdQuery query = new FindBusinessModuleByIdQuery(id);
         BusinessModuleResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DeleteBusinessModuleMessage> delete(@PathVariable("id") UUID id) {
+
+        DeleteBusinessModuleCommand command = new DeleteBusinessModuleCommand(id);
+        DeleteBusinessModuleMessage response = mediator.send(command);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<DeleteAllBusinessModuleMessage> delete(@RequestBody DeleteAllBusinessModuleRequest request) {
+
+        DeleteAllBusinessModuleCommand command = new DeleteAllBusinessModuleCommand(request.getBusinessModules());
+        DeleteAllBusinessModuleMessage response = mediator.send(command);
 
         return ResponseEntity.ok(response);
     }
