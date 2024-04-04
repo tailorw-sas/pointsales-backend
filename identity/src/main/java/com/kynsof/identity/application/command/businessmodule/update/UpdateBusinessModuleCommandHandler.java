@@ -29,6 +29,10 @@ public class UpdateBusinessModuleCommandHandler implements ICommandHandler<Updat
     public void handle(UpdateBusinessModuleCommand command) {
         BusinessDto businessDto = this.serviceBusiness.findById(command.getIdBusiness());
 
+        List<BusinessModuleDto> list = this.serviceBusinessModule.findBusinessModuleByBusinessId(businessDto.getId());
+
+        this.detele(list);
+
         List<BusinessModuleDto> businessModuleDtos = new ArrayList<>();
         for (UUID idModule : command.getModules()) {
             ModuleDto module = this.serviceModule.findById(idModule);
@@ -37,5 +41,15 @@ public class UpdateBusinessModuleCommandHandler implements ICommandHandler<Updat
         }
 
         this.serviceBusinessModule.update(businessModuleDtos);
+    }
+
+    private void detele(List<BusinessModuleDto> list) {
+        List<UUID> delete = new ArrayList<>();
+
+        for (BusinessModuleDto businessModuleDto : list) {
+            delete.add(businessModuleDto.getId());
+        }
+
+        this.serviceBusinessModule.delete(delete);
     }
 }

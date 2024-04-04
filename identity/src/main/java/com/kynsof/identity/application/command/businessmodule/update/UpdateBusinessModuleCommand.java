@@ -13,19 +13,16 @@ import java.util.UUID;
 public class UpdateBusinessModuleCommand implements ICommand {
 
     private boolean result;
-    private UUID id;
     private UUID idBusiness;
     private List<UUID> modules;
 
-    public UpdateBusinessModuleCommand(UUID id, UUID idBusiness, List<UUID> modules) {
-        this.id = id;
+    public UpdateBusinessModuleCommand(UUID idBusiness, List<UUID> modules) {
         this.idBusiness = idBusiness;
         this.modules = List.copyOf(modules);
     }
 
-    public static UpdateBusinessModuleCommand fromRequest(UpdateBusinessModuleRequest request, UUID id) {
+    public static UpdateBusinessModuleCommand fromRequest(UpdateBusinessModuleRequest request) {
         return new UpdateBusinessModuleCommand(
-                id,
                 request.getIdBusiness(), 
                 request.getModules()
         );

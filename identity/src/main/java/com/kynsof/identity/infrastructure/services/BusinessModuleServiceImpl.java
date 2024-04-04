@@ -38,6 +38,21 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
     private BusinessModuleReadDataJPARepository queryRepository;
 
     @Override
+    public List<BusinessModuleDto> findBusinessModuleByBusinessId(UUID businessId) {
+        List<BusinessModule> businessModules = queryRepository.findByBusinessId(businessId);
+        List<BusinessModuleDto> businessModulesDtos = new ArrayList<>();
+        
+        for (BusinessModule businessModule : businessModules) {
+            businessModulesDtos.add(new BusinessModuleDto(
+                    businessModule.getId(), 
+                    businessModule.getBusiness().toAggregate(), 
+                    businessModule.getModule().toAggregate())
+            );
+        }
+        return businessModulesDtos;
+    }
+
+    @Override
     public List<ModuleDto> findModulesByBusinessId(UUID businessId) {
         List<BusinessModule> businessModules = queryRepository.findByBusinessId(businessId);
 
@@ -85,7 +100,12 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
 
     @Override
     public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.commandRepository.deleteById(id);
+    }
+
+    @Override
+    public void delete(List<UUID> objects) {
+        this.commandRepository.deleteAllById(objects);
     }
 
     @Override

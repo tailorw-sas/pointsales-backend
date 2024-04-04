@@ -1,0 +1,21 @@
+package com.kynsof.identity.application.command.businessmodule.delete;
+
+import com.kynsof.identity.domain.interfaces.service.IBusinessModuleService;
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DeleteBusinessModuleCommandHandler implements ICommandHandler<DeleteBusinessModuleCommand> {
+
+    private final IBusinessModuleService service;
+
+    public DeleteBusinessModuleCommandHandler(IBusinessModuleService service) {
+        this.service = service;
+    }
+
+    @Override
+    public void handle(DeleteBusinessModuleCommand command) {
+        service.delete(command.getId());
+    }
+
+}
