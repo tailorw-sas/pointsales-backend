@@ -2,13 +2,16 @@ package com.kynsof.identity.infrastructure.services;
 
 import com.kynsof.identity.application.query.business.search.BusinessResponse;
 import com.kynsof.identity.domain.dto.BusinessDto;
+import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.identity.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.infrastructure.identity.Business;
 import com.kynsof.identity.infrastructure.identity.GeographicLocation;
+import com.kynsof.identity.infrastructure.identity.ModuleSystem;
 import com.kynsof.identity.infrastructure.repository.command.BusinessWriteDataJPARepository;
-import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerCreateBusinessEventService;
+import com.kynsof.identity.infrastructure.repository.query.BusinessModuleReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARepository;
+import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerCreateBusinessEventService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerUpdateBusinessEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
@@ -49,6 +52,8 @@ public class BusinessServiceImpl implements IBusinessService {
 
     @Autowired
     private ProducerDeleteFileEventService deleteFileEventService;
+    @Autowired
+    private BusinessModuleReadDataJPARepository businessModuleReadDataJPARepository;
 
     @Override
     public UUID create(BusinessDto object) {
@@ -105,8 +110,15 @@ public class BusinessServiceImpl implements IBusinessService {
 
         Optional<Business> object = this.repositoryQuery.findById(id);
         if (object.isPresent()) {
-            return object.get().toAggregate();
+            BusinessDto businessDto = object.get().toAggregate();
+            List<ModuleSystem> moduleSystems = businessModuleReadDataJPARepository.findModulesByBusinessId(id);
+            List<ModuleDto> moduleDtoList = moduleSystems.stream()
+                    .map(ModuleSystem::toAggregate)
+                    .toList();
+            businessDto.setModuleDtoList(moduleDtoList);
+            return businessDto;
         }
+
 
         throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Business not found.");
 

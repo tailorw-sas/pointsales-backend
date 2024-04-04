@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -21,14 +22,15 @@ public class BusinessDto implements Serializable {
     private String address;
     private EBusinessStatus status;
     private boolean deleted;
-
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
     private LocalDateTime deleteAt;
 
     private GeographicLocationDto geographicLocationDto;
+    private List<ModuleDto> moduleDtoList;
 
-    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String logo,  String ruc, EBusinessStatus status, GeographicLocationDto geographicLocationDto, String address) {
+    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String logo,
+                       String ruc, EBusinessStatus status, GeographicLocationDto geographicLocationDto, String address) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
