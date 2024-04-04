@@ -116,9 +116,8 @@ public class PatientsController {
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<?>> me(@AuthenticationPrincipal Jwt jwt) {
             try {
-           //     String patientId = jwt.getClaim("sub");
-           //     FindPatientsByIdQuery query = new FindPatientsByIdQuery(UUID.fromString(patientId));
-                FindPatientsByIdQuery query = new FindPatientsByIdQuery(UUID.fromString("6982e232-09f7-43f4-ba00-597011db755d"));
+                String patientId = jwt.getClaim("sub");
+                FindPatientsByIdQuery query = new FindPatientsByIdQuery(UUID.fromString(patientId));
                 PatientByIdResponse response = mediator.send(query);
                 return ResponseEntity.ok(ApiResponse.success(response));
             } catch (Exception e) {

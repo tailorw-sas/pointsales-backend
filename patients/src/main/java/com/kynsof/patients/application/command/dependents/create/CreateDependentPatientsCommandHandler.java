@@ -8,6 +8,7 @@ import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
+import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerDependentPatientsEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
@@ -23,14 +24,16 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
     private final IGeographicLocationService geographicLocationService;
     private final ProducerSaveFileEventService saveFileEventService;
 
+    private ProducerDependentPatientsEventService dependentPatientsEventService;
 
     public CreateDependentPatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
-                                                 IGeographicLocationService geographicLocationService, ProducerSaveFileEventService saveFileEventService
+                                                 IGeographicLocationService geographicLocationService, ProducerSaveFileEventService saveFileEventService, ProducerDependentPatientsEventService dependentPatientsEventService
     ) {
         this.serviceImpl = serviceImpl;
         this.contactInfoService = contactInfoService;
         this.geographicLocationService = geographicLocationService;
         this.saveFileEventService = saveFileEventService;
+        this.dependentPatientsEventService = dependentPatientsEventService;
     }
 
     @Override
@@ -76,5 +79,6 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 geographicLocationDto
         ));
         command.setId(id);
+        this.dependentPatientsEventService.create(patientDto);
     }
 }

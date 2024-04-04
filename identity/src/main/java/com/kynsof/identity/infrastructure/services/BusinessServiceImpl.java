@@ -2,13 +2,16 @@ package com.kynsof.identity.infrastructure.services;
 
 import com.kynsof.identity.application.query.business.search.BusinessResponse;
 import com.kynsof.identity.domain.dto.BusinessDto;
+import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.identity.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.infrastructure.identity.Business;
 import com.kynsof.identity.infrastructure.identity.GeographicLocation;
+import com.kynsof.identity.infrastructure.identity.ModuleSystem;
 import com.kynsof.identity.infrastructure.repository.command.BusinessWriteDataJPARepository;
-import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerCreateBusinessEventService;
+import com.kynsof.identity.infrastructure.repository.query.BusinessModuleReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARepository;
+import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerCreateBusinessEventService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerUpdateBusinessEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
@@ -18,11 +21,9 @@ import com.kynsof.share.core.domain.kafka.producer.s3.ProducerDeleteFileEventSer
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
-import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.share.utils.ConfigureTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class BusinessServiceImpl implements IBusinessService {
@@ -49,6 +51,8 @@ public class BusinessServiceImpl implements IBusinessService {
 
     @Autowired
     private ProducerDeleteFileEventService deleteFileEventService;
+    @Autowired
+    private BusinessModuleReadDataJPARepository businessModuleReadDataJPARepository;
 
     @Override
     public UUID create(BusinessDto object) {
@@ -99,17 +103,30 @@ public class BusinessServiceImpl implements IBusinessService {
         this.repositoryCommand.save(new Business(objectDelete));
     }
 
-    @Cacheable(cacheNames = CacheConfig.BUSINESS_CACHE, unless = "#result == null")
+   // @Cacheable(cacheNames = CacheConfig.BUSINESS_CACHE, unless = "#result == null")
     @Override
     public BusinessDto findById(UUID id) {
-
         Optional<Business> object = this.repositoryQuery.findById(id);
         if (object.isPresent()) {
-            return object.get().toAggregate();
+            BusinessDto businessDto = object.get().toAggregate();
+
+            List<ModuleSystem> moduleSystems = businessModuleReadDataJPARepository.findModulesByBusinessId(id);
+            List<ModuleDto> moduleDtoList = moduleSystems.stream()
+                    .map(moduleSystem -> new ModuleDto(
+                                    moduleSystem.getId(),
+                                    moduleSystem.getName(),
+                                    moduleSystem.getImage(),
+                                    moduleSystem.getDescription(),
+                                    null
+                            )
+                    )
+                    .collect(Collectors.toList());
+
+            businessDto.setModuleDtoList(moduleDtoList);
+            return businessDto;
+        } else {
+            throw new RuntimeException("Business not found");
         }
-
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Business not found.");
-
     }
 
     @Override

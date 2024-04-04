@@ -8,8 +8,8 @@ import com.kynsof.identity.application.command.business.delete.BusinessDeleteMes
 import com.kynsof.identity.application.command.business.update.UpdateBusinessCommand;
 import com.kynsof.identity.application.command.business.update.UpdateBusinessMessage;
 import com.kynsof.identity.application.command.business.update.UpdateBusinessRequest;
+import com.kynsof.identity.application.query.business.getbyid.BusinessByIdResponse;
 import com.kynsof.identity.application.query.business.getbyid.FindBusinessByIdQuery;
-import com.kynsof.identity.application.query.business.search.BusinessResponse;
 import com.kynsof.identity.application.query.business.search.GetSearchBusinessQuery;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
@@ -50,10 +50,10 @@ public class BusinessController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<BusinessResponse> getById(@PathVariable UUID id) {
+    public ResponseEntity<?> getById(@PathVariable UUID id) {
 
         FindBusinessByIdQuery query = new FindBusinessByIdQuery(id);
-        BusinessResponse response = mediator.send(query);
+        BusinessByIdResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }
