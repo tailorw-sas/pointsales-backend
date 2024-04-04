@@ -31,7 +31,7 @@ public class ProducerDependentPatientsEventService {
                     entity.getName(), 
                     entity.getLastName(), 
                     entity.getIdentification(), 
-                    null, 
+                    entity.getPhoto(), 
                     entity.getGender().toString(), 
                     entity.getStatus().toString()
             );
