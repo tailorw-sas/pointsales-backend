@@ -11,6 +11,7 @@ import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.share.core.domain.kafka.entity.UserKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +21,16 @@ import java.util.logging.Logger;
 
 @Service
 public class ConsumerUserEventService {
-    private final IPatientsService service;
-    private final IContactInfoService contactInfoService;
+    @Autowired
+    private  IPatientsService service;
 
-    public ConsumerUserEventService(IPatientsService service, IContactInfoService contactInfoService) {
-        this.service = service;
-        this.contactInfoService = contactInfoService;
-    }
+    @Autowired
+    private  IContactInfoService contactInfoService;
+
+//    public ConsumerUserEventService(IPatientsService service, IContactInfoService contactInfoService) {
+//        this.service = service;
+//        this.contactInfoService = contactInfoService;
+//    }
 
     // Ejemplo de un método listener
     @KafkaListener(topics = "user", groupId = "patient-user")
@@ -42,7 +46,7 @@ public class ConsumerUserEventService {
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
                UUID patientId = this.service.create(new PatientDto(UUID.fromString(eventRead.getId()),
-                        "", eventRead.getFirstname(), eventRead.getLastname(), GenderType.UNDEFINED, Status.ACTIVE,
+                        null, eventRead.getFirstname(), eventRead.getLastname(), GenderType.UNDEFINED, Status.ACTIVE,
                         null, null,null, null, null, null, 0));
 
                PatientDto patientDto = this.service.findByIdSimple(patientId);
