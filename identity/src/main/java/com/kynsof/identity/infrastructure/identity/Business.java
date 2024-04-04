@@ -25,14 +25,14 @@ public class Business {
     private String description;
     private String logo;
     private String ruc;
-    @Column(nullable = true)
+    @Column()
     private String address;
     @Enumerated(EnumType.STRING)
     private EBusinessStatus status;
     private boolean deleted;
 
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<UserRoleBusiness> userRoleBusinesses = new HashSet<>();
+    private Set<UserPermissionBusiness> userRoleBusinesses = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "geographicLocation_id")

@@ -59,7 +59,7 @@ public class ReceiptService implements IReceiptService {
     }
 
     @Override
-    public void create(ReceiptDto receipt) {
+    public UUID create(ReceiptDto receipt) {
 
         if (receipt.getSchedule().getStatus() != EStatusSchedule.ACTIVE)
             throw new BusinessException(DomainErrorMessage.SCHEDULE_IS_NOT_AVAIBLE, "The selected schedule is not available.");
@@ -72,7 +72,8 @@ public class ReceiptService implements IReceiptService {
         receipt.setSchedule(_schedule);
 
         receipt.setStatus(EStatusReceipt.PRE_RESERVE);
-        this.receiptRepositoryCommand.save(new Receipt(receipt));
+       Receipt entity = this.receiptRepositoryCommand.save(new Receipt(receipt));
+       return entity.getId();
 
     }
 

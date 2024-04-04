@@ -10,14 +10,14 @@ public class UserRoleBusinessMustBeUniqueRule extends BusinessRule {
 
     private final IUserRoleBusinessService service;
 
-    private UserRoleBusinessDto userRoleBusinessDto;
+    private final UserRoleBusinessDto userRoleBusinessDto;
 
     public UserRoleBusinessMustBeUniqueRule(IUserRoleBusinessService service, UserRoleBusinessDto userRoleBusinessDto) {
         super(
                 DomainErrorMessage.RELATIONSHIP_MUST_BE_UNIQUE, 
-                new ErrorField("UserRoleBusiness", 
+                new ErrorField("UserPermissionBusiness",
                         "The role: " + 
-                                userRoleBusinessDto.getRole().getName() + " for user: " + userRoleBusinessDto.getUser().getUserName() +
+                                userRoleBusinessDto.getPermission().getCode() + " for user: " + userRoleBusinessDto.getUser().getUserName() +
                                 " is already related to the business " + userRoleBusinessDto.getBusiness().getName())
         );
         this.service = service;
@@ -26,8 +26,7 @@ public class UserRoleBusinessMustBeUniqueRule extends BusinessRule {
 
     @Override
     public boolean isBroken() {
-        Long cant = service.countByUserIdAndRoleIdAndBusinessIdAndDeletedFalse(userRoleBusinessDto);
-        return cant > 0;
+        return true;
     }
 
 }

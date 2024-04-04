@@ -3,7 +3,7 @@ package com.kynsof.identity.domain.dto.me;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -13,6 +13,6 @@ public class UserMeDto {
     private String userName;
     private String email;
     private String name;
-    private String LastName;
-    private List<BusinessRolesPermissionsDto> businesses;
+    private String lastName;
+    private Set<BusinessModulePermissionsDto> business;
 }

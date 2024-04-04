@@ -12,14 +12,14 @@ import java.util.UUID;
 public class UserRoleBusinessDto {
     private UUID id;
     private UserSystemDto user;
-    private RoleDto role;
+    private PermissionDto permission;
     private BusinessDto business;
     private boolean deleted = false;
 
-    public UserRoleBusinessDto(UUID id, UserSystemDto user, RoleDto role, BusinessDto business) {
+    public UserRoleBusinessDto(UUID id, UserSystemDto user, PermissionDto role, BusinessDto business) {
         this.id = id;
         this.user = user;
-        this.role = role;
+        this.permission = role;
         this.business = business;
     }
 

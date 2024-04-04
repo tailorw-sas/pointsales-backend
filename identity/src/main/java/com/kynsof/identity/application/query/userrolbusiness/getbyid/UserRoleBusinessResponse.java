@@ -1,7 +1,7 @@
 package com.kynsof.identity.application.query.userrolbusiness.getbyid;
 
 import com.kynsof.identity.application.query.business.search.BusinessResponse;
-import com.kynsof.identity.application.query.roles.getById.RoleSystemsByIdResponse;
+import com.kynsof.identity.application.query.permission.getById.PermissionResponse;
 import com.kynsof.identity.application.query.users.getSearch.UserSystemsResponse;
 import com.kynsof.identity.domain.dto.UserRoleBusinessDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
@@ -19,13 +19,13 @@ public class UserRoleBusinessResponse implements IResponse, Serializable {
 
     private UUID id;
     private UserSystemsResponse user;
-    private RoleSystemsByIdResponse role;
+    private PermissionResponse permission;
     private BusinessResponse business;
 
     public UserRoleBusinessResponse(UserRoleBusinessDto userRoleBusinessDto) {
         this.id = userRoleBusinessDto.getId();
         this.user = new UserSystemsResponse(userRoleBusinessDto.getUser());
-        this.role = new RoleSystemsByIdResponse(userRoleBusinessDto.getRole());
+        this.permission = new PermissionResponse(userRoleBusinessDto.getPermission());
         this.business = new BusinessResponse(userRoleBusinessDto.getBusiness());
     }
 }

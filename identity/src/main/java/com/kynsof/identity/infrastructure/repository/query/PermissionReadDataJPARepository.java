@@ -1,6 +1,7 @@
 package com.kynsof.identity.infrastructure.repository.query;
 
 import com.kynsof.identity.infrastructure.identity.Permission;
+import feign.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -14,11 +15,11 @@ import java.util.UUID;
 
 public interface PermissionReadDataJPARepository extends JpaRepository<Permission, UUID>, JpaSpecificationExecutor<Permission> {
     Page<Permission> findAll(Specification specification, Pageable pageable);
-    @Query("SELECT distinct p FROM Permission p JOIN p.rolePermissions rp WHERE rp.role.id = :roleId")
-    List<Permission> findPermissionsByRoleId(UUID roleId);
 
-    @Query("SELECT p FROM Permission p " +
-            "JOIN p.rolePermissions rp " +
-            "WHERE p.module.id = :moduleId AND rp.role.id = :roleId AND rp.deleted = false ")
-    Set<Permission> findPermissionsByModuleIdAndRoleId(UUID moduleId, UUID roleId);
+    @Query("SELECT p FROM Permission p WHERE p.module.id = :moduleId")
+    Set<Permission> findByModuleId(UUID moduleId);
+
+    @Query("SELECT p FROM Permission p JOIN p.userRoleBusinesses urb JOIN urb.business b " +
+            "WHERE p.module.id = :moduleId AND b.id = :businessId AND urb.deleted = false")
+    List<Permission> findByModuleIdAndBusinessId(@Param("moduleId") UUID moduleId, @Param("businessId") UUID businessId);
 }

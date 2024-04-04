@@ -48,31 +48,31 @@ public class SecurityConfig {
                         .pathMatchers(AUTH_WHITELIST).permitAll()
                         .anyExchange().authenticated()
                 )
-                .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(jwtSpec -> jwtSpec
-                                .jwtDecoder(jwtDecoder())
-                                .jwtAuthenticationConverter(jwtAuthenticationConverter)
-                        )
-                )
+//                .oauth2ResourceServer(oauth2 -> oauth2
+//                        .jwt(jwtSpec -> jwtSpec
+//                                .jwtDecoder(jwtDecoder())
+//                                .jwtAuthenticationConverter(jwtAuthenticationConverter)
+//                        )
+//                )
 
                 .build();
     }
-
-    @Bean
-    public ReactiveJwtDecoder jwtDecoder() {
-        return ReactiveJwtDecoders.fromIssuerLocation(jwkSetUri);
-    }
-
-    @Bean
-    @ConditionalOnProperty(prefix = "http", name = "cors-enabled", matchIfMissing = false, havingValue = "true")
-    public CorsWebFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = corsProperties.getCors();
-        if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
-            source.registerCorsConfiguration("/**", config);
-        }
-        return new CorsWebFilter(source);
-    }
+//
+//    @Bean
+//    public ReactiveJwtDecoder jwtDecoder() {
+//        return ReactiveJwtDecoders.fromIssuerLocation(jwkSetUri);
+//    }
+//
+//    @Bean
+//    @ConditionalOnProperty(prefix = "http", name = "cors-enabled", matchIfMissing = false, havingValue = "true")
+//    public CorsWebFilter corsFilter() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = corsProperties.getCors();
+//        if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
+//            source.registerCorsConfiguration("/**", config);
+//        }
+//        return new CorsWebFilter(source);
+//    }
 
 }
 

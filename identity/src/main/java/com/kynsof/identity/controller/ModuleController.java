@@ -38,9 +38,9 @@ public class ModuleController {
 
         return ResponseEntity.ok(response);
     }
-    @GetMapping(path = "/build")
-    public ResponseEntity<ModuleBuildResponse> build() {
-        BuildStructureQuery query = new BuildStructureQuery();
+    @GetMapping(path = "/build/{businessId}")
+    public ResponseEntity<ModuleBuildResponse> build(@PathVariable UUID businessId) {
+        BuildStructureQuery query = new BuildStructureQuery(businessId);
         ModuleBuildResponse response = mediator.send(query);
         return ResponseEntity.ok(response);
     }

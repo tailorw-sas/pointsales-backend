@@ -48,7 +48,7 @@ public class Receipt {
     @JoinColumn(name = "fk_pk_service", unique = false)
     private Services service;
 
-    @Column(nullable = false, unique = true)
+    @Enumerated(EnumType.STRING)
     private EStatusReceipt status;
 
     private String requestId;

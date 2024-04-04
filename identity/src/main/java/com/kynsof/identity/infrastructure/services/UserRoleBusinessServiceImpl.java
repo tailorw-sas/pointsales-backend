@@ -4,7 +4,7 @@ import com.kynsof.identity.application.query.userrolbusiness.getbyid.UserRoleBus
 import com.kynsof.identity.domain.dto.UserRoleBusinessDto;
 import com.kynsof.identity.domain.interfaces.service.IUserRoleBusinessService;
 import com.kynsof.identity.domain.rules.UserRoleBusinessMustBeUniqueRule;
-import com.kynsof.identity.infrastructure.identity.UserRoleBusiness;
+import com.kynsof.identity.infrastructure.identity.UserPermissionBusiness;
 import com.kynsof.identity.infrastructure.repository.command.UserRoleBusinessWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserRoleBusinessReadDataJPARepository;
 import com.kynsof.share.core.domain.RulesChecker;
@@ -36,30 +36,20 @@ public class UserRoleBusinessServiceImpl implements IUserRoleBusinessService {
     @Override
     @Transactional
     public void create(List<UserRoleBusinessDto> userRoleBusiness) {
-        List<UserRoleBusiness> saveUserRoleBusinesses = new ArrayList<>();
+        List<UserPermissionBusiness> saveUserRoleBusinesses = new ArrayList<>();
         for (UserRoleBusinessDto userRoleBusines : userRoleBusiness) {
             RulesChecker.checkRule(new UserRoleBusinessMustBeUniqueRule(this, userRoleBusines));
 
-            saveUserRoleBusinesses.add(new UserRoleBusiness(userRoleBusines));
+            saveUserRoleBusinesses.add(new UserPermissionBusiness(userRoleBusines));
         }
 
         this.commandRepository.saveAll(saveUserRoleBusinesses);
     }
 
     @Override
-    public Long countByUserIdAndRoleIdAndBusinessIdAndDeletedFalse(UserRoleBusinessDto userRoleBusinessDto) {
-        return this.queryRepository.countByUserIdAndRoleIdAndBusinessIdAndDeleted(
-                userRoleBusinessDto.getUser().getId(),
-                userRoleBusinessDto.getRole().getId(),
-                userRoleBusinessDto.getBusiness().getId(),
-                false
-        );
-    }
-
-    @Override
     public void update(List<UserRoleBusinessDto> userRoleBusiness) {
-        List<UserRoleBusiness> userRoleBusinesses = userRoleBusiness.stream()
-                .map(UserRoleBusiness::new)
+        List<UserPermissionBusiness> userRoleBusinesses = userRoleBusiness.stream()
+                .map(UserPermissionBusiness::new)
                 .collect(Collectors.toList());
 
         this.commandRepository.saveAll(userRoleBusinesses);
@@ -69,7 +59,7 @@ public class UserRoleBusinessServiceImpl implements IUserRoleBusinessService {
     public void delete(UUID id) {
         UserRoleBusinessDto delete = this.findById(id);
         delete.setDeleted(true);
-        this.commandRepository.save(new UserRoleBusiness(delete));
+        this.commandRepository.save(new UserPermissionBusiness(delete));
     }
 
     @Override
@@ -79,24 +69,24 @@ public class UserRoleBusinessServiceImpl implements IUserRoleBusinessService {
 
     @Override
     public UserRoleBusinessDto findById(UUID id) {
-        Optional<UserRoleBusiness> object = this.queryRepository.findById(id);
+        Optional<UserPermissionBusiness> object = this.queryRepository.findById(id);
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
 
-        throw new BusinessException(DomainErrorMessage.USER_ROLE_BUSINESS_NOT_FOUND, "UserRoleBusiness not found.");
+        throw new BusinessException(DomainErrorMessage.USER_ROLE_BUSINESS_NOT_FOUND, "UserPermissionBusiness not found.");
     }
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-        GenericSpecificationsBuilder<UserRoleBusiness> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-        Page<UserRoleBusiness> data = this.queryRepository.findAll(specifications, pageable);
+        GenericSpecificationsBuilder<UserPermissionBusiness> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<UserPermissionBusiness> data = this.queryRepository.findAll(specifications, pageable);
         return getPaginatedResponse(data);
     }
 
-    private PaginatedResponse getPaginatedResponse(Page<UserRoleBusiness> data) {
+    private PaginatedResponse getPaginatedResponse(Page<UserPermissionBusiness> data) {
         List<UserRoleBusinessResponse> patients = new ArrayList<>();
-        for (UserRoleBusiness o : data.getContent()) {
+        for (UserPermissionBusiness o : data.getContent()) {
             patients.add(new UserRoleBusinessResponse(o.toAggregate()));
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
