@@ -14,6 +14,6 @@ import java.util.UUID;
 
 public interface BusinessReadDataJPARepository extends JpaRepository<Business, UUID>, JpaSpecificationExecutor<Business> {
     Page<Business> findAll(Specification specification, Pageable pageable);
-    @Query("SELECT distinct b FROM Business b JOIN b.userRoleBusinesses urb WHERE urb.user.id = :userId")
+    @Query("SELECT DISTINCT b FROM UserPermissionBusiness upb JOIN upb.business b WHERE upb.user.id = :userId")
     List<Business> findBusinessesByUserId(UUID userId);
 }

@@ -1,12 +1,15 @@
 package com.kynsof.identity.infrastructure.services;
 
-import com.kynsof.identity.domain.dto.me.BusinessRolesPermissionsDto;
+import com.kynsof.identity.domain.dto.ModuleDto;
+import com.kynsof.identity.domain.dto.me.BusinessModulePermissionsDto;
 import com.kynsof.identity.domain.dto.me.PermissionInfo;
-import com.kynsof.identity.domain.dto.me.RolePermissionsDto;
 import com.kynsof.identity.domain.dto.me.UserMeDto;
 import com.kynsof.identity.domain.interfaces.service.IUserMeService;
 import com.kynsof.identity.infrastructure.identity.Business;
+import com.kynsof.identity.infrastructure.identity.ModuleSystem;
+import com.kynsof.identity.infrastructure.identity.Permission;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
+import com.kynsof.identity.infrastructure.repository.query.BusinessModuleReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.PermissionReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserSystemReadDataJPARepository;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserMeServiceImpl implements IUserMeService {
@@ -22,43 +26,52 @@ public class UserMeServiceImpl implements IUserMeService {
     private PermissionReadDataJPARepository permissionReadDataJPARepository;
     @Autowired
     private UserSystemReadDataJPARepository userSystemReadDataJPARepository;
-
+    @Autowired
+    private BusinessModuleReadDataJPARepository businessModuleReadDataJPARepository;
 
     @Autowired
     private BusinessReadDataJPARepository businessReadDataJPARepository;
 
     @Override
     public UserMeDto getUserInfo(UUID userId) {
-        UserMeDto userMeDto = new UserMeDto();
-        Optional<UserSystem> userSystem =  userSystemReadDataJPARepository.findById(userId);
-        if (userSystem.isEmpty()) {
+        Optional<UserSystem> userOptional = userSystemReadDataJPARepository.findById(userId);
+        if (userOptional.isEmpty()) {
             throw new RuntimeException("User not found.");
         }
 
-        userMeDto.setUserId(userId);
-        userMeDto.setUserName(userSystem.get().getUserName());
-        userMeDto.setEmail(userSystem.get().getEmail());
-        userMeDto.setName(userSystem.get().getName());
-        userMeDto.setLastName(userSystem.get().getLastName());
+        UserSystem user = userOptional.get();
+        UserMeDto userMeDto = new UserMeDto();
+        userMeDto.setUserId(user.getId());
+        userMeDto.setUserName(user.getUserName());
+        userMeDto.setEmail(user.getEmail());
+        userMeDto.setName(user.getName());
+        userMeDto.setLastName(user.getLastName());
 
-        List<BusinessRolesPermissionsDto> businessInfoList = new ArrayList<>();
+        Set<BusinessModulePermissionsDto> businessModulePermissionsDtos = new HashSet<>();
 
         List<Business> businesses = businessReadDataJPARepository.findBusinessesByUserId(userId);
         for (Business business : businesses) {
-            BusinessRolesPermissionsDto businessInfo = new BusinessRolesPermissionsDto();
-            businessInfo.setBusinessId(business.getId());
-            businessInfo.setName(business.getName());
+            BusinessModulePermissionsDto businessModulePermissionsDto = new BusinessModulePermissionsDto();
+            businessModulePermissionsDto.setBusinessId(business.getId());
+            businessModulePermissionsDto.setName(business.getName());
 
+            List<ModuleSystem> modules = businessModuleReadDataJPARepository.findModuleSystemByBusinessId(business.getId());
             Set<PermissionInfo> uniquePermissions = new HashSet<>();
-            List<RolePermissionsDto> roleInfoList = new ArrayList<>();
-            
-            businessInfo.setRoles(roleInfoList);
-            businessInfo.setUniquePermissions(uniquePermissions);
-            businessInfoList.add(businessInfo);
+            for (ModuleSystem module : modules) {
+                List<Permission> permissions = permissionReadDataJPARepository.findByModuleIdAndBusinessId(module.getId(), business.getId());
+                Set<PermissionInfo> permissionInfos = permissions.stream()
+                        .map(p -> new PermissionInfo(p.getId(), new ModuleDto(p.getModule().getId(), p.getModule().getName(), p.getModule().getImage(), p.getModule().getDescription()), p.getCode(), p.getDescription()))
+                        .collect(Collectors.toSet());
+                uniquePermissions.addAll(permissionInfos);
+            }
+
+            businessModulePermissionsDto.setUniquePermissions(uniquePermissions);
+            businessModulePermissionsDtos.add(businessModulePermissionsDto);
         }
 
-        userMeDto.setBusinesses(businessInfoList);
+        userMeDto.setBusiness(businessModulePermissionsDtos);
 
         return userMeDto;
+
     }
 }

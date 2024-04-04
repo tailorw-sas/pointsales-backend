@@ -1,6 +1,7 @@
 package com.kynsof.identity.infrastructure.repository.query;
 
 import com.kynsof.identity.infrastructure.identity.BusinessModule;
+import com.kynsof.identity.infrastructure.identity.ModuleSystem;
 import feign.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +15,13 @@ import java.util.UUID;
 
 public interface BusinessModuleReadDataJPARepository extends JpaRepository<BusinessModule, UUID>, JpaSpecificationExecutor<BusinessModule> {
     Page<BusinessModule> findAll(Specification specification, Pageable pageable);
+
     @Query("SELECT bm FROM BusinessModule bm WHERE bm.business.id = :businessId")
     List<BusinessModule> findByBusinessId(@Param("businessId") UUID businessId);
 
+    @Query("SELECT bm.module FROM BusinessModule bm WHERE bm.business.id = :businessId")
+    List<ModuleSystem> findModulesByBusinessId(@Param("businessId") UUID businessId);
+
+    @Query("SELECT m FROM BusinessModule bm JOIN bm.module m WHERE bm.business.id = :businessId")
+    List<ModuleSystem> findModuleSystemByBusinessId(UUID businessId);
 }
