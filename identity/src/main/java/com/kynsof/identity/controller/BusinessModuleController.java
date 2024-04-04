@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,10 +50,10 @@ public class BusinessModuleController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping(path = "/{id}")
-    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody UpdateBusinessModuleRequest request) {
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody UpdateBusinessModuleRequest request) {
 
-        UpdateBusinessModuleCommand command = UpdateBusinessModuleCommand.fromRequest(request, id);
+        UpdateBusinessModuleCommand command = UpdateBusinessModuleCommand.fromRequest(request);
         UpdateBusinessModuleMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }

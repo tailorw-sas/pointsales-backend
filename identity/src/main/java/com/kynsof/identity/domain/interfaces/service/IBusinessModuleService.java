@@ -13,6 +13,7 @@ public interface IBusinessModuleService {
     void create(BusinessModuleDto object);
     void create(List<BusinessModuleDto> objects);
     void update(List<BusinessModuleDto> objects);
+    public List<BusinessModuleDto> findBusinessModuleByBusinessId(UUID businessId);
     void delete(UUID id);
     void delete(List<UUID> objects);
     BusinessModuleDto findById(UUID id);
