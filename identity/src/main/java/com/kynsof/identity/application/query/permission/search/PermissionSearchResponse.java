@@ -21,12 +21,14 @@ public class PermissionSearchResponse implements IResponse {
     private String description;
     private PermissionStatusEnm status;
     private String action;
+    private String moduleName;
     public PermissionSearchResponse(PermissionDto response) {
         this.id = response.getId();
         this.code = response.getCode();
         this.description = response.getDescription();
         this.status = response.getStatus();
         this.action = response.getAction();
+        this.moduleName = response.getModule().getName();
     }
 
 }
