@@ -1,4 +1,4 @@
-package com.kynsof.identity.application.command.businessmodule.create;
+package com.kynsof.identity.application.command.businessmodule.update;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
@@ -10,19 +10,22 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class CreateBusinessModuleCommand implements ICommand {
+public class UpdateBusinessModuleCommand implements ICommand {
 
     private boolean result;
+    private UUID id;
     private UUID idBusiness;
     private List<UUID> modules;
 
-    public CreateBusinessModuleCommand(UUID idBusiness, List<UUID> modules) {
+    public UpdateBusinessModuleCommand(UUID id, UUID idBusiness, List<UUID> modules) {
+        this.id = id;
         this.idBusiness = idBusiness;
         this.modules = List.copyOf(modules);
     }
 
-    public static CreateBusinessModuleCommand fromRequest(CreateBusinessModuleRequest request) {
-        return new CreateBusinessModuleCommand(
+    public static UpdateBusinessModuleCommand fromRequest(UpdateBusinessModuleRequest request, UUID id) {
+        return new UpdateBusinessModuleCommand(
+                id,
                 request.getIdBusiness(), 
                 request.getModules()
         );
@@ -30,6 +33,6 @@ public class CreateBusinessModuleCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return new CreateBusinessModuleMessage(result);
+        return new UpdateBusinessModuleMessage(result);
     }
 }

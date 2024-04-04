@@ -3,6 +3,9 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.businessmodule.create.CreateBusinessModuleCommand;
 import com.kynsof.identity.application.command.businessmodule.create.CreateBusinessModuleMessage;
 import com.kynsof.identity.application.command.businessmodule.create.CreateBusinessModuleRequest;
+import com.kynsof.identity.application.command.businessmodule.update.UpdateBusinessModuleCommand;
+import com.kynsof.identity.application.command.businessmodule.update.UpdateBusinessModuleMessage;
+import com.kynsof.identity.application.command.businessmodule.update.UpdateBusinessModuleRequest;
 import com.kynsof.identity.application.query.businessmodule.getbyid.FindBusinessModuleByIdQuery;
 import com.kynsof.identity.application.query.businessmodule.search.BusinessModuleResponse;
 import com.kynsof.identity.application.query.businessmodule.search.GetSearchBusinessModuleQuery;
@@ -14,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +40,14 @@ public class BusinessModuleController {
         CreateBusinessModuleCommand createCommand = CreateBusinessModuleCommand.fromRequest(request);
         CreateBusinessModuleMessage response = mediator.send(createCommand);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping(path = "/{id}")
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody UpdateBusinessModuleRequest request) {
+
+        UpdateBusinessModuleCommand command = UpdateBusinessModuleCommand.fromRequest(request, id);
+        UpdateBusinessModuleMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 

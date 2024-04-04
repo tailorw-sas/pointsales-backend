@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 public interface IBusinessModuleService {
     void create(BusinessModuleDto object);
     void create(List<BusinessModuleDto> objects);
-    void update(BusinessModuleDto object);
+    void update(List<BusinessModuleDto> objects);
     void delete(UUID id);
     BusinessModuleDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);

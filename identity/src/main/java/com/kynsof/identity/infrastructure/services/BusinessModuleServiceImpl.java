@@ -75,8 +75,12 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
     }
 
     @Override
-    public void update(BusinessModuleDto object) {
-        this.commandRepository.save(new BusinessModule(object));
+    public void update(List<BusinessModuleDto> objects) {
+        List<BusinessModule> businessModules = new ArrayList<>();
+        for (BusinessModuleDto object : objects) {
+            businessModules.add(new BusinessModule(object));
+        }
+        this.commandRepository.saveAll(businessModules);
     }
 
     @Override
@@ -86,7 +90,7 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
 
     @Override
     public BusinessModuleDto findById(UUID id) {
-        
+
         Optional<BusinessModule> object = this.queryRepository.findById(id);
         if (object.isPresent()) {
             return object.get().toAggregate();
