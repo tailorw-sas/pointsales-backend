@@ -49,7 +49,7 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public UUID create(RoleDto dto) {
-        RulesChecker.checkRule(new RolNameMustBeUniqueRule(this, dto));
+        RulesChecker.checkRule(new RolNameMustBeUniqueRule(dto));
         RoleSystem rol = this.repositoryCommand.save(new RoleSystem(dto));
         return rol.getId();
     }
@@ -149,5 +149,10 @@ public class RoleServiceImpl implements IRoleService {
         }
 
         return new RoleWithModulesResponse(role.getId(), role.getName(), role.getDescription(), modulesWithPermissions);
+    }
+
+    @Override
+    public Long countByIdAndName(UUID id, String name) {
+        return this.repositoryQuery.countByIdAndName(id, name);
     }
 }

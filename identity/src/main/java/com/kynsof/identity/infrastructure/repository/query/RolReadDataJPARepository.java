@@ -19,4 +19,5 @@ public interface RolReadDataJPARepository extends JpaRepository<RoleSystem, UUID
     List<RoleSystem> findRolesByUserIdAndBusinessId(UUID userId, UUID businessId);
 
     Long countByName(String name);
+    Long countByIdAndName(UUID id, String name);
 }

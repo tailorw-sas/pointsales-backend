@@ -20,6 +20,7 @@ public interface IRoleService {
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     Long countByName(String name);
+    Long countByIdAndName(UUID id, String name);
 
     RoleWithModulesResponse getRoleWithModulesAndPermissions(UUID roleId);
 }

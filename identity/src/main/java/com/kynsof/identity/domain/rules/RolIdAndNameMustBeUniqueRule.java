@@ -5,27 +5,26 @@ import com.kynsof.identity.domain.interfaces.service.IRoleService;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.rules.BusinessRule;
-import org.springframework.beans.factory.annotation.Autowired;
 
-public class RolNameMustBeUniqueRule extends BusinessRule {
+public class RolIdAndNameMustBeUniqueRule extends BusinessRule {
 
-    @Autowired
-    private IRoleService service;
+    private final IRoleService service;
 
     private RoleDto role;
 
-    public RolNameMustBeUniqueRule(RoleDto role) {
+    public RolIdAndNameMustBeUniqueRule(IRoleService service, RoleDto role) {
         super(
                 DomainErrorMessage.COLUMN_UNIQUE, 
                 new ErrorField("Rol", 
                         "The role with the name: " + role.getName() + " already exists.")
         );
+        this.service = service;
         this.role = role;
     }
 
     @Override
     public boolean isBroken() {
-        Long cant = service.countByName(role.getName());
+        Long cant = service.countByIdAndName(role.getId(), role.getName());
         return cant > 0;
     }
 
