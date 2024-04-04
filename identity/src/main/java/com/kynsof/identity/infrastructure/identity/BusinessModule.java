@@ -1,11 +1,11 @@
 package com.kynsof.identity.infrastructure.identity;
 
+import com.kynsof.identity.domain.dto.BusinessModuleDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -18,15 +18,13 @@ import java.util.UUID;
 public class BusinessModule {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "business_id")
     private Business business;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "module_id")
     private ModuleSystem module;
 
@@ -38,4 +36,19 @@ public class BusinessModule {
         this.business = business;
         this.module = module;
     }
+
+    public BusinessModule(BusinessModuleDto businessModuleDto) {
+        this.id = businessModuleDto.getId();
+        this.business = new Business(businessModuleDto.getBusiness());
+        this.module = new ModuleSystem(businessModuleDto.getModule());
+    }
+
+    public BusinessModuleDto toAggregate () {
+        return new BusinessModuleDto(
+                id, 
+                business.toAggregate(), 
+                module.toAggregate()
+        );
+    }
+
 }
