@@ -25,8 +25,15 @@ public class ProducerPatientsEventService {
 
         try {
 
-            PatientKafka event = new PatientKafka(entity.getId(), entity.getIdentification(), entity.getName(), entity.getLastName(),
-                    entity.getGender().toString(), entity.getStatus().name(), UUID.fromString(entity.getPhoto()));
+            PatientKafka event = new PatientKafka(
+                    entity.getId(), 
+                    entity.getIdentification(), 
+                    entity.getName(), 
+                    entity.getLastName(),
+                    entity.getGender().toString(), 
+                    entity.getStatus().name(), 
+                    entity.getPhoto() != null ? UUID.fromString(entity.getPhoto()) : null
+            );
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
