@@ -12,7 +12,6 @@ import com.kynsof.patients.infrastructure.repository.command.PatientsWriteDataJP
 import com.kynsof.patients.infrastructure.repository.query.InsuranceReadDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.PatientsReadDataJPARepository;
 import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerDependentPatientsEventService;
-import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerPatientsEventService;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
@@ -41,8 +40,7 @@ public class PatientsServiceImpl implements IPatientsService {
     @Autowired
     private InsuranceReadDataJPARepository insuranceReadDataJPARepository;
 
-    @Autowired
-    private ProducerPatientsEventService patientEventService;
+
 
     @Autowired
     private ProducerDependentPatientsEventService dependentPatientsEventService;
@@ -50,7 +48,7 @@ public class PatientsServiceImpl implements IPatientsService {
     @Override
     public UUID create(PatientDto patients) {
         Patients entity = this.repositoryCommand.save(new Patients(patients));
-        this.patientEventService.create(patients);
+        //this.patientEventService.create(patients);
         return entity.getId();
     }
 
@@ -70,7 +68,7 @@ public class PatientsServiceImpl implements IPatientsService {
         this.repositoryQuery.findById(patientDto.getId())
                 .map(patient -> {
                     if (patientDto.getName() != null) {
-                        patient.setName(patientDto.getName());
+                        patient.setFirstName(patientDto.getName());
                     }
                     if (patientDto.getLastName() != null) {
                         patient.setLastName(patientDto.getLastName());
@@ -126,7 +124,7 @@ public class PatientsServiceImpl implements IPatientsService {
         this.repositoryQuery.findById(dependentPatientDto.getId())
                 .map(dependentPatient -> {
                     if (dependentPatientDto.getName() != null) {
-                        dependentPatient.setName(dependentPatientDto.getName());
+                        dependentPatient.setFirstName(dependentPatientDto.getName());
                     }
                     if (dependentPatientDto.getLastName() != null) {
                         dependentPatient.setLastName(dependentPatientDto.getLastName());

@@ -33,7 +33,7 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
 
         GeographicLocationDto location = this.geographicLocationService.findById(command.getGeographicLocation());
         UUID idLogo = UUID.randomUUID();
-        service.create(new BusinessDto(
+        UUID id = service.create(new BusinessDto(
                 command.getId(),
                 command.getName(),
                 command.getLatitude(),
@@ -45,8 +45,12 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
                 location,
                 command.getAddress()
         ));
-        FileKafka fileSave = new FileKafka(idLogo, "identity", UUID.randomUUID().toString(),
-                command.getLogo());
-        saveFileEventService.create(fileSave);
+        if (command.getLogo() != null) {
+            FileKafka fileSave = new FileKafka(idLogo, "identity", UUID.randomUUID().toString(),
+                    command.getLogo());
+            saveFileEventService.create(fileSave);
+        }
+        command.setId(id);
+
     }
 }

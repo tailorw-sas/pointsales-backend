@@ -17,19 +17,20 @@ import com.kynsof.identity.application.query.userrolbusiness.search.GetSearchUse
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
-@RequestMapping("/api/user/role/business")
-public class UserRoleBusinessController {
+@RequestMapping("/api/user-permission-business")
+public class UserPermissionBusinessController {
 
     private final IMediator mediator;
 
-    public UserRoleBusinessController(IMediator mediator) {
+    public UserPermissionBusinessController(IMediator mediator) {
         this.mediator = mediator;
     }
 

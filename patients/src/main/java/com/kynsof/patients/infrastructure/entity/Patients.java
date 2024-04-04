@@ -33,7 +33,7 @@ public class Patients implements Serializable {
 
     private String identification;
 
-    private String name;
+    private String firstName;
 
     private String lastName;
     @Enumerated(EnumType.STRING)
@@ -80,7 +80,7 @@ public class Patients implements Serializable {
     public Patients(PatientDto patients) {
         this.id = patients.getId();
         this.identification = patients.getIdentification();
-        this.name = patients.getName();
+        this.firstName = patients.getName();
         this.lastName = patients.getLastName();
         this.gender = patients.getGender() != null ? patients.getGender() : GenderType.UNDEFINED ;
         this.status = patients.getStatus();
@@ -96,7 +96,7 @@ public class Patients implements Serializable {
     public Patients(DependentPatientDto patients) {
         this.id = patients.getId();
         this.identification = patients.getIdentification();
-        this.name = patients.getName();
+        this.firstName = patients.getName();
         this.lastName = patients.getLastName();
         this.gender = patients.getGender() != null ? patients.getGender() : GenderType.OTHER;
         this.status = patients.getStatus();
@@ -112,13 +112,13 @@ public class Patients implements Serializable {
     }
 
     public PatientDto toAggregate() {
-        return new PatientDto(id, identification, name, lastName, gender, status, weight, height, hasDisability, isPregnant,
+        return new PatientDto(id, identification, firstName, lastName, gender, status, weight, height, hasDisability, isPregnant,
                 photo, disabilityType, gestationTime);
     }
 
     public PatientByIdDto toAggregateById() {
         ContactInfoDto contactInfoDto = contactInformation != null ? contactInformation.toAggregate() : null;
-        PatientByIdDto result = new PatientByIdDto(id, identification, name, lastName, gender, status, weight, height,
+        PatientByIdDto result = new PatientByIdDto(id, identification, firstName, lastName, gender, status, weight, height,
                 hasDisability, isPregnant, photo, disabilityType, gestationTime, familyRelationship,
                 contactInfoDto );
         return result;

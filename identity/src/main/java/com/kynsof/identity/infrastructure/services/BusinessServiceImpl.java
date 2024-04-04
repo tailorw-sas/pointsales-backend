@@ -51,15 +51,16 @@ public class BusinessServiceImpl implements IBusinessService {
     private ProducerDeleteFileEventService deleteFileEventService;
 
     @Override
-    public void create(BusinessDto object) {
+    public UUID create(BusinessDto object) {
         RulesChecker.checkRule(new ValidateObjectNotNullRule(object, "Business", "Business DTO cannot be null."));
         RulesChecker.checkRule(new ValidateObjectNotNullRule(object.getId(), "Business.id", "Business ID cannot be null."));
 
         object.setStatus(EBusinessStatus.ACTIVE);
         object.setCreateAt(ConfigureTimeZone.getTimeZone());
 
-        this.repositoryCommand.save(new Business(object));
+        Business entity = this.repositoryCommand.save(new Business(object));
         createBusinessEventService.create(object);
+        return entity.getId();
     }
 
     @Override
@@ -74,10 +75,10 @@ public class BusinessServiceImpl implements IBusinessService {
         object.setStatus(objectDto.getStatus() != null ? objectDto.getStatus() : object.getStatus());
         object.setLogo(objectDto.getLogo() != null ? objectDto.getLogo() : object.getLogo());
         object.setName(objectDto.getName() != null ? objectDto.getName() : object.getName());
-        object.setLongitude(objectDto.getLongitude()!= null ? objectDto.getLongitude(): object.getLongitude());
-        object.setLatitude(objectDto.getLatitude()!= null ? objectDto.getLatitude(): object.getLatitude());
+        object.setLongitude(objectDto.getLongitude() != null ? objectDto.getLongitude() : object.getLongitude());
+        object.setLatitude(objectDto.getLatitude() != null ? objectDto.getLatitude() : object.getLatitude());
         object.setRuc(objectDto.getRuc() != null ? objectDto.getRuc() : object.getRuc());
-        object.setAddress(objectDto.getAddress()!= null ? objectDto.getAddress(): object.getAddress());
+        object.setAddress(objectDto.getAddress() != null ? objectDto.getAddress() : object.getAddress());
         object.setGeographicLocation(objectDto.getGeographicLocationDto() != null ? new GeographicLocation(objectDto.getGeographicLocationDto()) : object.getGeographicLocation());
 
         this.repositoryCommand.save(object);
