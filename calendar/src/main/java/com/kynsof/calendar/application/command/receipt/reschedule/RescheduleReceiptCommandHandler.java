@@ -6,6 +6,8 @@ import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import com.kynsof.calendar.domain.service.IReceiptService;
 import com.kynsof.calendar.domain.service.IScheduleService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.exception.UserNotFoundException;
+import com.kynsof.share.core.domain.response.ErrorField;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,6 +24,10 @@ public class RescheduleReceiptCommandHandler implements ICommandHandler<Reschedu
     @Override
     public void handle(RescheduleReceiptCommand command) {
         ReceiptDto _receipt = this.service.findById(command.getReceiptId());
+        if(!_receipt.getStatus().equals(EStatusReceipt.APPROVED)){
+            throw new UserNotFoundException("No se puede reagendar la cita", new ErrorField("scheduled",
+                    "No se puede reagendar la cita"));
+        }
         _receipt.setStatus(EStatusReceipt.CANCEL);
         ScheduleDto _sSchedule = this.scheduleService.findById(_receipt.getSchedule().getId());
         _sSchedule.setStock(_sSchedule.getStock() + 1);
