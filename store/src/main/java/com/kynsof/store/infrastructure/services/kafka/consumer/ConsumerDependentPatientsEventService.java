@@ -29,10 +29,16 @@ public class ConsumerDependentPatientsEventService {
 
             UserKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UserKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
-            
+
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                this.service.create(new CustomerDto(UUID.fromString(eventRead.getId()), eventRead.getFirstname(), eventRead.getLastname(), eventRead.getEmail(), null));
+                this.service.create(new CustomerDto(
+                        UUID.fromString(eventRead.getId()), 
+                        eventRead.getFirstname(), 
+                        eventRead.getLastname(), 
+                        eventRead.getEmail(), 
+                        eventRead.getPhone() != null ? eventRead.getPhone() : null
+                ));
 
             }
             if (eventType.equals(EventType.DELETED)) {
