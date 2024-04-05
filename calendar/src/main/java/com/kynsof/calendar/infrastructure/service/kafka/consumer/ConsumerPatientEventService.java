@@ -21,6 +21,7 @@ public class ConsumerPatientEventService {
 
     @Autowired
     private IPatientsService service;
+
     @KafkaListener(topics = "patient", groupId = "calendar-patient")
     public void listen(String event) {
         try {
@@ -31,15 +32,30 @@ public class ConsumerPatientEventService {
             PatientKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), PatientKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
-            this.service.create(new PatientDto(
-                    UUID.fromString(eventRead.getId()), 
-                    eventRead.getIdentification(), 
-                    eventRead.getName(),
-                    eventRead.getLastName(), 
-                    eventRead.getGender(), 
-                    PatientStatus.ACTIVE,
-                    eventRead.getLogo() != null ? UUID.fromString(eventRead.getLogo()) : null
-            ));
+            if (eventType.equals(EventType.CREATED)) {
+                this.service.create(new PatientDto(
+                        UUID.fromString(eventRead.getId()),
+                        eventRead.getIdentification(),
+                        eventRead.getName(),
+                        eventRead.getLastName(),
+                        eventRead.getGender(),
+                        PatientStatus.ACTIVE,
+                        eventRead.getLogo() != null ? UUID.fromString(eventRead.getLogo()) : null
+                ));
+            }
+
+            if (eventType.equals(EventType.UPDATED)) {
+                this.service.update(new PatientDto(
+                        UUID.fromString(eventRead.getId()),
+                        eventRead.getIdentification(),
+                        eventRead.getName(),
+                        eventRead.getLastName(),
+                        eventRead.getGender(),
+                        PatientStatus.ACTIVE,
+                        eventRead.getLogo() != null ? UUID.fromString(eventRead.getLogo()) : null
+                ));
+            }
+
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerPatientEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
