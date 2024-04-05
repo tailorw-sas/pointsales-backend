@@ -6,6 +6,7 @@ import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import com.kynsof.share.utils.UpdateIfNotNull;
 import com.kynsof.store.application.query.customer.getAll.CustomerResponse;
 import com.kynsof.store.domain.dto.CustomerDto;
 import com.kynsof.store.domain.services.ICustomerService;
@@ -43,16 +44,15 @@ public class CustomerServiceImpl implements ICustomerService {
         if (customerDto == null || customerDto.getId() == null) {
             throw new IllegalArgumentException("Customer cannot be null");
         }
-        return repositoryQuery.findById(customerDto.getId())
-                .map(customer -> {
-                    customer.setFirstName(customerDto.getFirstName() != null ? customerDto.getFirstName() : customer.getFirstName());
-                    customer.setLastName(customerDto.getLastName() != null ? customerDto.getLastName() : customer.getLastName());
-                    customer.setEmail(customerDto.getEmail() != null ? customerDto.getEmail() : customer.getEmail());
-                    customer.setPhone(customerDto.getPhone() != null ? customerDto.getPhone() : customer.getPhone());
-                    return repositoryCommand.save(customer);
-                })
-                .orElseThrow(() -> new EntityNotFoundException("Customer with ID " + customerDto.getId() + " not found"))
-                .getId();
+        CustomerDto update = this.findById(customerDto.getId());
+
+        UpdateIfNotNull.updateIfNotNull(update::setEmail, customerDto.getEmail());
+        UpdateIfNotNull.updateIfNotNull(update::setLastName, customerDto.getLastName());
+        UpdateIfNotNull.updateIfNotNull(update::setFirstName, customerDto.getFirstName());
+        UpdateIfNotNull.updateIfNotNull(update::setPhone, customerDto.getPhone());
+
+        repositoryCommand.save(new Customer(update));
+        return customerDto.getId();
     }
 
     @Override

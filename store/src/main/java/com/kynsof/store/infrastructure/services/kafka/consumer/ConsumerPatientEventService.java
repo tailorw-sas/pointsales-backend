@@ -41,6 +41,22 @@ public class ConsumerPatientEventService {
                 ));
             }
 
+            if (eventType.equals(EventType.UPDATED)) {
+                this.service.update(new CustomerDto(
+                        UUID.fromString(eventRead.getId()),
+                        eventRead.getName(),
+                        eventRead.getLastName(),
+                        "",
+                        eventRead.getLogo() != null ? eventRead.getLogo() : null
+                ));
+
+                System.err.println("##########################################");
+                System.err.println("##########################################");
+                System.err.println("SE ACTUALIZA ESTA PARTE.... con los nuevos datos");
+                System.err.println("##########################################");
+                System.err.println("##########################################");
+            }
+
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerPatientEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
