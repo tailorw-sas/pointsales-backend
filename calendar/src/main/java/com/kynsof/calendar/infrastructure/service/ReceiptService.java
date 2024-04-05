@@ -8,7 +8,6 @@ import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.domain.service.IReceiptService;
 import com.kynsof.calendar.infrastructure.entity.Receipt;
-import com.kynsof.calendar.infrastructure.entity.Schedule;
 import com.kynsof.calendar.infrastructure.entity.specifications.ReceiptSpecifications;
 import com.kynsof.calendar.infrastructure.repository.command.ReceiptWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ReceiptReadDataJPARepository;
@@ -64,14 +63,14 @@ public class ReceiptService implements IReceiptService {
         if (receipt.getSchedule().getStatus() != EStatusSchedule.ACTIVE)
             throw new BusinessException(DomainErrorMessage.SCHEDULE_IS_NOT_AVAIBLE, "The selected schedule is not available.");
 
-        ScheduleDto _schedule = receipt.getSchedule();
-        _schedule.setStatus(EStatusSchedule.PRE_RESERVE);
-        _schedule.setStock(_schedule.getStock()-1);
-        this.scheduleServiceImpl.changeStatus(new Schedule(_schedule), EStatusSchedule.PRE_RESERVE);
-
-        receipt.setSchedule(_schedule);
-
-        receipt.setStatus(EStatusReceipt.PRE_RESERVE);
+//        ScheduleDto _schedule = receipt.getSchedule();
+//        //_schedule.setStatus(EStatusSchedule.PRE_RESERVE);
+//        _schedule.setStock(_schedule.getStock()-1);
+//      //  this.scheduleServiceImpl.changeStatus(new Schedule(_schedule), EStatusSchedule.PRE_RESERVE);
+//
+//        receipt.setSchedule(_schedule);
+//
+//        receipt.setStatus(EStatusReceipt.PRE_RESERVE);
        Receipt entity = this.receiptRepositoryCommand.save(new Receipt(receipt));
        return entity.getId();
 
@@ -119,8 +118,8 @@ public class ReceiptService implements IReceiptService {
 
     @Override
     public void update(ReceiptDto receipt) {
-
-        this.receiptRepositoryCommand.save(new Receipt(receipt));
+        Receipt receipt1 = new Receipt(receipt);
+        this.receiptRepositoryCommand.save(receipt1);
         /**
          * El cliente no puede cambiar el status a CONFIRMED, por lo cual, en la
          * peticion se debe de enviar status PRE-RESERVE o CANCEL.

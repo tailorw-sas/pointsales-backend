@@ -30,16 +30,17 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
 
     @Override
     public void handle(ConfirmPaymentReceiptCommand command) {
+        ReceiptDto _receipt = this.service.findById(command.getReceiptId());
         PatientDto _patient = this.servicePatient.findById(command.getUserId());
         ScheduleDto _schedule = this.serviceSchedule.findById(command.getScheduleId());
         ServiceDto _service = this.serviceService.findById(command.getServiceId());
-        ReceiptDto _receipt = this.service.findById(command.getReceiptId());
 
         _receipt.setAuthorizationCode(command.getAuthorizationCode());
         _receipt.setRequestId(command.getRequestId());
         _receipt.setReference(command.getReference());
         _receipt.setSessionId(command.getSessionId());
-
+        _receipt.setIpAddressPayment(command.getIpAddress());
+        _receipt.setUserAgentPayment(command.getUserAgent());
         if(command.getStatus().equals(EStatusReceipt.APPROVED)){
             //TO DO
             //Validar el pago

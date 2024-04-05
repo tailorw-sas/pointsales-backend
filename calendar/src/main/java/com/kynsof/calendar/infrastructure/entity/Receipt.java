@@ -8,8 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -24,14 +26,10 @@ public class Receipt {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @Column(nullable = true)
     private Double price;
-
-    @Column(nullable = true)
     private Boolean express;
 
     @Size(max = 200)
-    @Column(nullable = true)
     private String reasons;
 
     @ManyToOne
@@ -40,12 +38,12 @@ public class Receipt {
 
     //@JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "fk_pk_schedule", unique = false)
+    @JoinColumn(name = "fk_pk_schedule")
     private Schedule schedule;
 
     //@JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "fk_pk_service", unique = false)
+    @JoinColumn(name = "fk_pk_service")
     private Services service;
 
     @Enumerated(EnumType.STRING)
@@ -55,7 +53,18 @@ public class Receipt {
     private String authorizationCode;
     private String reference;
     private String sessionId;
+    private String ipAddressCreate;
+    private String ipAddressPayment;
+    private String userAgentCreate;
+    private String userAgentPayment;
 
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+    private LocalDateTime paymentDate;
+
+    @Transient
+    private EStatusReceipt previousStatus;
 
     public Receipt(ReceiptDto receipt) {
         this.id = receipt.getId();
@@ -70,10 +79,28 @@ public class Receipt {
         this.authorizationCode = receipt.getAuthorizationCode();
         this.reference = receipt.getReference();
         this.sessionId = receipt.getSessionId();
+        this.ipAddressCreate = receipt.getIpAddressCreate();
+        this.ipAddressPayment = receipt.getIpAddressPayment();
+        this.userAgentCreate = receipt.getUserAgentCreate();
+        this.userAgentPayment = receipt.getUserAgentPayment();
     }
 
     public ReceiptDto toAggregate() {
         return new ReceiptDto(id, price, express, reasons, user.toAggregate(), schedule.toAggregate(),
-                service.toAggregate(), status, requestId, authorizationCode, reference,sessionId);
+                service.toAggregate(), status, requestId, authorizationCode, reference,sessionId,ipAddressCreate,
+                ipAddressPayment,userAgentCreate, userAgentPayment);
+    }
+
+    @PostLoad
+    @PostPersist
+    @PostUpdate
+    public void onLoad() {
+        previousStatus = this.status;
+    }
+    @PreUpdate
+    public void onPreUpdate() {
+        if (EStatusReceipt.APPROVED.equals(status) && !status.equals(previousStatus)) {
+            paymentDate = LocalDateTime.now();
+        }
     }
 }

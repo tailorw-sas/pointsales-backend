@@ -18,7 +18,11 @@ public class CreateReceiptCommand implements ICommand {
     private UUID user;
     private UUID schedule;
     private UUID service;
-    public CreateReceiptCommand(Double price, Boolean express, String reasons, UUID user, UUID schedule, UUID service) {
+    private final String ipAddress;
+    private final String userAgent;
+
+    public CreateReceiptCommand(Double price, Boolean express, String reasons, UUID user, UUID schedule, UUID service,
+                                String ipAddress, String userAgent) {
 
         this.price = price;
         this.express = express;
@@ -26,11 +30,14 @@ public class CreateReceiptCommand implements ICommand {
         this.user = user;
         this.schedule = schedule;
         this.service = service;
+        this.ipAddress = ipAddress;
+        this.userAgent = userAgent;
     }
 
-    public static CreateReceiptCommand fromRequest(CreateReceiptRequest request) {
+    public static CreateReceiptCommand fromRequest(CreateReceiptRequest request, String ipAddress, String userAgent) {
         return new CreateReceiptCommand(request.getPrice(), request.getExpress(),
-                request.getReasons(), request.getUserId(), request.getScheduleId(), request.getServiceId());
+                request.getReasons(), request.getUserId(), request.getScheduleId(), request.getServiceId(),ipAddress ,
+                userAgent);
     }
 
     @Override

@@ -28,11 +28,11 @@ public class PaymentController {
             ServerHttpRequest request,
             @RequestHeader(value = "User-Agent", required = false, defaultValue = "Unknown") String userAgent,
             @RequestBody PaymentData paymentData) {
-//        // Obtiene la dirección IP del cliente
+
         String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
 
         paymentData.setUserAgent(userAgent);
-      //  paymentData.setIpAddress(ipAddress); // Asume que PaymentData tiene un setter para ipAddress
+        paymentData.setIpAddress(ipAddress);
 
         PaymentResponse paymentResponse = paymentServiceClient.paymentTransactions(paymentData);
 
