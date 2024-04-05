@@ -37,7 +37,7 @@ public class CreateUserPermissionBusinessCommandHandler implements ICommandHandl
     public void handle(CreateUserPermissionBusinessCommand command) {
         List<UserPermissionBusinessDto> userRoleBusinessDtos = new ArrayList<>();
 
-        for (UserPermissionBusinessRequest userRoleBusinessRequest : command.getPayload()) {
+      UserPermissionBusinessRequest userRoleBusinessRequest = command.getPayload();
             UserSystemDto userSystemDto = this.userSystemService.findById(userRoleBusinessRequest.getUserId());
             BusinessDto businessDto = this.businessService.findById(userRoleBusinessRequest.getBusinessId());
 
@@ -45,7 +45,6 @@ public class CreateUserPermissionBusinessCommandHandler implements ICommandHandl
                 PermissionDto roleDto = this.permissionService.findById(role);
                 userRoleBusinessDtos.add(new UserPermissionBusinessDto(UUID.randomUUID(), userSystemDto, roleDto, businessDto));
             }
-        }
 
         this.service.create(userRoleBusinessDtos);
     }

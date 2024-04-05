@@ -37,7 +37,7 @@ public class UpdateUserPermissionBusinessCommandHandler implements ICommandHandl
 
     @Override
     public void handle(UpdateUserPermissionBusinessCommand command) {
-        for (UserRoleBusinessUpdateRequest updateRequest : command.getPayload()) {
+       UserRoleBusinessUpdateRequest updateRequest = command.getPayload();
             // Validar y recuperar las entidades involucradas
             UserSystemDto userSystemDto = userSystemService.findById(updateRequest.getUserId());
             BusinessDto businessDto = businessService.findById(updateRequest.getBusinessId());
@@ -77,7 +77,7 @@ public class UpdateUserPermissionBusinessCommandHandler implements ICommandHandl
 
             service.create(addPermissionUserBusinessList);
             service.delete(deletePermissionUserBusinessList);
-        }
+
     }
 
 
