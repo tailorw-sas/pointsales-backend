@@ -9,9 +9,16 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IBusinessService {
-     UUID create(BusinessDto object);
-     void update(BusinessDto object);
-     void delete(UUID id);
-     BusinessDto findById(UUID id);
+
+    UUID create(BusinessDto object);
+
+    void update(BusinessDto object);
+
+    void delete(UUID id);
+
+    BusinessDto findById(UUID id);
+
+    BusinessDto getById(UUID id);
+
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }

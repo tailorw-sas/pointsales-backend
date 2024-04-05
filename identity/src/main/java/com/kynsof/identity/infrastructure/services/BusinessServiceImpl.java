@@ -6,18 +6,14 @@ import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.identity.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.infrastructure.identity.Business;
-import com.kynsof.identity.infrastructure.identity.GeographicLocation;
 import com.kynsof.identity.infrastructure.identity.ModuleSystem;
 import com.kynsof.identity.infrastructure.repository.command.BusinessWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.BusinessModuleReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARepository;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerCreateBusinessEventService;
-import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerUpdateBusinessEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
-import com.kynsof.share.core.domain.kafka.entity.FileKafka;
-import com.kynsof.share.core.domain.kafka.producer.s3.ProducerDeleteFileEventService;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
@@ -47,11 +43,6 @@ public class BusinessServiceImpl implements IBusinessService {
     private ProducerCreateBusinessEventService createBusinessEventService;
 
     @Autowired
-    private ProducerUpdateBusinessEventService updateBusinessEventService;
-
-    @Autowired
-    private ProducerDeleteFileEventService deleteFileEventService;
-    @Autowired
     private BusinessModuleReadDataJPARepository businessModuleReadDataJPARepository;
 
     @Override
@@ -68,27 +59,8 @@ public class BusinessServiceImpl implements IBusinessService {
     }
 
     @Override
-    public void update(BusinessDto objectDto) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(objectDto, "Business", "Business DTO cannot be null."));
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(objectDto.getId(), "Business.id", "Business ID cannot be null."));
-
-        Business object = this.repositoryQuery.findById(objectDto.getId())
-                .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));
-
-        object.setDescription(objectDto.getDescription() != null ? objectDto.getDescription() : object.getDescription());
-        object.setStatus(objectDto.getStatus() != null ? objectDto.getStatus() : object.getStatus());
-        object.setLogo(objectDto.getLogo() != null ? objectDto.getLogo() : object.getLogo());
-        object.setName(objectDto.getName() != null ? objectDto.getName() : object.getName());
-        object.setLongitude(objectDto.getLongitude() != null ? objectDto.getLongitude() : object.getLongitude());
-        object.setLatitude(objectDto.getLatitude() != null ? objectDto.getLatitude() : object.getLatitude());
-        object.setRuc(objectDto.getRuc() != null ? objectDto.getRuc() : object.getRuc());
-        object.setAddress(objectDto.getAddress() != null ? objectDto.getAddress() : object.getAddress());
-        object.setGeographicLocation(objectDto.getGeographicLocationDto() != null ? new GeographicLocation(objectDto.getGeographicLocationDto()) : object.getGeographicLocation());
-
-        this.repositoryCommand.save(object);
-        objectDto.setLogo(object.getLogo());
-        this.updateBusinessEventService.update(objectDto);
-        this.deleteFileEventService.delete(new FileKafka(object.getId(), "identity", "", null));
+    public void update(BusinessDto objectDto) {        
+        this.repositoryCommand.save(new Business(objectDto));
     }
 
     @Override
@@ -101,6 +73,18 @@ public class BusinessServiceImpl implements IBusinessService {
         objectDelete.setDeleted(true);
 
         this.repositoryCommand.save(new Business(objectDelete));
+    }
+
+    @Override
+    public BusinessDto getById(UUID id) {
+
+        Optional<Business> object = this.repositoryQuery.findById(id);
+        if (object.isPresent()) {
+            return object.get().toAggregate();
+        }
+
+        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Business not found.");
+
     }
 
    // @Cacheable(cacheNames = CacheConfig.BUSINESS_CACHE, unless = "#result == null")
