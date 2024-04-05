@@ -3,16 +3,15 @@ package com.kynsof.calendar.domain.dto;
 import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.UUID;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Getter
 @Setter
+@AllArgsConstructor
 public class ReceiptDto implements Serializable {
 
     private UUID id;
@@ -27,4 +26,37 @@ public class ReceiptDto implements Serializable {
     private String authorizationCode;
     private String reference;
     private String sessionId;
+    private String ipAddressCreate;
+    private String ipAddressPayment;
+    private String userAgentCreate;
+    private String userAgentPayment;
+
+    public ReceiptDto(UUID id, Double price, Boolean express, String reasons, PatientDto user, ScheduleDto schedule,
+                      ServiceDto service, EStatusReceipt status, String requestId, String authorizationCode,
+                      String reference, String sessionId) {
+        this.id = id;
+        this.price = price;
+        this.express = express;
+        this.reasons = reasons;
+        this.user = user;
+        this.schedule = schedule;
+        this.service = service;
+        this.status = status;
+        this.requestId = requestId;
+        this.authorizationCode = authorizationCode;
+        this.reference = reference;
+        this.sessionId = sessionId;
+    }
+
+    public ReceiptDto(UUID id, Double price, Boolean express, String reasons, PatientDto user, ScheduleDto schedule,
+                      ServiceDto service, EStatusReceipt status) {
+        this.id = id;
+        this.price = price;
+        this.express = express;
+        this.reasons = reasons;
+        this.user = user;
+        this.schedule = schedule;
+        this.service = service;
+        this.status = status;
+    }
 }

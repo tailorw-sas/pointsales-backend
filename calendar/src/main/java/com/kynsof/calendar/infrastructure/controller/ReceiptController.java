@@ -17,8 +17,10 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -33,17 +35,28 @@ public class ReceiptController {
     }
 
     @PostMapping("")
-    public ResponseEntity<CreateReceiptMessage> create(@RequestBody CreateReceiptRequest request)  {
-        CreateReceiptCommand createCommand = CreateReceiptCommand.fromRequest(request);
-        CreateReceiptMessage response = mediator.send(createCommand);
+    public ResponseEntity<CreateReceiptMessage> create(@RequestBody CreateReceiptRequest createReceiptRequest,
+                                                       ServerHttpRequest request,
+                                                       @RequestHeader(value = "User-Agent", required = false,
+                                                               defaultValue = "Unknown") String userAgent) {
 
+        String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
+
+        CreateReceiptCommand createCommand = CreateReceiptCommand.fromRequest(createReceiptRequest, ipAddress, userAgent);
+        CreateReceiptMessage response = mediator.send(createCommand);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("receipt-confirm-payment/{receiptId}")
     public ResponseEntity<ConfirmPaymentReceiptMessage> confirmPayment(@PathVariable UUID receiptId,
-                                                                       @RequestBody ConfirmPaymentReceiptRequest request)  {
-        ConfirmPaymentReceiptCommand createCommand = ConfirmPaymentReceiptCommand.fromRequest(receiptId,request);
+                                                                       @RequestBody ConfirmPaymentReceiptRequest confirmPaymentReceiptRequest,
+                                                                       ServerHttpRequest request,
+                                                                       @RequestHeader(value = "User-Agent", required = false,
+                                                                               defaultValue = "Unknown") String userAgent) {
+
+        String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
+        ConfirmPaymentReceiptCommand createCommand = ConfirmPaymentReceiptCommand.fromRequest(receiptId,
+                confirmPaymentReceiptRequest, ipAddress, userAgent );
         ConfirmPaymentReceiptMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);

@@ -21,9 +21,11 @@ public class ConfirmPaymentReceiptCommand implements ICommand {
     private final String authorizationCode;
     private final String sessionId;
     private final String reference;
+    private final String ipAddress;
+    private final String userAgent;
     public ConfirmPaymentReceiptCommand(UUID receiptId, UUID userId, UUID scheduleId, UUID serviceId,
                                         EStatusReceipt status, String requestId, String authorizationCode,
-                                        String sessionId, String reference) {
+                                        String sessionId, String reference, String ipAddress, String userAgent) {
 
 
         this.receiptId = receiptId;
@@ -35,12 +37,14 @@ public class ConfirmPaymentReceiptCommand implements ICommand {
         this.authorizationCode = authorizationCode;
         this.sessionId = sessionId;
         this.reference = reference;
+        this.ipAddress = ipAddress;
+        this.userAgent = userAgent;
     }
 
-    public static ConfirmPaymentReceiptCommand fromRequest(UUID receiptId, ConfirmPaymentReceiptRequest request) {
+    public static ConfirmPaymentReceiptCommand fromRequest(UUID receiptId, ConfirmPaymentReceiptRequest request, String ipAddress, String userAgent) {
         return new ConfirmPaymentReceiptCommand(receiptId, request.getUserId(), request.getScheduleId(),
                 request.getServiceId(), request.getStatus(),request.getRequestId() ,request.getAuthorizationCode() ,
-                request.getSessionId(), request.getReference());
+                request.getSessionId(), request.getReference(),ipAddress ,userAgent );
     }
 
     @Override

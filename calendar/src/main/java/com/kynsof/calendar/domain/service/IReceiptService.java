@@ -12,8 +12,8 @@ import java.util.UUID;
 
 public interface IReceiptService {
     UUID  create(ReceiptDto object);
-    public void delete(UUID id);
-    public ReceiptDto findById(UUID id);
+    void delete(UUID id);
+    ReceiptDto findById(UUID id);
     void update(ReceiptDto receipt);
     PaginatedResponse findAll(Pageable pageable, String filter, UUID resource, UUID user, UUID service, UUID schedule, LocalDate date, LocalDate startDate, LocalDate endDate, EStatusReceipt status);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
