@@ -50,7 +50,9 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
 
         if (transactionsState.getValue().getStatus().getStatus().equals(status)
         && command.getStatus().equals(EStatusReceipt.APPROVED)){
-            command.getStatus().toString();
+            _receipt.setStatus(command.getStatus());
+//TODO
+            //Enviar correo
         }
 
         if(command.getStatus().equals(EStatusReceipt.CANCEL)){
