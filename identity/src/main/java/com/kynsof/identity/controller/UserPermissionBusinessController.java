@@ -8,6 +8,8 @@ import com.kynsof.identity.application.command.userPermisionBusiness.delete.Dele
 import com.kynsof.identity.application.command.userPermisionBusiness.update.UpdateUserPermissionBusinessCommand;
 import com.kynsof.identity.application.command.userPermisionBusiness.update.UpdateUserPermissionBusinessMessage;
 import com.kynsof.identity.application.command.userPermisionBusiness.update.UpdateUserPermissionBusinessRequest;
+import com.kynsof.identity.application.query.userPermissionBusiness.getPermissionsForUserAndBusiness.GetPermissionsForUserAndBusinessQuery;
+import com.kynsof.identity.application.query.userPermissionBusiness.getPermissionsForUserAndBusiness.GetPermissionsForUserAndBusinessResponse;
 import com.kynsof.identity.application.query.userPermissionBusiness.getbyid.FindByIdUserRoleBusinessQuery;
 import com.kynsof.identity.application.query.userPermissionBusiness.getbyid.UserRoleBusinessResponse;
 import com.kynsof.identity.application.query.userPermissionBusiness.search.GetSearchUserRolBusinessQuery;
@@ -71,6 +73,15 @@ public class UserPermissionBusinessController {
         GetSearchUserRolBusinessQuery query = new GetSearchUserRolBusinessQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @GetMapping("/user/{userId}/business/{businessId}")
+    public ResponseEntity<GetPermissionsForUserAndBusinessResponse> getPermissionsForUserAndBusiness(
+            @PathVariable UUID userId,
+            @PathVariable UUID businessId) {
+        GetPermissionsForUserAndBusinessQuery query = new GetPermissionsForUserAndBusinessQuery(userId, businessId);
+        GetPermissionsForUserAndBusinessResponse response = mediator.send(query);
+        return ResponseEntity.ok(response);
     }
 
 }

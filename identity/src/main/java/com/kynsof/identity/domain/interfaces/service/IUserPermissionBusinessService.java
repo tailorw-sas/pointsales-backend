@@ -1,5 +1,6 @@
 package com.kynsof.identity.domain.interfaces.service;
 
+import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.UserPermissionBusinessDto;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
@@ -18,4 +19,6 @@ public interface IUserPermissionBusinessService {
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
     List<UserPermissionBusinessDto> findByUserAndBusiness(UUID userSystemId, UUID businessId);
+
+    List<PermissionDto> getPermissionsForUserAndBusiness(UUID userId, UUID businessId);
 }

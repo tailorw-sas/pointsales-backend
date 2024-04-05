@@ -1,8 +1,10 @@
 package com.kynsof.identity.infrastructure.services;
 
 import com.kynsof.identity.application.query.userPermissionBusiness.getbyid.UserRoleBusinessResponse;
+import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.UserPermissionBusinessDto;
 import com.kynsof.identity.domain.interfaces.service.IUserPermissionBusinessService;
+import com.kynsof.identity.infrastructure.identity.Permission;
 import com.kynsof.identity.infrastructure.identity.UserPermissionBusiness;
 import com.kynsof.identity.infrastructure.repository.command.UserPermissionBusinessWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserPermissionBusinessReadDataJPARepository;
@@ -17,10 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -104,4 +103,12 @@ public class UserPermissionBusinessServiceImpl implements IUserPermissionBusines
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    public List<PermissionDto> getPermissionsForUserAndBusiness(UUID userId, UUID businessId) {
+        Set<Permission> permissions = this.queryRepository.findPermissionsByUserIdAndBusinessId(userId, businessId);
+        List<PermissionDto> permissionDtos = new ArrayList<>();
+        for (Permission permission : permissions){
+            permissionDtos.add(permission.toAggregate());
+        }
+        return permissionDtos;
+    }
 }
