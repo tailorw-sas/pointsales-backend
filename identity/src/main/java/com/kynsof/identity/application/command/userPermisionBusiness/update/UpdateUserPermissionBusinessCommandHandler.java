@@ -46,7 +46,6 @@ public class UpdateUserPermissionBusinessCommandHandler implements ICommandHandl
         List<UserPermissionBusinessDto> currentPermissions = service.findByUserAndBusiness(userSystemDto.getId(),
                         businessDto.getId())
                 .stream()
-                .filter(permission -> !permission.isDeleted())
                 .toList();
 
         Set<UUID> newPermissionIds = new HashSet<>(updateRequest.getPermissionIds());
