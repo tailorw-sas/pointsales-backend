@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 @AllArgsConstructor
 @Getter
@@ -14,11 +13,11 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PatientKafka implements Serializable {
 
-    private UUID id;
+    private String id;
     private String identification;
     private String name;
     private String lastName;
     private String gender;
     private String status;
-    private UUID logo;
+    private String logo;
 }
