@@ -29,7 +29,6 @@ public class UserPermissionBusiness {
     @JoinColumn(name = "business_id")
     private Business business;
 
-    @Column(nullable = true)
     private boolean deleted;
 
     public UserPermissionBusiness(UUID id, UserSystemDto user, PermissionDto permissionDto, BusinessDto business) {
@@ -39,7 +38,7 @@ public class UserPermissionBusiness {
         this.business = new Business(business);
     }
 
-    public UserPermissionBusiness(UserRoleBusinessDto userRoleBusinessDto) {
+    public UserPermissionBusiness(UserPermissionBusinessDto userRoleBusinessDto) {
         this.id = userRoleBusinessDto.getId();
         this.user = new UserSystem(userRoleBusinessDto.getUser());
         this.permission = new Permission(userRoleBusinessDto.getPermission());
@@ -47,7 +46,7 @@ public class UserPermissionBusiness {
         this.deleted = userRoleBusinessDto.isDeleted();
     }
 
-    public UserRoleBusinessDto toAggregate () {
-        return new UserRoleBusinessDto(id, user.toAggregate(), permission.toAggregate(), business.toAggregate());
+    public UserPermissionBusinessDto toAggregate () {
+        return new UserPermissionBusinessDto(id, user.toAggregate(), permission.toAggregate(), business.toAggregate());
     }
 }

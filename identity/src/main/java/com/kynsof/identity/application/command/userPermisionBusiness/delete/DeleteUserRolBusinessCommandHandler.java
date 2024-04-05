@@ -1,15 +1,15 @@
 package com.kynsof.identity.application.command.userPermisionBusiness.delete;
 
-import com.kynsof.identity.domain.interfaces.service.IUserRoleBusinessService;
+import com.kynsof.identity.domain.interfaces.service.IUserPermissionBusinessService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DeleteUserRolBusinessCommandHandler implements ICommandHandler<DeleteUserRolBusinessCommand> {
 
-    private final IUserRoleBusinessService serviceImpl;
+    private final IUserPermissionBusinessService serviceImpl;
 
-    public DeleteUserRolBusinessCommandHandler(IUserRoleBusinessService serviceImpl) {
+    public DeleteUserRolBusinessCommandHandler(IUserPermissionBusinessService serviceImpl) {
         this.serviceImpl = serviceImpl;
     }
 

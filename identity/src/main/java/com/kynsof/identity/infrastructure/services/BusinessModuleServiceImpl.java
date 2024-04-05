@@ -1,6 +1,6 @@
 package com.kynsof.identity.infrastructure.services;
 
-import com.kynsof.identity.application.query.businessmodule.search.BusinessModuleResponse;
+import com.kynsof.identity.application.query.businessModule.search.BusinessModuleResponse;
 import com.kynsof.identity.domain.dto.BusinessModuleDto;
 import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.identity.domain.dto.PermissionDto;

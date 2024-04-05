@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface UserRoleBusinessWriteDataJPARepository extends JpaRepository<UserPermissionBusiness, UUID> {
+public interface  UserRoleBusinessWriteDataJPARepository extends JpaRepository<UserPermissionBusiness, UUID> {
 }

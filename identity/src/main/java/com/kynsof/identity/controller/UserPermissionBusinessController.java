@@ -1,19 +1,16 @@
 package com.kynsof.identity.controller;
 
-import com.kynsof.identity.application.command.userPermisionBusiness.create.CreateUserRoleBusinessCommand;
-import com.kynsof.identity.application.command.userPermisionBusiness.create.CreateUserRoleBusinessMessage;
-import com.kynsof.identity.application.command.userPermisionBusiness.create.CreateUserRoleBusinessRequest;
-import com.kynsof.identity.application.command.userPermisionBusiness.create.lote.LoteCreateUserRoleBusinessCommand;
-import com.kynsof.identity.application.command.userPermisionBusiness.create.lote.LoteCreateUserRoleBusinessMessage;
-import com.kynsof.identity.application.command.userPermisionBusiness.create.lote.LoteCreateUserRoleBusinessRequest;
+import com.kynsof.identity.application.command.userPermisionBusiness.create.CreateUserPermissionBusinessCommand;
+import com.kynsof.identity.application.command.userPermisionBusiness.create.CreateUserPermissionBusinessMessage;
+import com.kynsof.identity.application.command.userPermisionBusiness.create.CreateUserPermissionBusinessRequest;
 import com.kynsof.identity.application.command.userPermisionBusiness.delete.DeleteUserRolBusinessCommand;
 import com.kynsof.identity.application.command.userPermisionBusiness.delete.DeleteUserRolBusinessMessage;
-import com.kynsof.identity.application.command.userPermisionBusiness.update.UpdateUserRoleBusinessCommand;
-import com.kynsof.identity.application.command.userPermisionBusiness.update.UpdateUserRoleBusinessMessage;
-import com.kynsof.identity.application.command.userPermisionBusiness.update.UpdateUserRoleBusinessRequest;
-import com.kynsof.identity.application.query.userrolbusiness.getbyid.FindByIdUserRoleBusinessQuery;
-import com.kynsof.identity.application.query.userrolbusiness.getbyid.UserRoleBusinessResponse;
-import com.kynsof.identity.application.query.userrolbusiness.search.GetSearchUserRolBusinessQuery;
+import com.kynsof.identity.application.command.userPermisionBusiness.update.UpdateUserPermissionBusinessCommand;
+import com.kynsof.identity.application.command.userPermisionBusiness.update.UpdateUserPermissionBusinessMessage;
+import com.kynsof.identity.application.command.userPermisionBusiness.update.UpdateUserPermissionBusinessRequest;
+import com.kynsof.identity.application.query.userPermissionBusiness.getbyid.FindByIdUserRoleBusinessQuery;
+import com.kynsof.identity.application.query.userPermissionBusiness.getbyid.UserRoleBusinessResponse;
+import com.kynsof.identity.application.query.userPermissionBusiness.search.GetSearchUserRolBusinessQuery;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -34,24 +31,18 @@ public class UserPermissionBusinessController {
         this.mediator = mediator;
     }
 
-    @PostMapping
-    public ResponseEntity<CreateUserRoleBusinessMessage> create(@RequestBody CreateUserRoleBusinessRequest request) {
-        CreateUserRoleBusinessCommand command = CreateUserRoleBusinessCommand.fromRequest(request);
-        CreateUserRoleBusinessMessage response = mediator.send(command);
-        return ResponseEntity.ok(response);
-    }
 
-    @PostMapping("/create/lote")
-    public ResponseEntity<LoteCreateUserRoleBusinessMessage> createLote(@RequestBody LoteCreateUserRoleBusinessRequest request) {
-        LoteCreateUserRoleBusinessCommand command = LoteCreateUserRoleBusinessCommand.fromRequest(request);
-        LoteCreateUserRoleBusinessMessage response = mediator.send(command);
+    @PostMapping("")
+    public ResponseEntity<CreateUserPermissionBusinessMessage> createLote(@RequestBody CreateUserPermissionBusinessRequest request) {
+        CreateUserPermissionBusinessCommand command = CreateUserPermissionBusinessCommand.fromRequest(request);
+        CreateUserPermissionBusinessMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping
-    public ResponseEntity<UpdateUserRoleBusinessMessage> update(@RequestBody UpdateUserRoleBusinessRequest request) {
-        UpdateUserRoleBusinessCommand command = UpdateUserRoleBusinessCommand.fromRequest(request);
-        UpdateUserRoleBusinessMessage response = mediator.send(command);
+    public ResponseEntity<UpdateUserPermissionBusinessMessage> update(@RequestBody UpdateUserPermissionBusinessRequest request) {
+        UpdateUserPermissionBusinessCommand command = UpdateUserPermissionBusinessCommand.fromRequest(request);
+        UpdateUserPermissionBusinessMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 

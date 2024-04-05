@@ -1,18 +1,18 @@
 package com.kynsof.identity.domain.rules;
 
-import com.kynsof.identity.domain.dto.UserRoleBusinessDto;
-import com.kynsof.identity.domain.interfaces.service.IUserRoleBusinessService;
+import com.kynsof.identity.domain.dto.UserPermissionBusinessDto;
+import com.kynsof.identity.domain.interfaces.service.IUserPermissionBusinessService;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.rules.BusinessRule;
 
 public class UserRoleBusinessMustBeUniqueRule extends BusinessRule {
 
-    private final IUserRoleBusinessService service;
+    private final IUserPermissionBusinessService service;
 
-    private final UserRoleBusinessDto userRoleBusinessDto;
+    private final UserPermissionBusinessDto userRoleBusinessDto;
 
-    public UserRoleBusinessMustBeUniqueRule(IUserRoleBusinessService service, UserRoleBusinessDto userRoleBusinessDto) {
+    public UserRoleBusinessMustBeUniqueRule(IUserPermissionBusinessService service, UserPermissionBusinessDto userRoleBusinessDto) {
         super(
                 DomainErrorMessage.RELATIONSHIP_MUST_BE_UNIQUE, 
                 new ErrorField("UserPermissionBusiness",
