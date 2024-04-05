@@ -7,7 +7,7 @@ import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
-import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerPatientsEventService;
+import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerCreatePatientsEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
@@ -23,11 +23,11 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
     private final IGeographicLocationService geographicLocationService;
     private final ProducerSaveFileEventService saveFileEventService;
 
-    private final ProducerPatientsEventService patientEventService;
+    private final ProducerCreatePatientsEventService patientEventService;
 
     public CreatePatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
                                         IGeographicLocationService geographicLocationService,
-                                        ProducerSaveFileEventService saveFileEventService, ProducerPatientsEventService patientEventService
+                                        ProducerSaveFileEventService saveFileEventService, ProducerCreatePatientsEventService patientEventService
     ) {
         this.serviceImpl = serviceImpl;
         this.contactInfoService = contactInfoService;

@@ -8,6 +8,7 @@ import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
+import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerUpdateDependentPatientsEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
@@ -22,15 +23,18 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
     private final ProducerSaveFileEventService saveFileEventService;
     private final IContactInfoService contactInfoService;
     private final IGeographicLocationService geographicLocationService;
+    private final ProducerUpdateDependentPatientsEventService updateDependentPatientsEventService;
 
     public UpdateDependentPatientsCommandHandler(IPatientsService serviceImpl,
                                                  ProducerSaveFileEventService saveFileEventService,
                                                  IContactInfoService contactInfoService,
-                                                 IGeographicLocationService geographicLocationService) {
+                                                 IGeographicLocationService geographicLocationService,
+                                                 ProducerUpdateDependentPatientsEventService updateDependentPatientsEventService) {
         this.serviceImpl = serviceImpl;
         this.saveFileEventService = saveFileEventService;
         this.contactInfoService = contactInfoService;
         this.geographicLocationService = geographicLocationService;
+        this.updateDependentPatientsEventService = updateDependentPatientsEventService;
     }
 
     @Override
@@ -82,5 +86,7 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
             contactInfoDto.setStatus(Status.ACTIVE);
             contactInfoService.update(contactInfoDto);
         }
+
+        this.updateDependentPatientsEventService.update(serviceImpl.findByIdSimple(command.getId()));
     }
 }

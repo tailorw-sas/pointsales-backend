@@ -13,14 +13,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ProducerPatientsEventService {
+public class ProducerUpdatePatientsEventService {
     private final KafkaTemplate<String, String> producer;
 
-    public ProducerPatientsEventService(KafkaTemplate<String, String> producer) {
+    public ProducerUpdatePatientsEventService(KafkaTemplate<String, String> producer) {
         this.producer = producer;
     }
 
-    public void create(PatientDto entity) {
+    public void update(PatientDto entity) {
 
         try {
 
@@ -35,11 +35,11 @@ public class ProducerPatientsEventService {
             );
 
             ObjectMapper objectMapper = new ObjectMapper();
-            String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
+            String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.UPDATED));
 
             this.producer.send("patient", json);
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ProducerPatientsEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProducerUpdatePatientsEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

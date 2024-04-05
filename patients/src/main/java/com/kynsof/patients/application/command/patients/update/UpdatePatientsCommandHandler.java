@@ -7,6 +7,7 @@ import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
+import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerUpdatePatientsEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
@@ -21,13 +22,18 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
     private final ProducerSaveFileEventService saveFileEventService;
     private final IContactInfoService contactInfoService;
     private final IGeographicLocationService geographicLocationService;
+    private final ProducerUpdatePatientsEventService updatePatientsEventService;
 
-    public UpdatePatientsCommandHandler(IPatientsService serviceImpl, ProducerSaveFileEventService saveFileEventService, IContactInfoService contactInfoService, IGeographicLocationService geographicLocationService) {
+    public UpdatePatientsCommandHandler(IPatientsService serviceImpl,
+            ProducerSaveFileEventService saveFileEventService, 
+            IContactInfoService contactInfoService,
+            IGeographicLocationService geographicLocationService,
+            ProducerUpdatePatientsEventService updatePatientsEventService) {
         this.serviceImpl = serviceImpl;
-
         this.saveFileEventService = saveFileEventService;
         this.contactInfoService = contactInfoService;
         this.geographicLocationService = geographicLocationService;
+        this.updatePatientsEventService = updatePatientsEventService;
     }
 
     @Override
@@ -60,7 +66,6 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
                 command.getGestationTime()
         ));
 
-
         if (contactInfoDto.getEmail() == null) {
             contactInfoDto.setPatient(patientDto);
             contactInfoDto.setAddress(command.getCreateContactInfoRequest().getAddress());
@@ -80,5 +85,6 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
             contactInfoService.update(contactInfoDto);
         }
 
+        this.updatePatientsEventService.update(serviceImpl.findByIdSimple(command.getId()));
     }
 }
