@@ -4,8 +4,8 @@ import com.kynsof.identity.application.query.userPermissionBusiness.getbyid.User
 import com.kynsof.identity.domain.dto.UserPermissionBusinessDto;
 import com.kynsof.identity.domain.interfaces.service.IUserPermissionBusinessService;
 import com.kynsof.identity.infrastructure.identity.UserPermissionBusiness;
-import com.kynsof.identity.infrastructure.repository.command.UserRoleBusinessWriteDataJPARepository;
-import com.kynsof.identity.infrastructure.repository.query.UserRoleBusinessReadDataJPARepository;
+import com.kynsof.identity.infrastructure.repository.command.UserPermissionBusinessWriteDataJPARepository;
+import com.kynsof.identity.infrastructure.repository.query.UserPermissionBusinessReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -24,13 +24,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class UserRoleBusinessServiceImpl implements IUserPermissionBusinessService {
+public class UserPermissionBusinessServiceImpl implements IUserPermissionBusinessService {
 
     @Autowired
-    private UserRoleBusinessWriteDataJPARepository commandRepository;
+    private UserPermissionBusinessWriteDataJPARepository commandRepository;
 
     @Autowired
-    private UserRoleBusinessReadDataJPARepository queryRepository;
+    private UserPermissionBusinessReadDataJPARepository queryRepository;
 
     @Override
     @Transactional
@@ -63,7 +63,9 @@ public class UserRoleBusinessServiceImpl implements IUserPermissionBusinessServi
 
     @Override
     public void delete(List<UserPermissionBusinessDto> userRoleBusiness) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       for (UserPermissionBusinessDto dto : userRoleBusiness){
+           delete(dto.getId());
+       }
     }
 
     @Override
@@ -81,6 +83,16 @@ public class UserRoleBusinessServiceImpl implements IUserPermissionBusinessServi
         GenericSpecificationsBuilder<UserPermissionBusiness> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<UserPermissionBusiness> data = this.queryRepository.findAll(specifications, pageable);
         return getPaginatedResponse(data);
+    }
+
+    @Override
+    public List<UserPermissionBusinessDto> findByUserAndBusiness(UUID userSystemId, UUID businessI) {
+       List<UserPermissionBusiness> data = this.queryRepository.findByUserAndBusiness(userSystemId,businessI);
+       List<UserPermissionBusinessDto> permissionBusinessDtos = new ArrayList<>();
+        for (UserPermissionBusiness o : data) {
+            permissionBusinessDtos.add(o.toAggregate());
+        }
+        return permissionBusinessDtos;
     }
 
     private PaginatedResponse getPaginatedResponse(Page<UserPermissionBusiness> data) {

@@ -12,7 +12,5 @@ import java.util.UUID;
 public interface UserSystemReadDataJPARepository extends JpaRepository<UserSystem, UUID>,
         JpaSpecificationExecutor<UserSystem> {
     Page<UserSystem> findAll(Specification specification, Pageable pageable);
-//    @Query("SELECT DISTINCT p FROM UserSystem u JOIN u.userRoles ur JOIN ur.rol r JOIN r.rolPermissions rp " +
-//            "JOIN rp.permission p WHERE u.id = :userId")
-//    List<Permission> findDistinctPermissionsByUserId(UUID userId);
+
 }

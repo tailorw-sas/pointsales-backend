@@ -16,4 +16,6 @@ public interface IUserPermissionBusinessService {
     UserPermissionBusinessDto findById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+
+    List<UserPermissionBusinessDto> findByUserAndBusiness(UUID userSystemId, UUID businessId);
 }
