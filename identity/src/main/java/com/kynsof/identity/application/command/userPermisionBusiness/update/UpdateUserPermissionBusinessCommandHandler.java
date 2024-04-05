@@ -37,46 +37,50 @@ public class UpdateUserPermissionBusinessCommandHandler implements ICommandHandl
 
     @Override
     public void handle(UpdateUserPermissionBusinessCommand command) {
-       UserRoleBusinessUpdateRequest updateRequest = command.getPayload();
-            // Validar y recuperar las entidades involucradas
-            UserSystemDto userSystemDto = userSystemService.findById(updateRequest.getUserId());
-            BusinessDto businessDto = businessService.findById(updateRequest.getBusinessId());
+        UserRoleBusinessUpdateRequest updateRequest = command.getPayload();
+        // Validar y recuperar las entidades involucradas
+        UserSystemDto userSystemDto = userSystemService.findById(updateRequest.getUserId());
+        BusinessDto businessDto = businessService.findById(updateRequest.getBusinessId());
 
-            // Recuperar el estado actual
-            List<UserPermissionBusinessDto> currentPermissions = service.findByUserAndBusiness(userSystemDto.getId(), businessDto.getId());
+        // Recuperar el estado actual
+        List<UserPermissionBusinessDto> currentPermissions = service.findByUserAndBusiness(userSystemDto.getId(),
+                        businessDto.getId())
+                .stream()
+                .filter(permission -> !permission.isDeleted())
+                .toList();
 
-            Set<UUID> newPermissionIds = new HashSet<>(updateRequest.getPermissionIds());
-            Set<UUID> currentPermissionIds = currentPermissions.stream()
-                    .map(permission -> permission.getPermission().getId())
-                    .collect(Collectors.toSet());
+        Set<UUID> newPermissionIds = new HashSet<>(updateRequest.getPermissionIds());
+        Set<UUID> currentPermissionIds = currentPermissions.stream()
+                .map(permission -> permission.getPermission().getId())
+                .collect(Collectors.toSet());
 
-            // Determinar cambios necesarios
-            Set<UUID> permissionsToAdd = new HashSet<>(newPermissionIds);
-            permissionsToAdd.removeAll(currentPermissionIds);
+        // Determinar cambios necesarios
+        Set<UUID> permissionsToAdd = new HashSet<>(newPermissionIds);
+        permissionsToAdd.removeAll(currentPermissionIds);
 
-            Set<UUID> permissionsToRemove = new HashSet<>(currentPermissionIds);
-            permissionsToRemove.removeAll(newPermissionIds);
-            List<UserPermissionBusinessDto> addPermissionUserBusinessList = new ArrayList<>();
-            List<UserPermissionBusinessDto> deletePermissionUserBusinessList = new ArrayList<>();
-            // Ejecutar cambios
-            for (UUID permissionIdToAdd : permissionsToAdd) {
-                PermissionDto permissionDto = permissionService.findById(permissionIdToAdd);
-                UserPermissionBusinessDto newUserPermissionBusiness = new UserPermissionBusinessDto();
-                newUserPermissionBusiness.setId(UUID.randomUUID());
-                newUserPermissionBusiness.setUser(userSystemDto);
-                newUserPermissionBusiness.setPermission(permissionDto);
-                newUserPermissionBusiness.setBusiness(businessDto);
-                addPermissionUserBusinessList.add(newUserPermissionBusiness);
-            }
+        Set<UUID> permissionsToRemove = new HashSet<>(currentPermissionIds);
+        permissionsToRemove.removeAll(newPermissionIds);
+        List<UserPermissionBusinessDto> addPermissionUserBusinessList = new ArrayList<>();
+        List<UserPermissionBusinessDto> deletePermissionUserBusinessList = new ArrayList<>();
+        // Ejecutar cambios
+        for (UUID permissionIdToAdd : permissionsToAdd) {
+            PermissionDto permissionDto = permissionService.findById(permissionIdToAdd);
+            UserPermissionBusinessDto newUserPermissionBusiness = new UserPermissionBusinessDto();
+            newUserPermissionBusiness.setId(UUID.randomUUID());
+            newUserPermissionBusiness.setUser(userSystemDto);
+            newUserPermissionBusiness.setPermission(permissionDto);
+            newUserPermissionBusiness.setBusiness(businessDto);
+            addPermissionUserBusinessList.add(newUserPermissionBusiness);
+        }
 
-            for (UUID permissionIdToRemove : permissionsToRemove) {
-                currentPermissions.stream()
-                        .filter(p -> p.getPermission().getId().equals(permissionIdToRemove))
-                        .findFirst().ifPresent(deletePermissionUserBusinessList::add);
-            }
+        for (UUID permissionIdToRemove : permissionsToRemove) {
+            currentPermissions.stream()
+                    .filter(p -> p.getPermission().getId().equals(permissionIdToRemove))
+                    .findFirst().ifPresent(deletePermissionUserBusinessList::add);
+        }
 
-            service.create(addPermissionUserBusinessList);
-            service.delete(deletePermissionUserBusinessList);
+        service.create(addPermissionUserBusinessList);
+        service.delete(deletePermissionUserBusinessList);
 
     }
 
