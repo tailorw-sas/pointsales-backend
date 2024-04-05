@@ -44,7 +44,7 @@ public class UsersController {
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<?>> registerSystemUser(@RequestBody UserRequest userRequest) {
         RegistrySystemUserCommand command = new RegistrySystemUserCommand(userRequest.getUserName(), userRequest.getEmail(), userRequest.getName(),
-                userRequest.getLastName(), userRequest.getPassword(), userRequest.getRoles());
+                userRequest.getLastName(), userRequest.getPassword(), null);
         RegistrySystemUserMessage registryMessage = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(registryMessage.getId()));
     }
@@ -64,7 +64,7 @@ public class UsersController {
     public ResponseEntity<ApiResponse<?>> updateUser(@PathVariable String id, @RequestBody UserRequest userRequest) {
         try {
             UpdateUserCommand command = new UpdateUserCommand(id, userRequest.getUserName(), userRequest.getEmail(),
-                    userRequest.getName(), userRequest.getLastName(), userRequest.getPassword(), userRequest.getRoles());
+                    userRequest.getName(), userRequest.getLastName(), userRequest.getPassword(), null);
             UpdateUserMessage response = mediator.send(command);
             return ResponseEntity.ok(ApiResponse.success(response.getResult()));
         } catch (Exception e) {
