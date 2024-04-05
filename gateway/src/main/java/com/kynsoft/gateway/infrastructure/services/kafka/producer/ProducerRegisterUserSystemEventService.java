@@ -32,7 +32,7 @@ public class ProducerRegisterUserSystemEventService {
                     entity.getEmail(), 
                     entity.getName(),
                     entity.getLastName(),
-                    entity.getRoles(),
+                   null,
                     null
             );
 

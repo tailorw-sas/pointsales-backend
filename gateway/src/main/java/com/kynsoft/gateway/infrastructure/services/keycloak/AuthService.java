@@ -127,7 +127,7 @@ public class AuthService {
             String userId = extractUserIdFromLocation(response.getLocation().getPath());
 
             setNewUserPassword(userRequest.getPassword(), userId, usersResource);
-            assignRolesToUser(userRequest.getRoles(), userId);
+          //  assignRolesToUser(null, userId);
             if (!isSystemUser) {
                 producerRegisterUserEvent.create(userRequest, userId);
             } else {

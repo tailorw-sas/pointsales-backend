@@ -19,7 +19,7 @@ public class RegistryCommandHandler implements ICommandHandler<RegistryCommand> 
     public void handle(RegistryCommand command) {
         String registerUser = authService.registerUser(new UserRequest(
                 command.getUsername(), command.getEmail(),command.getFirstname(),
-                command.getLastname(),command.getPassword(), command.getRoles()
+                command.getLastname(),command.getPassword()
         ), false);
         command.setResul(registerUser);
     }

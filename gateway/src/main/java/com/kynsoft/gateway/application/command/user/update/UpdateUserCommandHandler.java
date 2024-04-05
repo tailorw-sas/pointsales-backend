@@ -21,8 +21,7 @@ public class UpdateUserCommandHandler implements ICommandHandler<UpdateUserComma
                 command.getEmail(),
                 command.getFirstname(),
                 command.getLastname(),
-                command.getPassword(),
-                command.getRoles());
+                command.getPassword());
         userService.updateUser(command.getUserId(), userRequest);
         command.setResul(true);
     }

@@ -102,7 +102,7 @@ public class UserService implements IUserService {
                 user.setCredentials(Collections.singletonList(credential));
             }
             userResource.update(user);
-            this.producerUpdateUserEventService.update(new UserRequest(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), "", null), id);
+            this.producerUpdateUserEventService.update(new UserRequest(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), ""), id);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update user.", e);
         }

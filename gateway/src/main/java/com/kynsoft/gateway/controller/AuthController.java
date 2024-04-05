@@ -45,7 +45,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<String>> registerUser(@RequestBody UserRequest userRequest) {
         RegistryCommand command = new RegistryCommand(userRequest.getUserName(), userRequest.getEmail(), userRequest.getName(),
-                userRequest.getLastName(), userRequest.getPassword(), userRequest.getRoles());
+                userRequest.getLastName(), userRequest.getPassword(), null);
         RegistryMessage registryMessage = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(registryMessage.getResult()));
     }

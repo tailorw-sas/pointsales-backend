@@ -20,7 +20,7 @@ public class RegistrySystemUserCommandHandler implements ICommandHandler<Registr
     public void handle(RegistrySystemUserCommand command) {
         String registerUser = authService.registerUser(new UserRequest(
                 command.getUsername(), command.getEmail(),command.getFirstname(),
-                command.getLastname(),command.getPassword(), command.getRoles()
+                command.getLastname(),command.getPassword()
         ), true);
         command.setId(UUID.fromString(registerUser));
     }
