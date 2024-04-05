@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IServiceService {
-    public void create(ServiceDto object);
-    public void update(ServiceDto object);
-    public void delete(UUID id);
-    public ServiceDto findById(UUID id);
-    public PaginatedResponse findAll(Pageable pageable, UUID idObject, String filter);
+    void create(ServiceDto object);
+    void update(ServiceDto object);
+    void delete(UUID id);
+    ServiceDto findById(UUID id);
+    PaginatedResponse findAll(Pageable pageable, UUID idObject, String filter);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }
