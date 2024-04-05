@@ -11,6 +11,9 @@ import com.kynsof.calendar.application.command.receipt.create.CreateReceiptMessa
 import com.kynsof.calendar.application.command.receipt.create.CreateReceiptRequest;
 import com.kynsof.calendar.application.command.receipt.delete.ReceiptDeleteCommand;
 import com.kynsof.calendar.application.command.receipt.delete.ReceiptDeleteMessage;
+import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptCommand;
+import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptMessage;
+import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptRequest;
 import com.kynsof.calendar.application.query.ReceiptResponse;
 import com.kynsof.calendar.application.query.receipt.getbyid.FindReceiptByIdQuery;
 import com.kynsof.calendar.application.query.receipt.search.GetSearchReceiptQuery;
@@ -60,6 +63,19 @@ public class ReceiptController {
 
         CancelReceiptCommand createCommand = CancelReceiptCommand.fromRequest(cancelReceiptRequest, ipAddress, userAgent);
         CancelReceiptMessage response = mediator.send(createCommand);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/reschedule")
+    public ResponseEntity<?> reschedule(@RequestBody RescheduleReceiptRequest rescheduleReceiptRequest,
+                                    ServerHttpRequest request,
+                                    @RequestHeader(value = "User-Agent", required = false,
+                                            defaultValue = "Unknown") String userAgent) {
+
+        String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
+
+        RescheduleReceiptCommand createCommand = RescheduleReceiptCommand.fromRequest(rescheduleReceiptRequest, ipAddress, userAgent);
+        RescheduleReceiptMessage response = mediator.send(createCommand);
         return ResponseEntity.ok(response);
     }
 
