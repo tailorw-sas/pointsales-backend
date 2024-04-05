@@ -43,6 +43,17 @@ public class ConsumerPatientEventService {
                         null
                 ));
             }
+            if (eventType.equals(EventType.UPDATED)) {
+                this.service.update(new PatientDto(
+                        UUID.fromString(eventRead.getId()),
+                        eventRead.getIdentification(),
+                        eventRead.getName(),
+                        eventRead.getLastName(),
+                        eventRead.getGender(),
+                        Status.ACTIVE,
+                        null
+                ));
+            }
 
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerPatientEventService.class.getName()).log(Level.SEVERE, null, ex);
