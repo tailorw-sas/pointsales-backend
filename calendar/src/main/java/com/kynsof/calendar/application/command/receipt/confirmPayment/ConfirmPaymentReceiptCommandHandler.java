@@ -62,7 +62,7 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
 
         }
         if (transactionsState.getValue().getStatus().getStatus().equals(status)
-                && command.getStatus().equals(EStatusReceipt.APPROVED)){
+                && command.getStatus().equals(EStatusReceipt.REJECTED)){
             //TO DO
             //Validar el estado del pago, si el estado es pendiente de pago o pago hacer el proceso de confirmado ,sino cambiar el estado
             cleanStock(_schedule);
