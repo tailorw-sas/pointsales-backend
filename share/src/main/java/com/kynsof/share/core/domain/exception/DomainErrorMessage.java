@@ -32,8 +32,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     ROLE_NOT_FOUND(627, Series.DOMAIN_ERROR, "Role not found."),
     ROLE_EXIT(628, Series.DOMAIN_ERROR, "Role not found."),
     BUSINESS_MODULE_NOT_FOUND(629, Series.DOMAIN_ERROR, "BusinessModule not found."),
-    MODULE_PERMISSION_NOT_FOUND(630, Series.DOMAIN_ERROR, "ModulepPermission not found.");
-
+    MODULE_PERMISSION_NOT_FOUND(630, Series.DOMAIN_ERROR, "ModulepPermission not found."),
+    BUSINESS_RUC(631, Series.DOMAIN_ERROR, "El RUC debe de tener trece caracteres.");
 
     private static final DomainErrorMessage[] VALUES;
 
