@@ -4,12 +4,14 @@ import com.kynsof.identity.domain.dto.BusinessDto;
 import com.kynsof.identity.domain.dto.GeographicLocationDto;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.domain.interfaces.service.IGeographicLocationService;
+import com.kynsof.identity.domain.rules.BusinessRucCheckingNumberOfCharactersRule;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerUpdateBusinessEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerDeleteFileEventService;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
+import com.kynsof.share.core.domain.rules.BusinessRule;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import org.springframework.stereotype.Component;
@@ -48,13 +50,14 @@ public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusin
 
         //Guardo el id del logo actual, para si cambia, mandar a elimianrlo al S3.
         String idLogoDelete = updateBusiness.getLogo();
+        UpdateIfNotNull.updateIfNotNull(updateBusiness::setRuc, command.getRuc());
+        RulesChecker.checkRule(new BusinessRucCheckingNumberOfCharactersRule(command.getRuc()));
 
         UpdateIfNotNull.updateIfNotNull(updateBusiness::setDescription, command.getDescription());
         UpdateIfNotNull.updateIfNotNull(updateBusiness::setStatus, command.getStatus());
         UpdateIfNotNull.updateIfNotNull(updateBusiness::setName, command.getName());
         UpdateIfNotNull.updateIfNotNull(updateBusiness::setLongitude, command.getLongitude());
         UpdateIfNotNull.updateIfNotNull(updateBusiness::setLatitude, command.getLatitude());
-        UpdateIfNotNull.updateIfNotNull(updateBusiness::setRuc, command.getRuc());
         UpdateIfNotNull.updateIfNotNull(updateBusiness::setAddress, command.getAddress());
 
         updateBusiness.setGeographicLocationDto(location);
@@ -78,5 +81,9 @@ public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusin
                 command.getLogo());
             saveFileEventService.create(fileSave);
         }
+    }
+
+    private BusinessRule BusinessRucCheckingNumberOfCharactersRule(IBusinessService service, BusinessDto updateBusiness) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
