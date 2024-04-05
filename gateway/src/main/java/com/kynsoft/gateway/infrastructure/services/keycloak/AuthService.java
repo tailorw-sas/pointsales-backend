@@ -114,10 +114,10 @@ public class AuthService {
         UsersResource usersResource = keycloakProvider.getUserResource();
 
         UserRepresentation userRepresentation = new UserRepresentation();
-        userRepresentation.setFirstName(userRequest.getFirstname());
-        userRepresentation.setLastName(userRequest.getLastname());
+        userRepresentation.setFirstName(userRequest.getName());
+        userRepresentation.setLastName(userRequest.getLastName());
         userRepresentation.setEmail(userRequest.getEmail());
-        userRepresentation.setUsername(userRequest.getUsername());
+        userRepresentation.setUsername(userRequest.getUserName());
         userRepresentation.setEnabled(true);
         userRepresentation.setEmailVerified(true);
 

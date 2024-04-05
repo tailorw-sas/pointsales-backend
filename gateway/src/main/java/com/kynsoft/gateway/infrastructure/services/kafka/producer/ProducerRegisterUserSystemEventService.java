@@ -28,10 +28,10 @@ public class ProducerRegisterUserSystemEventService {
         try {
             UserSystemKakfa event = new UserSystemKakfa(
                     UUID.fromString(clientId), 
-                    entity.getUsername(), 
+                    entity.getUserName(),
                     entity.getEmail(), 
-                    entity.getFirstname(), 
-                    entity.getLastname(),
+                    entity.getName(),
+                    entity.getLastName(),
                     entity.getRoles(),
                     null
             );

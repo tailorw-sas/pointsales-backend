@@ -11,10 +11,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @Builder
 public class UserRequest implements Serializable {
-    String username;
+    String userName;
     String email;
-    String firstname;
-    String lastname;
+    String name;
+    String lastName;
     String password;
     List<String> roles;
 }
