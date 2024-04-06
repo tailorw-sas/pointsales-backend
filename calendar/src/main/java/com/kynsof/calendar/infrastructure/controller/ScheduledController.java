@@ -51,7 +51,7 @@ public class ScheduledController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/create/all")
+    @PostMapping("/create-all")
     public ResponseEntity<CreateScheduleMessage> create(@RequestBody CreateScheduleAllRequest request) throws Exception {
 
         CreateScheduleAllCommand createCommand = CreateScheduleAllCommand.fromRequest(request);
@@ -60,7 +60,7 @@ public class ScheduledController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/create/lote")
+    @PostMapping("/create-lote")
     public ResponseEntity<CreateScheduleMessage> create(@RequestBody CreateScheduleByLoteRequest request) throws Exception {
 
         CreateScheduleByLoteCommand createCommand = CreateScheduleByLoteCommand.fromRequest(request);
