@@ -177,9 +177,7 @@ public class ScheduleServiceImpl implements IScheduleService {
         if (overlappingSchedules.isEmpty()){
             return repositoryCommand.save(new Schedule(schedule));
         }
-
-        throw new CustomUnauthorizedException("Ya existe un tarea programada para este servicio",
-                new ErrorField("Recurso", "Ya existe un tarea programada para este servicio"));
+        throw new BusinessException(DomainErrorMessage.SCHEDULED_TASK_ALREADY_EXISTS, "A scheduled task for this service already exists.");
     }
 
     @Override
