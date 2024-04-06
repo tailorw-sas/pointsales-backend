@@ -1,4 +1,4 @@
-name: ci-patients
+name: ci-rrhh
 
 env:
   SERVICE_NAME: 'rrhh'
