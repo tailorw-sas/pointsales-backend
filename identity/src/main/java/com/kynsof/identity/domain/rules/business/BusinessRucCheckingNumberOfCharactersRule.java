@@ -1,4 +1,4 @@
-package com.kynsof.identity.domain.rules;
+package com.kynsof.identity.domain.rules.business;
 
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.response.ErrorField;

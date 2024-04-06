@@ -4,7 +4,7 @@ import com.kynsof.identity.domain.dto.BusinessDto;
 import com.kynsof.identity.domain.dto.GeographicLocationDto;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.domain.interfaces.service.IGeographicLocationService;
-import com.kynsof.identity.domain.rules.BusinessRucCheckingNumberOfCharactersRule;
+import com.kynsof.identity.domain.rules.business.BusinessRucCheckingNumberOfCharactersRule;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerUpdateBusinessEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
