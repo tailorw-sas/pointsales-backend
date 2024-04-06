@@ -35,7 +35,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     MODULE_PERMISSION_NOT_FOUND(630, Series.DOMAIN_ERROR, "ModulepPermission not found."),
     BUSINESS_RUC(631, Series.DOMAIN_ERROR, "The business's RUC must have thirteen characters."),
     BUSINESS_RUC_MUST_BY_UNIQUE(632, Series.DOMAIN_ERROR, "The business ruc must be unique."),
-    BUSINESS_NAME_MUST_BY_UNIQUE(633, Series.DOMAIN_ERROR, "The business name must be unique.");
+    BUSINESS_NAME_MUST_BY_UNIQUE(633, Series.DOMAIN_ERROR, "The business name must be unique."),
+    SCHEDULED_TASK_ALREADY_EXISTS(634, Series.DOMAIN_ERROR, "A scheduled task for this service already exists.");
 
     private static final DomainErrorMessage[] VALUES;
 
