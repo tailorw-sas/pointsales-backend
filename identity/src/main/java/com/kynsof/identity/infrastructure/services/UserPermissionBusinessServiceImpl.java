@@ -56,8 +56,7 @@ public class UserPermissionBusinessServiceImpl implements IUserPermissionBusines
     @Override
     public void delete(UUID id) {
         UserPermissionBusinessDto delete = this.findById(id);
-        delete.setDeleted(true);
-        this.commandRepository.save(new UserPermissionBusiness(delete));
+        this.commandRepository.delete(new UserPermissionBusiness(delete));
     }
 
     @Override

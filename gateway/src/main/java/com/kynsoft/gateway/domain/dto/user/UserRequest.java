@@ -3,7 +3,6 @@ package com.kynsoft.gateway.domain.dto.user;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Getter
 @Setter
@@ -11,10 +10,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @Builder
 public class UserRequest implements Serializable {
-    String username;
+    String userName;
     String email;
-    String firstname;
-    String lastname;
+    String name;
+    String lastName;
     String password;
-    List<String> roles;
+    //List<String> roles;
 }

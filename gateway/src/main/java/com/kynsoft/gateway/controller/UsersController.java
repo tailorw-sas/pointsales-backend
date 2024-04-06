@@ -43,8 +43,8 @@ public class UsersController {
     }
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<?>> registerSystemUser(@RequestBody UserRequest userRequest) {
-        RegistrySystemUserCommand command = new RegistrySystemUserCommand(userRequest.getUsername(), userRequest.getEmail(), userRequest.getFirstname(),
-                userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
+        RegistrySystemUserCommand command = new RegistrySystemUserCommand(userRequest.getUserName(), userRequest.getEmail(), userRequest.getName(),
+                userRequest.getLastName(), userRequest.getPassword(), null);
         RegistrySystemUserMessage registryMessage = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(registryMessage.getId()));
     }
@@ -63,8 +63,8 @@ public class UsersController {
     @PatchMapping("/update/{id}")
     public ResponseEntity<ApiResponse<?>> updateUser(@PathVariable String id, @RequestBody UserRequest userRequest) {
         try {
-            UpdateUserCommand command = new UpdateUserCommand(id, userRequest.getUsername(), userRequest.getEmail(),
-                    userRequest.getFirstname(), userRequest.getLastname(), userRequest.getPassword(), userRequest.getRoles());
+            UpdateUserCommand command = new UpdateUserCommand(id, userRequest.getUserName(), userRequest.getEmail(),
+                    userRequest.getName(), userRequest.getLastName(), userRequest.getPassword(), null);
             UpdateUserMessage response = mediator.send(command);
             return ResponseEntity.ok(ApiResponse.success(response.getResult()));
         } catch (Exception e) {

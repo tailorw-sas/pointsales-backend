@@ -80,14 +80,14 @@ public class UserService implements IUserService {
         try {
             UserResource userResource = keycloakProvider.getUserResource().get(id);
             UserRepresentation user = userResource.toRepresentation();
-            if (userRequest.getUsername() != null) {
-                user.setUsername(userRequest.getUsername());
+            if (userRequest.getUserName() != null) {
+                user.setUsername(userRequest.getUserName());
             }
-            if (userRequest.getFirstname() != null) {
-                user.setFirstName(userRequest.getFirstname());
+            if (userRequest.getName() != null) {
+                user.setFirstName(userRequest.getName());
             }
-            if (userRequest.getLastname() != null) {
-                user.setLastName(userRequest.getLastname());
+            if (userRequest.getLastName() != null) {
+                user.setLastName(userRequest.getLastName());
             }
             if (userRequest.getEmail() != null) {
                 user.setEmail(userRequest.getEmail());
@@ -102,7 +102,7 @@ public class UserService implements IUserService {
                 user.setCredentials(Collections.singletonList(credential));
             }
             userResource.update(user);
-            this.producerUpdateUserEventService.update(new UserRequest(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), "", null), id);
+            this.producerUpdateUserEventService.update(new UserRequest(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName(), ""), id);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update user.", e);
         }

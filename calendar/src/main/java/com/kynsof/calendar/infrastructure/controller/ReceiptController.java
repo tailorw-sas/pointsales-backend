@@ -1,5 +1,8 @@
 package com.kynsof.calendar.infrastructure.controller;
 
+import com.kynsof.calendar.application.command.receipt.cancel.CancelReceiptCommand;
+import com.kynsof.calendar.application.command.receipt.cancel.CancelReceiptMessage;
+import com.kynsof.calendar.application.command.receipt.cancel.CancelReceiptRequest;
 import com.kynsof.calendar.application.command.receipt.confirmPayment.ConfirmPaymentReceiptCommand;
 import com.kynsof.calendar.application.command.receipt.confirmPayment.ConfirmPaymentReceiptMessage;
 import com.kynsof.calendar.application.command.receipt.confirmPayment.ConfirmPaymentReceiptRequest;
@@ -8,6 +11,9 @@ import com.kynsof.calendar.application.command.receipt.create.CreateReceiptMessa
 import com.kynsof.calendar.application.command.receipt.create.CreateReceiptRequest;
 import com.kynsof.calendar.application.command.receipt.delete.ReceiptDeleteCommand;
 import com.kynsof.calendar.application.command.receipt.delete.ReceiptDeleteMessage;
+import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptCommand;
+import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptMessage;
+import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptRequest;
 import com.kynsof.calendar.application.query.ReceiptResponse;
 import com.kynsof.calendar.application.query.receipt.getbyid.FindReceiptByIdQuery;
 import com.kynsof.calendar.application.query.receipt.search.GetSearchReceiptQuery;
@@ -44,6 +50,32 @@ public class ReceiptController {
 
         CreateReceiptCommand createCommand = CreateReceiptCommand.fromRequest(createReceiptRequest, ipAddress, userAgent);
         CreateReceiptMessage response = mediator.send(createCommand);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/cancel")
+    public ResponseEntity<?> cancel(@RequestBody CancelReceiptRequest cancelReceiptRequest,
+                                                       ServerHttpRequest request,
+                                                       @RequestHeader(value = "User-Agent", required = false,
+                                                               defaultValue = "Unknown") String userAgent) {
+
+        String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
+
+        CancelReceiptCommand createCommand = CancelReceiptCommand.fromRequest(cancelReceiptRequest, ipAddress, userAgent);
+        CancelReceiptMessage response = mediator.send(createCommand);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/reschedule")
+    public ResponseEntity<?> reschedule(@RequestBody RescheduleReceiptRequest rescheduleReceiptRequest,
+                                    ServerHttpRequest request,
+                                    @RequestHeader(value = "User-Agent", required = false,
+                                            defaultValue = "Unknown") String userAgent) {
+
+        String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
+
+        RescheduleReceiptCommand createCommand = RescheduleReceiptCommand.fromRequest(rescheduleReceiptRequest, ipAddress, userAgent);
+        RescheduleReceiptMessage response = mediator.send(createCommand);
         return ResponseEntity.ok(response);
     }
 
