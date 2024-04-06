@@ -1,4 +1,4 @@
-package com.kynsof.identity.controller;
+package com.kynsof.rrhh.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
