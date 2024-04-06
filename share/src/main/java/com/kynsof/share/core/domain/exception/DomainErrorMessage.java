@@ -33,7 +33,9 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     ROLE_EXIT(628, Series.DOMAIN_ERROR, "Role not found."),
     BUSINESS_MODULE_NOT_FOUND(629, Series.DOMAIN_ERROR, "BusinessModule not found."),
     MODULE_PERMISSION_NOT_FOUND(630, Series.DOMAIN_ERROR, "ModulepPermission not found."),
-    BUSINESS_RUC(631, Series.DOMAIN_ERROR, "El RUC debe de tener trece caracteres.");
+    BUSINESS_RUC(631, Series.DOMAIN_ERROR, "The business's RUC must have thirteen characters."),
+    BUSINESS_RUC_MUST_BY_UNIQUE(632, Series.DOMAIN_ERROR, "The business ruc must be unique."),
+    BUSINESS_NAME_MUST_BY_UNIQUE(633, Series.DOMAIN_ERROR, "The business name must be unique.");
 
     private static final DomainErrorMessage[] VALUES;
 
