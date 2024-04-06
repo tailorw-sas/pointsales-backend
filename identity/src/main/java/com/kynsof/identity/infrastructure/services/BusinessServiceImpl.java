@@ -143,4 +143,24 @@ public class BusinessServiceImpl implements IBusinessService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    @Override
+    public Long countByName(String name) {
+        return repositoryQuery.countByName(name);
+    }
+
+    @Override
+    public Long countByRuc(String ruc) {
+        return repositoryQuery.countByRuc(ruc);
+    }
+
+    @Override
+    public Long countByRucAndNotId(String ruc, UUID id) {
+        return repositoryQuery.countByRucAndNotId(ruc, id);
+    }
+
+    @Override
+    public Long countByNameAndNotId(String name, UUID id) {
+        return repositoryQuery.countByNameAndNotId(name, id);
+    }
+
 }

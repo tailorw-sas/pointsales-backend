@@ -21,4 +21,12 @@ public interface IBusinessService {
     BusinessDto getById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+
+    Long countByName(String name);
+
+    Long countByRuc(String ruc);
+
+    Long countByRucAndNotId(String ruc, UUID id);
+
+    Long countByNameAndNotId(String name, UUID id);
 }
