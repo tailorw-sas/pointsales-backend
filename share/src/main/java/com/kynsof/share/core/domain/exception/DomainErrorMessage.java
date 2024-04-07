@@ -36,7 +36,9 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     BUSINESS_RUC(631, Series.DOMAIN_ERROR, "The business's RUC must have thirteen characters."),
     BUSINESS_RUC_MUST_BY_UNIQUE(632, Series.DOMAIN_ERROR, "The business ruc must be unique."),
     BUSINESS_NAME_MUST_BY_UNIQUE(633, Series.DOMAIN_ERROR, "The business name must be unique."),
-    SCHEDULED_TASK_ALREADY_EXISTS(634, Series.DOMAIN_ERROR, "A scheduled task for this service already exists.");
+    SCHEDULED_TASK_ALREADY_EXISTS(634, Series.DOMAIN_ERROR, "A scheduled task for this service already exists."),
+    MODULE_NAME_CANNOT_BE_EMPTY(635, Series.DOMAIN_ERROR, "The name of the module cannot be empty."),
+    MODULE_DESCRIPTION_CANNOT_BE_EMPTY(636, Series.DOMAIN_ERROR, "The description of the module cannot be empty.");
 
     private static final DomainErrorMessage[] VALUES;
 
