@@ -113,6 +113,9 @@ public class ModuleServiceImpl implements IModuleService {
         return root;
     }
 
-
+    @Override
+    public Long countByNameAndNotId(String name, UUID id) {
+        return this.queryRepository.countByNameAndNotId(name, id);
+    }
 
 }

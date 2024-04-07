@@ -8,8 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.UUID;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface ModuleReadDataJPARepository extends JpaRepository<ModuleSystem, UUID>, JpaSpecificationExecutor<ModuleSystem> {
     Page<ModuleSystem> findAll(Specification specification, Pageable pageable);
+
+    @Query("SELECT COUNT(b) FROM ModuleSystem b WHERE b.name = :name AND b.id <> :id")
+    Long countByNameAndNotId(@Param("name") String name, @Param("id") UUID id);
 
 }

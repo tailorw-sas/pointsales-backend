@@ -4,6 +4,7 @@ import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.identity.domain.interfaces.service.IModuleService;
 import com.kynsof.identity.domain.rules.module.ModuleDescriptionMustBeNullRule;
 import com.kynsof.identity.domain.rules.module.ModuleNameMustBeNullRule;
+import com.kynsof.identity.domain.rules.module.ModuleNameMustBeUniqueRule;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
@@ -28,6 +29,7 @@ public class CreateModuleCommandHandler implements ICommandHandler<CreateModuleC
     public void handle(CreateModuleCommand command) {
         RulesChecker.checkRule(new ModuleNameMustBeNullRule(command.getName()));
         RulesChecker.checkRule(new ModuleDescriptionMustBeNullRule(command.getDescription()));
+        RulesChecker.checkRule(new ModuleNameMustBeUniqueRule(this.service, command.getName(), command.getId()));
 
         UUID idImage = UUID.randomUUID();
         service.create(new ModuleDto(

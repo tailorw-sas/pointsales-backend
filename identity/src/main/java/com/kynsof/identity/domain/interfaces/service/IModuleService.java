@@ -15,6 +15,7 @@ public interface IModuleService {
     void delete(UUID id);
     ModuleDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    Long countByNameAndNotId(String name, UUID id);
 
     List<ModuleNodeDto> buildStructure();
 }
