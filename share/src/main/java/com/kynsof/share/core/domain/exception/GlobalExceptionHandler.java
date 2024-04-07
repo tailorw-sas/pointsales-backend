@@ -67,6 +67,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.fail(apiError));
     }
 
+    @ExceptionHandler(BusinessRuleException.class)
+    public ResponseEntity<ApiResponse<?>> handleBusinessException(BusinessRuleException ex) {
+        ApiError apiError = new ApiError(ex.getStatus(), ex.getMessage(),
+                List.of(ex.getBrokenRule().getErrorField()));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.fail(apiError));
+    }
+
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ApiResponse<?>> handleUserNotFoundException(UserNotFoundException ex) {
         ApiError apiError = new ApiError(ex.getMessage(),
