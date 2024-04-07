@@ -1,22 +1,68 @@
 package com.kynsof.calendar.application.command.schedule.createlote;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.kynsof.calendar.application.command.schedule.createall.ScheduleAllRequest;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class CreateScheduleByLoteRequest {
-    private List<UUID> idResource;
-    private UUID idBusiness;
+    private UUID resourceId;
+    private UUID businessId;
+    private UUID serviceId;
     private LocalDate startDate;
     private LocalDate endDate;
-    private List<CreateScheduleRequest> schedules;
+    private List<ScheduleAllRequest> schedules;
+
+    public CreateScheduleByLoteRequest() {
+    }
+
+    public UUID getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(UUID resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    public UUID getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(UUID businessId) {
+        this.businessId = businessId;
+    }
+
+    public UUID getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(UUID serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public List<ScheduleAllRequest> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<ScheduleAllRequest> schedules) {
+        this.schedules = schedules;
+    }
+
 }

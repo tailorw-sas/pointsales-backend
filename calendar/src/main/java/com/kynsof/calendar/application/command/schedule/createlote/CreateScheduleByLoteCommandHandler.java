@@ -1,49 +1,43 @@
 package com.kynsof.calendar.application.command.schedule.createlote;
 
-import com.kynsof.calendar.domain.service.IBusinessService;
-import com.kynsof.calendar.domain.service.IResourceService;
-import com.kynsof.calendar.domain.service.IScheduleService;
-import com.kynsof.calendar.infrastructure.service.BusinessServiceImpl;
-import com.kynsof.calendar.infrastructure.service.ResourceServiceImpl;
-import com.kynsof.calendar.infrastructure.service.ScheduleServiceImpl;
+import com.kynsof.calendar.application.command.schedule.createall.CreateScheduleAllCommand;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CreateScheduleByLoteCommandHandler implements ICommandHandler<CreateScheduleByLoteCommand> {
 
-    private final IScheduleService scheduleService;
-    private final IResourceService serviceResource;
-    private final IBusinessService serviceBusiness;
+    private IMediator mediator;
 
-    public CreateScheduleByLoteCommandHandler(ScheduleServiceImpl service, ResourceServiceImpl serviceResource, BusinessServiceImpl serviceBusiness) {
-        this.scheduleService = service;
-        this.serviceResource = serviceResource;
-        this.serviceBusiness = serviceBusiness;
+    public CreateScheduleByLoteCommandHandler() {
     }
 
     @Override
     public void handle(CreateScheduleByLoteCommand command) {
-//        List<ScheduleDto> schedules = new ArrayList<>();
-//        List<LocalDate> dates = this.scheduleService.getBusinessDays(command.getStartDate(), command.getEndDate());
-//        BusinessDto _business = this.serviceBusiness.findById(command.getIdBusiness());
-//        for (UUID resource : command.getIdResource()) {
-//            ResourceDto _resource = this.serviceResource.findById(resource);
-//            for (LocalDate date : dates) {
-//                for (int i = 0; i < command.getSchedules().size(); i++) {
-//                    this.scheduleService.validate(_resource, date, command.getSchedules().get(i).getStartTime(), command.getSchedules().get(i).getEndingTime());
-//                    ScheduleDto __schedule = new ScheduleDto(
-//                            UUID.randomUUID(),
-//                            _resource,
-//                            _business,
-//                            date,
-//                            command.getSchedules().get(i).getStartTime(),
-//                            command.getSchedules().get(i).getEndingTime(), 1);
-//                    __schedule.setStatus(EStatusSchedule.ACTIVE);
-//                    schedules.add(__schedule);
-//                }
-//            }
-//        }
-//        this.scheduleService.createAll(schedules);
+        this.mediator = command.getMediator();
+        List<LocalDate> dates = this.getBusinessDays(command.getStartDate(), command.getEndDate());
+        for (LocalDate date : dates) {
+            this.mediator.send(new CreateScheduleAllCommand(
+                    command.getIdResource(),
+                    command.getIdBusiness(),
+                    command.getServiceId(),
+                    date,
+                    command.getSchedules(),
+                    mediator
+            ));
+        }
     }
+
+    private List<LocalDate> getBusinessDays(LocalDate startDate, LocalDate endDate) {
+        return startDate.datesUntil(endDate)
+                .filter(d -> !d.getDayOfWeek().equals(DayOfWeek.SATURDAY))
+                .filter(d -> !d.getDayOfWeek().equals(DayOfWeek.SUNDAY))
+                .collect(Collectors.toList());
+    }
+
 }

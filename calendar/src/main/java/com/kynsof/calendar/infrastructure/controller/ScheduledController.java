@@ -7,6 +7,7 @@ import com.kynsof.calendar.application.command.schedule.createall.CreateAllSched
 import com.kynsof.calendar.application.command.schedule.createall.CreateAllScheduleRequest;
 import com.kynsof.calendar.application.command.schedule.createall.CreateScheduleAllCommand;
 import com.kynsof.calendar.application.command.schedule.createlote.CreateScheduleByLoteCommand;
+import com.kynsof.calendar.application.command.schedule.createlote.CreateScheduleByLoteMessage;
 import com.kynsof.calendar.application.command.schedule.createlote.CreateScheduleByLoteRequest;
 import com.kynsof.calendar.application.command.schedule.delete.ScheduleDeleteCommand;
 import com.kynsof.calendar.application.command.schedule.delete.ScheduleDeleteMessage;
@@ -67,10 +68,17 @@ public class ScheduledController {
     }
 
     @PostMapping("/create-lote")
-    public ResponseEntity<CreateScheduleMessage> create(@RequestBody CreateScheduleByLoteRequest request) throws Exception {
+    public ResponseEntity<CreateScheduleByLoteMessage> create(@RequestBody CreateScheduleByLoteRequest request) throws Exception {
 
-        CreateScheduleByLoteCommand createCommand = CreateScheduleByLoteCommand.fromRequest(request);
-        CreateScheduleMessage response = mediator.send(createCommand);
+        CreateScheduleByLoteMessage response = mediator.send(new CreateScheduleByLoteCommand(
+                request.getResourceId(), 
+                request.getBusinessId(), 
+                request.getServiceId(), 
+                request.getStartDate(), 
+                request.getEndDate(), 
+                request.getSchedules(), 
+                mediator
+        ));
 
         return ResponseEntity.ok(response);
     }
