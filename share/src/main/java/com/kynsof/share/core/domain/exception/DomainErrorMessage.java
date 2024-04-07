@@ -38,7 +38,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     BUSINESS_NAME_MUST_BY_UNIQUE(633, Series.DOMAIN_ERROR, "The business name must be unique."),
     SCHEDULED_TASK_ALREADY_EXISTS(634, Series.DOMAIN_ERROR, "A scheduled task for this service already exists."),
     MODULE_NAME_CANNOT_BE_EMPTY(635, Series.DOMAIN_ERROR, "The name of the module cannot be empty."),
-    MODULE_DESCRIPTION_CANNOT_BE_EMPTY(636, Series.DOMAIN_ERROR, "The description of the module cannot be empty.");
+    MODULE_DESCRIPTION_CANNOT_BE_EMPTY(636, Series.DOMAIN_ERROR, "The description of the module cannot be empty."),    
+    MODULE_NAME_MUST_BY_UNIQUE(637, Series.DOMAIN_ERROR, "The module name must be unique.");
 
     private static final DomainErrorMessage[] VALUES;
 
