@@ -39,10 +39,10 @@ public class PermissionController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping()
-    public ResponseEntity<UpdatePermissionMessage> update(@RequestBody UpdatePermissionRequest request) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdatePermissionMessage> update(@PathVariable UUID id, @RequestBody UpdatePermissionRequest request) {
 
-        UpdatePermissionCommand command = UpdatePermissionCommand.fromRequest(request);
+        UpdatePermissionCommand command = UpdatePermissionCommand.fromRequest(request,id);
         UpdatePermissionMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }

@@ -67,10 +67,10 @@ public class BusinessController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping()
-    public ResponseEntity<UpdateBusinessMessage> update(@RequestBody UpdateBusinessRequest request) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateBusinessMessage> update(@PathVariable("id") UUID id,@RequestBody UpdateBusinessRequest request) {
 
-        UpdateBusinessCommand command = UpdateBusinessCommand.fromRequest(request);
+        UpdateBusinessCommand command = UpdateBusinessCommand.fromRequest(request,id);
         UpdateBusinessMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
