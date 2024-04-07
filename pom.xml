@@ -24,6 +24,7 @@
         <module>identity</module>
         <module>cloudBridges</module>
         <module>chat</module>
+        <module>rrhh</module>
     </modules>
     <build>
 
