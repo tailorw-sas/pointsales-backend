@@ -2,6 +2,9 @@ package com.kynsof.identity.application.command.module.create;
 
 import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.identity.domain.interfaces.service.IModuleService;
+import com.kynsof.identity.domain.rules.module.ModuleDescriptionMustBeNullRule;
+import com.kynsof.identity.domain.rules.module.ModuleNameMustBeNullRule;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
@@ -23,6 +26,8 @@ public class CreateModuleCommandHandler implements ICommandHandler<CreateModuleC
 
     @Override
     public void handle(CreateModuleCommand command) {
+        RulesChecker.checkRule(new ModuleNameMustBeNullRule(command.getName()));
+        RulesChecker.checkRule(new ModuleDescriptionMustBeNullRule(command.getDescription()));
 
         UUID idImage = UUID.randomUUID();
         service.create(new ModuleDto(
