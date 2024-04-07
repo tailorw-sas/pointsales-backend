@@ -44,7 +44,7 @@ public class ScheduledController {
     }
 
     @PostMapping("")
-    public ResponseEntity<CreateScheduleMessage> create(@RequestBody CreateScheduleRequest request)  {
+    public ResponseEntity<CreateScheduleMessage> create(@RequestBody CreateScheduleRequest request) {
         CreateScheduleCommand createCommand = CreateScheduleCommand.fromRequest(request);
         CreateScheduleMessage response = mediator.send(createCommand);
 
@@ -54,8 +54,14 @@ public class ScheduledController {
     @PostMapping("/create-all")
     public ResponseEntity<CreateAllScheduleMessage> create(@RequestBody CreateAllScheduleRequest request) throws Exception {
 
-        CreateScheduleAllCommand createCommand = CreateScheduleAllCommand.fromRequest(request);
-        CreateAllScheduleMessage response = mediator.send(createCommand);
+        CreateAllScheduleMessage response = mediator.send(new CreateScheduleAllCommand(
+                request.getResourceId(),
+                request.getBusinessId(),
+                request.getServiceId(),
+                request.getDate(),
+                request.getSchedules(),
+                mediator
+        ));
 
         return ResponseEntity.ok(response);
     }
@@ -71,13 +77,12 @@ public class ScheduledController {
 
     @GetMapping("/all")
     public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
-                                                    @RequestParam(defaultValue = "0") Integer page,
-                                                    @RequestParam(defaultValue = "") UUID resource,
-                                                    @RequestParam(defaultValue = "") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
-                                                    @RequestParam(defaultValue = "") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
-                                                    @RequestParam(defaultValue = "") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
-                                                    @RequestParam(defaultValue = "") EStatusSchedule status)
-    {
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "") UUID resource,
+            @RequestParam(defaultValue = "") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
+            @RequestParam(defaultValue = "") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+            @RequestParam(defaultValue = "") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
+            @RequestParam(defaultValue = "") EStatusSchedule status) {
         Pageable pageable = PageRequest.of(page, pageSize);
         FindScheduleWithFilterQuery query = new FindScheduleWithFilterQuery(pageable, resource, date, startDate, endDate, status);
         PaginatedResponse data = mediator.send(query);
@@ -86,10 +91,9 @@ public class ScheduledController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
-    {
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
-        GetSearchScheduleQuery query = new GetSearchScheduleQuery(pageable, request.getFilter(),request.getQuery());
+        GetSearchScheduleQuery query = new GetSearchScheduleQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }

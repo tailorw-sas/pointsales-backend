@@ -1,8 +1,8 @@
 package com.kynsof.calendar.application.command.schedule.createall;
 
-import com.kynsof.calendar.application.command.schedule.create.CreateScheduleMessage;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,22 +20,21 @@ public class CreateScheduleAllCommand implements ICommand {
     private LocalDate date;
     private List<ScheduleAllRequest> schedules;
 
-    public CreateScheduleAllCommand(UUID idResource, UUID idBusiness, UUID serviceId, LocalDate date, List<ScheduleAllRequest> schedules) {
+    private final IMediator mediator;
+
+    public CreateScheduleAllCommand(
+            UUID idResource,
+            UUID idBusiness,
+            UUID serviceId,
+            LocalDate date,
+            List<ScheduleAllRequest> schedules,
+            IMediator mediator) {
         this.idResource = idResource;
         this.idBusiness = idBusiness;
         this.serviceId = serviceId;
         this.date = date;
         this.schedules = List.copyOf(schedules);
-    }
-
-    public static CreateScheduleAllCommand fromRequest(CreateAllScheduleRequest request) {
-        return new CreateScheduleAllCommand(
-                request.getResourceId(), 
-                request.getBusinessId(), 
-                request.getServiceId(), 
-                request.getDate(), 
-                request.getSchedules()
-        );
+        this.mediator = mediator;
     }
 
     @Override

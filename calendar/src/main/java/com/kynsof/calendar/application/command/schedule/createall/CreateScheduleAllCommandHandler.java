@@ -8,14 +8,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateScheduleAllCommandHandler implements ICommandHandler<CreateScheduleAllCommand> {
 
-    private final IMediator mediator;
+    private IMediator mediator;
 
-    public CreateScheduleAllCommandHandler(IMediator mediator) {
-        this.mediator = mediator;
+    public CreateScheduleAllCommandHandler() {
     }
 
     @Override
     public void handle(CreateScheduleAllCommand command) {
+
+        this.mediator = command.getMediator();
 
         for (ScheduleAllRequest schedule : command.getSchedules()) {
             this.mediator.send(new CreateScheduleCommand(
