@@ -67,8 +67,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.fail(apiError));
     }
 
-    @ExceptionHandler(BusinessRuleException.class)
-    public ResponseEntity<ApiResponse<?>> handleBusinessException(BusinessRuleException ex) {
+    @ExceptionHandler(BusinessNotFoundException.class)
+    public ResponseEntity<ApiResponse<?>> handleBusinessException(BusinessNotFoundException ex) {
         ApiError apiError = new ApiError(ex.getStatus(), ex.getMessage(),
                 List.of(ex.getBrokenRule().getErrorField()));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.fail(apiError));

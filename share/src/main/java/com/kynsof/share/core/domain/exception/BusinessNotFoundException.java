@@ -1,6 +1,6 @@
 package com.kynsof.share.core.domain.exception;
 
-public class BusinessRuleException extends RuntimeException {
+public class BusinessNotFoundException extends RuntimeException {
 
     private final GlobalBusinessException brokenRule;
 
@@ -8,7 +8,7 @@ public class BusinessRuleException extends RuntimeException {
 
     private final String message;
 
-    public BusinessRuleException(GlobalBusinessException brokenRule) {
+    public BusinessNotFoundException(GlobalBusinessException brokenRule) {
         super(brokenRule.getError().getReasonPhrase());
         this.status = brokenRule.getError().value();
         this.message = brokenRule.getError().getReasonPhrase();
