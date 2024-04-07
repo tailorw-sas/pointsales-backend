@@ -36,9 +36,9 @@ public class UpdateBusinessCommand implements ICommand {
         this.address = address;
     }
 
-    public static UpdateBusinessCommand fromRequest(UpdateBusinessRequest request) {
+    public static UpdateBusinessCommand fromRequest(UpdateBusinessRequest request, UUID id) {
         return new UpdateBusinessCommand(
-                request.getId(), 
+                id,
                 request.getName(), 
                 request.getLatitude(),
                 request.getLongitude(), 

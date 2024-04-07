@@ -9,7 +9,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class UpdateBusinessRequest {
-    private UUID id;
     private String name;    
     private String latitude;
     private String longitude;
