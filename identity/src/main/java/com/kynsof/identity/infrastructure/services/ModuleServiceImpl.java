@@ -8,9 +8,11 @@ import com.kynsof.identity.domain.interfaces.service.IModuleService;
 import com.kynsof.identity.infrastructure.identity.ModuleSystem;
 import com.kynsof.identity.infrastructure.repository.command.ModuleWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.ModuleReadDataJPARepository;
-import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +56,7 @@ public class ModuleServiceImpl implements IModuleService {
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
-
-        throw new BusinessException(DomainErrorMessage.MODULE_NOT_FOUND, "Module not found.");
-
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.MODULE_NOT_FOUND, new ErrorField("Module.id", "Module not found.")));
     }
 
     @Override
