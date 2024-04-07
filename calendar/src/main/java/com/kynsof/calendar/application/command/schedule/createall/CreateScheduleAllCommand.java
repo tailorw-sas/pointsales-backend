@@ -16,22 +16,30 @@ public class CreateScheduleAllCommand implements ICommand {
 
     private UUID idResource;
     private UUID idBusiness;
+    private UUID serviceId;
     private LocalDate date;
     private List<ScheduleAllRequest> schedules;
 
-    public CreateScheduleAllCommand(UUID idResource, UUID idBusiness, LocalDate date, List<ScheduleAllRequest> schedules) {
+    public CreateScheduleAllCommand(UUID idResource, UUID idBusiness, UUID serviceId, LocalDate date, List<ScheduleAllRequest> schedules) {
         this.idResource = idResource;
         this.idBusiness = idBusiness;
+        this.serviceId = serviceId;
         this.date = date;
-        this.schedules = schedules;
+        this.schedules = List.copyOf(schedules);
     }
 
-    public static CreateScheduleAllCommand fromRequest(CreateScheduleAllRequest request) {
-        return new CreateScheduleAllCommand(request.getIdResource(), request.getIdBusiness(), request.getDate(), request.getSchedules());
+    public static CreateScheduleAllCommand fromRequest(CreateAllScheduleRequest request) {
+        return new CreateScheduleAllCommand(
+                request.getResourceId(), 
+                request.getBusinessId(), 
+                request.getServiceId(), 
+                request.getDate(), 
+                request.getSchedules()
+        );
     }
 
     @Override
     public ICommandMessage getMessage() {
-        return new CreateScheduleMessage(idResource);
+        return new CreateAllScheduleMessage();
     }
 }

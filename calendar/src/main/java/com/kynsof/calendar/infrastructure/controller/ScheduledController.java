@@ -3,8 +3,9 @@ package com.kynsof.calendar.infrastructure.controller;
 import com.kynsof.calendar.application.command.schedule.create.CreateScheduleCommand;
 import com.kynsof.calendar.application.command.schedule.create.CreateScheduleMessage;
 import com.kynsof.calendar.application.command.schedule.create.CreateScheduleRequest;
+import com.kynsof.calendar.application.command.schedule.createall.CreateAllScheduleMessage;
+import com.kynsof.calendar.application.command.schedule.createall.CreateAllScheduleRequest;
 import com.kynsof.calendar.application.command.schedule.createall.CreateScheduleAllCommand;
-import com.kynsof.calendar.application.command.schedule.createall.CreateScheduleAllRequest;
 import com.kynsof.calendar.application.command.schedule.createlote.CreateScheduleByLoteCommand;
 import com.kynsof.calendar.application.command.schedule.createlote.CreateScheduleByLoteRequest;
 import com.kynsof.calendar.application.command.schedule.delete.ScheduleDeleteCommand;
@@ -38,8 +39,7 @@ public class ScheduledController {
 
     private final IMediator mediator;
 
-    public ScheduledController(IMediator mediator){
-
+    public ScheduledController(IMediator mediator) {
         this.mediator = mediator;
     }
 
@@ -52,10 +52,10 @@ public class ScheduledController {
     }
 
     @PostMapping("/create-all")
-    public ResponseEntity<CreateScheduleMessage> create(@RequestBody CreateScheduleAllRequest request) throws Exception {
+    public ResponseEntity<CreateAllScheduleMessage> create(@RequestBody CreateAllScheduleRequest request) throws Exception {
 
         CreateScheduleAllCommand createCommand = CreateScheduleAllCommand.fromRequest(request);
-        CreateScheduleMessage response = mediator.send(createCommand);
+        CreateAllScheduleMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
     }

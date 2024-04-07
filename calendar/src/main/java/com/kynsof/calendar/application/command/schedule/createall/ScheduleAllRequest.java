@@ -14,4 +14,5 @@ import java.time.LocalTime;
 public class ScheduleAllRequest {
     private LocalTime startTime;
     private LocalTime endingTime;
+    private int stock;
 }
