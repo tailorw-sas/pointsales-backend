@@ -109,7 +109,7 @@ public class BusinessServiceImpl implements IBusinessService {
             businessDto.setModuleDtoList(moduleDtoList);
             return businessDto;
         } else {
-            throw new RuntimeException("Business not found");
+            throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Business not found.");
         }
     }
 
