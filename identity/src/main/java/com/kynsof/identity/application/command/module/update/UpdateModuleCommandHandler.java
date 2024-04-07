@@ -2,6 +2,8 @@ package com.kynsof.identity.application.command.module.update;
 
 import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.identity.domain.interfaces.service.IModuleService;
+import com.kynsof.identity.domain.rules.module.ModuleNameMustBeUniqueRule;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
@@ -24,6 +26,9 @@ public class UpdateModuleCommandHandler implements ICommandHandler<UpdateModuleC
     @Override
     public void handle(UpdateModuleCommand command) {
 
+        if (command.getName() != null || !command.getName().isEmpty()) {
+            RulesChecker.checkRule(new ModuleNameMustBeUniqueRule(this.service, command.getName(), command.getId()));
+        }
         UUID idImage = command.getImage() != null ? UUID.randomUUID() : null;
         service.update(new ModuleDto(
                 command.getId(),
