@@ -9,11 +9,16 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IPermissionService {
+
     UUID create(PermissionDto dto);
+
     void update(PermissionDto dto);
+
     void delete(UUID id);
 
     PermissionDto findById(UUID id);
+
+    Long countByCodeAndNotId(String name, UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }

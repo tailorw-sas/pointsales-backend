@@ -22,4 +22,8 @@ public interface PermissionReadDataJPARepository extends JpaRepository<Permissio
     @Query("SELECT p FROM Permission p JOIN p.userPermissionBusinesses urb JOIN urb.business b " +
             "WHERE p.module.id = :moduleId AND b.id = :businessId AND urb.deleted = false")
     List<Permission> findByModuleIdAndBusinessId(@Param("moduleId") UUID moduleId, @Param("businessId") UUID businessId);
+
+    @Query("SELECT COUNT(b) FROM Permission b WHERE b.code = :code AND b.id <> :id")
+    Long countByCodeAndNotId(@Param("code") String name, @Param("id") UUID id);
+
 }

@@ -4,6 +4,9 @@ import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.interfaces.service.IModuleService;
 import com.kynsof.identity.domain.interfaces.service.IPermissionService;
+import com.kynsof.identity.domain.rules.permission.PermissionCodeMustBeNullRule;
+import com.kynsof.identity.domain.rules.permission.PermissionCodeMustBeUniqueRule;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +23,9 @@ public class CreatePermissionCommandHandler implements ICommandHandler<CreatePer
 
     @Override
     public void handle(CreatePermissionCommand command) {
+        RulesChecker.checkRule(new PermissionCodeMustBeNullRule(command.getCode()));
+        RulesChecker.checkRule(new PermissionCodeMustBeUniqueRule(this.service, command.getCode(), command.getId()));
+
         ModuleDto module = this.serviceModule.findById(command.getIdModule());
         service.create(new PermissionDto(command.getId(), command.getCode(), command.getDescription(), module,
                 command.getAction()));

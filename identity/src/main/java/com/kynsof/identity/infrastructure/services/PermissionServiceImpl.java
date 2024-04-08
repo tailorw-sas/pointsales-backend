@@ -107,4 +107,9 @@ public class PermissionServiceImpl implements IPermissionService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    @Override
+    public Long countByCodeAndNotId(String name, UUID id) {
+        return this.queryRepository.countByCodeAndNotId(name, id);
+    }
+
 }
