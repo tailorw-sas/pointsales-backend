@@ -15,7 +15,7 @@ import java.util.UUID;
 public class UpdatePermissionRequest {
     private String code;
     private String description;
-    private UUID moduleId;
+    private UUID module;
     private PermissionStatusEnm status;
     private String action;
 }
