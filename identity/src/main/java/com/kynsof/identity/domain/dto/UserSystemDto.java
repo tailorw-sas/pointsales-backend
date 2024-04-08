@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserSystemDto {
     private UUID id;
-    private String userName;
+    private String identification;
     private String email;
     private String name;
     private String lastName;
@@ -26,16 +26,16 @@ public class UserSystemDto {
     /**
      * Usar este constructor en el create
      * @param id
-     * @param userName
+     * @param identification
      * @param email
      * @param name
      * @param lastName
      * @param status
      * @param roles 
      */
-    public UserSystemDto(UUID id, String userName, String email, String name, String lastName, UserStatus status, List<RoleDto> roles) {
+    public UserSystemDto(UUID id, String identification, String email, String name, String lastName, UserStatus status, List<RoleDto> roles) {
         this.id = id;
-        this.userName = userName;
+        this.identification = identification;
         this.email = email;
         this.name = name;
         this.lastName = lastName;

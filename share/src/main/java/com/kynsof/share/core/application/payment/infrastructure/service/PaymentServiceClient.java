@@ -59,8 +59,8 @@ class PaymentServiceClient implements IPaymentServiceClient {
 //            ResponseEntity<String> response = this.placetoPayFeignClient.getAllTransactionsClient(civilRegistrationId, idClient, Page, PageSize);
 //            JsonNode jsonResponse = jsonReader.readTree(response.getBody());
 //            ObjectMapper objectMapper = new ObjectMapper();
-//            TransactionsResponse entity = objectMapper.readValue(jsonResponse.toString(), TransactionsResponse.class);
-//            return entity;
+//            TransactionsResponse identity = objectMapper.readValue(jsonResponse.toString(), TransactionsResponse.class);
+//            return identity;
             return null;
         } catch (Exception ex) {
             return null;

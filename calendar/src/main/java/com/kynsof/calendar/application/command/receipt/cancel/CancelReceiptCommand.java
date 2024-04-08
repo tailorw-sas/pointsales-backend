@@ -13,20 +13,18 @@ public class CancelReceiptCommand implements ICommand {
 
     private final UUID userId;
     private final UUID receiptId;
-    private final String requestId;
     private final String ipAddress;
     private final String userAgent;
 
-    public CancelReceiptCommand(UUID receiptId, UUID userId, String requestId, String ipAddress, String userAgent) {
+    public CancelReceiptCommand(UUID receiptId, UUID userId,  String ipAddress, String userAgent) {
         this.userId = userId;
         this.receiptId = receiptId;
-        this.requestId = requestId;
         this.ipAddress = ipAddress;
         this.userAgent = userAgent;
     }
 
     public static CancelReceiptCommand fromRequest(CancelReceiptRequest request, String ipAddress, String userAgent) {
-        return new CancelReceiptCommand(request.getReceiptId(), request.getUserId(), request.getRequestId(), ipAddress,
+        return new CancelReceiptCommand(request.getReceiptId(), request.getUserId(),  ipAddress,
                 userAgent );
     }
 

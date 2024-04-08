@@ -26,7 +26,7 @@ public class UserSystemsResponse implements IResponse {
 
     public UserSystemsResponse(UserSystemDto contactInfoDto) {
         this.id = contactInfoDto.getId();
-        this.userName = contactInfoDto.getUserName();
+        this.userName = contactInfoDto.getIdentification();
         this.email = contactInfoDto.getEmail();
         this.name = contactInfoDto.getName();
         this.lastName = contactInfoDto.getLastName();

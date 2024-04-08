@@ -17,7 +17,7 @@ public class UserRoleBusinessMustBeUniqueRule extends BusinessRule {
                 DomainErrorMessage.RELATIONSHIP_MUST_BE_UNIQUE, 
                 new ErrorField("UserPermissionBusiness",
                         "The role: " + 
-                                userRoleBusinessDto.getPermission().getCode() + " for user: " + userRoleBusinessDto.getUser().getUserName() +
+                                userRoleBusinessDto.getPermission().getCode() + " for user: " + userRoleBusinessDto.getUser().getIdentification() +
                                 " is already related to the business " + userRoleBusinessDto.getBusiness().getName())
         );
         this.service = service;

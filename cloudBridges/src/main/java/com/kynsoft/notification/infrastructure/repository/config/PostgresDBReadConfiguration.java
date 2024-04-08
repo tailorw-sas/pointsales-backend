@@ -37,7 +37,7 @@ public class PostgresDBReadConfiguration {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(EntityManagerFactoryBuilder builder,
             @Qualifier("readDataSource") DataSource dataSource) {
         return builder.dataSource(dataSource)
-                .packages("com.kynsoft.notification.infrastructure.entity")
+                .packages("com.kynsoft.notification.infrastructure.identity")
                 .persistenceUnit("ReadDB").build();
     }
 
