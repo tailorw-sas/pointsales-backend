@@ -18,7 +18,7 @@ public class GetEligibleVaccinesQueryHandler implements IQueryHandler<GetEligibl
 
     @Override
     public EligibleVaccinesResponse handle(GetEligibleVaccinesQuery query) {
-        List<VaccineResponse> vaccineResponses = this.serviceImpl.getEligibleVaccines(query.getAge());
+        List<VaccineResponse> vaccineResponses = this.serviceImpl.getEligibleVaccines(query.getBirthDate());
         EligibleVaccinesResponse response = new EligibleVaccinesResponse();
         response.setVaccineResponses(vaccineResponses);
 
