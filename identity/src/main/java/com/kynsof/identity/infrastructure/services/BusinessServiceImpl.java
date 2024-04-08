@@ -13,8 +13,11 @@ import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARe
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerCreateBusinessEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
@@ -83,8 +86,7 @@ public class BusinessServiceImpl implements IBusinessService {
             return object.get().toAggregate();
         }
 
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Business not found.");
-
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, new ErrorField("Business.id", "Business not found.")));
     }
 
    // @Cacheable(cacheNames = CacheConfig.BUSINESS_CACHE, unless = "#result == null")
@@ -109,7 +111,7 @@ public class BusinessServiceImpl implements IBusinessService {
             businessDto.setModuleDtoList(moduleDtoList);
             return businessDto;
         } else {
-            throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Business not found.");
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, new ErrorField("Business.id", "Business not found.")));
         }
     }
 

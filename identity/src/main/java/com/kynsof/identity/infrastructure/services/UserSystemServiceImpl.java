@@ -7,7 +7,11 @@ import com.kynsof.identity.domain.interfaces.IUserSystemService;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
 import com.kynsof.identity.infrastructure.repository.command.UserSystemsWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserSystemReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,7 @@ import java.util.UUID;
 
 @Service
 public class UserSystemServiceImpl implements IUserSystemService {
+
     @Autowired
     private UserSystemsWriteDataJPARepository repositoryCommand;
 
@@ -42,7 +47,7 @@ public class UserSystemServiceImpl implements IUserSystemService {
 
     @Override
     public void delete(UUID id) {
-       UserSystemDto userSystemDto  = this.findById(id);
+        UserSystemDto userSystemDto = this.findById(id);
         userSystemDto.setStatus(UserStatus.INACTIVE);
 
         this.repositoryCommand.save(new UserSystem(userSystemDto));
@@ -54,7 +59,7 @@ public class UserSystemServiceImpl implements IUserSystemService {
         if (userSystem.isPresent()) {
             return userSystem.get().toAggregate();
         }
-        throw new RuntimeException("User not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.USER_NOT_FOUND, new ErrorField("User.id", "User not found.")));
     }
 
     @Override

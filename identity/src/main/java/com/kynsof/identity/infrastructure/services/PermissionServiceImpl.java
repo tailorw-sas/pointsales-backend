@@ -10,8 +10,11 @@ import com.kynsof.identity.infrastructure.repository.command.PermissionWriteData
 import com.kynsof.identity.infrastructure.repository.query.PermissionReadDataJPARepository;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
@@ -71,8 +74,7 @@ public class PermissionServiceImpl implements IPermissionService {
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
-
-        throw new BusinessException(DomainErrorMessage.PERMISSION_NOT_FOUND, "Permission not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PERMISSION_NOT_FOUND, new ErrorField("Permission.id", "Permission not found.")));
     }
 
     @Override

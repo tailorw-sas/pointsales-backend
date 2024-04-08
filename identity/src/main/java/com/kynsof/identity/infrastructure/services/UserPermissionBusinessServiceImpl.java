@@ -9,8 +9,11 @@ import com.kynsof.identity.infrastructure.identity.UserPermissionBusiness;
 import com.kynsof.identity.infrastructure.repository.command.UserPermissionBusinessWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserPermissionBusinessReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +76,7 @@ public class UserPermissionBusinessServiceImpl implements IUserPermissionBusines
             return object.get().toAggregate();
         }
 
-        throw new BusinessException(DomainErrorMessage.USER_ROLE_BUSINESS_NOT_FOUND, "UserPermissionBusiness not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.USER_PERMISSION_BUSINESS_NOT_FOUND, new ErrorField("UserPermissionBusiness.id", "UserPermissionBusiness not found.")));
     }
 
     @Override

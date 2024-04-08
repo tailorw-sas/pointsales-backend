@@ -10,9 +10,11 @@ import com.kynsof.identity.infrastructure.identity.ModuleSystem;
 import com.kynsof.identity.infrastructure.identity.Permission;
 import com.kynsof.identity.infrastructure.repository.command.BusinessModuleWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.BusinessModuleReadDataJPARepository;
-import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import java.util.ArrayList;
@@ -116,8 +118,7 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
             return object.get().toAggregate();
         }
 
-        throw new BusinessException(DomainErrorMessage.BUSINESS_MODULE_NOT_FOUND, "BusinessModule not found.");
-
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_MODULE_NOT_FOUND, new ErrorField("BusinessModule.id", "BusinessModule not found.")));
     }
 
     @Override

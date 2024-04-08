@@ -13,6 +13,10 @@ import com.kynsof.identity.infrastructure.repository.query.BusinessModuleReadDat
 import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.PermissionReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserSystemReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
+import com.kynsof.share.core.domain.response.ErrorField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +40,7 @@ public class UserMeServiceImpl implements IUserMeService {
     public UserMeDto getUserInfo(UUID userId) {
         Optional<UserSystem> userOptional = userSystemReadDataJPARepository.findById(userId);
         if (userOptional.isEmpty()) {
-            throw new RuntimeException("User not found.");
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.USER_NOT_FOUND, new ErrorField("User.id", "User not found.")));
         }
 
         UserSystem user = userOptional.get();

@@ -13,7 +13,11 @@ import com.kynsof.identity.infrastructure.identity.GeographicLocation;
 import com.kynsof.identity.infrastructure.repository.command.GeographicLocationWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.GeographicLocationReadDataJPARepository;
 import com.kynsof.share.core.domain.RulesChecker;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
@@ -54,8 +58,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
         if (location.isPresent()) {
             return location.get().toAggregate();
         }
-        //  throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Location Information not found.");
-        throw new RuntimeException("Location not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("GeographicLocation.id", "GeographicLocation not found.")));
     }
 
     @Override
@@ -71,22 +74,22 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
         Optional<GeographicLocation> parroquiaOptional = repositoryQuery.findById(parroquiaId);
 
         if (parroquiaOptional.isEmpty()) {
-            throw new RuntimeException("Location not found.");
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("GeographicLocation.type", "Location not found.")));
         }
 
         GeographicLocation parroquia = parroquiaOptional.get();
         if (parroquia.getType() != GeographicLocationType.PARROQUIA || parroquia.getParent() == null) {
-            throw new RuntimeException("Location not found.");
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("GeographicLocation.type", "Location not found.")));
         }
 
         GeographicLocation canton = parroquia.getParent();
         if (canton.getType() != GeographicLocationType.CANTON || canton.getParent() == null) {
-            throw new RuntimeException("Location not found.");
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("GeographicLocation.type", "Location not found.")));
         }
 
         GeographicLocation province = canton.getParent();
         if (province.getType() != GeographicLocationType.PROVINCE) {
-            throw new RuntimeException("Location not found.");
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("GeographicLocation.type", "Location not found.")));
         }
 
         return new LocationHierarchyDto(new ProvinceDto(province.getId(),province.getName()),
