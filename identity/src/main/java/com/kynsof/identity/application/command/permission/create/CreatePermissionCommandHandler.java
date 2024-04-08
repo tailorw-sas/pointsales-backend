@@ -2,6 +2,7 @@ package com.kynsof.identity.application.command.permission.create;
 
 import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.identity.domain.dto.PermissionDto;
+import com.kynsof.identity.domain.dto.enumType.PermissionStatusEnm;
 import com.kynsof.identity.domain.interfaces.service.IModuleService;
 import com.kynsof.identity.domain.interfaces.service.IPermissionService;
 import com.kynsof.identity.domain.rules.permission.PermissionCodeMustBeNullRule;
@@ -27,7 +28,9 @@ public class CreatePermissionCommandHandler implements ICommandHandler<CreatePer
         RulesChecker.checkRule(new PermissionCodeMustBeUniqueRule(this.service, command.getCode(), command.getId()));
 
         ModuleDto module = this.serviceModule.findById(command.getIdModule());
-        service.create(new PermissionDto(command.getId(), command.getCode(), command.getDescription(), module,
-                command.getAction()));
+        PermissionDto permissionDto = new PermissionDto(command.getId(), command.getCode(), command.getDescription(), module, command.getAction());
+        permissionDto.setStatus(PermissionStatusEnm.ACTIVE);
+
+        service.create(permissionDto);
     }
 }

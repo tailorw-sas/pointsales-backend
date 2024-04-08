@@ -39,7 +39,6 @@ public class PermissionServiceImpl implements IPermissionService {
 
     @Override
     public UUID create(PermissionDto dto) {
-        dto.setStatus(PermissionStatusEnm.ACTIVE);
         this.writeRepository.save(new Permission(dto));
         return dto.getId();
     }
