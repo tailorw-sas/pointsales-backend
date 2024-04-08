@@ -41,7 +41,9 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     MODULE_DESCRIPTION_CANNOT_BE_EMPTY(636, Series.DOMAIN_ERROR, "The description of the module cannot be empty."),    
     MODULE_NAME_MUST_BY_UNIQUE(637, Series.DOMAIN_ERROR, "The module name must be unique."),
     MODULE_NOT_FOUND(638, Series.DOMAIN_ERROR, "The module not found."),
-    GEOGRAPHIC_LOCATION_NOT_FOUND(639, Series.DOMAIN_ERROR, "GeographicLocation not found.");
+    GEOGRAPHIC_LOCATION_NOT_FOUND(639, Series.DOMAIN_ERROR, "GeographicLocation not found."),
+    USER_NOT_FOUND(640, Series.DOMAIN_ERROR, "User not found."),
+    USER_PERMISSION_BUSINESS_NOT_FOUND(641, Series.DOMAIN_ERROR, "UserPermissionBusiness not found.");
 
     private static final DomainErrorMessage[] VALUES;
 
