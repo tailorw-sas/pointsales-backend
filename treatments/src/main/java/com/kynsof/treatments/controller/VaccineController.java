@@ -15,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @RestController
@@ -58,9 +57,9 @@ public class VaccineController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/eligible/{birthDate}")
-    public ResponseEntity<?> getEligibleVaccines(@PathVariable LocalDate birthDate) {
-        GetEligibleVaccinesQuery query = new GetEligibleVaccinesQuery(birthDate);
+    @GetMapping("/eligible/{patientId}")
+    public ResponseEntity<?> getEligibleVaccines( @PathVariable  UUID patientId) {
+        GetEligibleVaccinesQuery query = new GetEligibleVaccinesQuery(patientId);
         EligibleVaccinesResponse response = mediator.send(query);
         return ResponseEntity.ok(response);
     }

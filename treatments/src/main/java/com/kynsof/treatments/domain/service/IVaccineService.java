@@ -1,7 +1,6 @@
 package com.kynsof.treatments.domain.service;
 
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-import com.kynsof.treatments.application.query.vaccine.getall.VaccineResponse;
 import com.kynsof.treatments.domain.dto.VaccineDto;
 import org.springframework.data.domain.Pageable;
 
@@ -13,7 +12,7 @@ public interface IVaccineService {
 
     VaccineDto findById(UUID id);
     PaginatedResponse findAll(Pageable pageable, String name, String description);
-    List<VaccineResponse> getEligibleVaccines( LocalDate birthDate);
+    List<VaccineDto> getApplicableVaccines(LocalDate birthDate, UUID patientId);
 
     UUID create(VaccineDto vaccineDto);
 }

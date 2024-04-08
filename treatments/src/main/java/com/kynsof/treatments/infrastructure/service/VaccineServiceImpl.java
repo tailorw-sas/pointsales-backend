@@ -10,6 +10,7 @@ import com.kynsof.treatments.domain.service.IVaccineService;
 import com.kynsof.treatments.infrastructure.entity.Vaccine;
 import com.kynsof.treatments.infrastructure.entity.specifications.Cie10Specifications;
 import com.kynsof.treatments.infrastructure.repositories.command.VaccineWriteDataJPARepository;
+import com.kynsof.treatments.infrastructure.repositories.query.PatientVaccineReadDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.VaccineReadDataJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class VaccineServiceImpl implements IVaccineService {
@@ -31,6 +33,8 @@ public class VaccineServiceImpl implements IVaccineService {
 
     @Autowired
     private VaccineReadDataJPARepository repositoryQuery;
+    @Autowired
+    private PatientVaccineReadDataJPARepository patientVaccineReadDataJPARepository;
 
     @Override
     public VaccineDto findById(UUID id) {
@@ -43,14 +47,19 @@ public class VaccineServiceImpl implements IVaccineService {
 
 
     @Override
-    public List<VaccineResponse> getEligibleVaccines(LocalDate birthDate) {
+    public List<VaccineDto> getApplicableVaccines(LocalDate birthDate, UUID patientId) {
         long monthsOld = ChronoUnit.MONTHS.between(birthDate, LocalDate.now());
-        List<Vaccine> vaccines = this.repositoryQuery.findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual(monthsOld);
-        List<VaccineResponse> vaccineResponses = new ArrayList<>();
-        for (Vaccine p : vaccines) {
-            vaccineResponses.add(new VaccineResponse(p.toAggregate()));
-        }
-       return vaccineResponses;
+        List<Vaccine> applicableVaccines = this.repositoryQuery.findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual(monthsOld);
+        // Obtener las vacunas que el paciente ya se ha puesto
+        List<Vaccine> administeredVaccines = this.patientVaccineReadDataJPARepository.findVaccinesByPatientId(patientId);
+
+        // Filtrar las vacunas aplicables para excluir las ya administradas
+        List<VaccineDto> nonAdministeredVaccines = applicableVaccines.stream()
+                .filter(vaccine -> !administeredVaccines.contains(vaccine))
+                .map(Vaccine::toAggregate)
+                .collect(Collectors.toList());
+
+        return nonAdministeredVaccines;
     }
 
     @Override
