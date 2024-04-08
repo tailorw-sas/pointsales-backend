@@ -4,19 +4,15 @@ import com.kynsof.identity.application.query.permission.search.PermissionSearchR
 import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.enumType.PermissionStatusEnm;
 import com.kynsof.identity.domain.interfaces.service.IPermissionService;
-import com.kynsof.identity.infrastructure.identity.ModuleSystem;
 import com.kynsof.identity.infrastructure.identity.Permission;
 import com.kynsof.identity.infrastructure.repository.command.PermissionWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.PermissionReadDataJPARepository;
-import com.kynsof.share.core.domain.RulesChecker;
-import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,18 +40,7 @@ public class PermissionServiceImpl implements IPermissionService {
 
     @Override
     public void update(PermissionDto objectDto) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(objectDto, "Permission", "Permission DTO cannot be null."));
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(objectDto.getId(), "Permission.id", "Permission ID cannot be null."));
-
-        Permission object = this.queryRepository.findById(objectDto.getId())
-                .orElseThrow(() -> new BusinessException(DomainErrorMessage.PERMISSION_NOT_FOUND, "Permission not found."));
-
-        object.setDescription(objectDto.getDescription() != null ? objectDto.getDescription() : object.getDescription());
-        object.setModule(objectDto.getModule() != null ? new ModuleSystem(objectDto.getModule()): object.getModule());
-        object.setCode(objectDto.getCode()!= null ? objectDto.getCode(): object.getCode());
-        object.setStatus(objectDto.getStatus() != object.getStatus() ? objectDto.getStatus() : object.getStatus());
-
-        this.writeRepository.save(object);
+        this.writeRepository.save(new Permission(objectDto));
     }
 
     @Override
