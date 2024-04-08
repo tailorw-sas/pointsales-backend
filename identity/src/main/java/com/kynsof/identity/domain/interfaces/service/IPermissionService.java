@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface IPermissionService {
 
-    UUID create(PermissionDto dto);
+    void create(PermissionDto dto);
 
     void update(PermissionDto dto);
 

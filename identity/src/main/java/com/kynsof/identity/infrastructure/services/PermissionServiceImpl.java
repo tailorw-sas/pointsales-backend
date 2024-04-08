@@ -38,9 +38,8 @@ public class PermissionServiceImpl implements IPermissionService {
     private PermissionReadDataJPARepository queryRepository;
 
     @Override
-    public UUID create(PermissionDto dto) {
+    public void create(PermissionDto dto) {
         this.writeRepository.save(new Permission(dto));
-        return dto.getId();
     }
 
     @Override
