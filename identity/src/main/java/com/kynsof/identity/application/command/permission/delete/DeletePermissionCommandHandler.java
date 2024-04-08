@@ -1,5 +1,7 @@
 package com.kynsof.identity.application.command.permission.delete;
 
+import com.kynsof.identity.domain.dto.PermissionDto;
+import com.kynsof.identity.domain.dto.enumType.PermissionStatusEnm;
 import com.kynsof.identity.domain.interfaces.service.IPermissionService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
@@ -15,7 +17,12 @@ public class DeletePermissionCommandHandler implements ICommandHandler<DeletePer
 
     @Override
     public void handle(DeletePermissionCommand command) {
-        service.delete(command.getId());
+        PermissionDto delete = this.service.findById(command.getId());
+
+        delete.setStatus(PermissionStatusEnm.INACTIVE);
+        delete.setDeleted(true);
+
+        service.delete(delete);
     }
 
 }

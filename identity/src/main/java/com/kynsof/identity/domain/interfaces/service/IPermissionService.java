@@ -14,7 +14,7 @@ public interface IPermissionService {
 
     void update(PermissionDto dto);
 
-    void delete(UUID id);
+    void delete(PermissionDto objectDto);
 
     PermissionDto findById(UUID id);
 
