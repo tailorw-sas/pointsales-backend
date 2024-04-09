@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 public interface IDeviceService {
     void create(DeviceDto object);
     void update(DeviceDto object);
-    void delete(UUID id);
+    void delete(DeviceDto object);
     DeviceDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }

@@ -3,6 +3,8 @@ package com.kynsof.rrhh.controller;
 import com.kynsof.rrhh.application.command.device.create.CreateDeviceCommand;
 import com.kynsof.rrhh.application.command.device.create.CreateDeviceMessage;
 import com.kynsof.rrhh.application.command.device.create.CreateDeviceRequest;
+import com.kynsof.rrhh.application.command.device.delete.DeleteDeviceCommand;
+import com.kynsof.rrhh.application.command.device.delete.DeleteDeviceMessage;
 import com.kynsof.rrhh.application.query.device.getbyid.DeviceResponse;
 import com.kynsof.rrhh.application.query.device.getbyid.FindDeviceByIdQuery;
 import com.kynsof.rrhh.application.query.device.search.GetSearchDeviceQuery;
@@ -50,6 +52,15 @@ public class DeviceController {
         GetSearchDeviceQuery query = new GetSearchDeviceQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DeleteDeviceMessage> delete(@PathVariable("id") UUID id) {
+
+        DeleteDeviceCommand command = new DeleteDeviceCommand(id);
+        DeleteDeviceMessage response = mediator.send(command);
+
+        return ResponseEntity.ok(response);
     }
 
 }

@@ -25,6 +25,8 @@ public class CreateDeviceCommandHandler implements ICommandHandler<CreateDeviceC
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getBusinessId(), "Device.business.id", "Device.business ID cannot be null."));
         BusinessDto business = this.businessService.findById(command.getBusinessId());
 
-        service.create(new DeviceDto(command.getId(), command.getSerialId(), command.getIp(), business));
+        DeviceDto deviceSave = new DeviceDto(command.getId(), command.getSerialId(), command.getIp(), business);
+        deviceSave.setDeleted(false);
+        service.create(deviceSave);
     }
 }

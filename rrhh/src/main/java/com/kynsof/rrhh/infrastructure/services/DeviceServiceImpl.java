@@ -42,8 +42,8 @@ public class DeviceServiceImpl implements IDeviceService {
     }
 
     @Override
-    public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void delete(DeviceDto object) {
+        this.repositoryCommand.save(new Device(object));
     }
 
     @Override
