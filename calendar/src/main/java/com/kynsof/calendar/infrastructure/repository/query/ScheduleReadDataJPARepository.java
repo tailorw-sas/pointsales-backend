@@ -1,5 +1,6 @@
 package com.kynsof.calendar.infrastructure.repository.query;
 
+import com.kynsof.calendar.domain.dto.ScheduleAvailabilityDto;
 import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.infrastructure.entity.Business;
 import com.kynsof.calendar.infrastructure.entity.Resource;
@@ -70,5 +71,14 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
 
     @Query("SELECT DISTINCT s.date FROM Schedule s WHERE s.service.id = :serviceId AND s.date BETWEEN :startDate AND :endDate ORDER BY s.date ASC")
     List<LocalDate> findDistinctAvailableDatesByServiceIdAndDateRange(UUID serviceId, LocalDate startDate, LocalDate endDate);
+
+    @Query("SELECT new com.kynsof.calendar.domain.dto.ScheduleAvailabilityDto(s.date, s.startTime, s.endingTime, s.id) " +
+            "FROM Schedule s " +
+            "WHERE s.resource.id = :resourceId " +
+            "AND s.business.id = :businessId " +
+            "AND s.status = com.kynsof.calendar.domain.dto.enumType.EStatusSchedule.ACTIVE " +
+            "AND s.stock > 0 " +
+            "ORDER BY s.date, s.startTime")
+    List<ScheduleAvailabilityDto> findAvailableSchedulesByResourceAndBusiness(@Param("resourceId") UUID resourceId, @Param("businessId") UUID businessId);
 
 }
