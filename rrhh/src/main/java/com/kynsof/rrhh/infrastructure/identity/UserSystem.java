@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -19,6 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserSystem implements Serializable {
+
     @Id
     private UUID id;
 
@@ -40,6 +40,14 @@ public class UserSystem implements Serializable {
     @OneToMany(mappedBy = "userSystem", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserBusinessRelation> userBusinessRelations;
 
+    public UserSystem(UserSystemDto dto) {
+        this.id = dto.getId();
+        this.identification = dto.getIdentification();
+        this.email = dto.getEmail();
+        this.name = dto.getName();
+        this.lastName = dto.getLastName();
+        this.status = dto.getStatus();
+    }
 
     public UserSystemDto toAggregate() {
 
