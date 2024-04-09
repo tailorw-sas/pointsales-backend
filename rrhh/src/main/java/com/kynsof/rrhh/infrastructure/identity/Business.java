@@ -1,5 +1,6 @@
 package com.kynsof.rrhh.infrastructure.identity;
 
+import com.kynsof.rrhh.doman.dto.BusinessDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,4 +27,14 @@ public class Business {
 
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserBusinessRelation> userBusinessRelations;
+    
+    public Business(BusinessDto business) {
+        this.id = business.getId();
+        this.name = business.getName();
+    }
+
+    public BusinessDto toAggregate () {
+        return new BusinessDto(id, name);
+    }
+
 }
