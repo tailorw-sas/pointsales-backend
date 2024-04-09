@@ -347,8 +347,8 @@ public class ScheduleServiceImpl implements IScheduleService {
     }
 
     @Override
-    public List<AvailableDateDto> getAvailableDatesAndSlots(UUID resourceId, UUID businessId) {
-        List<ScheduleAvailabilityDto> schedules = this.repositoryQuery.findAvailableSchedulesByResourceAndBusiness(resourceId, businessId);
+    public List<AvailableDateDto> getAvailableDatesAndSlots(UUID resourceId, UUID businessId,  LocalDate startDate, LocalDate endDate) {
+        List<ScheduleAvailabilityDto> schedules = this.repositoryQuery.findAvailableSchedulesByResourceAndBusinessAndDateRange(resourceId, businessId, startDate, endDate);
 
         Map<LocalDate, List<ScheduleAvailabilityDto>> groupedByDate = schedules.stream()
                 .collect(Collectors.groupingBy(ScheduleAvailabilityDto::getDate));

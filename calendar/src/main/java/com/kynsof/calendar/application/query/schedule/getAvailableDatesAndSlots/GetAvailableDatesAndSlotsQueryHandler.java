@@ -18,7 +18,8 @@ public class GetAvailableDatesAndSlotsQueryHandler implements IQueryHandler<GetA
 
     @Override
     public GetAvailableDatesAndSlotsResponse handle(GetAvailableDatesAndSlotsQuery query) {
-        List<AvailableDateDto> response = service.getAvailableDatesAndSlots(query.getResourceId(),query.getBusinessId());
+        List<AvailableDateDto> response = service.getAvailableDatesAndSlots(query.getResourceId(),query.getBusinessId(), query.getStartDate(),
+                query.getFinalDate());
 
         return new GetAvailableDatesAndSlotsResponse(response);
     }

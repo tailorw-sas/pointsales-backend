@@ -76,9 +76,14 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
             "FROM Schedule s " +
             "WHERE s.resource.id = :resourceId " +
             "AND s.business.id = :businessId " +
-            "AND s.status = com.kynsof.calendar.domain.dto.enumType.EStatusSchedule.ACTIVE " +
+            "AND s.date BETWEEN :startDate AND :endDate " +
+            "AND s.status = 'ACTIVE' " +
             "AND s.stock > 0 " +
-            "ORDER BY s.date, s.startTime")
-    List<ScheduleAvailabilityDto> findAvailableSchedulesByResourceAndBusiness(@Param("resourceId") UUID resourceId, @Param("businessId") UUID businessId);
+            "ORDER BY s.date ASC, s.startTime ASC")
+    List<ScheduleAvailabilityDto> findAvailableSchedulesByResourceAndBusinessAndDateRange(
+            @Param("resourceId") UUID resourceId,
+            @Param("businessId") UUID businessId,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate);
 
 }

@@ -43,5 +43,5 @@ public interface IScheduleService {
     void validate(ResourceDto resource, LocalDate validateDate, LocalTime startTime, LocalTime endingTime);
 
     List<LocalDate> findDistinctAvailableDatesByServiceIdAndDateRange(UUID serviceId,LocalDate startDate, LocalDate endDate);
-    List<AvailableDateDto> getAvailableDatesAndSlots(UUID resourceId, UUID businessId);
+    List<AvailableDateDto> getAvailableDatesAndSlots(UUID resourceId, UUID businessId,  LocalDate startDate, LocalDate endDate);
 }
