@@ -11,5 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class DeviceDto {
     private UUID id;
-    private String name;
+    private String serialId;
+    private String ip;
+    private BusinessDto business;
 }
