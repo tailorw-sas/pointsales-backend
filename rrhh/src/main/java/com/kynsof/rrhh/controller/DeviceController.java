@@ -5,8 +5,13 @@ import com.kynsof.rrhh.application.command.device.create.CreateDeviceMessage;
 import com.kynsof.rrhh.application.command.device.create.CreateDeviceRequest;
 import com.kynsof.rrhh.application.query.device.getbyid.DeviceResponse;
 import com.kynsof.rrhh.application.query.device.getbyid.FindDeviceByIdQuery;
+import com.kynsof.rrhh.application.query.device.search.GetSearchDeviceQuery;
+import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import java.util.UUID;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +41,15 @@ public class DeviceController {
         DeviceResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchDeviceQuery query = new GetSearchDeviceQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
 }
