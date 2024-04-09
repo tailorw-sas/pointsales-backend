@@ -16,10 +16,10 @@ import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventServi
 import com.kynsof.share.core.domain.rules.BusinessRule;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Component
 public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusinessCommand> {
@@ -44,8 +44,8 @@ public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusin
 
     @Override
     public void handle(UpdateBusinessCommand command) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(command.getGeographicLocation(), "GeographicLocation.id", "GeographicLocation ID cannot be null."));
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(command.getId(), "Business.id", "Business ID cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getGeographicLocation(), "GeographicLocation.id", "GeographicLocation ID cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getId(), "Business.id", "Business ID cannot be null."));
 
         GeographicLocationDto location = this.geographicLocationService.findById(command.getGeographicLocation());
         BusinessDto updateBusiness = this.service.getById(command.getId());

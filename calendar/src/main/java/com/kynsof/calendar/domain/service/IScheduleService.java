@@ -1,5 +1,6 @@
 package com.kynsof.calendar.domain.service;
 
+import com.kynsof.calendar.domain.dto.AvailableDateDto;
 import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
@@ -42,4 +43,5 @@ public interface IScheduleService {
     void validate(ResourceDto resource, LocalDate validateDate, LocalTime startTime, LocalTime endingTime);
 
     List<LocalDate> findDistinctAvailableDatesByServiceIdAndDateRange(UUID serviceId,LocalDate startDate, LocalDate endDate);
+    List<AvailableDateDto> getAvailableDatesAndSlots(UUID resourceId, UUID businessId,  LocalDate startDate, LocalDate endDate);
 }

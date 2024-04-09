@@ -1,8 +1,7 @@
 package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.ScheduleResponse;
-import com.kynsof.calendar.domain.dto.ResourceDto;
-import com.kynsof.calendar.domain.dto.ScheduleDto;
+import com.kynsof.calendar.domain.dto.*;
 import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.domain.service.IScheduleService;
 import com.kynsof.calendar.infrastructure.entity.Resource;
@@ -11,10 +10,8 @@ import com.kynsof.calendar.infrastructure.entity.specifications.ScheduleSpecific
 import com.kynsof.calendar.infrastructure.repository.command.ScheduleWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
-import com.kynsof.share.core.domain.exception.CustomUnauthorizedException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
-import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
@@ -27,10 +24,7 @@ import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,12 +32,14 @@ public class ScheduleServiceImpl implements IScheduleService {
 
     @Autowired
     private ScheduleReadDataJPARepository repositoryQuery;
-    
+
     @Autowired
     private ScheduleWriteDataJPARepository repositoryCommand;
+
     public List<LocalDate> findDistinctAvailableDatesByServiceIdAndDateRange(UUID serviceId, LocalDate startDate, LocalDate endDate) {
         return repositoryQuery.findDistinctAvailableDatesByServiceIdAndDateRange(serviceId, startDate, endDate);
     }
+
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
@@ -174,7 +170,7 @@ public class ScheduleServiceImpl implements IScheduleService {
                 schedule.getStartTime(),
                 schedule.getEndingTime());
 
-        if (overlappingSchedules.isEmpty()){
+        if (overlappingSchedules.isEmpty()) {
             return repositoryCommand.save(new Schedule(schedule));
         }
         throw new BusinessException(DomainErrorMessage.SCHEDULED_TASK_ALREADY_EXISTS, "A scheduled task for this service already exists.");
@@ -197,45 +193,45 @@ public class ScheduleServiceImpl implements IScheduleService {
     @Override
     public ScheduleDto update(ScheduleDto schedule) {
         ScheduleDto _schedule = this.findById(schedule.getId());
-            if (!schedule.getDate().equals(_schedule.getDate())) {
-                _schedule.setDate(schedule.getDate());
+        if (!schedule.getDate().equals(_schedule.getDate())) {
+            _schedule.setDate(schedule.getDate());
+        }
+        if (!schedule.getStartTime().equals(_schedule.getStartTime())) {
+            List<Schedule> _schedulesStartTime = this.repositoryQuery.findByDateAndTimeInRange(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getStartTime());
+            if (!_schedulesStartTime.isEmpty()) {
+                throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.");
             }
-            if (!schedule.getStartTime().equals(_schedule.getStartTime())) {
-                List<Schedule> _schedulesStartTime = this.repositoryQuery.findByDateAndTimeInRange(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getStartTime());
-                if (!_schedulesStartTime.isEmpty()) {
-                    throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.");
-                }
-                _schedule.setStartTime(schedule.getStartTime());
+            _schedule.setStartTime(schedule.getStartTime());
+        }
+        if (!schedule.getEndingTime().equals(_schedule.getEndingTime())) {
+            List<Schedule> _schedulesStartTime = this.repositoryQuery.findByDateAndTimeInRange(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getEndingTime());
+            if (!_schedulesStartTime.isEmpty()) {
+                throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.");
             }
-            if (!schedule.getEndingTime().equals(_schedule.getEndingTime())) {
-                List<Schedule> _schedulesStartTime = this.repositoryQuery.findByDateAndTimeInRange(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getEndingTime());
-                if (!_schedulesStartTime.isEmpty()) {
-                    throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.");
-                }
-                _schedule.setEndingTime(schedule.getEndingTime());
+            _schedule.setEndingTime(schedule.getEndingTime());
+        }
+        if (!schedule.getStartTime().equals(_schedule.getStartTime()) && !schedule.getEndingTime().equals(_schedule.getEndingTime())) {
+            if (this.findByResourceAndDateAndStartTimeAndEndingTime(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getStartTime(), schedule.getEndingTime())) {
+                throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_WITH_DATE_STARTTIME_ENDTIME, "There exists a schedule with the same date, start time, and end time.");
             }
-            if (!schedule.getStartTime().equals(_schedule.getStartTime()) && !schedule.getEndingTime().equals(_schedule.getEndingTime())) {
-                if (this.findByResourceAndDateAndStartTimeAndEndingTime(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getStartTime(), schedule.getEndingTime())) {
-                    throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_WITH_DATE_STARTTIME_ENDTIME, "There exists a schedule with the same date, start time, and end time.");
-                }
-            }
-            if (schedule.getStatus().equals(EStatusSchedule.INACTIVE)
-                    && _schedule.getStatus().equals(EStatusSchedule.ACTIVE)) {
-                _schedule.setStatus(EStatusSchedule.INACTIVE);
-            }
-            if (schedule.getStatus().equals(EStatusSchedule.ACTIVE)
-                    && _schedule.getStatus().equals(EStatusSchedule.INACTIVE)) {
+        }
+        if (schedule.getStatus().equals(EStatusSchedule.INACTIVE)
+                && _schedule.getStatus().equals(EStatusSchedule.ACTIVE)) {
+            _schedule.setStatus(EStatusSchedule.INACTIVE);
+        }
+        if (schedule.getStatus().equals(EStatusSchedule.ACTIVE)
+                && _schedule.getStatus().equals(EStatusSchedule.INACTIVE)) {
 
-                //Un schedule se pasa de INACTIVE a ACTIVE solo se la fecha actual es menor que la fecha del schedule.
-                LocalDate currentDate = LocalDate.now();
-                LocalTime cTime = LocalTime.now();
-                if (currentDate.isBefore(_schedule.getDate()) || (currentDate.equals(_schedule.getDate()) && cTime.isBefore(_schedule.getStartTime()))) {
-                    _schedule.setStatus(EStatusSchedule.ACTIVE);
-                }
-
+            //Un schedule se pasa de INACTIVE a ACTIVE solo se la fecha actual es menor que la fecha del schedule.
+            LocalDate currentDate = LocalDate.now();
+            LocalTime cTime = LocalTime.now();
+            if (currentDate.isBefore(_schedule.getDate()) || (currentDate.equals(_schedule.getDate()) && cTime.isBefore(_schedule.getStartTime()))) {
+                _schedule.setStatus(EStatusSchedule.ACTIVE);
             }
-            repositoryCommand.save(new Schedule(_schedule));
-            return _schedule;
+
+        }
+        repositoryCommand.save(new Schedule(_schedule));
+        return _schedule;
     }
 
     /**
@@ -349,4 +345,24 @@ public class ScheduleServiceImpl implements IScheduleService {
             throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.");//Existe horario en igual fecha, que su rango de hora coincide en algun instante de tiempo con el que se desea crear
         }
     }
+
+    @Override
+    public List<AvailableDateDto> getAvailableDatesAndSlots(UUID resourceId, UUID businessId,  LocalDate startDate, LocalDate endDate) {
+        List<ScheduleAvailabilityDto> schedules = this.repositoryQuery.findAvailableSchedulesByResourceAndBusinessAndDateRange(resourceId, businessId, startDate, endDate);
+
+        Map<LocalDate, List<ScheduleAvailabilityDto>> groupedByDate = schedules.stream()
+                .collect(Collectors.groupingBy(ScheduleAvailabilityDto::getDate));
+
+        List<AvailableDateDto> availableDates = new ArrayList<>();
+
+        groupedByDate.forEach((date, scheduleAvailabilityDtos) -> {
+            List<AvailableTimeSlotDto> timeSlots = scheduleAvailabilityDtos.stream()
+                    .map(s -> new AvailableTimeSlotDto(s.getStartTime(), s.getEndingTime(), s.getScheduleId()))
+                    .collect(Collectors.toList());
+            availableDates.add(new AvailableDateDto(date, timeSlots));
+        });
+
+        return availableDates;
+    }
+
 }

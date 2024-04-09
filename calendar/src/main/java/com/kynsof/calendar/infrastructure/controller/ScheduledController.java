@@ -16,6 +16,9 @@ import com.kynsof.calendar.application.command.schedule.update.UpdateScheduleCom
 import com.kynsof.calendar.application.command.schedule.update.UpdateScheduleMessage;
 import com.kynsof.calendar.application.query.ScheduleResponse;
 import com.kynsof.calendar.application.query.schedule.getAll.FindScheduleWithFilterQuery;
+import com.kynsof.calendar.application.query.schedule.getAvailableDatesAndSlots.AvailableDatesByResourceRequest;
+import com.kynsof.calendar.application.query.schedule.getAvailableDatesAndSlots.GetAvailableDatesAndSlotsQuery;
+import com.kynsof.calendar.application.query.schedule.getAvailableDatesAndSlots.GetAvailableDatesAndSlotsResponse;
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesByServiceId.AvailableDatesRequest;
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesByServiceId.GetAvailableDatesByServiceIdQuery;
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesByServiceId.GetAvailableDatesByServiceIdResponse;
@@ -136,6 +139,14 @@ public class ScheduledController {
         GetAvailableDatesByServiceIdQuery query = new GetAvailableDatesByServiceIdQuery(request.getServiceId(),
                 request.getStartDate(), request.getFinalDate());
         GetAvailableDatesByServiceIdResponse availableDates = mediator.send(query);
+        return ResponseEntity.ok(availableDates);
+    }
+
+    @PostMapping("/{resourceId}/available-dates")
+    public ResponseEntity<?> getAvailableDatesAndSlotsQuery( @PathVariable UUID resourceId, @RequestBody AvailableDatesByResourceRequest request) {
+        GetAvailableDatesAndSlotsQuery query = new GetAvailableDatesAndSlotsQuery( resourceId, request.getBusinessId(),
+                request.getStartDate(), request.getFinalDate());
+        GetAvailableDatesAndSlotsResponse availableDates = mediator.send(query);
         return ResponseEntity.ok(availableDates);
     }
 }
