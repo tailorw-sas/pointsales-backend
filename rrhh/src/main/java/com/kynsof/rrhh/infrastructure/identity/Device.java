@@ -26,7 +26,7 @@ public class Device {
     @Column(nullable = false)
     private String ip;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "business_id", nullable = false)
     private Business business;
 }

@@ -20,8 +20,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserSystem implements Serializable {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
     @Column(nullable = false, unique = true)
@@ -39,7 +37,7 @@ public class UserSystem implements Serializable {
     @Column(nullable = false)
     private String status;
 
-    @OneToMany(mappedBy = "userSystem", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userSystem", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserBusinessRelation> userBusinessRelations;
 
 
