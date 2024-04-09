@@ -5,6 +5,9 @@ import com.kynsof.rrhh.application.command.device.create.CreateDeviceMessage;
 import com.kynsof.rrhh.application.command.device.create.CreateDeviceRequest;
 import com.kynsof.rrhh.application.command.device.delete.DeleteDeviceCommand;
 import com.kynsof.rrhh.application.command.device.delete.DeleteDeviceMessage;
+import com.kynsof.rrhh.application.command.device.update.UpdateDeviceCommand;
+import com.kynsof.rrhh.application.command.device.update.UpdateDeviceMessage;
+import com.kynsof.rrhh.application.command.device.update.UpdateDeviceRequest;
 import com.kynsof.rrhh.application.query.device.getbyid.DeviceResponse;
 import com.kynsof.rrhh.application.query.device.getbyid.FindDeviceByIdQuery;
 import com.kynsof.rrhh.application.query.device.search.GetSearchDeviceQuery;
@@ -60,6 +63,14 @@ public class DeviceController {
         DeleteDeviceCommand command = new DeleteDeviceCommand(id);
         DeleteDeviceMessage response = mediator.send(command);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateDeviceMessage> update(@PathVariable("id") UUID id,@RequestBody UpdateDeviceRequest request) {
+
+        UpdateDeviceCommand command = UpdateDeviceCommand.fromRequest(request,id);
+        UpdateDeviceMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 
