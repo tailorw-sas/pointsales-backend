@@ -20,8 +20,10 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Qualification extends BaseEntity {
+public class Qualification {
 
+    @Id
+    protected UUID id;
     @NotBlank
     @Column(unique = true)
     private String description;
@@ -45,13 +47,10 @@ public class Qualification extends BaseEntity {
         this.id = qualification.getId();
         this.description = qualification.getDescription();
         this.status = qualification.getStatus();
-        this.createdAt = qualification.getCreateAt();
-        this.updatedAt = qualification.getUpdateAt() != null ? qualification.getUpdateAt() : null;
-        this.deletedAt = qualification.getDeleteAt() != null ? qualification.getDeleteAt() : null;
-        this.deleted = qualification.isDeleted();
+       this.deleted = qualification.isDeleted();
     }
 
     public QualificationDto toAggregate () {
-        return new QualificationDto(id, description, status, createdAt, updatedAt, deletedAt, deleted);
+        return new QualificationDto(id, description, status,  deleted);
     }
 }

@@ -18,14 +18,14 @@ public class GeographicLocation implements Serializable {
     @Column
     private UUID id;
 
-    @Column(unique = false, nullable = false)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
     private GeographicLocationType type;
 
-    @ManyToOne(optional = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "fk_pk_geographic_location", nullable = true)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "fk_pk_geographic_location")
     private GeographicLocation parent;
     public GeographicLocation() {
     }

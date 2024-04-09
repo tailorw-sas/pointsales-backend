@@ -20,7 +20,6 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import com.kynsof.share.utils.ConfigureTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -51,7 +50,6 @@ public class QualificationServiceImpl implements IQualificationService {
 
         qualification.setStatus(EQualificationStatus.ACTIVE);
 
-        qualification.setCreateAt(ConfigureTimeZone.getTimeZone());
         try {
             this.repositoryCommand.save(new Qualification(qualification));
             this.producerEmailEventService.create(new SimpleEmailKafka("penaescalonayannier@gmail.com", "Hola", "Nuevo mensaje...."));
@@ -66,7 +64,6 @@ public class QualificationServiceImpl implements IQualificationService {
         QualificationDto objectDelete = this.findById(id);
         objectDelete.setStatus(EQualificationStatus.INACTIVE);
 
-        objectDelete.setDeleteAt(ConfigureTimeZone.getTimeZone());
         objectDelete.setDeleted(true);
 
         objectDelete.setDescription(objectDelete.getDescription() + UUID.randomUUID().toString());
@@ -131,7 +128,6 @@ public class QualificationServiceImpl implements IQualificationService {
                         object.setStatus(qualification.getStatus());
                     }
 
-                    object.setUpdatedAt(ConfigureTimeZone.getTimeZone());
                     return this.repositoryCommand.save(object);
                 })
                 .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));

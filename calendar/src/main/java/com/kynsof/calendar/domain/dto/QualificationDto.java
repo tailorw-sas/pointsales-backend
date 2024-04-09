@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -20,10 +19,6 @@ public class QualificationDto implements Serializable {
 
     private String description;
     private EQualificationStatus status;
-
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
-    private LocalDateTime deleteAt;
     private boolean deleted;
 
     public QualificationDto(UUID id, String description) {
