@@ -53,20 +53,43 @@ public class GenericSpecification<T> implements Specification<T> {
             case GREATER_THAN_OR_EQUAL_TO -> builder.greaterThanOrEqualTo(path.as(String.class), value.toString());
             case LESS_THAN_OR_EQUAL_TO -> builder.lessThanOrEqualTo(path.as(String.class), value.toString());
             case NOT_EQUALS -> builder.notEqual(path, value);
+//            case IN -> {
+//                CriteriaBuilder.In<Object> inClause = builder.in(path);
+//                if (value instanceof List) {
+//                    ((List<?>) value).forEach(item -> {
+//                        UUID uuid = convertToUUID(item.toString());
+//                        if (uuid != null) {
+//                            inClause.value(uuid);
+//                        }
+//                    });
+//                } else {
+//                    UUID uuid = convertToUUID(value.toString());
+//                    if (uuid != null) {
+//                        inClause.value(uuid);
+//                    }
+//                }
+//                yield inClause;
+//            }
             case IN -> {
                 CriteriaBuilder.In<Object> inClause = builder.in(path);
                 if (value instanceof List) {
-                    ((List<?>) value).forEach(item -> {
-                        UUID uuid = convertToUUID(item.toString());
-                        if (uuid != null) {
-                            inClause.value(uuid);
+                    for (Object item : (List<?>) value) {
+                        // Intenta convertir cada elemento a UUID, si es posible. Si no, usa el valor tal cual.
+                        Object finalValue = convertToUUID(item.toString());
+                        if (finalValue == null) {
+                            // Si el valor no es un UUID válido, lo usamos como String.
+                            finalValue = item.toString();
                         }
-                    });
-                } else {
-                    UUID uuid = convertToUUID(value.toString());
-                    if (uuid != null) {
-                        inClause.value(uuid);
+                        inClause.value(finalValue);
                     }
+                } else {
+                    // Trata de convertir el valor individual a UUID, si es posible.
+                    Object finalValue = convertToUUID(value.toString());
+                    if (finalValue == null) {
+                        // Si el valor no es un UUID válido, lo usamos como String.
+                        finalValue = value.toString();
+                    }
+                    inClause.value(finalValue);
                 }
                 yield inClause;
             }
