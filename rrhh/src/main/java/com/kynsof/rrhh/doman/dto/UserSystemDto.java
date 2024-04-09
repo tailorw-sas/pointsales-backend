@@ -1,4 +1,4 @@
-package com.kynsof.rrhh.module.dto;
+package com.kynsof.rrhh.doman.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

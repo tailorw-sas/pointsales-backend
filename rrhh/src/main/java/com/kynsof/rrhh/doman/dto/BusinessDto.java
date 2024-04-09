@@ -1,15 +1,14 @@
-package com.kynsof.rrhh.module.dto;
+package com.kynsof.rrhh.doman.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.UUID;
-
 @Getter
 @Setter
 @AllArgsConstructor
-public class DeviceDto {
+public class BusinessDto {
     private UUID id;
     private String name;
 }

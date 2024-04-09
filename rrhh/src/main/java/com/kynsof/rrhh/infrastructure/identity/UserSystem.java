@@ -1,6 +1,6 @@
 package com.kynsof.rrhh.infrastructure.identity;
 
-import com.kynsof.rrhh.module.dto.UserSystemDto;
+import com.kynsof.rrhh.doman.dto.UserSystemDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
