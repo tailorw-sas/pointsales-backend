@@ -2,6 +2,9 @@ package com.kynsof.treatments.controller;
 
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
+import com.kynsof.treatments.application.command.vaccine.create.CreateVaccineCommand;
+import com.kynsof.treatments.application.command.vaccine.create.CreateVaccineMessage;
+import com.kynsof.treatments.application.command.vaccine.create.CreateVaccineRequest;
 import com.kynsof.treatments.application.query.vaccine.getById.FindByIdVaccineQuery;
 import com.kynsof.treatments.application.query.vaccine.getEligibleVaccines.EligibleVaccinesResponse;
 import com.kynsof.treatments.application.query.vaccine.getEligibleVaccines.GetEligibleVaccinesQuery;
@@ -25,13 +28,13 @@ public class VaccineController {
         this.mediator = mediator;
     }
 
-//    @PostMapping("")
-//    public ResponseEntity<CreatePatientVaccineMessage> create(@RequestBody CreatePatientVaccineRequest request)  {
-//        CreatePatientVaccineCommand createCommand = CreatePatientVaccineCommand.fromRequest(request);
-//        CreatePatientVaccineMessage response = mediator.send(createCommand);
-//
-//        return ResponseEntity.ok(response);
-//    }
+    @PostMapping("")
+    public ResponseEntity<?> create(@RequestBody CreateVaccineRequest request)  {
+        CreateVaccineCommand createCommand = CreateVaccineCommand.fromRequest(request);
+        CreateVaccineMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
 
 
     @GetMapping("/all")
@@ -54,9 +57,9 @@ public class VaccineController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/eligible/{age}")
-    public ResponseEntity<?> getEligibleVaccines(@PathVariable double age) {
-        GetEligibleVaccinesQuery query = new GetEligibleVaccinesQuery(age);
+    @GetMapping("/eligible/{patientId}")
+    public ResponseEntity<?> getEligibleVaccines( @PathVariable  UUID patientId) {
+        GetEligibleVaccinesQuery query = new GetEligibleVaccinesQuery(patientId);
         EligibleVaccinesResponse response = mediator.send(query);
         return ResponseEntity.ok(response);
     }

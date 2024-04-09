@@ -12,5 +12,4 @@ import java.util.UUID;
 public class CancelReceiptRequest {
     private UUID userId;
     private UUID receiptId;
-    private String requestId;
 }

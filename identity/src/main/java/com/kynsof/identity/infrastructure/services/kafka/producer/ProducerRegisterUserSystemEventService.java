@@ -27,7 +27,7 @@ public class ProducerRegisterUserSystemEventService {
         try {
             UserSystemKakfa event = new UserSystemKakfa(
                     entity.getId(), 
-                    entity.getUserName(), 
+                    entity.getIdentification(),
                     entity.getEmail(), 
                     entity.getName(), 
                     entity.getLastName(),

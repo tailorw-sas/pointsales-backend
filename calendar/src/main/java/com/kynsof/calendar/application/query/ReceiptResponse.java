@@ -18,6 +18,7 @@ public class ReceiptResponse implements IResponse {
     private Double price;
     private Boolean express;
     private String reasons;
+    private String requestId;
     private PatientDto user;
     private ScheduleResponse schedule;
     private ServicesResponse service;
@@ -27,6 +28,7 @@ public class ReceiptResponse implements IResponse {
         this.id = object.getId();
         this.price = object.getPrice();
         this.express = object.getExpress();
+        this.requestId = object.getRequestId();
         this.reasons = object.getReasons();
         this.user = object.getUser();
         this.schedule = new ScheduleResponse(object.getSchedule());
