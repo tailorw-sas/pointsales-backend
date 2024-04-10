@@ -11,7 +11,7 @@ public class BusinessRucCheckingNumberOfCharactersRule extends BusinessRule {
     public BusinessRucCheckingNumberOfCharactersRule(String business_ruc) {
         super(
                 DomainErrorMessage.BUSINESS_RUC, 
-                new ErrorField("Business.ruc", "The business's RUC must have thirteen characters.")
+                new ErrorField("ruc", "The business's RUC must have thirteen characters.")
         );
         this.business_ruc = business_ruc;
     }

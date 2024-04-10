@@ -19,7 +19,7 @@ public class BusinessResponse implements IResponse {
     private String latitude;
     private String longitude;
     private String description;
-    private String logo;
+    private String image;
     private String ruc;
     private String address;
     private EBusinessStatus status;
@@ -32,7 +32,7 @@ public class BusinessResponse implements IResponse {
         this.latitude = object.getLatitude();
         this.longitude = object.getLongitude();
         this.description = object.getDescription();
-        this.logo = object.getLogo();
+        this.image = object.getLogo();
         this.ruc = object.getRuc();
         this.status = object.getStatus();
         this.geolocation = object.getGeographicLocationDto() != null ? new GeographicLocationResponse(object.getGeographicLocationDto()) : null;

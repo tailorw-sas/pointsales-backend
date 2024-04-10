@@ -18,6 +18,7 @@ public class UserMeResponse implements IResponse {
     private String email;
     private String name;
     private String lastName;
+    private UUID image;
     private Set<BusinessModulePermissionsDto> businesses;
 
     public UserMeResponse(UserMeDto userMeDto) {
@@ -26,6 +27,7 @@ public class UserMeResponse implements IResponse {
         this.email = userMeDto.getEmail();
         this.name = userMeDto.getName();
         this.lastName = userMeDto.getLastName();
+        this.image = userMeDto.getImage();
         this.businesses = userMeDto.getBusiness();
     }
 }

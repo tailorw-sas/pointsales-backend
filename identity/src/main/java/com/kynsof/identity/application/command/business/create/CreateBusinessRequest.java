@@ -1,8 +1,9 @@
 package com.kynsof.identity.application.command.business.create;
 
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -11,7 +12,7 @@ public class CreateBusinessRequest {
     private String latitude;
     private String longitude;
     private String description;
-    private  byte [] logo;
+    private  byte [] image;
     private String ruc;
     private String address;;
     private UUID geographicLocation;

@@ -38,7 +38,7 @@ public class ConsumerUserSystemEventService {
                 System.err.println("SE EJECUTA UN CREATED USER SYSTEM");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                this.service.create(new UserSystemDto(eventRead.getId(), eventRead.getUserName(), eventRead.getEmail(), eventRead.getName(), eventRead.getLastName(), UserStatus.ACTIVE, null));
+                this.service.create(new UserSystemDto(eventRead.getId(), eventRead.getUserName(), eventRead.getEmail(), eventRead.getName(), eventRead.getLastName(), UserStatus.ACTIVE));
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion

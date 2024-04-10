@@ -1,6 +1,5 @@
 package com.kynsof.identity.infrastructure.identity;
 
-import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.identity.domain.dto.enumType.UserType;
@@ -16,9 +15,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -74,13 +71,7 @@ public class UserSystem implements Serializable {
     }
 
     public UserSystemDto toAggregate() {
-        List<RoleDto> rolDtos = new ArrayList<>();
-//        if (!roles.isEmpty()) {
-//            rolDtos = this.roles.stream()
-//                    .map(userRol -> userRol.toAggregate())
-//                    .toList();
-//        }
-        UserSystemDto dto = new UserSystemDto(this.id, this.userName, this.email, this.name, this.lastName, this.status, rolDtos);
+        UserSystemDto dto = new UserSystemDto(this.id, this.userName, this.email, this.name, this.lastName, this.status);
         dto.setUserType(userType);
         dto.setIdImage(image);
         return dto;
