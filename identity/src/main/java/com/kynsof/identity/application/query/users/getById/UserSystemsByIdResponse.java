@@ -31,7 +31,6 @@ public class UserSystemsByIdResponse implements IResponse {
         this.name = userSystemDto.getName();
         this.lastName = userSystemDto.getLastName();
         this.status = userSystemDto.getStatus();
-        this.roles = userSystemDto.getRoles();
     }
 
 }

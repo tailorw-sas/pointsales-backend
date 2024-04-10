@@ -8,7 +8,6 @@ import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 @Component
@@ -32,8 +31,7 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
                 command.getEmail(),
                 command.getName(),
                 command.getLastName(),
-                UserStatus.ACTIVE,
-                new ArrayList<>()
+                UserStatus.ACTIVE
         );
 
        UUID id = userSystemService.create(userDto);

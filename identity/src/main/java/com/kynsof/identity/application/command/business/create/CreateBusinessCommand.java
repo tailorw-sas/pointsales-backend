@@ -39,7 +39,7 @@ public class CreateBusinessCommand implements ICommand {
                 request.getLatitude(), 
                 request.getLongitude(), 
                 request.getDescription(), 
-                request.getLogo(), 
+                request.getImage(),
                 request.getRuc(), 
                 request.getGeographicLocation(),
                 request.getAddress()

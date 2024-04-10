@@ -50,6 +50,7 @@ public class UserMeServiceImpl implements IUserMeService {
         userMeDto.setEmail(user.getEmail());
         userMeDto.setName(user.getName());
         userMeDto.setLastName(user.getLastName());
+        userMeDto.setImage(user.getImage());
 
         Set<BusinessModulePermissionsDto> businessModulePermissionsDtos = new HashSet<>();
 

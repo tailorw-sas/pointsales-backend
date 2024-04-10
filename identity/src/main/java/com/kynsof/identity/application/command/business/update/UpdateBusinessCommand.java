@@ -43,7 +43,7 @@ public class UpdateBusinessCommand implements ICommand {
                 request.getLatitude(),
                 request.getLongitude(), 
                 request.getDescription(), 
-                request.getLogo(), 
+                request.getImage(),
                 request.getRuc(), 
                 request.getStatus(), 
                 request.getGeographicLocation(),
