@@ -8,7 +8,6 @@ import com.kynsof.identity.infrastructure.identity.Permission;
 import com.kynsof.identity.infrastructure.identity.UserPermissionBusiness;
 import com.kynsof.identity.infrastructure.repository.command.UserPermissionBusinessWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserPermissionBusinessReadDataJPARepository;
-import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -113,4 +112,10 @@ public class UserPermissionBusinessServiceImpl implements IUserPermissionBusines
         }
         return permissionDtos;
     }
+
+    @Override
+    public Long countByUserAndBusiness(UUID userId, UUID businessId) {
+        return this.queryRepository.countByUserAndBusiness(userId, businessId);
+    }
+
 }

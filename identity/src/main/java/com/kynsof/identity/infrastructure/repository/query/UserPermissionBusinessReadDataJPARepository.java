@@ -14,9 +14,15 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface UserPermissionBusinessReadDataJPARepository extends JpaRepository<UserPermissionBusiness, UUID>, JpaSpecificationExecutor<UserPermissionBusiness> {
+
     Page<UserPermissionBusiness> findAll(Specification specification, Pageable pageable);
+
     @Query("SELECT upb FROM UserPermissionBusiness upb WHERE upb.user.id = :userId AND upb.business.id = :businessId")
     List<UserPermissionBusiness> findByUserAndBusiness(UUID userId, UUID businessId);
+
+    @Query("SELECT COUNT(upb) FROM UserPermissionBusiness upb WHERE upb.user.id = :userId AND upb.business.id = :businessId")
+    Long countByUserAndBusiness(UUID userId, UUID businessId);
+
     @Query("SELECT p FROM UserPermissionBusiness upb JOIN upb.permission p WHERE upb.user.id = :userId AND upb.business.id = :businessId AND upb.deleted = false")
     Set<Permission> findPermissionsByUserIdAndBusinessId(UUID userId, UUID businessId);
 }

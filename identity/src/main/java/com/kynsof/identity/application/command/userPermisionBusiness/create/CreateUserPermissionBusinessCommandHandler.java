@@ -5,6 +5,7 @@ import com.kynsof.identity.domain.interfaces.IUserSystemService;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.domain.interfaces.service.IPermissionService;
 import com.kynsof.identity.domain.interfaces.service.IUserPermissionBusinessService;
+import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerCreateUserBusinessEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
@@ -23,14 +24,18 @@ public class CreateUserPermissionBusinessCommandHandler implements ICommandHandl
 
     private final IUserSystemService userSystemService;
 
+    private final ProducerCreateUserBusinessEventService createUserBusinessEventService;
+
     public CreateUserPermissionBusinessCommandHandler(IUserPermissionBusinessService service,
                                                       IPermissionService permissionService,
                                                       IBusinessService businessService,
-                                                      IUserSystemService userSystemService) {
+                                                      IUserSystemService userSystemService,
+                                                      ProducerCreateUserBusinessEventService createUserBusinessEventService) {
         this.service = service;
         this.permissionService = permissionService;
         this.businessService = businessService;
         this.userSystemService = userSystemService;
+        this.createUserBusinessEventService = createUserBusinessEventService;
     }
 
     @Override
@@ -47,5 +52,6 @@ public class CreateUserPermissionBusinessCommandHandler implements ICommandHandl
             }
 
         this.service.create(userRoleBusinessDtos);
+        this.createUserBusinessEventService.create(userRoleBusinessDtos.get(0));
     }
 }

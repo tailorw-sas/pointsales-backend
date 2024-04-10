@@ -21,4 +21,6 @@ public interface IUserPermissionBusinessService {
     List<UserPermissionBusinessDto> findByUserAndBusiness(UUID userSystemId, UUID businessId);
 
     List<PermissionDto> getPermissionsForUserAndBusiness(UUID userId, UUID businessId);
+
+    Long countByUserAndBusiness(UUID userId, UUID businessId);
 }
