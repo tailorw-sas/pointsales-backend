@@ -1,10 +1,10 @@
 package com.kynsof.rrhh.application.command.device.update;
 
-import com.kynsof.rrhh.application.command.device.create.*;
 import com.kynsof.rrhh.doman.dto.BusinessDto;
 import com.kynsof.rrhh.doman.dto.DeviceDto;
 import com.kynsof.rrhh.doman.interfaces.services.IBusinessService;
 import com.kynsof.rrhh.doman.interfaces.services.IDeviceService;
+import com.kynsof.rrhh.doman.rules.device.DeviceIpValidateRule;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
@@ -31,9 +31,12 @@ public class UpdateDeviceCommandHandler implements ICommandHandler<UpdateDeviceC
         BusinessDto business = this.businessService.findById(command.getBusinessId());
         update.setBusiness(business);
 
-        UpdateIfNotNull.updateIfNotNull(update::setIp, command.getIp());
-        UpdateIfNotNull.updateIfNotNull(update::setSerialId, command.getSerialId());
+        if (command.getIp() != null && !command.getIp().isEmpty()) {
+            RulesChecker.checkRule(new DeviceIpValidateRule(command.getIp()));
+            update.setIp(command.getIp());
+        }
+        UpdateIfNotNull.updateIfStringNotNull(update::setSerialId, command.getSerialId());
 
-        service.create(update);
+        service.update(update);
     }
 }
