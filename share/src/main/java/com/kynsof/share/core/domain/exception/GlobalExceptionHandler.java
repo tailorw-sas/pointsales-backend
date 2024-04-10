@@ -108,4 +108,12 @@ public class GlobalExceptionHandler {
         ApiResponse<?> apiResponse = ApiResponse.fail(apiError);
         return new ResponseEntity<>(apiResponse, HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(AuthenticateNotFoundException.class)
+    public ResponseEntity<ApiResponse<?>> handleAuthenticateNotFoundException(AuthenticateNotFoundException ex) {
+        ApiError apiError = new ApiError(ex.getMessage(),
+                List.of(ex.getErrorField()));
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ApiResponse.fail(apiError));
+       // return new ResponseEntity<>(apiResponse, HttpStatus.FORBIDDEN);
+    }
 }

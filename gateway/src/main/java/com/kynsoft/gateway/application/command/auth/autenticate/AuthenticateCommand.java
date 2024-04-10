@@ -20,9 +20,6 @@ public class AuthenticateCommand implements ICommand {
         this.password = password;
     }
 
-//    public static AuthenticateCommand fromRequest(CreateAllergyEntityRequest request) {
-//        return new AuthenticateCommand(request.getMedicalInformationId(), request.getCode(), request.getName());
-//    }
 
 
     @Override
