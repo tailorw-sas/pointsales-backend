@@ -30,10 +30,6 @@ public class RegistryCommand implements ICommand {
         this.roles = roles;
     }
 
-//    public static AuthenticateCommand fromRequest(CreateAllergyEntityRequest request) {
-//        return new AuthenticateCommand(request.getMedicalInformationId(), request.getCode(), request.getName());
-//    }
-
 
     @Override
     public ICommandMessage getMessage() {

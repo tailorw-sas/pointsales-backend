@@ -1,14 +1,15 @@
 package com.kynsoft.gateway.infrastructure.services.keycloak;
 
-import com.kynsof.share.core.domain.exception.CustomUnauthorizedException;
 import com.kynsof.share.core.domain.exception.AlreadyExistsException;
+import com.kynsof.share.core.domain.exception.AuthenticateNotFoundException;
+import com.kynsof.share.core.domain.exception.CustomUnauthorizedException;
 import com.kynsof.share.core.domain.exception.UserNotFoundException;
 import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
 import com.kynsof.share.core.domain.response.ErrorField;
-import com.kynsoft.gateway.domain.dto.user.LoginRequest;
 import com.kynsoft.gateway.domain.dto.PasswordChangeRequest;
-import com.kynsoft.gateway.domain.dto.user.UserRequest;
 import com.kynsoft.gateway.domain.dto.TokenResponse;
+import com.kynsoft.gateway.domain.dto.user.LoginRequest;
+import com.kynsoft.gateway.domain.dto.user.UserRequest;
 import com.kynsoft.gateway.domain.interfaces.IOtpService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserEventService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserSystemEventService;
@@ -46,9 +47,9 @@ public class AuthService {
 
     @Autowired
     public AuthService(KeycloakProvider keycloakProvider, RestTemplate restTemplate,
-            ProducerRegisterUserEventService producerRegisterUserEvent,
-            IOtpService otpService, ProducerTriggerPasswordResetEventService producerOtp,
-            ProducerRegisterUserSystemEventService producerRegisterUserSystemEvent) {
+                       ProducerRegisterUserEventService producerRegisterUserEvent,
+                       IOtpService otpService, ProducerTriggerPasswordResetEventService producerOtp,
+                       ProducerRegisterUserSystemEventService producerRegisterUserSystemEvent) {
         this.keycloakProvider = keycloakProvider;
         this.restTemplate = restTemplate;
         this.producerRegisterUserEvent = producerRegisterUserEvent;
@@ -70,17 +71,20 @@ public class AuthService {
         map.add("client_secret", keycloakProvider.getClient_secret());
 
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(map, headers);
+        try {
+            ResponseEntity<TokenResponse> response = restTemplate.exchange(
+                    keycloakProvider.getTokenUri(),
+                    HttpMethod.POST,
+                    entity,
+                    TokenResponse.class);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                return response.getBody();
+            } else {
+                throw new AuthenticateNotFoundException("El nombre de usuario o la contraseña no son correctos. Por favor, inténtalo de nuevo.", new ErrorField("email/password", "El nombre de usuario o la contraseña no son correctos. Por favor, inténtalo de nuevo."));
+            }
 
-        ResponseEntity<TokenResponse> response = restTemplate.exchange(
-                keycloakProvider.getTokenUri(),
-                HttpMethod.POST,
-                entity,
-                TokenResponse.class);
-
-        if (response.getStatusCode() == HttpStatus.OK) {
-            return response.getBody();
-        } else {
-            throw new RuntimeException("Authentication failed");
+        } catch (Exception e) {
+            throw new AuthenticateNotFoundException("El nombre de usuario o la contraseña no son correctos. Por favor, inténtalo de nuevo.", new ErrorField("email/password", "El nombre de usuario o la contraseña no son correctos. Por favor, inténtalo de nuevo."));
         }
     }
 
@@ -127,7 +131,7 @@ public class AuthService {
             String userId = extractUserIdFromLocation(response.getLocation().getPath());
 
             setNewUserPassword(userRequest.getPassword(), userId, usersResource);
-          //  assignRolesToUser(null, userId);
+            //  assignRolesToUser(null, userId);
             if (!isSystemUser) {
                 producerRegisterUserEvent.create(userRequest, userId);
             } else {
