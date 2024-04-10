@@ -1,5 +1,6 @@
 package com.kynsof.rrhh.infrastructure.identity;
 
+import com.kynsof.rrhh.doman.dto.UserBusinessRelationDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,4 +32,21 @@ public class UserBusinessRelation {
 
     @Column(name = "date")
     private LocalDateTime date;
+
+    public UserBusinessRelation(UserBusinessRelationDto userBusinessRelation) {
+        this.id = userBusinessRelation.getId();
+        this.userSystem = new UserSystem(userBusinessRelation.getUserSystem());
+        this.business = new Business(userBusinessRelation.getBusiness());
+        this.state = userBusinessRelation.getState();
+        this.date = userBusinessRelation.getDate();
+    }
+
+    public UserBusinessRelationDto toAggregate () {
+        return new UserBusinessRelationDto(id, 
+                                           userSystem.toAggregate(),
+                                           business.toAggregate(),
+                                           state,
+                                           date);
+    }
+
 }

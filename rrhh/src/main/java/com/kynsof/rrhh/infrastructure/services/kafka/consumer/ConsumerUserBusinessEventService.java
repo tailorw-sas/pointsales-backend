@@ -3,18 +3,35 @@ package com.kynsof.rrhh.infrastructure.services.kafka.consumer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kynsof.rrhh.doman.dto.BusinessDto;
+import com.kynsof.rrhh.doman.dto.UserBusinessRelationDto;
+import com.kynsof.rrhh.doman.dto.UserSystemDto;
+import com.kynsof.rrhh.doman.interfaces.services.IBusinessService;
+import com.kynsof.rrhh.doman.interfaces.services.IUserBusinessRelationService;
+import com.kynsof.rrhh.doman.interfaces.services.IUserSystemService;
 import com.kynsof.share.core.domain.kafka.entity.UserBusinessKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
+import com.kynsof.share.utils.ConfigureTimeZone;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class ConsumerUserBusinessEventService {
-   // @Autowired
-   // private IRoleService service;
+
+    @Autowired
+    private IUserBusinessRelationService service;
+
+    @Autowired
+    private IBusinessService businessService;
+
+    @Autowired
+    private IUserSystemService userSystemService;
 
     // Ejemplo de un método listener
     @KafkaListener(topics = "user-busines", groupId = "rrhh-user-busines")
@@ -34,27 +51,11 @@ public class ConsumerUserBusinessEventService {
                 System.err.println("SE EJECUTA UN CREATED");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-//                this.service.create(new RoleDto(eventRead.getId(), eventRead.getName(), eventRead.getDescription(),
-//                        RoleStatusEnm.ACTIVE, new ArrayList<>()));
-            }
-            if (eventType.equals(EventType.DELETED)) {
-                //Definir accion
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN DELETED");
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
 
-            }
-            if (eventType.equals(EventType.UPDATED)) {
-                //Definir accion
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN EVENTO DE ACTUALIZACION");
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
+                BusinessDto businessDto = this.businessService.findById(eventRead.getIdBusiness());
+                UserSystemDto userSystemDto = this.userSystemService.findById(eventRead.getIdUser());
 
-                //this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(), eventRead.getLastname(), "", PatientStatus.ACTIVE));
+                this.service.create(new UserBusinessRelationDto(UUID.randomUUID(), userSystemDto, businessDto, "ACTIVE", ConfigureTimeZone.getTimeZone()));
             }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerUserBusinessEventService.class.getName()).log(Level.SEVERE, null, ex);
