@@ -46,7 +46,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     USER_PERMISSION_BUSINESS_NOT_FOUND(641, Series.DOMAIN_ERROR, "UserPermissionBusiness not found."),
     PERMISSION_CODE_MUST_BY_UNIQUE(642, Series.DOMAIN_ERROR, "The permission code must be unique."),
     PERMISSION_CODE_CANNOT_BE_EMPTY(643, Series.DOMAIN_ERROR, "The code of the permission cannot be empty."),
-    DEVICE_NOT_FOUND(644, Series.DOMAIN_ERROR, "Device not found.");
+    DEVICE_NOT_FOUND(644, Series.DOMAIN_ERROR, "Device not found."),
+    DEVICE_IP_VALIDATE(645, Series.DOMAIN_ERROR, "La direccion ip no es correcta.");
 
     private static final DomainErrorMessage[] VALUES;
 
