@@ -17,7 +17,7 @@ public class BusinessRucMustBeUniqueRule extends BusinessRule {
     public BusinessRucMustBeUniqueRule(IBusinessService service, String ruc, UUID id) {
         super(
                 DomainErrorMessage.BUSINESS_RUC_MUST_BY_UNIQUE, 
-                new ErrorField("Business.ruc", "The business ruc must be unique.")
+                new ErrorField("ruc", "The business ruc must be unique.")
         );
         this.service = service;
         this.ruc = ruc;
