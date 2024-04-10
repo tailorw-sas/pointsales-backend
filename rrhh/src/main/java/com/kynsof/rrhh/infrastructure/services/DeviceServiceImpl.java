@@ -1,9 +1,11 @@
 package com.kynsof.rrhh.infrastructure.services;
 
 import com.kynsof.rrhh.application.query.device.getbyid.DeviceResponse;
+import com.kynsof.rrhh.application.query.users.getbyid.UserSystemsByIdResponse;
 import com.kynsof.rrhh.doman.dto.DeviceDto;
 import com.kynsof.rrhh.doman.interfaces.services.IDeviceService;
 import com.kynsof.rrhh.infrastructure.identity.Device;
+import com.kynsof.rrhh.infrastructure.identity.UserSystem;
 import com.kynsof.rrhh.infrastructure.repository.query.DeviceReadDataJPARepository;
 import com.kynsof.rrhh.infrastructure.repository.query.command.DeviceWriteDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
@@ -72,6 +74,21 @@ public class DeviceServiceImpl implements IDeviceService {
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    private PaginatedResponse getPaginatedResponseUserSystem(Page<UserSystem> data) {
+        List<UserSystemsByIdResponse> users = new ArrayList<>();
+        for (UserSystem o : data.getContent()) {
+            users.add(new UserSystemsByIdResponse(o.toAggregate()));
+        }
+        return new PaginatedResponse(users, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public PaginatedResponse findUsersByDeviceId(UUID deviceId, Pageable pageable) {
+        Page<UserSystem> data = this.repositoryQuery.findUsersByDeviceId(deviceId, pageable);
+        return getPaginatedResponseUserSystem(data);
     }
 
 }

@@ -13,4 +13,5 @@ public interface IDeviceService {
     void delete(DeviceDto object);
     DeviceDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    PaginatedResponse findUsersByDeviceId(UUID deviceId, Pageable pageable);
 }

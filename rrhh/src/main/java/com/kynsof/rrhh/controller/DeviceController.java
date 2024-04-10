@@ -10,6 +10,7 @@ import com.kynsof.rrhh.application.command.device.update.UpdateDeviceMessage;
 import com.kynsof.rrhh.application.command.device.update.UpdateDeviceRequest;
 import com.kynsof.rrhh.application.query.device.getbyid.DeviceResponse;
 import com.kynsof.rrhh.application.query.device.getbyid.FindDeviceByIdQuery;
+import com.kynsof.rrhh.application.query.device.getusersbyiddevice.FindUsersByIdDeviceQuery;
 import com.kynsof.rrhh.application.query.device.search.GetSearchDeviceQuery;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
@@ -44,6 +45,16 @@ public class DeviceController {
 
         FindDeviceByIdQuery query = new FindDeviceByIdQuery(id);
         DeviceResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/users-by-device/{id}")
+    public ResponseEntity<?> getUsersByIdDevice(@PathVariable UUID id) {
+
+        Pageable pageable = PageRequest.of(0, 1000);
+        FindUsersByIdDeviceQuery query = new FindUsersByIdDeviceQuery(id, pageable);
+        PaginatedResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }
