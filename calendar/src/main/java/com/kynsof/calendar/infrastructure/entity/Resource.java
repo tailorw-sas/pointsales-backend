@@ -21,8 +21,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-public class Resource extends BaseEntity {
-
+public class Resource {
+    @Id
+    protected UUID id;
     private String picture;
 
     @Size(max = 250)
@@ -91,12 +92,9 @@ public class Resource extends BaseEntity {
         this.status = resourceDto.getStatus();
         this.expressAppointments = resourceDto.getExpressAppointments();
         this.image = resourceDto.getImage();
-        this.createdAt = resourceDto.getCreateAt();
-        this.updatedAt = resourceDto.getUpdateAt();
-        this.deletedAt = resourceDto.getDeleteAt();
     }
 
     public ResourceDto toAggregate () {
-        return new ResourceDto(id, picture, name, registrationNumber, language, status, expressAppointments, image, createdAt, updatedAt, deletedAt, deleted);
+        return new ResourceDto(id, picture, name, registrationNumber, language, status, expressAppointments, image,  deleted);
     }
 }

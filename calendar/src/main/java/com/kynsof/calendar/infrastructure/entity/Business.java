@@ -26,12 +26,8 @@ public class Business{
     private String longitude;
     private String address;
     private UUID logo;
-
-    // Relación de muchos a muchos con Resource
     @ManyToMany(mappedBy = "businesses")
     private Set<Resource> resources = new HashSet<>();
-
-   // @JsonIgnoreProperties("businesses")
     @ManyToMany(mappedBy = "businesses")
     private Set<Services> services = new HashSet<>();
 

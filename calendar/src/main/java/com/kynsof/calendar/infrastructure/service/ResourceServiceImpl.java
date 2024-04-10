@@ -18,7 +18,6 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import com.kynsof.share.utils.ConfigureTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -46,7 +45,6 @@ public class ResourceServiceImpl implements IResourceService {
     public void create(ResourceDto object) {
         object.setStatus(EResourceStatus.ACTIVE);
 
-        object.setCreateAt(ConfigureTimeZone.getTimeZone());
 
         this.repositoryCommand.save(new Resource(object));
     }
@@ -78,7 +76,6 @@ public class ResourceServiceImpl implements IResourceService {
                         object.setImage(objectDto.getImage());
                     }
 
-                    object.setUpdatedAt(ConfigureTimeZone.getTimeZone());
                     return this.repositoryCommand.save(object);
                 })
                 .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));
@@ -90,8 +87,6 @@ public class ResourceServiceImpl implements IResourceService {
 
         ResourceDto objectDelete = this.findById(id);
         objectDelete.setStatus(EResourceStatus.INACTIVE);
-
-        objectDelete.setDeleteAt(ConfigureTimeZone.getTimeZone());
         objectDelete.setDeleted(true);
 
         this.repositoryCommand.save(new Resource(objectDelete));

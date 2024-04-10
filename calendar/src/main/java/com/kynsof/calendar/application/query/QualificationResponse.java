@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -17,17 +16,11 @@ public class QualificationResponse implements IResponse {
     private UUID id;
     private String description;
     private EQualificationStatus status;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
-    private LocalDateTime deleteAt;
 
     public QualificationResponse(QualificationDto qualification) {
         this.id = qualification.getId();
         this.description = qualification.getDescription();
         this.status = qualification.getStatus();
-        this.createAt = qualification.getCreateAt();
-        this.updateAt = qualification.getUpdateAt();
-        this.deleteAt = qualification.getDeleteAt();
     }
 
 }
