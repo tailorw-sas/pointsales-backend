@@ -82,7 +82,7 @@ public class ServiceController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping()
+    @PatchMapping("/{id}")
     public ResponseEntity<UpdateServiceMessage> update(@PathVariable("id") UUID id,@RequestBody UpdateServiceRequest request) {
 
         UpdateServiceCommand command = UpdateServiceCommand.fromRequest(id,request);
