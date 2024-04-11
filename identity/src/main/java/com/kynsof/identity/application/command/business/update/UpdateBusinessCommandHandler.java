@@ -13,7 +13,6 @@ import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerDeleteFileEventService;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
-import com.kynsof.share.core.domain.rules.BusinessRule;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +44,7 @@ public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusin
     @Override
     public void handle(UpdateBusinessCommand command) {
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getGeographicLocation(), "GeographicLocation.id", "GeographicLocation ID cannot be null."));
-        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getId(), "Business.id", "Business ID cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getId(), "id", "Business ID cannot be null."));
 
         GeographicLocationDto location = this.geographicLocationService.findById(command.getGeographicLocation());
         BusinessDto updateBusiness = this.service.getById(command.getId());
@@ -89,7 +88,4 @@ public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusin
         }
     }
 
-    private BusinessRule BusinessRucCheckingNumberOfCharactersRule(IBusinessService service, BusinessDto updateBusiness) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
