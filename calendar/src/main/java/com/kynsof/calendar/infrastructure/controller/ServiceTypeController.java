@@ -66,10 +66,10 @@ public class ServiceTypeController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping()
-    public ResponseEntity<UpdateServiceTypeMessage> update(@RequestBody UpdateServiceTypeRequest request) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateServiceTypeMessage> update(@PathVariable("id") UUID id,@RequestBody UpdateServiceTypeRequest request) {
 
-        UpdateServiceTypeCommand command = UpdateServiceTypeCommand.fromRequest(request);
+        UpdateServiceTypeCommand command = UpdateServiceTypeCommand.fromRequest(id,request);
         UpdateServiceTypeMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }

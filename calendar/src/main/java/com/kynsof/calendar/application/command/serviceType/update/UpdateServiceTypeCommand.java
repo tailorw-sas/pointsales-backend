@@ -21,8 +21,8 @@ public class UpdateServiceTypeCommand implements ICommand {
         this.picture = picture;
     }
 
-    public static UpdateServiceTypeCommand fromRequest(UpdateServiceTypeRequest request) {
-        return new UpdateServiceTypeCommand(request.getId(), request.getName(), request.getPicture() );
+    public static UpdateServiceTypeCommand fromRequest(UUID id, UpdateServiceTypeRequest request) {
+        return new UpdateServiceTypeCommand(id, request.getName(), request.getPicture() );
     }
 
     @Override
