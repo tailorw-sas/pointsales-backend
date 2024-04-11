@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -22,5 +23,18 @@ public class UserKafka implements Serializable {
     private String phone;
     private String gender;
     private String status;
+    private String birthdayDate;
+
+    public UserKafka(String id, String username, String email, String firstname, String lastname, String identification, String phone, String gender, String status) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.identification = identification;
+        this.phone = phone;
+        this.gender = gender;
+        this.status = status;
+    }
 
 }
