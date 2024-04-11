@@ -16,7 +16,7 @@ public class CreateBusinessCommand implements ICommand {
     private String latitude;
     private String longitude;
     private String description;
-    private  byte [] logo;
+    private  byte [] image;
     private String ruc;
     private String address;
     private UUID geographicLocation;
@@ -27,7 +27,7 @@ public class CreateBusinessCommand implements ICommand {
         this.latitude = latitude;
         this.longitude = longitude;
         this.description = description;
-        this.logo = logo;
+        this.image = logo;
         this.ruc = ruc;
         this.geographicLocation = geographicLocation;
         this.address = address;

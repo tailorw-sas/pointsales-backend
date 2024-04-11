@@ -1,6 +1,6 @@
 package com.kynsof.identity.application.query.walletTransaction.getbyid;
 
-import com.kynsof.identity.domain.WalletTransactionDto;
+import com.kynsof.identity.domain.dto.WalletTransactionDto;
 import com.kynsof.identity.domain.interfaces.service.IWalletTransactionService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;

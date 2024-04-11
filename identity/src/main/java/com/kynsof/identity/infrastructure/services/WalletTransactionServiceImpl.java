@@ -1,7 +1,7 @@
 package com.kynsof.identity.infrastructure.services;
 
 import com.kynsof.identity.application.query.walletTransaction.search.WalletTransactionResponse;
-import com.kynsof.identity.domain.WalletTransactionDto;
+import com.kynsof.identity.domain.dto.WalletTransactionDto;
 import com.kynsof.identity.domain.dto.enumType.TransactionType;
 import com.kynsof.identity.domain.interfaces.service.IWalletTransactionService;
 import com.kynsof.identity.infrastructure.identity.Business;

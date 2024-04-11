@@ -53,9 +53,9 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
                 location,
                 command.getAddress()
         ));
-        if (command.getLogo() != null) {
+        if (command.getImage() != null) {
             FileKafka fileSave = new FileKafka(idLogo, "identity", UUID.randomUUID().toString(),
-                    command.getLogo());
+                    command.getImage());
             saveFileEventService.create(fileSave);
         }
         command.setId(id);

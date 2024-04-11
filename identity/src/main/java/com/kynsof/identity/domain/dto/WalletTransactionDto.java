@@ -1,4 +1,4 @@
-package com.kynsof.identity.domain;
+package com.kynsof.identity.domain.dto;
 
 import com.kynsof.identity.domain.dto.enumType.TransactionType;
 import lombok.AllArgsConstructor;
