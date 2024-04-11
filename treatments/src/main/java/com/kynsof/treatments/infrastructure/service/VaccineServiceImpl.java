@@ -72,9 +72,9 @@ public class VaccineServiceImpl implements IVaccineService {
         Page<Vaccine> vaccinePage = this.repositoryQuery.findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual( monthsOld, pageable);
         List<Vaccine> administeredVaccines = patientVaccineReadDataJPARepository.findVaccinesByPatientId(patientId);
 
-        List<VaccineDto> nonAdministeredVaccines = vaccinePage.getContent().stream()
+        List<VaccineResponse> nonAdministeredVaccines = vaccinePage.getContent().stream()
                 .filter(vaccine -> !administeredVaccines.contains(vaccine))
-                .map(Vaccine::toAggregate)
+                .map(vaccine -> new VaccineResponse(vaccine.toAggregate()))
                 .collect(Collectors.toList());
 
         return new PaginatedResponse(
