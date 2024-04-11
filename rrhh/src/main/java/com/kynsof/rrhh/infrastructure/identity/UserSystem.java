@@ -40,6 +40,10 @@ public class UserSystem implements Serializable {
     @OneToMany(mappedBy = "userSystem", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserBusinessRelation> userBusinessRelations;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private UserSystemImage image;
+
     public UserSystem(UserSystemDto dto) {
         this.id = dto.getId();
         this.identification = dto.getIdentification();

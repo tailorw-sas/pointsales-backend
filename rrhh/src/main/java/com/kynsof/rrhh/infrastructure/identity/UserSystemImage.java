@@ -24,6 +24,9 @@ public class UserSystemImage implements Serializable {
     @Column(nullable = true)
     private byte [] image;
 
+    @OneToOne(mappedBy = "image")
+    private UserSystem userSystem;
+
     public UserSystemImage(UserSystemImageDto dto) {
         this.id = dto.getId();
         this.image = dto.getImage();
