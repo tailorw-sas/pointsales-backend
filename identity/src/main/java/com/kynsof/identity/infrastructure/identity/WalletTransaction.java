@@ -1,7 +1,7 @@
 package com.kynsof.identity.infrastructure.identity;
 
 
-import com.kynsof.identity.domain.WalletTransactionDto;
+import com.kynsof.identity.domain.dto.WalletTransactionDto;
 import com.kynsof.identity.domain.dto.enumType.TransactionType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
