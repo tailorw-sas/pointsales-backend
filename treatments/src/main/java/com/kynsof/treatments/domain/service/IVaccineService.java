@@ -13,8 +13,7 @@ public interface IVaccineService {
 
     VaccineDto findById(UUID id);
     PaginatedResponse findAll(Pageable pageable, String name, String description);
-    List<VaccineDto> getApplicableVaccines(LocalDate birthDate, UUID patientId);
-
+    PaginatedResponse getApplicableVaccines(LocalDate birthDate, UUID patientId, Pageable pageable);
     UUID create(VaccineDto vaccineDto);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }

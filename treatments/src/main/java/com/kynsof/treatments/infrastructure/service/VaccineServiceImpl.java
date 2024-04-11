@@ -6,12 +6,10 @@ import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import com.kynsof.treatments.application.query.patientVaccine.getall.PatientVaccineResponse;
 import com.kynsof.treatments.application.query.vaccine.getall.VaccineResponse;
 import com.kynsof.treatments.domain.dto.VaccineDto;
 import com.kynsof.treatments.domain.dto.enumDto.VaccinationStatus;
 import com.kynsof.treatments.domain.service.IVaccineService;
-import com.kynsof.treatments.infrastructure.entity.PatientVaccine;
 import com.kynsof.treatments.infrastructure.entity.Vaccine;
 import com.kynsof.treatments.infrastructure.entity.specifications.Cie10Specifications;
 import com.kynsof.treatments.infrastructure.repositories.command.VaccineWriteDataJPARepository;
@@ -51,20 +49,42 @@ public class VaccineServiceImpl implements IVaccineService {
     }
 
 
-    @Override
-    public List<VaccineDto> getApplicableVaccines(LocalDate birthDate, UUID patientId) {
-        long monthsOld = ChronoUnit.MONTHS.between(birthDate, LocalDate.now());
-        List<Vaccine> applicableVaccines = this.repositoryQuery.findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual(monthsOld);
-        // Obtener las vacunas que el paciente ya se ha puesto
-        List<Vaccine> administeredVaccines = this.patientVaccineReadDataJPARepository.findVaccinesByPatientId(patientId);
+//    @Override
+//    public List<VaccineDto> getApplicableVaccines(LocalDate birthDate, UUID patientId) {
+//        long monthsOld = ChronoUnit.MONTHS.between(birthDate, LocalDate.now());
+//        List<Vaccine> applicableVaccines = this.repositoryQuery.findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual(monthsOld);
+//        // Obtener las vacunas que el paciente ya se ha puesto
+//        List<Vaccine> administeredVaccines = this.patientVaccineReadDataJPARepository.findVaccinesByPatientId(patientId);
+//
+//        // Filtrar las vacunas aplicables para excluir las ya administradas
+//        List<VaccineDto> nonAdministeredVaccines = applicableVaccines.stream()
+//                .filter(vaccine -> !administeredVaccines.contains(vaccine))
+//                .map(Vaccine::toAggregate)
+//                .collect(Collectors.toList());
+//
+//        return nonAdministeredVaccines;
+//    }
 
-        // Filtrar las vacunas aplicables para excluir las ya administradas
-        List<VaccineDto> nonAdministeredVaccines = applicableVaccines.stream()
+    @Override
+    public PaginatedResponse getApplicableVaccines(LocalDate birthDate, UUID patientId, Pageable pageable) {
+        long monthsOld = ChronoUnit.MONTHS.between(birthDate, LocalDate.now());
+
+        Page<Vaccine> vaccinePage = this.repositoryQuery.findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual( monthsOld, pageable);
+        List<Vaccine> administeredVaccines = patientVaccineReadDataJPARepository.findVaccinesByPatientId(patientId);
+
+        List<VaccineDto> nonAdministeredVaccines = vaccinePage.getContent().stream()
                 .filter(vaccine -> !administeredVaccines.contains(vaccine))
                 .map(Vaccine::toAggregate)
                 .collect(Collectors.toList());
 
-        return nonAdministeredVaccines;
+        return new PaginatedResponse(
+                nonAdministeredVaccines,
+                vaccinePage.getTotalPages(),
+                vaccinePage.getNumberOfElements(),
+                vaccinePage.getTotalElements(),
+                pageable.getPageSize(),
+                pageable.getPageNumber()
+        );
     }
 
     @Override

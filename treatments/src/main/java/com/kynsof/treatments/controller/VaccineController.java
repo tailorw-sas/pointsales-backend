@@ -10,7 +10,6 @@ import com.kynsof.treatments.application.command.vaccine.create.CreateVaccineReq
 import com.kynsof.treatments.application.command.vaccine.update.UpdateVaccineCommand;
 import com.kynsof.treatments.application.command.vaccine.update.UpdateVaccineRequest;
 import com.kynsof.treatments.application.query.vaccine.getById.FindByIdVaccineQuery;
-import com.kynsof.treatments.application.query.vaccine.getEligibleVaccines.EligibleVaccinesResponse;
 import com.kynsof.treatments.application.query.vaccine.getEligibleVaccines.GetEligibleVaccinesQuery;
 import com.kynsof.treatments.application.query.vaccine.getall.VaccineResponse;
 import com.kynsof.treatments.application.query.vaccine.search.GetSearchVaccineQuery;
@@ -49,10 +48,11 @@ public class VaccineController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/eligible/{patientId}")
-    public ResponseEntity<?> getEligibleVaccines( @PathVariable  UUID patientId) {
-        GetEligibleVaccinesQuery query = new GetEligibleVaccinesQuery(patientId);
-        EligibleVaccinesResponse response = mediator.send(query);
+    @PostMapping("/eligible/{patientId}")
+    public ResponseEntity<?> getEligibleVaccines( @PathVariable  UUID patientId,@RequestBody SearchRequest request) {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetEligibleVaccinesQuery query = new GetEligibleVaccinesQuery(patientId, pageable, request.getFilter());
+        PaginatedResponse response = mediator.send(query);
         return ResponseEntity.ok(response);
     }
 
