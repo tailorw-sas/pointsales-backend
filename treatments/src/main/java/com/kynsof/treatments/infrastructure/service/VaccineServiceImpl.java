@@ -3,10 +3,15 @@ package com.kynsof.treatments.infrastructure.service;
 
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import com.kynsof.treatments.application.query.patientVaccine.getall.PatientVaccineResponse;
 import com.kynsof.treatments.application.query.vaccine.getall.VaccineResponse;
 import com.kynsof.treatments.domain.dto.VaccineDto;
+import com.kynsof.treatments.domain.dto.enumDto.VaccinationStatus;
 import com.kynsof.treatments.domain.service.IVaccineService;
+import com.kynsof.treatments.infrastructure.entity.PatientVaccine;
 import com.kynsof.treatments.infrastructure.entity.Vaccine;
 import com.kynsof.treatments.infrastructure.entity.specifications.Cie10Specifications;
 import com.kynsof.treatments.infrastructure.repositories.command.VaccineWriteDataJPARepository;
@@ -80,5 +85,32 @@ public class VaccineServiceImpl implements IVaccineService {
         return new PaginatedResponse(allergyResponses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        for (FilterCriteria filter : filterCriteria) {
+            if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
+                try {
+                    VaccinationStatus enumValue = VaccinationStatus.valueOf((String) filter.getValue());
+                    filter.setValue(enumValue);
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Valor inválido para el tipo Enum RoleStatus: " + filter.getValue());
+                }
+            }
+        }
+        GenericSpecificationsBuilder<Vaccine> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<Vaccine> data = this.repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<Vaccine> data) {
+        List<VaccineResponse> vaccineResponses = new ArrayList<>();
+        for (Vaccine p : data.getContent()) {
+            vaccineResponses.add(new VaccineResponse(p.toAggregate()));
+        }
+        return new PaginatedResponse(vaccineResponses, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
 
 }
