@@ -34,7 +34,6 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
 
     @Override
     public void handle(ConfirmPaymentReceiptCommand command) {
-        String status = EStatusReceipt.APPROVED.toString();
         TransactionsState transactionsState = paymentServiceClient.getTransactionsState(Integer.parseInt(command.getRequestId()));
         ReceiptDto _receipt = this.service.findById(command.getReceiptId());
         PatientDto _patient = this.servicePatient.findById(command.getUserId());
@@ -48,14 +47,13 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
         _receipt.setIpAddressPayment(command.getIpAddress());
         _receipt.setUserAgentPayment(command.getUserAgent());
 
-        if (transactionsState.getValue().getStatus().getStatus().equals(status)
-        && command.getStatus().equals(EStatusReceipt.APPROVED)){
+        if (transactionsState.getValue().getStatus().getStatus().equals(EStatusReceipt.APPROVED.toString())){
             _receipt.setStatus(command.getStatus());
 //TODO
             //Enviar correo
         }
 
-        if(command.getStatus().equals(EStatusReceipt.CANCEL)){
+        if(transactionsState.getValue().getStatus().getStatus().equals(EStatusReceipt.CANCEL.toString())){
             //TO DO
             //Liverar el stock
             //Enviar Correo de cancelado
@@ -63,8 +61,7 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
             cleanStock(_schedule);
 
         }
-        if (transactionsState.getValue().getStatus().getStatus().equals(status)
-                && command.getStatus().equals(EStatusReceipt.REJECTED)){
+        if (transactionsState.getValue().getStatus().getStatus().equals(EStatusReceipt.REJECTED.toString())){
             //TO DO
             //Validar el estado del pago, si el estado es pendiente de pago o pago hacer el proceso de confirmado ,sino cambiar el estado
             cleanStock(_schedule);

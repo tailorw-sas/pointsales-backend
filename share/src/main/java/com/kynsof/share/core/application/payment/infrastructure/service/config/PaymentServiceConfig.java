@@ -15,4 +15,7 @@ public class PaymentServiceConfig {
 
     @Value("${payment.service.expiration}")
     private int paymentExpirationMinutes;
+
+    @Value("${payment.service.port}")
+    private int paymentServicePort;
 }
