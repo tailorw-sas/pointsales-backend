@@ -59,8 +59,8 @@ public class UserSystem implements Serializable {
 
     public UserSystemDto toAggregate() {
 
-        UserSystemImageDto i = this.image != null ? this.image.toAggregate() : null;
+        //UserSystemImageDto i = this.image != null ? this.image.toAggregate() : null;
         return new UserSystemDto(this.id, this.identification, this.email,
-                this.name, this.lastName, this.status, i);
+                this.name, this.lastName, this.status);
     }
 }

@@ -1,6 +1,5 @@
 package com.kynsof.rrhh.application.command.users.create;
 
-import com.kynsof.rrhh.application.command.device.create.*;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;

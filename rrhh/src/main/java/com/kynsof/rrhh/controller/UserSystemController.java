@@ -6,8 +6,13 @@ import com.kynsof.rrhh.application.command.users.create.CreateUserMessage;
 import com.kynsof.rrhh.application.command.users.create.CreateUserRequest;
 import com.kynsof.rrhh.application.query.users.getbyid.FindByIdUserSystemsQuery;
 import com.kynsof.rrhh.application.query.users.getbyid.UserSystemsByIdResponse;
+import com.kynsof.rrhh.application.query.users.search.GetSearchUsersQuery;
+import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import java.util.UUID;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +38,15 @@ public class UserSystemController {
         CreateUserMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchUsersQuery query = new GetSearchUsersQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
     @PostMapping("register-fingerprint")
