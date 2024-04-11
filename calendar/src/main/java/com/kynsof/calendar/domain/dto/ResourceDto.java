@@ -16,7 +16,6 @@ import java.util.UUID;
 public class ResourceDto implements Serializable {
 
     private UUID id;
-    private String picture;
     private String name;
     private String registrationNumber;
     private String language;
@@ -25,10 +24,9 @@ public class ResourceDto implements Serializable {
     private UUID image;
     private boolean deleted;
 
-    public ResourceDto(UUID id, String picture, String name, String registrationNumber, String language,
+    public ResourceDto(UUID id,  String name, String registrationNumber, String language,
                        EResourceStatus status, Boolean expressAppointments) {
         this.id = id;
-        this.picture = picture;
         this.name = name;
         this.registrationNumber = registrationNumber;
         this.language = language;

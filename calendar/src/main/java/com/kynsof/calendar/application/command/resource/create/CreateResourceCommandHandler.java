@@ -18,7 +18,6 @@ public class CreateResourceCommandHandler implements ICommandHandler<CreateResou
     public void handle(CreateResourceCommand command) {
         service.create(new ResourceDto(
                 command.getId(),
-                command.getPicture(),
                 command.getName(),
                 command.getRegistrationNumber(),
                 command.getLanguage(),

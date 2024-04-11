@@ -69,9 +69,6 @@ public class ResourceServiceImpl implements IResourceService {
                     if (objectDto.getName() != null) {
                         object.setName(objectDto.getName());
                     }
-                    if (objectDto.getPicture() != null) {
-                        object.setPicture(objectDto.getPicture());
-                    }
                     if (objectDto.getImage() != null) {
                         object.setImage(objectDto.getImage());
                     }

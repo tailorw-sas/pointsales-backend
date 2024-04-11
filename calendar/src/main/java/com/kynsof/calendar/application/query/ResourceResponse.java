@@ -15,7 +15,6 @@ import java.util.UUID;
 public class ResourceResponse implements IResponse {
     private UUID id;
     private String name;
-    private String picture;
     private String registrationNumber;
     private String language;
     private EResourceStatus status;
@@ -27,7 +26,6 @@ public class ResourceResponse implements IResponse {
     public ResourceResponse(ResourceDto object) {
         this.id = object.getId();
         this.name = object.getName();
-        this.picture = object.getPicture();
         this.registrationNumber = object.getRegistrationNumber();
         this.language = object.getLanguage();
         this.status = object.getStatus();
