@@ -10,16 +10,12 @@ import com.kynsof.identity.infrastructure.identity.ModuleSystem;
 import com.kynsof.identity.infrastructure.repository.command.BusinessWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.BusinessModuleReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARepository;
-import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerCreateBusinessEventService;
-import com.kynsof.share.core.domain.RulesChecker;
-import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.share.utils.ConfigureTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,22 +39,11 @@ public class BusinessServiceImpl implements IBusinessService {
     private BusinessReadDataJPARepository repositoryQuery;
 
     @Autowired
-    private ProducerCreateBusinessEventService createBusinessEventService;
-
-    @Autowired
     private BusinessModuleReadDataJPARepository businessModuleReadDataJPARepository;
 
     @Override
-    public UUID create(BusinessDto object) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(object, "Business", "Business DTO cannot be null."));
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(object.getId(), "Business.id", "Business ID cannot be null."));
-
-        object.setStatus(EBusinessStatus.ACTIVE);
-        object.setCreateAt(ConfigureTimeZone.getTimeZone());
-
-        Business entity = this.repositoryCommand.save(new Business(object));
-        createBusinessEventService.create(object);
-        return entity.getId();
+    public void create(BusinessDto object) {
+        this.repositoryCommand.save(new Business(object));
     }
 
     @Override

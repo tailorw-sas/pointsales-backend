@@ -41,7 +41,7 @@ public class CreateWalletTransactionCommandHandler implements ICommandHandler<Cr
 
         GeographicLocationDto location = this.geographicLocationService.findById(command.getGeographicLocation());
         UUID idLogo = UUID.randomUUID();
-        UUID id = service.create(new BusinessDto(
+        service.create(new BusinessDto(
                 command.getId(),
                 command.getName(),
                 command.getLatitude(),
@@ -58,7 +58,5 @@ public class CreateWalletTransactionCommandHandler implements ICommandHandler<Cr
                     command.getLogo());
             saveFileEventService.create(fileSave);
         }
-        command.setId(id);
-
     }
 }

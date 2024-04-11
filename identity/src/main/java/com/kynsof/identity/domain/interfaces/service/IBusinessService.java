@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface IBusinessService {
 
-    UUID create(BusinessDto object);
+    void create(BusinessDto object);
 
     void update(BusinessDto object);
 
