@@ -48,7 +48,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     PERMISSION_CODE_CANNOT_BE_EMPTY(643, Series.DOMAIN_ERROR, "The code of the permission cannot be empty."),
     DEVICE_NOT_FOUND(644, Series.DOMAIN_ERROR, "Device not found."),
     DEVICE_IP_VALIDATE(645, Series.DOMAIN_ERROR, "La direccion ip no es correcta."),
-    DEVICE_SERIAL_CANNOT_BE_EMPTY(646, Series.DOMAIN_ERROR, "The serial of the device cannot be empty.");
+    DEVICE_SERIAL_CANNOT_BE_EMPTY(646, Series.DOMAIN_ERROR, "The serial of the device cannot be empty."),
+    DEVICE_EMAIL_VALIDATE(647, Series.DOMAIN_ERROR, "Direccion de correo incorrecta.");
 
     private static final DomainErrorMessage[] VALUES;
 
