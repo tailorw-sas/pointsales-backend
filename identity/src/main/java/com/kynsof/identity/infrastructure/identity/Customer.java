@@ -39,4 +39,13 @@ public class Customer {
         this.email = customer.getEmail();
     }
 
+    public CustomerDto toAggregate () {
+        return new CustomerDto(
+                id, 
+                firstName, 
+                lastName, 
+                email
+        );
+    }
+
 }
