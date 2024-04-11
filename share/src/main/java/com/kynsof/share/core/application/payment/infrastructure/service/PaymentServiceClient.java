@@ -158,6 +158,7 @@ class PaymentServiceClient implements IPaymentServiceClient {
             } else {
                 throw new RuntimeException("Respuesta no exitosa del servidor: " + response.getStatusCode());
             }
+
         } catch (Exception e) {
             throw new RuntimeException("Falló al obtener el estado de la transacción.", e);
         }
