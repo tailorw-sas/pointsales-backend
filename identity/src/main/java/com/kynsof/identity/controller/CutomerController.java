@@ -6,6 +6,8 @@ import com.kynsof.identity.application.command.customer.create.CreateCustomerReq
 import com.kynsof.identity.application.command.customer.update.UpdateCustomerCommand;
 import com.kynsof.identity.application.command.customer.update.UpdateCustomerMessage;
 import com.kynsof.identity.application.command.customer.update.UpdateCustomerRequest;
+import com.kynsof.identity.application.query.customer.getbyid.CustomerResponse;
+import com.kynsof.identity.application.query.customer.getbyid.FindCustomerByIdQuery;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +25,7 @@ public class CutomerController {
     }
 
     @PostMapping()
-    public ResponseEntity<CreateCustomerMessage> create(@RequestBody CreateCustomerRequest request)  {
+    public ResponseEntity<?> create(@RequestBody CreateCustomerRequest request)  {
         CreateCustomerCommand createCommand = CreateCustomerCommand.fromRequest(request);
         CreateCustomerMessage response = mediator.send(createCommand);
 
@@ -31,10 +33,19 @@ public class CutomerController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UpdateCustomerMessage> update(@PathVariable("id") UUID id, @RequestBody UpdateCustomerRequest request) {
+    public ResponseEntity<?> update(@PathVariable("id") UUID id, @RequestBody UpdateCustomerRequest request) {
 
         UpdateCustomerCommand command = UpdateCustomerCommand.fromRequest(request,id);
         UpdateCustomerMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<?> getById(@PathVariable UUID id) {
+
+        FindCustomerByIdQuery query = new FindCustomerByIdQuery(id);
+        CustomerResponse response = mediator.send(query);
+
         return ResponseEntity.ok(response);
     }
 
