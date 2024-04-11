@@ -2,7 +2,6 @@ package com.kynsof.rrhh.infrastructure.identity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kynsof.rrhh.doman.dto.UserSystemDto;
-import com.kynsof.rrhh.doman.dto.UserSystemImageDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
