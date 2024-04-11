@@ -11,7 +11,7 @@ public class DeviceSerialMustBeNullRule extends BusinessRule {
     public DeviceSerialMustBeNullRule(String serial) {
         super(
                 DomainErrorMessage.DEVICE_SERIAL_CANNOT_BE_EMPTY, 
-                new ErrorField("Device.serial", "The serial of the device cannot be empty.")
+                new ErrorField("serial", "The serial of the device cannot be empty.")
         );
         this.serial = serial;
     }

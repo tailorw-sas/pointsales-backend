@@ -1,5 +1,6 @@
 package com.kynsof.rrhh.infrastructure.identity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kynsof.rrhh.doman.dto.UserSystemDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -40,6 +41,11 @@ public class UserSystem implements Serializable {
     @OneToMany(mappedBy = "userSystem", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserBusinessRelation> userBusinessRelations;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    @JsonIgnore
+    private UserSystemImage image;
+
     public UserSystem(UserSystemDto dto) {
         this.id = dto.getId();
         this.identification = dto.getIdentification();
@@ -47,10 +53,12 @@ public class UserSystem implements Serializable {
         this.name = dto.getName();
         this.lastName = dto.getLastName();
         this.status = dto.getStatus();
+        this.image = dto.getImage() != null ? new UserSystemImage(dto.getImage()) : null;
     }
 
     public UserSystemDto toAggregate() {
 
+        //UserSystemImageDto i = this.image != null ? this.image.toAggregate() : null;
         return new UserSystemDto(this.id, this.identification, this.email,
                 this.name, this.lastName, this.status);
     }

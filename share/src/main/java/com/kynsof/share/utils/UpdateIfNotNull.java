@@ -16,10 +16,12 @@ public class UpdateIfNotNull {
         }
     }
 
-    public static void updateIfStringNotNull(Consumer<String> setter, String value) {
+    public static boolean updateIfStringNotNull(Consumer<String> setter, String value) {
         if (value != null && !value.isEmpty()) {
             setter.accept(value);
+            return true;
         }
+        return false;
     }
 
 }
