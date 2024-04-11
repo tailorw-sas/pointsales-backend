@@ -1,5 +1,6 @@
 package com.kynsof.identity.infrastructure.identity;
 
+import com.kynsof.identity.domain.dto.CustomerDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,4 +31,12 @@ public class Customer {
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private Wallet wallet;
+
+    public Customer(CustomerDto customer) {
+        this.id = customer.getId();
+        this.firstName = customer.getFirstName();
+        this.lastName = customer.getLastName();
+        this.email = customer.getEmail();
+    }
+
 }
