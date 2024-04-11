@@ -79,6 +79,6 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 geographicLocationDto
         ));
         command.setId(id);
-        this.dependentPatientsEventService.create(patientDto);
+        this.dependentPatientsEventService.create(patientDto, command.getCreateContactInfoRequest().getBirthdayDate());
     }
 }

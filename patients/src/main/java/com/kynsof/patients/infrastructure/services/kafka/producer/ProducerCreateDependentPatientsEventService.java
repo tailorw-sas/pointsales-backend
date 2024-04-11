@@ -6,6 +6,7 @@ import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.share.core.domain.kafka.entity.UserKafka;
 import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
+import java.time.LocalDate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class ProducerCreateDependentPatientsEventService {
         this.producer = producer;
     }
 
-    public void create(PatientDto entity) {
+    public void create(PatientDto entity, LocalDate birthdayDate) {
 
         try {
 
@@ -35,6 +36,8 @@ public class ProducerCreateDependentPatientsEventService {
                     entity.getGender().toString(), 
                     entity.getStatus().toString()
             );
+
+            event.setBirthdayDate(birthdayDate.toString());
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));

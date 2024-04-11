@@ -75,6 +75,6 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
                 geographicLocationDto
         ));
 
-        this.patientEventService.create(patientDto);
+        this.patientEventService.create(patientDto, command.getCreateContactInfoRequest().getBirthdayDate());
     }
 }
