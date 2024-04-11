@@ -1,4 +1,4 @@
-package com.kynsof.rrhh.application.command.user.create;
+package com.kynsof.rrhh.application.command.users.create;
 
 import com.kynsof.rrhh.doman.dto.UserSystemDto;
 import com.kynsof.rrhh.doman.dto.UserSystemImageDto;

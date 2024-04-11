@@ -1,9 +1,9 @@
 package com.kynsof.rrhh.controller;
 
 import com.kynsof.rrhh.application.command.registerFingerprint.RegisterFingerprintRequest;
-import com.kynsof.rrhh.application.command.user.create.CreateUserCommand;
-import com.kynsof.rrhh.application.command.user.create.CreateUserMessage;
-import com.kynsof.rrhh.application.command.user.create.CreateUserRequest;
+import com.kynsof.rrhh.application.command.users.create.CreateUserCommand;
+import com.kynsof.rrhh.application.command.users.create.CreateUserMessage;
+import com.kynsof.rrhh.application.command.users.create.CreateUserRequest;
 import com.kynsof.rrhh.application.query.users.getbyid.FindByIdUserSystemsQuery;
 import com.kynsof.rrhh.application.query.users.getbyid.UserSystemsByIdResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;

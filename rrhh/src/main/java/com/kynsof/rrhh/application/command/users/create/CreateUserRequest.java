@@ -1,4 +1,4 @@
-package com.kynsof.rrhh.application.command.user.create;
+package com.kynsof.rrhh.application.command.users.create;
 
 import lombok.Getter;
 import lombok.Setter;
