@@ -12,5 +12,5 @@ import java.util.UUID;
 
 public interface CustomerReadDataJPARepository extends JpaRepository<Customer, UUID>, JpaSpecificationExecutor<Customer> {
 
-    Page<Business> findAll(Specification specification, Pageable pageable);
+    Page<Customer> findAll(Specification specification, Pageable pageable);
 }
