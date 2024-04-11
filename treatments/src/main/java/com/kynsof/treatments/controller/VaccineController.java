@@ -2,9 +2,12 @@ package com.kynsof.treatments.controller;
 
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
+import com.kynsof.treatments.application.command.patientVaccine.update.UpdatePatientVaccineMessage;
 import com.kynsof.treatments.application.command.vaccine.create.CreateVaccineCommand;
 import com.kynsof.treatments.application.command.vaccine.create.CreateVaccineMessage;
 import com.kynsof.treatments.application.command.vaccine.create.CreateVaccineRequest;
+import com.kynsof.treatments.application.command.vaccine.update.UpdateVaccineCommand;
+import com.kynsof.treatments.application.command.vaccine.update.UpdateVaccineRequest;
 import com.kynsof.treatments.application.query.vaccine.getById.FindByIdVaccineQuery;
 import com.kynsof.treatments.application.query.vaccine.getEligibleVaccines.EligibleVaccinesResponse;
 import com.kynsof.treatments.application.query.vaccine.getEligibleVaccines.GetEligibleVaccinesQuery;
@@ -64,11 +67,11 @@ public class VaccineController {
         return ResponseEntity.ok(response);
     }
 
-//    @PutMapping(path = "/{id}")
-//    public ResponseEntity<UpdatePatientVaccineMessage> update(@PathVariable UUID id, @RequestBody UpdatePatientVaccineRequest request) {
-//        UpdatePatientVaccineCommand command = UpdatePatientVaccineCommand.fromRequest(id,request );
-//        UpdatePatientVaccineMessage response = mediator.send(command);
-//        return ResponseEntity.ok(response);
-//    }
+    @PatchMapping(path = "/{id}")
+    public ResponseEntity<UpdatePatientVaccineMessage> update(@PathVariable UUID id, @RequestBody UpdateVaccineRequest request) {
+        UpdateVaccineCommand command = UpdateVaccineCommand.fromRequest(id,request );
+        UpdatePatientVaccineMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
 
 }
