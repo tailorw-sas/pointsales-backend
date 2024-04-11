@@ -33,7 +33,7 @@ public class UserSystemImage implements Serializable {
     }
 
     public UserSystemImageDto toAggregate () {
-        return new UserSystemImageDto(id, image);
+        return new UserSystemImageDto(id, image, userSystem.toAggregate());
     }
 
 }

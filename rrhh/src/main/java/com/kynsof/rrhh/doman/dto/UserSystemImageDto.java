@@ -16,4 +16,11 @@ public class UserSystemImageDto implements Serializable {
 
     private UUID id;
     private byte[] image;
+    private UserSystemDto user;
+
+    public UserSystemImageDto(UUID id, byte[] image) {
+        this.id = id;
+        this.image = image;
+    }
+
 }

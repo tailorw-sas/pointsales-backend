@@ -1,6 +1,9 @@
 package com.kynsof.rrhh.controller;
 
 import com.kynsof.rrhh.application.command.registerFingerprint.RegisterFingerprintRequest;
+import com.kynsof.rrhh.application.command.user.create.CreateUserCommand;
+import com.kynsof.rrhh.application.command.user.create.CreateUserMessage;
+import com.kynsof.rrhh.application.command.user.create.CreateUserRequest;
 import com.kynsof.rrhh.application.query.users.getbyid.FindByIdUserSystemsQuery;
 import com.kynsof.rrhh.application.query.users.getbyid.UserSystemsByIdResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -22,6 +25,14 @@ public class UserSystemController {
 
     public UserSystemController(IMediator mediator) {
         this.mediator = mediator;
+    }
+
+    @PostMapping()
+    public ResponseEntity<CreateUserMessage> create(@RequestBody CreateUserRequest request)  {
+        CreateUserCommand createCommand = CreateUserCommand.fromRequest(request);
+        CreateUserMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("register-fingerprint")
