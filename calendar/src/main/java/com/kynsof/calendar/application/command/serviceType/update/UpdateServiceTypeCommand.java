@@ -22,7 +22,7 @@ public class UpdateServiceTypeCommand implements ICommand {
     }
 
     public static UpdateServiceTypeCommand fromRequest(UUID id, UpdateServiceTypeRequest request) {
-        return new UpdateServiceTypeCommand(id, request.getName(), request.getPicture() );
+        return new UpdateServiceTypeCommand(id, request.getName(), request.getImage() );
     }
 
     @Override

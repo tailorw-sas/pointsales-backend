@@ -30,7 +30,7 @@ public class CreateServiceCommand implements ICommand {
     }
 
     public static CreateServiceCommand fromRequest(CreateServiceRequest request) {
-        return new CreateServiceCommand(request.getName(), request.getPicture(), request.getDescription(),
+        return new CreateServiceCommand(request.getName(), request.getImage(), request.getDescription(),
                 request.getServiceTypeId(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice());
     }
 

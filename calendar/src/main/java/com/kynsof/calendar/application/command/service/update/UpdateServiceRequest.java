@@ -9,7 +9,7 @@ import java.util.UUID;
 @Setter
 public class UpdateServiceRequest {
     private UUID serviceTypeId;
-    private byte[] picture;
+    private byte[] image;
     private String name;
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;

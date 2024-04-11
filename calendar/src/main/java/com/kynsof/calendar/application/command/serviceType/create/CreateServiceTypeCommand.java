@@ -22,7 +22,7 @@ public class CreateServiceTypeCommand implements ICommand {
     }
 
     public static CreateServiceTypeCommand fromRequest(CreateServiceTypeRequest request) {
-        return new CreateServiceTypeCommand(request.getName(), request.getPicture());
+        return new CreateServiceTypeCommand(request.getName(), request.getImage());
     }
 
     @Override

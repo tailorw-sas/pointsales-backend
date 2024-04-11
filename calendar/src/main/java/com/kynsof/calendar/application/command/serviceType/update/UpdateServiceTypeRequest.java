@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class UpdateServiceTypeRequest {
     private String name;
-    private byte[] picture;
+    private byte[] image;
 }
