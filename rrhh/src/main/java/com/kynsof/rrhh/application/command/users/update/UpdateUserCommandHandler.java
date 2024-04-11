@@ -3,7 +3,7 @@ package com.kynsof.rrhh.application.command.users.update;
 import com.kynsof.rrhh.doman.dto.UserSystemDto;
 import com.kynsof.rrhh.doman.dto.UserSystemImageDto;
 import com.kynsof.rrhh.doman.interfaces.services.IUserSystemService;
-import com.kynsof.rrhh.doman.rules.users.DeviceEmailValidateRule;
+import com.kynsof.rrhh.doman.rules.users.UserSystemEmailValidateRule;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
@@ -31,7 +31,7 @@ public class UpdateUserCommandHandler implements ICommandHandler<UpdateUserComma
 
         UpdateIfNotNull.updateIfStringNotNull(update::setIdentification, command.getIdentification());
         if (UpdateIfNotNull.updateIfStringNotNull(update::setEmail, command.getEmail())) {
-            RulesChecker.checkRule(new DeviceEmailValidateRule(command.getEmail()));
+            RulesChecker.checkRule(new UserSystemEmailValidateRule(command.getEmail()));
         }
         UpdateIfNotNull.updateIfStringNotNull(update::setLastName, command.getLastName());
         UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());

@@ -13,7 +13,7 @@ public class DeviceIpValidateRule extends BusinessRule {
     public DeviceIpValidateRule(String ip) {
         super(
                 DomainErrorMessage.DEVICE_IP_VALIDATE,
-                new ErrorField("Device.ip", "La direccion ip no es correcta.")
+                new ErrorField("ip", "La direccion ip no es correcta.")
         );
         this.ip = ip;
     }

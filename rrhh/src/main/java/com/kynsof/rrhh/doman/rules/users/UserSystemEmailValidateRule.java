@@ -6,14 +6,14 @@ import com.kynsof.share.core.domain.rules.BusinessRule;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DeviceEmailValidateRule extends BusinessRule {
+public class UserSystemEmailValidateRule extends BusinessRule {
 
     private final String email;
 
-    public DeviceEmailValidateRule(String email) {
+    public UserSystemEmailValidateRule(String email) {
         super(
                 DomainErrorMessage.DEVICE_EMAIL_VALIDATE,
-                new ErrorField("User.email", "Direccion de correo incorrecta.")
+                new ErrorField("email", "Direccion de correo incorrecta.")
         );
         this.email = email;
     }
