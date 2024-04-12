@@ -96,10 +96,10 @@ public class ResourceController {
         return ResponseEntity.ok(data);
     }
 
-    @PostMapping("/add-services/{resourceId}")
-    public ResponseEntity<?> addServices(@PathVariable("resourceId") UUID resourceId, @RequestBody AddServiceRequest request)
+    @PostMapping("/add-services")
+    public ResponseEntity<?> addServices( @RequestBody AddServiceRequest request)
     {
-        AddServiceCommand command = AddServiceCommand.fromRequest(resourceId,request);
+        AddServiceCommand command = AddServiceCommand.fromRequest(request);
         AddServiceMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }

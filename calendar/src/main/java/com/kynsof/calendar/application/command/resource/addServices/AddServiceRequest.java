@@ -9,7 +9,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class AddServiceRequest {
-
+    private UUID resourceId;
     private List<UUID> serviceIds;
 
 }
