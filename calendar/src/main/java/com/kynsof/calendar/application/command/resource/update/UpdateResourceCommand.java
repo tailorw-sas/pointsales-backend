@@ -14,15 +14,13 @@ public class UpdateResourceCommand implements ICommand {
 
     private UUID id;
     private String picture;
-    private String name;
     private String registrationNumber;
     private String language;
     private EResourceStatus status;
     private Boolean expressAppointments;
 
-    public UpdateResourceCommand(UUID id, String name, String picture, String registrationNumber, String language, EResourceStatus status, Boolean expressAppointments) {
+    public UpdateResourceCommand(UUID id,  String picture, String registrationNumber, String language, EResourceStatus status, Boolean expressAppointments) {
         this.id = id;
-        this.name = name;
         this.picture = picture;
         this.registrationNumber = registrationNumber;
         this.language = language;
@@ -30,8 +28,9 @@ public class UpdateResourceCommand implements ICommand {
         this.expressAppointments = expressAppointments;
     }
 
-    public static UpdateResourceCommand fromRequest(UpdateResourceRequest request) {
-        return new UpdateResourceCommand(request.getId(), request.getName(), request.getPicture(), request.getRegistrationNumber(), request.getLanguage(), request.getStatus(), request.getExpressAppointments());
+    public static UpdateResourceCommand fromRequest(UUID id, UpdateResourceRequest request) {
+        return new UpdateResourceCommand(id,  request.getImage(), request.getRegistrationNumber(), request.getLanguage(),
+                request.getStatus(), request.getExpressAppointments());
     }
 
     @Override

@@ -22,8 +22,8 @@ public class AddServiceCommand implements ICommand {
         this.serviceIds = serviceIds;
     }
 
-    public static AddServiceCommand fromRequest(UUID id, AddServiceRequest request) {
-        return new AddServiceCommand(id, request.getServiceIds());
+    public static AddServiceCommand fromRequest(AddServiceRequest request) {
+        return new AddServiceCommand(request.getResourceId(), request.getServiceIds());
     }
 
     @Override

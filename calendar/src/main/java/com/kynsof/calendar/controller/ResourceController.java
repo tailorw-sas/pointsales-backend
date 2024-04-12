@@ -3,9 +3,6 @@ package com.kynsof.calendar.controller;
 import com.kynsof.calendar.application.command.resource.addServices.AddServiceCommand;
 import com.kynsof.calendar.application.command.resource.addServices.AddServiceMessage;
 import com.kynsof.calendar.application.command.resource.addServices.AddServiceRequest;
-import com.kynsof.calendar.application.command.resource.create.CreateResourceCommand;
-import com.kynsof.calendar.application.command.resource.create.CreateResourceMessage;
-import com.kynsof.calendar.application.command.resource.create.CreateResourceRequest;
 import com.kynsof.calendar.application.command.resource.delete.ResourceDeleteCommand;
 import com.kynsof.calendar.application.command.resource.delete.ResourceDeleteMessage;
 import com.kynsof.calendar.application.command.resource.update.UpdateResourceCommand;
@@ -38,13 +35,6 @@ public class ResourceController {
         this.mediator = mediator;
     }
 
-    @PostMapping("")
-    public ResponseEntity<CreateResourceMessage> create(@RequestBody CreateResourceRequest request)  {
-        CreateResourceCommand createCommand = CreateResourceCommand.fromRequest(request);
-        CreateResourceMessage response = mediator.send(createCommand);
-
-        return ResponseEntity.ok(response);
-    }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<ResourceResponse> getById(@PathVariable UUID id) {
@@ -86,10 +76,9 @@ public class ResourceController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping()
-    public ResponseEntity<UpdateResourceMessage> update(@RequestBody UpdateResourceRequest request) {
-
-        UpdateResourceCommand command = UpdateResourceCommand.fromRequest(request);
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateResourceMessage> update(@PathVariable("id") UUID id, @RequestBody UpdateResourceRequest request) {
+        UpdateResourceCommand command = UpdateResourceCommand.fromRequest(id,request);
         UpdateResourceMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
@@ -107,10 +96,10 @@ public class ResourceController {
         return ResponseEntity.ok(data);
     }
 
-    @PostMapping("/add-services/{resourceId}")
-    public ResponseEntity<?> addServices(@PathVariable("resourceId") UUID resourceId, @RequestBody AddServiceRequest request)
+    @PostMapping("/add-services")
+    public ResponseEntity<?> addServices( @RequestBody AddServiceRequest request)
     {
-        AddServiceCommand command = AddServiceCommand.fromRequest(resourceId,request);
+        AddServiceCommand command = AddServiceCommand.fromRequest(request);
         AddServiceMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }

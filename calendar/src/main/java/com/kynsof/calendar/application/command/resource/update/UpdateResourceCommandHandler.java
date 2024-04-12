@@ -16,13 +16,25 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
 
     @Override
     public void handle(UpdateResourceCommand command) {
-        service.update(new ResourceDto(
-                command.getId(),
-                command.getName(),
-                command.getRegistrationNumber(),
-                command.getLanguage(),
-                command.getStatus(),                
-                command.getExpressAppointments()
-        ));
+
+        //TODO yannier las reglas de validacion
+        try {
+            ResourceDto _resource = service.findById(command.getId());
+
+            _resource.setRegistrationNumber(command.getRegistrationNumber());
+            _resource.setLanguage(command.getLanguage());
+            command.setExpressAppointments(command.getExpressAppointments());
+            service.update(_resource
+            );
+        }catch (Exception ex){
+            ResourceDto _resource = new ResourceDto(command.getId(),"", command.getRegistrationNumber(), command.getLanguage(),
+                    command.getStatus(),command.getExpressAppointments());
+            _resource.setRegistrationNumber(command.getRegistrationNumber());
+            _resource.setLanguage(command.getLanguage());
+            command.setExpressAppointments(command.getExpressAppointments());
+            service.create(_resource
+            );
+        }
+
     }
 }
