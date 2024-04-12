@@ -15,5 +15,6 @@ public interface IVaccineService {
     PaginatedResponse findAll(Pageable pageable, String name, String description);
     PaginatedResponse getApplicableVaccines(LocalDate birthDate, UUID patientId, Pageable pageable);
     UUID create(VaccineDto vaccineDto);
+    void update(VaccineDto vaccineDto);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }

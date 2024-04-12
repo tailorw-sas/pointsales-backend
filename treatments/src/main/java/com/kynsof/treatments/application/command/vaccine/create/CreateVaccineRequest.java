@@ -5,6 +5,8 @@ import com.kynsof.treatments.domain.dto.enumDto.VaccineType;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 public class CreateVaccineRequest {
@@ -16,4 +18,5 @@ public class CreateVaccineRequest {
     private String dose;
     private RouteOfAdministration routeOfAdministration;
     private String preventableDiseases;
+    private UUID serviceId;
 }

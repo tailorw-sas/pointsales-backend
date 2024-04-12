@@ -20,6 +20,7 @@ public class VaccineResponse implements IResponse {
     private VaccineType type;
     private double minAge;
     private double maxAge;
+    private UUID serviceId;
 
 
     public VaccineResponse(VaccineDto dto) {
@@ -29,6 +30,7 @@ public class VaccineResponse implements IResponse {
         this.type = dto.getType();
         this.minAge = dto.getMinAge();
         this.maxAge = dto.getMaxAge();
+        this.serviceId = dto.getServiceId();
     }
 
 }

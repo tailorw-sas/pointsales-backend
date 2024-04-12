@@ -1,17 +1,23 @@
 package com.kynsof.treatments.application.command.vaccine.update;
 
+import com.kynsof.treatments.domain.dto.enumDto.RouteOfAdministration;
+import com.kynsof.treatments.domain.dto.enumDto.VaccineType;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class UpdateVaccineRequest {
-
-    private String identification;
     private String name;
-    private String lastName;
-    private String gender;
-    private LocalDate birthDate;
+    private String description;
+    private VaccineType type;
+    private double minAge;
+    private double maxAge;
+    private String dose;
+    private RouteOfAdministration routeOfAdministration;
+    private String preventableDiseases;
+    private UUID serviceId;
+
 }

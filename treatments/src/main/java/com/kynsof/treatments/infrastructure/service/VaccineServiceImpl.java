@@ -104,6 +104,11 @@ public class VaccineServiceImpl implements IVaccineService {
     }
 
     @Override
+    public void update(VaccineDto vaccineDto) {
+        this.repositoryCommand.save(new Vaccine(vaccineDto));
+    }
+
+    @Override
     public PaginatedResponse findAll(Pageable pageable, String name, String description) {
         Cie10Specifications specifications = new Cie10Specifications(name, description);
         Page<Vaccine> data = this.repositoryQuery.findAll(specifications, pageable);

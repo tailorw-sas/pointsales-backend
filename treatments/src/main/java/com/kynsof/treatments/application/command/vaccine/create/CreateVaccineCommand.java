@@ -21,10 +21,12 @@ public class CreateVaccineCommand implements ICommand {
     private final String dose;
     private final RouteOfAdministration routeOfAdministration;
     private final String preventableDiseases;
+    private final UUID serviceId;
 
 
     public CreateVaccineCommand(String name, String description, VaccineType type, double minAge, double maxAge,
-                                String dose, RouteOfAdministration routeOfAdministration, String preventableDiseases){
+                                String dose, RouteOfAdministration routeOfAdministration, String preventableDiseases,
+                                UUID serviceId){
 
 
         this.name = name;
@@ -35,12 +37,13 @@ public class CreateVaccineCommand implements ICommand {
         this.dose = dose;
         this.routeOfAdministration = routeOfAdministration;
         this.preventableDiseases = preventableDiseases;
+        this.serviceId = serviceId;
     }
 
     public static CreateVaccineCommand fromRequest(CreateVaccineRequest request) {
         return new CreateVaccineCommand(request.getName(), request.getDescription(), request.getType(),
                 request.getMinAge(), request.getMaxAge(),request.getDose(), request.getRouteOfAdministration(),
-                request.getPreventableDiseases());
+                request.getPreventableDiseases(),request.getServiceId() );
     }
 
 
