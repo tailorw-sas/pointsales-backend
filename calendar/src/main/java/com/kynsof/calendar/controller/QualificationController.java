@@ -1,4 +1,4 @@
-package com.kynsof.calendar.infrastructure.controller;
+package com.kynsof.calendar.controller;
 
 import com.kynsof.calendar.application.command.qualification.create.CreateQualificationCommand;
 import com.kynsof.calendar.application.command.qualification.create.CreateQualificationMessage;

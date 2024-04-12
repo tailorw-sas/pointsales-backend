@@ -1,4 +1,4 @@
-package com.kynsof.calendar.infrastructure.controller;
+package com.kynsof.calendar.controller;
 
 import com.kynsof.calendar.application.command.schedule.create.CreateScheduleCommand;
 import com.kynsof.calendar.application.command.schedule.create.CreateScheduleMessage;

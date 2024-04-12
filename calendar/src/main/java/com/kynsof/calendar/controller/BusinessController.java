@@ -1,4 +1,4 @@
-package com.kynsof.calendar.infrastructure.controller;
+package com.kynsof.calendar.controller;
 
 import com.kynsof.calendar.application.query.BusinessResponse;
 import com.kynsof.calendar.application.query.business.findBusinessesWithAvailableStock.FindBusinessesWithAvailableStockQuery;

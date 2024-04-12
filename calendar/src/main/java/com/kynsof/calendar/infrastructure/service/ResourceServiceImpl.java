@@ -84,7 +84,6 @@ public class ResourceServiceImpl implements IResourceService {
 
         ResourceDto objectDelete = this.findById(id);
         objectDelete.setStatus(EResourceStatus.INACTIVE);
-        objectDelete.setDeleted(true);
 
         this.repositoryCommand.save(new Resource(objectDelete));
     }

@@ -1,5 +1,8 @@
-package com.kynsof.calendar.infrastructure.controller;
+package com.kynsof.calendar.controller;
 
+import com.kynsof.calendar.application.command.resource.addServices.AddServiceCommand;
+import com.kynsof.calendar.application.command.resource.addServices.AddServiceMessage;
+import com.kynsof.calendar.application.command.resource.addServices.AddServiceRequest;
 import com.kynsof.calendar.application.command.resource.create.CreateResourceCommand;
 import com.kynsof.calendar.application.command.resource.create.CreateResourceMessage;
 import com.kynsof.calendar.application.command.resource.create.CreateResourceRequest;
@@ -103,5 +106,15 @@ public class ResourceController {
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
+
+    @PostMapping("/add-services/{resourceId}")
+    public ResponseEntity<?> addServices(@PathVariable("resourceId") UUID resourceId, @RequestBody AddServiceRequest request)
+    {
+        AddServiceCommand command = AddServiceCommand.fromRequest(resourceId,request);
+        AddServiceMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+
 
 }

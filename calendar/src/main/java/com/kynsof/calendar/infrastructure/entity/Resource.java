@@ -2,6 +2,7 @@ package com.kynsof.calendar.infrastructure.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kynsof.calendar.domain.dto.ResourceDto;
+import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -12,8 +13,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -88,9 +91,11 @@ public class Resource {
         this.status = resourceDto.getStatus();
         this.expressAppointments = resourceDto.getExpressAppointments();
         this.image = resourceDto.getImage();
+        services = resourceDto.getServices().stream().map(Services::new).collect(Collectors.toSet());
     }
 
     public ResourceDto toAggregate () {
-        return new ResourceDto(id,  name, registrationNumber, language, status, expressAppointments, image,  deleted);
+        List<ServiceDto> serviceDtos = services.stream().map(Services::toAggregate).toList();
+        return new ResourceDto(id,  name, registrationNumber, language, status, expressAppointments, image, serviceDtos);
     }
 }
