@@ -30,8 +30,8 @@ public class UpdateServiceCommand implements ICommand {
     }
 
 
-    public static UpdateServiceCommand fromRequest(UpdateServiceRequest request) {
-        return new UpdateServiceCommand(request.getId(), request.getServiceTypeId(), request.getPicture(), request.getName(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(), request.getDescription());
+    public static UpdateServiceCommand fromRequest(UUID id, UpdateServiceRequest request) {
+        return new UpdateServiceCommand(id, request.getServiceTypeId(), request.getImage(), request.getName(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(), request.getDescription());
     }
 
     @Override

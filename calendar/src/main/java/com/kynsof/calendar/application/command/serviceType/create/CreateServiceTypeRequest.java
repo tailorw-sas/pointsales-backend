@@ -8,6 +8,6 @@ import lombok.Setter;
 public class CreateServiceTypeRequest {
 
     private String name;
-    private  byte[] picture;
+    private  byte[] image;
 
 }

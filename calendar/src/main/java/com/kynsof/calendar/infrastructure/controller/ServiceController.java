@@ -82,10 +82,10 @@ public class ServiceController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping()
-    public ResponseEntity<UpdateServiceMessage> update(@RequestBody UpdateServiceRequest request) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateServiceMessage> update(@PathVariable("id") UUID id,@RequestBody UpdateServiceRequest request) {
 
-        UpdateServiceCommand command = UpdateServiceCommand.fromRequest(request);
+        UpdateServiceCommand command = UpdateServiceCommand.fromRequest(id,request);
         UpdateServiceMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }

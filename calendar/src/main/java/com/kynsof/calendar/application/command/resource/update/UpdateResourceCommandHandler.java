@@ -18,7 +18,6 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
     public void handle(UpdateResourceCommand command) {
         service.update(new ResourceDto(
                 command.getId(),
-                command.getPicture(),
                 command.getName(),
                 command.getRegistrationNumber(),
                 command.getLanguage(),

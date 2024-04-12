@@ -3,7 +3,6 @@ package com.kynsof.calendar.infrastructure.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
-import com.kynsof.share.core.domain.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -24,8 +23,6 @@ import java.util.UUID;
 public class Resource {
     @Id
     protected UUID id;
-    private String picture;
-
     @Size(max = 250)
     @NotBlank
     private String name;
@@ -85,7 +82,6 @@ public class Resource {
 
     public Resource(ResourceDto resourceDto) {
         this.id = resourceDto.getId();
-        this.picture = resourceDto.getPicture();
         this.name = resourceDto.getName();
         this.registrationNumber = resourceDto.getRegistrationNumber();
         this.language = resourceDto.getLanguage();
@@ -95,6 +91,6 @@ public class Resource {
     }
 
     public ResourceDto toAggregate () {
-        return new ResourceDto(id, picture, name, registrationNumber, language, status, expressAppointments, image,  deleted);
+        return new ResourceDto(id,  name, registrationNumber, language, status, expressAppointments, image,  deleted);
     }
 }

@@ -1,18 +1,14 @@
 package com.kynsof.treatments.application.query.vaccine.getEligibleVaccines;
 
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
-import com.kynsof.treatments.application.query.vaccine.getall.VaccineResponse;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.treatments.domain.dto.PatientDto;
-import com.kynsof.treatments.domain.dto.VaccineDto;
 import com.kynsof.treatments.domain.service.IPatientsService;
 import com.kynsof.treatments.domain.service.IVaccineService;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
-public class GetEligibleVaccinesQueryHandler implements IQueryHandler<GetEligibleVaccinesQuery,  EligibleVaccinesResponse> {
+public class GetEligibleVaccinesQueryHandler implements IQueryHandler<GetEligibleVaccinesQuery, PaginatedResponse> {
 
     private final IVaccineService serviceImpl;
     private final IPatientsService patientsService;
@@ -23,18 +19,9 @@ public class GetEligibleVaccinesQueryHandler implements IQueryHandler<GetEligibl
     }
 
     @Override
-    public EligibleVaccinesResponse handle(GetEligibleVaccinesQuery query) {
+    public PaginatedResponse handle(GetEligibleVaccinesQuery query) {
         PatientDto patientDto = patientsService.findById(query.getPatientId());
-        List<VaccineDto> vaccineResponses = this.serviceImpl.getApplicableVaccines(patientDto.getBirthDate(),query.getPatientId());
-        EligibleVaccinesResponse response = new EligibleVaccinesResponse();
 
-        List<VaccineResponse> responses = new ArrayList<>();
-        for (VaccineDto vaccineDto : vaccineResponses) {
-            VaccineResponse vaccineResponse = new VaccineResponse(vaccineDto);
-            responses.add(vaccineResponse);
-        }
-        response.setVaccineResponses(responses);
-
-        return response;
+        return this.serviceImpl.getApplicableVaccines(patientDto.getBirthDate(), query.getPatientId(), query.getPageable());
     }
 }

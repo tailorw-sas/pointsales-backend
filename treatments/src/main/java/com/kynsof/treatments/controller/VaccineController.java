@@ -1,15 +1,18 @@
 package com.kynsof.treatments.controller;
 
+import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
+import com.kynsof.treatments.application.command.patientVaccine.update.UpdatePatientVaccineMessage;
 import com.kynsof.treatments.application.command.vaccine.create.CreateVaccineCommand;
 import com.kynsof.treatments.application.command.vaccine.create.CreateVaccineMessage;
 import com.kynsof.treatments.application.command.vaccine.create.CreateVaccineRequest;
+import com.kynsof.treatments.application.command.vaccine.update.UpdateVaccineCommand;
+import com.kynsof.treatments.application.command.vaccine.update.UpdateVaccineRequest;
 import com.kynsof.treatments.application.query.vaccine.getById.FindByIdVaccineQuery;
-import com.kynsof.treatments.application.query.vaccine.getEligibleVaccines.EligibleVaccinesResponse;
 import com.kynsof.treatments.application.query.vaccine.getEligibleVaccines.GetEligibleVaccinesQuery;
-import com.kynsof.treatments.application.query.vaccine.getall.GetAllVaccineQuery;
 import com.kynsof.treatments.application.query.vaccine.getall.VaccineResponse;
+import com.kynsof.treatments.application.query.vaccine.search.GetSearchVaccineQuery;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -37,18 +40,6 @@ public class VaccineController {
     }
 
 
-    @GetMapping("/all")
-    public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
-                                                    @RequestParam(defaultValue = "0") Integer page,
-                                                    @RequestParam(defaultValue = "") String name,
-                                                    @RequestParam(defaultValue = "") String description)
-    {
-        Pageable pageable = PageRequest.of(page, pageSize);
-        GetAllVaccineQuery query = new GetAllVaccineQuery(pageable,name, description);
-        PaginatedResponse response = mediator.send(query);
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping(path = "/{id}")
     public ResponseEntity<VaccineResponse> getById(@PathVariable UUID id) {
 
@@ -57,18 +48,28 @@ public class VaccineController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/eligible/{patientId}")
-    public ResponseEntity<?> getEligibleVaccines( @PathVariable  UUID patientId) {
-        GetEligibleVaccinesQuery query = new GetEligibleVaccinesQuery(patientId);
-        EligibleVaccinesResponse response = mediator.send(query);
+    @PostMapping("/eligible/{patientId}")
+    public ResponseEntity<?> getEligibleVaccines( @PathVariable  UUID patientId,@RequestBody SearchRequest request) {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetEligibleVaccinesQuery query = new GetEligibleVaccinesQuery(patientId, pageable, request.getFilter());
+        PaginatedResponse response = mediator.send(query);
         return ResponseEntity.ok(response);
     }
 
-//    @PutMapping(path = "/{id}")
-//    public ResponseEntity<UpdatePatientVaccineMessage> update(@PathVariable UUID id, @RequestBody UpdatePatientVaccineRequest request) {
-//        UpdatePatientVaccineCommand command = UpdatePatientVaccineCommand.fromRequest(id,request );
-//        UpdatePatientVaccineMessage response = mediator.send(command);
-//        return ResponseEntity.ok(response);
-//    }
+    @PatchMapping(path = "/{id}")
+    public ResponseEntity<UpdatePatientVaccineMessage> update(@PathVariable UUID id, @RequestBody UpdateVaccineRequest request) {
+        UpdateVaccineCommand command = UpdateVaccineCommand.fromRequest(id,request );
+        UpdatePatientVaccineMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchVaccineQuery query = new GetSearchVaccineQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
+    }
 
 }
