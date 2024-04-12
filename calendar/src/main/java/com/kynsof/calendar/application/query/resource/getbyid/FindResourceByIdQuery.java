@@ -8,7 +8,7 @@ import java.util.UUID;
 @Getter
 public class FindResourceByIdQuery  implements IQuery {
 
-    private UUID id;
+    private final UUID id;
 
     public FindResourceByIdQuery(UUID id) {
         this.id = id;
