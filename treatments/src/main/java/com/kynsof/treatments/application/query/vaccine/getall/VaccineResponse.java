@@ -24,6 +24,7 @@ public class VaccineResponse implements IResponse {
     private UUID serviceId;
     private RouteOfAdministration routeOfAdministration;
     private String preventableDiseases;
+    private String dose;
 
 
     public VaccineResponse(VaccineDto dto) {
@@ -36,6 +37,7 @@ public class VaccineResponse implements IResponse {
         this.serviceId = dto.getServiceId();
         this.routeOfAdministration = dto.getRouteOfAdministration();
         this.preventableDiseases = dto.getPreventableDiseases();
+        this.dose = dto.getDose();
     }
 
 }
