@@ -3,6 +3,7 @@ package com.kynsof.treatments.application.query.vaccine.getall;
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsof.treatments.domain.dto.VaccineDto;
+import com.kynsof.treatments.domain.dto.enumDto.RouteOfAdministration;
 import com.kynsof.treatments.domain.dto.enumDto.VaccineType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,8 @@ public class VaccineResponse implements IResponse {
     private double minAge;
     private double maxAge;
     private UUID serviceId;
+    private RouteOfAdministration routeOfAdministration;
+    private String preventableDiseases;
 
 
     public VaccineResponse(VaccineDto dto) {
@@ -31,6 +34,8 @@ public class VaccineResponse implements IResponse {
         this.minAge = dto.getMinAge();
         this.maxAge = dto.getMaxAge();
         this.serviceId = dto.getServiceId();
+        this.routeOfAdministration = dto.getRouteOfAdministration();
+        this.preventableDiseases = dto.getPreventableDiseases();
     }
 
 }

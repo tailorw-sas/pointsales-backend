@@ -32,7 +32,7 @@ public class UpdateVaccineCommand implements ICommand {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.type = type;
+        this.type = VaccineType.HUMAN;
         this.minAge = minAge;
         this.maxAge = maxAge;
         this.dose = dose;
