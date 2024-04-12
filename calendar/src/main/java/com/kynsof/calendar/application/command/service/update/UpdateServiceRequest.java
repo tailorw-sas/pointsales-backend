@@ -8,7 +8,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class UpdateServiceRequest {
-    private UUID serviceTypeId;
+    private UUID type;
     private byte[] image;
     private String name;
     private Double normalAppointmentPrice;
