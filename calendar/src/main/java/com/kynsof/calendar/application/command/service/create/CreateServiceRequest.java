@@ -9,7 +9,7 @@ import java.util.UUID;
 @Setter
 public class CreateServiceRequest {
 
-    private UUID serviceTypeId;
+    private UUID type;
     private byte[] image;
     private String name;
     private Double normalAppointmentPrice;

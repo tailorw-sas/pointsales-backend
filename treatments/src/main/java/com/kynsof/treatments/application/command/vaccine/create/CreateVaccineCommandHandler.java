@@ -18,6 +18,8 @@ public class CreateVaccineCommandHandler implements ICommandHandler<CreateVaccin
 
     @Override
     public void handle(CreateVaccineCommand command) {
+
+        //TODO yannier completar las reglas de negocio
        UUID id = serviceImpl.create(new VaccineDto(
                 UUID.randomUUID(),
                command.getName(), command.getDescription(), command.getType(),
