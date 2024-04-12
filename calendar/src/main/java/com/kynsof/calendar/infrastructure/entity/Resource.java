@@ -91,7 +91,7 @@ public class Resource {
         this.status = resourceDto.getStatus();
         this.expressAppointments = resourceDto.getExpressAppointments();
         this.image = resourceDto.getImage();
-        services = resourceDto.getServices().stream().map(Services::new).collect(Collectors.toSet());
+        services = resourceDto.getServices() != null ? resourceDto.getServices().stream().map(Services::new).collect(Collectors.toSet()) : null;
     }
 
     public ResourceDto toAggregate () {
