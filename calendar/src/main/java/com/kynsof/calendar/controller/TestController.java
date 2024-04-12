@@ -1,4 +1,4 @@
-package com.kynsof.calendar.infrastructure.controller;
+package com.kynsof.calendar.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

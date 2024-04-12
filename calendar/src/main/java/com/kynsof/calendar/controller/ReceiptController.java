@@ -1,4 +1,4 @@
-package com.kynsof.calendar.infrastructure.controller;
+package com.kynsof.calendar.controller;
 
 import com.kynsof.calendar.application.command.receipt.cancel.CancelReceiptCommand;
 import com.kynsof.calendar.application.command.receipt.cancel.CancelReceiptMessage;

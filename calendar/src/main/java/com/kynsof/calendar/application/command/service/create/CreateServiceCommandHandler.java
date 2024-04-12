@@ -27,11 +27,11 @@ public class CreateServiceCommandHandler implements ICommandHandler<CreateServic
 
     @Override
     public void handle(CreateServiceCommand command) {
-        ServiceTypeDto serviceTypeDto = serviceTypeService.findById(command.getServiceTypeId());
+        ServiceTypeDto serviceTypeDto = serviceTypeService.findById(command.getType());
         String idLogo = "";
-        if (command.getPicture() != null && command.getPicture().length > 1) {
+        if (command.getImage() != null && command.getImage().length > 1) {
             UUID photoId = UUID.randomUUID();
-            FileKafka fileSave = new FileKafka(photoId, "calendar", command.getName() + ".png", command.getPicture());
+            FileKafka fileSave = new FileKafka(photoId, "calendar", command.getName() + ".png", command.getImage());
             saveFileEventService.create(fileSave);
             idLogo = photoId.toString();
         }

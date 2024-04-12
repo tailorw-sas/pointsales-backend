@@ -17,7 +17,7 @@ public class ServicesResponse implements IResponse {
     private UUID id;
     private ServiceTypeDto type;
     private EServiceStatus status;
-    private String picture;
+    private String image;
     private String name;
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
@@ -30,7 +30,7 @@ public class ServicesResponse implements IResponse {
         this.id = object.getId();
         this.type = object.getType();
         this.status = object.getStatus();
-        this.picture = object.getPicture();
+        this.image = object.getPicture();
         this.name = object.getName();
         this.normalAppointmentPrice = object.getNormalAppointmentPrice();
         this.expressAppointmentPrice = object.getExpressAppointmentPrice();

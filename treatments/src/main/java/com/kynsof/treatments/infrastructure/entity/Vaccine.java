@@ -31,7 +31,7 @@ public class Vaccine {
     @Enumerated(EnumType.STRING)
     private RouteOfAdministration routeOfAdministration;
     private String preventableDiseases;
-
+    private UUID serviceId;
 
     public Vaccine(VaccineDto vaccine) {
         this.id = vaccine.getId();
@@ -43,10 +43,11 @@ public class Vaccine {
         this.dose = vaccine.getDose();
         this.routeOfAdministration = vaccine.getRouteOfAdministration();
         this.preventableDiseases = vaccine.getPreventableDiseases();
+        this.serviceId = vaccine.getServiceId();
     }
 
     public VaccineDto toAggregate() {
         return new VaccineDto(this.id, this.name, this.description, this.type, this.minAge,this.maxAge,
-                this.dose,this.routeOfAdministration, this.preventableDiseases);
+                this.dose,this.routeOfAdministration, this.preventableDiseases, this.serviceId);
     }
 }

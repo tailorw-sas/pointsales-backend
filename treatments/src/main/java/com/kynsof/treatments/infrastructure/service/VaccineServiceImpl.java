@@ -70,6 +70,16 @@ public class VaccineServiceImpl implements IVaccineService {
         long monthsOld = ChronoUnit.MONTHS.between(birthDate, LocalDate.now());
 
         Page<Vaccine> vaccinePage = this.repositoryQuery.findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual( monthsOld, pageable);
+        if(vaccinePage.isEmpty()){
+            return new PaginatedResponse(
+                    new ArrayList<>(),
+                    vaccinePage.getTotalPages(),
+                    vaccinePage.getNumberOfElements(),
+                    vaccinePage.getTotalElements(),
+                    pageable.getPageSize(),
+                    pageable.getPageNumber()
+            );
+        }
         List<Vaccine> administeredVaccines = patientVaccineReadDataJPARepository.findVaccinesByPatientId(patientId);
 
         List<VaccineResponse> nonAdministeredVaccines = vaccinePage.getContent().stream()
@@ -91,6 +101,11 @@ public class VaccineServiceImpl implements IVaccineService {
     public UUID create(VaccineDto vaccineDto) {
         Vaccine entity = this.repositoryCommand.save(new Vaccine(vaccineDto));
         return entity.getId();
+    }
+
+    @Override
+    public void update(VaccineDto vaccineDto) {
+        this.repositoryCommand.save(new Vaccine(vaccineDto));
     }
 
     @Override

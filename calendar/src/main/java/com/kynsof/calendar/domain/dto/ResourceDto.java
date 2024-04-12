@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -22,7 +23,7 @@ public class ResourceDto implements Serializable {
     private EResourceStatus status;
     private Boolean expressAppointments;
     private UUID image;
-    private boolean deleted;
+    List<ServiceDto> services;
 
     public ResourceDto(UUID id,  String name, String registrationNumber, String language,
                        EResourceStatus status, Boolean expressAppointments) {

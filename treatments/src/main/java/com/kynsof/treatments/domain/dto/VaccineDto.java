@@ -21,4 +21,5 @@ public class VaccineDto {
     private String dose;
     private RouteOfAdministration routeOfAdministration;
     private String preventableDiseases;
+    private UUID serviceId;
 }

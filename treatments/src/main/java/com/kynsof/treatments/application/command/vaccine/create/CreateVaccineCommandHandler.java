@@ -22,7 +22,8 @@ public class CreateVaccineCommandHandler implements ICommandHandler<CreateVaccin
                 UUID.randomUUID(),
                command.getName(), command.getDescription(), command.getType(),
                command.getMinAge(), command.getMaxAge(),command.getDose(), command.getRouteOfAdministration(),
-               command.getPreventableDiseases()
+               command.getPreventableDiseases(),
+               command.getServiceId()
         ));
        command.setId(id);
     }

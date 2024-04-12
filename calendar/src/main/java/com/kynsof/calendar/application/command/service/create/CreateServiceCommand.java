@@ -12,19 +12,19 @@ import java.util.UUID;
 public class CreateServiceCommand implements ICommand {
 
     private UUID id;
-    private byte[] picture;
+    private byte[] image;
     private String name;
     private String description;
-    private UUID serviceTypeId;
+    private UUID type;
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
 
     public CreateServiceCommand(String name, byte[] picture, String description, UUID serviceTypeId, Double normalAppointmentPrice, Double expressAppointmentPrice) {
         this.id = UUID.randomUUID();
         this.name = name;
-        this.picture = picture;
+        this.image = picture;
         this.description = description;
-        this.serviceTypeId = serviceTypeId;
+        this.type = serviceTypeId;
         this.normalAppointmentPrice = normalAppointmentPrice;
         this.expressAppointmentPrice = expressAppointmentPrice;
     }
