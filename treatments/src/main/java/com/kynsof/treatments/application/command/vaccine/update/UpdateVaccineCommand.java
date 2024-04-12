@@ -25,7 +25,9 @@ public class UpdateVaccineCommand implements ICommand {
 
 
 
-    public UpdateVaccineCommand(UUID id, String name, String description, VaccineType type, double minAge, double maxAge, String dose, RouteOfAdministration routeOfAdministration, String preventableDiseases, UUID serviceId){
+    public UpdateVaccineCommand(UUID id, String name, String description, VaccineType type, double minAge,
+                                double maxAge, String dose, RouteOfAdministration routeOfAdministration,
+                                String preventableDiseases, UUID serviceId){
 
         this.id = id;
         this.name = name;
