@@ -1,5 +1,6 @@
 package com.kynsof.identity.application.command.user.update;
 
+import com.kynsof.identity.domain.dto.enumType.UserType;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -15,14 +16,15 @@ public class UpdateUserSystemCommand implements ICommand {
     private String email;
     private String name;
     private String lastName;
+    private UserType userType;
 
-
-    public UpdateUserSystemCommand(UUID id, String userName, String email, String name, String lastName) {
+    public UpdateUserSystemCommand(UUID id, String userName, String email, String name, String lastName, UserType userType) {
         this.id = id;
         this.userName = userName;
         this.email = email;
         this.name = name;
         this.lastName = lastName;
+        this.userType = userType;
     }
 
     public static UpdateUserSystemCommand fromRequest(UUID id, UpdateUserSystemRequest request) {
@@ -31,7 +33,8 @@ public class UpdateUserSystemCommand implements ICommand {
                 request.getUserName(),
                 request.getEmail(),
                 request.getName(),
-                request.getLastName()
+                request.getLastName(),
+                request.getUserType()
         );
     }
 
