@@ -1,12 +1,15 @@
 package com.kynsof.calendar.application.query;
 
 import com.kynsof.calendar.domain.dto.ResourceDto;
+import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -19,9 +22,7 @@ public class ResourceResponse implements IResponse {
     private String language;
     private EResourceStatus status;
     private Boolean expressAppointments;
-//    private LocalDateTime createAt;
-//    private LocalDateTime updateAt;
-//    private LocalDateTime deleteAt;
+    private List<ServicesResponse> services;
 
     public ResourceResponse(ResourceDto object) {
         this.id = object.getId();
@@ -30,9 +31,10 @@ public class ResourceResponse implements IResponse {
         this.language = object.getLanguage();
         this.status = object.getStatus();
         this.expressAppointments = object.getExpressAppointments();
-//        this.createAt = object.getCreateAt();
-//        this.updateAt = object.getUpdateAt();
-//        this.deleteAt = object.getDeleteAt();
+        this.services = new ArrayList<>();
+        for (ServiceDto service : object.getServices()) {
+            this.services.add(new ServicesResponse(service));
+        }
     }
 
     public ResourceResponse(UUID id, String name) {
