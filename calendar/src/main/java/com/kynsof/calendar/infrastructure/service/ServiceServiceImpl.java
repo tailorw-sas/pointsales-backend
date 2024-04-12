@@ -12,11 +12,9 @@ import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.share.utils.ConfigureTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -91,7 +89,7 @@ public class ServiceServiceImpl implements IServiceService {
         this.repositoryCommand.save(new Services(objectDelete));
     }
 
-    @Cacheable(cacheNames = CacheConfig.SERVICE_CACHE, unless = "#result == null")
+    ///@Cacheable(cacheNames = CacheConfig.SERVICE_CACHE, unless = "#result == null")
     @Override
     public ServiceDto findById(UUID id) {
         
