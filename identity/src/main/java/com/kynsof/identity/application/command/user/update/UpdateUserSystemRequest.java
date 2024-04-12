@@ -8,6 +8,7 @@ public class UpdateUserSystemRequest {
     private String name;
     private String lastName;
     private UserType userType;
+    private byte [] image;
 
     public UpdateUserSystemRequest() {
     }
@@ -50,6 +51,14 @@ public class UpdateUserSystemRequest {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
 }

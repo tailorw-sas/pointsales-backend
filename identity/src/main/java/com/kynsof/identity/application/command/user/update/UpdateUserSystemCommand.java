@@ -17,14 +17,17 @@ public class UpdateUserSystemCommand implements ICommand {
     private String name;
     private String lastName;
     private UserType userType;
+    private byte [] image;
 
-    public UpdateUserSystemCommand(UUID id, String userName, String email, String name, String lastName, UserType userType) {
+    public UpdateUserSystemCommand(UUID id, String userName, String email, 
+            String name, String lastName, UserType userType, byte [] image) {
         this.id = id;
         this.userName = userName;
         this.email = email;
         this.name = name;
         this.lastName = lastName;
         this.userType = userType;
+        this.image = image;
     }
 
     public static UpdateUserSystemCommand fromRequest(UUID id, UpdateUserSystemRequest request) {
@@ -34,7 +37,8 @@ public class UpdateUserSystemCommand implements ICommand {
                 request.getEmail(),
                 request.getName(),
                 request.getLastName(),
-                request.getUserType()
+                request.getUserType(),
+                request.getImage()
         );
     }
 
