@@ -1,6 +1,7 @@
 package com.kynsof.identity.application.command.user.update;
 
 import com.kynsof.identity.domain.dto.UserSystemDto;
+import com.kynsof.identity.domain.dto.enumType.UserType;
 import com.kynsof.identity.domain.interfaces.IUserSystemService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerResourceEventService;
 import com.kynsof.share.core.domain.RulesChecker;
@@ -47,6 +48,10 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
         }
 
         systemService.update(objectToUpdate);
-        resourceEventService.create(objectToUpdate);
+        if (command.getUserType().equals(UserType.DOCTORS) ||
+                command.getUserType().equals(UserType.ASSISTANTS) ||
+                command.getUserType().equals(UserType.NURSES)) {
+            resourceEventService.create(objectToUpdate);
+        }
     }
 }
