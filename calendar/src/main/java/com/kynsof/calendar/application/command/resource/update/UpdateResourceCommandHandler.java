@@ -32,7 +32,7 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
             _resource.setRegistrationNumber(command.getRegistrationNumber());
             _resource.setLanguage(command.getLanguage());
             command.setExpressAppointments(command.getExpressAppointments());
-            service.update(_resource
+            service.create(_resource
             );
         }
 
