@@ -1,4 +1,4 @@
-package com.kynsof.calendar.domain.servicetype.rules;
+package com.kynsof.calendar.domain.rules.servicetype;
 
 import com.kynsof.calendar.domain.service.IServiceTypeService;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;

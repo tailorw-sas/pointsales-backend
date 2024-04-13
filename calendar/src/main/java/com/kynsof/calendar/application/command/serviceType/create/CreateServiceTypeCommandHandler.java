@@ -2,7 +2,7 @@ package com.kynsof.calendar.application.command.serviceType.create;
 
 import com.kynsof.calendar.domain.dto.ServiceTypeDto;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
-import com.kynsof.calendar.domain.servicetype.rules.SeviceTypeNameMustBeUniqueRule;
+import com.kynsof.calendar.domain.rules.servicetype.SeviceTypeNameMustBeUniqueRule;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
