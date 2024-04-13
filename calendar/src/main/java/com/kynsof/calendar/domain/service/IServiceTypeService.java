@@ -14,4 +14,5 @@ public interface IServiceTypeService {
     public void delete(UUID id);
     public ServiceTypeDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    Long countByNameAndNotId(String name, UUID id);
 }

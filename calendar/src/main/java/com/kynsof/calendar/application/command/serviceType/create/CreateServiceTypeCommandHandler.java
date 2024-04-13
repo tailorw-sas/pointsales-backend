@@ -2,6 +2,8 @@ package com.kynsof.calendar.application.command.serviceType.create;
 
 import com.kynsof.calendar.domain.dto.ServiceTypeDto;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
+import com.kynsof.calendar.domain.servicetype.rules.SeviceTypeNameMustBeUniqueRule;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
@@ -22,6 +24,7 @@ public class CreateServiceTypeCommandHandler implements ICommandHandler<CreateSe
 
     @Override
     public void handle(CreateServiceTypeCommand command) {
+        RulesChecker.checkRule(new SeviceTypeNameMustBeUniqueRule(this.service, command.getName(), command.getId()));
         UUID idLogo = null;
         if (command.getPicture() != null && command.getPicture().length > 1) {
             UUID photoId = UUID.randomUUID();

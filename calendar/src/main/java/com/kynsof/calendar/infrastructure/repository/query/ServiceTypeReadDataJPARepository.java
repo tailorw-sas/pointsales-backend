@@ -8,7 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.UUID;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface ServiceTypeReadDataJPARepository extends JpaRepository<ServiceType, UUID>, JpaSpecificationExecutor<ServiceType> {
     Page<ServiceType> findAll(Specification specification, Pageable pageable);
+
+    @Query("SELECT COUNT(b) FROM ServiceType b WHERE b.name = :name AND b.id <> :id")
+    Long countByNameAndNotId(@Param("name") String name, @Param("id") UUID id);
+
 }
