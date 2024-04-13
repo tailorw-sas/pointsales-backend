@@ -50,7 +50,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     DEVICE_IP_VALIDATE(645, Series.DOMAIN_ERROR, "La direccion ip no es correcta."),
     DEVICE_SERIAL_CANNOT_BE_EMPTY(646, Series.DOMAIN_ERROR, "The serial of the device cannot be empty."),
     DEVICE_EMAIL_VALIDATE(647, Series.DOMAIN_ERROR, "Direccion de correo incorrecta."),
-    CUSTOMER_NOT_FOUND(648, Series.DOMAIN_ERROR, "Customer not found.");
+    CUSTOMER_NOT_FOUND(648, Series.DOMAIN_ERROR, "Customer not found."),
+    PATIENT_IDENTIFICATION_MUST_BY_UNIQUE(649, Series.DOMAIN_ERROR, "The patient identification must be unique.");
 
     private static final DomainErrorMessage[] VALUES;
 
