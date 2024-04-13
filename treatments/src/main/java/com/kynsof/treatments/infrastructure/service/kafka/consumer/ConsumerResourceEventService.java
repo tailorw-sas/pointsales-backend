@@ -16,12 +16,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ConsumerUserSystemEventService {
+public class ConsumerResourceEventService {
     @Autowired
     private IDoctorService service;
 
     // Ejemplo de un método listener
-//    @KafkaListener(topics = "user-system", groupId = "user-system-treatments")
+    @KafkaListener(topics = "resource", groupId = "resource-treatments")
     public void listen(String event) {
         try {
 
@@ -33,30 +33,10 @@ public class ConsumerUserSystemEventService {
 
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN CREATED");
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
                 this.service.create(new DoctorDto(eventRead.getId(), "", eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage(), Status.ACTIVE));
             }
-            if (eventType.equals(EventType.DELETED)) {
-                //Definir accion
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN DELETED");
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-
-            }
-            if (eventType.equals(EventType.UPDATED)) {
-                //Definir accion
-                //Definir accion
-                DoctorDto doctorDto = new DoctorDto(eventRead.getId(), "", eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage(), Status.ACTIVE);
-                this.service.create(doctorDto);
-            }
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ConsumerUserSystemEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumerResourceEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
