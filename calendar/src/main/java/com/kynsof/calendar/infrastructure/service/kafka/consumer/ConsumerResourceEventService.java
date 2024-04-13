@@ -33,7 +33,7 @@ public class ConsumerResourceEventService {
 
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName(), "", "", EResourceStatus.ACTIVE, true);
+                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName() + " " + eventRead.getLastName(), "", "", EResourceStatus.ACTIVE, true);
                 resourceDto.setImage(eventRead.getIdImage());
                 this.service.create(resourceDto);
             }
