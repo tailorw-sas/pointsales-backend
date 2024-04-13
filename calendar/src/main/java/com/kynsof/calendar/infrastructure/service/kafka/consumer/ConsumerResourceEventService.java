@@ -37,15 +37,6 @@ public class ConsumerResourceEventService {
                 resourceDto.setImage(eventRead.getIdImage());
                 this.service.create(resourceDto);
             }
-            if (eventType.equals(EventType.DELETED)) {
-                //Definir accion
-            }
-            if (eventType.equals(EventType.UPDATED)) {
-                //Definir accion
-                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName(), "", "", EResourceStatus.ACTIVE, true);
-                resourceDto.setImage(eventRead.getIdImage());
-                this.service.update(resourceDto);
-            }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerResourceEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
