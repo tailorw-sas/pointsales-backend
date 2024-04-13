@@ -13,13 +13,13 @@ import java.util.UUID;
 public class UpdateResourceCommand implements ICommand {
 
     private UUID id;
-    private String picture;
+    private byte[] picture;
     private String registrationNumber;
     private String language;
     private EResourceStatus status;
     private Boolean expressAppointments;
 
-    public UpdateResourceCommand(UUID id,  String picture, String registrationNumber, String language, EResourceStatus status, Boolean expressAppointments) {
+    public UpdateResourceCommand(UUID id,  byte[] picture, String registrationNumber, String language, EResourceStatus status, Boolean expressAppointments) {
         this.id = id;
         this.picture = picture;
         this.registrationNumber = registrationNumber;

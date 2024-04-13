@@ -6,12 +6,15 @@ import com.kynsof.calendar.domain.dto.ResourceWithSchedulesDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import com.kynsof.calendar.domain.service.IResourceService;
-import com.kynsof.calendar.infrastructure.entity.Resource;
-import com.kynsof.calendar.infrastructure.entity.Schedule;
+import com.kynsof.calendar.infrastructure.entity.*;
 import com.kynsof.calendar.infrastructure.entity.specifications.ResourceSpecifications;
+import com.kynsof.calendar.infrastructure.repository.command.BusinessWriteDataJPARepository;
+import com.kynsof.calendar.infrastructure.repository.command.ResourceServiceWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.command.ResourceWriteDataJPARepository;
+import com.kynsof.calendar.infrastructure.repository.query.BusinessReadDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ResourceReadDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
+import com.kynsof.calendar.infrastructure.repository.query.ServiceReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -25,13 +28,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class ResourceServiceImpl implements IResourceService {
 
-    
+
     @Autowired
     private ResourceWriteDataJPARepository repositoryCommand;
 
@@ -40,6 +44,16 @@ public class ResourceServiceImpl implements IResourceService {
     @Autowired
 
     private ScheduleReadDataJPARepository scheduleReadDataJPARepository;
+    @Autowired
+    private BusinessReadDataJPARepository businessReadDataJPARepository;
+    @Autowired
+    private BusinessWriteDataJPARepository businessWriteDataJPARepository;
+
+    @Autowired
+    private ServiceReadDataJPARepository serviceReadRepository;
+
+    @Autowired
+    private ResourceServiceWriteDataJPARepository resourceServiceWriteDataJPARepository;
 
     @Override
     public void create(ResourceDto object) {
@@ -51,31 +65,34 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Override
     public void update(ResourceDto objectDto) {
-        if (objectDto.getId() == null || objectDto == null) {
+        if (objectDto.getId() == null) {
             throw new BusinessException(DomainErrorMessage.BUSINESS_OR_ID_NULL, "Business DTO or ID cannot be null.");
         }
+//
+//        Optional<Resource> resource = this.repositoryQuery.findById(objectDto.getId());
+//        Resource object = resource.get();
+//        if (objectDto.getExpressAppointments() != null) {
+//            object.setExpressAppointments(objectDto.getExpressAppointments());
+//        }
+//        if (objectDto.getStatus() != null) {
+//            object.setStatus(objectDto.getStatus());
+//        }
+//        if (objectDto.getLanguage() != null) {
+//            object.setLanguage(objectDto.getLanguage());
+//        }
+//        if (objectDto.getName() != null) {
+//            object.setName(objectDto.getName());
+//        }
+//        if (objectDto.getImage() != null) {
+//            object.setImage(objectDto.getImage());
+//        }
 
-        this.repositoryQuery.findById(objectDto.getId())
-                .map(object -> {
-                    if (objectDto.getExpressAppointments() != null) {
-                        object.setExpressAppointments(objectDto.getExpressAppointments());
-                    }
-                    if (objectDto.getStatus() != null) {
-                        object.setStatus(objectDto.getStatus());
-                    }
-                    if (objectDto.getLanguage() != null) {
-                        object.setLanguage(objectDto.getLanguage());
-                    }
-                    if (objectDto.getName() != null) {
-                        object.setName(objectDto.getName());
-                    }
-                    if (objectDto.getImage() != null) {
-                        object.setImage(objectDto.getImage());
-                    }
+//        if (objectDto.getServices() != null) {
+//            object.setServices(objectDto.getServices().stream().map(Services::new).collect(Collectors.toSet()));
+//        }
 
-                    return this.repositoryCommand.save(object);
-                })
-                .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));
+        this.repositoryCommand.save(new Resource(objectDto));
+
 
     }
 
@@ -151,6 +168,47 @@ public class ResourceServiceImpl implements IResourceService {
 
         return new PaginatedResponse(resourcesWithSchedules, schedules.getTotalPages(), schedules.getNumberOfElements(),
                 schedules.getTotalElements(), schedules.getSize(), schedules.getNumber());
+    }
+
+    @Override
+    public void addBusiness(UUID businessId, UUID userId, LocalDate date) {
+       Optional<Resource> resource = this.repositoryQuery.findById(userId);
+       Optional<Business> business = this.businessReadDataJPARepository.findById(businessId);
+       if (resource.isPresent() && business.isPresent()) {
+           Resource resourceObject = resource.get();
+           Business businessObject = business.get();
+           BusinessResource businessResource = new BusinessResource();
+           businessResource.setBusiness(businessObject);
+           businessResource.setResource(resourceObject);
+           businessResource.setCreationDate(LocalDateTime.now());  // Asumiendo que hay un campo para la fecha de creación
+           businessObject.getBusinessResources().add(businessResource);
+           resourceObject.getBusinessResources().add(businessResource);
+
+           this.repositoryCommand.save(resourceObject);
+           this.businessReadDataJPARepository.save(businessObject);
+       }
+    }
+    @Override
+    public void addServicesToResource(UUID resourceId, List<UUID> serviceIds) {
+        Optional<Resource> resource = this.repositoryQuery.findById(resourceId);
+        Resource resourceObject = resource.get();
+        if (resourceObject.getResourceServices() == null) {
+            resourceObject.setResourceServices(new HashSet<>());
+        }
+        List<Services> servicesToAdd = this.serviceReadRepository.findAllById(serviceIds);
+
+        // Assuming ResourceService is the joining entity and is correctly mapped in Resource and Services entities
+        servicesToAdd.forEach(service -> {
+            ResourceService resourceService = new ResourceService();
+            resourceService.setService(service);
+            resourceService.setResource(resourceObject);
+            resourceService.setCreationDate(LocalDateTime.now());
+
+
+            this.resourceServiceWriteDataJPARepository.save(resourceService);
+          //  this.serviceWriteDataJPARepository.save(service);
+        });
+
     }
 
 }

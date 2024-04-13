@@ -1,14 +1,13 @@
 package com.kynsof.calendar.infrastructure.entity;
 
 import com.kynsof.calendar.domain.dto.BusinessDto;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -26,10 +25,13 @@ public class Business{
     private String longitude;
     private String address;
     private UUID logo;
-    @ManyToMany(mappedBy = "businesses")
-    private Set<Resource> resources = new HashSet<>();
-    @ManyToMany(mappedBy = "businesses")
-    private Set<Services> services = new HashSet<>();
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<BusinessResource> businessResources = new HashSet<>();
+
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     public Business(BusinessDto business) {
         this.id = business.getId();

@@ -1,39 +1,26 @@
-package com.kynsof.rrhh.infrastructure.services.kafka.consumer;
+package com.kynsof.calendar.infrastructure.service.kafka.consumer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.rrhh.doman.dto.BusinessDto;
-import com.kynsof.rrhh.doman.dto.UserBusinessRelationDto;
-import com.kynsof.rrhh.doman.dto.UserSystemDto;
-import com.kynsof.rrhh.doman.interfaces.services.IBusinessService;
-import com.kynsof.rrhh.doman.interfaces.services.IUserBusinessRelationService;
-import com.kynsof.rrhh.doman.interfaces.services.IUserSystemService;
+import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.share.core.domain.kafka.entity.UserBusinessKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
-import com.kynsof.share.utils.ConfigureTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
 public class ConsumerUserBusinessEventService {
-
     @Autowired
-    private IUserBusinessRelationService service;
-
-    @Autowired
-    private IBusinessService businessService;
-
-    @Autowired
-    private IUserSystemService userSystemService;
+    private IResourceService resourceService;
 
     // Ejemplo de un método listener
-    @KafkaListener(topics = "user-business", groupId = "rrhh-user-busines")
+    @KafkaListener(topics = "user-business", groupId = "calendar-user-business")
     public void listen(String event) {
         try {
 
@@ -50,11 +37,11 @@ public class ConsumerUserBusinessEventService {
                 System.err.println("SE EJECUTA UN CREATED");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-
-                BusinessDto businessDto = this.businessService.findById(eventRead.getIdBusiness());
-                UserSystemDto userSystemDto = this.userSystemService.findById(eventRead.getIdUser());
-
-                this.service.create(new UserBusinessRelationDto(UUID.randomUUID(), userSystemDto, businessDto, "ACTIVE", ConfigureTimeZone.getTimeZone()));
+                resourceService.addBusiness(eventRead.getIdBusiness(), eventRead.getIdUser(), LocalDate.now());
+//                BusinessDto businessDto = this.businessService.findById(eventRead.getIdBusiness());
+//                UserSystemDto userSystemDto = this.userSystemService.findById(eventRead.getIdUser());
+//
+//                this.service.create(new UserBusinessRelationDto(UUID.randomUUID(), userSystemDto, businessDto, "ACTIVE", ConfigureTimeZone.getTimeZone()));
             }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerUserBusinessEventService.class.getName()).log(Level.SEVERE, null, ex);

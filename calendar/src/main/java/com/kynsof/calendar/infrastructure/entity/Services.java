@@ -1,6 +1,5 @@
 package com.kynsof.calendar.infrastructure.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import jakarta.persistence.*;
@@ -11,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -42,30 +40,12 @@ public class Services {
     @Size(max = 2000)
     private String description;
 
-    @JsonIgnoreProperties("services")
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Resource> resources = new HashSet<>();
-
-    @JsonIgnoreProperties("services")
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(
-            name = "service_business",
-            joinColumns = @JoinColumn(name = "service_id"),
-            inverseJoinColumns = @JoinColumn(name = "business_id")
-    )
-    private Set<Business> businesses = new HashSet<>();
+    @OneToMany(mappedBy = "service",fetch = FetchType.EAGER)
+    private Set<ResourceService> resourceServices = new HashSet<>();
 
     @OneToMany(mappedBy = "service")
     private Set<Schedule> schedules = new HashSet<>();
-    
-    @Column(nullable = true)
-    private LocalDateTime createAt;
 
-    @Column(nullable = true)
-    private LocalDateTime updateAt;
-
-    @Column(nullable = true)
-    private LocalDateTime deleteAt;
 
     public Services(ServiceDto object) {
         this.id = object.getId();
@@ -76,13 +56,10 @@ public class Services {
         this.normalAppointmentPrice = object.getNormalAppointmentPrice();
         this.expressAppointmentPrice = object.getExpressAppointmentPrice();
         this.description = object.getDescription();
-        this.createAt = object.getCreateAt();
-        this.updateAt = object.getUpdateAt();
-        this.deleteAt = object.getDeleteAt();
     }
 
     public ServiceDto toAggregate () {
         return new ServiceDto(id, type.toAggregate(), status, picture, name, normalAppointmentPrice,
-                expressAppointmentPrice, description, createAt, updateAt, deleteAt);
+                expressAppointmentPrice, description);
     }
 }
