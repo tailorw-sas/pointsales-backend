@@ -139,6 +139,16 @@ public class ReceiptService implements IReceiptService {
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        for (FilterCriteria filter : filterCriteria) {
+            if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
+                try {
+                    EStatusReceipt enumValue = EStatusReceipt.valueOf((String) filter.getValue());
+                    filter.setValue(enumValue);
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Valor inválido para el tipo Enum Receipt: " + filter.getValue());
+                }
+            }
+        }
         GenericSpecificationsBuilder<Receipt> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<Receipt> data = this.receiptRepositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(data);

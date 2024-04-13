@@ -21,7 +21,7 @@ public class ConsumerUserSystemEventService {
     private IResourceService service;
 
     // Ejemplo de un método listener
-    //@KafkaListener(topics = "user-system", groupId = "user-system-calendar")
+    @KafkaListener(topics = "user-system", groupId = "user-system-calendar")
     public void listen(String event) {
         try {
 
@@ -33,7 +33,7 @@ public class ConsumerUserSystemEventService {
 
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName(), "123", "", EResourceStatus.ACTIVE, true);
+                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName(), "", "", EResourceStatus.ACTIVE, false);
                 this.service.create(resourceDto);
             }
             if (eventType.equals(EventType.DELETED)) {
@@ -41,7 +41,7 @@ public class ConsumerUserSystemEventService {
             }
             if (eventType.equals(EventType.UPDATED)) {
                 //Definir accion
-                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName(), "123", "", EResourceStatus.ACTIVE, true);
+                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName(), "", "", EResourceStatus.ACTIVE, false);
                 resourceDto.setImage(eventRead.getIdImage());
                 this.service.update(resourceDto);
             }
