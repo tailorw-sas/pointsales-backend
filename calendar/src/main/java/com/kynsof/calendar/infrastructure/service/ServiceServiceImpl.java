@@ -131,4 +131,9 @@ public class ServiceServiceImpl implements IServiceService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    @Override
+    public Long countByNameAndNotId(String name, UUID id) {
+        return this.repositoryQuery.countByNameAndNotId(name, id);
+    }
+
 }
