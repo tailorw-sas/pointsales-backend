@@ -175,7 +175,7 @@ public class PatientsServiceImpl implements IPatientsService {
 
     }
 
-    @Cacheable(cacheNames = CacheConfig.USER_CACHE, unless = "#result == null")
+//    @Cacheable(cacheNames = CacheConfig.USER_CACHE, unless = "#result == null")
     @Override
     public PatientDto findByIdSimple(UUID id) {
         Optional<Patients> patient = this.repositoryQuery.findById(id);
