@@ -243,4 +243,9 @@ public class PatientsServiceImpl implements IPatientsService {
         this.repositoryCommand.save(new Patients(patientDto));
     }
 
+    @Override
+    public Long countByIdentificationAndNotId(String identification, UUID id) {
+        return this.repositoryQuery.countByIdentificationAndNotId(identification, id);
+    }
+
 }

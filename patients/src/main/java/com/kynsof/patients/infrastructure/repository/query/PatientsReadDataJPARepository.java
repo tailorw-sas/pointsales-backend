@@ -9,9 +9,15 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface PatientsReadDataJPARepository extends JpaRepository<Patients, UUID>, JpaSpecificationExecutor<Patients> {
     Page<Patients> findAll(Specification specification, Pageable pageable);
 
     Optional<Patients> findByIdentification(String identification);
+
+    @Query("SELECT COUNT(p) FROM Patients p WHERE p.identification = :identification AND p.id <> :id")
+    Long countByIdentificationAndNotId(@Param("identification") String identification, @Param("id") UUID id);
+
 }

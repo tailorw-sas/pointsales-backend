@@ -5,10 +5,12 @@ import com.kynsof.patients.domain.dto.DependentPatientDto;
 import com.kynsof.patients.domain.dto.GeographicLocationDto;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
+import com.kynsof.patients.domain.rules.dependent.DependentMustBeUniqueRule;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerCreateDependentPatientsEventService;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
@@ -48,8 +50,10 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
             idLogo = photoId.toString();
         }
 
+        UUID idDependent = UUID.randomUUID();
+        RulesChecker.checkRule(new DependentMustBeUniqueRule(this.serviceImpl, command.getIdentification(), idDependent));
         UUID id = serviceImpl.createDependent(new DependentPatientDto(
-                UUID.randomUUID(),
+                idDependent,
                 command.getIdentification(),
                 command.getName(),
                 command.getLastName(),

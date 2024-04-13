@@ -26,4 +26,6 @@ public interface IPatientsService {
     void createInsurance(UUID patientId, List<UUID> insuranceIds);
 
     PatientDto findByIdentification(String identification);
+
+    Long countByIdentificationAndNotId(String identification, UUID id);
 }
