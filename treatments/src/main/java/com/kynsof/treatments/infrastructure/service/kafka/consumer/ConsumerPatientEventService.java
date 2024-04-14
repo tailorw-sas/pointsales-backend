@@ -26,7 +26,11 @@ public class ConsumerPatientEventService {
     @KafkaListener(topics = "patient", groupId = "treatments-patient")
     public void listen(String event) {
         try {
-
+            System.err.println("#######################################################");
+            System.err.println("#######################################################");
+            System.err.println("ENTRO");
+            System.err.println("#######################################################");
+            System.err.println("#######################################################");
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
@@ -45,6 +49,11 @@ public class ConsumerPatientEventService {
                 ));
             }
             if (eventType.equals(EventType.UPDATED)) {
+                System.err.println("#######################################################");
+                System.err.println("#######################################################");
+                System.err.println("EVENTO DE ACTUALIZA UN PACIENTE");
+                System.err.println("#######################################################");
+                System.err.println("#######################################################");
                 this.service.update(new PatientDto(
                         UUID.fromString(eventRead.getId()),
                         eventRead.getIdentification(),
@@ -56,7 +65,10 @@ public class ConsumerPatientEventService {
                 ));
             }
 
+
         } catch (JsonProcessingException ex) {
+            System.err.println("########################");
+            System.err.println("ERROR: " + ex.getMessage());
             Logger.getLogger(ConsumerPatientEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
