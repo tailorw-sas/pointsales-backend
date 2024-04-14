@@ -53,7 +53,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     CUSTOMER_NOT_FOUND(648, Series.DOMAIN_ERROR, "Customer not found."),
     PATIENT_IDENTIFICATION_MUST_BY_UNIQUE(649, Series.DOMAIN_ERROR, "The patient identification must be unique."),
     SERVICE_TYPE_NAME_MUST_BY_UNIQUE(650, Series.DOMAIN_ERROR, "The service type name must be unique."),
-    SERVICE_NAME_MUST_BY_UNIQUE(651, Series.DOMAIN_ERROR, "The service name must be unique.");
+    SERVICE_NAME_MUST_BY_UNIQUE(651, Series.DOMAIN_ERROR, "The service name must be unique."),
+    VACCINE_MUST_BY_UNIQUE(652, Series.DOMAIN_ERROR, "The vaccine name must be unique.");
 
     private static final DomainErrorMessage[] VALUES;
 
