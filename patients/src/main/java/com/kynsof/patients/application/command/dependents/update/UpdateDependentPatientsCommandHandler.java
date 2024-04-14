@@ -87,6 +87,6 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
             contactInfoService.update(contactInfoDto);
         }
 
-        this.updateDependentPatientsEventService.update(serviceImpl.findByIdSimple(command.getId()));
+        this.updateDependentPatientsEventService.update(serviceImpl.findByIdSimple(command.getId()), command.getCreateContactInfoRequest().getBirthdayDate());
     }
 }
