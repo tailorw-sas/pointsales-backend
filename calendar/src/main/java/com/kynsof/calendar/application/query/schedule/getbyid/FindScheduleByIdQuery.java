@@ -8,7 +8,7 @@ import java.util.UUID;
 @Getter
 public class FindScheduleByIdQuery  implements IQuery {
 
-    private UUID id;
+    private final UUID id;
 
     public FindScheduleByIdQuery(UUID id) {
         this.id = id;
