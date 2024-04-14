@@ -45,7 +45,7 @@ public class PatientsServiceImpl implements IPatientsService {
                         patient.setIdentification(patientDto.getIdentification());
                     if (patientDto.getGender() != null) patient.setGender(patientDto.getGender());
                     if (patientDto.getStatus() != null) patient.setStatus(patientDto.getStatus());
-
+                    if (patientDto.getBirthDate() != null) patient.setBirthDate(patientDto.getBirthDate());
                     return this.repositoryCommand.save(patient);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + patientDto.getId() + " not found"));

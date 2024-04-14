@@ -8,9 +8,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
 
@@ -61,7 +63,9 @@ public class Schedule {
     public void prePersist() {
         this.initialStock = this.stock;
     }
-
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     public Schedule(ScheduleDto scheduleDto) {
         this.id = scheduleDto.getId();

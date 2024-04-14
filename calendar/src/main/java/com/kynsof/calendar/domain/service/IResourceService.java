@@ -24,4 +24,7 @@ public interface IResourceService {
 
     PaginatedResponse findResourcesWithAvailableSchedules(UUID businessId, UUID serviceId, LocalDate date,
                                                                        Pageable pageable);
+
+    void addBusiness(UUID businessId, UUID serviceId, LocalDate date);
+    void addServicesToResource(UUID resourceId, List<UUID> serviceIds);
 }

@@ -1,10 +1,7 @@
 package com.kynsof.calendar.infrastructure.entity;
 
 import com.kynsof.calendar.domain.dto.ServiceTypeDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -20,6 +17,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "service_type")
 public class ServiceType {
     @Id
     @GeneratedValue(generator = "UUID")

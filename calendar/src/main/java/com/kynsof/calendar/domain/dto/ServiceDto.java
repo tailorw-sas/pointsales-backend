@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -23,11 +22,10 @@ public class ServiceDto implements Serializable {
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
     private String description;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
-    private LocalDateTime deleteAt;
 
-    public ServiceDto(UUID id, ServiceTypeDto type, String picture, String name, Double normalAppointmentPrice, Double expressAppointmentPrice, String description) {
+
+    public ServiceDto(UUID id, ServiceTypeDto type, String picture, String name, Double normalAppointmentPrice,
+                      Double expressAppointmentPrice, String description) {
         this.id = id;
         this.type = type;
         this.picture = picture;

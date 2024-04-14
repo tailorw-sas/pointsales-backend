@@ -13,7 +13,6 @@ import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import com.kynsof.share.utils.ConfigureTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,9 +35,6 @@ public class ServiceServiceImpl implements IServiceService {
     @Override
     public void create(ServiceDto object) {
         object.setStatus(EServiceStatus.ACTIVE);
-
-        object.setCreateAt(ConfigureTimeZone.getTimeZone());
-
         this.repositoryCommand.save(new Services(object));
     }
 
@@ -71,7 +67,7 @@ public class ServiceServiceImpl implements IServiceService {
                     if (objectDto.getExpressAppointmentPrice() != null) {
                         object.setExpressAppointmentPrice(objectDto.getExpressAppointmentPrice());
                     }
-                    object.setUpdateAt(ConfigureTimeZone.getTimeZone());
+
                     return this.repositoryCommand.save(object);
                 })
                 .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));
@@ -83,8 +79,6 @@ public class ServiceServiceImpl implements IServiceService {
     
         ServiceDto objectDelete = this.findById(id);
         objectDelete.setStatus(EServiceStatus.INACTIVE);
-
-        objectDelete.setDeleteAt(ConfigureTimeZone.getTimeZone());
 
         this.repositoryCommand.save(new Services(objectDelete));
     }

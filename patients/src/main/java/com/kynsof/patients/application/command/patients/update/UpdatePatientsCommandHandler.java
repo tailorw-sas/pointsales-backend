@@ -66,7 +66,7 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
                 command.getGestationTime()
         ));
 
-        if (contactInfoDto.getEmail() == null) {
+        if (contactInfoDto.getId() == null) {
             contactInfoDto.setPatient(patientDto);
             contactInfoDto.setAddress(command.getCreateContactInfoRequest().getAddress());
             contactInfoDto.setTelephone(command.getCreateContactInfoRequest().getTelephone());
