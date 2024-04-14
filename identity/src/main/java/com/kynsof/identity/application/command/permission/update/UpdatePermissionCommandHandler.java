@@ -23,7 +23,7 @@ public class UpdatePermissionCommandHandler implements ICommandHandler<UpdatePer
 
     @Override
     public void handle(UpdatePermissionCommand command) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(command.getId(), "Permission.id", "Permission ID cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(command.getId(), "id", "Permission ID cannot be null."));
 
         PermissionDto update = this.service.findById(command.getId());
 

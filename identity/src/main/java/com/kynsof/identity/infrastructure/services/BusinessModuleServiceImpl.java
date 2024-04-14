@@ -118,7 +118,7 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
             return object.get().toAggregate();
         }
 
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_MODULE_NOT_FOUND, new ErrorField("BusinessModule.id", "BusinessModule not found.")));
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_MODULE_NOT_FOUND, new ErrorField("id", "BusinessModule not found.")));
     }
 
     @Override

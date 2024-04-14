@@ -31,7 +31,7 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
 
     @Override
     public void handle(UpdateUserSystemCommand command) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(command.getId(), "UserSystem.id", "UserSystem ID cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule(command.getId(), "id", "UserSystem ID cannot be null."));
         UserSystemDto objectToUpdate = this.systemService.findById(command.getId());
 
         UpdateIfNotNull.updateIfNotNull(objectToUpdate::setEmail, command.getEmail());

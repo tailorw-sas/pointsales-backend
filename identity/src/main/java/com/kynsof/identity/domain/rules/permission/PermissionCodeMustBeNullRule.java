@@ -11,7 +11,7 @@ public class PermissionCodeMustBeNullRule extends BusinessRule {
     public PermissionCodeMustBeNullRule(String code) {
         super(
                 DomainErrorMessage.PERMISSION_CODE_CANNOT_BE_EMPTY, 
-                new ErrorField("Permission.code", "The code of the permission cannot be empty.")
+                new ErrorField("code", "The code of the permission cannot be empty.")
         );
         this.code = code;
     }

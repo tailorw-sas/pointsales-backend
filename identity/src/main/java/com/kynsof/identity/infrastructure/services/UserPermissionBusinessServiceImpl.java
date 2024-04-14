@@ -75,7 +75,7 @@ public class UserPermissionBusinessServiceImpl implements IUserPermissionBusines
             return object.get().toAggregate();
         }
 
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.USER_PERMISSION_BUSINESS_NOT_FOUND, new ErrorField("UserPermissionBusiness.id", "UserPermissionBusiness not found.")));
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.USER_PERMISSION_BUSINESS_NOT_FOUND, new ErrorField("id", "UserPermissionBusiness not found.")));
     }
 
     @Override

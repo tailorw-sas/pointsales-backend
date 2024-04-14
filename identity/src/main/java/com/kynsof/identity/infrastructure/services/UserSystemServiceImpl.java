@@ -59,7 +59,7 @@ public class UserSystemServiceImpl implements IUserSystemService {
         if (userSystem.isPresent()) {
             return userSystem.get().toAggregate();
         }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.USER_NOT_FOUND, new ErrorField("User.id", "User not found.")));
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.USER_NOT_FOUND, new ErrorField("id", "User not found.")));
     }
 
     @Override

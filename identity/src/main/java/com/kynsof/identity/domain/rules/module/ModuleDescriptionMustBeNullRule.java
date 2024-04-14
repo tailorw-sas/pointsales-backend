@@ -11,7 +11,7 @@ public class ModuleDescriptionMustBeNullRule extends BusinessRule {
     public ModuleDescriptionMustBeNullRule(String description) {
         super(
                 DomainErrorMessage.MODULE_DESCRIPTION_CANNOT_BE_EMPTY, 
-                new ErrorField("Module.description", "The description of the module cannot be empty.")
+                new ErrorField("description", "The description of the module cannot be empty.")
         );
         this.description = description;
     }

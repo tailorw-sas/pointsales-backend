@@ -32,7 +32,7 @@ public class UpdateModuleCommandHandler implements ICommandHandler<UpdateModuleC
     @Override
     public void handle(UpdateModuleCommand command) {
 
-        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getId(), "Module.id", "Module ID cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getId(), "id", "Module ID cannot be null."));
 
         ModuleDto update = this.service.findById(command.getId());
 

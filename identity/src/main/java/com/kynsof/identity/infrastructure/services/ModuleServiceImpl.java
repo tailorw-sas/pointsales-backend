@@ -56,7 +56,7 @@ public class ModuleServiceImpl implements IModuleService {
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.MODULE_NOT_FOUND, new ErrorField("Module.id", "Module not found.")));
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.MODULE_NOT_FOUND, new ErrorField("id", "Module not found.")));
     }
 
     @Override

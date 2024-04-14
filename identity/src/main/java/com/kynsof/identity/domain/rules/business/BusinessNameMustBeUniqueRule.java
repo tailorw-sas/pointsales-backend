@@ -17,7 +17,7 @@ public class BusinessNameMustBeUniqueRule extends BusinessRule {
     public BusinessNameMustBeUniqueRule(IBusinessService service, String name, UUID id) {
         super(
                 DomainErrorMessage.BUSINESS_NAME_MUST_BY_UNIQUE, 
-                new ErrorField("Business.name", "The business name must be unique.")
+                new ErrorField("name", "The business name must be unique.")
         );
         this.service = service;
         this.name = name;

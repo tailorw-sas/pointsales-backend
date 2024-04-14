@@ -58,7 +58,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
         if (location.isPresent()) {
             return location.get().toAggregate();
         }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("GeographicLocation.id", "GeographicLocation not found.")));
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("id", "GeographicLocation not found.")));
     }
 
     @Override
