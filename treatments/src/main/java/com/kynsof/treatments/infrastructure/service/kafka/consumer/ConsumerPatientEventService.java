@@ -65,6 +65,7 @@ public class ConsumerPatientEventService {
                 ));
             }
 
+
         } catch (JsonProcessingException ex) {
             System.err.println("########################");
             System.err.println("ERROR: " + ex.getMessage());
