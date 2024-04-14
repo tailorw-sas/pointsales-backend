@@ -1,6 +1,5 @@
 package com.kynsof.treatments.infrastructure.service;
 
-
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -48,7 +47,6 @@ public class VaccineServiceImpl implements IVaccineService {
         throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Vaccine not found.");
     }
 
-
 //    @Override
 //    public List<VaccineDto> getApplicableVaccines(LocalDate birthDate, UUID patientId) {
 //        long monthsOld = ChronoUnit.MONTHS.between(birthDate, LocalDate.now());
@@ -64,13 +62,12 @@ public class VaccineServiceImpl implements IVaccineService {
 //
 //        return nonAdministeredVaccines;
 //    }
-
     @Override
     public PaginatedResponse getApplicableVaccines(LocalDate birthDate, UUID patientId, Pageable pageable) {
         long monthsOld = ChronoUnit.MONTHS.between(birthDate, LocalDate.now());
 
-        Page<Vaccine> vaccinePage = this.repositoryQuery.findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual( monthsOld, pageable);
-        if(vaccinePage.isEmpty()){
+        Page<Vaccine> vaccinePage = this.repositoryQuery.findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual(monthsOld, pageable);
+        if (vaccinePage.isEmpty()) {
             return new PaginatedResponse(
                     new ArrayList<>(),
                     vaccinePage.getTotalPages(),
@@ -147,5 +144,9 @@ public class VaccineServiceImpl implements IVaccineService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    @Override
+    public Long countByNameAndNotId(String name, UUID id) {
+        return this.repositoryQuery.countByNameAndNotId(name, id);
+    }
 
 }

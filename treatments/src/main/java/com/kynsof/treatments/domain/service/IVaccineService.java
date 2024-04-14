@@ -17,4 +17,5 @@ public interface IVaccineService {
     UUID create(VaccineDto vaccineDto);
     void update(VaccineDto vaccineDto);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    Long countByNameAndNotId(String name, UUID id);
 }

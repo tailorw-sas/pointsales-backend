@@ -16,4 +16,8 @@ public interface VaccineReadDataJPARepository extends JpaRepository<Vaccine, UUI
     @Query("SELECT v FROM Vaccine v WHERE v.minAge <= :age AND v.maxAge >= :age")
     Page<Vaccine> findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual(@Param("age") double age, Pageable pageable);
 
+    
+    @Query("SELECT COUNT(b) FROM Vaccine b WHERE b.name = :name AND b.id <> :id")
+    Long countByNameAndNotId(@Param("name") String name, @Param("id") UUID id);
+
 }
