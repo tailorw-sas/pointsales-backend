@@ -39,15 +39,6 @@ public class ConsumerDependentPatientsEventService {
                         LocalDate.parse(eventRead.getBirthdayDate())));
 
             }
-            if (eventType.equals(EventType.DELETED)) {
-                //Definir accion
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN DELETED");
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-                
-            }
             if (eventType.equals(EventType.UPDATED)) {
                 //Definir accion
                 System.err.println("#######################################################");
@@ -55,7 +46,14 @@ public class ConsumerDependentPatientsEventService {
                 System.err.println("SE EJECUTA UN UPDATE");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), eventRead.getIdentification(), eventRead.getFirstname(), eventRead.getLastname(), eventRead.getGender(), Status.ACTIVE, null));
+                this.service.update(new PatientDto(
+                        UUID.fromString(eventRead.getId()), 
+                        eventRead.getIdentification(), 
+                        eventRead.getFirstname(), 
+                        eventRead.getLastname(), 
+                        eventRead.getGender(), 
+                        Status.ACTIVE, 
+                        LocalDate.parse(eventRead.getBirthdayDate())));
             }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerDependentPatientsEventService.class.getName()).log(Level.SEVERE, null, ex);
