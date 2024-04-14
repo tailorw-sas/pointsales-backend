@@ -54,7 +54,7 @@ public class PermissionServiceImpl implements IPermissionService {
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PERMISSION_NOT_FOUND, new ErrorField("Permission.id", "Permission not found.")));
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PERMISSION_NOT_FOUND, new ErrorField("id", "Permission not found.")));
     }
 
     @Override

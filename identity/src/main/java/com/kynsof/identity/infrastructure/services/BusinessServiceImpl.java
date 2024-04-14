@@ -71,7 +71,7 @@ public class BusinessServiceImpl implements IBusinessService {
             return object.get().toAggregate();
         }
 
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, new ErrorField("Business.id", "Business not found.")));
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, new ErrorField("id", "Business not found.")));
     }
 
    // @Cacheable(cacheNames = CacheConfig.BUSINESS_CACHE, unless = "#result == null")

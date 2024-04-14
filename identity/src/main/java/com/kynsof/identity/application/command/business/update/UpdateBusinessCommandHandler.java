@@ -43,7 +43,7 @@ public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusin
 
     @Override
     public void handle(UpdateBusinessCommand command) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getGeographicLocation(), "GeographicLocation.id", "GeographicLocation ID cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getGeographicLocation(), "geographicLocation", "GeographicLocation ID cannot be null."));
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getId(), "id", "Business ID cannot be null."));
 
         GeographicLocationDto location = this.geographicLocationService.findById(command.getGeographicLocation());

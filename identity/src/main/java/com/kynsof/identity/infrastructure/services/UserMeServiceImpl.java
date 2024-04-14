@@ -40,7 +40,7 @@ public class UserMeServiceImpl implements IUserMeService {
     public UserMeDto getUserInfo(UUID userId) {
         Optional<UserSystem> userOptional = userSystemReadDataJPARepository.findById(userId);
         if (userOptional.isEmpty()) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.USER_NOT_FOUND, new ErrorField("User.id", "User not found.")));
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.USER_NOT_FOUND, new ErrorField("id", "User not found.")));
         }
 
         UserSystem user = userOptional.get();

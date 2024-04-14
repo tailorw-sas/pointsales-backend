@@ -11,7 +11,7 @@ public class ModuleNameMustBeNullRule extends BusinessRule {
     public ModuleNameMustBeNullRule(String name) {
         super(
                 DomainErrorMessage.MODULE_NAME_CANNOT_BE_EMPTY, 
-                new ErrorField("Module.name", "The name of the module cannot be empty.")
+                new ErrorField("name", "The name of the module cannot be empty.")
         );
         this.name = name;
     }
