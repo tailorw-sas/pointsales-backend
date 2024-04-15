@@ -76,7 +76,7 @@ public class BusinessServiceImpl implements IBusinessService {
         this.repositoryCommand.save(new Business(objectDelete));
     }
 
-    @Cacheable(cacheNames = CacheConfig.BUSINESS_CACHE, unless = "#result == null")
+//    @Cacheable(cacheNames = CacheConfig.BUSINESS_CACHE, unless = "#result == null")
     @Override
     public BusinessDto findById(UUID id) {
 
