@@ -6,6 +6,7 @@ import com.kynsof.calendar.application.command.businessresource.create.CreateBus
 import com.kynsof.calendar.application.command.businessresource.update.UpdateBusinessResourceCommand;
 import com.kynsof.calendar.application.command.businessresource.update.UpdateBusinessResourceMessage;
 import com.kynsof.calendar.application.command.businessresource.update.UpdateBusinessresourceRequest;
+import com.kynsof.calendar.application.query.businesservice.getresourcebybusiness.FindResourcesByIdBusinessQuery;
 import com.kynsof.calendar.application.query.businessresource.getbyid.BusinessResourceResponse;
 import com.kynsof.calendar.application.query.businessresource.getbyid.FindBusinessResourceByIdQuery;
 import com.kynsof.calendar.application.query.businessresource.search.GetSearchBusinessResourceQuery;
@@ -42,6 +43,16 @@ public class BusinessResourceController {
 
         FindBusinessResourceByIdQuery query = new FindBusinessResourceByIdQuery(id);
         BusinessResourceResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/resources/{id}")
+    public ResponseEntity<?> findResourcesByBusinessId(@PathVariable UUID id) {
+
+        Pageable pageable = PageRequest.of(0, 1000);
+        FindResourcesByIdBusinessQuery query = new FindResourcesByIdBusinessQuery(id, pageable);
+        PaginatedResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }
