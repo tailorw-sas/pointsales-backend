@@ -35,6 +35,8 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
                 null
         );
 
+        userDto.setUserType(command.getUserType());
+
        UUID id = userSystemService.create(userDto);
        this.registerUserSystemEventService.create(userDto);
        command.setId(id);
