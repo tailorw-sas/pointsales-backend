@@ -26,13 +26,15 @@ public class ResourceDto implements Serializable {
     List<ServiceDto> services;
 
     public ResourceDto(UUID id,  String name, String registrationNumber, String language,
-                       EResourceStatus status, Boolean expressAppointments) {
+                       EResourceStatus status, Boolean expressAppointments, UUID image) {
         this.id = id;
         this.name = name;
         this.registrationNumber = registrationNumber;
         this.language = language;
         this.status = status;
         this.expressAppointments = expressAppointments;
+        this.image = image;
+
     }
 
 }
