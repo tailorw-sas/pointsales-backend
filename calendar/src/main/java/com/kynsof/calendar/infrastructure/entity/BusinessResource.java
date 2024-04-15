@@ -18,15 +18,15 @@ public class BusinessResource {
     @GeneratedValue(generator = "UUID")
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "business_id")
     private Business business;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "resource_id")
     private Resource resource;
 
-    @Column(name = "creation_date")
-    private LocalDateTime creationDate;
+    @Column(name = "createdAt")
+    private LocalDateTime createdAt;
 
 }

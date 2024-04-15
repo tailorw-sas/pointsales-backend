@@ -21,6 +21,7 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import com.kynsof.share.utils.ConfigureTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -28,7 +29,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -180,7 +180,7 @@ public class ResourceServiceImpl implements IResourceService {
            BusinessResource businessResource = new BusinessResource();
            businessResource.setBusiness(businessObject);
            businessResource.setResource(resourceObject);
-           businessResource.setCreationDate(LocalDateTime.now());  // Asumiendo que hay un campo para la fecha de creación
+           businessResource.setCreatedAt(ConfigureTimeZone.getTimeZone());  // Asumiendo que hay un campo para la fecha de creación
            businessObject.getBusinessResources().add(businessResource);
            resourceObject.getBusinessResources().add(businessResource);
 
@@ -202,7 +202,7 @@ public class ResourceServiceImpl implements IResourceService {
             ResourceService resourceService = new ResourceService();
             resourceService.setService(service);
             resourceService.setResource(resourceObject);
-            resourceService.setCreationDate(LocalDateTime.now());
+            resourceService.setCreationDate(ConfigureTimeZone.getTimeZone());
 
 
             this.resourceServiceWriteDataJPARepository.save(resourceService);
