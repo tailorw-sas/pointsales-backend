@@ -5,8 +5,13 @@ import com.kynsof.calendar.application.command.businessservices.create.CreateBus
 import com.kynsof.calendar.application.command.businessservices.create.CreateBusinessServicesRequest;
 import com.kynsof.calendar.application.query.businesservice.getbyid.BusinessServicesResponse;
 import com.kynsof.calendar.application.query.businesservice.getbyid.FindBusinessServiceByIdQuery;
+import com.kynsof.calendar.application.query.businesservice.search.GetSearchBusinessServiceQuery;
+import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import java.util.UUID;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,4 +42,15 @@ public class BusinessServiceController {
 
         return ResponseEntity.ok(response);
     }
+
+    
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchBusinessServiceQuery query = new GetSearchBusinessServiceQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
+    }
+
 }
