@@ -34,7 +34,7 @@ public class ServicesResponse implements IResponse {
         this.normalAppointmentPrice = object.getNormalAppointmentPrice();
         this.expressAppointmentPrice = object.getExpressAppointmentPrice();
         this.description = object.getDescription();
-        this.applyIva = false;
+        this.applyIva = object.getApplyIva();
     }
 
 }

@@ -14,4 +14,5 @@ public class UpdateServiceRequest {
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
     private String description;
+    private boolean applyIva;
 }

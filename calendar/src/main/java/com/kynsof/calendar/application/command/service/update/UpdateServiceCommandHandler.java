@@ -2,6 +2,7 @@ package com.kynsof.calendar.application.command.service.update;
 
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.ServiceTypeDto;
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
@@ -38,11 +39,13 @@ public class UpdateServiceCommandHandler  implements ICommandHandler<UpdateServi
        service.update(new ServiceDto(
                command.getId(), 
                serviceTypeDto,
+               EServiceStatus.ACTIVE,
                idLogo,
                command.getName(), 
                command.getNormalAppointmentPrice(), 
                command.getExpressAppointmentPrice(), 
-               command.getDescription()
+               command.getDescription(),
+               command.isApplyIva()
        ));
     }
 }

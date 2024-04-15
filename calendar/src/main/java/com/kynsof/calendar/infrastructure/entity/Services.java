@@ -46,6 +46,8 @@ public class Services {
     @OneToMany(mappedBy = "service")
     private Set<Schedule> schedules = new HashSet<>();
 
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean applyIva = true;
 
     public Services(ServiceDto object) {
         this.id = object.getId();
@@ -60,6 +62,6 @@ public class Services {
 
     public ServiceDto toAggregate () {
         return new ServiceDto(id, type.toAggregate(), status, picture, name, normalAppointmentPrice,
-                expressAppointmentPrice, description);
+                expressAppointmentPrice, description, applyIva);
     }
 }
