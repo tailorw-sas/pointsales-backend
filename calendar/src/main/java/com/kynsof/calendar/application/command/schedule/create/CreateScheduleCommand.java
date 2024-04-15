@@ -14,7 +14,7 @@ import java.util.UUID;
 public class CreateScheduleCommand implements ICommand {
 
     private UUID id;
-    private UUID resourceId;
+    private UUID resource;
     private UUID businessId;
     private UUID serviceId;
     private LocalDate date;
@@ -25,7 +25,7 @@ public class CreateScheduleCommand implements ICommand {
     public CreateScheduleCommand(UUID idResource, UUID idBusiness, LocalDate date, LocalTime startTime, LocalTime endingTime,
                                  int stock, UUID idService) {
         this.id = UUID.randomUUID();
-        this.resourceId = idResource;
+        this.resource = idResource;
         this.businessId = idBusiness;
         this.date = date;
         this.startTime = startTime;
@@ -35,8 +35,8 @@ public class CreateScheduleCommand implements ICommand {
     }
 
     public static CreateScheduleCommand fromRequest(CreateScheduleRequest request) {
-        return new CreateScheduleCommand(request.getResourceId(), request.getBusinessId(), request.getDate(), request.getStartTime(), request.getEndingTime(), request.getStock(),
-                request.getServiceId());
+        return new CreateScheduleCommand(request.getResource(), request.getBusiness(), request.getDate(), request.getStartTime(), request.getEndingTime(), request.getStock(),
+                request.getService());
     }
 
     @Override

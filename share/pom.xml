@@ -129,7 +129,7 @@
         <repository>
             <id>github</id>
             <name>GitHub OWNER Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/MAKEBE2020/scheduled</url>
+            <url>https://maven.pkg.github.com/kmontes198910/scheduled</url>
         </repository>
     </distributionManagement>
 </project>
