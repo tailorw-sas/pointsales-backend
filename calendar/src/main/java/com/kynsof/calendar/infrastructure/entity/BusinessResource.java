@@ -1,5 +1,6 @@
 package com.kynsof.calendar.infrastructure.entity;
 
+import com.kynsof.calendar.domain.dto.BusinessResourceDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class BusinessResource {
     @Id
-    @GeneratedValue(generator = "UUID")
     private UUID id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -28,5 +28,16 @@ public class BusinessResource {
 
     @Column(name = "createdAt")
     private LocalDateTime createdAt;
+
+    public BusinessResource(BusinessResourceDto businessResourceDto) {
+        this.id = businessResourceDto.getId();
+        this.business = new Business(businessResourceDto.getBusiness());
+        this.resource = new Resource(businessResourceDto.getResource());
+        this.createdAt = businessResourceDto.getCreatedAt();
+    }
+
+    public BusinessResourceDto toAggregate () {
+        return new BusinessResourceDto(id, business.toAggregate(), resource.toAggregate(), createdAt);
+    }
 
 }

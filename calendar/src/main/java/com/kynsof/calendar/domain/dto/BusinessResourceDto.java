@@ -17,4 +17,11 @@ public class BusinessResourceDto {
     private BusinessDto business;
     private ResourceDto resource;
     private LocalDateTime createdAt;
+
+    public BusinessResourceDto(UUID id, BusinessDto business, ResourceDto resource) {
+        this.id = id;
+        this.business = business;
+        this.resource = resource;
+    }
+
 }
