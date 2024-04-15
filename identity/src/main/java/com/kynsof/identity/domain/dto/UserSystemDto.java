@@ -22,13 +22,14 @@ public class UserSystemDto {
     private UUID idImage;
     private UserType userType;
 
-    public UserSystemDto(UUID id, String identification, String email, String name, String lastName, UserStatus status) {
+    public UserSystemDto(UUID id, String identification, String email, String name, String lastName, UserStatus status, UUID image) {
         this.id = id;
         this.identification = identification;
         this.email = email;
         this.name = name;
         this.lastName = lastName;
         this.status = status;
+        this.idImage = image;
     }
 
 

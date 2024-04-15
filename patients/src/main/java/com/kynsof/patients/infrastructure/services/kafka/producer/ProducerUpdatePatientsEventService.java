@@ -6,10 +6,10 @@ import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.share.core.domain.kafka.entity.PatientKafka;
 import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
-import java.time.LocalDate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,7 +39,7 @@ public class ProducerUpdatePatientsEventService {
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.UPDATED));
 
-            this.producer.send("patient", json);
+            this.producer.send("patient-update", json);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ProducerUpdatePatientsEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
