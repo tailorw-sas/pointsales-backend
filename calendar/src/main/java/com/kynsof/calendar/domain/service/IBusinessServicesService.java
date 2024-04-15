@@ -14,4 +14,5 @@ public interface IBusinessServicesService {
     void delete(UUID id);
     BusinessServicesDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    PaginatedResponse findServicesByBusinessId(Pageable pageable, UUID businessId);
 }

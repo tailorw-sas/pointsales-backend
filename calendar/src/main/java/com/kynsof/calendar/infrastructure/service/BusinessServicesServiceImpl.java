@@ -1,9 +1,11 @@
 package com.kynsof.calendar.infrastructure.service;
 
+import com.kynsof.calendar.application.query.ServicesResponse;
 import com.kynsof.calendar.application.query.businesservice.getbyid.BusinessServicesResponse;
 import com.kynsof.calendar.domain.dto.BusinessServicesDto;
 import com.kynsof.calendar.domain.service.IBusinessServicesService;
 import com.kynsof.calendar.infrastructure.entity.BusinessServices;
+import com.kynsof.calendar.infrastructure.entity.Services;
 import com.kynsof.calendar.infrastructure.repository.command.BusinessServicesWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.BusinessServicesReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
@@ -72,6 +74,21 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    private PaginatedResponse getPaginatedServicesResponse(Page<Services> data) {
+        List<ServicesResponse> patients = new ArrayList<>();
+        for (Services s : data.getContent()) {
+            patients.add(new ServicesResponse(s.toAggregate()));
+        }
+        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public PaginatedResponse findServicesByBusinessId(Pageable pageable, UUID businessId) {
+        Page<Services> data = this.repositoryQuery.findServicesByBusinessId(businessId, pageable);
+        return getPaginatedServicesResponse(data);
     }
 
 }
