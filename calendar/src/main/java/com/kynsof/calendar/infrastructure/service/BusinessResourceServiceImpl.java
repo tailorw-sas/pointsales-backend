@@ -38,7 +38,7 @@ public class BusinessResourceServiceImpl implements IBusinessResourceService {
 
     @Override
     public void update(BusinessResourceDto object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.repositoryCommand.save(new BusinessResource(object));
     }
 
     @Override
