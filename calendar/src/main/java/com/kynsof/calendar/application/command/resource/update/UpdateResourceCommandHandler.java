@@ -41,7 +41,7 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
             );
         }catch (Exception ex){
             ResourceDto _resource = new ResourceDto(command.getId(),"", command.getRegistrationNumber(), command.getLanguage(),
-                    command.getStatus(),command.getExpressAppointments());
+                    command.getStatus(),command.getExpressAppointments(), idLogo);
             _resource.setRegistrationNumber(command.getRegistrationNumber());
             _resource.setImage(idLogo);
             _resource.setLanguage(command.getLanguage());

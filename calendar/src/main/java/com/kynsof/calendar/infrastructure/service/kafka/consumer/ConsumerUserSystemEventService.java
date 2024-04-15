@@ -33,7 +33,7 @@ public class ConsumerUserSystemEventService {
 
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName(), "", "", EResourceStatus.ACTIVE, false);
+                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName(), "", "", EResourceStatus.ACTIVE, false, eventRead.getIdImage());
                 this.service.create(resourceDto);
             }
             if (eventType.equals(EventType.DELETED)) {
@@ -41,7 +41,7 @@ public class ConsumerUserSystemEventService {
             }
             if (eventType.equals(EventType.UPDATED)) {
                 //Definir accion
-                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName(), "", "", EResourceStatus.ACTIVE, false);
+                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName(), "", "", EResourceStatus.ACTIVE, false, eventRead.getIdImage());
                 resourceDto.setImage(eventRead.getIdImage());
                 this.service.update(resourceDto);
             }
