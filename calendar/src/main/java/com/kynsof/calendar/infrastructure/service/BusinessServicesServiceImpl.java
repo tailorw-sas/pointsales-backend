@@ -40,7 +40,7 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
 
     @Override
     public void update(BusinessServicesDto object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.repositoryCommand.save(new BusinessServices(object));
     }
 
     @Override

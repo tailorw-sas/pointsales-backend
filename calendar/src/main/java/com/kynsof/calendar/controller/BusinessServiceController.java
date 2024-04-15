@@ -3,6 +3,9 @@ package com.kynsof.calendar.controller;
 import com.kynsof.calendar.application.command.businessservices.create.CreateBusinessServicesCommand;
 import com.kynsof.calendar.application.command.businessservices.create.CreateBusinessServicesMessage;
 import com.kynsof.calendar.application.command.businessservices.create.CreateBusinessServicesRequest;
+import com.kynsof.calendar.application.command.businessservices.update.UpdateBusinessServicesCommand;
+import com.kynsof.calendar.application.command.businessservices.update.UpdateBusinessServicesMessage;
+import com.kynsof.calendar.application.command.businessservices.update.UpdateBusinessServicesRequest;
 import com.kynsof.calendar.application.query.businesservice.getbyid.BusinessServicesResponse;
 import com.kynsof.calendar.application.query.businesservice.getbyid.FindBusinessServiceByIdQuery;
 import com.kynsof.calendar.application.query.businesservice.getservicesbybusiness.FindServiceByIdBusinessQuery;
@@ -61,6 +64,14 @@ public class BusinessServiceController {
         GetSearchBusinessServiceQuery query = new GetSearchBusinessServiceQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateBusinessServicesMessage> update(@PathVariable("id") UUID id, @RequestBody UpdateBusinessServicesRequest request) {
+
+        UpdateBusinessServicesCommand command = UpdateBusinessServicesCommand.fromRequest(request, id);
+        UpdateBusinessServicesMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
     }
 
 }
