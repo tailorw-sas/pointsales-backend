@@ -71,7 +71,7 @@ public class UserSystem implements Serializable {
     }
 
     public UserSystemDto toAggregate() {
-        UserSystemDto dto = new UserSystemDto(this.id, this.userName, this.email, this.name, this.lastName, this.status);
+        UserSystemDto dto = new UserSystemDto(this.id, this.userName, this.email, this.name, this.lastName, this.status, this.image);
         dto.setUserType(userType);
         dto.setIdImage(image);
         return dto;
