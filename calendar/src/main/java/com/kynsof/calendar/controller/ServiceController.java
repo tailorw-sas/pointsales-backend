@@ -11,6 +11,7 @@ import com.kynsof.calendar.application.command.service.update.UpdateServiceReque
 import com.kynsof.calendar.application.query.ServicesResponse;
 import com.kynsof.calendar.application.query.service.getAll.FindServiceWithFilterQuery;
 import com.kynsof.calendar.application.query.service.getbyid.FindServiceByIdQuery;
+import com.kynsof.calendar.application.query.service.getservicesbyidresource.FindServicesByIdResourceQuery;
 import com.kynsof.calendar.application.query.service.search.GetSearchServiceQuery;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
@@ -50,6 +51,15 @@ public class ServiceController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping(path = "/services-by-resource/{id}")
+    public ResponseEntity<?> findServicesByResourceId(@PathVariable UUID id) {
+
+        Pageable pageable = PageRequest.of(0, 1000);
+        FindServicesByIdResourceQuery query = new FindServicesByIdResourceQuery(id, pageable);
+        PaginatedResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping("/all")
     public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,

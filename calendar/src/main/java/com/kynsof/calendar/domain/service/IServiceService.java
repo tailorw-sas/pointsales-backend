@@ -15,5 +15,6 @@ public interface IServiceService {
     ServiceDto findById(UUID id);
     PaginatedResponse findAll(Pageable pageable, UUID idObject, String filter);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId);
     Long countByNameAndNotId(String name, UUID id);
 }

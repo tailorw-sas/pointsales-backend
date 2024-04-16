@@ -69,16 +69,6 @@ public class BusinessServiceController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(path = "/services-by-resource/{id}")
-    public ResponseEntity<?> findServicesByResourceId(@PathVariable UUID id) {
-
-        Pageable pageable = PageRequest.of(0, 1000);
-        FindServiceByIdResourcesQuery query = new FindServiceByIdResourcesQuery(id, pageable);
-        PaginatedResponse response = mediator.send(query);
-
-        return ResponseEntity.ok(response);
-    }
-
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
     {

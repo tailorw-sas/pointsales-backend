@@ -130,4 +130,10 @@ public class ServiceServiceImpl implements IServiceService {
         return this.repositoryQuery.countByNameAndNotId(name, id);
     }
 
+    @Override
+    public PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId) {
+        Page<Services> services = this.repositoryQuery.findServicesByResourceId(resourceId, pageable);
+        return getPaginatedResponse(services);
+    }
+
 }
