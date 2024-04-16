@@ -21,6 +21,10 @@ public class MailjetConfigurationResponse implements IResponse {
 
     public MailjetConfigurationResponse(MailjetConfigurationDto patients) {
         this.id = patients.getId();
+        mailjetApiKey = patients.getMailjetApiKey();
+        mailjetApiSecret = patients.getMailjetApiSecret();
+        fromEmail = patients.getFromEmail();
+        fromName = patients.getFromName();
     }
 
 }
