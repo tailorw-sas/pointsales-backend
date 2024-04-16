@@ -3,6 +3,9 @@ package com.kynsof.calendar.controller;
 import com.kynsof.calendar.application.command.businessservices.create.CreateBusinessServicesCommand;
 import com.kynsof.calendar.application.command.businessservices.create.CreateBusinessServicesMessage;
 import com.kynsof.calendar.application.command.businessservices.create.CreateBusinessServicesRequest;
+import com.kynsof.calendar.application.command.businessservices.createall.CreateAllBusinessServicesCommand;
+import com.kynsof.calendar.application.command.businessservices.createall.CreateAllBusinessServicesMessage;
+import com.kynsof.calendar.application.command.businessservices.createall.CreateAllBusinessServicesRequest;
 import com.kynsof.calendar.application.command.businessservices.update.UpdateBusinessServicesCommand;
 import com.kynsof.calendar.application.command.businessservices.update.UpdateBusinessServicesMessage;
 import com.kynsof.calendar.application.command.businessservices.update.UpdateBusinessServicesRequest;
@@ -34,6 +37,14 @@ public class BusinessServiceController {
     public ResponseEntity<?> create(@RequestBody CreateBusinessServicesRequest request)  {
         CreateBusinessServicesCommand createCommand = CreateBusinessServicesCommand.fromRequest(request);
         CreateBusinessServicesMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/create-all-services")
+    public ResponseEntity<?> createAllServices(@RequestBody CreateAllBusinessServicesRequest request)  {
+        CreateAllBusinessServicesCommand createCommand = CreateAllBusinessServicesCommand.fromRequest(request, this.mediator);
+        CreateAllBusinessServicesMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
     }
