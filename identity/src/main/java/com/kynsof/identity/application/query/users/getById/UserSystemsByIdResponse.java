@@ -4,6 +4,7 @@ package com.kynsof.identity.application.query.users.getById;
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
+import com.kynsof.identity.domain.dto.enumType.UserType;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class UserSystemsByIdResponse implements IResponse {
     private String lastName;
     private UserStatus status;
     private List<RoleDto> roles;
+    private UserType userType;
 
     public UserSystemsByIdResponse(UserSystemDto userSystemDto) {
         this.id = userSystemDto.getId();
@@ -31,6 +33,7 @@ public class UserSystemsByIdResponse implements IResponse {
         this.name = userSystemDto.getName();
         this.lastName = userSystemDto.getLastName();
         this.status = userSystemDto.getStatus();
+        this.userType = userSystemDto.getUserType();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.kynsof.identity.application.command.user.create;
 
 
+import com.kynsof.identity.domain.dto.enumType.UserType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,4 +12,5 @@ public class CreateUserSystemRequest {
     private String email;
     private String name;
     private String lastName;
+    private UserType userType;
 }

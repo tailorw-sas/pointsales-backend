@@ -22,6 +22,7 @@ public class ServicesResponse implements IResponse {
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
     private String description;
+    private boolean applyIva;
 
 
     public ServicesResponse(ServiceDto object) {
@@ -33,6 +34,7 @@ public class ServicesResponse implements IResponse {
         this.normalAppointmentPrice = object.getNormalAppointmentPrice();
         this.expressAppointmentPrice = object.getExpressAppointmentPrice();
         this.description = object.getDescription();
+        this.applyIva = object.getApplyIva();
     }
 
 }

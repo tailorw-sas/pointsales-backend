@@ -22,17 +22,19 @@ public class ServiceDto implements Serializable {
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
     private String description;
+    private Boolean applyIva;
 
 
-    public ServiceDto(UUID id, ServiceTypeDto type, String picture, String name, Double normalAppointmentPrice,
-                      Double expressAppointmentPrice, String description) {
-        this.id = id;
-        this.type = type;
-        this.picture = picture;
-        this.name = name;
-        this.normalAppointmentPrice = normalAppointmentPrice;
-        this.expressAppointmentPrice = expressAppointmentPrice;
-        this.description = description;
-    }
+
+//    public ServiceDto(UUID id, ServiceTypeDto type, String picture, String name, Double normalAppointmentPrice,
+//                      Double expressAppointmentPrice, String description) {
+//        this.id = id;
+//        this.type = type;
+//        this.picture = picture;
+//        this.name = name;
+//        this.normalAppointmentPrice = normalAppointmentPrice;
+//        this.expressAppointmentPrice = expressAppointmentPrice;
+//        this.description = description;
+//    }
 
 }

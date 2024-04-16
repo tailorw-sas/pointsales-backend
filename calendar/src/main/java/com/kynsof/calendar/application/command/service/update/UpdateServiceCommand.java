@@ -18,8 +18,10 @@ public class UpdateServiceCommand implements ICommand {
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
     private String description;
+    private boolean applyIva;
 
-    public UpdateServiceCommand(UUID id, UUID serviceTypeId, byte[] picture, String name, Double normalAppointmentPrice, Double expressAppointmentPrice, String description) {
+    public UpdateServiceCommand(UUID id, UUID serviceTypeId, byte[] picture, String name, Double normalAppointmentPrice,
+                                Double expressAppointmentPrice, String description, boolean applyIva) {
         this.id = id;
         this.serviceTypeId = serviceTypeId;
         this.picture = picture;
@@ -27,11 +29,14 @@ public class UpdateServiceCommand implements ICommand {
         this.normalAppointmentPrice = normalAppointmentPrice;
         this.expressAppointmentPrice = expressAppointmentPrice;
         this.description = description;
+        this.applyIva = applyIva;
     }
 
 
     public static UpdateServiceCommand fromRequest(UUID id, UpdateServiceRequest request) {
-        return new UpdateServiceCommand(id, request.getType(), request.getImage(), request.getName(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(), request.getDescription());
+        return new UpdateServiceCommand(id, request.getType(), request.getImage(),
+                request.getName(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(),
+                request.getDescription(), request.isApplyIva());
     }
 
     @Override
