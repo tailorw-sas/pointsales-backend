@@ -91,4 +91,10 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
         return getPaginatedServicesResponse(data);
     }
 
+    @Override
+    public PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId) {
+        Page<BusinessServices> data = this.repositoryQuery.findServicesByResourceId(resourceId, pageable);
+        return getPaginatedResponse(data);
+    }
+
 }
