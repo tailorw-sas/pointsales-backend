@@ -1,5 +1,6 @@
 package com.kynsoft.notification.infrastructure.entity;
 
+import com.kynsoft.notification.domain.dto.AdvertisingContentDto;
 import com.kynsoft.notification.domain.dto.ContentType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,4 +28,16 @@ public class AdvertisingContent {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ContentType type;
+
+    public AdvertisingContent(AdvertisingContentDto advertisingContentDto) {
+        this.id = advertisingContentDto.getId();
+        this.name = advertisingContentDto.getName();
+        this.description = advertisingContentDto.getDescription();
+        this.type = advertisingContentDto.getType();
+    }
+
+    public AdvertisingContentDto toAggregate () {
+        return new AdvertisingContentDto(id, name, description, type);
+    }
+
 }

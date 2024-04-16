@@ -1,18 +1,16 @@
-package com.kynsoft.notification.domain.dto;
+package com.kynsoft.notification.application.command.advertisingcontent.create;
 
+import com.kynsoft.notification.domain.dto.ContentType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdvertisingContentDto {
-    private UUID id;
+public class CreateAdvertisingContentRequest {
     private String name;
     private String description;
     private ContentType type;
