@@ -1,5 +1,6 @@
 package com.kynsoft.notification.domain.dto;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,11 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AdvertisingContentDto {
     private UUID id;
-    private String name;
+    private String title;
     private String description;
     private ContentType type;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private String url;
+
 }

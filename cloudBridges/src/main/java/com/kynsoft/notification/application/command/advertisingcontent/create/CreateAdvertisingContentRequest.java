@@ -11,7 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateAdvertisingContentRequest {
-    private String name;
+    private String title;
     private String description;
     private ContentType type;
+    private byte[] picture;
 }

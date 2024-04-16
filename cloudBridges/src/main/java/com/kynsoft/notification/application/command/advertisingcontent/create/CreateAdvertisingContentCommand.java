@@ -13,19 +13,21 @@ import java.util.UUID;
 public class CreateAdvertisingContentCommand implements ICommand {
 
     private UUID id;
-    private String name;
+    private String title;
     private String description;
     private ContentType type;
+    private byte[] picture;
 
-    public CreateAdvertisingContentCommand(String name, String description, ContentType type) {
+    public CreateAdvertisingContentCommand(String title, String description, ContentType type, byte[] picture) {
         this.id = UUID.randomUUID();
-        this.name = name;
+        this.title = title;
         this.description = description;
         this.type = type;
+        this.picture = picture;
     }
 
     public static CreateAdvertisingContentCommand fromRequest(CreateAdvertisingContentRequest request) {
-        return new CreateAdvertisingContentCommand(request.getName(), request.getDescription(), request.getType());
+        return new CreateAdvertisingContentCommand(request.getTitle(), request.getDescription(), request.getType(), request.getPicture());
     }
 
     @Override

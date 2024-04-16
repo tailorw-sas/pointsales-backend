@@ -3,6 +3,7 @@ package com.kynsoft.notification.infrastructure.entity;
 import com.kynsoft.notification.domain.dto.AdvertisingContentDto;
 import com.kynsoft.notification.domain.dto.ContentType;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,25 +20,41 @@ public class AdvertisingContent {
     @Id
     private UUID id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(nullable = true)
+    private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String description;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ContentType type;
 
+    @Column(nullable = true, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = false)
+    private LocalDateTime updatedAt;
+
+    @Column(nullable = true)
+    private String url;
+
     public AdvertisingContent(AdvertisingContentDto advertisingContentDto) {
         this.id = advertisingContentDto.getId();
-        this.name = advertisingContentDto.getName();
+        this.title = advertisingContentDto.getTitle();
         this.description = advertisingContentDto.getDescription();
         this.type = advertisingContentDto.getType();
+        this.createdAt = advertisingContentDto.getCreatedAt() != null ? advertisingContentDto.getCreatedAt() : null;
+        this.updatedAt = advertisingContentDto.getUpdatedAt() != null ? advertisingContentDto.getUpdatedAt() : null;
+        this.url = advertisingContentDto.getUrl() != null ? advertisingContentDto.getUrl() : null;
     }
 
     public AdvertisingContentDto toAggregate () {
-        return new AdvertisingContentDto(id, name, description, type);
+        LocalDateTime createdDateTime = createdAt != null ? createdAt : null;
+        LocalDateTime updateDateTime = createdAt != null ? createdAt : null;
+        String urlS = url != null ? url : null;
+        
+        return new AdvertisingContentDto(id, title, description, type, createdDateTime, updateDateTime, urlS);
     }
 
 }
