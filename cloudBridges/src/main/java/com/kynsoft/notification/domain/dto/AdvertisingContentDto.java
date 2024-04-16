@@ -20,5 +20,6 @@ public class AdvertisingContentDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String url;
+    private String link;
 
 }

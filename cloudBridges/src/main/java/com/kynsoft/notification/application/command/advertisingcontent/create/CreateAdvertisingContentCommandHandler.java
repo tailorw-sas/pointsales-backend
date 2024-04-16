@@ -42,7 +42,8 @@ public class CreateAdvertisingContentCommandHandler implements ICommandHandler<C
                 command.getType(),
                 ConfigureTimeZone.getTimeZone(),
                 null,
-                url
+                url,
+                command.getLink()
         ));
     }
 }

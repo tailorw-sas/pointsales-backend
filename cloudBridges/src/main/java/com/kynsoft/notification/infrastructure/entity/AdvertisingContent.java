@@ -39,6 +39,9 @@ public class AdvertisingContent {
     @Column(nullable = true)
     private String url;
 
+    @Column(nullable = true)
+    private String link;
+
     public AdvertisingContent(AdvertisingContentDto advertisingContentDto) {
         this.id = advertisingContentDto.getId();
         this.title = advertisingContentDto.getTitle();
@@ -47,14 +50,16 @@ public class AdvertisingContent {
         this.createdAt = advertisingContentDto.getCreatedAt() != null ? advertisingContentDto.getCreatedAt() : null;
         this.updatedAt = advertisingContentDto.getUpdatedAt() != null ? advertisingContentDto.getUpdatedAt() : null;
         this.url = advertisingContentDto.getUrl() != null ? advertisingContentDto.getUrl() : null;
+        this.link = advertisingContentDto.getLink() != null ? advertisingContentDto.getLink() : null;
     }
 
     public AdvertisingContentDto toAggregate () {
         LocalDateTime createdDateTime = createdAt != null ? createdAt : null;
         LocalDateTime updateDateTime = createdAt != null ? createdAt : null;
         String urlS = url != null ? url : null;
+        String linkS = link != null ? link : null;
         
-        return new AdvertisingContentDto(id, title, description, type, createdDateTime, updateDateTime, urlS);
+        return new AdvertisingContentDto(id, title, description, type, createdDateTime, updateDateTime, urlS, linkS);
     }
 
 }

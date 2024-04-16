@@ -22,6 +22,7 @@ public class AdvertisingContentResponse implements IResponse {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String url;
+    private String link;
 
     public AdvertisingContentResponse(AdvertisingContentDto advertisingContentDto) {
         this.id = advertisingContentDto.getId();
@@ -30,7 +31,8 @@ public class AdvertisingContentResponse implements IResponse {
         this.type = advertisingContentDto.getType();
         this.createdAt = advertisingContentDto.getCreatedAt();
         this.updatedAt = advertisingContentDto.getUpdatedAt();
-        this.url = advertisingContentDto.getUrl();        
+        this.url = advertisingContentDto.getUrl();   
+        this.link = advertisingContentDto.getLink();
     }
 
 }
