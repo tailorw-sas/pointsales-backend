@@ -58,4 +58,5 @@ ENV TZ="America/Guayaquil"
 # Copy the native executable into the containers
 WORKDIR /app
 COPY --from=builder /build/target/treatments-1.0.0.jar .
+COPY --from=builder /build/src/main/resources/templates/*.pdf /app/templates/
 ENTRYPOINT [ "java", "-jar", "/app/treatments-1.0.0.jar" ]
