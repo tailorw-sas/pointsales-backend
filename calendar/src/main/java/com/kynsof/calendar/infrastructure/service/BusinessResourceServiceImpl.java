@@ -102,4 +102,9 @@ public class BusinessResourceServiceImpl implements IBusinessResourceService {
         throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, new ErrorField("id", "BusinessResource not found.")));
     }
 
+    @Override
+    public Long countBusinessResourceByBusinessIdAndResourceId(UUID businessId, UUID resourceId) {
+        return this.repositoryQuery.countBusinessResourceByBusinessIdAndResourceId(businessId, resourceId);
+    }
+
 }

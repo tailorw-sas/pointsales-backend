@@ -16,4 +16,5 @@ public interface IBusinessResourceService {
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     PaginatedResponse findResourceByBusinessId(Pageable pageable, UUID businessId);
     BusinessResourceDto findBusinessResourceByBusinessIdAndResourceId(UUID businessId, UUID resourceId);
+    Long countBusinessResourceByBusinessIdAndResourceId(UUID businessId, UUID resourceId);
 }

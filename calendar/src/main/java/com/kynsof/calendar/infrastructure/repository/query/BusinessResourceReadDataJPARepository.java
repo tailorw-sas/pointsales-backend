@@ -21,5 +21,8 @@ public interface BusinessResourceReadDataJPARepository extends JpaRepository<Bus
     
     @Query("SELECT br FROM BusinessResource br WHERE br.business.id = :businessId AND br.resource.id = :resourceId")
     Optional<BusinessResource> findBusinessResourceByBusinessIdAndResourceId(@Param("businessId") UUID businessId, @Param("resourceId") UUID resourceId);
+    
+    @Query("SELECT COUNT(br) FROM BusinessResource br WHERE br.business.id = :businessId AND br.resource.id = :resourceId")
+    Long countBusinessResourceByBusinessIdAndResourceId(@Param("businessId") UUID businessId, @Param("resourceId") UUID resourceId);
 
 }

@@ -3,6 +3,7 @@ package com.kynsof.calendar.application.command.businessresource.create;
 import com.kynsof.calendar.domain.dto.BusinessDto;
 import com.kynsof.calendar.domain.dto.BusinessResourceDto;
 import com.kynsof.calendar.domain.dto.ResourceDto;
+import com.kynsof.calendar.domain.rules.businessresource.BusinessResourceMustBeUniqueRule;
 import com.kynsof.calendar.domain.service.IBusinessResourceService;
 import com.kynsof.calendar.domain.service.IBusinessService;
 import com.kynsof.calendar.domain.service.IResourceService;
@@ -29,6 +30,8 @@ public class CreateBusinessResourceCommandHandler implements ICommandHandler<Cre
     public void handle(CreateBusinessResourceCommand command) {
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getBusiness(), "business", "Business ID cannot be null."));
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getResource(), "resource", "Resource ID cannot be null."));
+
+        RulesChecker.checkRule(new BusinessResourceMustBeUniqueRule(this.service, command.getBusiness(), command.getResource()));
 
         BusinessDto businessDto = this.serviceBusiness.findById(command.getBusiness());
         ResourceDto serviceDto = this.serviceResource.findById(command.getResource());
