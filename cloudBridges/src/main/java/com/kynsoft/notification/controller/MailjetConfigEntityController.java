@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/patient-vaccine")
+@RequestMapping("/api/mailjet-config")
 public class MailjetConfigEntityController {
 
     private final IMediator mediator;
