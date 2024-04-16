@@ -45,7 +45,7 @@ public class BusinessResourceServiceImpl implements IBusinessResourceService {
 
     @Override
     public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.repositoryCommand.deleteById(id);
     }
 
     @Override
@@ -89,6 +89,17 @@ public class BusinessResourceServiceImpl implements IBusinessResourceService {
     public PaginatedResponse findResourceByBusinessId(Pageable pageable, UUID businessId) {
         Page<Resource> data = this.repositoryQuery.findResourceByBusinessId(businessId, pageable);
         return getPaginatedResourceResponse(data);
+    }
+
+    @Override
+    public BusinessResourceDto findBusinessResourceByBusinessIdAndResourceId(UUID businessId, UUID resourceId) {
+
+        Optional<BusinessResource> object = this.repositoryQuery.findBusinessResourceByBusinessIdAndResourceId(businessId, resourceId);
+        if (object.isPresent()) {
+            return object.get().toAggregate();
+        }
+
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, new ErrorField("id", "BusinessResource not found.")));
     }
 
 }

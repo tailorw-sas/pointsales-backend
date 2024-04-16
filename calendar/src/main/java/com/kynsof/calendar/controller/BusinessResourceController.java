@@ -3,6 +3,9 @@ package com.kynsof.calendar.controller;
 import com.kynsof.calendar.application.command.businessresource.create.CreateBusinessResourceCommand;
 import com.kynsof.calendar.application.command.businessresource.create.CreateBusinessResourceMessage;
 import com.kynsof.calendar.application.command.businessresource.create.CreateBusinessresourceRequest;
+import com.kynsof.calendar.application.command.businessresource.delete.DeleteBusinessResourceCommand;
+import com.kynsof.calendar.application.command.businessresource.delete.DeleteBusinessResourceMessage;
+import com.kynsof.calendar.application.command.businessresource.delete.DeleteBusinessResourceRequest;
 import com.kynsof.calendar.application.command.businessresource.update.UpdateBusinessResourceCommand;
 import com.kynsof.calendar.application.command.businessresource.update.UpdateBusinessResourceMessage;
 import com.kynsof.calendar.application.command.businessresource.update.UpdateBusinessresourceRequest;
@@ -37,7 +40,15 @@ public class BusinessResourceController {
 
         return ResponseEntity.ok(response);
     }
-    
+
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(@RequestBody DeleteBusinessResourceRequest request)  {
+        DeleteBusinessResourceCommand createCommand = DeleteBusinessResourceCommand.fromRequest(request);
+        DeleteBusinessResourceMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> getById(@PathVariable UUID id) {
 

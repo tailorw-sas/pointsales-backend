@@ -2,6 +2,7 @@ package com.kynsof.calendar.infrastructure.repository.query;
 
 import com.kynsof.calendar.infrastructure.entity.BusinessResource;
 import com.kynsof.calendar.infrastructure.entity.Resource;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -17,5 +18,8 @@ public interface BusinessResourceReadDataJPARepository extends JpaRepository<Bus
     
     @Query("SELECT br.resource FROM BusinessResource br WHERE br.business.id = :businessId")
     Page<Resource> findResourceByBusinessId(@Param("businessId") UUID businessId, Pageable pageable);
+    
+    @Query("SELECT br FROM BusinessResource br WHERE br.business.id = :businessId AND br.resource.id = :resourceId")
+    Optional<BusinessResource> findBusinessResourceByBusinessIdAndResourceId(@Param("businessId") UUID businessId, @Param("resourceId") UUID resourceId);
 
 }
