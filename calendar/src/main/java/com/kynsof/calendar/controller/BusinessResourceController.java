@@ -3,15 +3,15 @@ package com.kynsof.calendar.controller;
 import com.kynsof.calendar.application.command.businessresource.create.CreateBusinessResourceCommand;
 import com.kynsof.calendar.application.command.businessresource.create.CreateBusinessResourceMessage;
 import com.kynsof.calendar.application.command.businessresource.create.CreateBusinessresourceRequest;
+import com.kynsof.calendar.application.command.businessresource.createall.CreateAllBusinessResourcesCommand;
+import com.kynsof.calendar.application.command.businessresource.createall.CreateAllBusinessResourcesMessage;
+import com.kynsof.calendar.application.command.businessresource.createall.CreateAllBusinessResourcesRequest;
 import com.kynsof.calendar.application.command.businessresource.delete.DeleteBusinessResourceCommand;
 import com.kynsof.calendar.application.command.businessresource.delete.DeleteBusinessResourceMessage;
 import com.kynsof.calendar.application.command.businessresource.delete.DeleteBusinessResourceRequest;
 import com.kynsof.calendar.application.command.businessresource.update.UpdateBusinessResourceCommand;
 import com.kynsof.calendar.application.command.businessresource.update.UpdateBusinessResourceMessage;
 import com.kynsof.calendar.application.command.businessresource.update.UpdateBusinessresourceRequest;
-import com.kynsof.calendar.application.command.businessservices.createall.CreateAllBusinessServicesCommand;
-import com.kynsof.calendar.application.command.businessservices.createall.CreateAllBusinessServicesMessage;
-import com.kynsof.calendar.application.command.businessservices.createall.CreateAllBusinessServicesRequest;
 import com.kynsof.calendar.application.query.businesservice.getresourcebybusiness.FindResourcesByIdBusinessQuery;
 import com.kynsof.calendar.application.query.businessresource.getbyid.BusinessResourceResponse;
 import com.kynsof.calendar.application.query.businessresource.getbyid.FindBusinessResourceByIdQuery;
@@ -40,6 +40,14 @@ public class BusinessResourceController {
     public ResponseEntity<?> create(@RequestBody CreateBusinessresourceRequest request)  {
         CreateBusinessResourceCommand createCommand = CreateBusinessResourceCommand.fromRequest(request);
         CreateBusinessResourceMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/create-all-resources")
+    public ResponseEntity<?> createAllServices(@RequestBody CreateAllBusinessResourcesRequest request)  {
+        CreateAllBusinessResourcesCommand createCommand = CreateAllBusinessResourcesCommand.fromRequest(request, this.mediator);
+        CreateAllBusinessResourcesMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
     }
