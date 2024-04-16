@@ -19,9 +19,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.Files;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 @RestController
@@ -88,18 +90,19 @@ public class VaccineController {
     @GetMapping("/certificate/{patientId}")
     public ResponseEntity<byte[]> getPDF(@PathVariable UUID patientId) {
         try {
-            Resource resource = resourceLoader.getResource("classpath:templates/"  + "certtificate.pdf");
-            if(resource.exists()) {
-                byte[] data = Files.readAllBytes(resource.getFile().toPath());
+            Resource resource = resourceLoader.getResource("classpath:templates/" + "certtificate.pdf");
+            if (resource.exists()) {
+                InputStream inputStream = resource.getInputStream();
+                byte[] data = StreamUtils.copyToByteArray(inputStream);
                 return ResponseEntity.ok()
                         .contentType(MediaType.APPLICATION_PDF)
                         .body(data);
             } else {
                 return ResponseEntity.notFound().build();
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
+            e.printStackTrace();
             return ResponseEntity.internalServerError().build();
         }
     }
-
 }
