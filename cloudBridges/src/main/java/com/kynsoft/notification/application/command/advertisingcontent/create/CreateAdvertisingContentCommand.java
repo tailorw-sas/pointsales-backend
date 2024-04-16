@@ -16,18 +16,18 @@ public class CreateAdvertisingContentCommand implements ICommand {
     private String title;
     private String description;
     private ContentType type;
-    private byte[] picture;
+    private byte[] image;
 
-    public CreateAdvertisingContentCommand(String title, String description, ContentType type, byte[] picture) {
+    public CreateAdvertisingContentCommand(String title, String description, ContentType type, byte[] image) {
         this.id = UUID.randomUUID();
         this.title = title;
         this.description = description;
         this.type = type;
-        this.picture = picture;
+        this.image = image;
     }
 
     public static CreateAdvertisingContentCommand fromRequest(CreateAdvertisingContentRequest request) {
-        return new CreateAdvertisingContentCommand(request.getTitle(), request.getDescription(), request.getType(), request.getPicture());
+        return new CreateAdvertisingContentCommand(request.getTitle(), request.getDescription(), request.getType(), request.getImage());
     }
 
     @Override

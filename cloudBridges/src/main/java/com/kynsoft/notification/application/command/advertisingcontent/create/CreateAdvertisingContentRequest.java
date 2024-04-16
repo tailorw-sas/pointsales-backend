@@ -14,5 +14,5 @@ public class CreateAdvertisingContentRequest {
     private String title;
     private String description;
     private ContentType type;
-    private byte[] picture;
+    private byte[] image;
 }

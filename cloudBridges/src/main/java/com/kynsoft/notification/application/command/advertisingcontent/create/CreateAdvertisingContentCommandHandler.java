@@ -27,9 +27,9 @@ public class CreateAdvertisingContentCommandHandler implements ICommandHandler<C
     @Override
     public void handle(CreateAdvertisingContentCommand command) {
         String url = null;
-        if (command.getPicture() != null) {
+        if (command.getImage() != null) {
             try {
-                MultipartFile file = new CustomMultipartFile(command.getPicture(), UUID.randomUUID().toString());
+                MultipartFile file = new CustomMultipartFile(command.getImage(), UUID.randomUUID().toString());
                 url = amazonClient.save(file, file.getName());
             } catch (IOException ex) {
                 Logger.getLogger(CreateAdvertisingContentCommandHandler.class.getName()).log(Level.SEVERE, null, ex);
