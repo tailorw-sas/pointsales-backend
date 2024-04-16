@@ -1,13 +1,18 @@
 package com.kynsoft.notification.controller;
 
+import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsoft.notification.application.command.advertisingcontent.create.CreateAdvertisingContentCommand;
 import com.kynsoft.notification.application.command.advertisingcontent.create.CreateAdvertisingContentMessage;
 import com.kynsoft.notification.application.command.advertisingcontent.create.CreateAdvertisingContentRequest;
 import com.kynsoft.notification.application.query.advertisingcontent.getById.AdvertisingContentResponse;
 import com.kynsoft.notification.application.query.advertisingcontent.getById.FindAdvertisingContentByIdQuery;
+import com.kynsoft.notification.application.query.advertisingcontent.search.GetSearchAdvertisingContentQuery;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +42,15 @@ public class AdvertisingContentController {
         AdvertisingContentResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchAdvertisingContentQuery query = new GetSearchAdvertisingContentQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
 }
