@@ -33,7 +33,8 @@ public class ConsumerUserSystemEventService {
 
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName(), "", "", EResourceStatus.ACTIVE, false, eventRead.getIdImage());
+                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName()+" "+ eventRead.getLastName(),
+                        "", "", EResourceStatus.ACTIVE, false, eventRead.getIdImage());
                 this.service.create(resourceDto);
             }
             if (eventType.equals(EventType.DELETED)) {
