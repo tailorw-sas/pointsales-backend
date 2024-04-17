@@ -1,6 +1,5 @@
 package com.kynsoft.notification.infrastructure.service;
 
-import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -41,7 +40,7 @@ public class AdvertisingContentServiceImpl implements IAdvertisingContentService
 
     @Override
     public void update(AdvertisingContentDto object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.commandRepository.save(new AdvertisingContent(object));
     }
 
     @Override
