@@ -115,23 +115,7 @@ public class QualificationServiceImpl implements IQualificationService {
 
     @Override
     public void update(QualificationDto qualification) {
-        if (qualification.getId() == null || qualification == null) {
-            throw new BusinessException(DomainErrorMessage.QUALIFICATION_OR_ID_NULL, "Qualification DTO or ID cannot be null.");
-        }
-
-        this.repositoryQuery.findById(qualification.getId())
-                .map(object -> {
-                    if (qualification.getDescription() != null) {
-                        object.setDescription(qualification.getDescription());
-                    }
-                    if (qualification.getStatus() != null) {
-                        object.setStatus(qualification.getStatus());
-                    }
-
-                    return this.repositoryCommand.save(object);
-                })
-                .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));
-
+        this.repositoryCommand.save(new Qualification(qualification));
     }
 
     @Override
