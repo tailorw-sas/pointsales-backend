@@ -19,11 +19,9 @@ import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.share.utils.ConfigureTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -209,6 +207,12 @@ public class ResourceServiceImpl implements IResourceService {
           //  this.serviceWriteDataJPARepository.save(service);
         });
 
+    }
+
+    @Override
+    public PaginatedResponse findResourcesByServiceId(UUID serviceId, Pageable pageable) {
+        Page<Resource> data = this.repositoryQuery.findResourcesByServiceId(serviceId, pageable);
+        return getPaginatedResponse(data);
     }
 
 }
