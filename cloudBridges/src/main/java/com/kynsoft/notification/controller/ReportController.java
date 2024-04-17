@@ -53,5 +53,17 @@ public class ReportController {
             throw new RuntimeException(e);
         }
     }
+    @GetMapping("/parameters")
+    public ResponseEntity<String> getReportParameters() {
+        try {
+            String jrxmlUrl = "http://d2cebw6tssfqem.cloudfront.net/cita_2024-04-17_11-38-05.jrxml";
+            String parametersJson = reportService.getReportParameters(jrxmlUrl);
+            return ResponseEntity.ok(parametersJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error obtaining report parameters: " + e.getMessage());
+        }
+    }
+
 }
 
