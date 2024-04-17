@@ -37,8 +37,8 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
             _resource.setLanguage(command.getLanguage());
             _resource.setExpressAppointments(command.getExpressAppointments());
             _resource.setImage(idLogo);
-            service.update(_resource
-            );
+            _resource.setIdentification(command.getIdentification());
+            service.update(_resource);
         }catch (Exception ex){
             ResourceDto _resource = new ResourceDto(command.getId(),"", command.getRegistrationNumber(), command.getLanguage(),
                     command.getStatus(),command.getExpressAppointments(), idLogo);
@@ -46,8 +46,8 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
             _resource.setImage(idLogo);
             _resource.setLanguage(command.getLanguage());
             _resource.setExpressAppointments(command.getExpressAppointments());
-            service.create(_resource
-            );
+            _resource.setIdentification(command.getIdentification());
+            service.create(_resource);
         }
 
     }

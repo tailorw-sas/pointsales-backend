@@ -8,7 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.UUID;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface ResourceReadDataJPARepository extends JpaRepository<Resource, UUID>, JpaSpecificationExecutor<Resource> {
     Page<Resource> findAll(Specification specification, Pageable pageable);
+
+    @Query("SELECT rs.resource FROM ResourceService rs WHERE rs.service.id = :serviceId")
+    Page<Resource> findResourcesByServiceId(@Param("serviceId") UUID serviceId, Pageable pageable);
 }

@@ -6,6 +6,9 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsoft.notification.application.command.advertisingcontent.create.CreateAdvertisingContentCommand;
 import com.kynsoft.notification.application.command.advertisingcontent.create.CreateAdvertisingContentMessage;
 import com.kynsoft.notification.application.command.advertisingcontent.create.CreateAdvertisingContentRequest;
+import com.kynsoft.notification.application.command.advertisingcontent.update.UpdateAdvertisingContentCommand;
+import com.kynsoft.notification.application.command.advertisingcontent.update.UpdateAdvertisingContentMessage;
+import com.kynsoft.notification.application.command.advertisingcontent.update.UpdateAdvertisingContentRequest;
 import com.kynsoft.notification.application.query.advertisingcontent.getById.AdvertisingContentResponse;
 import com.kynsoft.notification.application.query.advertisingcontent.getById.FindAdvertisingContentByIdQuery;
 import com.kynsoft.notification.application.query.advertisingcontent.search.GetSearchAdvertisingContentQuery;
@@ -51,6 +54,14 @@ public class AdvertisingContentController {
         GetSearchAdvertisingContentQuery query = new GetSearchAdvertisingContentQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateAdvertisingContentMessage> update(@PathVariable("id") UUID id,@RequestBody UpdateAdvertisingContentRequest request) {
+
+        UpdateAdvertisingContentCommand command = UpdateAdvertisingContentCommand.fromRequest(request,id);
+        UpdateAdvertisingContentMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
     }
 
 }

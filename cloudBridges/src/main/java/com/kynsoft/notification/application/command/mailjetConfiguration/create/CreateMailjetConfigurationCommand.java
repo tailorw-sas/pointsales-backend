@@ -27,7 +27,7 @@ public class CreateMailjetConfigurationCommand implements ICommand {
 
     public static CreateMailjetConfigurationCommand fromRequest(CreateMailjetConfigurationRequest request) {
         return new CreateMailjetConfigurationCommand(request.getMailjetApiKey(), request.getMailjetApiSecret(),
-                request.getFromEmail(), request.getFromName());
+                request.getEmail(), request.getName());
     }
 
 

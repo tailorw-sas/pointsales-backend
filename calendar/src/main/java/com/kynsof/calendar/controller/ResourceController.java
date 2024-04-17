@@ -13,6 +13,7 @@ import com.kynsof.calendar.application.query.resource.findResourcesWithAvailable
 import com.kynsof.calendar.application.query.resource.findResourcesWithAvailableSchedules.findResourcesWithAvailableSchedulesQuery;
 import com.kynsof.calendar.application.query.resource.getAll.FindResourceWithFilterQuery;
 import com.kynsof.calendar.application.query.resource.getbyid.FindResourceByIdQuery;
+import com.kynsof.calendar.application.query.resource.getresourcesbyidservice.FindResourcesByIdServiceQuery;
 import com.kynsof.calendar.application.query.resource.search.GetSearchResourceQuery;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
@@ -35,12 +36,21 @@ public class ResourceController {
         this.mediator = mediator;
     }
 
-
     @GetMapping(path = "/{id}")
     public ResponseEntity<ResourceResponse> getById(@PathVariable UUID id) {
 
         FindResourceByIdQuery query = new FindResourceByIdQuery(id);
         ResourceResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/resources-by-service/{id}")
+    public ResponseEntity<?> findServicesByResourceId(@PathVariable UUID id) {
+
+        Pageable pageable = PageRequest.of(0, 1000);
+        FindResourcesByIdServiceQuery query = new FindResourcesByIdServiceQuery(id, pageable);
+        PaginatedResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }
@@ -83,7 +93,6 @@ public class ResourceController {
         return ResponseEntity.ok(response);
     }
 
-
     @PostMapping("/available")
     public ResponseEntity<PaginatedResponse> findResourcesWithAvailableSchedules(@RequestBody ScheduleSearchCriteriaRequest request)
     {
@@ -103,7 +112,5 @@ public class ResourceController {
         AddServiceMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
-
-
 
 }

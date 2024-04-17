@@ -81,10 +81,10 @@ public class QualificationController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping()
-    public ResponseEntity<UpdateQualificationMessage> update(@RequestBody UpdateQualificationRequest request) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateQualificationMessage> update(@PathVariable("id") UUID id, @RequestBody UpdateQualificationRequest request) {
 
-        UpdateQualificationCommand command = UpdateQualificationCommand.fromRequest(request);
+        UpdateQualificationCommand command = UpdateQualificationCommand.fromRequest(request, id);
         UpdateQualificationMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }

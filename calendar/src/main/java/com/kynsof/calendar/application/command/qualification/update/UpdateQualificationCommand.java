@@ -24,8 +24,8 @@ public class UpdateQualificationCommand implements ICommand {
         this.status = status;
     }
 
-    public static UpdateQualificationCommand fromRequest(UpdateQualificationRequest request) {
-        return new UpdateQualificationCommand(request.getId(), request.getDescription(), request.getStatus());
+    public static UpdateQualificationCommand fromRequest(UpdateQualificationRequest request, UUID id) {
+        return new UpdateQualificationCommand(id, request.getDescription(), request.getStatus());
     }
 
     @Override
