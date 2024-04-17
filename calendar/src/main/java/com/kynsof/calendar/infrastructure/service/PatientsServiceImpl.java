@@ -47,6 +47,7 @@ public class PatientsServiceImpl implements IPatientsService {
                         patient.setIdentification(patientDto.getIdentification());
                     if (patientDto.getGender() != null) patient.setGender(patientDto.getGender());
                     if (patientDto.getStatus() != null) patient.setStatus(patientDto.getStatus());
+                    if(patientDto.getLogo() != null) patient.setLogo(patientDto.getLogo());
 
                     return this.repositoryCommand.save(patient);
                 })

@@ -6,8 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateMailjetConfigurationRequest {
-
-    private String Id;
     private String mailjetApiKey;
     private String mailjetApiSecret;
     private String fromEmail;
