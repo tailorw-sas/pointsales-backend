@@ -18,19 +18,21 @@ public class UpdateResourceCommand implements ICommand {
     private String language;
     private EResourceStatus status;
     private Boolean expressAppointments;
+    private String identification;
 
-    public UpdateResourceCommand(UUID id,  byte[] picture, String registrationNumber, String language, EResourceStatus status, Boolean expressAppointments) {
+    public UpdateResourceCommand(UUID id,  byte[] picture, String registrationNumber, String language, EResourceStatus status, Boolean expressAppointments, String identification) {
         this.id = id;
         this.picture = picture;
         this.registrationNumber = registrationNumber;
         this.language = language;
         this.status = status;
         this.expressAppointments = expressAppointments;
+        this.identification = identification;
     }
 
     public static UpdateResourceCommand fromRequest(UUID id, UpdateResourceRequest request) {
         return new UpdateResourceCommand(id,  request.getImage(), request.getRegistrationNumber(), request.getLanguage(),
-                request.getStatus(), request.getExpressAppointments());
+                request.getStatus(), request.getExpressAppointments(), request.getIdentification());
     }
 
     @Override

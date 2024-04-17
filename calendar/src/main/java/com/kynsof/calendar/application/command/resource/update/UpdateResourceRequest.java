@@ -12,4 +12,5 @@ public class UpdateResourceRequest {
     private String language;
     private EResourceStatus status;
     private Boolean expressAppointments;
+    private String identification;
 }

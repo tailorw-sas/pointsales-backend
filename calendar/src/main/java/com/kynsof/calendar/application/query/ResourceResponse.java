@@ -24,6 +24,7 @@ public class ResourceResponse implements IResponse {
     private Boolean expressAppointments;
     private List<ServicesResponse> services;
     private UUID image;
+    private String identification;
 
     public ResourceResponse(ResourceDto object) {
         this.id = object.getId();
@@ -37,6 +38,7 @@ public class ResourceResponse implements IResponse {
             this.services.add(new ServicesResponse(service));
         }
         this.image = object.getImage();
+        this.identification = object.getIdentification();
     }
 
     public ResourceResponse(UUID id, String name) {

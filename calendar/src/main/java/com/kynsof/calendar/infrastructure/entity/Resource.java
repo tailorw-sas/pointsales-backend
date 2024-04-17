@@ -18,13 +18,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
 public class Resource {
+
     @Id
     protected UUID id;
 
@@ -49,13 +49,15 @@ public class Resource {
 
     private UUID image;
 
-    @OneToMany(mappedBy = "resource",fetch = FetchType.EAGER)
+    private String identification;
+
+    @OneToMany(mappedBy = "resource", fetch = FetchType.EAGER)
     private Set<ResourceService> resourceServices = new HashSet<>();
 
     @JsonIgnoreProperties({"qualifications", "resources"})
     @ManyToMany(fetch = FetchType.EAGER, cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
+        CascadeType.PERSIST,
+        CascadeType.MERGE
     })
     @JoinTable(
             name = "resource_qualification",
@@ -67,10 +69,10 @@ public class Resource {
     @OneToMany(mappedBy = "resource", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<BusinessResource> businessResources = new HashSet<>();
 
-
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
     public Resource(ResourceDto resourceDto) {
         this.id = resourceDto.getId();
         this.name = resourceDto.getName();
@@ -79,11 +81,12 @@ public class Resource {
         this.status = resourceDto.getStatus();
         this.expressAppointments = resourceDto.getExpressAppointments();
         this.image = resourceDto.getImage();
+        this.identification = resourceDto.getIdentification() != null ? resourceDto.getIdentification() : null;
         //services = resourceDto.getServices() != null ? resourceDto.getServices().stream().map(Services::new).collect(Collectors.toSet()) : null;
     }
 
     public ResourceDto toAggregate() {
-       // List<ServiceDto> serviceDtos = services.stream().map(Services::toAggregate).toList();
-        return new ResourceDto(id, name, registrationNumber, language, status, expressAppointments, image, new ArrayList<>());
+        // List<ServiceDto> serviceDtos = services.stream().map(Services::toAggregate).toList();
+        return new ResourceDto(id, name, registrationNumber, language, status, expressAppointments, image, identification, new ArrayList<>());
     }
 }

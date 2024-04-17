@@ -23,6 +23,7 @@ public class ResourceDto implements Serializable {
     private EResourceStatus status;
     private Boolean expressAppointments;
     private UUID image;
+    private String identification;
     List<ServiceDto> services;
 
     public ResourceDto(UUID id,  String name, String registrationNumber, String language,
