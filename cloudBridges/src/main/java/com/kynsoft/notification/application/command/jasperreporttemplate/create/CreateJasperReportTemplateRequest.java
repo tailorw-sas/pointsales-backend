@@ -16,4 +16,5 @@ public class CreateJasperReportTemplateRequest {
     private String description;
     private JasperReportTemplateType type;
     private byte[] file;
+    private String parameters;
 }

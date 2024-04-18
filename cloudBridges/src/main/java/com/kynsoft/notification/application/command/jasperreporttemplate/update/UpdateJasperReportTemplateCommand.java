@@ -1,6 +1,5 @@
 package com.kynsoft.notification.application.command.jasperreporttemplate.update;
 
-import com.kynsoft.notification.application.command.jasperreporttemplate.create.*;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import com.kynsoft.notification.domain.dto.JasperReportTemplateType;
@@ -19,14 +18,16 @@ public class UpdateJasperReportTemplateCommand implements ICommand {
     private String description;
     private JasperReportTemplateType type;
     private byte[] file;
+    private String parameters;
 
-    public UpdateJasperReportTemplateCommand(UUID id, String code, String name, String description, JasperReportTemplateType type, byte[] file) {
+    public UpdateJasperReportTemplateCommand(UUID id, String code, String name, String description, JasperReportTemplateType type, byte[] file, String parameters) {
         this.id = id;
         this.code = code;
         this.name = name;
         this.description = description;
         this.type = type;
         this.file = file;
+        this.parameters = parameters;
     }
 
     public static UpdateJasperReportTemplateCommand fromRequest(UpdateJasperReportTemplateRequest request, UUID id) {
@@ -36,7 +37,8 @@ public class UpdateJasperReportTemplateCommand implements ICommand {
                 request.getName(), 
                 request.getDescription(), 
                 request.getType(), 
-                request.getFile()
+                request.getFile(),
+                request.getParameters()
         );
     }
 

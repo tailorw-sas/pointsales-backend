@@ -3,9 +3,7 @@ package com.kynsoft.notification.infrastructure.entity;
 import com.kynsof.share.core.domain.BaseEntity;
 import com.kynsoft.notification.domain.dto.JasperReportTemplateDto;
 import com.kynsoft.notification.domain.dto.JasperReportTemplateType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,9 +22,8 @@ public class JasperReportTemplate extends BaseEntity {
     private String templateDescription;
     private String templateContentUrl;
     private JasperReportTemplateType type;
-//    @Lob
-//    @Column(columnDefinition = "jsonb")
-//    private String parameters;
+
+    private String parameters;
 
     public JasperReportTemplate(JasperReportTemplateDto jasperReportTemplateDto) {
         this.id = jasperReportTemplateDto.getId();
@@ -35,12 +32,13 @@ public class JasperReportTemplate extends BaseEntity {
         this.templateDescription = jasperReportTemplateDto.getTemplateDescription();
         this.templateContentUrl = jasperReportTemplateDto.getTemplateContentUrl();
         this.type = jasperReportTemplateDto.getType();
+        this.parameters = jasperReportTemplateDto.getParameters();
     }
 
     public JasperReportTemplateDto toAggregate () {
         String templateContentUrlS = templateContentUrl != null ? templateContentUrl : null;
 
-        return new JasperReportTemplateDto(id, templateCode, templateName, templateDescription, templateContentUrlS, type);
+        return new JasperReportTemplateDto(id, templateCode, templateName, templateDescription, templateContentUrlS, type, parameters);
     }
 
 }

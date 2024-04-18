@@ -4,12 +4,9 @@ import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.util.CustomMultipartFile;
-import com.kynsof.share.utils.ConfigureTimeZone;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import com.kynsoft.notification.application.command.jasperreporttemplate.create.CreateJasperReportTemplateCommandHandler;
-import com.kynsoft.notification.domain.dto.AdvertisingContentDto;
 import com.kynsoft.notification.domain.dto.JasperReportTemplateDto;
-import com.kynsoft.notification.domain.service.IAdvertisingContentService;
 import com.kynsoft.notification.domain.service.IJasperReportTemplateService;
 import com.kynsoft.notification.infrastructure.service.AmazonClient;
 import java.io.IOException;
@@ -48,6 +45,7 @@ public class UpdateJasperReportTemplateCommandHandler implements ICommandHandler
         UpdateIfNotNull.updateIfNotNull(update::setTemplateCode, command.getCode());
         UpdateIfNotNull.updateIfNotNull(update::setTemplateDescription, command.getDescription());
         UpdateIfNotNull.updateIfNotNull(update::setTemplateName, command.getName());
+        UpdateIfNotNull.updateIfNotNull(update::setParameters, command.getParameters());
         update.setType(command.getType());
 
         this.service.update(update);

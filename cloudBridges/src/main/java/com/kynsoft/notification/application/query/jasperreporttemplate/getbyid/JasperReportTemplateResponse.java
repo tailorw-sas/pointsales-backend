@@ -19,6 +19,7 @@ public class JasperReportTemplateResponse implements IResponse {
     private String templateDescription;
     private String templateContentUrl;
     private JasperReportTemplateType type;
+    private String parameters;
 
     public JasperReportTemplateResponse(JasperReportTemplateDto jasperReportTemplateDto) {
         this.id = jasperReportTemplateDto.getId();
@@ -27,6 +28,7 @@ public class JasperReportTemplateResponse implements IResponse {
         this.templateDescription = jasperReportTemplateDto.getTemplateDescription();
         this.templateContentUrl = jasperReportTemplateDto.getTemplateContentUrl();
         this.type = jasperReportTemplateDto.getType();
+        this.parameters = jasperReportTemplateDto.getParameters();
     }
 
 }

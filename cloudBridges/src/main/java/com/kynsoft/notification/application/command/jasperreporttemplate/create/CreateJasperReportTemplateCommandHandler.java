@@ -40,7 +40,8 @@ public class CreateJasperReportTemplateCommandHandler implements ICommandHandler
                 command.getName(), 
                 command.getDescription(), 
                 url,
-                command.getType()
+                command.getType(),
+                command.getParameters()
         ));
     }
 }

@@ -17,4 +17,5 @@ public class JasperReportTemplateDto {
     private String templateDescription;
     private String templateContentUrl;
     private JasperReportTemplateType type;
+    private String parameters;
 }
