@@ -33,12 +33,9 @@ public class AFile extends BaseEntity {
         this.name = file.getName();
         this.microServiceName = file.getMicroServiceName();
         this.url = file.getUrl();
-        this.createdAt = file.getCreateAt();
-        this.deletedAt = file.getDeleteAt();
-        this.updatedAt = file.getDeleteAt();
     }
 
     public AFileDto toAggregate () {
-        return new AFileDto(id, name, microServiceName, url, createdAt, updatedAt, deletedAt);
+        return new AFileDto(id, name, microServiceName, url);
     }
 }
