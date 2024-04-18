@@ -2,6 +2,7 @@ package com.kynsoft.notification.infrastructure.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.jasperreports.engine.*;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -12,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Service
 public class ReportService {
@@ -29,12 +29,12 @@ public class ReportService {
 
 
         String jrxmlUrl = "http://d2cebw6tssfqem.cloudfront.net/cita_2024-04-17_11-38-05.jrxml";
-        InputStream inputStream = new ByteArrayInputStream(Objects.requireNonNull(restTemplate.getForObject(jrxmlUrl, byte[].class)));
-//        Resource resource = resourceLoader.getResource("classpath:templates/cita.jrxml");
-//        if (!resource.exists() || !resource.isReadable()) {
-//            throw new IOException("El archivo JRXML no se puede leer desde la ruta especificada.");
-//        }
-//        InputStream inputStream = resource.getInputStream();
+       // InputStream inputStream = new ByteArrayInputStream(Objects.requireNonNull(restTemplate.getForObject(jrxmlUrl, byte[].class)));
+        Resource resource = resourceLoader.getResource("classpath:templates/cita.jrxml");
+        if (!resource.exists() || !resource.isReadable()) {
+            throw new IOException("El archivo JRXML no se puede leer desde la ruta especificada.");
+        }
+        InputStream inputStream = resource.getInputStream();
         JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 
         Map<String, Object> parameters = new HashMap<>();
@@ -49,6 +49,7 @@ public class ReportService {
         parameters.put("direccion", "Calle 48");
         parameters.put("lugar", "HOSPITAL MILITAR");
         parameters.put("fecha_registro", "2024-04-23 10:40");
+        parameters.put("URL_QR", "http://d3ksvzqyx4up5m.cloudfront.net/Ttt_2024-03-14_19-03-33.png");
 
         // Imprimir parámetros para debugging
         parameters.forEach((key, value) -> System.out.println(key + ": " + value));
