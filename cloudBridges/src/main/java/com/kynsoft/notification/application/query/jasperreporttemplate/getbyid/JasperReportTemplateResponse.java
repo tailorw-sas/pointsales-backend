@@ -14,19 +14,19 @@ import lombok.Setter;
 @NoArgsConstructor
 public class JasperReportTemplateResponse implements IResponse {
     private UUID id;
-    private String templateCode;
-    private String templateName;
-    private String templateDescription;
-    private String templateContentUrl;
+    private String code;
+    private String name;
+    private String description;
+    private String url;
     private JasperReportTemplateType type;
     private String parameters;
 
     public JasperReportTemplateResponse(JasperReportTemplateDto jasperReportTemplateDto) {
         this.id = jasperReportTemplateDto.getId();
-        this.templateCode = jasperReportTemplateDto.getTemplateCode();
-        this.templateName = jasperReportTemplateDto.getTemplateName();
-        this.templateDescription = jasperReportTemplateDto.getTemplateDescription();
-        this.templateContentUrl = jasperReportTemplateDto.getTemplateContentUrl();
+        this.code = jasperReportTemplateDto.getTemplateCode();
+        this.name = jasperReportTemplateDto.getTemplateName();
+        this.description = jasperReportTemplateDto.getTemplateDescription();
+        this.url = jasperReportTemplateDto.getTemplateContentUrl();
         this.type = jasperReportTemplateDto.getType();
         this.parameters = jasperReportTemplateDto.getParameters();
     }
