@@ -14,6 +14,9 @@ import com.kynsof.patients.application.command.patients.delete.PatientDeleteMess
 import com.kynsof.patients.application.command.patients.update.UpdatePatientMessage;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsCommand;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsRequest;
+import com.kynsof.patients.application.command.patients.updateadmin.UpdatePatientAdminCommand;
+import com.kynsof.patients.application.command.patients.updateadmin.UpdatePatientAdminMessage;
+import com.kynsof.patients.application.command.patients.updateadmin.UpdatePatientsAdminRequest;
 import com.kynsof.patients.application.query.patients.getById.FindPatientsByIdQuery;
 import com.kynsof.patients.application.query.patients.getById.PatientByIdResponse;
 import com.kynsof.patients.application.query.patients.getByIdentification.FindPatientsByIdentificationQuery;
@@ -37,14 +40,16 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/patients")
 public class PatientsController {
+
     private final IMediator mediator;
-    public PatientsController(IMediator mediator){
+
+    public PatientsController(IMediator mediator) {
 
         this.mediator = mediator;
     }
 
     @PostMapping("")
-    public ResponseEntity<CreatePatientMessage> create(@RequestBody CreatePatientsRequest request)  {
+    public ResponseEntity<CreatePatientMessage> create(@RequestBody CreatePatientsRequest request) {
         CreatePatientsCommand createCommand = CreatePatientsCommand.fromRequest(request);
         CreatePatientMessage response = mediator.send(createCommand);
 
@@ -52,7 +57,7 @@ public class PatientsController {
     }
 
     @PostMapping("/admin/create_patients")
-    public ResponseEntity<CreatePatientAdminMessage> create(@RequestBody CreatePatientsAdminRequest request)  {
+    public ResponseEntity<CreatePatientAdminMessage> create(@RequestBody CreatePatientsAdminRequest request) {
         CreatePatientAdminCommand createCommand = CreatePatientAdminCommand.fromRequest(request);
         CreatePatientAdminMessage response = mediator.send(createCommand);
 
@@ -60,7 +65,7 @@ public class PatientsController {
     }
 
     @PostMapping("/insurance")
-    public ResponseEntity<CreateInsuranceMessage> createInsurance(@RequestBody CreateInsuranceRequest request)  {
+    public ResponseEntity<CreateInsuranceMessage> createInsurance(@RequestBody CreateInsuranceRequest request) {
         CreateInsuranceCommand createCommand = CreateInsuranceCommand.fromRequest(request);
         CreateInsuranceMessage response = mediator.send(createCommand);
 
@@ -69,26 +74,25 @@ public class PatientsController {
 
     @GetMapping("/all")
     public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
-                                                    @RequestParam(defaultValue = "0") Integer page,
-                                                    @RequestParam(defaultValue = "") UUID patientId,
-                                                    @RequestParam(defaultValue = "") UUID primeId,
-                                                    @RequestParam(defaultValue = "") String identification)
-    {
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "") UUID patientId,
+            @RequestParam(defaultValue = "") UUID primeId,
+            @RequestParam(defaultValue = "") String identification) {
         Pageable pageable = PageRequest.of(page, pageSize);
-        GetAllPatientsFilterQuery query = new GetAllPatientsFilterQuery(pageable, patientId, identification,primeId);
+        GetAllPatientsFilterQuery query = new GetAllPatientsFilterQuery(pageable, patientId, identification, primeId);
         PaginatedResponse data = mediator.send(query);
 
         return ResponseEntity.ok(data);
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
-    {
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
-        GetSearchPatientsQuery query = new GetSearchPatientsQuery(pageable, request.getFilter(),request.getQuery());
+        GetSearchPatientsQuery query = new GetSearchPatientsQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<PatientByIdResponse> getById(@PathVariable UUID id) {
 
@@ -110,8 +114,16 @@ public class PatientsController {
     @PatchMapping(path = "/{id}")
     public ResponseEntity<UpdatePatientMessage> update(@PathVariable UUID id, @RequestBody UpdatePatientsRequest request) {
 
-        UpdatePatientsCommand command = UpdatePatientsCommand.fromRequest(id,request );
+        UpdatePatientsCommand command = UpdatePatientsCommand.fromRequest(id, request);
         UpdatePatientMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping(path = "/admin/update_patients/{id}")
+    public ResponseEntity<UpdatePatientAdminMessage> update(@PathVariable UUID id, @RequestBody UpdatePatientsAdminRequest request) {
+
+        UpdatePatientAdminCommand command = UpdatePatientAdminCommand.fromRequest(request, id);
+        UpdatePatientAdminMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 
@@ -126,14 +138,14 @@ public class PatientsController {
 
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<?>> me(@AuthenticationPrincipal Jwt jwt) {
-            try {
-                String patientId = jwt.getClaim("sub");
-                FindPatientsByIdQuery query = new FindPatientsByIdQuery(UUID.fromString(patientId));
-                PatientByIdResponse response = mediator.send(query);
-                return ResponseEntity.ok(ApiResponse.success(response));
-            } catch (Exception e) {
-                return ResponseEntity.ok(ApiResponse.fail(ApiError.withSingleError("error", "token", "Error al procesar el token")));
-            }
+        try {
+            String patientId = jwt.getClaim("sub");
+            FindPatientsByIdQuery query = new FindPatientsByIdQuery(UUID.fromString(patientId));
+            PatientByIdResponse response = mediator.send(query);
+            return ResponseEntity.ok(ApiResponse.success(response));
+        } catch (Exception e) {
+            return ResponseEntity.ok(ApiResponse.fail(ApiError.withSingleError("error", "token", "Error al procesar el token")));
+        }
 
     }
 }
