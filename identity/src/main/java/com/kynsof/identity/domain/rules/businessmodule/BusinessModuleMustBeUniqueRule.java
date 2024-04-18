@@ -14,9 +14,7 @@ public class BusinessModuleMustBeUniqueRule extends BusinessRule {
 
     private final UUID moduleId;
 
-    private final UUID id;
-
-    public BusinessModuleMustBeUniqueRule(IBusinessModuleService service, UUID businessId, UUID moduleId, UUID id) {
+    public BusinessModuleMustBeUniqueRule(IBusinessModuleService service, UUID businessId, UUID moduleId) {
         super(
                 DomainErrorMessage.MODULE_NAME_MUST_BY_UNIQUE, 
                 new ErrorField("module", "La relacion ya existe.")
@@ -24,12 +22,11 @@ public class BusinessModuleMustBeUniqueRule extends BusinessRule {
         this.service = service;
         this.businessId = businessId;
         this.moduleId = moduleId;
-        this.id = id;
     }
 
     @Override
     public boolean isBroken() {
-        return this.service.countByBussinessIdAndModuleIdAndNotId(businessId, moduleId, id) > 0;
+        return this.service.countByBussinessIdAndModuleIdAndNotId(businessId, moduleId) > 0;
     }
 
 }

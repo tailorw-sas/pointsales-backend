@@ -34,7 +34,7 @@ public class CreateBusinessModuleCommandHandler implements ICommandHandler<Creat
         List<BusinessModuleDto> businessModuleDtos = new ArrayList<>();
         for (UUID idModule : command.getModules()) {
             UUID id = UUID.randomUUID();
-            //RulesChecker.checkRule(new BusinessModuleMustBeUniqueRule(this.serviceBusinessModule, command.getIdBusiness(), idModule, id));
+            RulesChecker.checkRule(new BusinessModuleMustBeUniqueRule(this.serviceBusinessModule, command.getIdBusiness(), idModule));
             ModuleDto module = this.serviceModule.findById(idModule);
             businessModuleDtos.add(new BusinessModuleDto(id, businessDto, module));
         }
