@@ -34,7 +34,10 @@ public class ProducerCreatePatientsEventService {
                     entity.getStatus().name(), 
                     entity.getPhoto() != null ? entity.getPhoto() : null
             );
-            event.setBirthdayDate(birthdayDate.toString());
+
+            if (birthdayDate != null) {
+                event.setBirthdayDate(birthdayDate.toString());
+            }
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));

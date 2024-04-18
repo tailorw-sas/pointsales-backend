@@ -6,6 +6,9 @@ import com.kynsof.patients.application.command.patients.create.request.CreatePat
 import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceCommand;
 import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceMessage;
 import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceRequest;
+import com.kynsof.patients.application.command.patients.createadmin.CreatePatientAdminCommand;
+import com.kynsof.patients.application.command.patients.createadmin.CreatePatientAdminMessage;
+import com.kynsof.patients.application.command.patients.createadmin.CreatePatientsAdminRequest;
 import com.kynsof.patients.application.command.patients.delete.DeletePatientsCommand;
 import com.kynsof.patients.application.command.patients.delete.PatientDeleteMessage;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientMessage;
@@ -44,6 +47,14 @@ public class PatientsController {
     public ResponseEntity<CreatePatientMessage> create(@RequestBody CreatePatientsRequest request)  {
         CreatePatientsCommand createCommand = CreatePatientsCommand.fromRequest(request);
         CreatePatientMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/admin/create_patients")
+    public ResponseEntity<CreatePatientAdminMessage> create(@RequestBody CreatePatientsAdminRequest request)  {
+        CreatePatientAdminCommand createCommand = CreatePatientAdminCommand.fromRequest(request);
+        CreatePatientAdminMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
     }
