@@ -24,9 +24,9 @@ public class JasperReportTemplate extends BaseEntity {
     private String templateDescription;
     private String templateContentUrl;
     private JasperReportTemplateType type;
-    @Lob
-    @Column(columnDefinition = "jsonb")
-    private String parameters;
+//    @Lob
+//    @Column(columnDefinition = "jsonb")
+//    private String parameters;
 
     public JasperReportTemplate(JasperReportTemplateDto jasperReportTemplateDto) {
         this.id = jasperReportTemplateDto.getId();
