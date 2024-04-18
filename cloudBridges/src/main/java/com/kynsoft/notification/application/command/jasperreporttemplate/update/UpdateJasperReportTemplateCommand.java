@@ -1,5 +1,6 @@
-package com.kynsoft.notification.application.command.jasperreporttemplate.create;
+package com.kynsoft.notification.application.command.jasperreporttemplate.update;
 
+import com.kynsoft.notification.application.command.jasperreporttemplate.create.*;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import com.kynsoft.notification.domain.dto.JasperReportTemplateType;
@@ -10,7 +11,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class CreateJasperReportTemplateCommand implements ICommand {
+public class UpdateJasperReportTemplateCommand implements ICommand {
 
     private UUID id;
     private String code;
@@ -19,8 +20,8 @@ public class CreateJasperReportTemplateCommand implements ICommand {
     private JasperReportTemplateType type;
     private byte[] file;
 
-    public CreateJasperReportTemplateCommand(String code, String name, String description, JasperReportTemplateType type, byte[] file) {
-        this.id = UUID.randomUUID();
+    public UpdateJasperReportTemplateCommand(UUID id, String code, String name, String description, JasperReportTemplateType type, byte[] file) {
+        this.id = id;
         this.code = code;
         this.name = name;
         this.description = description;
@@ -28,8 +29,9 @@ public class CreateJasperReportTemplateCommand implements ICommand {
         this.file = file;
     }
 
-    public static CreateJasperReportTemplateCommand fromRequest(CreateJasperReportTemplateRequest request) {
-        return new CreateJasperReportTemplateCommand(
+    public static UpdateJasperReportTemplateCommand fromRequest(UpdateJasperReportTemplateRequest request, UUID id) {
+        return new UpdateJasperReportTemplateCommand(
+                id,
                 request.getCode(), 
                 request.getName(), 
                 request.getDescription(), 
@@ -40,6 +42,6 @@ public class CreateJasperReportTemplateCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return new CreateJasperReportTemplateMessage(id);
+        return new UpdateJasperReportTemplateMessage(id);
     }
 }
