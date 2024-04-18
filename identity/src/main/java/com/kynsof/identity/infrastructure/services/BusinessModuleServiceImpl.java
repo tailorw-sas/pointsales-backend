@@ -137,4 +137,9 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    @Override
+    public Long countByBussinessIdAndModuleIdAndNotId(UUID businessId, UUID moduleId, UUID id) {
+        return this.queryRepository.countByBussinessIdAndModuleIdAndNotId(businessId, moduleId, id);
+    }
+
 }
