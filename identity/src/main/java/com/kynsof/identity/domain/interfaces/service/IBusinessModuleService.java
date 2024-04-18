@@ -20,5 +20,5 @@ public interface IBusinessModuleService {
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
     List<ModuleDto> findModulesByBusinessId(UUID businessId);
-    Long countByBussinessIdAndModuleIdAndNotId(UUID businessId, UUID moduleId);
+    Long countByBussinessIdAndModuleId(UUID businessId, UUID moduleId);
 }

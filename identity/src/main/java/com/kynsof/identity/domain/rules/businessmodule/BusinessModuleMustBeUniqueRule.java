@@ -26,7 +26,7 @@ public class BusinessModuleMustBeUniqueRule extends BusinessRule {
 
     @Override
     public boolean isBroken() {
-        return this.service.countByBussinessIdAndModuleIdAndNotId(businessId, moduleId) > 0;
+        return this.service.countByBussinessIdAndModuleId(businessId, moduleId) > 0;
     }
 
 }
