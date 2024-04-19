@@ -42,7 +42,7 @@ public class MailController {
 //        return ResponseEntity.ok(new SendEmailResponse(result, msg));
 //    }
 
-//    @PostMapping("/send/template")
+//    @PostMapping("/send/generateTemplate")
 //    public ResponseEntity<?> sendEmailTemplate(@RequestBody SendEmailRequest email) {
 //        boolean result = emailService.sendMailHtml(email.getToEmail(), email.getSubject(), email.getMessage());
 //        String msg = "";

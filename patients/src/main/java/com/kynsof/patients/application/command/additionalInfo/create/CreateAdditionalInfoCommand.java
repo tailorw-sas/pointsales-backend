@@ -1,6 +1,5 @@
 package com.kynsof.patients.application.command.additionalInfo.create;
 
-import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoMessage;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -41,6 +40,6 @@ public class CreateAdditionalInfoCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return new CreateContactInfoMessage(id);
+        return new CreatAdditionalInfoMessage(id);
     }
 }

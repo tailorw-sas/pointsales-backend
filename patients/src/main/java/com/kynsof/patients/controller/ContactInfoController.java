@@ -62,7 +62,7 @@ public class ContactInfoController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping(path = "/{id}")
+    @PatchMapping(path = "/{id}")
     public ResponseEntity<UpdateContactInfoMessage> update(@PathVariable UUID id, @RequestBody UpdateContactInfoRequest request) {
 
         UpdateContactInfoCommand command = UpdateContactInfoCommand.fromRequest(id,request );

@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.command.patients.update;
 
-import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoRequest;
+import com.kynsof.patients.application.command.patients.create.request.CreatePatientContactInfoRequest;
 import com.kynsof.patients.domain.dto.enumTye.DisabilityType;
 import com.kynsof.patients.domain.dto.enumTye.GenderType;
 import com.kynsof.share.core.domain.bus.command.ICommand;
@@ -24,13 +24,13 @@ public class UpdatePatientsCommand implements ICommand {
     private Boolean isPregnant;
     private byte[] photo;
     private int gestationTime;
-    private CreateContactInfoRequest createContactInfoRequest;
+    private CreatePatientContactInfoRequest createContactInfoRequest;
     private DisabilityType disabilityType;
 
     public UpdatePatientsCommand(UUID id, String identification, String name, String lastName, GenderType gender,
                                  Double weight, Double height, Boolean hasDisability, Boolean isPregnant,
                                  byte[] photo, int gestationTime,
-                                 CreateContactInfoRequest createContactInfoRequest, DisabilityType disabilityType){
+                                 CreatePatientContactInfoRequest createContactInfoRequest, DisabilityType disabilityType){
 
         this.identification = identification;
         this.name = name;

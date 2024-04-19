@@ -1,9 +1,8 @@
 package com.kynsof.treatments.infrastructure.entity;
 
 import com.kynsof.treatments.domain.dto.ProcedureDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.kynsof.treatments.domain.dto.enumDto.MedicalExamCategory;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,8 @@ public class Procedure {
     private String code;
     private String name;
     private String description;
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private MedicalExamCategory type;
     private Double price;
 
     public ProcedureDto toAggregate() {

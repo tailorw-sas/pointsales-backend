@@ -3,6 +3,7 @@ package com.kynsof.treatments.application.query.procedure.getAll;
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsof.treatments.domain.dto.ProcedureDto;
+import com.kynsof.treatments.domain.dto.enumDto.MedicalExamCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,7 @@ public class ProcedureResponse implements IResponse {
     private String code;
     private String name;
     private String description;
-    private String type;
+    private MedicalExamCategory type;
     private Double price;
 
     public ProcedureResponse(ProcedureDto procedureDto) {
