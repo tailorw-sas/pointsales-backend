@@ -28,9 +28,9 @@ public class GenerateTemplateCommand implements ICommand {
         this.link = link;
     }
 
-    public static GenerateTemplateCommand fromRequest(GenerateTemplateRequest request) {
-        return new GenerateTemplateCommand(request.getTitle(), request.getDescription(), request.getType(), request.getImage(), request.getLink());
-    }
+//    public static GenerateTemplateCommand fromRequest(GenerateTemplateRequest request) {
+//        return new GenerateTemplateCommand(request.getTitle(), request.getDescription(), request.getType(), request.getImage(), request.getLink());
+//    }
 
     @Override
     public ICommandMessage getMessage() {
