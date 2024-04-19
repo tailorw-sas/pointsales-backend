@@ -16,7 +16,6 @@ import java.util.UUID;
 @Entity
 public class Procedure {
     @Id
-    @GeneratedValue(generator = "UUID")
     private UUID id;
     private String code;
     private String name;
@@ -24,6 +23,15 @@ public class Procedure {
     @Enumerated(EnumType.STRING)
     private MedicalExamCategory type;
     private Double price;
+
+    public Procedure(ProcedureDto procedureDto) {
+        this.id = procedureDto.getId();
+        this.code = procedureDto.getCode();
+        this.name = procedureDto.getName();
+        this.description = procedureDto.getDescription();
+        this.type = procedureDto.getType();
+        this.price = procedureDto.getPrice();
+    }
 
     public ProcedureDto toAggregate() {
         return new ProcedureDto(this.id,this.code,this.name,this.description,this.type,this.price);
