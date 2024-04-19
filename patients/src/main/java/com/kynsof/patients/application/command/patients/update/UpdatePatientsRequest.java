@@ -1,6 +1,6 @@
 package com.kynsof.patients.application.command.patients.update;
 
-import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoRequest;
+import com.kynsof.patients.application.command.patients.create.request.CreatePatientContactInfoRequest;
 import com.kynsof.patients.domain.dto.enumTye.DisabilityType;
 import com.kynsof.patients.domain.dto.enumTye.GenderType;
 import lombok.Getter;
@@ -20,6 +20,6 @@ public class UpdatePatientsRequest {
     private Boolean isPregnant;
     private byte[] photo;
     private int gestationTime;
-    private CreateContactInfoRequest contactInfo;
+    private CreatePatientContactInfoRequest contactInfo;
     private DisabilityType disabilityType;
 }

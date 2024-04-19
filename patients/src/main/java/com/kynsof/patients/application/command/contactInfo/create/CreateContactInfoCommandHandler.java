@@ -29,16 +29,29 @@ public class CreateContactInfoCommandHandler implements ICommandHandler<CreateCo
     public void handle(CreateContactInfoCommand command) {
         PatientDto patientDto = patientsService.findByIdSimple(command.getPatientId());
         GeographicLocationDto geographicLocationDto = geographicLocationService.findById(command.getGeographicLocationId());
-        UUID id = contactInfoService.create(new ContactInfoDto(
-                UUID.randomUUID(),
-                patientDto,
-                command.getEmail(),
-                command.getTelephone(),
-                command.getAddress(),
-                command.getBirthdayDate(),
-                Status.ACTIVE,
-                geographicLocationDto
-        ));
-        command.setId(id);
+
+      ContactInfoDto contactInfoDto =  contactInfoService.findByPatientId(command.getPatientId());
+
+      if(contactInfoDto == null) {
+          UUID id = contactInfoService.create(new ContactInfoDto(
+                  UUID.randomUUID(),
+                  patientDto,
+                  "",
+                  command.getTelephone(),
+                  command.getAddress(),
+                  command.getBirthdayDate(),
+                  Status.ACTIVE,
+                  geographicLocationDto
+          ));
+          command.setId(id);
+      }else {
+          contactInfoDto.setAddress(command.getAddress());
+          contactInfoDto.setBirthdayDate(command.getBirthdayDate());
+          contactInfoDto.setTelephone(command.getTelephone());
+          contactInfoDto.setStatus(Status.ACTIVE);
+          contactInfoService.update(contactInfoDto);
+          command.setId(contactInfoDto.getId());
+      }
+    //TODO yannier Evento de confirmación de creacion de usuario y datos de como debe acceder, se envia un correo
     }
 }

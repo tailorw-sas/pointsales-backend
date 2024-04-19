@@ -1,5 +1,6 @@
 package com.kynsof.patients.controller;
 
+import com.kynsof.patients.application.command.additionalInfo.create.CreatAdditionalInfoMessage;
 import com.kynsof.patients.application.command.additionalInfo.create.CreateAdditionalInfoCommand;
 import com.kynsof.patients.application.command.additionalInfo.create.CreateAdditionalInfoRequest;
 import com.kynsof.patients.application.command.additionalInfo.delete.DeleteAdditionalInfoCommand;
@@ -7,7 +8,6 @@ import com.kynsof.patients.application.command.additionalInfo.delete.DeleteAddit
 import com.kynsof.patients.application.command.additionalInfo.update.UpdateAdditionalInfoCommand;
 import com.kynsof.patients.application.command.additionalInfo.update.UpdateAdditionalInfoMessage;
 import com.kynsof.patients.application.command.additionalInfo.update.UpdateAdditionalInfoRequest;
-import com.kynsof.patients.application.command.contactInfo.create.CreateContactInfoMessage;
 import com.kynsof.patients.application.query.additionalInfo.getById.FindByIdAdditionalInfoQuery;
 import com.kynsof.patients.application.query.additionalInfo.getall.AdditionalInfoResponse;
 import com.kynsof.patients.application.query.additionalInfo.getall.GetAllAdditionalInfoQuery;
@@ -32,9 +32,9 @@ public class AdditionalInformationController {
     }
 
     @PostMapping("")
-    public ResponseEntity<CreateContactInfoMessage> create(@RequestBody CreateAdditionalInfoRequest request)  {
+    public ResponseEntity<?> create(@RequestBody CreateAdditionalInfoRequest request)  {
         CreateAdditionalInfoCommand createCommand = CreateAdditionalInfoCommand.fromRequest(request);
-        CreateContactInfoMessage response = mediator.send(createCommand);
+        CreatAdditionalInfoMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
     }

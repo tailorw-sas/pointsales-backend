@@ -1,5 +1,6 @@
 package com.kynsof.treatments.domain.dto;
 
+import com.kynsof.treatments.domain.dto.enumDto.MedicalExamCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,6 @@ public class ProcedureDto {
     private String code;
     private String name;
     private String description;
-    private String type;
+    private MedicalExamCategory type;
     private Double price;
 }
