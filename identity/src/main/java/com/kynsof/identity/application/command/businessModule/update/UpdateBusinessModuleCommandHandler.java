@@ -6,6 +6,8 @@ import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.identity.domain.interfaces.service.IBusinessModuleService;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.domain.interfaces.service.IModuleService;
+import com.kynsof.identity.domain.rules.businessmodule.BusinessModuleMustBeUniqueRule;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +37,9 @@ public class UpdateBusinessModuleCommandHandler implements ICommandHandler<Updat
 
         List<BusinessModuleDto> businessModuleDtos = new ArrayList<>();
         for (UUID idModule : command.getModules()) {
-            ModuleDto module = this.serviceModule.findById(idModule);
             UUID id = UUID.randomUUID();
+            RulesChecker.checkRule(new BusinessModuleMustBeUniqueRule(this.serviceBusinessModule, command.getIdBusiness(), idModule));
+            ModuleDto module = this.serviceModule.findById(idModule);
             businessModuleDtos.add(new BusinessModuleDto(id, businessDto, module));
         }
 

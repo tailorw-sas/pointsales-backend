@@ -1,6 +1,6 @@
 package com.kynsof.identity.application.command.businessModule.update;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,5 +9,5 @@ import lombok.Setter;
 @Setter
 public class UpdateBusinessModuleRequest {
     private UUID idBusiness;
-    private List<UUID> modules;
+    private Set<UUID> modules;
 }
