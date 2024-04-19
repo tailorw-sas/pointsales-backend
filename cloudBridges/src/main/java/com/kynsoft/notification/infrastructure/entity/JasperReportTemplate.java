@@ -4,6 +4,8 @@ import com.kynsof.share.core.domain.BaseEntity;
 import com.kynsoft.notification.domain.dto.JasperReportTemplateDto;
 import com.kynsoft.notification.domain.dto.JasperReportTemplateType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +23,7 @@ public class JasperReportTemplate extends BaseEntity {
     private String templateName;
     private String templateDescription;
     private String templateContentUrl;
+    @Enumerated(EnumType.STRING)
     private JasperReportTemplateType type;
 
     private String parameters;

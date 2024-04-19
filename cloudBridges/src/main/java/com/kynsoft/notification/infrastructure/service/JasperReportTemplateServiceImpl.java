@@ -57,6 +57,16 @@ public class JasperReportTemplateServiceImpl implements IJasperReportTemplateSer
     }
 
     @Override
+    public JasperReportTemplateDto findByTemplateCode(String templateCode) {
+        Optional<JasperReportTemplate> object = this.queryRepository.findByTemplateCode(templateCode);
+        if (object.isPresent()) {
+            return object.get().toAggregate();
+        }
+
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, new ErrorField("id", "JasperReportTemplate not found.")));
+    }
+
+    @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         GenericSpecificationsBuilder<JasperReportTemplate> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<JasperReportTemplate> data = this.queryRepository.findAll(specifications, pageable);
