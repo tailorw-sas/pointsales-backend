@@ -1,5 +1,6 @@
 package com.kynsof.treatments.infrastructure.entity;
 
+import com.kynsof.treatments.domain.dto.DiagnosisDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +17,6 @@ import java.util.UUID;
 public class Diagnosis {
 
     @Id
-    @GeneratedValue(generator = "UUID")
     private UUID id;
     private String icdCode; // Código CIE-10
     private String description;
@@ -24,4 +24,15 @@ public class Diagnosis {
     @ManyToOne
     @JoinColumn(name = "external_consultation_id")
     private ExternalConsultation externalConsultation;
+
+    public Diagnosis(DiagnosisDto diagnosisDto) {
+        this.id = diagnosisDto.getId();
+        this.icdCode = diagnosisDto.getIcdCode();
+        this.description = diagnosisDto.getDescription();
+    }
+
+    public DiagnosisDto toAggregate() {
+        return new DiagnosisDto(this.id, this.icdCode, this.description);
+    }
+
 }
