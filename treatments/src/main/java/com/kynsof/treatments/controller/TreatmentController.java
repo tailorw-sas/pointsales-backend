@@ -6,6 +6,9 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.treatment.create.CreateTreatmentCommand;
 import com.kynsof.treatments.application.command.treatment.create.CreateTreatmentMessage;
 import com.kynsof.treatments.application.command.treatment.create.CreateTreatmentRequest;
+import com.kynsof.treatments.application.command.treatment.update.UpdateTreatmentCommand;
+import com.kynsof.treatments.application.command.treatment.update.UpdateTreatmentMessage;
+import com.kynsof.treatments.application.command.treatment.update.UpdateTreatmentRequest;
 import com.kynsof.treatments.application.query.treatment.getbyid.FindByIdTreatmentQuery;
 import com.kynsof.treatments.application.query.treatment.getbyid.TreatmentResponse;
 import com.kynsof.treatments.application.query.treatment.search.GetSearchTreatmentQuery;
@@ -50,6 +53,14 @@ public class TreatmentController {
         GetSearchTreatmentQuery query = new GetSearchTreatmentQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateTreatmentMessage> update(@PathVariable("id") UUID id, @RequestBody UpdateTreatmentRequest request) {
+
+        UpdateTreatmentCommand command = UpdateTreatmentCommand.fromRequest(request, id);
+        UpdateTreatmentMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
     }
 
 }
