@@ -6,6 +6,9 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.diagnosis.create.CreateDiagnosisCommand;
 import com.kynsof.treatments.application.command.diagnosis.create.CreateDiagnosisMessage;
 import com.kynsof.treatments.application.command.diagnosis.create.CreateDiagnosisRequest;
+import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosisCommand;
+import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosisMessage;
+import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosisRequest;
 import com.kynsof.treatments.application.query.diagnosis.getbyid.DiagnosisResponse;
 import com.kynsof.treatments.application.query.diagnosis.getbyid.FindByIdDiagnosisQuery;
 import com.kynsof.treatments.application.query.diagnosis.search.GetSearchDiagnosisQuery;
@@ -40,6 +43,14 @@ public class DiagnosisController {
         FindByIdDiagnosisQuery query = new FindByIdDiagnosisQuery(id);
         DiagnosisResponse response = mediator.send(query);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") UUID id, @RequestBody UpdateDiagnosisRequest request) {
+
+        UpdateDiagnosisCommand command = UpdateDiagnosisCommand.fromRequest(request, id);
+        UpdateDiagnosisMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 
