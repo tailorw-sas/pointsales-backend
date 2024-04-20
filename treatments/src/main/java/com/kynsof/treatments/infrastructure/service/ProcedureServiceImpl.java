@@ -110,4 +110,9 @@ public class ProcedureServiceImpl implements IProcedureService {
         return new PaginatedResponse(procedureResponses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
+
+    @Override
+    public Long countByCodeAndNotId(String code, UUID id) {
+        return this.repositoryQuery.countByCodeAndNotId(code, id);
+    }
 }
