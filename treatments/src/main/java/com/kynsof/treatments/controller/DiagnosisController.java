@@ -6,7 +6,10 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.diagnosis.create.CreateDiagnosisCommand;
 import com.kynsof.treatments.application.command.diagnosis.create.CreateDiagnosisMessage;
 import com.kynsof.treatments.application.command.diagnosis.create.CreateDiagnosisRequest;
+import com.kynsof.treatments.application.query.diagnosis.getbyid.DiagnosisResponse;
+import com.kynsof.treatments.application.query.diagnosis.getbyid.FindByIdDiagnosisQuery;
 import com.kynsof.treatments.application.query.diagnosis.search.GetSearchDiagnosisQuery;
+import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +30,15 @@ public class DiagnosisController {
     public ResponseEntity<?> create(@RequestBody CreateDiagnosisRequest request) {
         CreateDiagnosisCommand createCommand = CreateDiagnosisCommand.fromRequest(request);
         CreateDiagnosisMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<DiagnosisResponse> getById(@PathVariable UUID id) {
+
+        FindByIdDiagnosisQuery query = new FindByIdDiagnosisQuery(id);
+        DiagnosisResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }
