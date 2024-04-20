@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsoft.notification.domain.service.IReportService;
 import net.sf.jasperreports.engine.*;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,10 +18,11 @@ import java.util.Objects;
 @Service
 public class ReportService implements IReportService {
     private final RestTemplate restTemplate;
+    private final ResourceLoader resourceLoader;
 
-    public ReportService(RestTemplate restTemplate) {
-        //    this.resourceLoader = resourceLoader;
+    public ReportService(RestTemplate restTemplate, ResourceLoader resourceLoader) {
         this.restTemplate = restTemplate;
+        this.resourceLoader = resourceLoader;
     }
 
     @Override

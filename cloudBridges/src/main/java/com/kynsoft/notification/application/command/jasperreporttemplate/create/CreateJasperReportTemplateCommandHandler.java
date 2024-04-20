@@ -5,12 +5,13 @@ import com.kynsof.share.core.infrastructure.util.CustomMultipartFile;
 import com.kynsoft.notification.domain.dto.JasperReportTemplateDto;
 import com.kynsoft.notification.domain.service.IJasperReportTemplateService;
 import com.kynsoft.notification.infrastructure.service.AmazonClient;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class CreateJasperReportTemplateCommandHandler implements ICommandHandler<CreateJasperReportTemplateCommand> {
@@ -29,7 +30,8 @@ public class CreateJasperReportTemplateCommandHandler implements ICommandHandler
         if (command.getFile() != null) {
             try {
                 MultipartFile file = new CustomMultipartFile(command.getFile(), command.getName() + " " + UUID.randomUUID().toString());
-                url = amazonClient.save(file, file.getName());
+               String fileName = file.getOriginalFilename()+".jrxml";
+                url = amazonClient.save(file,fileName);
             } catch (IOException ex) {
                 Logger.getLogger(CreateJasperReportTemplateCommandHandler.class.getName()).log(Level.SEVERE, null, ex);
             }

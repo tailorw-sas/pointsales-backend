@@ -55,15 +55,6 @@ RUN apk upgrade --no-cache
 RUN apk add --no-cache tzdata
 ENV TZ="America/Guayaquil"
 
-RUN apk add --no-cache ttf-dejavu
-
-# Para fuentes Liberation
-RUN apk add --no-cache ttf-liberation
-
-# Para fuentes Noto
-RUN apk add --no-cache font-noto
-
-
 # Copy the native executable into the containers
 WORKDIR /app
 COPY --from=builder /build/target/cloudBridges-1.0.0.jar .

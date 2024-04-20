@@ -48,23 +48,14 @@ RUN mvn --no-transfer-progress clean package -DskipTests
 # FROM docker.io/oraclelinux:9-slim
 FROM bellsoft/liberica-openjdk-alpine:17.0.6
 
-EXPOSE 9908
+EXPOSE 9909
 
 #Configurar Zona Horaria
 RUN apk upgrade --no-cache
 RUN apk add --no-cache tzdata
 ENV TZ="America/Guayaquil"
 
-RUN apk add --no-cache ttf-dejavu
-
-# Para fuentes Liberation
-RUN apk add --no-cache ttf-liberation
-
-# Para fuentes Noto
-RUN apk add --no-cache font-noto
-
-
 # Copy the native executable into the containers
 WORKDIR /app
-COPY --from=builder /build/target/cloudBridges-1.0.0.jar .
-ENTRYPOINT [ "java", "-jar", "/app/cloudBridges-1.0.0.jar" ]
+COPY --from=builder /build/target/report-1.0.0.jar .
+ENTRYPOINT [ "java", "-jar", "/app/report-1.0.0.jar" ]
