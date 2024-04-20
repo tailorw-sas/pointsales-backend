@@ -20,4 +20,14 @@ public class ExamDto {
     private String result;
     private Date datePerformed;
     private Double price;
+
+    public ExamDto(UUID id, String name, String description, String type, String result, Double price) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.result = result;
+        this.price = price;
+    }
+
 }
