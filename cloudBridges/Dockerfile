@@ -42,7 +42,7 @@ EXPOSE 9908
 
 # Install necessary packages for runtime
 RUN apk upgrade --no-cache \
-    && apk add --no-cache tzdata fontconfig libfreetype6 \
+    && apk add --no-cache tzdata ttf-dejavu \
     && update-ms-fonts \
     && fc-cache -f
 
