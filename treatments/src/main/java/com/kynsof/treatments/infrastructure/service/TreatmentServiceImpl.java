@@ -7,14 +7,14 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import com.kynsof.treatments.application.query.procedure.getAll.ProcedureResponse;
-import com.kynsof.treatments.domain.dto.ProcedureDto;
+import com.kynsof.treatments.application.query.treatment.getbyid.TreatmentResponse;
+import com.kynsof.treatments.domain.dto.TreatmentDto;
 import com.kynsof.treatments.domain.dto.enumDto.MedicalExamCategory;
-import com.kynsof.treatments.domain.service.IProcedureService;
+import com.kynsof.treatments.domain.service.ITreatmentService;
 import com.kynsof.treatments.infrastructure.entity.Procedure;
-import com.kynsof.treatments.infrastructure.entity.specifications.ProcedureSpecifications;
-import com.kynsof.treatments.infrastructure.repositories.command.ProcedureWriteDataJPARepository;
-import com.kynsof.treatments.infrastructure.repositories.query.ProcedureReadDataJPARepository;
+import com.kynsof.treatments.infrastructure.entity.Treatment;
+import com.kynsof.treatments.infrastructure.repositories.command.TreatmentWriteDataJPARepository;
+import com.kynsof.treatments.infrastructure.repositories.query.TreatmentReadDataJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,22 +26,22 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ProcedureServiceImpl implements IProcedureService {
+public class TreatmentServiceImpl implements ITreatmentService {
 
     @Autowired
-    private ProcedureReadDataJPARepository repositoryQuery;
+    private TreatmentReadDataJPARepository repositoryQuery;
 
     @Autowired
-    private ProcedureWriteDataJPARepository repositoryCommand;
+    private TreatmentWriteDataJPARepository repositoryCommand;
 
     @Override
-    public void create(ProcedureDto patients) {
-        this.repositoryCommand.save(new Procedure(patients));
+    public void create(TreatmentDto treatment) {
+        this.repositoryCommand.save(new Treatment(treatment));
     }
 
     @Override
-    public void update(ProcedureDto patients) {
-        this.repositoryCommand.save(new Procedure(patients));
+    public void update(TreatmentDto treatment) {
+        this.repositoryCommand.save(new Treatment(treatment));
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ProcedureServiceImpl implements IProcedureService {
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         filterCreteria(filterCriteria);
         GenericSpecificationsBuilder<Procedure> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-        Page<Procedure> data = this.repositoryQuery.findAll(specifications, pageable);
+        Page<Treatment> data = this.repositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(data);
     }
 
@@ -70,49 +70,22 @@ public class ProcedureServiceImpl implements IProcedureService {
         }
     }
 
-    private PaginatedResponse getPaginatedResponse(Page<Procedure> data) {
-        List<ProcedureResponse> patients = new ArrayList<>();
-        for (Procedure o : data.getContent()) {
-            patients.add(new ProcedureResponse(o.toAggregate()));
+    private PaginatedResponse getPaginatedResponse(Page<Treatment> data) {
+        List<TreatmentResponse> patients = new ArrayList<>();
+        for (Treatment o : data.getContent()) {
+            patients.add(new TreatmentResponse(o.toAggregate()));
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
     @Override
-    public ProcedureDto findByCode(String code) {
-        Optional<Procedure> procedureByCode = Optional.ofNullable(this.repositoryQuery.findProcedureByCode(code));
-        if (procedureByCode.isPresent()) {
-            return procedureByCode.get().toAggregate();
-        }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PROCEDURE_NOT_FOUND, new ErrorField("id", "Procedure not found.")));
-    }
-
-    @Override
-    public ProcedureDto findById(UUID id) {
-        Optional<Procedure> procedure = this.repositoryQuery.findById(id);
+    public TreatmentDto findById(UUID id) {
+        Optional<Treatment> procedure = this.repositoryQuery.findById(id);
         if (procedure.isPresent()) {
             return procedure.get().toAggregate();
         }
 
         throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PROCEDURE_NOT_FOUND, new ErrorField("id", "Procedure not found.")));
-    }
-
-    @Override
-    public PaginatedResponse findAll(Pageable pageable, String name, String code, String type) {
-        ProcedureSpecifications specifications = new ProcedureSpecifications(code, name, type);
-        Page<Procedure> data = this.repositoryQuery.findAll(specifications, pageable);
-
-        List<ProcedureResponse> procedureResponses = new ArrayList<>();
-        for (Procedure p : data.getContent()) {
-            procedureResponses.add(new ProcedureResponse(p.toAggregate()));
-        }
-        return new PaginatedResponse(procedureResponses, data.getTotalPages(), data.getNumberOfElements(),
-                data.getTotalElements(), data.getSize(), data.getNumber());
-    }
-
-    @Override
-    public Long countByCodeAndNotId(String code, UUID id) {
-        return this.repositoryQuery.countByCodeAndNotId(code, id);
     }
 }
