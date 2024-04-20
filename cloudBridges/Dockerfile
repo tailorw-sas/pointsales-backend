@@ -1,59 +1,37 @@
-# Builder Image
-FROM ghcr.io/graalvm/native-image:ol8-java17-22 AS builder
+# Usamos una imagen base oficial de OpenJDK para asegurar que tenemos una JVM compatible con nuestra aplicación Spring Boot
+FROM openjdk:17-slim as builder
 
-# Install necessary packages for the build
-RUN microdnf update && \
-    microdnf install --nodocs tar gzip ttf-dejavu && \
-    microdnf clean all && \
-    rm -rf /var/cache/yum
+# Opcional: Argumento para especificar la versión del JAR
+ARG JAR_VERSION=1.0.0
 
-# Install Maven
-ARG USER_HOME_DIR="/root"
-ARG SHA=deaa39e16b2cf20f8cd7d232a1306344f04020e1f0fb28d35492606f647a60fe729cc40d3cba33e093a17aed41bd161fe1240556d0f1b80e773abd408686217e
-ARG MAVEN_DOWNLOAD_URL=https://dlcdn.apache.org/maven/maven-3/3.9.4/binaries/apache-maven-3.9.4-bin.tar.gz
+# Directorio de trabajo dentro del contenedor
+WORKDIR /application
 
-RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
-    && curl -fsSL -o /tmp/apache-maven.tar.gz ${MAVEN_DOWNLOAD_URL} \
-    && echo "${SHA}  /tmp/apache-maven.tar.gz" | sha512sum -c - \
-    && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
-    && rm -f /tmp/apache-maven.tar.gz \
-    && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+# Primero, un paso separado para descargar todas las dependencias necesarias
+# Esto es útil para aprovechar la caché de Docker si los POMs no cambian
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+COPY src src
+RUN ./mvnw install -DskipTests
 
-ENV MAVEN_HOME /usr/share/maven/bin/
-ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+# Extraemos las capas del JAR para permitir una mejor utilización de la caché de Docker
+RUN java -Djarmode=layertools -jar target/*.jar extract
 
-# Set the working directory to /build
-WORKDIR /build
+# Segunda etapa del build que no tiene Maven y sólo tiene las dependencias necesarias
+# Utilizamos la misma imagen base por simplicidad
+FROM openjdk:17-slim
 
-# Copy the source code into the image for building
-COPY . /build
+WORKDIR /application
 
-# Setup environment variables for Maven repository
-ARG PACKAGE_TOKEN
-ENV PACKAGE_TOKEN ${PACKAGE_TOKEN}
+# Copiamos las capas extraídas desde la etapa de builder
+COPY --from=builder /application/dependencies/ ./
+COPY --from=builder /application/spring-boot-loader/ ./
+COPY --from=builder /application/snapshot-dependencies/ ./
+COPY --from=builder /application/application/ ./
 
-# Run Maven build
-RUN mvn --no-transfer-progress clean package -DskipTests
-
-# Deployment Image
-FROM bellsoft/liberica-openjdk-alpine:17.0.6
-
+# El puerto que expone nuestra aplicación, esto debe coincidir con el puerto que usa Spring Boot
 EXPOSE 9908
 
-# Install necessary packages for runtime
-RUN apk upgrade --no-cache \
-    && apk add --no-cache tzdata ttf-dejavu \
-    && update-ms-fonts \
-    && fc-cache -f
-
-# Configure timezone
-ENV TZ="America/Guayaquil"
-
-# Set up Java options to run in headless mode
-ENV JAVA_OPTS="-Djava.awt.headless=true"
-
-# Copy the native executable into the container
-WORKDIR /app
-COPY --from=builder /build/target/cloudBridges-1.0.0.jar .
-
-ENTRYPOINT [ "java", "-jar", "/app/cloudBridges-1.0.0.jar" ]
+# Comando para ejecutar la aplicación
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
