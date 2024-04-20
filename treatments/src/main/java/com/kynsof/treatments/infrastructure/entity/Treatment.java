@@ -17,7 +17,6 @@ import java.util.UUID;
 public class Treatment {
 
     @Id
-    @GeneratedValue(generator = "UUID")
     private UUID id;
 
     private String description;
@@ -30,8 +29,17 @@ public class Treatment {
     @JoinColumn(name = "external_consultation_id")
     private ExternalConsultation externalConsultation;
 
+    public Treatment(TreatmentDto treatmentDto) {
+        this.id = treatmentDto.getId();
+        this.description = treatmentDto.getDescription();
+        this.medication = treatmentDto.getMedication();
+        this.dose = treatmentDto.getDose();
+        this.frequency = treatmentDto.getFrequency();
+        this.duration = treatmentDto.getDuration();
+        this.externalConsultation = treatmentDto.getExternalConsultationDto() != null ? new ExternalConsultation(treatmentDto.getExternalConsultationDto()) : null;
+    }
 
-    public TreatmentDto toAggregate(){
-        return new TreatmentDto(this.id,this.medication, this.description, this.dose, this.frequency, this.duration);
+    public TreatmentDto toAggregate() {
+        return new TreatmentDto(this.id, this.medication, this.description, this.dose, this.frequency, this.duration);
     }
 }
