@@ -54,6 +54,7 @@ EXPOSE 9908
 RUN apk upgrade --no-cache
 RUN apk add --no-cache tzdata
 ENV TZ="America/Guayaquil"
+ENV JAVA_TOOL_OPTIONS="-Djava.awt.headless=true"
 
 RUN apk add --no-cache ttf-dejavu
 
