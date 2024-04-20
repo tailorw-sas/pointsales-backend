@@ -14,7 +14,6 @@ import java.util.UUID;
 @Entity
 public class Exam {
     @Id
-    @GeneratedValue(generator = "UUID")
     private UUID id;
 
     private String name;
