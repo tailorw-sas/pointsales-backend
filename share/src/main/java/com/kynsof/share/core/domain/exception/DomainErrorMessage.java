@@ -59,7 +59,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     PROCEDURE_CODE_MUST_BY_UNIQUE(654, Series.DOMAIN_ERROR, "The procedure code must be unique."),
     TREATMENT_NOT_FOUND(654, Series.DOMAIN_ERROR, "Procedure not found."),
     DIAGNOSIS_NOT_FOUND(655, Series.DOMAIN_ERROR, "Diagnosis not found."),
-    EXAM_NOT_FOUND(656, Series.DOMAIN_ERROR, "Exam not found.");
+    EXAM_NOT_FOUND(656, Series.DOMAIN_ERROR, "Exam not found."),
+    INSURANCE_NOT_FOUND(657, Series.DOMAIN_ERROR, "Insurance not found.");
 
     private static final DomainErrorMessage[] VALUES;
 
