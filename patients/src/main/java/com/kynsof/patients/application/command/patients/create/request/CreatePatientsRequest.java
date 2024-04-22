@@ -19,7 +19,7 @@ public class CreatePatientsRequest {
     private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
-    private byte[] photo;
+    private byte[] image;
     private int gestationTime;
     private CreatePatientContactInfoRequest contactInfo;
     private DisabilityType disabilityType;

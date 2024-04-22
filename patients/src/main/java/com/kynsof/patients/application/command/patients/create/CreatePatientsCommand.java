@@ -50,7 +50,7 @@ public class CreatePatientsCommand implements ICommand {
     public static CreatePatientsCommand fromRequest(CreatePatientsRequest request) {
         return new CreatePatientsCommand(request.getIdentification(), request.getName(), request.getLastName(), request.getGender(),
                 request.getWeight(),request.getHeight(),request.getHasDisability(),request.getIsPregnant(),
-                request.getPhoto(),request.getGestationTime(), request.getContactInfo(), request.getDisabilityType());
+                request.getImage(),request.getGestationTime(), request.getContactInfo(), request.getDisabilityType());
     }
 
 

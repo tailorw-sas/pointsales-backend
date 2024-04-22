@@ -55,7 +55,7 @@ public class CreateDependentPatientsCommand implements ICommand {
         return new CreateDependentPatientsCommand(request.getPrimeId(), request.getIdentification(), request.getName(),
                 request.getLastName(), request.getGender(), request.getWeight(), request.getHeight(),
                 request.getHasDisability(), request.getIsPregnant(),  request.getFamilyRelationship(),
-                request.getPhoto(), request.getGestationTime(), request.getContactInfo(), request.getDisabilityType());
+                request.getImage(), request.getGestationTime(), request.getContactInfo(), request.getDisabilityType());
     }
 
 

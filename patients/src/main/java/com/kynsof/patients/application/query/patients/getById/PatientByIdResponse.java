@@ -27,7 +27,7 @@ public class PatientByIdResponse implements IResponse {
     private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
-    private String photo;
+    private String image;
     private int gestationTime = 0;
     private DisabilityType disabilityType;
     private ContactInfoResponse contactInfo;
@@ -43,7 +43,7 @@ public class PatientByIdResponse implements IResponse {
         this.height = patients.getHeight();
         this.hasDisability = patients.getHasDisability();
         this.isPregnant = patients.getIsPregnant();
-        photo = patients.getPhoto();
+        image = patients.getPhoto();
         disabilityType = patients.getDisabilityType();
         gestationTime = patients.getGestationTime();
         familyRelationship = patients.getFamilyRelationship();
