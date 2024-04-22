@@ -12,10 +12,10 @@ import java.util.UUID;
 @Getter
 @Setter
 public class PatientVaccineDto {
+
     private UUID id;
     private PatientDto patient;
     private VaccineDto vaccine;
     private VaccinationStatus status;
     private Date vaccinationDate;
 }
-

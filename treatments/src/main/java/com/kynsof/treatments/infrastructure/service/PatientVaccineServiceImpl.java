@@ -1,6 +1,5 @@
 package com.kynsof.treatments.infrastructure.service;
 
-
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -35,7 +34,7 @@ public class PatientVaccineServiceImpl implements IPatientVaccineService {
 
     @Override
     public UUID create(PatientVaccineDto dto) {
-        PatientVaccine entity =this.repositoryCommand.save(new PatientVaccine(dto));
+        PatientVaccine entity = this.repositoryCommand.save(new PatientVaccine(dto));
         return entity.getId();
     }
 
@@ -48,7 +47,6 @@ public class PatientVaccineServiceImpl implements IPatientVaccineService {
         return entity.getId();
     }
 
-
     @Override
     public PatientVaccineDto findById(UUID id) {
         Optional<PatientVaccine> patientVaccine = this.repositoryQuery.findById(id);
@@ -60,7 +58,7 @@ public class PatientVaccineServiceImpl implements IPatientVaccineService {
 
     @Override
     public PaginatedResponse findAll(Pageable pageable, UUID patientId) {
-        PatientVaccineSpecifications specifications = new PatientVaccineSpecifications( patientId);
+        PatientVaccineSpecifications specifications = new PatientVaccineSpecifications(patientId);
         Page<PatientVaccine> data = this.repositoryQuery.findAll(specifications, pageable);
 
         return getPaginatedResponse(data);
@@ -91,7 +89,6 @@ public class PatientVaccineServiceImpl implements IPatientVaccineService {
         return new PaginatedResponse(patientVaccineResponses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
-
 
     @Override
     public void delete(UUID id) {

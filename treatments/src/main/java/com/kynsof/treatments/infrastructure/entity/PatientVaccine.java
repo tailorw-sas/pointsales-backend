@@ -11,15 +11,14 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.UUID;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
 public class PatientVaccine {
+
     @Id
-    @GeneratedValue(generator = "UUID")
     private UUID id;
 
     @ManyToOne
@@ -42,7 +41,6 @@ public class PatientVaccine {
         this.vaccine = new Vaccine(dto.getVaccine());
         this.status = dto.getStatus();
     }
-
 
     @PrePersist
     protected void onCreate() {
