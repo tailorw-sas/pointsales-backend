@@ -6,9 +6,11 @@ import com.kynsof.calendar.domain.service.IServiceTypeService;
 import com.kynsof.calendar.infrastructure.entity.ServiceType;
 import com.kynsof.calendar.infrastructure.repository.command.ServiceTypeWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ServiceTypeReadDataJPARepository;
-import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,24 +39,7 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
 
     @Override
     public void update(ServiceTypeDto objectDto) {
-        if (objectDto.getId() == null) {
-            throw new BusinessException(DomainErrorMessage.BUSINESS_OR_ID_NULL, "ServiceTyoe DTO or ID cannot be null.");
-        }
-
-        this.repositoryQuery.findById(objectDto.getId())
-                .map(object -> {
-                    if (objectDto.getName() != null) {
-                        object.setName(objectDto.getName());
-                    }
-
-                    if (objectDto.getPicture() != null) {
-                        object.setPicture(objectDto.getPicture());
-                    }
-
-                    return this.repositoryCommand.save(object);
-                })
-                .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));
-
+        this.repositoryCommand.save(new ServiceType(objectDto));
     }
 
     @Override
@@ -73,7 +58,7 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
             return object.get().toAggregate();
         }
 
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "ServiceType not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SERVICE_TYPE_NOT_FOUND, new ErrorField("id", "Service Type not found.")));
 
     }
 
