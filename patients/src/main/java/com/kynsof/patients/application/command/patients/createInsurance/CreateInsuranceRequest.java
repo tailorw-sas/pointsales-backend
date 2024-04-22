@@ -9,9 +9,8 @@ import java.util.UUID;
 @Getter
 @Setter
 public class CreateInsuranceRequest {
-   private List<UUID> insuranceIds;
+
+    private List<UUID> insuranceIds;
     private UUID patientId;
-
-
 
 }

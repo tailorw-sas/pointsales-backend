@@ -1,8 +1,16 @@
 package com.kynsof.patients.controller;
 
+import com.kynsof.patients.application.command.insurance.create.CreateNewInsuranceCommand;
+import com.kynsof.patients.application.command.insurance.create.CreateNewInsuranceMessage;
+import com.kynsof.patients.application.command.insurance.create.CreateNewInsuranceRequest;
+import com.kynsof.patients.application.command.insurance.update.UpdateInsuranceCommand;
+import com.kynsof.patients.application.command.insurance.update.UpdateInsuranceMessage;
+import com.kynsof.patients.application.command.insurance.update.UpdateInsuranceRequest;
 import com.kynsof.patients.application.query.insuarance.getById.FindByIdInsuranceQuery;
 import com.kynsof.patients.application.query.insuarance.getall.GetAllInsuranceQuery;
 import com.kynsof.patients.application.query.insuarance.getall.InsuranceResponse;
+import com.kynsof.patients.application.query.insuarance.search.GetSearchInsuranceQuery;
+import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +29,31 @@ public class InsuranceController {
     public InsuranceController(IMediator mediator){
 
         this.mediator = mediator;
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> create(@RequestBody CreateNewInsuranceRequest request) {
+        CreateNewInsuranceCommand createCommand = CreateNewInsuranceCommand.fromRequest(request);
+        CreateNewInsuranceMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") UUID id, @RequestBody UpdateInsuranceRequest request) {
+
+        UpdateInsuranceCommand command = UpdateInsuranceCommand.fromRequest(request, id);
+        UpdateInsuranceMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchInsuranceQuery query = new GetSearchInsuranceQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
     @GetMapping("/all")

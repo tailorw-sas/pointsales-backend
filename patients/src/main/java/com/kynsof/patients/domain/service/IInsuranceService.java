@@ -10,6 +10,12 @@ import java.util.UUID;
 
 public interface IInsuranceService {
 
+    void create(InsuranceDto insurance);
+
+    void update(InsuranceDto insurance);
+
+    void delete(UUID id);
+
     InsuranceDto findById(UUID id);
 
     PaginatedResponse findAll(Pageable pageable);

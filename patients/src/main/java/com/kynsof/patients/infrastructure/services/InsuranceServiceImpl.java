@@ -5,8 +5,13 @@ import com.kynsof.patients.application.query.insuarance.getall.InsuranceResponse
 import com.kynsof.patients.domain.dto.InsuranceDto;
 import com.kynsof.patients.domain.service.IInsuranceService;
 import com.kynsof.patients.infrastructure.entity.Insurance;
+import com.kynsof.patients.infrastructure.repository.command.InsuranceWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.InsuranceReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +29,32 @@ public class InsuranceServiceImpl implements IInsuranceService {
 
     @Autowired
     private InsuranceReadDataJPARepository repositoryQuery;
+
+    @Autowired
+    private InsuranceWriteDataJPARepository repositoryCommand;
+
+    @Override
+    public void create(InsuranceDto insurance) {
+        this.repositoryCommand.save(new Insurance(insurance));
+    }
+
+    @Override
+    public void update(InsuranceDto insurance) {
+        this.repositoryCommand.save(new Insurance(insurance));
+    }
+
+    @Override
+    public void delete(UUID id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     @Override
     public InsuranceDto findById(UUID id) {
         Optional<Insurance> insurance = this.repositoryQuery.findById(id);
         if (insurance.isPresent()) {
             return insurance.get().toAggregate();
         }
-      //  throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Contact Information not found.");
-        throw new RuntimeException("Patients not found.");
+      throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.INSURANCE_NOT_FOUND, new ErrorField("id", "Insurance not found.")));
     }
 
     @Override

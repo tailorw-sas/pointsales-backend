@@ -15,7 +15,6 @@ import java.util.UUID;
 @Entity
 public class Insurance {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String name;
@@ -24,6 +23,12 @@ public class Insurance {
 
     @ManyToMany(mappedBy = "insurances")
     private List<Patients> patients;
+
+    public Insurance(InsuranceDto insurance) {
+        this.id = insurance.getId();
+        this.name = insurance.getName();
+        this.description = insurance.getDescription();
+    }
 
     public InsuranceDto toAggregate() {
         return new InsuranceDto(this.id,this.name, this.description);
