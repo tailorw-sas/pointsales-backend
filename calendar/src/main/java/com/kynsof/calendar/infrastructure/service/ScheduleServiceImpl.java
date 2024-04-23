@@ -9,12 +9,15 @@ import com.kynsof.calendar.infrastructure.entity.Schedule;
 import com.kynsof.calendar.infrastructure.entity.specifications.ScheduleSpecifications;
 import com.kynsof.calendar.infrastructure.repository.command.ScheduleWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
-import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import com.kynsof.share.utils.ConfigureTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -140,7 +143,7 @@ public class ScheduleServiceImpl implements IScheduleService {
             return object.get().toAggregate();
         }
 
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Schedule not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SCHEDULE_NOT_FOUND, new ErrorField("id", "Schedule not found.")));
     }
 
 //    @Override
@@ -173,7 +176,7 @@ public class ScheduleServiceImpl implements IScheduleService {
         if (overlappingSchedules.isEmpty()) {
             return repositoryCommand.save(new Schedule(schedule));
         }
-        throw new BusinessException(DomainErrorMessage.SCHEDULED_TASK_ALREADY_EXISTS, "A scheduled task for this service already exists.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SCHEDULED_TASK_ALREADY_EXISTS, new ErrorField("id", "A scheduled task for this service already exists.")));
     }
 
     @Override
@@ -199,20 +202,20 @@ public class ScheduleServiceImpl implements IScheduleService {
         if (!schedule.getStartTime().equals(_schedule.getStartTime())) {
             List<Schedule> _schedulesStartTime = this.repositoryQuery.findByDateAndTimeInRange(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getStartTime());
             if (!_schedulesStartTime.isEmpty()) {
-                throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.");
+                throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, new ErrorField("id", "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.")));
             }
             _schedule.setStartTime(schedule.getStartTime());
         }
         if (!schedule.getEndingTime().equals(_schedule.getEndingTime())) {
             List<Schedule> _schedulesStartTime = this.repositoryQuery.findByDateAndTimeInRange(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getEndingTime());
             if (!_schedulesStartTime.isEmpty()) {
-                throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.");
+                throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, new ErrorField("id", "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.")));
             }
             _schedule.setEndingTime(schedule.getEndingTime());
         }
         if (!schedule.getStartTime().equals(_schedule.getStartTime()) && !schedule.getEndingTime().equals(_schedule.getEndingTime())) {
             if (this.findByResourceAndDateAndStartTimeAndEndingTime(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getStartTime(), schedule.getEndingTime())) {
-                throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_WITH_DATE_STARTTIME_ENDTIME, "There exists a schedule with the same date, start time, and end time.");
+                throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXISTS_SCHEDULE_WITH_DATE_STARTTIME_ENDTIME, new ErrorField("id", "There exists a schedule with the same date, start time, and end time.")));
             }
         }
         if (schedule.getStatus().equals(EStatusSchedule.INACTIVE)
@@ -323,26 +326,26 @@ public class ScheduleServiceImpl implements IScheduleService {
     @Override
     public void validate(ResourceDto resource, LocalDate validateDate, LocalTime startTime, LocalTime endingTime) {
         if (this.validateStartTimeAndEndingTimeEqual(startTime, endingTime)) {
-            throw new BusinessException(DomainErrorMessage.SCHEDULE_CANNOT_BE_EQUALS_STARTTIME_ENDTIME, "The start time and end time cannot be equal.");
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SCHEDULE_CANNOT_BE_EQUALS_STARTTIME_ENDTIME, new ErrorField("id", "The start time and end time cannot be equal.")));
         }
         if (!this.validateDate(validateDate, "BEFORE")
                 && !this.validateDate(validateDate, "EQUALS")) {
-            throw new BusinessException(DomainErrorMessage.SCHEDULE_DATE_LESS_THAN_CURRENT_DATE, "The provided date is less than the current date.");
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SCHEDULE_DATE_LESS_THAN_CURRENT_DATE, new ErrorField("id", "The provided date is less than the current date.")));
         }
         if (!this.validateStartTime(startTime, validateDate, "BEFORE")) {
-            throw new BusinessException(DomainErrorMessage.SCHEDULE_INITIAL_TIME_IS_PASSED, "The initial time has passed. Current time: " + LocalTime.now().toString());
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SCHEDULE_INITIAL_TIME_IS_PASSED, new ErrorField("id", "The initial time has passed. Current time: " + ConfigureTimeZone.getTimeZone())));
         }
         if (!this.validateStartTimeAndEndingTime(startTime, endingTime)) {
-            throw new BusinessException(DomainErrorMessage.SCHEDULE_END_TIME_IS_LESS_THAN, "The provided end time is less than the start time.");
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SCHEDULE_END_TIME_IS_LESS_THAN, new ErrorField("id", "The provided end time is less than the start time.")));
         }
         if (this.findByResourceAndDateAndStartTimeAndEndingTime(new Resource(resource), validateDate, startTime, endingTime)) {
-            throw new BusinessException(DomainErrorMessage.SCHEDULE_EXISTS_SOME_TIME_STARTTIME_EDNTIME, "There exists a schedule with the same date, start time, and end time.");
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SCHEDULE_EXISTS_SOME_TIME_STARTTIME_EDNTIME, new ErrorField("id", "There exists a schedule with the same date, start time, and end time.")));
         }
         if (this.findByDateAndTimeInRange(new Resource(resource), validateDate, startTime, endingTime)) {
-            throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.");//Existe horario en igual fecha, que su rango de hora coincide en algun instante de tiempo con el que se desea crear
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, new ErrorField("id", "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.")));
         }
         if (this.findByDateAndTimeInRangeAndStartTimeAndEndingTime(new Resource(resource), validateDate, startTime, endingTime)) {
-            throw new BusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.");//Existe horario en igual fecha, que su rango de hora coincide en algun instante de tiempo con el que se desea crear
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, new ErrorField("id", "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.")));
         }
     }
 
