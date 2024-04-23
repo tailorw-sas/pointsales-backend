@@ -16,8 +16,11 @@ import com.kynsof.calendar.infrastructure.repository.query.ResourceReadDataJPARe
 import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ServiceReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.share.utils.ConfigureTimeZone;
@@ -32,7 +35,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ResourceServiceImpl implements IResourceService {
-
 
     @Autowired
     private ResourceWriteDataJPARepository repositoryCommand;
@@ -56,7 +58,6 @@ public class ResourceServiceImpl implements IResourceService {
     @Override
     public void create(ResourceDto object) {
         object.setStatus(EResourceStatus.ACTIVE);
-
 
         this.repositoryCommand.save(new Resource(object));
     }
@@ -88,9 +89,7 @@ public class ResourceServiceImpl implements IResourceService {
 //        if (objectDto.getServices() != null) {
 //            object.setServices(objectDto.getServices().stream().map(Services::new).collect(Collectors.toSet()));
 //        }
-
         this.repositoryCommand.save(new Resource(objectDto));
-
 
     }
 
@@ -112,7 +111,7 @@ public class ResourceServiceImpl implements IResourceService {
             return object.get().toAggregate();
         }
 
-        throw new BusinessException(DomainErrorMessage.RESOURCE_NOT_FOUND, "Resource not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.RESOURCE_NOT_FOUND, new ErrorField("id", "Resource not found.")));
 
     }
 
@@ -149,7 +148,6 @@ public class ResourceServiceImpl implements IResourceService {
     public PaginatedResponse findResourcesWithAvailableSchedules(UUID businessId, UUID serviceId, LocalDate date, Pageable pageable) {
         Page<Schedule> schedules = scheduleReadDataJPARepository.findSchedulesWithStockByBusinessServiceAndDate(businessId, serviceId, date, pageable);
 
-
         Map<UUID, List<Schedule>> schedulesByResourceId = schedules.stream()
                 .collect(Collectors.groupingBy(s -> s.getResource().getId()));
 
@@ -163,29 +161,29 @@ public class ResourceServiceImpl implements IResourceService {
             resourcesWithSchedules.add(new ResourceWithSchedulesDto(resource.toAggregate(), scheduleDtos));
         });
 
-
         return new PaginatedResponse(resourcesWithSchedules, schedules.getTotalPages(), schedules.getNumberOfElements(),
                 schedules.getTotalElements(), schedules.getSize(), schedules.getNumber());
     }
 
     @Override
     public void addBusiness(UUID businessId, UUID userId, LocalDate date) {
-       Optional<Resource> resource = this.repositoryQuery.findById(userId);
-       Optional<Business> business = this.businessReadDataJPARepository.findById(businessId);
-       if (resource.isPresent() && business.isPresent()) {
-           Resource resourceObject = resource.get();
-           Business businessObject = business.get();
-           BusinessResource businessResource = new BusinessResource();
-           businessResource.setBusiness(businessObject);
-           businessResource.setResource(resourceObject);
-           businessResource.setCreatedAt(ConfigureTimeZone.getTimeZone());  // Asumiendo que hay un campo para la fecha de creación
-           businessObject.getBusinessResources().add(businessResource);
-           resourceObject.getBusinessResources().add(businessResource);
+        Optional<Resource> resource = this.repositoryQuery.findById(userId);
+        Optional<Business> business = this.businessReadDataJPARepository.findById(businessId);
+        if (resource.isPresent() && business.isPresent()) {
+            Resource resourceObject = resource.get();
+            Business businessObject = business.get();
+            BusinessResource businessResource = new BusinessResource();
+            businessResource.setBusiness(businessObject);
+            businessResource.setResource(resourceObject);
+            businessResource.setCreatedAt(ConfigureTimeZone.getTimeZone());  // Asumiendo que hay un campo para la fecha de creación
+            businessObject.getBusinessResources().add(businessResource);
+            resourceObject.getBusinessResources().add(businessResource);
 
-           this.repositoryCommand.save(resourceObject);
-           this.businessReadDataJPARepository.save(businessObject);
-       }
+            this.repositoryCommand.save(resourceObject);
+            this.businessReadDataJPARepository.save(businessObject);
+        }
     }
+
     @Override
     public void addServicesToResource(UUID resourceId, List<UUID> serviceIds) {
         Optional<Resource> resource = this.repositoryQuery.findById(resourceId);
@@ -202,9 +200,8 @@ public class ResourceServiceImpl implements IResourceService {
             resourceService.setResource(resourceObject);
             resourceService.setCreationDate(ConfigureTimeZone.getTimeZone());
 
-
             this.resourceServiceWriteDataJPARepository.save(resourceService);
-          //  this.serviceWriteDataJPARepository.save(service);
+            //  this.serviceWriteDataJPARepository.save(service);
         });
 
     }
