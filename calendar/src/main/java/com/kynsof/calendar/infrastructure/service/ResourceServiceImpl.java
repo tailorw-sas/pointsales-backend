@@ -64,33 +64,7 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Override
     public void update(ResourceDto objectDto) {
-        if (objectDto.getId() == null) {
-            throw new BusinessException(DomainErrorMessage.BUSINESS_OR_ID_NULL, "Business DTO or ID cannot be null.");
-        }
-//
-//        Optional<Resource> resource = this.repositoryQuery.findById(objectDto.getId());
-//        Resource object = resource.get();
-//        if (objectDto.getExpressAppointments() != null) {
-//            object.setExpressAppointments(objectDto.getExpressAppointments());
-//        }
-//        if (objectDto.getStatus() != null) {
-//            object.setStatus(objectDto.getStatus());
-//        }
-//        if (objectDto.getLanguage() != null) {
-//            object.setLanguage(objectDto.getLanguage());
-//        }
-//        if (objectDto.getName() != null) {
-//            object.setName(objectDto.getName());
-//        }
-//        if (objectDto.getImage() != null) {
-//            object.setImage(objectDto.getImage());
-//        }
-
-//        if (objectDto.getServices() != null) {
-//            object.setServices(objectDto.getServices().stream().map(Services::new).collect(Collectors.toSet()));
-//        }
         this.repositoryCommand.save(new Resource(objectDto));
-
     }
 
     @Override

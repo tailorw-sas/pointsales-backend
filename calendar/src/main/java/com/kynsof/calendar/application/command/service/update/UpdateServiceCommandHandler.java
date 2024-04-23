@@ -2,7 +2,6 @@ package com.kynsof.calendar.application.command.service.update;
 
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.ServiceTypeDto;
-import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
 import com.kynsof.share.core.domain.RulesChecker;
