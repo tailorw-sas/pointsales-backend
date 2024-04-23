@@ -12,7 +12,6 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,15 +38,15 @@ public class ExternalConsultation {
     private String medicalHistory;
     private String physicalExam;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "externalConsultation")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "externalConsultation")
     private List<Diagnosis> diagnoses;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "externalConsultation")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "externalConsultation")
     private List<Treatment> treatments;
 
     private String observations;
 
-    @OneToMany(mappedBy = "externalConsultation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "externalConsultation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ExamOrder> examOrders;
 
     public ExternalConsultation(ExternalConsultationDto dto) {
@@ -58,28 +57,6 @@ public class ExternalConsultation {
         this.physicalExam = dto.getPhysicalExam();
         this.consultationTime = dto.getConsultationTime();
         this.doctor = new Doctor(dto.getDoctor());
-        this.treatments = dto.getTreatments().stream()
-                .map(treatmentDto -> {
-                    Treatment treatment = new Treatment();
-                    treatment.setDescription(treatmentDto.getDescription());
-                    treatment.setDose(treatmentDto.getDose());
-                    treatment.setDuration(treatmentDto.getDuration());
-                    treatment.setFrequency(treatmentDto.getFrequency());
-                    treatment.setMedication(treatmentDto.getMedication());
-                    treatment.setExternalConsultation(this);
-                    return treatment;
-                })
-                .collect(Collectors.toList());
-
-        this.diagnoses = dto.getDiagnoses().stream()
-                .map(diagnosisDto -> {
-                    Diagnosis diagnosis = new Diagnosis();
-                    diagnosis.setDescription(diagnosisDto.getDescription());
-                    diagnosis.setIcdCode(diagnosisDto.getIcdCode());
-                    diagnosis.setExternalConsultation(this);
-                    return diagnosis;
-                })
-                .collect(Collectors.toList());
         this.observations = dto.getObservations();
     }
 

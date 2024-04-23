@@ -23,4 +23,16 @@ public class ExternalConsultationDto {
     private List<DiagnosisDto> diagnoses;
     private List<TreatmentDto> treatments;
     private String observations;
+
+    public ExternalConsultationDto(UUID id, PatientDto patient, DoctorDto doctor, Date consultationTime, String consultationReason, String medicalHistory, String physicalExam, String observations) {
+        this.id = id;
+        this.patient = patient;
+        this.doctor = doctor;
+        this.consultationTime = consultationTime;
+        this.consultationReason = consultationReason;
+        this.medicalHistory = medicalHistory;
+        this.physicalExam = physicalExam;
+        this.observations = observations;
+    }
+
 }

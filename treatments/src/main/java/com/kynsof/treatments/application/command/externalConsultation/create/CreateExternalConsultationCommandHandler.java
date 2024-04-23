@@ -30,22 +30,6 @@ public class CreateExternalConsultationCommandHandler implements ICommandHandler
         PatientDto patientDto = patientsService.findById(command.getPatientId());
         DoctorDto doctorDto = doctorService.findById(command.getDoctorId());
 
-        List<DiagnosisDto>diagnosisDtoList= command.getDiagnoses().stream()
-                .map(diagnosisRequest -> new DiagnosisDto(
-                        UUID.randomUUID(),
-                        diagnosisRequest.getIcdCode(),
-                        diagnosisRequest.getDescription()))
-                .collect(Collectors.toList());
-
-        List<TreatmentDto>treatmentDtoList= command.getTreatments().stream()
-                .map(treatmentRequest -> new TreatmentDto(
-                        UUID.randomUUID(),
-                        treatmentRequest.getDescription(),
-                        treatmentRequest.getMedication(),
-                        treatmentRequest.getDose(),
-                        treatmentRequest.getFrequency(),
-                        treatmentRequest.getDuration()))
-                .collect(Collectors.toList());
         UUID id = externalConsultationService.create(new ExternalConsultationDto(
                 UUID.randomUUID(),
                 patientDto,
@@ -54,10 +38,8 @@ public class CreateExternalConsultationCommandHandler implements ICommandHandler
                 command.getConsultationReason(),
                 command.getMedicalHistory(),
                 command.getPhysicalExam(),
-               diagnosisDtoList,
-               treatmentDtoList,
-               command.getObservations()
+                command.getObservations()
         ));
-       command.setId(id);
+        command.setId(id);
     }
 }
