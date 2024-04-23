@@ -9,8 +9,11 @@ import com.kynsof.calendar.infrastructure.entity.specifications.BusinessSpecific
 import com.kynsof.calendar.infrastructure.repository.command.ServiceWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ServiceReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,7 +95,7 @@ public class ServiceServiceImpl implements IServiceService {
             return object.get().toAggregate();
         }
 
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Business not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SERVICE_NOT_FOUND, new ErrorField("id", "Service not found.")));
 
     }
 
