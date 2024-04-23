@@ -4,7 +4,9 @@ import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
+import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.dto.TreatmentDto;
+import com.kynsof.treatments.domain.service.IExternalConsultationService;
 import com.kynsof.treatments.domain.service.ITreatmentService;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +14,11 @@ import org.springframework.stereotype.Component;
 public class UpdateTreatmentCommandHandler implements ICommandHandler<UpdateTreatmentCommand> {
 
     private final ITreatmentService serviceImpl;
+    private final IExternalConsultationService externalConsultationService;
 
-    public UpdateTreatmentCommandHandler(ITreatmentService serviceImpl) {
+    public UpdateTreatmentCommandHandler(ITreatmentService serviceImpl, IExternalConsultationService externalConsultationService) {
         this.serviceImpl = serviceImpl;
+        this.externalConsultationService = externalConsultationService;
     }
 
     @Override
@@ -29,6 +33,11 @@ public class UpdateTreatmentCommandHandler implements ICommandHandler<UpdateTrea
         UpdateIfNotNull.updateIfStringNotNull(update::setFrequency, command.getFrequency());
         UpdateIfNotNull.updateIfStringNotNull(update::setMedication, command.getMedication());
 
+        try {
+            ExternalConsultationDto externalConsultationDto = this.externalConsultationService.findById(command.getIdExternalConsultation());
+            update.setExternalConsultationDto(externalConsultationDto);
+        } catch (Exception e) {
+        }
         serviceImpl.create(update);
     }
 }
