@@ -17,8 +17,9 @@ public class CreateTreatmentCommand implements ICommand {
     private String dose;
     private String frequency;
     private String duration;
+    private UUID idExternalConsultation;
 
-    public CreateTreatmentCommand(String description, String medication, String dose, String frequency, String duration) {
+    public CreateTreatmentCommand(String description, String medication, String dose, String frequency, String duration, UUID idExternalConsultation) {
         this.id = UUID.randomUUID();
         this.description = description;
         this.medication = medication;
@@ -26,10 +27,18 @@ public class CreateTreatmentCommand implements ICommand {
         this.dose = dose;
         this.frequency = frequency;
         this.duration = duration;
+        this.idExternalConsultation = idExternalConsultation;
     }
 
     public static CreateTreatmentCommand fromRequest(CreateTreatmentRequest request) {
-        return new CreateTreatmentCommand(request.getDescription(), request.getMedication(), request.getDose(), request.getFrequency(), request.getDuration());
+        return new CreateTreatmentCommand(
+                request.getDescription(),
+                request.getMedication(),
+                request.getDose(),
+                request.getFrequency(),
+                request.getDuration(),
+                request.getIdExternalConsultation()
+        );
     }
 
     @Override
