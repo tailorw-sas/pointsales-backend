@@ -46,7 +46,7 @@ RUN mvn --no-transfer-progress clean package -DskipTests
 
 # The deployment Image
 # FROM docker.io/oraclelinux:9-slim
-FROM bellsoft/liberica-openjdk-alpine:17.0.6
+FROM bellsoft/liberica-openjdk:17.0.6
 
 EXPOSE 9909
 
