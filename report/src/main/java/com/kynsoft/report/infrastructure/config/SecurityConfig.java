@@ -1,4 +1,4 @@
-package com.kynsof.report.infrastructure.config;
+package com.kynsoft.report.infrastructure.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

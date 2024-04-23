@@ -1,4 +1,4 @@
-package com.kynsof.report.infrastructure.config;
+package com.kynsoft.report.infrastructure.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;

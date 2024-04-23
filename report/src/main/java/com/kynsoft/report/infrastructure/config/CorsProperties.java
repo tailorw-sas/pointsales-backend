@@ -1,4 +1,4 @@
-package com.kynsof.report.infrastructure.config;
+package com.kynsoft.report.infrastructure.config;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
