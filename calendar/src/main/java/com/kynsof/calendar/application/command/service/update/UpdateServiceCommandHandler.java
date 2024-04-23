@@ -5,15 +5,18 @@ import com.kynsof.calendar.domain.dto.ServiceTypeDto;
 import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
+import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
+import com.kynsof.share.utils.UpdateIfNotNull;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
-public class UpdateServiceCommandHandler  implements ICommandHandler<UpdateServiceCommand> {
+public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServiceCommand> {
 
     private final IServiceService service;
     private final IServiceTypeService serviceTypeService;
@@ -27,25 +30,26 @@ public class UpdateServiceCommandHandler  implements ICommandHandler<UpdateServi
 
     @Override
     public void handle(UpdateServiceCommand command) {
-        ServiceTypeDto serviceTypeDto = serviceTypeService.findById(command.getServiceTypeId());
+        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getServiceTypeId(), "id", "Service Type ID cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getId(), "id", "Service ID cannot be null."));
 
-        String idLogo = "";
+        ServiceTypeDto serviceTypeDto = serviceTypeService.findById(command.getServiceTypeId());
+        ServiceDto update = service.findById(command.getId());
+        update.setType(serviceTypeDto);
+
         if (command.getPicture() != null && command.getPicture().length > 1) {
             UUID photoId = UUID.randomUUID();
             FileKafka fileSave = new FileKafka(photoId, "calendar", command.getName() + ".png", command.getPicture());
             saveFileEventService.create(fileSave);
-            idLogo = photoId.toString();
+            update.setPicture(photoId.toString());
         }
-       service.update(new ServiceDto(
-               command.getId(), 
-               serviceTypeDto,
-               EServiceStatus.ACTIVE,
-               idLogo,
-               command.getName(), 
-               command.getNormalAppointmentPrice(), 
-               command.getExpressAppointmentPrice(), 
-               command.getDescription(),
-               command.isApplyIva()
-       ));
+
+        update.setApplyIva(command.isApplyIva());
+        update.setExpressAppointmentPrice(command.getExpressAppointmentPrice());
+        update.setNormalAppointmentPrice(command.getNormalAppointmentPrice());
+
+        UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());
+        UpdateIfNotNull.updateIfStringNotNull(update::setDescription, command.getDescription());
+        service.update(update);
     }
 }

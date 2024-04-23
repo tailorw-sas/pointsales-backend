@@ -8,7 +8,6 @@ import com.kynsof.calendar.infrastructure.entity.Services;
 import com.kynsof.calendar.infrastructure.entity.specifications.BusinessSpecifications;
 import com.kynsof.calendar.infrastructure.repository.command.ServiceWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ServiceReadDataJPARepository;
-import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -43,38 +42,7 @@ public class ServiceServiceImpl implements IServiceService {
 
     @Override
     public void update(ServiceDto objectDto) {
-        if (objectDto.getId() == null || objectDto == null) {
-            throw new BusinessException(DomainErrorMessage.BUSINESS_OR_ID_NULL, "Business DTO or ID cannot be null.");
-        }
-
-        this.repositoryQuery.findById(objectDto.getId())
-                .map(object -> {
-                    if (objectDto.getDescription() != null) {
-                        object.setDescription(objectDto.getDescription());
-                    }
-                    if (objectDto.getStatus() != null) {
-                        object.setStatus(objectDto.getStatus());
-                    }
-//                    if (objectDto.getType() != null) {
-//                        object.setType(objectDto.getType());
-//                    }
-                    if (objectDto.getName() != null) {
-                        object.setName(objectDto.getName());
-                    }
-                    if (objectDto.getPicture() != null) {
-                        object.setPicture(objectDto.getPicture());
-                    }
-                    if (objectDto.getNormalAppointmentPrice() != null) {
-                        object.setNormalAppointmentPrice(objectDto.getNormalAppointmentPrice());
-                    }
-                    if (objectDto.getExpressAppointmentPrice() != null) {
-                        object.setExpressAppointmentPrice(objectDto.getExpressAppointmentPrice());
-                    }
-
-                    return this.repositoryCommand.save(object);
-                })
-                .orElseThrow(() -> new BusinessException(DomainErrorMessage.QUALIFICATION_NOT_FOUND, "Qualification not found."));
-
+        this.repositoryCommand.save(new Services(objectDto));
     }
 
     @Override
