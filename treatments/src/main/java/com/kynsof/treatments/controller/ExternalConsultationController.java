@@ -60,7 +60,7 @@ public class ExternalConsultationController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping(path = "/{id}")
+    @PatchMapping(path = "/{id}")
     public ResponseEntity<UpdateExternalConsultationMessage> update(@PathVariable UUID id, @RequestBody UpdateExternalConsultationRequest request) {
         UpdateExternalConsultationCommand command = UpdateExternalConsultationCommand.fromRequest(id,request );
         UpdateExternalConsultationMessage response = mediator.send(command);

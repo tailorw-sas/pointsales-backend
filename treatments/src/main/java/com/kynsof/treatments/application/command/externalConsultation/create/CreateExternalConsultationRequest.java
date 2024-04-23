@@ -15,7 +15,5 @@ public class CreateExternalConsultationRequest {
     private String consultationReason;
     private String medicalHistory;
     private String physicalExam;
-    private List<DiagnosisRequest> diagnoses;
-    private List<TreatmentRequest> treatments;
     private String observations;
 }
