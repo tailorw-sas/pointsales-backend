@@ -29,6 +29,7 @@ public class Diagnosis {
         this.id = diagnosisDto.getId();
         this.icdCode = diagnosisDto.getIcdCode();
         this.description = diagnosisDto.getDescription();
+        this.externalConsultation = diagnosisDto.getExternalConsultation() != null ? new ExternalConsultation(diagnosisDto.getExternalConsultation()) : null;
     }
 
     public DiagnosisDto toAggregate() {

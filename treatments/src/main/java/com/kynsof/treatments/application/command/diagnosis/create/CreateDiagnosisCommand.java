@@ -14,15 +14,17 @@ public class CreateDiagnosisCommand implements ICommand {
     private UUID id;
     private String icdCode; // Código CIE-10
     private String description;
+    private UUID idExternalConsultation;
 
-    public CreateDiagnosisCommand(String icdCode, String description) {
+    public CreateDiagnosisCommand(String icdCode, String description, UUID idExternalConsultation) {
         this.id = UUID.randomUUID();
         this.description = description;
         this.icdCode = icdCode;
+        this.idExternalConsultation = idExternalConsultation;
     }
 
     public static CreateDiagnosisCommand fromRequest(CreateDiagnosisRequest request) {
-        return new CreateDiagnosisCommand(request.getIcdCode(), request.getDescription());
+        return new CreateDiagnosisCommand(request.getIcdCode(), request.getDescription(), request.getIdExternalConsultation());
     }
 
     @Override
