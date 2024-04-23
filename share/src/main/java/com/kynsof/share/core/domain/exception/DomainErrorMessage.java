@@ -61,7 +61,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     DIAGNOSIS_NOT_FOUND(655, Series.DOMAIN_ERROR, "Diagnosis not found."),
     EXAM_NOT_FOUND(656, Series.DOMAIN_ERROR, "Exam not found."),
     INSURANCE_NOT_FOUND(657, Series.DOMAIN_ERROR, "Insurance not found."),
-    SERVICE_TYPE_NOT_FOUND(658, Series.DOMAIN_ERROR, "Service Type not found.");
+    SERVICE_TYPE_NOT_FOUND(658, Series.DOMAIN_ERROR, "Service Type not found."),
+    SERVICE_NOT_FOUND(659, Series.DOMAIN_ERROR, "Service not found.");
 
     private static final DomainErrorMessage[] VALUES;
 
