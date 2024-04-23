@@ -46,7 +46,7 @@ public class CreatePatientAdminCommand implements ICommand {
     public static CreatePatientAdminCommand fromRequest(CreatePatientsAdminRequest request) {
         return new CreatePatientAdminCommand(request.getIdentification(), request.getName(), request.getLastName(), request.getGender(),
                 request.getWeight(),request.getHeight(),request.getHasDisability(),request.getIsPregnant(),
-                request.getPhoto(),request.getGestationTime(), request.getDisabilityType());
+                request.getImage(),request.getGestationTime(), request.getDisabilityType());
     }
 
 
