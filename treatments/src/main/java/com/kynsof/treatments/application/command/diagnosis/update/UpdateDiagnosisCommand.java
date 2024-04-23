@@ -14,15 +14,17 @@ public class UpdateDiagnosisCommand implements ICommand {
     private UUID id;
     private String icdCode; // Código CIE-10
     private String description;
+    private UUID idExternalConsultation;
 
-    public UpdateDiagnosisCommand(UUID id, String icdCode, String description) {
+    public UpdateDiagnosisCommand(UUID id, String icdCode, String description, UUID idExternalConsultation) {
         this.id = id;
         this.description = description;
         this.icdCode = icdCode;
+        this.idExternalConsultation = idExternalConsultation;
     }
 
     public static UpdateDiagnosisCommand fromRequest(UpdateDiagnosisRequest request, UUID id) {
-        return new UpdateDiagnosisCommand(id, request.getIcdCode(), request.getDescription());
+        return new UpdateDiagnosisCommand(id, request.getIcdCode(), request.getDescription(), request.getIdExternalConsultation());
     }
 
     @Override
