@@ -8,8 +8,11 @@ import com.kynsof.calendar.infrastructure.repository.command.BusinessWriteDataJP
 import com.kynsof.calendar.infrastructure.repository.query.BusinessReadDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
@@ -84,9 +87,7 @@ public class BusinessServiceImpl implements IBusinessService {
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
-
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Business not found.");
-
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, new ErrorField("id", "Business not found.")));
     }
 
     @Override
