@@ -9,8 +9,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class CreateContactInfoRequest {
-
-    private UUID patientId;
     private String telephone;
     private String address;
     private LocalDate birthdayDate;
