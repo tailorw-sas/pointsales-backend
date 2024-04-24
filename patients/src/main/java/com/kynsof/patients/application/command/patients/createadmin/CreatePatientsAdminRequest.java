@@ -12,8 +12,6 @@ import lombok.Setter;
 public class CreatePatientsAdminRequest {
 
     private String identification;
-    private String name;
-    private String lastName;
     private GenderType gender;
     private Double weight;
     private Double height;

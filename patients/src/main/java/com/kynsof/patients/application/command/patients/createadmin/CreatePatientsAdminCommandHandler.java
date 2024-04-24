@@ -1,11 +1,8 @@
 package com.kynsof.patients.application.command.patients.createadmin;
 
 import com.kynsof.patients.domain.dto.PatientDto;
-import com.kynsof.patients.domain.dto.enumTye.Status;
-import com.kynsof.patients.domain.rules.dependent.DependentMustBeUniqueRule;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerCreatePatientsEventService;
-import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
@@ -31,32 +28,23 @@ public class CreatePatientsAdminCommandHandler implements ICommandHandler<Create
 
     @Override
     public void handle(CreatePatientAdminCommand command) {
+        PatientDto patientDto = serviceImpl.findByIdSimple(command.getId());
         String idLogo = null;
         if (command.getPhoto() != null && command.getPhoto().length > 1) {
             UUID photoId = UUID.randomUUID();
-            FileKafka fileSave = new FileKafka(photoId, "patients", command.getName() + ".png", command.getPhoto());
+            FileKafka fileSave = new FileKafka(photoId, "patients", patientDto.getName() + ".png", command.getPhoto());
             saveFileEventService.create(fileSave);
             idLogo = photoId.toString();
+            patientDto.setPhoto(idLogo);
         }
 
-        UUID idPatient = UUID.randomUUID();
-        RulesChecker.checkRule(new DependentMustBeUniqueRule(this.serviceImpl, command.getIdentification(), idPatient));
-        PatientDto create = new PatientDto(
-                idPatient,
-                command.getIdentification(),
-                command.getName(),
-                command.getLastName(),
-                command.getGender(),
-                Status.ACTIVE,
-                command.getWeight(),
-                command.getHeight(),
-                command.getHasDisability(),
-                command.getIsPregnant(),
-                idLogo,
-                command.getDisabilityType(),
-                command.getGestationTime()
-        );
-        serviceImpl.create(create);
-        this.patientEventService.create(create, null);
+        patientDto.setGender(command.getGender());
+        patientDto.setHeight(command.getHeight());
+        patientDto.setWeight(command.getWeight());
+        patientDto.setDisabilityType(command.getDisabilityType());
+        patientDto.setIdentification(command.getIdentification());
+        patientDto.setGestationTime(command.getGestationTime());
+        serviceImpl.update(patientDto);
+        this.patientEventService.create(patientDto, null);
     }
 }

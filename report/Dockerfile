@@ -49,6 +49,7 @@ RUN mvn --no-transfer-progress clean package -DskipTests
 FROM bellsoft/liberica-openjdk-alpine:17.0.6
 
 EXPOSE 9909
+RUN apk update && apk add --no-cache fontconfig
 
 #Configurar Zona Horaria
 RUN apk upgrade --no-cache

@@ -14,8 +14,6 @@ import java.util.UUID;
 public class CreatePatientAdminCommand implements ICommand {
     private UUID id;
     private String identification;
-    private String name;
-    private String lastName;
     private GenderType gender;
     private Double weight;
     private Double height;
@@ -25,13 +23,11 @@ public class CreatePatientAdminCommand implements ICommand {
     private int gestationTime;
     private DisabilityType disabilityType;
 
-    public CreatePatientAdminCommand(String identification, String name, String lastName, GenderType gender, Double weight,
+    public CreatePatientAdminCommand(String identification, GenderType gender, Double weight,
                                  Double height, Boolean hasDisability, Boolean isPregnant, byte[] photo,
                                  int gestationTime, DisabilityType disabilityType){
 
         this.identification = identification;
-        this.name = name;
-        this.lastName = lastName;
         this.gender = gender;
         this.weight = weight;
         this.height = height;
@@ -44,7 +40,7 @@ public class CreatePatientAdminCommand implements ICommand {
     }
 
     public static CreatePatientAdminCommand fromRequest(CreatePatientsAdminRequest request) {
-        return new CreatePatientAdminCommand(request.getIdentification(), request.getName(), request.getLastName(), request.getGender(),
+        return new CreatePatientAdminCommand(request.getIdentification(), request.getGender(),
                 request.getWeight(),request.getHeight(),request.getHasDisability(),request.getIsPregnant(),
                 request.getImage(),request.getGestationTime(), request.getDisabilityType());
     }
