@@ -11,6 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class CreateMedicalInformationCommand implements ICommand {
+
     private UUID id;
 
     private String bloodType;
@@ -19,9 +20,8 @@ public class CreateMedicalInformationCommand implements ICommand {
     private List<CreateAllergyRequest> allergies;
     private List<CreateCurrentMedicationRequest> currentMedications;
 
-
     public CreateMedicalInformationCommand(UUID patientId, String bloodType, String medicalHistory,
-                                           List<CreateAllergyRequest> allergies, List<CreateCurrentMedicationRequest> currentMedications) {
+            List<CreateAllergyRequest> allergies, List<CreateCurrentMedicationRequest> currentMedications) {
         this.patientId = patientId;
         this.bloodType = bloodType;
         this.medicalHistory = medicalHistory;
@@ -29,11 +29,10 @@ public class CreateMedicalInformationCommand implements ICommand {
         this.currentMedications = currentMedications;
     }
 
-    public static CreateMedicalInformationCommand fromRequest(UUID patientId,CreateMedicalInformationRequest request) {
+    public static CreateMedicalInformationCommand fromRequest(UUID patientId, CreateMedicalInformationRequest request) {
         return new CreateMedicalInformationCommand(patientId, request.getBloodType(), request.getMedicalHistory(),
-                request.getAllergies(),request.getCurrentMedications());
+                request.getAllergies(), request.getCurrentMedications());
     }
-
 
     @Override
     public ICommandMessage getMessage() {
