@@ -34,7 +34,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
       -
         name: Build and push
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           build-args: |
             "PACKAGE_TOKEN=${{secrets.PACKAGE_TOKEN}}"
@@ -62,7 +62,7 @@ jobs:
           password: zlxk149hp/I2LzmV
 
       - name: Enable kubectl
-        uses: tale/kubectl-action@v2
+        uses: tale/kubectl-action@v1
         with:
           base64-kube-config: ${{ secrets.KUBE_CONFIG }}
 
