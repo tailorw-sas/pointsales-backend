@@ -40,6 +40,7 @@ public class ContactInformation {
     private GeographicLocation geographicLocation;
 
     public ContactInformation(ContactInfoDto contactInfoDto) {
+        this.id = contactInfoDto.getId();
         this.patient = new Patients(contactInfoDto.getPatient());
         this.email = contactInfoDto.getEmail();
         this.telephone = contactInfoDto.getTelephone();

@@ -5,7 +5,6 @@ import com.kynsof.patients.domain.dto.ContactInfoDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.infrastructure.entity.ContactInformation;
-import com.kynsof.patients.infrastructure.entity.GeographicLocation;
 import com.kynsof.patients.infrastructure.repository.command.ContactInfoWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.ContactInfoReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
@@ -15,7 +14,6 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,18 +45,18 @@ public class ContactInfoServiceImpl implements IContactInfoService {
             throw new IllegalArgumentException("Patient DTO or ID cannot be null");
         }
 
-        this.repositoryQuery.findById(contactInfoDto.getId())
-                .map(contactInformation -> {
-                    if (contactInfoDto.getAddress() != null) contactInformation.setAddress(contactInfoDto.getAddress());
-                    if (contactInfoDto.getTelephone() != null) contactInformation.setTelephone(contactInfoDto.getTelephone());
-                    if (contactInfoDto.getBirthdayDate() != null) contactInformation.setBirthdayDate(contactInfoDto.getBirthdayDate());
-                    if (contactInfoDto.getEmail() != null) contactInformation.setEmail(contactInfoDto.getEmail());
-                    if (contactInfoDto.getGeographicLocation() != null)
-                        contactInformation.setGeographicLocation(new GeographicLocation(contactInfoDto.getGeographicLocation()));
-                    return this.repositoryCommand.save(contactInformation);
-                })
-                .orElseThrow(() -> new EntityNotFoundException("ContactInfo with ID " + contactInfoDto.getId() + " not found"));
+//        this.repositoryQuery.findById(contactInfoDto.getId())
+//                .map(contactInformation -> {
+//                    if (contactInfoDto.getAddress() != null) contactInformation.setAddress(contactInfoDto.getAddress());
+//                    if (contactInfoDto.getTelephone() != null) contactInformation.setTelephone(contactInfoDto.getTelephone());
+//                    if (contactInfoDto.getBirthdayDate() != null) contactInformation.setBirthdayDate(contactInfoDto.getBirthdayDate());
+//                    if (contactInfoDto.getEmail() != null) contactInformation.setEmail(contactInfoDto.getEmail());
+//                    if (contactInfoDto.getGeographicLocation() != null)
+//                        contactInformation.setGeographicLocation(new GeographicLocation(contactInfoDto.getGeographicLocation()));
+//                })
+//                .orElseThrow(() -> new EntityNotFoundException("ContactInfo with ID " + contactInfoDto.getId() + " not found"));
 
+        this.repositoryCommand.save(new ContactInformation(contactInfoDto));
         return contactInfoDto.getId();
     }
 

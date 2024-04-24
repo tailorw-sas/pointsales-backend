@@ -36,7 +36,7 @@ public class CreateContactInfoCommandHandler implements ICommandHandler<CreateCo
 
         ContactInfoDto contactInfoDto = contactInfoService.findByPatientId(command.getPatientId());
 
-        if (contactInfoDto == null) {
+        if (contactInfoDto.getId() == null) {
             ContactInfoDto create = new ContactInfoDto(
                     UUID.randomUUID(),
                     patientDto,
@@ -51,6 +51,7 @@ public class CreateContactInfoCommandHandler implements ICommandHandler<CreateCo
             command.setId(id);
             this.producerCreateContactEventService.create(create);
         } else {
+            contactInfoDto.setPatient(patientDto);
             contactInfoDto.setAddress(command.getAddress());
             contactInfoDto.setBirthdayDate(command.getBirthdayDate());
             contactInfoDto.setTelephone(command.getTelephone());

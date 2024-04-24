@@ -28,9 +28,9 @@ public class CreateContactInfoCommand implements ICommand {
         this.geographicLocationId = geographicLocationId;
     }
 
-    public static CreateContactInfoCommand fromRequest(CreateContactInfoRequest request) {
-        return new CreateContactInfoCommand(request.getPatientId(), request.getTelephone(),
-                request.getAddress(),request.getBirthdayDate(), request.getGeographicLocationId());
+    public static CreateContactInfoCommand fromRequest(UUID patientId, CreateContactInfoRequest request) {
+        return new CreateContactInfoCommand(patientId, request.getTelephone(),
+                request.getAddress(),request.getBirthdayDate(), request.getGeographicLocation());
     }
 
 

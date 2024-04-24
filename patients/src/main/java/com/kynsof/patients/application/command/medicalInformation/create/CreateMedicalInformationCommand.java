@@ -29,8 +29,8 @@ public class CreateMedicalInformationCommand implements ICommand {
         this.currentMedications = currentMedications;
     }
 
-    public static CreateMedicalInformationCommand fromRequest(CreateMedicalInformationRequest request) {
-        return new CreateMedicalInformationCommand(request.getPatientId(), request.getBloodType(), request.getMedicalHistory(),
+    public static CreateMedicalInformationCommand fromRequest(UUID patientId,CreateMedicalInformationRequest request) {
+        return new CreateMedicalInformationCommand(patientId, request.getBloodType(), request.getMedicalHistory(),
                 request.getAllergies(),request.getCurrentMedications());
     }
 

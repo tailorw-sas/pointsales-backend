@@ -61,52 +61,52 @@ public class PatientsServiceImpl implements IPatientsService {
             throw new IllegalArgumentException("Patient DTO or ID cannot be null");
         }
 
-        this.repositoryQuery.findById(patientDto.getId())
-                .map(patient -> {
-                    if (patientDto.getName() != null) {
-                        patient.setFirstName(patientDto.getName());
-                    }
-                    if (patientDto.getLastName() != null) {
-                        patient.setLastName(patientDto.getLastName());
-                    }
-                    if (patientDto.getIdentification() != null) {
-                        patient.setIdentification(patientDto.getIdentification());
-                    }
-                    if (patientDto.getGender() != null) {
-                        patient.setGender(patientDto.getGender());
-                    }
-                    if (patientDto.getStatus() != null) {
-                        patient.setStatus(patientDto.getStatus());
-                    }
-                    if (patientDto.getWeight() != null) {
-                        patient.setWeight(patientDto.getWeight());
-                    }
-                    if (patientDto.getHeight() != null) {
-                        patient.setHeight(patientDto.getHeight());
-                    }
-                    if (patientDto.getHasDisability() != null) {
-                        patient.setHasDisability(patientDto.getHasDisability());
-                    }
-                    if (patientDto.getIsPregnant() != null) {
-                        patient.setIsPregnant(patientDto.getIsPregnant());
-                    }
+//        this.repositoryQuery.findById(patientDto.getId())
+//                .map(patient -> {
+//                    if (patientDto.getName() != null) {
+//                        patient.setFirstName(patientDto.getName());
+//                    }
+//                    if (patientDto.getLastName() != null) {
+//                        patient.setLastName(patientDto.getLastName());
+//                    }
+//                    if (patientDto.getIdentification() != null) {
+//                        patient.setIdentification(patientDto.getIdentification());
+//                    }
+//                    if (patientDto.getGender() != null) {
+//                        patient.setGender(patientDto.getGender());
+//                    }
+//                    if (patientDto.getStatus() != null) {
+//                        patient.setStatus(patientDto.getStatus());
+//                    }
+//                    if (patientDto.getWeight() != null) {
+//                        patient.setWeight(patientDto.getWeight());
+//                    }
+//                    if (patientDto.getHeight() != null) {
+//                        patient.setHeight(patientDto.getHeight());
+//                    }
+//                    if (patientDto.getHasDisability() != null) {
+//                        patient.setHasDisability(patientDto.getHasDisability());
+//                    }
+//                    if (patientDto.getIsPregnant() != null) {
+//                        patient.setIsPregnant(patientDto.getIsPregnant());
+//                    }
+//
+//                    if (patientDto.getGestationTime()> 0) {
+//                        patient.setGestationTime(patientDto.getGestationTime());
+//                    }
+//
+//                    if (patientDto.getDisabilityType() != null) {
+//                        patient.setDisabilityType(patientDto.getDisabilityType());
+//                    }
+//
+//                    if (patientDto.getPhoto() != null) {
+//                        patient.setPhoto(patientDto.getPhoto());
+//                    }
 
-                    if (patientDto.getGestationTime()> 0) {
-                        patient.setGestationTime(patientDto.getGestationTime());
-                    }
-
-                    if (patientDto.getDisabilityType() != null) {
-                        patient.setDisabilityType(patientDto.getDisabilityType());
-                    }
-
-                    if (patientDto.getPhoto() != null) {
-                        patient.setPhoto(patientDto.getPhoto());
-                    }
-
-                    return this.repositoryCommand.save(patient);
-                })
-                .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + patientDto.getId() + " not found"));
-
+//
+//                })
+//                .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + patientDto.getId() + " not found"));
+        this.repositoryCommand.save(new Patients(patientDto));
         return patientDto.getId();
     }
 

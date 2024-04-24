@@ -32,9 +32,9 @@ public class ContactInfoController {
         this.mediator = mediator;
     }
 
-    @PostMapping("")
-    public ResponseEntity<CreateContactInfoMessage> create(@RequestBody CreateContactInfoRequest request)  {
-        CreateContactInfoCommand createCommand = CreateContactInfoCommand.fromRequest(request);
+    @PatchMapping("patient/{patientId}")
+    public ResponseEntity<?> create(@PathVariable UUID patientId,@RequestBody CreateContactInfoRequest request)  {
+        CreateContactInfoCommand createCommand = CreateContactInfoCommand.fromRequest(patientId, request);
         CreateContactInfoMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
