@@ -66,4 +66,4 @@ ENV LD_LIBRARY_PATH /usr/lib
 # Copy the native executable into the containers
 WORKDIR /app
 COPY --from=builder /build/target/report-1.0.0.jar .
-ENTRYPOINT [ "java", "-jar", "/app/report-1.0.0.jar" ]
+ENTRYPOINT [ "java", "-Xmx512m", "-Xms256m", "-jar", "/app/report-1.0.0.jar" ]
