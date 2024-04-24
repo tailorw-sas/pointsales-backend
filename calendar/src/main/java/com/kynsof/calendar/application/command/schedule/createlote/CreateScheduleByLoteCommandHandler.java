@@ -1,6 +1,8 @@
 package com.kynsof.calendar.application.command.schedule.createlote;
 
 import com.kynsof.calendar.application.command.schedule.createall.CreateScheduleAllCommand;
+import com.kynsof.calendar.domain.rules.scheduled.ScheduledDateMustBeNullRule;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import java.time.DayOfWeek;
@@ -34,6 +36,8 @@ public class CreateScheduleByLoteCommandHandler implements ICommandHandler<Creat
     }
 
     private List<LocalDate> getBusinessDays(LocalDate startDate, LocalDate endDate) {
+        RulesChecker.checkRule(new ScheduledDateMustBeNullRule(startDate, "startDate", "The start date must be present."));
+        RulesChecker.checkRule(new ScheduledDateMustBeNullRule(endDate, "endDate", "The end date must be present."));
         // Ajustar el endDate si es sábado o domingo
         if (endDate.getDayOfWeek() == DayOfWeek.SATURDAY) {
             endDate = endDate.minusDays(1);
