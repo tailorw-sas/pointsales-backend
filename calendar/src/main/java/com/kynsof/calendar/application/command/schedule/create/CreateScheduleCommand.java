@@ -35,7 +35,8 @@ public class CreateScheduleCommand implements ICommand {
     }
 
     public static CreateScheduleCommand fromRequest(CreateScheduleRequest request) {
-        return new CreateScheduleCommand(request.getResource(), request.getBusiness(), request.getDate(), request.getStartTime(), request.getEndingTime(), request.getStock(),
+        return new CreateScheduleCommand(request.getResource(), request.getBusiness(), request.getDate(),
+                request.getStartTime(), request.getEndingTime(), request.getStock(),
                 request.getService());
     }
 
