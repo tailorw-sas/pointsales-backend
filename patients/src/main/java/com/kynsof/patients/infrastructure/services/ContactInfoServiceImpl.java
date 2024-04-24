@@ -8,7 +8,11 @@ import com.kynsof.patients.infrastructure.entity.ContactInformation;
 import com.kynsof.patients.infrastructure.entity.GeographicLocation;
 import com.kynsof.patients.infrastructure.repository.command.ContactInfoWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.ContactInfoReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import jakarta.persistence.EntityNotFoundException;
@@ -90,6 +94,14 @@ public class ContactInfoServiceImpl implements IContactInfoService {
             return contactInformation.get().toAggregate();
         }
       return new ContactInfoDto();
+    }
+
+    public ContactInfoDto findByIdPatient(UUID patientId) {
+        Optional<ContactInformation> contactInformation = this.repositoryQuery.findByPatientId(patientId);
+        if (contactInformation.isPresent()) {
+            return contactInformation.get().toAggregate();
+        }
+      throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.CONTACT_INFO_NOT_FOUND, new ErrorField("id", "Contact info not found.")));
     }
 
     private PaginatedResponse getPaginatedResponse(Page<ContactInformation> data) {

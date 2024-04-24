@@ -22,4 +22,6 @@ public interface IContactInfoService {
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
     ContactInfoDto findByPatientId(UUID patientId);
+
+    ContactInfoDto findByIdPatient(UUID patientId);
 }

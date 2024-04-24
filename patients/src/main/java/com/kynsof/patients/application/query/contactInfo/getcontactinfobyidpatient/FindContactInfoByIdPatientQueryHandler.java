@@ -17,7 +17,7 @@ public class FindContactInfoByIdPatientQueryHandler implements IQueryHandler<Fin
 
     @Override
     public ContactInfoResponse handle(FindContactInfoByIdPatientQuery query) {
-        ContactInfoDto contactInfoDto = serviceImpl.findByPatientId(query.getId());
+        ContactInfoDto contactInfoDto = serviceImpl.findByIdPatient(query.getId());
 
         return new ContactInfoResponse(contactInfoDto);
     }
