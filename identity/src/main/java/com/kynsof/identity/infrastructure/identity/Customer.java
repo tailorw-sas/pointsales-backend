@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Customer {
 
     @Id
-    @GeneratedValue
+    @Column(name="id")
     private UUID id;
 
     @Column(nullable = false)

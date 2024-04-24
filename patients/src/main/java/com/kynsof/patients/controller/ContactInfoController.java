@@ -63,7 +63,7 @@ public class ContactInfoController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(path = "/by-id-patient/{id}")
+    @GetMapping(path = "/patient/{id}")
     public ResponseEntity<ContactInfoResponse> getContactInfoByIdPatient(@PathVariable UUID id) {
 
         FindContactInfoByIdPatientQuery query = new FindContactInfoByIdPatientQuery(id);
