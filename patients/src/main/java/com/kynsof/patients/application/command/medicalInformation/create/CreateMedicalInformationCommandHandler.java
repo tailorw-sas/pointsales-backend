@@ -31,16 +31,16 @@ public class CreateMedicalInformationCommandHandler implements ICommandHandler<C
 
         List<AllergyDto> allergyDtos = command.getAllergies().stream()
                 .map(createAllergyRequest -> new AllergyDto(
-                        UUID.randomUUID(),
-                        createAllergyRequest.getCode(),
-                        createAllergyRequest.getName(), Status.ACTIVE))
+                UUID.randomUUID(),
+                createAllergyRequest.getCode(),
+                createAllergyRequest.getName(), Status.ACTIVE))
                 .collect(Collectors.toList());
 
         List<CurrentMedicationDto> currentMedicationDtos = command.getCurrentMedications().stream()
                 .map(currentMedication -> new CurrentMedicationDto(
-                        UUID.randomUUID(),
-                        currentMedication.getName(),
-                        currentMedication.getDescription(), Status.ACTIVE))
+                UUID.randomUUID(),
+                currentMedication.getName(),
+                currentMedication.getDescription(), Status.ACTIVE))
                 .collect(Collectors.toList());
 
         UUID id = medicalInformationService.create(new MedicalInformationDto(
