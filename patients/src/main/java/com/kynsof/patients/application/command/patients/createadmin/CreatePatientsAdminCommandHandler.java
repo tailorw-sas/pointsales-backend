@@ -19,7 +19,8 @@ public class CreatePatientsAdminCommandHandler implements ICommandHandler<Create
     private final ProducerCreatePatientsEventService patientEventService;
 
     public CreatePatientsAdminCommandHandler(IPatientsService serviceImpl,
-                                        ProducerSaveFileEventService saveFileEventService, ProducerCreatePatientsEventService patientEventService
+                                        ProducerSaveFileEventService saveFileEventService,
+                                             ProducerCreatePatientsEventService patientEventService
     ) {
         this.serviceImpl = serviceImpl;
         this.saveFileEventService = saveFileEventService;
