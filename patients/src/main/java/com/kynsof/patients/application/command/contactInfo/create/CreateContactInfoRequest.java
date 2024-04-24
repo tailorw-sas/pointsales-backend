@@ -12,5 +12,5 @@ public class CreateContactInfoRequest {
     private String telephone;
     private String address;
     private LocalDate birthdayDate;
-    private UUID geographicLocationId;
+    private UUID geographicLocation;
 }
