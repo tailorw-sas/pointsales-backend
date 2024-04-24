@@ -31,8 +31,8 @@ public class MedicalInformationController {
         this.mediator = mediator;
     }
 
-    @PatchMapping("patient/{patientId}")
-    public ResponseEntity<CreateMedicalInformationMessage> create(@RequestParam UUID patientId,@RequestBody CreateMedicalInformationRequest request)  {
+    @PatchMapping("/patient/{patientId}")
+    public ResponseEntity<CreateMedicalInformationMessage> create(@PathVariable UUID patientId,@RequestBody CreateMedicalInformationRequest request)  {
         CreateMedicalInformationCommand createCommand = CreateMedicalInformationCommand.fromRequest(patientId,request);
         CreateMedicalInformationMessage response = mediator.send(createCommand);
 
