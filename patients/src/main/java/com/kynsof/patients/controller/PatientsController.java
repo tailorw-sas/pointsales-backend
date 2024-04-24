@@ -56,7 +56,7 @@ public class PatientsController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/admin/create_patients/{patientId}")
+    @PatchMapping("/admin/create_patients/{patientId}")
     public ResponseEntity<CreatePatientAdminMessage> create(@PathVariable UUID patientId, @RequestBody CreatePatientsAdminRequest request) {
         CreatePatientAdminCommand createCommand = CreatePatientAdminCommand.fromRequest(patientId,request);
         CreatePatientAdminMessage response = mediator.send(createCommand);
