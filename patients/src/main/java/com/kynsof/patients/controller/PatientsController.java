@@ -6,17 +6,14 @@ import com.kynsof.patients.application.command.patients.create.request.CreatePat
 import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceCommand;
 import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceMessage;
 import com.kynsof.patients.application.command.patients.createInsurance.CreateInsuranceRequest;
-import com.kynsof.patients.application.command.patients.createadmin.CreatePatientAdminCommand;
-import com.kynsof.patients.application.command.patients.createadmin.CreatePatientAdminMessage;
-import com.kynsof.patients.application.command.patients.createadmin.CreatePatientsAdminRequest;
 import com.kynsof.patients.application.command.patients.delete.DeletePatientsCommand;
 import com.kynsof.patients.application.command.patients.delete.PatientDeleteMessage;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientMessage;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsCommand;
 import com.kynsof.patients.application.command.patients.update.UpdatePatientsRequest;
-import com.kynsof.patients.application.command.patients.updateadmin.UpdatePatientAdminCommand;
-import com.kynsof.patients.application.command.patients.updateadmin.UpdatePatientAdminMessage;
-import com.kynsof.patients.application.command.patients.updateadmin.UpdatePatientsAdminRequest;
+import com.kynsof.patients.application.command.patients.updatePatientAdmin.CreatePatientAdminCommand;
+import com.kynsof.patients.application.command.patients.updatePatientAdmin.CreatePatientAdminMessage;
+import com.kynsof.patients.application.command.patients.updatePatientAdmin.CreatePatientsAdminRequest;
 import com.kynsof.patients.application.query.patients.getById.FindPatientsByIdQuery;
 import com.kynsof.patients.application.query.patients.getById.PatientByIdResponse;
 import com.kynsof.patients.application.query.patients.getByIdentification.FindPatientsByIdentificationQuery;
@@ -125,14 +122,6 @@ public class PatientsController {
 
         UpdatePatientsCommand command = UpdatePatientsCommand.fromRequest(id, request);
         UpdatePatientMessage response = mediator.send(command);
-        return ResponseEntity.ok(response);
-    }
-
-    @PatchMapping(path = "/admin/update_patients/{id}")
-    public ResponseEntity<UpdatePatientAdminMessage> update(@PathVariable UUID id, @RequestBody UpdatePatientsAdminRequest request) {
-
-        UpdatePatientAdminCommand command = UpdatePatientAdminCommand.fromRequest(request, id);
-        UpdatePatientAdminMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 

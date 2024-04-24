@@ -1,4 +1,4 @@
-package com.kynsof.patients.application.command.patients.createadmin;
+package com.kynsof.patients.application.command.patients.updatePatientAdmin;
 
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.service.IPatientsService;
@@ -45,6 +45,7 @@ public class CreatePatientsAdminCommandHandler implements ICommandHandler<Create
         patientDto.setDisabilityType(command.getDisabilityType());
         patientDto.setIdentification(command.getIdentification());
         patientDto.setGestationTime(command.getGestationTime());
+        patientDto.setHasDisability(command.getHasDisability());
         serviceImpl.update(patientDto);
         this.patientEventService.create(patientDto, null);
     }
