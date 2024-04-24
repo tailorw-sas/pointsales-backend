@@ -79,7 +79,8 @@ public class ScheduledController {
                 request.getServiceId(), 
                 request.getStartDate(), 
                 request.getEndDate(), 
-                request.getSchedules(), 
+                request.getSchedules(),
+                request.getDaysToExclude(),
                 mediator
         ));
 

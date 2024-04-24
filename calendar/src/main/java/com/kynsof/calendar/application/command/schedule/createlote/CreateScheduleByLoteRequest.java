@@ -1,6 +1,7 @@
 package com.kynsof.calendar.application.command.schedule.createlote;
 
 import com.kynsof.calendar.application.command.schedule.createall.ScheduleAllRequest;
+import java.time.DayOfWeek;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,6 +14,7 @@ public class CreateScheduleByLoteRequest {
     private LocalDate startDate;
     private LocalDate endDate;
     private List<ScheduleAllRequest> schedules;
+    List<DayOfWeek> daysToExclude;
 
     public CreateScheduleByLoteRequest() {
     }
@@ -63,6 +65,14 @@ public class CreateScheduleByLoteRequest {
 
     public void setSchedules(List<ScheduleAllRequest> schedules) {
         this.schedules = schedules;
+    }
+
+    public List<DayOfWeek> getDaysToExclude() {
+        return daysToExclude;
+    }
+
+    public void setDaysToExclude(List<DayOfWeek> daysToExclude) {
+        this.daysToExclude = daysToExclude;
     }
 
 }
