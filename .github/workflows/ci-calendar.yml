@@ -62,7 +62,7 @@ jobs:
           password: zlxk149hp/I2LzmV
 
       - name: Enable kubectl
-        uses: tale/kubectl-action@v4
+        uses: tale/kubectl-action@v3
         with:
           base64-kube-config: ${{ secrets.KUBE_CONFIG }}
 
