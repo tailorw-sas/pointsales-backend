@@ -11,6 +11,7 @@ import com.kynsof.patients.application.command.patients.delete.PatientDeleteMess
 import com.kynsof.patients.application.query.contactInfo.getById.FindByIdContactInfoQuery;
 import com.kynsof.patients.application.query.contactInfo.getall.ContactInfoResponse;
 import com.kynsof.patients.application.query.contactInfo.getall.GetAllContactInfoQuery;
+import com.kynsof.patients.application.query.contactInfo.getcontactinfobyidpatient.FindContactInfoByIdPatientQuery;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
@@ -57,6 +58,15 @@ public class ContactInfoController {
     public ResponseEntity<ContactInfoResponse> getById(@PathVariable UUID id) {
 
         FindByIdContactInfoQuery query = new FindByIdContactInfoQuery(id);
+        ContactInfoResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/by-id-patient/{id}")
+    public ResponseEntity<ContactInfoResponse> getContactInfoByIdPatient(@PathVariable UUID id) {
+
+        FindContactInfoByIdPatientQuery query = new FindContactInfoByIdPatientQuery(id);
         ContactInfoResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
