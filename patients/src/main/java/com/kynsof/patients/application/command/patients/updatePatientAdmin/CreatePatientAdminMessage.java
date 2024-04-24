@@ -10,7 +10,7 @@ public class CreatePatientAdminMessage implements ICommandMessage {
 
     private final UUID id;
 
-    private final String command = "CREATE_PATIENT";
+    private final String command = "Update_PATIENT";
 
     public CreatePatientAdminMessage(UUID id) {
         this.id = id;
