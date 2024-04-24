@@ -56,7 +56,7 @@ public class PatientsController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/admin/create_patients/{patientId}")
+    @PatchMapping("/admin/updated/{patientId}")
     public ResponseEntity<?> create(@PathVariable UUID patientId, @RequestBody CreatePatientsAdminRequest request) {
         CreatePatientAdminCommand createCommand = CreatePatientAdminCommand.fromRequest(patientId,request);
         CreatePatientAdminMessage response = mediator.send(createCommand);
@@ -64,8 +64,17 @@ public class PatientsController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping(path = "/admin/updated/{id}")
+    public ResponseEntity<?> getAdminById(@PathVariable UUID id) {
+
+        FindPatientsByIdQuery query = new FindPatientsByIdQuery(id);
+        PatientByIdResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/insurance")
-    public ResponseEntity<CreateInsuranceMessage> createInsurance(@RequestBody CreateInsuranceRequest request) {
+    public ResponseEntity<?> createInsurance(@RequestBody CreateInsuranceRequest request) {
         CreateInsuranceCommand createCommand = CreateInsuranceCommand.fromRequest(request);
         CreateInsuranceMessage response = mediator.send(createCommand);
 
@@ -86,7 +95,7 @@ public class PatientsController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
+    public ResponseEntity<?> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
         GetSearchPatientsQuery query = new GetSearchPatientsQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
