@@ -1,7 +1,10 @@
 package com.kynsof.treatments.infrastructure.service;
 
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.treatments.domain.dto.PatientDto;
 import com.kynsof.treatments.domain.dto.enumDto.Status;
 import com.kynsof.treatments.domain.service.IPatientsService;
@@ -24,7 +27,6 @@ public class PatientsServiceImpl implements IPatientsService {
     @Autowired
     private PatientsReadDataJPARepository repositoryQuery;
 
-
     @Override
     public UUID create(PatientDto patients) {
         Patients entity = this.repositoryCommand.save(new Patients(patients));
@@ -39,13 +41,24 @@ public class PatientsServiceImpl implements IPatientsService {
 
         this.repositoryQuery.findById(patientDto.getId())
                 .map(patient -> {
-                    if (patientDto.getName() != null) patient.setName(patientDto.getName());
-                    if (patientDto.getLastName() != null) patient.setLastName(patientDto.getLastName());
-                    if (patientDto.getIdentification() != null)
+                    if (patientDto.getName() != null) {
+                        patient.setName(patientDto.getName());
+                    }
+                    if (patientDto.getLastName() != null) {
+                        patient.setLastName(patientDto.getLastName());
+                    }
+                    if (patientDto.getIdentification() != null) {
                         patient.setIdentification(patientDto.getIdentification());
-                    if (patientDto.getGender() != null) patient.setGender(patientDto.getGender());
-                    if (patientDto.getStatus() != null) patient.setStatus(patientDto.getStatus());
-                    if (patientDto.getBirthDate() != null) patient.setBirthDate(patientDto.getBirthDate());
+                    }
+                    if (patientDto.getGender() != null) {
+                        patient.setGender(patientDto.getGender());
+                    }
+                    if (patientDto.getStatus() != null) {
+                        patient.setStatus(patientDto.getStatus());
+                    }
+                    if (patientDto.getBirthDate() != null) {
+                        patient.setBirthDate(patientDto.getBirthDate());
+                    }
                     return this.repositoryCommand.save(patient);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + patientDto.getId() + " not found"));
@@ -53,17 +66,14 @@ public class PatientsServiceImpl implements IPatientsService {
         return patientDto.getId();
     }
 
-
     @Override
     public PatientDto findById(UUID id) {
         Optional<Patients> patient = this.repositoryQuery.findById(id);
         if (patient.isPresent()) {
             return patient.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Patients not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, new ErrorField("id", "Patient not found.")));
     }
-
-
 
     @Override
     public void delete(UUID id) {
