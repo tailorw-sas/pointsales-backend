@@ -12,14 +12,12 @@ import lombok.Setter;
 public class UpdatePatientsAdminRequest {
 
     private String identification;
-    private String name;
-    private String lastName;
     private GenderType gender;
     private Double weight;
     private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
-    private byte[] photo;
+    private byte[] image;
     private int gestationTime;
     private DisabilityType disabilityType;
 }

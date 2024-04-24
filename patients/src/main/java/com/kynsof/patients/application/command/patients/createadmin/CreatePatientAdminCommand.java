@@ -23,10 +23,11 @@ public class CreatePatientAdminCommand implements ICommand {
     private int gestationTime;
     private DisabilityType disabilityType;
 
-    public CreatePatientAdminCommand(String identification, GenderType gender, Double weight,
+    public CreatePatientAdminCommand(UUID id,String identification, GenderType gender, Double weight,
                                  Double height, Boolean hasDisability, Boolean isPregnant, byte[] photo,
                                  int gestationTime, DisabilityType disabilityType){
 
+        this.id = id;
         this.identification = identification;
         this.gender = gender;
         this.weight = weight;
@@ -39,8 +40,8 @@ public class CreatePatientAdminCommand implements ICommand {
 
     }
 
-    public static CreatePatientAdminCommand fromRequest(CreatePatientsAdminRequest request) {
-        return new CreatePatientAdminCommand(request.getIdentification(), request.getGender(),
+    public static CreatePatientAdminCommand fromRequest(UUID id,CreatePatientsAdminRequest request) {
+        return new CreatePatientAdminCommand(id, request.getIdentification(), request.getGender(),
                 request.getWeight(),request.getHeight(),request.getHasDisability(),request.getIsPregnant(),
                 request.getImage(),request.getGestationTime(), request.getDisabilityType());
     }

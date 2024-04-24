@@ -1,11 +1,7 @@
 package com.kynsof.patients.application.command.patients.updateadmin;
 
-import com.kynsof.patients.application.command.patients.createadmin.*;
 import com.kynsof.patients.domain.dto.PatientDto;
-import com.kynsof.patients.domain.dto.enumTye.Status;
-import com.kynsof.patients.domain.rules.dependent.DependentMustBeUniqueRule;
 import com.kynsof.patients.domain.service.IPatientsService;
-import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerCreatePatientsEventService;
 import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerUpdatePatientsEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
@@ -40,14 +36,12 @@ public class UpdatePatientsAdminCommandHandler implements ICommandHandler<Update
 
         if (command.getPhoto() != null && command.getPhoto().length > 1) {
             UUID photoId = UUID.randomUUID();
-            FileKafka fileSave = new FileKafka(photoId, "patients", command.getName() + ".png", command.getPhoto());
+            FileKafka fileSave = new FileKafka(photoId, "patients", update.getName() + ".png", command.getPhoto());
             saveFileEventService.create(fileSave);
             update.setPhoto(photoId.toString());
         }
 
         UpdateIfNotNull.updateIfStringNotNull(update::setIdentification, command.getIdentification());
-        UpdateIfNotNull.updateIfStringNotNull(update::setLastName, command.getLastName());
-        UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());
 
         update.setDisabilityType(command.getDisabilityType());
         update.setGender(command.getGender());

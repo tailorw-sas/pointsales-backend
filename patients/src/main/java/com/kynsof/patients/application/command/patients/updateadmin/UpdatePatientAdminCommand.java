@@ -15,8 +15,6 @@ public class UpdatePatientAdminCommand implements ICommand {
 
     private UUID id;
     private String identification;
-    private String name;
-    private String lastName;
     private GenderType gender;
     private Double weight;
     private Double height;
@@ -26,13 +24,12 @@ public class UpdatePatientAdminCommand implements ICommand {
     private int gestationTime;
     private DisabilityType disabilityType;
 
-    public UpdatePatientAdminCommand(UUID id, String identification, String name, String lastName, GenderType gender, Double weight,
+    public UpdatePatientAdminCommand(UUID id, String identification,  GenderType gender, Double weight,
             Double height, Boolean hasDisability, Boolean isPregnant, byte[] photo,
             int gestationTime, DisabilityType disabilityType) {
         this.id = id;
         this.identification = identification;
-        this.name = name;
-        this.lastName = lastName;
+
         this.gender = gender;
         this.weight = weight;
         this.height = height;
@@ -45,9 +42,9 @@ public class UpdatePatientAdminCommand implements ICommand {
     }
 
     public static UpdatePatientAdminCommand fromRequest(UpdatePatientsAdminRequest request, UUID id) {
-        return new UpdatePatientAdminCommand(id, request.getIdentification(), request.getName(), request.getLastName(), request.getGender(),
+        return new UpdatePatientAdminCommand(id, request.getIdentification(),  request.getGender(),
                 request.getWeight(), request.getHeight(), request.getHasDisability(), request.getIsPregnant(),
-                request.getPhoto(), request.getGestationTime(), request.getDisabilityType());
+                request.getImage(), request.getGestationTime(), request.getDisabilityType());
     }
 
     @Override
