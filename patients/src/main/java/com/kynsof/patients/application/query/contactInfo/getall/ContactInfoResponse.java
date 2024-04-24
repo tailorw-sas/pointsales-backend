@@ -2,6 +2,7 @@ package com.kynsof.patients.application.query.contactInfo.getall;
 
 
 import com.kynsof.patients.domain.dto.ContactInfoDto;
+import com.kynsof.patients.domain.dto.GeographicLocationDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +26,7 @@ public class ContactInfoResponse implements IResponse {
     private String address;
 
     private LocalDate birthdayDate;
-    private UUID geolocation;
+    private GeographicLocationDto geolocation;
 
     public ContactInfoResponse(ContactInfoDto contactInfoDto) {
         this.id = contactInfoDto.getId();
@@ -35,7 +36,7 @@ public class ContactInfoResponse implements IResponse {
         this.address = contactInfoDto.getAddress();
         this.birthdayDate = contactInfoDto.getBirthdayDate();
         this.geolocation = contactInfoDto.getGeographicLocation() != null
-                ? contactInfoDto.getGeographicLocation().getId() : null;
+                ? contactInfoDto.getGeographicLocation() : null;
     }
 
 }
