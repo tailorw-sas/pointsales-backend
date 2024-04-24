@@ -12,13 +12,13 @@ import java.util.UUID;
 public class CustomerResponse implements IResponse {
 
     private UUID id;
-    private String firstName;
+    private String name;
     private String lastName;
     private String email;
 
     public CustomerResponse(CustomerDto customerDto) {
         this.id = customerDto.getId();
-        this.firstName = customerDto.getFirstName();
+        this.name = customerDto.getFirstName();
         this.lastName = customerDto.getLastName();
         this.email = customerDto.getEmail();
     }
