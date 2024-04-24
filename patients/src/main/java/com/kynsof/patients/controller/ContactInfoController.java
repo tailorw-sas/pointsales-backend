@@ -32,7 +32,7 @@ public class ContactInfoController {
     }
 
     @PatchMapping("patient/{patientId}")
-    public ResponseEntity<CreateContactInfoMessage> create(@PathVariable UUID patientId,@RequestBody CreateContactInfoRequest request)  {
+    public ResponseEntity<?> create(@PathVariable UUID patientId,@RequestBody CreateContactInfoRequest request)  {
         CreateContactInfoCommand createCommand = CreateContactInfoCommand.fromRequest(patientId, request);
         CreateContactInfoMessage response = mediator.send(createCommand);
 
