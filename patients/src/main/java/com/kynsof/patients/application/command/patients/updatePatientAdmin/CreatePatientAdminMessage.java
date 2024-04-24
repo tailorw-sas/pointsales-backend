@@ -1,4 +1,4 @@
-package com.kynsof.patients.application.command.patients.createadmin;
+package com.kynsof.patients.application.command.patients.updatePatientAdmin;
 
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
