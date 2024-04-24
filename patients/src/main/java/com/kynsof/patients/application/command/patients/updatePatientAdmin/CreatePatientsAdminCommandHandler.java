@@ -47,6 +47,6 @@ public class CreatePatientsAdminCommandHandler implements ICommandHandler<Create
         patientDto.setGestationTime(command.getGestationTime());
         patientDto.setHasDisability(command.getHasDisability());
         serviceImpl.update(patientDto);
-        this.patientEventService.create(patientDto, null);
+        //this.patientEventService.create(patientDto, null);
     }
 }
