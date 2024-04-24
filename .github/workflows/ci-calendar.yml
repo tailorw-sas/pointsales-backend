@@ -51,7 +51,6 @@ jobs:
 
       - name: Install OpenVPN
         run: |
-#          sudo apt update
           sudo apt install -y openvpn openvpn-systemd-resolved
 
       - name: Connect to OpenVPN
