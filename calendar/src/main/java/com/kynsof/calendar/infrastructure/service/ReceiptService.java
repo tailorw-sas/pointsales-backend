@@ -11,8 +11,11 @@ import com.kynsof.calendar.infrastructure.entity.specifications.ReceiptSpecifica
 import com.kynsof.calendar.infrastructure.repository.command.ReceiptWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ReceiptReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +47,7 @@ public class ReceiptService implements IReceiptService {
 
     @Override
     public PaginatedResponse findAll(Pageable pageable, String filter, UUID resource, UUID user, UUID service,
-                                     UUID schedule, LocalDate date, LocalDate startDate, LocalDate endDate, EStatusReceipt status) {
+            UUID schedule, LocalDate date, LocalDate startDate, LocalDate endDate, EStatusReceipt status) {
         ReceiptSpecifications spec = new ReceiptSpecifications(filter, null, user, schedule, service, resource, startDate, endDate, date, status);
         Page<Receipt> data = receiptRepositoryQuery.findAll(spec, pageable);
 
@@ -60,8 +63,9 @@ public class ReceiptService implements IReceiptService {
     @Override
     public UUID create(ReceiptDto receipt) {
 
-        if (receipt.getSchedule().getStatus() != EStatusSchedule.ACTIVE)
+        if (receipt.getSchedule().getStatus() != EStatusSchedule.ACTIVE) {
             throw new BusinessException(DomainErrorMessage.SCHEDULE_IS_NOT_AVAIBLE, "The selected schedule is not available.");
+        }
         Receipt entity = this.receiptRepositoryCommand.save(new Receipt(receipt));
         return entity.getId();
 
@@ -79,9 +83,8 @@ public class ReceiptService implements IReceiptService {
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Receipt not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.RESOURCE_NOT_FOUND, new ErrorField("id", "Resource not found.")));
     }
-
 
     @Override
     public void update(ReceiptDto dto) {
