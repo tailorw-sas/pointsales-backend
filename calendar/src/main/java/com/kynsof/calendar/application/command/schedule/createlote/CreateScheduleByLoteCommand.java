@@ -4,6 +4,7 @@ import com.kynsof.calendar.application.command.schedule.createall.ScheduleAllReq
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
+import java.time.DayOfWeek;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,7 @@ public class CreateScheduleByLoteCommand implements ICommand {
     private LocalDate startDate;
     private LocalDate endDate;
     private List<ScheduleAllRequest> schedules;
+    List<DayOfWeek> daysToExclude;
 
     private final IMediator mediator;
 
@@ -30,6 +32,7 @@ public class CreateScheduleByLoteCommand implements ICommand {
             LocalDate startDate, 
             LocalDate endDate, 
             List<ScheduleAllRequest> schedules,
+            List<DayOfWeek> daysToExclude,
             IMediator mediator) {
         this.idResource = idResource;
         this.idBusiness = idBusiness;
@@ -37,6 +40,7 @@ public class CreateScheduleByLoteCommand implements ICommand {
         this.startDate = startDate;
         this.endDate = endDate;
         this.schedules = List.copyOf(schedules);
+        this.daysToExclude = List.copyOf(daysToExclude);
         this.mediator = mediator;
     }
 
