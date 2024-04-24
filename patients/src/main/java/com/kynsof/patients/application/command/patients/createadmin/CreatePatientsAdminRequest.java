@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CreatePatientsAdminRequest {
-
     private String identification;
     private GenderType gender;
     private Double weight;
