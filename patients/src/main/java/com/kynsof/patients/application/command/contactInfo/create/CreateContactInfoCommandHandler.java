@@ -56,6 +56,7 @@ public class CreateContactInfoCommandHandler implements ICommandHandler<CreateCo
             contactInfoDto.setBirthdayDate(command.getBirthdayDate());
             contactInfoDto.setTelephone(command.getTelephone());
             contactInfoDto.setStatus(Status.ACTIVE);
+            contactInfoDto.setGeographicLocation(geographicLocationDto);
             contactInfoService.update(contactInfoDto);
             command.setId(contactInfoDto.getId());
             this.producerCreateContactEventService.create(contactInfoDto);

@@ -25,10 +25,10 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
     private final ProducerUpdatePatientsEventService updatePatientsEventService;
 
     public UpdatePatientsCommandHandler(IPatientsService serviceImpl,
-            ProducerSaveFileEventService saveFileEventService, 
-            IContactInfoService contactInfoService,
-            IGeographicLocationService geographicLocationService,
-            ProducerUpdatePatientsEventService updatePatientsEventService) {
+                                        ProducerSaveFileEventService saveFileEventService,
+                                        IContactInfoService contactInfoService,
+                                        IGeographicLocationService geographicLocationService,
+                                        ProducerUpdatePatientsEventService updatePatientsEventService) {
         this.serviceImpl = serviceImpl;
         this.saveFileEventService = saveFileEventService;
         this.contactInfoService = contactInfoService;
@@ -43,28 +43,26 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
         GeographicLocationDto geographicLocationDto = geographicLocationService.findById(
                 command.getCreateContactInfoRequest().getGeographicLocationId());
         String idLogo = null;
-        if (command.getPhoto() != null && command.getPhoto().length > 1) {
+        if (command.getPhoto() != null && command.getPhoto().length > 100) {
             UUID photoId = UUID.randomUUID();
             FileKafka fileSave = new FileKafka(photoId, "patients", command.getName() + ".png", command.getPhoto());
             saveFileEventService.create(fileSave);
             idLogo = photoId.toString();
+            patientDto.setPhoto(idLogo);
         }
 
-        serviceImpl.update(new PatientDto(
-                command.getId(),
-                command.getIdentification(),
-                command.getName(),
-                command.getLastName(),
-                command.getGender(),
-                Status.ACTIVE,
-                command.getWeight(),
-                command.getHeight(),
-                command.getHasDisability(),
-                command.getIsPregnant(),
-                idLogo,
-                command.getDisabilityType(),
-                command.getGestationTime()
-        ));
+        patientDto.setIdentification(command.getIdentification());
+        patientDto.setName(command.getName());
+        patientDto.setLastName(command.getLastName());
+        patientDto.setGender(command.getGender());
+        patientDto.setWeight(command.getWeight());
+        patientDto.setHeight(command.getHeight());
+        patientDto.setHasDisability(command.getHasDisability());
+        patientDto.setIsPregnant(command.getIsPregnant());
+        patientDto.setDisabilityType(command.getDisabilityType());
+        patientDto.setGestationTime(command.getGestationTime());
+
+        serviceImpl.update(patientDto);
 
         if (contactInfoDto.getId() == null) {
             contactInfoDto.setPatient(patientDto);
