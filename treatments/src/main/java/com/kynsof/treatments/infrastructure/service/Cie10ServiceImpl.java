@@ -1,9 +1,10 @@
 package com.kynsof.treatments.infrastructure.service;
 
-
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.treatments.application.query.cie10.getAll.Cie10Response;
 import com.kynsof.treatments.domain.dto.Cie10Dto;
 import com.kynsof.treatments.domain.service.ICie10Service;
@@ -22,10 +23,8 @@ import java.util.Optional;
 @Service
 public class Cie10ServiceImpl implements ICie10Service {
 
-
     @Autowired
     private Cie10ReadDataJPARepository repositoryQuery;
-
 
     @Override
     //@Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
@@ -48,6 +47,23 @@ public class Cie10ServiceImpl implements ICie10Service {
             allergyResponses.add(new Cie10Response(p.toAggregate()));
         }
         return new PaginatedResponse(allergyResponses, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        GenericSpecificationsBuilder<Cie10> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<Cie10> data = this.repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<Cie10> data) {
+        List<Cie10Response> patients = new ArrayList<>();
+        for (Cie10 o : data.getContent()) {
+            patients.add(new Cie10Response(o.toAggregate()));
+        }
+        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
