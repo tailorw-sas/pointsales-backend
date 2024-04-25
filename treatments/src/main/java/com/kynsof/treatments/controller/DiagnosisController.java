@@ -6,6 +6,9 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.diagnosis.create.CreateDiagnosisCommand;
 import com.kynsof.treatments.application.command.diagnosis.create.CreateDiagnosisMessage;
 import com.kynsof.treatments.application.command.diagnosis.create.CreateDiagnosisRequest;
+import com.kynsof.treatments.application.command.diagnosis.createall.CreateAllDiagnosisCommand;
+import com.kynsof.treatments.application.command.diagnosis.createall.CreateAllDiagnosisMessage;
+import com.kynsof.treatments.application.command.diagnosis.createall.Payload;
 import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosisCommand;
 import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosisMessage;
 import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosisRequest;
@@ -33,6 +36,14 @@ public class DiagnosisController {
     public ResponseEntity<?> create(@RequestBody CreateDiagnosisRequest request) {
         CreateDiagnosisCommand createCommand = CreateDiagnosisCommand.fromRequest(request);
         CreateDiagnosisMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/all")
+    public ResponseEntity<?> createAll(@RequestBody Payload request) {
+        CreateAllDiagnosisCommand createCommand = new CreateAllDiagnosisCommand(request);
+        CreateAllDiagnosisMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
     }
