@@ -3,6 +3,7 @@ package com.kynsof.patients.application.command.medicalInformation.create;
 import com.kynsof.patients.domain.dto.AllergyDto;
 import com.kynsof.patients.domain.dto.CurrentMedicationDto;
 import com.kynsof.patients.domain.dto.MedicalInformationDto;
+import com.kynsof.patients.domain.dto.MedicalInformationUpdateDto;
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IMedicalInformationService;
@@ -28,33 +29,46 @@ public class CreateMedicalInformationCommandHandler implements ICommandHandler<C
     @Override
     public void handle(CreateMedicalInformationCommand command) {
         PatientDto patientDto = patientsService.findByIdSimple(command.getPatientId());
+        try {
+            MedicalInformationDto medicalInformationDto = this.medicalInformationService.findByPatient(patientDto);
 
-        List<AllergyDto> allergyDtos = command.getAllergies().stream()
-                .map(createAllergyRequest -> new AllergyDto(
-                UUID.randomUUID(),
-                createAllergyRequest.getCode(),
-                createAllergyRequest.getName(), Status.ACTIVE))
-                .collect(Collectors.toList());
+            medicalInformationDto.setBloodType(command.getBloodType());
+            medicalInformationDto.setMedicalHistory(command.getMedicalHistory());
 
-        List<CurrentMedicationDto> currentMedicationDtos = command.getCurrentMedications().stream()
-                .map(currentMedication -> new CurrentMedicationDto(
-                UUID.randomUUID(),
-                currentMedication.getName(),
-                currentMedication.getDescription(), Status.ACTIVE))
-                .collect(Collectors.toList());
+            this.medicalInformationService.update(new MedicalInformationUpdateDto(
+                    medicalInformationDto.getId(),
+                    command.getBloodType(),
+                    command.getMedicalHistory(),
+                    medicalInformationDto.getStatus()
+            ));
+        } catch (Exception e) {
 
-        UUID id = medicalInformationService.create(new MedicalInformationDto(
-                UUID.randomUUID(),
-                command.getBloodType(),
-                command.getMedicalHistory(),
-                command.getPatientId(),
-                patientDto,
-                allergyDtos,
-                currentMedicationDtos,
-                Status.ACTIVE
-        ));
+            List<AllergyDto> allergyDtos = command.getAllergies().stream()
+                    .map(createAllergyRequest -> new AllergyDto(
+                    UUID.randomUUID(),
+                    createAllergyRequest.getCode(),
+                    createAllergyRequest.getName(), Status.ACTIVE))
+                    .collect(Collectors.toList());
 
-        command.setId(id);
+            List<CurrentMedicationDto> currentMedicationDtos = command.getCurrentMedications().stream()
+                    .map(currentMedication -> new CurrentMedicationDto(
+                    UUID.randomUUID(),
+                    currentMedication.getName(),
+                    currentMedication.getDescription(), Status.ACTIVE))
+                    .collect(Collectors.toList());
+
+            this.medicalInformationService.create(new MedicalInformationDto(
+                    UUID.randomUUID(),
+                    command.getBloodType(),
+                    command.getMedicalHistory(),
+                    command.getPatientId(),
+                    patientDto,
+                    allergyDtos,
+                    currentMedicationDtos,
+                    Status.ACTIVE
+            ));
+
+        }
     }
 
 }

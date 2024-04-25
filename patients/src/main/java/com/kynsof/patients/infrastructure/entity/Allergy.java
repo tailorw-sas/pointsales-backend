@@ -18,7 +18,6 @@ public class Allergy {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(unique = true)
     private String code;
 
     private String name;

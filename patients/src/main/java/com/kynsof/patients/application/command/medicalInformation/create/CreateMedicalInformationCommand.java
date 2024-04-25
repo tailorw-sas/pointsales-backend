@@ -22,6 +22,7 @@ public class CreateMedicalInformationCommand implements ICommand {
 
     public CreateMedicalInformationCommand(UUID patientId, String bloodType, String medicalHistory,
             List<CreateAllergyRequest> allergies, List<CreateCurrentMedicationRequest> currentMedications) {
+        this.id = UUID.randomUUID();
         this.patientId = patientId;
         this.bloodType = bloodType;
         this.medicalHistory = medicalHistory;
