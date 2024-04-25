@@ -10,6 +10,7 @@ import com.kynsoft.gateway.domain.dto.PasswordChangeRequest;
 import com.kynsoft.gateway.domain.dto.TokenResponse;
 import com.kynsoft.gateway.domain.dto.user.LoginRequest;
 import com.kynsoft.gateway.domain.dto.user.UserRequest;
+import com.kynsoft.gateway.domain.dto.user.UserSystemRequest;
 import com.kynsoft.gateway.domain.interfaces.IOtpService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserEventService;
 import com.kynsoft.gateway.infrastructure.services.kafka.producer.ProducerRegisterUserSystemEventService;
@@ -131,13 +132,38 @@ public class AuthService {
             String userId = extractUserIdFromLocation(response.getLocation().getPath());
 
             setNewUserPassword(userRequest.getPassword(), userId, usersResource);
-            //  assignRolesToUser(null, userId);
-            if (!isSystemUser) {
-                producerRegisterUserEvent.create(userRequest, userId);
-            } else {
-                this.producerRegisterUserSystemEvent.create(userRequest, userId);
-            }
 
+            producerRegisterUserEvent.create(userRequest, userId);
+
+
+            return userId;
+        } else if (response.getStatus() == 409) {
+            throw new AlreadyExistsException("User already exists", new ErrorField("email", "Email is already in use"));
+
+        } else {
+            return null;
+        }
+    }
+
+    public String registerUserSystem(@NonNull UserSystemRequest userRequest, boolean isSystemUser) {
+        UsersResource usersResource = keycloakProvider.getUserResource();
+
+        UserRepresentation userRepresentation = new UserRepresentation();
+        userRepresentation.setFirstName(userRequest.getName());
+        userRepresentation.setLastName(userRequest.getLastName());
+        userRepresentation.setEmail(userRequest.getEmail());
+        userRepresentation.setUsername(userRequest.getUserName());
+        userRepresentation.setEnabled(true);
+        userRepresentation.setEmailVerified(true);
+
+        Response response = usersResource.create(userRepresentation);
+
+        if (response.getStatus() == 201) {
+            String userId = extractUserIdFromLocation(response.getLocation().getPath());
+
+            setNewUserPassword(userRequest.getPassword(), userId, usersResource);
+            //  assignRolesToUser(null, userId);
+            this.producerRegisterUserSystemEvent.create(userRequest, userId);
             return userId;
         } else if (response.getStatus() == 409) {
             throw new AlreadyExistsException("User already exists", new ErrorField("email", "Email is already in use"));

@@ -1,16 +1,18 @@
-package com.kynsof.identity.application.command.user.update;
+package com.kynsoft.gateway.domain.dto.user;
 
 import com.kynsof.share.core.domain.UserType;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
-public class UpdateUserSystemRequest {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserSystemRequest {
     private String userName;
     private String email;
     private String name;
     private String lastName;
+    private String password;
     private UserType userType;
-    private byte [] image;
+    //List<String> roles;
 }

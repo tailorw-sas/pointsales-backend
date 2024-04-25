@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.identity.domain.interfaces.IUserSystemService;
-import com.kynsof.share.core.domain.kafka.entity.UserSystemKakfa;
+import com.kynsof.share.core.domain.kafka.entity.UserSystemKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -28,7 +28,7 @@ public class ConsumerUserSystemEventService {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
-            UserSystemKakfa eventRead = objectMapper.treeToValue(rootNode.get("data"), UserSystemKakfa.class);
+            UserSystemKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UserSystemKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
             if (eventType.equals(EventType.CREATED)) {
@@ -38,8 +38,10 @@ public class ConsumerUserSystemEventService {
                 System.err.println("SE EJECUTA UN CREATED USER SYSTEM");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                this.service.create(new UserSystemDto(eventRead.getId(), eventRead.getUserName(), eventRead.getEmail(),
-                        eventRead.getName(), eventRead.getLastName(), UserStatus.ACTIVE, null));
+                UserSystemDto userSystemDto = new UserSystemDto(eventRead.getId(), eventRead.getUserName(), eventRead.getEmail(),
+                        eventRead.getName(), eventRead.getLastName(), UserStatus.ACTIVE, null);
+                userSystemDto.setUserType(eventRead.getUserType());
+                this.service.create(userSystemDto);
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion

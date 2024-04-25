@@ -1,5 +1,6 @@
 package com.kynsof.treatments.controller;
 
+import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationCommand;
@@ -11,6 +12,7 @@ import com.kynsof.treatments.application.command.externalConsultation.update.Upd
 import com.kynsof.treatments.application.query.externalConsultation.getById.FindByIdExternalConsultationQuery;
 import com.kynsof.treatments.application.query.externalConsultation.getall.ExternalConsultationResponse;
 import com.kynsof.treatments.application.query.externalConsultation.getall.GetAllExternalConsultationQuery;
+import com.kynsof.treatments.application.query.externalConsultation.search.GetSearchExternalConsultationQuery;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +37,14 @@ public class ExternalConsultationController {
         CreateExternalConsultationMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<?> search(@RequestBody SearchRequest request) {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchExternalConsultationQuery query = new GetSearchExternalConsultationQuery(pageable, request.getFilter(), request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
 

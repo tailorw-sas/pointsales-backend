@@ -6,7 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import com.kynsof.calendar.domain.service.IResourceService;
-import com.kynsof.share.core.domain.kafka.entity.UserSystemKakfa;
+import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.kafka.entity.UserSystemKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -28,10 +29,10 @@ public class ConsumerUserSystemEventService {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
-            UserSystemKakfa eventRead = objectMapper.treeToValue(rootNode.get("data"), UserSystemKakfa.class);
+            UserSystemKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UserSystemKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
-            if (eventType.equals(EventType.CREATED)) {
+            if (eventType.equals(EventType.CREATED) && eventRead != null && eventRead.getUserType().equals(UserType.DOCTORS)) {
                 //Definir accion
                 ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName()+" "+ eventRead.getLastName(),
                         "", "", EResourceStatus.ACTIVE, false, eventRead.getIdImage());
@@ -40,7 +41,7 @@ public class ConsumerUserSystemEventService {
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion
             }
-            if (eventType.equals(EventType.UPDATED)) {
+            if (eventType.equals(EventType.UPDATED)&& eventRead != null && eventRead.getUserType().equals(UserType.DOCTORS)) {
                 //Definir accion
                 ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName(), "", "", EResourceStatus.ACTIVE, false, eventRead.getIdImage());
                 resourceDto.setImage(eventRead.getIdImage());

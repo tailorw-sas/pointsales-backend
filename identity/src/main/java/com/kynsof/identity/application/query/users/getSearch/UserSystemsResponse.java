@@ -3,7 +3,7 @@ package com.kynsof.identity.application.query.users.getSearch;
 
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
-import com.kynsof.identity.domain.dto.enumType.UserType;
+import com.kynsof.share.core.domain.UserType;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.kynsof.identity.application.command.user.create;
 
 
-import com.kynsof.identity.domain.dto.enumType.UserType;
+import com.kynsof.share.core.domain.UserType;
 import lombok.Getter;
 import lombok.Setter;
 

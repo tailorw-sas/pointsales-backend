@@ -3,7 +3,7 @@ package com.kynsof.identity.infrastructure.services.kafka.producer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.identity.domain.dto.UserSystemDto;
-import com.kynsof.share.core.domain.kafka.entity.UserSystemKakfa;
+import com.kynsof.share.core.domain.kafka.entity.UserSystemKafka;
 import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -24,14 +24,15 @@ public class ProducerUpdateUserSystemEventService {
     @Async
     public void update(UserSystemDto entity) {
         try {
-            UserSystemKakfa event = new UserSystemKakfa(
+            UserSystemKafka event = new UserSystemKafka(
                     entity.getId(), 
                     entity.getIdentification(),
                     entity.getEmail(), 
                     entity.getName(), 
                     entity.getLastName(),
                     null,
-                    entity.getIdImage()
+                    entity.getIdImage(),
+                    entity.getUserType()
             );
 
             ObjectMapper objectMapper = new ObjectMapper();
