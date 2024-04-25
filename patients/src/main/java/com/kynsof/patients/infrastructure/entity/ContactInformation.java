@@ -17,6 +17,7 @@ import java.util.UUID;
 @Entity
 public class ContactInformation {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @OneToOne
