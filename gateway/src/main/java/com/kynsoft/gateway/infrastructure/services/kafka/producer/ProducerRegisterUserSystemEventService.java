@@ -34,7 +34,7 @@ public class ProducerRegisterUserSystemEventService {
                     entity.getLastName(),
                    null,
                     null,
-                    entity.getType()
+                    entity.getUserType()
 
             );
 
