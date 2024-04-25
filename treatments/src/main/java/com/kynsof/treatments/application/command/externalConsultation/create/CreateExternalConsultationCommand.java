@@ -31,7 +31,7 @@ public class CreateExternalConsultationCommand implements ICommand {
     }
 
     public static CreateExternalConsultationCommand fromRequest(CreateExternalConsultationRequest request) {
-        return new CreateExternalConsultationCommand(request.getPatientId(), request.getDoctorId(),
+        return new CreateExternalConsultationCommand(request.getPatient(), request.getDoctor(),
                 request.getConsultationReason(), request.getMedicalHistory(), request.getPhysicalExam(),
                 request.getObservations());
     }
