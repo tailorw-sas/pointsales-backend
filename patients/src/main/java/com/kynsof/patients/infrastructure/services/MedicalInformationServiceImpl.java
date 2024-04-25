@@ -9,7 +9,11 @@ import com.kynsof.patients.infrastructure.entity.MedicalInformation;
 import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.patients.infrastructure.repository.command.MedicalInformationWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.MedicalInformationReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import jakarta.persistence.EntityNotFoundException;
@@ -69,15 +73,13 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
         return medicalInformation.getId();
     }
 
-
     @Override
     public MedicalInformationDto findById(UUID id) {
         Optional<MedicalInformation> medicalInformation = this.repositoryQuery.findById(id);
         if (medicalInformation.isPresent()) {
             return medicalInformation.get().toAggregate();
         }
-        //throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Medical Information not found.");
-        throw new RuntimeException("Patients not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.MEDICAL_INFO_NOT_FOUND, new ErrorField("id", "Medical Information not found.")));
     }
 
     @Override
@@ -111,7 +113,11 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
 
     @Override
     public MedicalInformationDto findByPatient(PatientDto patient) {
-        return this.repositoryQuery.findByPatient(new Patients(patient)).toAggregate();
+        Optional<MedicalInformation> object = this.repositoryQuery.findByPatient(new Patients(patient));
+        if (object.isPresent()) {
+            return object.get().toAggregate();
+        }
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, new ErrorField("id", "There is no medical information for the patient.")));
     }
 
 }

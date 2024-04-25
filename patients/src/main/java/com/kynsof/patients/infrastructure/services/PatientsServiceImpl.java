@@ -11,7 +11,11 @@ import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.patients.infrastructure.repository.command.PatientsWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.InsuranceReadDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.PatientsReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import jakarta.persistence.EntityNotFoundException;
@@ -36,10 +40,6 @@ public class PatientsServiceImpl implements IPatientsService {
 
     @Autowired
     private InsuranceReadDataJPARepository insuranceReadDataJPARepository;
-
-
-
-
 
     @Override
     public UUID create(PatientDto patients) {
@@ -102,14 +102,12 @@ public class PatientsServiceImpl implements IPatientsService {
 //                    if (patientDto.getPhoto() != null) {
 //                        patient.setPhoto(patientDto.getPhoto());
 //                    }
-
 //
 //                })
 //                .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + patientDto.getId() + " not found"));
         this.repositoryCommand.save(new Patients(patientDto));
         return patientDto.getId();
     }
-
 
     @Override
     public void updateDependent(DependentPatientDto dependentPatientDto) {
@@ -166,10 +164,10 @@ public class PatientsServiceImpl implements IPatientsService {
     public PatientByIdDto findById(UUID id) {
         Optional<Patients> patient = this.repositoryQuery.findById(id);
         if (patient.isPresent()) {
-            PatientByIdDto patientByIdDto =  patient.get().toAggregateById();
+            PatientByIdDto patientByIdDto = patient.get().toAggregateById();
             return patientByIdDto;
         }
-      throw new RuntimeException("Patients not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, new ErrorField("id", "Patient not found.")));
 
     }
 
@@ -180,7 +178,7 @@ public class PatientsServiceImpl implements IPatientsService {
         if (patient.isPresent()) {
             return patient.get().toAggregate();
         }
-        throw new RuntimeException("Patients not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, new ErrorField("id", "Patient not found.")));
 
     }
 
@@ -210,7 +208,7 @@ public class PatientsServiceImpl implements IPatientsService {
     public void createInsurance(UUID patientId, List<UUID> insuranceIds) {
         Optional<Patients> patientOpt = repositoryQuery.findById(patientId);
         if (patientOpt.isEmpty()) {
-            throw new RuntimeException("Paciente no encontrado");
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, new ErrorField("id", "Patient not found.")));
         }
         Patients patient = patientOpt.get();
 
@@ -229,7 +227,7 @@ public class PatientsServiceImpl implements IPatientsService {
         if (patient.isPresent()) {
             return patient.get().toAggregate();
         }
-        throw new RuntimeException("Patients not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, new ErrorField("id", "Patient not found.")));
     }
 
     @Override
