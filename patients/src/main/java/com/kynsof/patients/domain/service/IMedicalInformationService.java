@@ -2,6 +2,7 @@ package com.kynsof.patients.domain.service;
 
 import com.kynsof.patients.domain.dto.MedicalInformationDto;
 import com.kynsof.patients.domain.dto.MedicalInformationUpdateDto;
+import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import org.springframework.data.domain.Pageable;
@@ -21,4 +22,6 @@ public interface IMedicalInformationService {
     PaginatedResponse findAll(Pageable pageable);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+
+    MedicalInformationDto findByPatient(PatientDto patient);
 }

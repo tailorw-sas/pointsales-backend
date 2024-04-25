@@ -11,6 +11,7 @@ import com.kynsof.patients.application.command.medicalInformation.update.UpdateM
 import com.kynsof.patients.application.query.medicalInformation.getById.FindByIdMedicalInformationQuery;
 import com.kynsof.patients.application.query.medicalInformation.getall.GetAllMedicalInformationQuery;
 import com.kynsof.patients.application.query.medicalInformation.getall.MedicalInformationResponse;
+import com.kynsof.patients.application.query.medicalInformation.getbypatient.FindMedicalInformationByIdPatientQuery;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.data.domain.PageRequest;
@@ -56,6 +57,15 @@ public class MedicalInformationController {
     public ResponseEntity<MedicalInformationResponse> getById(@PathVariable UUID id) {
 
         FindByIdMedicalInformationQuery query = new FindByIdMedicalInformationQuery(id);
+        MedicalInformationResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/patient/{id}")
+    public ResponseEntity<MedicalInformationResponse> getByIdPatient(@PathVariable UUID id) {
+
+        FindMedicalInformationByIdPatientQuery query = new FindMedicalInformationByIdPatientQuery(id);
         MedicalInformationResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);

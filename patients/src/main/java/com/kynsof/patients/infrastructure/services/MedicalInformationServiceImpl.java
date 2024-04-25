@@ -2,9 +2,11 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.domain.dto.MedicalInformationDto;
 import com.kynsof.patients.domain.dto.MedicalInformationUpdateDto;
+import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IMedicalInformationService;
 import com.kynsof.patients.infrastructure.entity.MedicalInformation;
+import com.kynsof.patients.infrastructure.entity.Patients;
 import com.kynsof.patients.infrastructure.repository.command.MedicalInformationWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.MedicalInformationReadDataJPARepository;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -105,6 +107,11 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
         MedicalInformationDto medicalInformationDto = this.findById(id);
         medicalInformationDto.setStatus(Status.INACTIVE);
         this.repositoryCommand.save(new MedicalInformation(medicalInformationDto));
+    }
+
+    @Override
+    public MedicalInformationDto findByPatient(PatientDto patient) {
+        return this.repositoryQuery.findByPatient(new Patients(patient)).toAggregate();
     }
 
 }
