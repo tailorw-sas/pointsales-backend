@@ -24,7 +24,7 @@ public class CreateDiagnosisCommand implements ICommand {
     }
 
     public static CreateDiagnosisCommand fromRequest(CreateDiagnosisRequest request) {
-        return new CreateDiagnosisCommand(request.getIcdCode(), request.getDescription(), request.getIdExternalConsultation());
+        return new CreateDiagnosisCommand(request.getIcdCode(), request.getDescription(), request.getExternalConsultation());
     }
 
     @Override

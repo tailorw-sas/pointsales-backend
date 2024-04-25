@@ -24,7 +24,7 @@ public class UpdateDiagnosisCommand implements ICommand {
     }
 
     public static UpdateDiagnosisCommand fromRequest(UpdateDiagnosisRequest request, UUID id) {
-        return new UpdateDiagnosisCommand(id, request.getIcdCode(), request.getDescription(), request.getIdExternalConsultation());
+        return new UpdateDiagnosisCommand(id, request.getIcdCode(), request.getDescription(), request.getExternalConsultation());
     }
 
     @Override
