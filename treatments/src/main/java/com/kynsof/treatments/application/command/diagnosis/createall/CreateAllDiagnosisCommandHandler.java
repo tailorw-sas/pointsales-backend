@@ -2,6 +2,7 @@ package com.kynsof.treatments.application.command.diagnosis.createall;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.DiagnosisDto;
+import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.service.IDiagnosisService;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
 import java.util.UUID;
@@ -20,11 +21,13 @@ public class CreateAllDiagnosisCommandHandler implements ICommandHandler<CreateA
 
     @Override
     public void handle(CreateAllDiagnosisCommand command) {
+        ExternalConsultationDto externalConsultationDto = this.externalConsultationService.findById(command.getIdExternalConsultation());
         for (DiagnosisRequest object : command.getPayload()) {
             DiagnosisDto create = new DiagnosisDto(
                     UUID.randomUUID(),
                     object.getIcdCode(),
-                    object.getDescription()
+                    object.getDescription(),
+                    externalConsultationDto
             );
             serviceImpl.create(create);
         }
