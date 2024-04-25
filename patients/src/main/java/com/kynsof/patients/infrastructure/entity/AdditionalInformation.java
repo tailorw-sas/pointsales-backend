@@ -15,7 +15,6 @@ import java.util.UUID;
 @Entity
 public class AdditionalInformation {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String maritalStatus;

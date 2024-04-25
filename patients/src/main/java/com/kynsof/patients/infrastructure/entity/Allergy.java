@@ -15,9 +15,9 @@ import java.util.UUID;
 @Entity
 public class Allergy {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(unique = true)
     private String code;
 
     private String name;
