@@ -3,7 +3,9 @@ package com.kynsof.treatments.infrastructure.service;
 
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.treatments.application.query.externalConsultation.getall.ExternalConsultationResponse;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
@@ -60,11 +62,27 @@ public class ExternalConsultationServiceImpl implements IExternalConsultationSer
         ExternalConsultationSpecifications specifications = new ExternalConsultationSpecifications(doctorId, patientId);
         Page<ExternalConsultation> data = this.repositoryQuery.findAll(specifications, pageable);
 
-        List<ExternalConsultationResponse> allergyResponses = new ArrayList<>();
+        List<ExternalConsultationResponse> externalConsultationResponses = new ArrayList<>();
         for (ExternalConsultation p : data.getContent()) {
-            allergyResponses.add(new ExternalConsultationResponse(p.toAggregate()));
+            externalConsultationResponses.add(new ExternalConsultationResponse(p.toAggregate()));
         }
-        return new PaginatedResponse(allergyResponses, data.getTotalPages(), data.getNumberOfElements(),
+        return new PaginatedResponse(externalConsultationResponses, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filter) {
+        GenericSpecificationsBuilder<ExternalConsultation> specifications = new GenericSpecificationsBuilder<>(filter);
+        Page<ExternalConsultation> data = this.repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
+    }
+
+    private PaginatedResponse getPaginatedResponse(Page<ExternalConsultation> data) {
+        List<ExternalConsultationResponse> externalConsultationResponses = new ArrayList<>();
+        for (ExternalConsultation p : data.getContent()) {
+            externalConsultationResponses.add(new ExternalConsultationResponse(p.toAggregate()));
+        }
+        return new PaginatedResponse(externalConsultationResponses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
