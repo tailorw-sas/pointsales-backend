@@ -2,11 +2,7 @@ package com.kynsof.identity.infrastructure.services;
 
 
 import com.kynsof.identity.application.query.business.geographiclocation.getall.GeographicLocationResponse;
-import com.kynsof.identity.domain.dto.CantonDto;
-import com.kynsof.identity.domain.dto.GeographicLocationDto;
-import com.kynsof.identity.domain.dto.LocationHierarchyDto;
-import com.kynsof.identity.domain.dto.ParroquiaDto;
-import com.kynsof.identity.domain.dto.ProvinceDto;
+import com.kynsof.identity.domain.dto.*;
 import com.kynsof.identity.domain.dto.enumType.GeographicLocationType;
 import com.kynsof.identity.domain.interfaces.service.IGeographicLocationService;
 import com.kynsof.identity.infrastructure.identity.GeographicLocation;
@@ -20,10 +16,8 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
-import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -52,7 +46,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
+//    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public GeographicLocationDto findById(UUID id) {
         Optional<GeographicLocation> location = this.repositoryQuery.findById(id);
         if (location.isPresent()) {
