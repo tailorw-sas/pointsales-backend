@@ -22,7 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/diagnosis")
+@RequestMapping("/api/external-consultation/diagnosis")
 public class DiagnosisController {
 
     private final IMediator mediator;
