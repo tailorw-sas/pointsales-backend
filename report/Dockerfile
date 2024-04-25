@@ -55,11 +55,19 @@ RUN apk upgrade --no-cache
 RUN apk add --no-cache tzdata
 ENV TZ="America/Guayaquil"
 
-RUN apk add --no-cache msttcorefonts-installer fontconfig && update-ms-fonts
+RUN apk update;
+RUN apk add -f apt-utils;
+RUN apk add -f libfreetype6;
+RUN apk add --no-cache -f fontconfig;
+RUN apk add -f fonts-dejavu;
+RUN apk add -f msttcorefonts;
+RUN apk add -f libfontconfig1;
+RUN apk add -f freetype;
+RUN fc-cache --force
 
 
 
 # Copy the native executable into the containers
 WORKDIR /app
 COPY --from=builder /build/target/report-1.0.0.jar .
-ENTRYPOINT [ "java", "-Xmx512m", "-Xms256m", "-jar", "/app/report-1.0.0.jar" ]
+ENTRYPOINT [ "java", "-jar", "/app/report-1.0.0.jar" ]
