@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Payload {
-    private UUID idExternalConsultation;
+    private UUID externalConsultation;
     private List<DiagnosisRequest> diagnosis;
 }

@@ -16,7 +16,7 @@ public class CreateAllDiagnosisCommand implements ICommand {
 
     public CreateAllDiagnosisCommand(Payload payload) {
         this.payload = payload.getDiagnosis();
-        this.idExternalConsultation = payload.getIdExternalConsultation();
+        this.idExternalConsultation = payload.getExternalConsultation();
     }
 
     @Override
