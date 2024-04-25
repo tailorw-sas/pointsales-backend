@@ -45,7 +45,7 @@ public class UsersController {
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<?>> registerSystemUser(@RequestBody UserSystemRequest userRequest) {
         RegistrySystemUserCommand command = new RegistrySystemUserCommand(userRequest.getUserName(), userRequest.getEmail(), userRequest.getName(),
-                userRequest.getLastName(), userRequest.getPassword(), null, userRequest.getType());
+                userRequest.getLastName(), userRequest.getPassword(), null, userRequest.getUserType());
         RegistrySystemUserMessage registryMessage = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(registryMessage.getId()));
     }
