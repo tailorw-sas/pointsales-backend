@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import com.kynsof.calendar.domain.service.IResourceService;
-import com.kynsof.share.core.domain.kafka.entity.UserSystemKakfa;
+import com.kynsof.share.core.domain.kafka.entity.UserSystemKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class ConsumerResourceEventService {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
-            UserSystemKakfa eventRead = objectMapper.treeToValue(rootNode.get("data"), UserSystemKakfa.class);
+            UserSystemKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UserSystemKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
             if (eventType.equals(EventType.CREATED)) {

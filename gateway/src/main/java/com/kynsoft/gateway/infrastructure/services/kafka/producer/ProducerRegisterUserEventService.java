@@ -25,11 +25,11 @@ public class ProducerRegisterUserEventService {
     public void create(UserRequest entity, String clientId) {
 
         try {
-            UserKafka event = new UserKafka(clientId, entity.getUserName(), entity.getEmail(), entity.getName(), entity.getLastName(), "", "", "", "");
+            UserKafka event = new UserKafka(clientId, entity.getUserName(), entity.getEmail(), entity.getName(),
+                    entity.getLastName(), "", "", "", "");
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
-
             this.producer.send("user", json);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ProducerRegisterUserEventService.class.getName()).log(Level.SEVERE, null, ex);

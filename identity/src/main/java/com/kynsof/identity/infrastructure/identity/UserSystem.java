@@ -2,7 +2,7 @@ package com.kynsof.identity.infrastructure.identity;
 
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
-import com.kynsof.identity.domain.dto.enumType.UserType;
+import com.kynsof.share.core.domain.UserType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

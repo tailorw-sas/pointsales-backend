@@ -1,16 +1,17 @@
 package com.kynsof.share.core.domain.kafka.entity;
 
-import java.util.List;
+import com.kynsof.share.core.domain.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserSystemKakfa {
+public class UserSystemKafka {
     private UUID id;
     private String userName;
     private String email;
@@ -18,4 +19,5 @@ public class UserSystemKakfa {
     private String lastName;
     List<String> roles;
     private UUID idImage;
+    private UserType userType;
 }

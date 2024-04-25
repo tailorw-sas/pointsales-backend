@@ -2,10 +2,10 @@ package com.kynsoft.gateway.infrastructure.services.kafka.producer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.share.core.domain.kafka.entity.UserSystemKakfa;
+import com.kynsof.share.core.domain.kafka.entity.UserSystemKafka;
 import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
-import com.kynsoft.gateway.domain.dto.user.UserRequest;
+import com.kynsoft.gateway.domain.dto.user.UserSystemRequest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -23,17 +23,19 @@ public class ProducerRegisterUserSystemEventService {
     }
 
     @Async
-    public void create(UserRequest entity, String clientId) {
+    public void create(UserSystemRequest entity, String clientId) {
 
         try {
-            UserSystemKakfa event = new UserSystemKakfa(
+            UserSystemKafka event = new UserSystemKafka(
                     UUID.fromString(clientId), 
                     entity.getUserName(),
                     entity.getEmail(), 
                     entity.getName(),
                     entity.getLastName(),
                    null,
-                    null
+                    null,
+                    entity.getType()
+
             );
 
             ObjectMapper objectMapper = new ObjectMapper();

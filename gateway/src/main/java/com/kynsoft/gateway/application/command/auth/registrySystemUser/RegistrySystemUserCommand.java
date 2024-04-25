@@ -1,5 +1,6 @@
 package com.kynsoft.gateway.application.command.auth.registrySystemUser;
 
+import com.kynsof.share.core.domain.UserType;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -18,9 +19,10 @@ public class RegistrySystemUserCommand implements ICommand {
     private final String lastname;
     private final String password;
     private final List<String> roles;
+    private final UserType userType;
 
     public RegistrySystemUserCommand(String username, String email, String firstname, String lastname, String password,
-                                     List<String> roles) {
+                                     List<String> roles, UserType userType) {
 
         this.username = username;
         this.email = email;
@@ -28,6 +30,7 @@ public class RegistrySystemUserCommand implements ICommand {
         this.lastname = lastname;
         this.password = password;
         this.roles = roles;
+        this.userType = userType;
     }
 
     @Override

@@ -3,7 +3,8 @@ package com.kynsof.treatments.infrastructure.service.kafka.consumer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.share.core.domain.kafka.entity.UserSystemKakfa;
+import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.kafka.entity.UserSystemKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import com.kynsof.treatments.domain.dto.DoctorDto;
 import com.kynsof.treatments.domain.dto.enumDto.Status;
@@ -28,10 +29,10 @@ public class ConsumerUserSystemEventService {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
-            UserSystemKakfa eventRead = objectMapper.treeToValue(rootNode.get("data"), UserSystemKakfa.class);
+            UserSystemKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UserSystemKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
-            if (eventType.equals(EventType.CREATED)) {
+            if (eventType.equals(EventType.CREATED) && eventRead != null && eventRead.getUserType().equals(UserType.DOCTORS)) {
                 //Definir accion
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
@@ -49,7 +50,7 @@ public class ConsumerUserSystemEventService {
                 System.err.println("#######################################################");
 
             }
-            if (eventType.equals(EventType.UPDATED)) {
+            if (eventType.equals(EventType.UPDATED) && eventRead != null && eventRead.getUserType().equals(UserType.DOCTORS)) {
                 //Definir accion
                 //Definir accion
                 DoctorDto doctorDto = new DoctorDto(eventRead.getId(), "", eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage(), Status.ACTIVE);
