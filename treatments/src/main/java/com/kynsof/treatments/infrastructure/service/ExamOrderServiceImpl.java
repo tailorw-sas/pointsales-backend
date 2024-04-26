@@ -1,8 +1,9 @@
 package com.kynsof.treatments.infrastructure.service;
 
-
-import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.treatments.application.query.examOrder.getall.ExamOrderResponse;
 import com.kynsof.treatments.domain.dto.ExamOrderDto;
@@ -32,7 +33,7 @@ public class ExamOrderServiceImpl implements IExamOrderService {
 
     @Override
     public UUID create(ExamOrderDto dto) {
-        ExamOrder entity =this.repositoryCommand.save(new ExamOrder(dto));
+        ExamOrder entity = this.repositoryCommand.save(new ExamOrder(dto));
         return entity.getId();
     }
 
@@ -45,19 +46,18 @@ public class ExamOrderServiceImpl implements IExamOrderService {
         return entity.getId();
     }
 
-
     @Override
     public ExamOrderDto findById(UUID id) {
         Optional<ExamOrder> examOrder = this.repositoryQuery.findById(id);
         if (examOrder.isPresent()) {
             return examOrder.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Contact Information not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXAM_ORDER_NOT_FOUND, new ErrorField("id", "Exam Order not found.")));
     }
 
     @Override
     public PaginatedResponse findAll(Pageable pageable, UUID patientId) {
-        ExamOrderSpecifications specifications = new ExamOrderSpecifications( patientId);
+        ExamOrderSpecifications specifications = new ExamOrderSpecifications(patientId);
         Page<ExamOrder> data = this.repositoryQuery.findAll(specifications, pageable);
 
         List<ExamOrderResponse> allergyResponses = new ArrayList<>();
