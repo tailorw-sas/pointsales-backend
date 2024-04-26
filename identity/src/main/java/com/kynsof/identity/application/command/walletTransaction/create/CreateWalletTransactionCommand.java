@@ -14,16 +14,16 @@ import java.util.UUID;
 public class CreateWalletTransactionCommand implements ICommand {
 
     private UUID id;
-    private final UUID walletId;
+    private final UUID customerId;
     private final BigDecimal amount;
     private final TransactionType type;
     private final String description;
     private final String requestId;
     private final String authorizationCode;
 
-    public CreateWalletTransactionCommand( UUID walletId, BigDecimal amount, TransactionType type, String description,
+    public CreateWalletTransactionCommand( UUID customerId, BigDecimal amount, TransactionType type, String description,
                                            String requestId, String authorizationCode) {
-        this.walletId = walletId;
+        this.customerId = customerId;
         this.amount = amount;
         this.type = type;
         this.description = description;
@@ -32,11 +32,11 @@ public class CreateWalletTransactionCommand implements ICommand {
     }
 
 
-    public static CreateWalletTransactionCommand fromRequest(CreateWalletTransactionRequest request) {
+    public static CreateWalletTransactionCommand fromRequest(UUID customerId, CreateWalletTransactionRequest request) {
         return new CreateWalletTransactionCommand(
-                request.getWalletId(),
+                customerId,
                 request.getAmount(),
-                request.getType(),
+                TransactionType.DEPOSIT,
                 request.getDescription(), 
                 request.getRequestId(),
                 request.getAuthorizationCode()

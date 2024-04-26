@@ -20,6 +20,7 @@ public class ConsumerUserEventService {
     @Autowired
     private ICustomerService service;
 
+
     // Ejemplo de un método listener
     @KafkaListener(topics = "user", groupId = "identity-user")
     public void listen(String event) {

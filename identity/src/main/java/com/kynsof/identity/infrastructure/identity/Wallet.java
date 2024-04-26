@@ -1,5 +1,7 @@
 package com.kynsof.identity.infrastructure.identity;
 
+import com.kynsof.identity.domain.dto.WalletDto;
+import com.kynsof.identity.domain.dto.WalletTransactionDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,9 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -25,14 +26,13 @@ public class Wallet {
     @Column(nullable = false)
     private BigDecimal balance;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne()
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "wallet",fetch = FetchType.EAGER)
     private Set<WalletTransaction> transactions = new HashSet<>();
 
-    // Métodos convenientes para manipular la billetera
     public void addTransaction(WalletTransaction transaction) {
         transactions.add(transaction);
         transaction.setWallet(this);
@@ -43,13 +43,23 @@ public class Wallet {
         transaction.setWallet(null);
     }
 
-    // Método para agregar saldo a la billetera
     public void credit(BigDecimal amount) {
         balance = balance.add(amount);
     }
 
-    // Método para deducir saldo de la billetera
     public void debit(BigDecimal amount) {
         balance = balance.subtract(amount);
+    }
+
+    public Wallet(WalletDto dto) {
+        this.id = dto.getId();
+        this.balance = dto.getBalance();
+        this.customer = new Customer(dto.getCustomer());
+        this.transactions = dto.getTransactions().stream().map(WalletTransaction::new).collect(Collectors.toSet());
+    }
+    public WalletDto toAggregate() {
+        List<WalletTransactionDto> walletTransactions = transactions != null ?
+                transactions.stream().map(WalletTransaction::toAggregate).collect(Collectors.toList()) : new ArrayList<>();
+        return new WalletDto(id,balance,customer.toAggregate(),walletTransactions );
     }
 }
