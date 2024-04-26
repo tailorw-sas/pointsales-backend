@@ -8,6 +8,9 @@ import com.kynsof.treatments.application.command.medicine.create.CreateMedicineM
 import com.kynsof.treatments.application.command.medicine.create.CreateMedicineRequest;
 import com.kynsof.treatments.application.command.medicine.createall.CreateAllMedicineMessage;
 import com.kynsof.treatments.application.command.medicine.createall.CreateAllMedicinesCommand;
+import com.kynsof.treatments.application.command.medicine.update.UpdateMedicineCommand;
+import com.kynsof.treatments.application.command.medicine.update.UpdateMedicineMessage;
+import com.kynsof.treatments.application.command.medicine.update.UpdateMedicineRequest;
 import com.kynsof.treatments.application.query.medicine.getbyid.FindByIdMedicinesQuery;
 import com.kynsof.treatments.application.query.medicine.getbyid.MedicinesResponse;
 import com.kynsof.treatments.application.query.medicine.search.GetSearchMedicinesQuery;
@@ -61,6 +64,14 @@ public class MedicinesController {
         GetSearchMedicinesQuery query = new GetSearchMedicinesQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") UUID id, @RequestBody UpdateMedicineRequest request) {
+
+        UpdateMedicineCommand command = UpdateMedicineCommand.fromRequest(request, id);
+        UpdateMedicineMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
     }
 
 }
