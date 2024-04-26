@@ -6,7 +6,10 @@ import com.kynsof.treatments.application.command.medicine.create.CreateMedicineM
 import com.kynsof.treatments.application.command.medicine.create.CreateMedicineRequest;
 import com.kynsof.treatments.application.command.medicine.createall.CreateAllMedicineMessage;
 import com.kynsof.treatments.application.command.medicine.createall.CreateAllMedicinesCommand;
+import com.kynsof.treatments.application.query.medicine.getbyid.FindByIdMedicinesQuery;
+import com.kynsof.treatments.application.query.medicine.getbyid.MedicinesResponse;
 import java.util.List;
+import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +36,15 @@ public class MedicinesController {
     public ResponseEntity<?> createAll(@RequestBody List<String> payload) {
         CreateAllMedicinesCommand createCommand = new CreateAllMedicinesCommand(payload);
         CreateAllMedicineMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<MedicinesResponse> getById(@PathVariable UUID id) {
+
+        FindByIdMedicinesQuery query = new FindByIdMedicinesQuery(id);
+        MedicinesResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }
