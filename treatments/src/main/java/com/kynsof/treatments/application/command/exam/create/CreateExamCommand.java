@@ -2,6 +2,7 @@ package com.kynsof.treatments.application.command.exam.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
+import com.kynsof.treatments.domain.dto.enumDto.MedicalExamCategory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,11 +15,11 @@ public class CreateExamCommand implements ICommand {
     private UUID id;
     private String name;
     private String description;
-    private String type;
+    private MedicalExamCategory type;
     private String result;
     private Double price;
 
-    public CreateExamCommand(String name, String description, String type, String result, Double price) {
+    public CreateExamCommand(String name, String description, MedicalExamCategory type, String result, Double price) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
