@@ -3,9 +3,6 @@ package com.kynsof.treatments.controller;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsof.treatments.application.command.diagnosis.create.CreateDiagnosisCommand;
-import com.kynsof.treatments.application.command.diagnosis.create.CreateDiagnosisMessage;
-import com.kynsof.treatments.application.command.diagnosis.create.CreateDiagnosisRequest;
 import com.kynsof.treatments.application.command.diagnosis.createall.CreateAllDiagnosisCommand;
 import com.kynsof.treatments.application.command.diagnosis.createall.CreateAllDiagnosisMessage;
 import com.kynsof.treatments.application.command.diagnosis.createall.Payload;
@@ -15,11 +12,12 @@ import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosi
 import com.kynsof.treatments.application.query.diagnosis.getbyid.DiagnosisResponse;
 import com.kynsof.treatments.application.query.diagnosis.getbyid.FindByIdDiagnosisQuery;
 import com.kynsof.treatments.application.query.diagnosis.search.GetSearchDiagnosisQuery;
-import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/external-consultation/diagnosis")
@@ -32,15 +30,15 @@ public class DiagnosisController {
         this.mediator = mediator;
     }
 
+//    @PostMapping("")
+//    public ResponseEntity<?> create(@RequestBody CreateDiagnosisRequest request) {
+//        CreateDiagnosisCommand createCommand = CreateDiagnosisCommand.fromRequest(request);
+//        CreateDiagnosisMessage response = mediator.send(createCommand);
+//
+//        return ResponseEntity.ok(response);
+//    }
+
     @PostMapping("")
-    public ResponseEntity<?> create(@RequestBody CreateDiagnosisRequest request) {
-        CreateDiagnosisCommand createCommand = CreateDiagnosisCommand.fromRequest(request);
-        CreateDiagnosisMessage response = mediator.send(createCommand);
-
-        return ResponseEntity.ok(response);
-    }
-
-    @PostMapping("/all")
     public ResponseEntity<?> createAll(@RequestBody Payload request) {
         CreateAllDiagnosisCommand createCommand = new CreateAllDiagnosisCommand(request);
         CreateAllDiagnosisMessage response = mediator.send(createCommand);
