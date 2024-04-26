@@ -33,7 +33,7 @@ public class MedicinesController {
         this.mediator = mediator;
     }
 
-    @PostMapping("/one")
+    @PostMapping("")
     public ResponseEntity<?> create(@RequestBody CreateMedicineRequest request) {
         CreateMedicineCommand createCommand = CreateMedicineCommand.fromRequest(request);
         CreateMedicineMessage response = mediator.send(createCommand);
@@ -41,7 +41,7 @@ public class MedicinesController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("")
+    @PostMapping("all")
     public ResponseEntity<?> createAll(@RequestBody List<String> payload) {
         CreateAllMedicinesCommand createCommand = new CreateAllMedicinesCommand(payload);
         CreateAllMedicineMessage response = mediator.send(createCommand);
