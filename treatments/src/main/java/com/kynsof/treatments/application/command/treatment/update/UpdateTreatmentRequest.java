@@ -11,5 +11,5 @@ public class UpdateTreatmentRequest {
     private String medication;
     private String quantity;
     private String duration;
-    private UUID idExternalConsultation;
+    private UUID externalConsultation;
 }

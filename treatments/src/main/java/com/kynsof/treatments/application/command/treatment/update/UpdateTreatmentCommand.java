@@ -35,7 +35,7 @@ public class UpdateTreatmentCommand implements ICommand {
                 request.getMedication(), 
                 request.getQuantity(),  
                 request.getDuration(),
-                request.getIdExternalConsultation()
+                request.getExternalConsultation()
         );
     }
 
