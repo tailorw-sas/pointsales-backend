@@ -37,7 +37,7 @@ public class CreateTreatmentCommand implements ICommand {
                 request.getDose(),
                 request.getFrequency(),
                 request.getDuration(),
-                request.getIdExternalConsultation()
+                request.getExternalConsultation()
         );
     }
 

@@ -12,5 +12,5 @@ public class CreateTreatmentRequest {
     private String dose;
     private String frequency;
     private String duration;
-    private UUID idExternalConsultation;
+    private UUID externalConsultation;
 }
