@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/treatment/medicine")
+@RequestMapping("/api/medicine")
 public class MedicinesController {
 
     private final IMediator mediator;
