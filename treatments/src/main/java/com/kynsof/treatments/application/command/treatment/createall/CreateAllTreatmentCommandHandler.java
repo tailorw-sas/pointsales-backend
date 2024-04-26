@@ -5,8 +5,9 @@ import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.dto.TreatmentDto;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
 import com.kynsof.treatments.domain.service.ITreatmentService;
-import java.util.UUID;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class CreateAllTreatmentCommandHandler implements ICommandHandler<CreateAllTreatmentCommand> {
@@ -29,7 +30,7 @@ public class CreateAllTreatmentCommandHandler implements ICommandHandler<CreateA
                     createTreatmentRequest.getDescription(),
                     createTreatmentRequest.getMedication(),
                     createTreatmentRequest.getQuantity(),
-                    createTreatmentRequest.getDuration()
+                    createTreatmentRequest.getMedicineUnit()
             );
             create.setExternalConsultationDto(externalConsultationDto);
             serviceImpl.create(create);

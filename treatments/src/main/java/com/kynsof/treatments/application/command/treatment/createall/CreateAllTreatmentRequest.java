@@ -1,5 +1,6 @@
 package com.kynsof.treatments.application.command.treatment.createall;
 
+import com.kynsof.treatments.domain.dto.MedicineUnit;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,5 +10,5 @@ public class CreateAllTreatmentRequest {
     private String description;
     private String medication;
     private String quantity;
-    private String duration;
+    private MedicineUnit medicineUnit;
 }
