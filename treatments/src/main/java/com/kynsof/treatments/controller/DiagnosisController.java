@@ -11,6 +11,7 @@ import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosi
 import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosisRequest;
 import com.kynsof.treatments.application.query.diagnosis.getbyid.DiagnosisResponse;
 import com.kynsof.treatments.application.query.diagnosis.getbyid.FindByIdDiagnosisQuery;
+import com.kynsof.treatments.application.query.diagnosis.getdiagnosisbyidexternalconsultation.FindDiagnosisByIdExternalConsultationQuery;
 import com.kynsof.treatments.application.query.diagnosis.search.GetSearchDiagnosisQuery;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -51,6 +52,16 @@ public class DiagnosisController {
 
         FindByIdDiagnosisQuery query = new FindByIdDiagnosisQuery(id);
         DiagnosisResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/by-id-external-consultation/{id}")
+    public ResponseEntity<PaginatedResponse> findDiagnosisByIdExternalConsultation(@PathVariable UUID id) {
+
+        Pageable pageable = PageRequest.of(0, 1000);
+        FindDiagnosisByIdExternalConsultationQuery query = new FindDiagnosisByIdExternalConsultationQuery(id, pageable);
+        PaginatedResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }
