@@ -1,5 +1,7 @@
 package com.kynsof.treatments.controller;
 
+import com.kynsof.share.core.domain.request.SearchRequest;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.medicine.create.CreateMedicineCommand;
 import com.kynsof.treatments.application.command.medicine.create.CreateMedicineMessage;
@@ -8,8 +10,11 @@ import com.kynsof.treatments.application.command.medicine.createall.CreateAllMed
 import com.kynsof.treatments.application.command.medicine.createall.CreateAllMedicinesCommand;
 import com.kynsof.treatments.application.query.medicine.getbyid.FindByIdMedicinesQuery;
 import com.kynsof.treatments.application.query.medicine.getbyid.MedicinesResponse;
+import com.kynsof.treatments.application.query.medicine.search.GetSearchMedicinesQuery;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +52,15 @@ public class MedicinesController {
         MedicinesResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetSearchMedicinesQuery query = new GetSearchMedicinesQuery(pageable, request.getFilter(),request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
 }
