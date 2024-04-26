@@ -29,8 +29,7 @@ public class CreateAllTreatmentCommandHandler implements ICommandHandler<CreateA
                     UUID.randomUUID(),
                     createTreatmentRequest.getDescription(),
                     createTreatmentRequest.getMedication(),
-                    createTreatmentRequest.getDose(),
-                    createTreatmentRequest.getFrequency(),
+                    createTreatmentRequest.getQuantity(),
                     createTreatmentRequest.getDuration()
             );
             create.setExternalConsultationDto(externalConsultationDto);

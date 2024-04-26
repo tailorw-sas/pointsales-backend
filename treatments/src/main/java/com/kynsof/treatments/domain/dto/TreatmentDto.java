@@ -14,18 +14,16 @@ public class TreatmentDto {
     private UUID id;
     private String description;
     private String medication;
-    private String dose;
-    private String frequency;
+    private String quantity;
     private String duration;
 
     private ExternalConsultationDto externalConsultationDto;
 
-    public TreatmentDto(UUID id, String description, String medication, String dose, String frequency, String duration) {
+    public TreatmentDto(UUID id, String description, String medication, String quantity, String duration) {
         this.id = id;
         this.description = description;
         this.medication = medication;
-        this.dose = dose;
-        this.frequency = frequency;
+        this.quantity = quantity;
         this.duration = duration;
     }
 

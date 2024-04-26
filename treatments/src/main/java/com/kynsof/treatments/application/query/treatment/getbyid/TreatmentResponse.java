@@ -12,16 +12,14 @@ public class TreatmentResponse implements IResponse {
     private UUID id;
     private String description;
     private String medication;
-    private String dose;
-    private String frequency;
+    private String quantity;
     private String duration;
 
     public TreatmentResponse(TreatmentDto treatmentDto) {
         this.id = treatmentDto.getId();
         this.description = treatmentDto.getDescription();
         this.medication = treatmentDto.getMedication();
-        this.dose = treatmentDto.getDose();
-        this.frequency = treatmentDto.getFrequency();
+        this.quantity = treatmentDto.getQuantity();
         this.duration = treatmentDto.getDuration();
     }
 

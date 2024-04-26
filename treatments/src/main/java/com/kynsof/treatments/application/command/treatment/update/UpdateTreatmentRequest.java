@@ -9,8 +9,7 @@ import lombok.Setter;
 public class UpdateTreatmentRequest {
     private String description;
     private String medication;
-    private String dose;
-    private String frequency;
+    private String quantity;
     private String duration;
     private UUID idExternalConsultation;
 }

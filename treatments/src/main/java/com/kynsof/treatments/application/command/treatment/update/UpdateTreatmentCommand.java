@@ -14,18 +14,16 @@ public class UpdateTreatmentCommand implements ICommand {
     private UUID id;
     private String description;
     private String medication;
-    private String dose;
-    private String frequency;
+    private String quantity;
     private String duration;
     private UUID idExternalConsultation;
 
-    public UpdateTreatmentCommand(UUID id, String description, String medication, String dose, String frequency, String duration, UUID idExternalConsultation) {
+    public UpdateTreatmentCommand(UUID id, String description, String medication, String quantity, String duration, UUID idExternalConsultation) {
         this.id = id;
         this.description = description;
         this.medication = medication;
         this.description = description;
-        this.dose = dose;
-        this.frequency = frequency;
+        this.quantity = quantity;
         this.duration = duration;
         this.idExternalConsultation = idExternalConsultation;
     }
@@ -35,8 +33,7 @@ public class UpdateTreatmentCommand implements ICommand {
                 id, 
                 request.getDescription(), 
                 request.getMedication(), 
-                request.getDose(), 
-                request.getFrequency(), 
+                request.getQuantity(),  
                 request.getDuration(),
                 request.getIdExternalConsultation()
         );
