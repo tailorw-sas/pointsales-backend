@@ -14,6 +14,7 @@ import com.kynsof.treatments.application.command.treatment.update.UpdateTreatmen
 import com.kynsof.treatments.application.command.treatment.update.UpdateTreatmentRequest;
 import com.kynsof.treatments.application.query.treatment.getbyid.FindByIdTreatmentQuery;
 import com.kynsof.treatments.application.query.treatment.getbyid.TreatmentResponse;
+import com.kynsof.treatments.application.query.treatment.getdiagnosisbyidexternalconsultation.FindTreatmentByIdExternalConsultationQuery;
 import com.kynsof.treatments.application.query.treatment.search.GetSearchTreatmentQuery;
 import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
@@ -57,11 +58,20 @@ public class TreatmentController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping(path = "/by-id-external-consultation/{id}")
+    public ResponseEntity<PaginatedResponse> findDiagnosisByIdExternalConsultation(@PathVariable UUID id) {
+
+        Pageable pageable = PageRequest.of(0, 1000);
+        FindTreatmentByIdExternalConsultationQuery query = new FindTreatmentByIdExternalConsultationQuery(id, pageable);
+        PaginatedResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
-    {
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
-        GetSearchTreatmentQuery query = new GetSearchTreatmentQuery(pageable, request.getFilter(),request.getQuery());
+        GetSearchTreatmentQuery query = new GetSearchTreatmentQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }

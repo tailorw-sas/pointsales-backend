@@ -1,5 +1,6 @@
 package com.kynsof.treatments.infrastructure.repositories.query;
 
+import com.kynsof.treatments.infrastructure.entity.ExternalConsultation;
 import com.kynsof.treatments.infrastructure.entity.Treatment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,4 +12,6 @@ import java.util.UUID;
 
 public interface TreatmentReadDataJPARepository extends JpaRepository<Treatment, UUID>, JpaSpecificationExecutor<Treatment> {
     Page<Treatment> findAll(Specification specification, Pageable pageable);
+    
+    Page<Treatment> findByExternalConsultation(ExternalConsultation externalConsultation, Pageable pageable);
 }

@@ -8,9 +8,11 @@ import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.treatments.application.query.treatment.getbyid.TreatmentResponse;
+import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.dto.TreatmentDto;
 import com.kynsof.treatments.domain.dto.enumDto.MedicalExamCategory;
 import com.kynsof.treatments.domain.service.ITreatmentService;
+import com.kynsof.treatments.infrastructure.entity.ExternalConsultation;
 import com.kynsof.treatments.infrastructure.entity.Procedure;
 import com.kynsof.treatments.infrastructure.entity.Treatment;
 import com.kynsof.treatments.infrastructure.repositories.command.TreatmentWriteDataJPARepository;
@@ -87,5 +89,12 @@ public class TreatmentServiceImpl implements ITreatmentService {
         }
 
         throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PROCEDURE_NOT_FOUND, new ErrorField("id", "Procedure not found.")));
+    }
+
+    @Override
+    public PaginatedResponse findByExternalConsultation(ExternalConsultationDto externalConsultation, Pageable pageable) {
+        Page<Treatment> diagnosis = this.repositoryQuery.findByExternalConsultation(new ExternalConsultation(externalConsultation), pageable);
+        return getPaginatedResponse(diagnosis);
+    
     }
 }
