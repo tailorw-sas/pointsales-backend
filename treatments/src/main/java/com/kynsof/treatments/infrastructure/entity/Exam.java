@@ -1,6 +1,7 @@
 package com.kynsof.treatments.infrastructure.entity;
 
 import com.kynsof.treatments.domain.dto.ExamDto;
+import com.kynsof.treatments.domain.dto.enumDto.MedicalExamCategory;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class Exam {
 
     private String name;
     private String description;
-    private String type;
+    private MedicalExamCategory type;
     private String result;
     @Temporal(TemporalType.TIMESTAMP)
     private Date datePerformed;

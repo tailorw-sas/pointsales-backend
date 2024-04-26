@@ -1,5 +1,6 @@
 package com.kynsof.treatments.domain.dto;
 
+import com.kynsof.treatments.domain.dto.enumDto.MedicalExamCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,12 +17,12 @@ public class ExamDto {
     private UUID id;
     private String name;
     private String description;
-    private String type;
+    private MedicalExamCategory type;
     private String result;
     private Date datePerformed;
     private Double price;
 
-    public ExamDto(UUID id, String name, String description, String type, String result, Double price) {
+    public ExamDto(UUID id, String name, String description, MedicalExamCategory type, String result, Double price) {
         this.id = id;
         this.name = name;
         this.description = description;

@@ -2,6 +2,7 @@ package com.kynsof.treatments.application.query.exam.getbyid;
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsof.treatments.domain.dto.ExamDto;
+import com.kynsof.treatments.domain.dto.enumDto.MedicalExamCategory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +15,7 @@ public class ExamResponse implements IResponse {
     private UUID id;
     private String name;
     private String description;
-    private String type;
+    private MedicalExamCategory type;
     private String result;
     private Date datePerformed;
     private Double price;
