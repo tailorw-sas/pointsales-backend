@@ -2,7 +2,6 @@ package com.kynsof.treatments.application.command.treatment.createall;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.treatments.application.command.treatment.create.CreateTreatmentRequest;
 import java.util.List;
 import java.util.UUID;
 import lombok.Getter;
@@ -12,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class CreateAllTreatmentCommand implements ICommand {
 
-    private List<CreateTreatmentRequest> payload;
+    private List<CreateAllTreatmentRequest> payload;
     private UUID idExternalConsultation;
 
     public CreateAllTreatmentCommand(PayloadTreatment payload) {
