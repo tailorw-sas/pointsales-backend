@@ -56,10 +56,8 @@ RUN apk add --no-cache tzdata
 ENV TZ="America/Guayaquil"
 ENV JAVA_TOOL_OPTIONS="-Djava.awt.headless=true"
 
-RUN apk add --no-cache ttf-dejavu
-
-# Para fuentes Liberation
-RUN apk add --no-cache ttf-liberation
+RUN apk update && \
+    apk add fontconfig freetype font-noto
 
 # Para fuentes Noto
 RUN apk add --no-cache font-noto
