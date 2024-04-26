@@ -5,8 +5,10 @@ import com.kynsof.identity.domain.dto.WalletTransactionDto;
 import com.kynsof.identity.domain.dto.enumType.TransactionType;
 import com.kynsof.identity.domain.interfaces.service.IWalletTransactionService;
 import com.kynsof.identity.infrastructure.identity.Business;
+import com.kynsof.identity.infrastructure.identity.Wallet;
 import com.kynsof.identity.infrastructure.identity.WalletTransaction;
 import com.kynsof.identity.infrastructure.repository.command.WalletTransactionWriteDataJPARepository;
+import com.kynsof.identity.infrastructure.repository.command.WalletWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.WalletTransactionReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
@@ -34,12 +36,16 @@ public class WalletTransactionServiceImpl implements IWalletTransactionService {
     @Autowired
     private WalletTransactionReadDataJPARepository repositoryQuery;
 
+    @Autowired
+    private WalletWriteDataJPARepository walletWriteDataJPARepository;
+
 
 
     @Override
     public UUID create(WalletTransactionDto object) {
 
         WalletTransaction entity = this.repositoryCommand.save(new WalletTransaction(object));
+        walletWriteDataJPARepository.save(new Wallet(object.getWalletDto()));
         return entity.getId();
     }
 

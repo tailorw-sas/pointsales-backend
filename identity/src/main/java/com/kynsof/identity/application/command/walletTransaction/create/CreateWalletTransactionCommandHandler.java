@@ -3,6 +3,7 @@ package com.kynsof.identity.application.command.walletTransaction.create;
 import com.kynsof.identity.domain.dto.CustomerDto;
 import com.kynsof.identity.domain.dto.WalletDto;
 import com.kynsof.identity.domain.dto.WalletTransactionDto;
+import com.kynsof.identity.domain.dto.enumType.TransactionType;
 import com.kynsof.identity.domain.interfaces.service.ICustomerService;
 import com.kynsof.identity.domain.interfaces.service.IGeographicLocationService;
 import com.kynsof.identity.domain.interfaces.service.IWalletService;
@@ -38,9 +39,13 @@ public class CreateWalletTransactionCommandHandler implements ICommandHandler<Cr
     public void handle(CreateWalletTransactionCommand command) {
         CustomerDto customerDto = customerService.findById(command.getCustomerId());
         WalletDto walletDto = walletService.findByCustomerId(customerDto.getId());
+        walletDto.setBalance(walletDto.getBalance().add(command.getAmount()));
         WalletTransactionDto walletTransactionDto = new WalletTransactionDto();
+        walletTransactionDto.setId(UUID.randomUUID());
+        walletTransactionDto.setWalletDto(walletDto);
         walletTransactionDto.setWalletId(walletDto.getId());
         walletTransactionDto.setAmount(command.getAmount());
+        walletTransactionDto.setType(TransactionType.DEPOSIT);
         walletTransactionDto.setTransactionDate(LocalDateTime.now());
         walletTransactionDto.setDescription(command.getDescription());
         walletTransactionDto.setAuthorizationCode(command.getAuthorizationCode());

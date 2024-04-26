@@ -7,6 +7,7 @@ import com.kynsof.identity.application.command.customer.update.UpdateCustomerCom
 import com.kynsof.identity.application.command.customer.update.UpdateCustomerMessage;
 import com.kynsof.identity.application.command.customer.update.UpdateCustomerRequest;
 import com.kynsof.identity.application.command.walletTransaction.create.CreateWalletTransactionCommand;
+import com.kynsof.identity.application.command.walletTransaction.create.CreateWalletTransactionMessage;
 import com.kynsof.identity.application.command.walletTransaction.create.CreateWalletTransactionRequest;
 import com.kynsof.identity.application.query.customer.getbyid.CustomerResponse;
 import com.kynsof.identity.application.query.customer.getbyid.FindCustomerByIdQuery;
@@ -48,7 +49,7 @@ public class CutomerController {
     public ResponseEntity<?> createWalletBalance(@AuthenticationPrincipal Jwt jwt,@RequestBody CreateWalletTransactionRequest request)  {
         String userId = jwt.getClaim("sub");
         CreateWalletTransactionCommand createCommand = CreateWalletTransactionCommand.fromRequest(UUID.fromString(userId),request);
-        CreateCustomerMessage response = mediator.send(createCommand);
+        CreateWalletTransactionMessage response = mediator.send(createCommand);
         return ResponseEntity.ok(response);
     }
 

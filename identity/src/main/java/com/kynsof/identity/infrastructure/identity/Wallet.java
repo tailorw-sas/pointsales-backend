@@ -55,7 +55,7 @@ public class Wallet {
         this.id = dto.getId();
         this.balance = dto.getBalance();
         this.customer = new Customer(dto.getCustomer());
-        this.transactions = dto.getTransactions().stream().map(WalletTransaction::new).collect(Collectors.toSet());
+     //   this.transactions = dto.getTransactions().stream().map(WalletTransaction::new).collect(Collectors.toSet());
     }
     public WalletDto toAggregate() {
         List<WalletTransactionDto> walletTransactions = transactions != null ?
