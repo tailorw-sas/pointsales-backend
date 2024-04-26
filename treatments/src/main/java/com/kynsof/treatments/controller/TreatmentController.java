@@ -6,6 +6,9 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.treatment.create.CreateTreatmentCommand;
 import com.kynsof.treatments.application.command.treatment.create.CreateTreatmentMessage;
 import com.kynsof.treatments.application.command.treatment.create.CreateTreatmentRequest;
+import com.kynsof.treatments.application.command.treatment.createall.CreateAllTreatmentCommand;
+import com.kynsof.treatments.application.command.treatment.createall.CreateAllTreatmentMessage;
+import com.kynsof.treatments.application.command.treatment.createall.PayloadTreatment;
 import com.kynsof.treatments.application.command.treatment.update.UpdateTreatmentCommand;
 import com.kynsof.treatments.application.command.treatment.update.UpdateTreatmentMessage;
 import com.kynsof.treatments.application.command.treatment.update.UpdateTreatmentRequest;
@@ -29,10 +32,18 @@ public class TreatmentController {
         this.mediator = mediator;
     }
 
-    @PostMapping("")
+    @PostMapping("/one")
     public ResponseEntity<?> create(@RequestBody CreateTreatmentRequest request) {
         CreateTreatmentCommand createCommand = CreateTreatmentCommand.fromRequest(request);
         CreateTreatmentMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> createAll(@RequestBody PayloadTreatment request) {
+        CreateAllTreatmentCommand createCommand = new CreateAllTreatmentCommand(request);
+        CreateAllTreatmentMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
     }
