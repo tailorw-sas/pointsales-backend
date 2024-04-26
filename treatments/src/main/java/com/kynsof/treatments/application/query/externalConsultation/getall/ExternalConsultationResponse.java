@@ -26,6 +26,7 @@ public class ExternalConsultationResponse implements IResponse {
     private List<DiagnosisDto> diagnoses;
     private List<TreatmentDto> treatments;
     private String observations;
+    private ExamOrderDto examOrder;
 
     public ExternalConsultationResponse(ExternalConsultationDto dto) {
         this.id = dto.getId();
@@ -38,6 +39,7 @@ public class ExternalConsultationResponse implements IResponse {
         this.treatments = dto.getTreatments();
         this.diagnoses = dto.getDiagnoses();
         this.observations = dto.getObservations();
+        this.examOrder = dto.getExamOrder();
     }
 
 }

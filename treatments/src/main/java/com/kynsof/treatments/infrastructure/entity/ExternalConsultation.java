@@ -19,6 +19,7 @@ import java.util.UUID;
 @Setter
 @Entity
 public class ExternalConsultation {
+
     @Id
     @GeneratedValue(generator = "UUID")
     private UUID id;
@@ -46,8 +47,9 @@ public class ExternalConsultation {
 
     private String observations;
 
-    @OneToMany(mappedBy = "externalConsultation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<ExamOrder> examOrders;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "exam_order_id") // Asegúrate de que el nombre de la columna coincida con el nombre de la columna en la base de datos
+    private ExamOrder examOrder;
 
     public ExternalConsultation(ExternalConsultationDto dto) {
         this.id = dto.getId();
@@ -58,12 +60,13 @@ public class ExternalConsultation {
         this.consultationTime = dto.getConsultationTime();
         this.doctor = new Doctor(dto.getDoctor());
         this.observations = dto.getObservations();
+        this.examOrder = dto.getExamOrder() != null ? new ExamOrder(dto.getExamOrder()) : null;
     }
 
-    public ExternalConsultationDto toAggregate(){
+    public ExternalConsultationDto toAggregate() {
         List<TreatmentDto> treatmentList = this.getTreatments().stream()
                 .map(treatment -> {
-                    return new TreatmentDto(treatment.getId(),treatment.getDescription(),
+                    return new TreatmentDto(treatment.getId(), treatment.getDescription(),
                             treatment.getMedication(), treatment.getQuantity(), treatment.getDuration());
                 })
                 .toList();
@@ -71,13 +74,14 @@ public class ExternalConsultation {
         List<DiagnosisDto> diagnosisDtoList = this.getDiagnoses().stream()
                 .map(treatment -> {
                     return new DiagnosisDto(treatment.getId(),
-                            treatment.getIcdCode(),treatment.getDescription());
+                            treatment.getIcdCode(), treatment.getDescription());
                 })
                 .toList();
-        return  new ExternalConsultationDto(this.id, this.patient.toAggregate(), this.doctor.toAggregate(),
+        return new ExternalConsultationDto(this.id, this.patient.toAggregate(), this.doctor.toAggregate(),
                 this.consultationTime, this.consultationReason, this.medicalHistory, this.physicalExam, diagnosisDtoList,
-                treatmentList, this.observations);
+                treatmentList, this.observations, this.examOrder.toAggregate());
     }
+
     @PrePersist
     protected void onCreate() {
         consultationTime = new Date();

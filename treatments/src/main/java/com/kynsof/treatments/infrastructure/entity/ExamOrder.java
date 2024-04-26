@@ -34,8 +34,7 @@ public class ExamOrder {
     @JoinColumn(name = "patient_id", nullable = false)
     private Patients patient;
 
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "consultation_id")
+    @OneToOne(mappedBy = "examOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ExternalConsultation externalConsultation;
 
     public ExamOrder(ExamOrderDto dto) {
@@ -51,6 +50,7 @@ public class ExamOrder {
             exam.setPrice(examDto.getPrice());
             exam.setType(examDto.getType());
             exam.setResult(examDto.getResult());
+            exam.setDatePerformed(examDto.getDatePerformed());
             return exam;
         }).collect(Collectors.toList());
         this.recalculateTotalPrice();
@@ -68,6 +68,7 @@ public class ExamOrder {
     public ExamOrderDto toAggregate() {
       List<ExamDto> examDtoList = this.exams.stream().map(exam -> {
           ExamDto examDto = new ExamDto();
+          examDto.setId(exam.getId());
           examDto.setDescription(exam.getDescription());
           examDto.setName(exam.getName());
           examDto.setPrice(exam.getPrice());

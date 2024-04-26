@@ -4,8 +4,8 @@ import com.kynsof.treatments.domain.dto.enumDto.MedicalExamCategory;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 public class CreateExamRequest {
     private String name;
     private String description;

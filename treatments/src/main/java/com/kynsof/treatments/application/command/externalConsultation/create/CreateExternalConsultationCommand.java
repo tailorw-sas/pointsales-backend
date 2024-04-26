@@ -18,9 +18,10 @@ public class CreateExternalConsultationCommand implements ICommand {
     private String medicalHistory;
     private String physicalExam;
     private String observations;
+    private UUID examOrder;
 
     public CreateExternalConsultationCommand(UUID patientId, UUID doctorId, String consultationReason,
-            String medicalHistory, String physicalExam, String observations) {
+            String medicalHistory, String physicalExam, String observations, UUID examOrder) {
 
         this.patientId = patientId;
         this.doctorId = doctorId;
@@ -28,12 +29,13 @@ public class CreateExternalConsultationCommand implements ICommand {
         this.medicalHistory = medicalHistory;
         this.physicalExam = physicalExam;
         this.observations = observations;
+        this.examOrder = examOrder;
     }
 
     public static CreateExternalConsultationCommand fromRequest(CreateExternalConsultationRequest request) {
         return new CreateExternalConsultationCommand(request.getPatient(), request.getDoctor(),
                 request.getConsultationReason(), request.getMedicalHistory(), request.getPhysicalExam(),
-                request.getObservations());
+                request.getObservations(), request.getExamOrder());
     }
 
     @Override
