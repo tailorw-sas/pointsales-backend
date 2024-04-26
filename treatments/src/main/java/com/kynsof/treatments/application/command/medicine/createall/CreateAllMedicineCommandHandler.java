@@ -1,7 +1,6 @@
 package com.kynsof.treatments.application.command.medicine.createall;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.treatments.application.command.medicine.create.CreateMedicineRequest;
 import com.kynsof.treatments.domain.dto.MedicinesDto;
 import com.kynsof.treatments.domain.service.IMedicinesService;
 import java.util.UUID;
@@ -18,12 +17,15 @@ public class CreateAllMedicineCommandHandler implements ICommandHandler<CreateAl
 
     @Override
     public void handle(CreateAllMedicinesCommand command) {
-        for (CreateMedicineRequest createMedicineRequest : command.getPayload()) {
+        for (String name : command.getPayload()) {
             MedicinesDto create = new MedicinesDto(
                     UUID.randomUUID(),
-                    createMedicineRequest.getName()
+                    name
             );
-            this.serviceImpl.create(create);
+            try {
+                this.serviceImpl.create(create);
+            } catch (Exception e) {
+            }
         }
 
     }

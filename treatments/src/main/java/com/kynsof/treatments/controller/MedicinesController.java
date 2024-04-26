@@ -6,7 +6,7 @@ import com.kynsof.treatments.application.command.medicine.create.CreateMedicineM
 import com.kynsof.treatments.application.command.medicine.create.CreateMedicineRequest;
 import com.kynsof.treatments.application.command.medicine.createall.CreateAllMedicineMessage;
 import com.kynsof.treatments.application.command.medicine.createall.CreateAllMedicinesCommand;
-import com.kynsof.treatments.application.command.medicine.createall.PayloadMedicine;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +30,8 @@ public class MedicinesController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> createAll(@RequestBody PayloadMedicine request) {
-        CreateAllMedicinesCommand createCommand = new CreateAllMedicinesCommand(request);
+    public ResponseEntity<?> createAll(@RequestBody List<String> payload) {
+        CreateAllMedicinesCommand createCommand = new CreateAllMedicinesCommand(payload);
         CreateAllMedicineMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
