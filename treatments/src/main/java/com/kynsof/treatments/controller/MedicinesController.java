@@ -14,15 +14,16 @@ import com.kynsof.treatments.application.command.medicine.update.UpdateMedicineR
 import com.kynsof.treatments.application.query.medicine.getbyid.FindByIdMedicinesQuery;
 import com.kynsof.treatments.application.query.medicine.getbyid.MedicinesResponse;
 import com.kynsof.treatments.application.query.medicine.search.GetSearchMedicinesQuery;
-import java.util.List;
-import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.UUID;
+
 @RestController
-@RequestMapping("/api/external-consultation/treatment/medicine")
+@RequestMapping("/api/treatment/medicine")
 public class MedicinesController {
 
     private final IMediator mediator;
