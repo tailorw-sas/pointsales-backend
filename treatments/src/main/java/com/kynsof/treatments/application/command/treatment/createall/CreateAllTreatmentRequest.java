@@ -9,6 +9,6 @@ import lombok.Setter;
 public class CreateAllTreatmentRequest {
     private String description;
     private String medication;
-    private String quantity;
+    private int quantity;
     private MedicineUnit medicineUnit;
 }

@@ -14,7 +14,7 @@ public class TreatmentResponse implements IResponse {
     private UUID id;
     private String description;
     private String medication;
-    private String quantity;
+    private int quantity;
     private MedicineUnit medicineUnit;
 
     public TreatmentResponse(TreatmentDto treatmentDto) {

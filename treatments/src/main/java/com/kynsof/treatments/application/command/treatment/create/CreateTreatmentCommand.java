@@ -15,11 +15,11 @@ public class CreateTreatmentCommand implements ICommand {
     private UUID id;
     private String description;
     private String medication;
-    private String quantity;
+    private int quantity;
     private MedicineUnit medicineUnit;
     private UUID idExternalConsultation;
 
-    public CreateTreatmentCommand(String description, String medication, String quantity, MedicineUnit duration, UUID idExternalConsultation) {
+    public CreateTreatmentCommand(String description, String medication, int quantity, MedicineUnit duration, UUID idExternalConsultation) {
         this.id = UUID.randomUUID();
         this.description = description;
         this.medication = medication;
