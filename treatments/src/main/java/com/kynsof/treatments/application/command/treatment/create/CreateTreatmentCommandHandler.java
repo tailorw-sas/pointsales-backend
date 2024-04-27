@@ -25,7 +25,7 @@ public class CreateTreatmentCommandHandler implements ICommandHandler<CreateTrea
                 command.getDescription(), 
                 command.getMedication(), 
                 command.getQuantity(),
-                command.getDuration()
+                command.getMedicineUnit()
         );
 
         try {

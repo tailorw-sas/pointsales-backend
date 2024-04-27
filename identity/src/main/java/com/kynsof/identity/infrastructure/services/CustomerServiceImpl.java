@@ -4,6 +4,7 @@ import com.kynsof.identity.application.query.customer.getbyid.CustomerResponse;
 import com.kynsof.identity.domain.dto.CustomerDto;
 import com.kynsof.identity.domain.interfaces.service.ICustomerService;
 import com.kynsof.identity.infrastructure.identity.Customer;
+import com.kynsof.identity.infrastructure.identity.Wallet;
 import com.kynsof.identity.infrastructure.repository.command.CustomerWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.CustomerReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
@@ -13,15 +14,13 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import org.springframework.data.domain.Page;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Service
 public class CustomerServiceImpl implements ICustomerService {
@@ -33,8 +32,16 @@ public class CustomerServiceImpl implements ICustomerService {
     private CustomerReadDataJPARepository repositoryQuery;
 
     @Override
-    public void create(CustomerDto customer) {
-        this.repositoryCommand.save(new Customer(customer));
+    public void create(CustomerDto dto) {
+       Customer customer = new Customer(dto);
+        Wallet wallet = new Wallet();
+        wallet.setCustomer(customer);
+        wallet.setId(UUID.randomUUID());
+        wallet.setBalance(BigDecimal.valueOf(0));
+        wallet.setTransactions(new HashSet<>());
+
+        customer.setWallet(wallet);
+        this.repositoryCommand.save(customer);
     }
 
     @Override

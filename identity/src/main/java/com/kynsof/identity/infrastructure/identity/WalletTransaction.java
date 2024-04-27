@@ -24,7 +24,7 @@ public class WalletTransaction {
     @GeneratedValue
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "wallet_id", nullable = false)
     private Wallet wallet;
 
@@ -49,6 +49,7 @@ public class WalletTransaction {
 
     public WalletTransaction(WalletTransactionDto dto) {
         this.id = dto.getId();
+        this.wallet = new Wallet(dto.getWalletDto());
         this.amount = dto.getAmount();
         this.type = dto.getType();
         this.transactionDate = dto.getTransactionDate();
@@ -68,6 +69,8 @@ public class WalletTransaction {
         dto.setDescription(this.description);
         dto.setRequestId(this.requestId);
         dto.setAuthorizationCode(this.authorizationCode);
+//        assert this.wallet != null;
+//        dto.setWalletDto(this.wallet.toAggregate());
         return dto;
     }
 

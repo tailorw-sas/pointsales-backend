@@ -25,6 +25,7 @@
         <module>cloudBridges</module>
         <module>chat</module>
         <module>rrhh</module>
+        <module>report</module>
     </modules>
     <build>
 

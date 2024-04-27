@@ -15,16 +15,16 @@ public class TreatmentDto {
     private String description;
     private String medication;
     private String quantity;
-    private String duration;
+    private MedicineUnit medicineUnit;
 
     private ExternalConsultationDto externalConsultationDto;
 
-    public TreatmentDto(UUID id, String description, String medication, String quantity, String duration) {
+    public TreatmentDto(UUID id, String description, String medication, String quantity, MedicineUnit duration) {
         this.id = id;
         this.description = description;
         this.medication = medication;
         this.quantity = quantity;
-        this.duration = duration;
+        this.medicineUnit = duration;
     }
 
 }

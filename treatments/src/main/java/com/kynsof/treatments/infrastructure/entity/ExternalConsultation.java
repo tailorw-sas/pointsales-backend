@@ -67,8 +67,9 @@ public class ExternalConsultation {
     public ExternalConsultationDto toAggregate() {
         List<TreatmentDto> treatmentList = this.getTreatments().stream()
                 .map(treatment -> {
-                    return new TreatmentDto(treatment.getId(), treatment.getDescription(),
-                            treatment.getMedication(), treatment.getQuantity(), treatment.getDuration());
+                    return new TreatmentDto(treatment.getId(),treatment.getDescription(),
+                            treatment.getMedication(), treatment.getQuantity(), treatment.getMedicineUnit());
+
                 })
                 .toList();
 

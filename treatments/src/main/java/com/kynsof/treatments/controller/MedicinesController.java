@@ -14,15 +14,16 @@ import com.kynsof.treatments.application.command.medicine.update.UpdateMedicineR
 import com.kynsof.treatments.application.query.medicine.getbyid.FindByIdMedicinesQuery;
 import com.kynsof.treatments.application.query.medicine.getbyid.MedicinesResponse;
 import com.kynsof.treatments.application.query.medicine.search.GetSearchMedicinesQuery;
-import java.util.List;
-import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.UUID;
+
 @RestController
-@RequestMapping("/api/external-consultation/treatment/medicine")
+@RequestMapping("/api/medicine")
 public class MedicinesController {
 
     private final IMediator mediator;
@@ -32,7 +33,7 @@ public class MedicinesController {
         this.mediator = mediator;
     }
 
-    @PostMapping("/one")
+    @PostMapping("")
     public ResponseEntity<?> create(@RequestBody CreateMedicineRequest request) {
         CreateMedicineCommand createCommand = CreateMedicineCommand.fromRequest(request);
         CreateMedicineMessage response = mediator.send(createCommand);
@@ -40,7 +41,7 @@ public class MedicinesController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("")
+    @PostMapping("all")
     public ResponseEntity<?> createAll(@RequestBody List<String> payload) {
         CreateAllMedicinesCommand createCommand = new CreateAllMedicinesCommand(payload);
         CreateAllMedicineMessage response = mediator.send(createCommand);

@@ -18,6 +18,7 @@ public class WalletTransactionDto {
 
     private UUID id;
     private UUID walletId; // Usar solo el ID para referenciar la billetera asociada
+    private WalletDto walletDto;
     private BigDecimal amount;
     private TransactionType type;
     private LocalDateTime transactionDate;
