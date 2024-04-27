@@ -16,10 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
 
@@ -72,42 +68,11 @@ public class FileController {
                 .defaultIfEmpty(ResponseEntity.internalServerError().body("Failed to upload the file"));
     }
 
-//    @PostMapping(value = "/upload-file")
-//    public Mono<ResponseEntity<String>> upload(@RequestPart("file") FilePart filePart) {
-//        return Mono.fromCallable(() -> {
-//                    // Configura el InputStream y el nombre del archivo
-//                    Path tempFile = Files.createTempFile("upload-", filePart.filename());
-//                    File file = tempFile.toFile();
-//
-//                    // Escribe el contenido del archivo a un archivo local temporal
-//                    return filePart.transferTo(tempFile).then(Mono.just(file));
-//                })
-//                .flatMap(file -> {
-//                    try {
-//                        String url = amazonClient.save(convertToMultipartFile(file), "folder");
-//                        return Mono.just(ResponseEntity.ok().body(url));
-//                    } catch (IOException e) {
-//                        return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload"));
-//                    }
-//                });
-//    }
-
-    private MultipartFile convertToMultipartFile(File file) throws IOException {
-        Path path = file.toPath();
-        String name = file.getName();
-        String originalFileName = file.getName();
-        String contentType = Files.probeContentType(path);
-        byte[] content = null;
-        content = Files.readAllBytes(path);
-        MultipartFile result = new MockMultipartFile(name,
-                originalFileName, contentType, content);
-        return result;
-    }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteFile(@RequestParam("url") String fileUrl) {
+    public ResponseEntity<String> deleteFile(@RequestParam("url") String url) {
         try {
-            amazonClient.delete(fileUrl);
+            amazonClient.delete(url);
             return ResponseEntity.ok("File deleted successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to delete file: " + e.getMessage());
