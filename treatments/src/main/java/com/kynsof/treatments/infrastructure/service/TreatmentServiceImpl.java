@@ -88,7 +88,7 @@ public class TreatmentServiceImpl implements ITreatmentService {
             return procedure.get().toAggregate();
         }
 
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PROCEDURE_NOT_FOUND, new ErrorField("id", "Procedure not found.")));
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.TREATMENT_NOT_FOUND, new ErrorField("id", "Treatment not found.")));
     }
 
     @Override
