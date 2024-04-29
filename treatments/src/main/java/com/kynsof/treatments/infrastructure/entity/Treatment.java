@@ -22,7 +22,7 @@ public class Treatment {
 
     private String description;
     private String medication;
-    private String quantity;
+    private int quantity;
     @Enumerated(EnumType.STRING)
     private MedicineUnit medicineUnit;
 

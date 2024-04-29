@@ -28,7 +28,7 @@ public class UpdateTreatmentCommandHandler implements ICommandHandler<UpdateTrea
         TreatmentDto update = this.serviceImpl.findById(command.getId());
 
         UpdateIfNotNull.updateIfStringNotNull(update::setDescription, command.getDescription());
-        UpdateIfNotNull.updateIfStringNotNull(update::setQuantity, command.getQuantity());
+     //   UpdateIfNotNull.updateIfStringNotNull(update::setQuantity, command.getQuantity());
    //     UpdateIfNotNull.updateIfStringNotNull(update::setMedicineUnit, command.getDuration());
         UpdateIfNotNull.updateIfStringNotNull(update::setMedication, command.getMedication());
 

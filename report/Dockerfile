@@ -46,7 +46,7 @@ RUN mvn --no-transfer-progress clean package -DskipTests
 
 # The deployment Image
 #FROM docker.io/oraclelinux:9-slim
-FROM bellsoft/liberica-openjdk-alpine:17.0.6
+FROM eclipse-temurin:17-jdk-alpine
 
 EXPOSE 9909
 
@@ -64,60 +64,6 @@ RUN apk add -f msttcorefonts;
 RUN apk add -f libfontconfig1;
 RUN apk add -f freetype;
 RUN fc-cache --force
-
-RUN apk add --no-cache \
-    msttcorefonts-installer fontconfig \
-    font-noto \
-    font-noto-adlam \
-    font-noto-adlamunjoined \
-    font-noto-arabic \
-    font-noto-armenian \
-    font-noto-avestan \
-    font-noto-bamum \
-    font-noto-bengali \
-    font-noto-buhid \
-    font-noto-carian \
-    font-noto-chakma \
-    font-noto-cherokee \
-    font-noto-cypriot \
-    font-noto-deseret \
-    font-noto-devanagari \
-    font-noto-ethiopic \
-    font-noto-extra \
-    font-noto-georgian \
-    font-noto-glagolitic \
-    font-noto-gothic \
-    font-noto-gujarati \
-    font-noto-gurmukhi \
-    font-noto-hebrew \
-    font-noto-kannada \
-    font-noto-kayahli \
-    font-noto-khmer \
-    font-noto-lao \
-    font-noto-lisu \
-    font-noto-malayalam \
-    font-noto-mandaic \
-    font-noto-myanmar \
-    font-noto-nko \
-    font-noto-olchiki \
-    font-noto-oldturkic \
-    font-noto-oriya \
-    font-noto-osage \
-    font-noto-osmanya \
-    font-noto-shavian \
-    font-noto-sinhala \
-    font-noto-tamil \
-    font-noto-telugu \
-    font-noto-thaana \
-    font-noto-thai \
-    font-noto-tibetan \
-    font-noto-tifinagh \
-    font-noto-vai \
-    terminus-font \
-    ttf-opensans \
-    font-bakoma \
-    font-misc-misc \
-    font-croscore
 
 RUN fc-cache -f && rm -rf /var/cache/*
 

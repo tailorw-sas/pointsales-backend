@@ -108,11 +108,17 @@ public class AmazonClient implements IAmazonClient {
     }
 
     public void deleteFileByKey(String key) {
-        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
-                .bucket(bucketName)
-                .key(key)
-                .build();
+        try {
+            DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .build();
         s3Client.deleteObject(deleteObjectRequest);
+        }catch (Exception e){
+            e.printStackTrace();
+            String mesage = e.getMessage();
+        }
+
     }
 
     public List<String> listAllBuckets() {
