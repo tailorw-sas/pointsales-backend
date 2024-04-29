@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -60,7 +61,7 @@ public class FileController {
 
                     // Crear MultipartFile a partir de bytes
                     MultipartFile multipartFile = new MockMultipartFile("file",
-                            filePart.filename(), filePart.headers().getContentType().toString(), bytes);
+                            filePart.filename(), Objects.requireNonNull(filePart.headers().getContentType()).toString(), bytes);
 
                     try {
                         // Llamar a AmazonClient para guardar el archivo
