@@ -1,6 +1,7 @@
 package com.kynsoft.notification.controller;
 
 import com.kynsof.share.core.application.FileRequest;
+import com.kynsof.share.core.domain.response.ApiResponse;
 import com.kynsof.share.core.infrastructure.util.CustomMultipartFile;
 import com.kynsoft.notification.domain.dto.AFileDto;
 import com.kynsoft.notification.domain.dto.FileInfoDto;
@@ -8,7 +9,6 @@ import com.kynsoft.notification.domain.service.IAFileService;
 import com.kynsoft.notification.infrastructure.service.AmazonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.buffer.DataBufferUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.mock.web.MockMultipartFile;
@@ -46,7 +46,7 @@ public class FileController {
     }
 
     @PostMapping(value = "/upload-file")
-    public Mono<ResponseEntity<String>> upload(@RequestPart("file") FilePart filePart) {
+    public Mono<ResponseEntity<ApiResponse<?>>> upload(@RequestPart("file") FilePart filePart) {
         return DataBufferUtils.join(filePart.content())
                 .flatMap(dataBuffer -> {
                     byte[] bytes = new byte[dataBuffer.readableByteCount()];
@@ -60,12 +60,13 @@ public class FileController {
                     try {
                         // Llamar a AmazonClient para guardar el archivo
                         String url = amazonClient.save(multipartFile, "folder");
-                        return Mono.just(ResponseEntity.ok(url));
+                        return Mono.just(ResponseEntity.ok(ApiResponse.success(new ResponseFileS3(url))));
                     } catch (Exception e) {
-                        return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload: " + e.getMessage()));
+                        //return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload: " + e.getMessage()));
+                        return Mono.error(e);
                     }
-                })
-                .defaultIfEmpty(ResponseEntity.internalServerError().body("Failed to upload the file"));
+                });
+
     }
 
 
@@ -120,3 +121,5 @@ public class FileController {
         return amazonClient.listAllBuckets();
     }
 }
+
+
