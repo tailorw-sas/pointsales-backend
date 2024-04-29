@@ -25,7 +25,7 @@ public class UpdateDependentPatientsRequest {
     private Boolean isPregnant;
     private LocalDate birthDate;
     private FamilyRelationship familyRelationship;
-    private String photo;
+    private String image;
     private int gestationTime;
     private CreateDependentContactInfoRequest contactInfo;
     private DisabilityType disabilityType;

@@ -60,7 +60,7 @@ public class UpdateDependentPatientsCommand implements ICommand {
         return new UpdateDependentPatientsCommand(id,request.getPrimeId(),request.getIdentification(),
                 request.getName(), request.getLastName(), request.getGender(),
                 request.getWeight(),request.getHeight(),request.getHasDisability(),request.getIsPregnant(),
-                request.getBirthDate(), request.getFamilyRelationship(), request.getPhoto(),request.getGestationTime(),
+                request.getBirthDate(), request.getFamilyRelationship(), request.getImage(),request.getGestationTime(),
                 request.getContactInfo(), request.getDisabilityType());
     }
 
