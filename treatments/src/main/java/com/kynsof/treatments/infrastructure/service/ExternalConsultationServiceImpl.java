@@ -2,8 +2,11 @@ package com.kynsof.treatments.infrastructure.service;
 
 
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.treatments.application.query.externalConsultation.getall.ExternalConsultationResponse;
@@ -54,7 +57,7 @@ public class ExternalConsultationServiceImpl implements IExternalConsultationSer
         if (contactInformation.isPresent()) {
             return contactInformation.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Contact Information not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXTERNAL_CONSULTATION_NOT_FOUND, new ErrorField("id", "External Consultation not found.")));
     }
 
     @Override
