@@ -7,8 +7,10 @@ import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.treatments.application.query.examOrder.getall.ExamOrderResponse;
 import com.kynsof.treatments.domain.dto.ExamOrderDto;
+import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.service.IExamOrderService;
 import com.kynsof.treatments.infrastructure.entity.ExamOrder;
+import com.kynsof.treatments.infrastructure.entity.ExternalConsultation;
 import com.kynsof.treatments.infrastructure.entity.specifications.ExamOrderSpecifications;
 import com.kynsof.treatments.infrastructure.repositories.command.ExamOrderWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.ExamOrderReadDataJPARepository;
@@ -71,6 +73,16 @@ public class ExamOrderServiceImpl implements IExamOrderService {
     @Override
     public void delete(UUID id) {
         ExamOrderDto examOrderDto = this.findById(id);
+    }
+
+    @Override
+    public ExamOrderDto findByExternalConsultation(ExternalConsultationDto externalConsultation) {
+        Optional<ExamOrder> exOptional = this.repositoryQuery.findByExternalConsultation(new ExternalConsultation(externalConsultation));
+        if (exOptional.isPresent()) {
+            return exOptional.get().toAggregate();
+        }
+
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXAM_ORDER_NOT_FOUND, new ErrorField("id", "Exam Order not found.")));
     }
 
 }

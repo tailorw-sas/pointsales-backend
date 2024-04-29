@@ -8,6 +8,7 @@ import com.kynsof.treatments.application.command.examOrder.create.CreateExamOrde
 import com.kynsof.treatments.application.query.examOrder.getById.FindByIdExamOrderQuery;
 import com.kynsof.treatments.application.query.examOrder.getall.ExamOrderResponse;
 import com.kynsof.treatments.application.query.examOrder.getall.GetAllExamOrderQuery;
+import com.kynsof.treatments.application.query.examOrder.getexanorderbyidexternalconsultation.FindExamOrderByIdExternalConsultationQuery;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,15 @@ public class ExamOrderController {
 
         FindByIdExamOrderQuery query = new FindByIdExamOrderQuery(id);
         ExamOrderResponse response = mediator.send(query);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/by-id-external-consultation/{id}")
+    public ResponseEntity<PaginatedResponse> findDiagnosisByIdExternalConsultation(@PathVariable UUID id) {
+
+        FindExamOrderByIdExternalConsultationQuery query = new FindExamOrderByIdExternalConsultationQuery(id);
+        PaginatedResponse response = mediator.send(query);
+
         return ResponseEntity.ok(response);
     }
 
