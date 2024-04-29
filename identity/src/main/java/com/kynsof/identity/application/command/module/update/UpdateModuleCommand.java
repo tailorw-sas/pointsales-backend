@@ -14,10 +14,10 @@ public class UpdateModuleCommand implements ICommand {
 
     private UUID id;
     private String name;
-    private byte[] image;
+    private String image;
     private String description;
 
-    public UpdateModuleCommand(UUID id, String name, byte[] image, String description) {
+    public UpdateModuleCommand(UUID id, String name, String image, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
