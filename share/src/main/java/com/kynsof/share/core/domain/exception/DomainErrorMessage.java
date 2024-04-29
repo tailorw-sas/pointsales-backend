@@ -71,7 +71,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     VACCINE_NOT_FOUND(665, Series.DOMAIN_ERROR, "Vaccine not found."),
     PATIENT_VACCINE_NOT_FOUND(666, Series.DOMAIN_ERROR, "Relationship not found."),
     EXTERNAL_CONSULTATION_NOT_FOUND(667, Series.DOMAIN_ERROR, "External Consultation not found."),
-    DOCTOR_NOT_FOUND(668, Series.DOMAIN_ERROR, "Doctor not found.");
+    DOCTOR_NOT_FOUND(668, Series.DOMAIN_ERROR, "Doctor not found."),
+    CIE10_NOT_FOUND(669, Series.DOMAIN_ERROR, "Cie10 not found.");
 
     private static final DomainErrorMessage[] VALUES;
 
