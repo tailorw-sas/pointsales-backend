@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateResourceRequest {
-    private byte[] image;
+    private String image;
     private String registrationNumber;
     private String language;
     private EResourceStatus status;

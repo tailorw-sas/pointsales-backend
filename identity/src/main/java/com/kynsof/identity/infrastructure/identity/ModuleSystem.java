@@ -22,7 +22,7 @@ public class ModuleSystem {
     @Column(name = "id")
     protected UUID id;
     private String name;
-    private UUID image;
+    private String image;
     private String description;
 
     @OneToMany(mappedBy = "module", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

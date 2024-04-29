@@ -12,5 +12,5 @@ public class UpdateUserSystemRequest {
     private String name;
     private String lastName;
     private UserType userType;
-    private byte [] image;
+    private String image;
 }

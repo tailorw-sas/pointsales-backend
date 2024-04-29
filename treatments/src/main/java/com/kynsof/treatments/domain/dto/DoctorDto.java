@@ -15,6 +15,6 @@ public class DoctorDto {
     private String identification;
     private String name;
     private String lastName;
-    private UUID image;
+    private String image;
     private Status status;
 }

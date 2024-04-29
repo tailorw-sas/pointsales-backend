@@ -15,6 +15,6 @@ public class UpdateJasperReportTemplateRequest {
     private String name;
     private String description;
     private JasperReportTemplateType type;
-    private byte[] file;
+    private String file;
     private String parameters;
 }

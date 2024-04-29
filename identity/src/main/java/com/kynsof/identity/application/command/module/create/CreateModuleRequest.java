@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class CreateModuleRequest {
     private String name;
-    private byte[] image;
+    private String image;
     private String description;
 }

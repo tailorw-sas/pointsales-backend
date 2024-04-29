@@ -23,7 +23,7 @@ public class ResourceResponse implements IResponse {
     private EResourceStatus status;
     private Boolean expressAppointments;
     private List<ServicesResponse> services;
-    private UUID image;
+    private String image;
     private String identification;
 
     public ResourceResponse(ResourceDto object) {

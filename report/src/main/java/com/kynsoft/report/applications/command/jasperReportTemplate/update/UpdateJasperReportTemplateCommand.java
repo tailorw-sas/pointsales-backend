@@ -17,11 +17,11 @@ public class UpdateJasperReportTemplateCommand implements ICommand {
     private String name;
     private String description;
     private JasperReportTemplateType type;
-    private byte[] file;
+    private String file;
     private String parameters;
 
     public UpdateJasperReportTemplateCommand(UUID id, String code, String name, String description,
-                                             JasperReportTemplateType type, byte[] file, String parameters) {
+                                             JasperReportTemplateType type, String file, String parameters) {
         this.id = id;
         this.code = code;
         this.name = name;

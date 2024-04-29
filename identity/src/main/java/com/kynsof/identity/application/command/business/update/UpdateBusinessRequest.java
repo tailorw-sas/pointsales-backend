@@ -13,7 +13,7 @@ public class UpdateBusinessRequest {
     private String latitude;
     private String longitude;
     private String description;
-    private byte [] image;
+    private String image;
     private String ruc;
     private EBusinessStatus status;
     private UUID geographicLocation;

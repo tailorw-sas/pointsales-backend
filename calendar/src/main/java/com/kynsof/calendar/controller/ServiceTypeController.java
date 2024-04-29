@@ -14,6 +14,7 @@ import com.kynsof.calendar.application.query.serviceType.search.GetSearchService
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class ServiceTypeController {
         this.mediator = mediator;
     }
     @PostMapping("")
-    public ResponseEntity<CreateServiceTypeMessage> create(@RequestBody CreateServiceTypeRequest request)  {
+    public ResponseEntity<CreateServiceTypeMessage> create(@RequestBody @Valid CreateServiceTypeRequest request)  {
         CreateServiceTypeCommand createCommand = CreateServiceTypeCommand.fromRequest(request);
         CreateServiceTypeMessage response = mediator.send(createCommand);
 

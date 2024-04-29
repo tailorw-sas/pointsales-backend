@@ -13,10 +13,10 @@ public class CreateModuleCommand implements ICommand {
 
     private UUID id;
     private String name;
-    private byte[] image;
+    private String image;
     private String description;
 
-    public CreateModuleCommand(String name, byte[] image, String description) {
+    public CreateModuleCommand(String name, String image, String description) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;

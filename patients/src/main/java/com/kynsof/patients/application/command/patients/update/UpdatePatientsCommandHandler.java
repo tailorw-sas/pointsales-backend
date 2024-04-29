@@ -9,11 +9,8 @@ import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerUpdatePatientsEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatientsCommand> {
@@ -42,14 +39,6 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
         PatientDto patientDto = serviceImpl.findByIdSimple(command.getId());
         GeographicLocationDto geographicLocationDto = geographicLocationService.findById(
                 command.getCreateContactInfoRequest().getGeographicLocationId());
-        String idLogo = null;
-        if (command.getPhoto() != null && command.getPhoto().length > 100) {
-            UUID photoId = UUID.randomUUID();
-            FileKafka fileSave = new FileKafka(photoId, "patients", command.getName() + ".png", command.getPhoto());
-            saveFileEventService.create(fileSave);
-            idLogo = photoId.toString();
-            patientDto.setPhoto(idLogo);
-        }
 
         patientDto.setIdentification(command.getIdentification());
         patientDto.setName(command.getName());
@@ -61,7 +50,7 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
         patientDto.setIsPregnant(command.getIsPregnant());
         patientDto.setDisabilityType(command.getDisabilityType());
         patientDto.setGestationTime(command.getGestationTime());
-
+        patientDto.setPhoto(command.getPhoto());
         serviceImpl.update(patientDto);
 
         if (contactInfoDto.getId() == null) {

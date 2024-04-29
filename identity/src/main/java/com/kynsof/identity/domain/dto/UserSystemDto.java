@@ -19,10 +19,10 @@ public class UserSystemDto {
     private UserStatus status;
 
 
-    private UUID idImage;
+    private String idImage;
     private UserType userType;
 
-    public UserSystemDto(UUID id, String identification, String email, String name, String lastName, UserStatus status, UUID image) {
+    public UserSystemDto(UUID id, String identification, String email, String name, String lastName, UserStatus status, String image) {
         this.id = id;
         this.identification = identification;
         this.email = email;

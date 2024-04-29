@@ -17,13 +17,14 @@ public class UpdateBusinessCommand implements ICommand {
     private String latitude;
     private String longitude;
     private String description;
-    private byte [] logo;
+    private String logo;
     private String ruc;
     private EBusinessStatus status;
     private UUID geographicLocation;
     private String address;
 
-    public UpdateBusinessCommand(UUID id, String name, String latitude, String longitude, String description, byte [] logo, String ruc, EBusinessStatus status, UUID geographicLocation, String address) {
+    public UpdateBusinessCommand(UUID id, String name, String latitude, String longitude, String description,
+                                 String logo, String ruc, EBusinessStatus status, UUID geographicLocation, String address) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;

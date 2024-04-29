@@ -15,7 +15,7 @@ import java.util.UUID;
 public class CreateDependentPatientsRequest {
 
     private UUID primeId;
-    private byte[] image;
+    private String image;
     private String identification;
     private String name;
     private String lastName;

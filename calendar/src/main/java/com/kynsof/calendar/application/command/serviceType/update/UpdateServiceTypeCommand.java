@@ -13,9 +13,9 @@ public class UpdateServiceTypeCommand implements ICommand {
 
     private UUID id;
     private String name;
-    private final byte[] picture;
+    private final String picture;
 
-    public UpdateServiceTypeCommand(UUID id, String description, byte[] picture) {
+    public UpdateServiceTypeCommand(UUID id, String description, String picture) {
         this.id = id;
         this.name = description;
         this.picture = picture;

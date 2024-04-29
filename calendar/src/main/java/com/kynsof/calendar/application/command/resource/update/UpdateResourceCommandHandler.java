@@ -27,7 +27,7 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
         try {
             ResourceDto _resource = service.findById(command.getId());
 
-            _resource.setImage(saveImagen(command.getPicture()));
+            _resource.setImage(command.getPicture());
             _resource.setExpressAppointments(command.getExpressAppointments());
             _resource.setStatus(command.getStatus());
 
@@ -37,15 +37,15 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
 
             service.update(_resource);
         } catch (Exception ex) {
-            UUID idImage = saveImagen(command.getPicture());
+
             ResourceDto _resource = new ResourceDto(
                     command.getId(), 
                     "", 
                     command.getRegistrationNumber(), 
                     command.getLanguage(),
                     command.getStatus(), 
-                    command.getExpressAppointments(), 
-                    idImage
+                    command.getExpressAppointments(),
+                    command.getPicture()
             );
             _resource.setIdentification(command.getIdentification());
             service.create(_resource);

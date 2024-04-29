@@ -17,10 +17,10 @@ public class UpdateUserSystemCommand implements ICommand {
     private String name;
     private String lastName;
     private UserType userType;
-    private byte [] image;
+    private String image;
 
     public UpdateUserSystemCommand(UUID id, String userName, String email, 
-            String name, String lastName, UserType userType, byte [] image) {
+            String name, String lastName, UserType userType, String image) {
         this.id = id;
         this.userName = userName;
         this.email = email;

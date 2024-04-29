@@ -12,10 +12,10 @@ import java.util.UUID;
 @Setter
 public class UpdateUserSystemStepTwoCommand implements ICommand {
     private UUID id;
-    private byte [] image;
+    private String image;
     private UserType userType;
 
-    public UpdateUserSystemStepTwoCommand(UUID id, byte [] image, UserType userType) {
+    public UpdateUserSystemStepTwoCommand(UUID id, String image, UserType userType) {
         this.id = id;
         this.image = image;
         this.userType = userType;

@@ -22,14 +22,14 @@ public class UpdatePatientsCommand implements ICommand {
     private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
-    private byte[] photo;
+    private String photo;
     private int gestationTime;
     private CreatePatientContactInfoRequest createContactInfoRequest;
     private DisabilityType disabilityType;
 
     public UpdatePatientsCommand(UUID id, String identification, String name, String lastName, GenderType gender,
                                  Double weight, Double height, Boolean hasDisability, Boolean isPregnant,
-                                 byte[] photo, int gestationTime,
+                                 String photo, int gestationTime,
                                  CreatePatientContactInfoRequest createContactInfoRequest, DisabilityType disabilityType){
 
         this.identification = identification;

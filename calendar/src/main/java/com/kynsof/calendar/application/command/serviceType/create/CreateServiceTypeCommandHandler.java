@@ -25,17 +25,11 @@ public class CreateServiceTypeCommandHandler implements ICommandHandler<CreateSe
     @Override
     public void handle(CreateServiceTypeCommand command) {
         RulesChecker.checkRule(new SeviceTypeNameMustBeUniqueRule(this.service, command.getName(), command.getId()));
-        UUID idLogo = null;
-        if (command.getPicture() != null && command.getPicture().length > 1) {
-            UUID photoId = UUID.randomUUID();
-            FileKafka fileSave = new FileKafka(photoId, "calendar", command.getName() + ".png", command.getPicture());
-            saveFileEventService.create(fileSave);
-            idLogo = photoId;
-        }
+
        service.create(new ServiceTypeDto(
                 command.getId(),
                 command.getName(),
-               idLogo
+               command.getPicture()
         ));
     }
 }

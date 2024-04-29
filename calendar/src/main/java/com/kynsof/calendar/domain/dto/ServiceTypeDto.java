@@ -15,5 +15,5 @@ import java.util.UUID;
 public class ServiceTypeDto  implements Serializable {
     private UUID id;
     private String name;
-    private UUID picture;
+    private String picture;
 }

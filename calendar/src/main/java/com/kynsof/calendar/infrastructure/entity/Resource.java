@@ -47,7 +47,7 @@ public class Resource {
     @Column(nullable = true)
     private boolean deleted;
 
-    private UUID image;
+    private String image;
 
     private String identification;
 

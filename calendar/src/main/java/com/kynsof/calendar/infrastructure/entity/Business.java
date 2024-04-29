@@ -24,7 +24,7 @@ public class Business{
     private String latitude;
     private String longitude;
     private String address;
-    private UUID logo;
+    private String logo;
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<BusinessResource> businessResources = new HashSet<>();
 

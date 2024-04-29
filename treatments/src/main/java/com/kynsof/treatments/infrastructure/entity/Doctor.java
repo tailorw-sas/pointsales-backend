@@ -28,7 +28,7 @@ public class Doctor {
     private String lastName;
 
     @Column(nullable = true)
-    private UUID image;
+    private String image;
 
     @Enumerated(EnumType.STRING)
     private Status status;

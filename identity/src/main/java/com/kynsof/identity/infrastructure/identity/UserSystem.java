@@ -41,7 +41,7 @@ public class UserSystem implements Serializable {
     private UserStatus status;
     @Enumerated(EnumType.STRING)
     private UserType userType;
-    private UUID image;
+    private String image;
 
     // Relationship with User_Role_Clinic
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

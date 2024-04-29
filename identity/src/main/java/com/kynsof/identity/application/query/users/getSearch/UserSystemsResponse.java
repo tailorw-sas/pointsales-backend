@@ -22,7 +22,7 @@ public class UserSystemsResponse implements IResponse {
     private String lastName;
     private UserStatus status;
     private UserType userType;
-    private UUID image;
+    private String image;
 
     public UserSystemsResponse(UserSystemDto contactInfoDto) {
         this.id = contactInfoDto.getId();
@@ -31,7 +31,7 @@ public class UserSystemsResponse implements IResponse {
         this.name = contactInfoDto.getName();
         this.lastName = contactInfoDto.getLastName();
         this.status = contactInfoDto.getStatus();
-        this.image = contactInfoDto.getIdImage() != null ? contactInfoDto.getIdImage() : null;
+        this.image = contactInfoDto.getIdImage();
         this.userType = contactInfoDto.getUserType() != null ? contactInfoDto.getUserType() : UserType.UNDEFINED;
     }
 

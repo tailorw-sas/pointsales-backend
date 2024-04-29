@@ -18,7 +18,7 @@ public class UserMeResponse implements IResponse {
     private String email;
     private String name;
     private String lastName;
-    private UUID image;
+    private String image;
     private Set<BusinessModulePermissionsDto> businesses;
 
     public UserMeResponse(UserMeDto userMeDto) {

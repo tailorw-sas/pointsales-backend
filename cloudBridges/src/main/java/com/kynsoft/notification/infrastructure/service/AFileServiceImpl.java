@@ -29,8 +29,9 @@ public class AFileServiceImpl implements IAFileService {
     private FileReadDataJPARepository queryRepository;
 
     @Override
-    public void create(AFileDto object) {
-        this.commandRepository.save(new AFile(object));
+    public UUID create(AFileDto object) {
+        AFile file = this.commandRepository.save(new AFile(object));
+        return file.getId();
     }
 
     @Override
@@ -46,10 +47,7 @@ public class AFileServiceImpl implements IAFileService {
     @Override
     public AFileDto findById(UUID id) {
         Optional<AFile> file = this.queryRepository.findById(id);
-        if (file.isPresent()) {
-            return file.get().toAggregate();
-        }
-        return null;
+        return file.map(AFile::toAggregate).orElse(null);
     }
 
     @Override

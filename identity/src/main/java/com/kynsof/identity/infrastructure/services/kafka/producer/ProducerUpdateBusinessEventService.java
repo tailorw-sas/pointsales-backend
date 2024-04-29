@@ -9,7 +9,6 @@ import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,7 +24,7 @@ public class ProducerUpdateBusinessEventService {
 
         try {
             BusinessKafka event = new BusinessKafka(entity.getId(), entity.getName(), entity.getLatitude(), entity.getLongitude(), entity.getAddress(),
-                    UUID.fromString(entity.getLogo()));
+                    entity.getLogo());
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.UPDATED));

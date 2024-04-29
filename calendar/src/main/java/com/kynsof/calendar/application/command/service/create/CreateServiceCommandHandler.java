@@ -8,11 +8,8 @@ import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 public class CreateServiceCommandHandler implements ICommandHandler<CreateServiceCommand> {
@@ -32,19 +29,13 @@ public class CreateServiceCommandHandler implements ICommandHandler<CreateServic
     public void handle(CreateServiceCommand command) {
         RulesChecker.checkRule(new SeviceNameMustBeUniqueRule(this.service, command.getName(), command.getId()));
         ServiceTypeDto serviceTypeDto = serviceTypeService.findById(command.getType());
-        String idLogo = "";
-        if (command.getImage() != null && command.getImage().length > 1) {
-            UUID photoId = UUID.randomUUID();
-            FileKafka fileSave = new FileKafka(photoId, "calendar", command.getName() + ".png", command.getImage());
-            saveFileEventService.create(fileSave);
-            idLogo = photoId.toString();
-        }
+
 
         service.create(new ServiceDto(
                 command.getId(), 
                 serviceTypeDto,
                 EServiceStatus.ACTIVE,
-                idLogo,
+                command.getImage(),
                 command.getName(), 
                 command.getNormalAppointmentPrice(), 
                 command.getExpressAppointmentPrice(), 
