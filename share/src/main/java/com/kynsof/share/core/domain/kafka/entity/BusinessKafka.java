@@ -23,7 +23,7 @@ public class BusinessKafka implements Serializable {
     @JsonProperty("address")
     private String address;
     @JsonProperty("logo")
-    private UUID logo;
+    private String logo;
 
     public BusinessKafka() {
     }
