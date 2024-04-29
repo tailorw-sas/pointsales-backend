@@ -18,6 +18,6 @@ public class UserSystemKafka {
     private String name;
     private String lastName;
     List<String> roles;
-    private UUID idImage;
+    private String idImage;
     private UserType userType;
 }
