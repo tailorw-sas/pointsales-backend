@@ -1,8 +1,11 @@
 package com.kynsof.treatments.infrastructure.service;
 
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.treatments.application.query.cie10.getAll.Cie10Response;
@@ -33,7 +36,7 @@ public class Cie10ServiceImpl implements ICie10Service {
         if (cie10ByCode.isPresent()) {
             return cie10ByCode.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Cie10 not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.CIE10_NOT_FOUND, new ErrorField("id", "Cie10 not found.")));
     }
 
     @Override
