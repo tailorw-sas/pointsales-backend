@@ -50,7 +50,7 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
         patientDto.setIsPregnant(command.getIsPregnant());
         patientDto.setDisabilityType(command.getDisabilityType());
         patientDto.setGestationTime(command.getGestationTime());
-        patientDto.setPhoto(patientDto.getPhoto());
+        patientDto.setPhoto(command.getPhoto());
         serviceImpl.update(patientDto);
 
         if (contactInfoDto.getId() == null) {
