@@ -1,7 +1,9 @@
 package com.kynsof.treatments.infrastructure.service;
 
-import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.treatments.domain.dto.DoctorDto;
 import com.kynsof.treatments.domain.dto.enumDto.Status;
 import com.kynsof.treatments.domain.service.IDoctorService;
@@ -24,7 +26,6 @@ public class DoctorServiceImpl implements IDoctorService {
     @Autowired
     private DoctorReadDataJPARepository repositoryQuery;
 
-
     @Override
     public UUID create(DoctorDto doctorDto) {
         Doctor entity = this.repositoryCommand.save(new Doctor(doctorDto));
@@ -39,11 +40,18 @@ public class DoctorServiceImpl implements IDoctorService {
 
         this.repositoryQuery.findById(doctorDto.getId())
                 .map(patient -> {
-                    if (doctorDto.getName() != null) patient.setName(doctorDto.getName());
-                    if (doctorDto.getLastName() != null) patient.setLastName(doctorDto.getLastName());
-                    if (doctorDto.getIdentification() != null)
+                    if (doctorDto.getName() != null) {
+                        patient.setName(doctorDto.getName());
+                    }
+                    if (doctorDto.getLastName() != null) {
+                        patient.setLastName(doctorDto.getLastName());
+                    }
+                    if (doctorDto.getIdentification() != null) {
                         patient.setIdentification(doctorDto.getIdentification());
-                    if (doctorDto.getStatus() != null) patient.setStatus(doctorDto.getStatus());
+                    }
+                    if (doctorDto.getStatus() != null) {
+                        patient.setStatus(doctorDto.getStatus());
+                    }
 
                     return this.repositoryCommand.save(patient);
                 })
@@ -52,18 +60,14 @@ public class DoctorServiceImpl implements IDoctorService {
         return doctorDto.getId();
     }
 
-
     @Override
     public DoctorDto findById(UUID id) {
         Optional<Doctor> patient = this.repositoryQuery.findById(id);
         if (patient.isPresent()) {
             return patient.get().toAggregate();
         }
-        //throw new RuntimeException("Patients not found.");
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Doctor not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.DOCTOR_NOT_FOUND, new ErrorField("id", "Doctor not found.")));
     }
-
-
 
     @Override
     public void delete(UUID id) {
