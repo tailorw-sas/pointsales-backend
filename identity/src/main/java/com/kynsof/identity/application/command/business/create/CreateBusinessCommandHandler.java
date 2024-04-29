@@ -11,13 +11,10 @@ import com.kynsof.identity.domain.rules.business.BusinessRucMustBeUniqueRule;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerCreateBusinessEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 import com.kynsof.share.utils.ConfigureTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusinessCommand> {
@@ -45,7 +42,7 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
         RulesChecker.checkRule(new BusinessNameMustBeUniqueRule(this.service, command.getName(), command.getId()));
 
         GeographicLocationDto location = this.geographicLocationService.findById(command.getGeographicLocation());
-        UUID idLogo = UUID.randomUUID();
+       // UUID idLogo = UUID.randomUUID();
 
         BusinessDto create = new BusinessDto(
                 command.getId(),
@@ -53,7 +50,7 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
                 command.getLatitude(),
                 command.getLongitude(),
                 command.getDescription(),
-                idLogo.toString(),
+                command.getImage(),
                 command.getRuc(),
                 EBusinessStatus.ACTIVE,
                 location,
@@ -64,11 +61,11 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
         service.create(create);
         createBusinessEventService.create(create);
 
-        if (command.getImage() != null) {
-            FileKafka fileSave = new FileKafka(idLogo, "identity", UUID.randomUUID().toString(),
-                    command.getImage());
-            saveFileEventService.create(fileSave);
-        }
+//        if (command.getImage() != null) {
+//            FileKafka fileSave = new FileKafka(idLogo, "identity", UUID.randomUUID().toString(),
+//                    command.getImage());
+//            saveFileEventService.create(fileSave);
+//        }
 
     }
 }

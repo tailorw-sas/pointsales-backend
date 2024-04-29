@@ -16,12 +16,13 @@ public class CreateBusinessCommand implements ICommand {
     private String latitude;
     private String longitude;
     private String description;
-    private  byte [] image;
+    private String image;
     private String ruc;
     private String address;
     private UUID geographicLocation;
 
-    public CreateBusinessCommand(String name, String latitude, String longitude, String description,  byte [] logo, String ruc, UUID geographicLocation, String address) {
+    public CreateBusinessCommand(String name, String latitude, String longitude, String description, String logo,
+                                 String ruc, UUID geographicLocation, String address) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.latitude = latitude;

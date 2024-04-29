@@ -10,15 +10,12 @@ import com.kynsof.identity.domain.rules.business.BusinessRucMustBeUniqueRule;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerUpdateBusinessEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerDeleteFileEventService;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusinessCommand> {
@@ -70,22 +67,22 @@ public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusin
          * Verifica que logoId venga en null, si esta en null, es porque no se
          * cambio.
          */
-        String logoId = command.getLogo() != null ? UUID.randomUUID().toString() : null;
-        UpdateIfNotNull.updateIfNotNull(updateBusiness::setLogo, logoId);
+//        String logoId = command.getLogo() != null ? UUID.randomUUID().toString() : null;
+        UpdateIfNotNull.updateIfNotNull(updateBusiness::setLogo, command.getLogo());
 
         service.update(updateBusiness);
 
         //Lanza el evento de integracion
         updateBusinessEventService.update(updateBusiness);
-        if (logoId != null) {
-            //Si logoId es diferente de null, fue porque se cambio, por lo cual debe ser eliminado en actual.
-            this.deleteFileEventService.delete(new FileKafka(UUID.fromString(idLogoDelete), "identity", "", null));
-
-            //Manda a crear el nuevo logo en el S3.
-            FileKafka fileSave = new FileKafka(UUID.fromString(logoId), "identity", UUID.randomUUID().toString(),
-                command.getLogo());
-            saveFileEventService.create(fileSave);
-        }
+//        if (logoId != null) {
+//            //Si logoId es diferente de null, fue porque se cambio, por lo cual debe ser eliminado en actual.
+//            this.deleteFileEventService.delete(new FileKafka(UUID.fromString(idLogoDelete), "identity", "", null));
+//
+//            //Manda a crear el nuevo logo en el S3.
+//            FileKafka fileSave = new FileKafka(UUID.fromString(logoId), "identity", UUID.randomUUID().toString(),
+//                command.getLogo());
+//            saveFileEventService.create(fileSave);
+//        }
     }
 
 }
