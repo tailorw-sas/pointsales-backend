@@ -71,9 +71,7 @@ public class AmazonClient implements IAmazonClient {
         String name = StringUtils.stripFilenameExtension(sanitizedFilename) + "_" + timestamp + "." + fileExtension;
         this.uploadFile(file.getInputStream(), file.getSize(), file.getContentType(), name);
 
-        String objectUrl = this.cloudfrontDomain + name;
-
-        return objectUrl;
+        return this.cloudfrontDomain + name;
     }
 
     @Override

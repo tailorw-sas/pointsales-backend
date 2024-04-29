@@ -2,7 +2,10 @@ package com.kynsoft.notification.controller;
 
 import com.kynsof.share.core.application.FileRequest;
 import com.kynsof.share.core.domain.response.ApiResponse;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.share.core.infrastructure.util.CustomMultipartFile;
+import com.kynsoft.notification.application.command.saveFileS3.SaveFileS3RequestCommand;
+import com.kynsoft.notification.application.command.saveFileS3.SaveFileS3RequestMessage;
 import com.kynsoft.notification.domain.dto.AFileDto;
 import com.kynsoft.notification.domain.dto.FileInfoDto;
 import com.kynsoft.notification.domain.service.IAFileService;
@@ -22,13 +25,15 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/files")
 public class FileController {
+    private IMediator mediator;
 
     private final AmazonClient amazonClient;
 
     private final IAFileService fileService;
 
     @Autowired
-    public FileController(AmazonClient amazonClient, IAFileService fileService) {
+    public FileController(IMediator mediator, AmazonClient amazonClient, IAFileService fileService) {
+        this.mediator = mediator;
         this.amazonClient = amazonClient;
         this.fileService = fileService;
     }
@@ -59,8 +64,8 @@ public class FileController {
 
                     try {
                         // Llamar a AmazonClient para guardar el archivo
-                        String url = amazonClient.save(multipartFile, "folder");
-                        return Mono.just(ResponseEntity.ok(ApiResponse.success(new ResponseFileS3(url))));
+                        SaveFileS3RequestMessage response = mediator.send(new SaveFileS3RequestCommand(multipartFile, "medinec"));
+                        return Mono.just(ResponseEntity.ok(ApiResponse.success(response)));
                     } catch (Exception e) {
                         //return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload: " + e.getMessage()));
                         return Mono.error(e);
