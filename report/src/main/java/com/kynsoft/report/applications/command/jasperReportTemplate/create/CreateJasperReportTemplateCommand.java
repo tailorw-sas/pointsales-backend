@@ -17,11 +17,11 @@ public class CreateJasperReportTemplateCommand implements ICommand {
     private String name;
     private String description;
     private JasperReportTemplateType type;
-    private byte[] file;
+    private String file;
     private String parameters;
 
     public CreateJasperReportTemplateCommand(String code, String name, String description, JasperReportTemplateType type,
-                                             byte[] file, String parameters) {
+                                             String file, String parameters) {
         this.id = UUID.randomUUID();
         this.code = code;
         this.name = name;
