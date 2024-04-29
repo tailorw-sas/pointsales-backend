@@ -17,7 +17,7 @@ public class BusinessResponse implements IResponse {
     private String latitude;
     private String longitude;
     private String address;
-    private UUID logo;
+    private String logo;
 
     public BusinessResponse(BusinessDto object) {
         this.id = object.getId();
