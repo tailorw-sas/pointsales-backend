@@ -6,8 +6,8 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Getter
 @Setter
+@Getter
 public class CreateTreatmentRequest {
     private String description;
     private String medication;
