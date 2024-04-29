@@ -1,8 +1,11 @@
 package com.kynsof.treatments.infrastructure.service;
 
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.treatments.application.query.patientVaccine.getall.PatientVaccineResponse;
@@ -53,7 +56,7 @@ public class PatientVaccineServiceImpl implements IPatientVaccineService {
         if (patientVaccine.isPresent()) {
             return patientVaccine.get().toAggregate();
         }
-        throw new BusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, "Contact Information not found.");
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PATIENT_VACCINE_NOT_FOUND, new ErrorField("id", "Relationship not found.")));
     }
 
     @Override
