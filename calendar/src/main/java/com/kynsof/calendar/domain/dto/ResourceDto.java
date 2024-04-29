@@ -22,12 +22,12 @@ public class ResourceDto implements Serializable {
     private String language;
     private EResourceStatus status;
     private Boolean expressAppointments;
-    private UUID image;
+    private String image;
     private String identification;
     List<ServiceDto> services;
 
     public ResourceDto(UUID id,  String name, String registrationNumber, String language,
-                       EResourceStatus status, Boolean expressAppointments, UUID image) {
+                       EResourceStatus status, Boolean expressAppointments, String image) {
         this.id = id;
         this.name = name;
         this.registrationNumber = registrationNumber;
