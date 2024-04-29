@@ -19,12 +19,12 @@ public class CreatePatientAdminCommand implements ICommand {
     private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
-    private byte[] photo;
+    private String photo;
     private int gestationTime;
     private DisabilityType disabilityType;
 
     public CreatePatientAdminCommand(UUID id,String identification, GenderType gender, Double weight,
-                                 Double height, Boolean hasDisability, Boolean isPregnant, byte[] photo,
+                                 Double height, Boolean hasDisability, Boolean isPregnant, String photo,
                                  int gestationTime, DisabilityType disabilityType){
 
         this.id = id;

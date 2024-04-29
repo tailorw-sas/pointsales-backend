@@ -11,7 +11,6 @@ import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerCreatePatientsEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 import org.springframework.stereotype.Component;
 
@@ -40,13 +39,7 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
 
     @Override
     public void handle(CreatePatientsCommand command) {
-        String idLogo = null;
-        if (command.getPhoto() != null && command.getPhoto().length > 1) {
-            UUID photoId = UUID.randomUUID();
-            FileKafka fileSave = new FileKafka(photoId, "patients", command.getName() + ".png", command.getPhoto());
-            saveFileEventService.create(fileSave);
-            idLogo = photoId.toString();
-        }
+
 
         UUID idPatient = UUID.randomUUID();
         RulesChecker.checkRule(new DependentMustBeUniqueRule(this.serviceImpl, command.getIdentification(), idPatient));
@@ -61,7 +54,7 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
                 command.getHeight(),
                 command.getHasDisability(),
                 command.getIsPregnant(),
-                idLogo,
+                command.getPhoto(),
                 command.getDisabilityType(),
                 command.getGestationTime()
         ));

@@ -16,7 +16,7 @@ public class CreatePatientsAdminRequest {
     private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
-    private  byte [] image;
+    private  String image;
     private int gestationTime;
     private DisabilityType disabilityType;
 }
