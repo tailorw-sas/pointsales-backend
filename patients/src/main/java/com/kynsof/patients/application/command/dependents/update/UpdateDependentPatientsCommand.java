@@ -27,7 +27,7 @@ public class UpdateDependentPatientsCommand implements ICommand {
     private Boolean isPregnant;
     private LocalDate birthDate;
     private FamilyRelationship familyRelationship;
-    private byte[] photo;
+    private String photo;
     private int gestationTime;
     private CreateDependentContactInfoRequest createContactInfoRequest;
     private DisabilityType disabilityType;
@@ -35,7 +35,7 @@ public class UpdateDependentPatientsCommand implements ICommand {
     public UpdateDependentPatientsCommand(UUID id,UUID primeId, String identification, String name, String lastName,
                                           GenderType gender, Double weight, Double height, Boolean hasDisability,
                                           Boolean isPregnant, LocalDate birthDate, FamilyRelationship familyRelationship,
-                                          byte[] photo, int gestationTime,
+                                          String photo, int gestationTime,
                                           CreateDependentContactInfoRequest createContactInfoRequest, DisabilityType disabilityType){
         this.id = id;
         this.identification = identification;

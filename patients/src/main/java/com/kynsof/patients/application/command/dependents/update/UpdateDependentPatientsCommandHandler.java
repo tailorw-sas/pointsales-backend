@@ -10,11 +10,8 @@ import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerUpdateDependentPatientsEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 public class UpdateDependentPatientsCommandHandler implements ICommandHandler<UpdateDependentPatientsCommand> {
@@ -43,13 +40,7 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
         GeographicLocationDto geographicLocationDto = geographicLocationService.findById(command.getCreateContactInfoRequest().getGeographicLocationId());
         PatientDto prime = serviceImpl.findByIdSimple(command.getPrimeId());
         PatientDto dependent = serviceImpl.findByIdSimple(command.getId());
-        String idLogo = null;
-        if (command.getPhoto() != null && command.getPhoto().length > 1) {
-            UUID photoId = UUID.randomUUID();
-            FileKafka fileSave = new FileKafka(photoId, "patients", command.getName() + ".png", command.getPhoto());
-            saveFileEventService.create(fileSave);
-            idLogo = photoId.toString();
-        }
+
         serviceImpl.updateDependent(new DependentPatientDto(
                 command.getId(),
                 command.getIdentification(),
@@ -63,7 +54,7 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
                 command.getHasDisability(),
                 command.getIsPregnant(),
                 command.getFamilyRelationship(),
-                idLogo,
+                command.getPhoto(),
                 command.getDisabilityType(),
                 command.getGestationTime()
         ));
