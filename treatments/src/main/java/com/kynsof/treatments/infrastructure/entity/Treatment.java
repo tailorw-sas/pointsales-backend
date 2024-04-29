@@ -40,6 +40,6 @@ public class Treatment {
     }
 
     public TreatmentDto toAggregate() {
-        return new TreatmentDto(this.id, this.medication, this.description, this.quantity, this.medicineUnit);
+        return new TreatmentDto(this.id, this.description, this.medication, this.quantity, this.medicineUnit);
     }
 }
