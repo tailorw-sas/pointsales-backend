@@ -68,10 +68,10 @@ public class ExamOrderController {
     }
 
     @GetMapping(path = "/by-id-external-consultation/{id}")
-    public ResponseEntity<PaginatedResponse> findDiagnosisByIdExternalConsultation(@PathVariable UUID id) {
+    public ResponseEntity<ExamOrderResponse> findDiagnosisByIdExternalConsultation(@PathVariable UUID id) {
 
         FindExamOrderByIdExternalConsultationQuery query = new FindExamOrderByIdExternalConsultationQuery(id);
-        PaginatedResponse response = mediator.send(query);
+        ExamOrderResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }
