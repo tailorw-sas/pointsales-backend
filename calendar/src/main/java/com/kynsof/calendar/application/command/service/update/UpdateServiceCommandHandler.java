@@ -6,13 +6,10 @@ import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.entity.FileKafka;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServiceCommand> {
@@ -35,13 +32,7 @@ public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServic
         ServiceTypeDto serviceTypeDto = serviceTypeService.findById(command.getServiceTypeId());
         ServiceDto update = service.findById(command.getId());
         update.setType(serviceTypeDto);
-
-        if (command.getPicture() != null && command.getPicture().length > 1) {
-            UUID photoId = UUID.randomUUID();
-            FileKafka fileSave = new FileKafka(photoId, "calendar", command.getName() + ".png", command.getPicture());
-            saveFileEventService.create(fileSave);
-            update.setPicture(photoId.toString());
-        }
+        update.setPicture(command.getPicture());
 
         update.setApplyIva(command.isApplyIva());
         update.setExpressAppointmentPrice(command.getExpressAppointmentPrice());

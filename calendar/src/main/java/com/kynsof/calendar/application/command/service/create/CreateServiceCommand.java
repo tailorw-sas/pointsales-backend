@@ -12,7 +12,7 @@ import java.util.UUID;
 public class CreateServiceCommand implements ICommand {
 
     private UUID id;
-    private byte[] image;
+    private String image;
     private String name;
     private String description;
     private UUID type;
@@ -20,7 +20,7 @@ public class CreateServiceCommand implements ICommand {
     private Double expressAppointmentPrice;
     private boolean applyIva;
 
-    public CreateServiceCommand(String name, byte[] picture, String description, UUID serviceTypeId,
+    public CreateServiceCommand(String name, String picture, String description, UUID serviceTypeId,
                                 Double normalAppointmentPrice, Double expressAppointmentPrice, Boolean applyIva) {
         this.applyIva = applyIva;
         this.id = UUID.randomUUID();
