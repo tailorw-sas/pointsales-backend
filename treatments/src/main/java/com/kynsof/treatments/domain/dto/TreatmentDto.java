@@ -13,13 +13,13 @@ public class TreatmentDto {
 
     private UUID id;
     private String description;
-    private String medication;
+    private MedicinesDto medication;
     private int quantity;
     private MedicineUnit medicineUnit;
 
     private ExternalConsultationDto externalConsultationDto;
 
-    public TreatmentDto(UUID id, String description, String medication, int quantity, MedicineUnit duration) {
+    public TreatmentDto(UUID id, String description, MedicinesDto medication, int quantity, MedicineUnit duration) {
         this.id = id;
         this.description = description;
         this.medication = medication;

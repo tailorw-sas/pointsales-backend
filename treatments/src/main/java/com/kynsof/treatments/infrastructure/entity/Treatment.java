@@ -21,7 +21,6 @@ public class Treatment {
     private UUID id;
 
     private String description;
-    private String medication;
     private int quantity;
     @Enumerated(EnumType.STRING)
     private MedicineUnit medicineUnit;
@@ -30,16 +29,20 @@ public class Treatment {
     @JoinColumn(name = "external_consultation_id")
     private ExternalConsultation externalConsultation;
 
+    @ManyToOne
+    @JoinColumn(name = "medicines_id")
+    private Medicines medicines;
+
     public Treatment(TreatmentDto treatmentDto) {
         this.id = treatmentDto.getId();
         this.description = treatmentDto.getDescription();
-        this.medication = treatmentDto.getMedication();
+        this.medicines = treatmentDto.getMedication() != null ? new Medicines(treatmentDto.getMedication()) : null;
         this.quantity = treatmentDto.getQuantity();
         this.medicineUnit = treatmentDto.getMedicineUnit();
         this.externalConsultation = treatmentDto.getExternalConsultationDto() != null ? new ExternalConsultation(treatmentDto.getExternalConsultationDto()) : null;
     }
 
     public TreatmentDto toAggregate() {
-        return new TreatmentDto(this.id, this.description, this.medication, this.quantity, this.medicineUnit);
+        return new TreatmentDto(this.id, this.description, this.medicines.toAggregate(), this.quantity, this.medicineUnit);
     }
 }

@@ -5,9 +5,12 @@ import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
+import com.kynsof.treatments.domain.dto.MedicinesDto;
 import com.kynsof.treatments.domain.dto.TreatmentDto;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
+import com.kynsof.treatments.domain.service.IMedicinesService;
 import com.kynsof.treatments.domain.service.ITreatmentService;
+import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,10 +18,12 @@ public class UpdateTreatmentCommandHandler implements ICommandHandler<UpdateTrea
 
     private final ITreatmentService serviceImpl;
     private final IExternalConsultationService externalConsultationService;
+    private final IMedicinesService medicinesService;
 
-    public UpdateTreatmentCommandHandler(ITreatmentService serviceImpl, IExternalConsultationService externalConsultationService) {
+    public UpdateTreatmentCommandHandler(ITreatmentService serviceImpl, IExternalConsultationService externalConsultationService, IMedicinesService medicinesService) {
         this.serviceImpl = serviceImpl;
         this.externalConsultationService = externalConsultationService;
+        this.medicinesService = medicinesService;
     }
 
     @Override
@@ -28,10 +33,9 @@ public class UpdateTreatmentCommandHandler implements ICommandHandler<UpdateTrea
         TreatmentDto update = this.serviceImpl.findById(command.getId());
 
         UpdateIfNotNull.updateIfStringNotNull(update::setDescription, command.getDescription());
-     //   UpdateIfNotNull.updateIfStringNotNull(update::setQuantity, command.getQuantity());
-   //     UpdateIfNotNull.updateIfStringNotNull(update::setMedicineUnit, command.getDuration());
-        UpdateIfNotNull.updateIfStringNotNull(update::setMedication, command.getMedication());
 
+        MedicinesDto medicinesDto = this.medicinesService.findById(UUID.fromString(command.getMedication()));
+        update.setMedication(medicinesDto);
         try {
             ExternalConsultationDto externalConsultationDto = this.externalConsultationService.findById(command.getIdExternalConsultation());
             update.setExternalConsultationDto(externalConsultationDto);
