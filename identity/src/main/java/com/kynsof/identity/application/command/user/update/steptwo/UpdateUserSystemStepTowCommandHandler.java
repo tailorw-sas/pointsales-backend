@@ -29,13 +29,10 @@ public class UpdateUserSystemStepTowCommandHandler implements ICommandHandler<Up
     public void handle(UpdateUserSystemStepTwoCommand command) {
         UserSystemDto update = this.systemService.findById(command.getId());
 
-        UUID idImage = command.getImage() != null ? UUID.randomUUID() : null;
-        if (idImage != null) {
-            update.setIdImage(idImage);
-            FileKafka fileSave = new FileKafka(idImage, "identity", UUID.randomUUID().toString(),
-                    command.getImage());
-            saveFileEventService.create(fileSave);
-        }
+
+
+            update.setIdImage(command.getImage());
+
 
         update.setUserType(command.getUserType());
         systemService.update(update);
