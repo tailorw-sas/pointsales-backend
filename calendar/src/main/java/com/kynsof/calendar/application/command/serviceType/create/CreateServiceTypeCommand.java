@@ -13,9 +13,9 @@ public class CreateServiceTypeCommand implements ICommand {
 
     private UUID id;
     private String name;
-    private final byte[] picture;
+    private final String picture;
 
-    public CreateServiceTypeCommand(String name, byte[] picture) {
+    public CreateServiceTypeCommand(String name, String picture) {
         this.picture = picture;
         this.id = UUID.randomUUID();
         this.name = name;

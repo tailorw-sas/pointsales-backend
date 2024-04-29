@@ -26,8 +26,7 @@ public class ServiceType {
     @Size(max = 150)
     @NotBlank
     private String name;
-
-    private UUID picture;
+    private String picture;
 
     @OneToMany(mappedBy = "type")
     private Set<Services> services;

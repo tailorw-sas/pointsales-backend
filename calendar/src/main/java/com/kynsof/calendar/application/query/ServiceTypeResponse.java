@@ -14,7 +14,7 @@ import java.util.UUID;
 public class ServiceTypeResponse implements IResponse {
     private UUID id;
     private String name;
-    private UUID image;
+    private String image;
 
 
     public ServiceTypeResponse(ServiceTypeDto object) {
