@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -23,6 +24,7 @@ public class BusinessResponse implements IResponse {
     private String ruc;
     private String address;
     private EBusinessStatus status;
+    private LocalDate createdAt;
 
     private GeographicLocationResponse geolocation;
 
@@ -37,6 +39,7 @@ public class BusinessResponse implements IResponse {
         this.status = object.getStatus();
         this.geolocation = object.getGeographicLocationDto() != null ? new GeographicLocationResponse(object.getGeographicLocationDto()) : null;
         this.address = object.getAddress() != null ? object.getAddress() : null;
+        this.createdAt = object.getCreateAt().toLocalDate();
     }
 
     public BusinessResponse(UUID id, String name) {
