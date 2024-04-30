@@ -8,6 +8,8 @@ import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class CreateCustomerCommandHandler implements ICommandHandler<CreateCustomerCommand> {
 
@@ -26,8 +28,8 @@ public class CreateCustomerCommandHandler implements ICommandHandler<CreateCusto
                 command.getId(),
                 command.getFirstName(),
                 command.getLastName(),
-                command.getEmail()
-        );
+                command.getEmail(),
+                LocalDateTime.now());
 
         this.customerService.create(customerDto);
 

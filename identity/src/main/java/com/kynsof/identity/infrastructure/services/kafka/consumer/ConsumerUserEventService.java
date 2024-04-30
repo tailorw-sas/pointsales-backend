@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,11 +35,13 @@ public class ConsumerUserEventService {
 
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                this.service.create(new CustomerDto(UUID.fromString(eventRead.getId()), eventRead.getFirstname(), eventRead.getLastname(), eventRead.getEmail()));
+                this.service.create(new CustomerDto(UUID.fromString(eventRead.getId()), eventRead.getFirstname(),
+                        eventRead.getLastname(), eventRead.getEmail(), LocalDateTime.now()));
             }
             if (eventType.equals(EventType.UPDATED)) {
                 //Definir accion
-                this.service.update(new CustomerDto(UUID.fromString(eventRead.getId()), eventRead.getFirstname(), eventRead.getLastname(), eventRead.getEmail()));
+                this.service.update(new CustomerDto(UUID.fromString(eventRead.getId()), eventRead.getFirstname(),
+                        eventRead.getLastname(), eventRead.getEmail(), LocalDateTime.now()));
             }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerUserEventService.class.getName()).log(Level.SEVERE, null, ex);

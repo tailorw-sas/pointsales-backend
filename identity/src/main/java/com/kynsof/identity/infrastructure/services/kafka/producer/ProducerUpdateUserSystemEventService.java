@@ -31,7 +31,7 @@ public class ProducerUpdateUserSystemEventService {
                     entity.getName(), 
                     entity.getLastName(),
                     null,
-                    entity.getIdImage(),
+                    entity.getImage(),
                     entity.getUserType()
             );
 

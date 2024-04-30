@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Setter
@@ -17,9 +18,10 @@ public class UserSystemDto {
     private String name;
     private String lastName;
     private UserStatus status;
+    private LocalDate createdAt;
 
 
-    private String idImage;
+    private String image;
     private UserType userType;
 
     public UserSystemDto(UUID id, String identification, String email, String name, String lastName, UserStatus status, String image) {
@@ -29,7 +31,7 @@ public class UserSystemDto {
         this.name = name;
         this.lastName = lastName;
         this.status = status;
-        this.idImage = image;
+        this.image = image;
     }
 
 

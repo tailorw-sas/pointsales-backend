@@ -50,7 +50,8 @@ public class Customer {
                 id, 
                 firstName, 
                 lastName, 
-                email
+                email,
+                createdAt
         );
     }
 

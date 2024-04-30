@@ -55,7 +55,7 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
 
         return businessModules.stream().map(businessModule -> {
             ModuleSystem module = businessModule.getModule();
-            Set<PermissionDto> permissionsDto = new HashSet<>();
+            List<PermissionDto> permissionsDto = new ArrayList<>();
             Set<Permission> permissions = module.getPermissions();
             permissions.forEach(permission -> permissionsDto.add(
                     new PermissionDto(

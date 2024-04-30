@@ -36,7 +36,7 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
         UpdateIfNotNull.updateIfNotNull(objectToUpdate::setLastName, command.getLastName());
         UpdateIfNotNull.updateIfNotNull(objectToUpdate::setName, command.getName());
         objectToUpdate.setUserType(command.getUserType());
-        objectToUpdate.setIdImage(command.getImage());
+        objectToUpdate.setImage(command.getImage());
 
 
         systemService.update(objectToUpdate);
