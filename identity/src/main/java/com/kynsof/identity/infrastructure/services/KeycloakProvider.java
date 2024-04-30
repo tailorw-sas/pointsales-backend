@@ -62,7 +62,19 @@ public class KeycloakProvider {
     }
 
     public UsersResource getUserResource() {
+        //Definir accion
+        System.err.println("#######################################################");
+        System.err.println("#######################################################");
+        System.err.println("getUserResource");
+        System.err.println("#######################################################");
+        System.err.println("#######################################################");
         RealmResource realmResource = getRealmResource();
+        System.err.println("#######################################################");
+        System.err.println("resource");
+        System.err.println("#######################################################");
+        System.err.println("#######################################################");
         return realmResource.users();
+
+
     }
 }
