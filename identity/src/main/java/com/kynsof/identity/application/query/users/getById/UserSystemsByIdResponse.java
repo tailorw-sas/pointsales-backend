@@ -25,6 +25,7 @@ public class UserSystemsByIdResponse implements IResponse {
     private UserStatus status;
     private List<RoleDto> roles;
     private UserType userType;
+    private String image;
 
     public UserSystemsByIdResponse(UserSystemDto userSystemDto) {
         this.id = userSystemDto.getId();
@@ -34,6 +35,7 @@ public class UserSystemsByIdResponse implements IResponse {
         this.lastName = userSystemDto.getLastName();
         this.status = userSystemDto.getStatus();
         this.userType = userSystemDto.getUserType();
+        this.image = userSystemDto.getIdImage();
     }
 
 }
