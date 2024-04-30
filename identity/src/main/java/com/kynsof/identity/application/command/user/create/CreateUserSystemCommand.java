@@ -16,15 +16,19 @@ public class CreateUserSystemCommand implements ICommand {
     private String email;
     private String name;
     private String lastName;
+    private final String password;
     private final UserType userType;
+    private final String image;
 
 
-    public CreateUserSystemCommand(String userName, String email, String name, String lastName, UserType userType) {
+    public CreateUserSystemCommand(String userName, String email, String name, String lastName, String password, UserType userType, String image) {
         this.userName = userName;
         this.email = email;
         this.name = name;
         this.lastName = lastName;
+        this.password = password;
         this.userType = userType;
+        this.image = image;
     }
 
     public static CreateUserSystemCommand fromRequest(CreateUserSystemRequest request) {
@@ -32,9 +36,8 @@ public class CreateUserSystemCommand implements ICommand {
                 request.getUserName(),
                 request.getEmail(),
                 request.getName(),
-                request.getLastName(),
-                request.getUserType()
-        );
+                request.getLastName(), request.getPassword(),
+                request.getUserType(), request.getImage() );
     }
 
     @Override
