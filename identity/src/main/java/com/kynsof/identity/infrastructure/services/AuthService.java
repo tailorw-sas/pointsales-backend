@@ -160,7 +160,7 @@ public class AuthService implements IAuthService {
         userRepresentation.setEnabled(true);
         userRepresentation.setEmailVerified(true);
 
-        Response response = usersResource.create(userRepresentation);
+        jakarta.ws.rs.core.Response response = usersResource.create(userRepresentation);
 
         if (response.getStatus() == 201) {
             String userId = extractUserIdFromLocation(response.getLocation().getPath());
