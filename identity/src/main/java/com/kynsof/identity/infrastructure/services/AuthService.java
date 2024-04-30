@@ -167,7 +167,7 @@ public class AuthService implements IAuthService {
 
             setNewUserPassword(userRequest.getPassword(), userId, usersResource);
             //  assignRolesToUser(null, userId);
-            this.producerRegisterUserSystemEvent.create(userRequest, userId, command.getImage());
+           // this.producerRegisterUserSystemEvent.create(userRequest, userId, null);
             return userId;
         } else if (response.getStatus() == 409) {
             throw new AlreadyExistsException("User already exists", new ErrorField("email", "Email is already in use"));
