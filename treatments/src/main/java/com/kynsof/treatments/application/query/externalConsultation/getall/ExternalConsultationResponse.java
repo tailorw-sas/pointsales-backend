@@ -26,7 +26,7 @@ public class ExternalConsultationResponse implements IResponse {
     private String medicalHistory;
     private String physicalExam;
     private List<DiagnosisExternalConsultationResponse> diagnoses = new ArrayList<>();
-    private List<TreatmentDto> treatments;
+    private List<TreatmentExternalConsultationResponse> treatments = new ArrayList<>();
     private String observations;
     private ExamOrderDto examOrder;
 
@@ -38,13 +38,14 @@ public class ExternalConsultationResponse implements IResponse {
         this.physicalExam = dto.getPhysicalExam();
         this.consultationTime = dto.getConsultationTime();
         this.doctor = dto.getDoctor();
-        this.treatments = dto.getTreatments();
         this.observations = dto.getObservations();
         this.examOrder = dto.getExamOrder();
         this.diagnoses = dto.getDiagnoses().stream()
                 .map(DiagnosisExternalConsultationResponse::new)
                 .collect(Collectors.toList());
-
+        this.treatments = dto.getTreatments().stream()
+                .map(TreatmentExternalConsultationResponse::new)
+                .collect(Collectors.toList());
     }
 
 }
