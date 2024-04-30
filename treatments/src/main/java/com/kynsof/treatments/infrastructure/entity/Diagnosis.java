@@ -33,7 +33,9 @@ public class Diagnosis {
     }
 
     public DiagnosisDto toAggregate() {
-        return new DiagnosisDto(this.id, this.icdCode, this.description);
+        DiagnosisDto response = new DiagnosisDto(this.id, this.icdCode, this.description);
+        response.setExternalConsultation(externalConsultation.toAggregate());
+        return response;
     }
 
 }
