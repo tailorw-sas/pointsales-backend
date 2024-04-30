@@ -22,8 +22,6 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
 
         try {
             ResourceDto _resource = service.findById(command.getId());
-
-            _resource.setImage(command.getPicture());
             _resource.setExpressAppointments(command.getExpressAppointments());
             _resource.setStatus(command.getStatus());
 
@@ -39,8 +37,7 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
                     command.getRegistrationNumber(), 
                     command.getLanguage(),
                     command.getStatus(), 
-                    command.getExpressAppointments(),
-                    command.getPicture()
+                    command.getExpressAppointments()
             );
             _resource.setIdentification(command.getIdentification());
             service.create(_resource);
