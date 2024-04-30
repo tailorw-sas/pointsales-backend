@@ -27,7 +27,7 @@ public class ExamOrder {
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
 
-    @OneToMany(mappedBy = "examOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "examOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Exam> exams;
 
     @ManyToOne

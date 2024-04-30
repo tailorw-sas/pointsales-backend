@@ -42,12 +42,8 @@ public class ExamOrderServiceImpl implements IExamOrderService {
     }
 
     @Override
-    public UUID update(ExamOrder examOrder) {
-        if (examOrder == null || examOrder.getId() == null) {
-            throw new IllegalArgumentException("Patient DTO or ID cannot be null");
-        }
-        ExamOrder entity = this.repositoryCommand.save(examOrder);
-        return entity.getId();
+    public void update(ExamOrderDto examOrder) {
+        this.repositoryCommand.save(new ExamOrder(examOrder));
     }
 
     @Override
