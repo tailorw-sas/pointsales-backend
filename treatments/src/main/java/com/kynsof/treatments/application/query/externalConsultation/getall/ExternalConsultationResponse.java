@@ -1,8 +1,8 @@
 package com.kynsof.treatments.application.query.externalConsultation.getall;
 
-
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsof.treatments.domain.dto.*;
+import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,11 +10,13 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Getter
 @Setter
 public class ExternalConsultationResponse implements IResponse {
+
     private UUID id;
 
     private PatientDto patient;
@@ -23,8 +25,8 @@ public class ExternalConsultationResponse implements IResponse {
     private String consultationReason;
     private String medicalHistory;
     private String physicalExam;
-    private List<DiagnosisDto> diagnoses;
-    private List<TreatmentDto> treatments;
+    private List<DiagnosisExternalConsultationResponse> diagnoses = new ArrayList<>();
+    private List<TreatmentExternalConsultationResponse> treatments = new ArrayList<>();
     private String observations;
     private ExamOrderDto examOrder;
 
@@ -36,10 +38,14 @@ public class ExternalConsultationResponse implements IResponse {
         this.physicalExam = dto.getPhysicalExam();
         this.consultationTime = dto.getConsultationTime();
         this.doctor = dto.getDoctor();
-        this.treatments = dto.getTreatments();
-        this.diagnoses = dto.getDiagnoses();
         this.observations = dto.getObservations();
         this.examOrder = dto.getExamOrder();
+        this.diagnoses = dto.getDiagnoses().stream()
+                .map(DiagnosisExternalConsultationResponse::new)
+                .collect(Collectors.toList());
+        this.treatments = dto.getTreatments().stream()
+                .map(TreatmentExternalConsultationResponse::new)
+                .collect(Collectors.toList());
     }
 
 }
