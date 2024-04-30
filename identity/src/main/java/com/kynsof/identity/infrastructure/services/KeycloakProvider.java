@@ -13,39 +13,40 @@ import org.springframework.stereotype.Component;
 @Getter
 public class KeycloakProvider {
 
-    @Value("${keycloak.provider.server-url}")
+    @Value("${keycloak.provider.server-url:https://auth.chevere.ddns.net/}")
     private String server_url;
 
-    @Value("${keycloak.provider.realm-name}")
+    @Value("${keycloak.provider.realm-name:kynsoft}")
     private String realm_name;
 
-    @Value("${keycloak.provider.realm-master}")
+    @Value("${keycloak.provider.realm-master:master}")
     private String realm_master;
 
-    @Value("${keycloak.provider.admin-clic}")
+    @Value("${keycloak.provider.admin-clic:admin-cli}")
     private String admin_clic;
 
-    @Value("${keycloak.provider.user-console}")
+    @Value("${keycloak.provider.user-console:admin}")
     private String user_console;
 
-    @Value("${keycloak.provider.password-console}")
+    @Value("${keycloak.provider.password-console:ZWJjMTViM2U4YjQ0MTQwZTI5ZjI1YWFk}")
     private String password_console;
 
-    @Value("${keycloak.provider.client-secret}")
+    @Value("${keycloak.provider.client-secret:7i6w6w9yRbv2VOi0ksbLfdd1TnW5TTlb}")
     private String client_secret;
-    @Value("${spring.security.oauth2.client.provider.keycloak.token-uri}")
+    @Value("${spring.security.oauth2.client.provider.keycloak.token-uri:https://auth.chevere.ddns.net/realms/kynsoft/protocol/openid-connect/token}")
     private String tokenUri;
 
-    @Value("${keycloak.provider.client-id}")
+    @Value("${keycloak.provider.client-id:medinec}")
     private String client_id;
 
-    @Value("${keycloak.provider.grant-type}")
+    @Value("${keycloak.provider.grant-type:password}")
     private String grant_type;
 
-    @Value("${google.client-id}")
-    private String googleClientId;
 
     public RealmResource getRealmResource() {
+
+
+
         Keycloak keycloak = KeycloakBuilder.builder()
                 .serverUrl(server_url)
                 .realm(realm_master)
@@ -57,7 +58,6 @@ public class KeycloakProvider {
                         .connectionPoolSize(10)
                         .build())
                 .build();
-
         return keycloak.realm(realm_name);
     }
 
