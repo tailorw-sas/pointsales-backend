@@ -11,6 +11,6 @@ import java.util.UUID;
 public class CreateExamOrderRequest {
 
     private String reason;
-    private UUID patientId;
+    private UUID patient;
     private List<ExamRequest> exams;
 }

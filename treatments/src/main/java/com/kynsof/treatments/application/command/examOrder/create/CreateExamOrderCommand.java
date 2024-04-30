@@ -11,11 +11,11 @@ import java.util.UUID;
 @Getter
 @Setter
 public class CreateExamOrderCommand implements ICommand {
+
     private UUID id;
     private String reason;
     private UUID patientId;
     private List<ExamRequest> exams;
-
 
     public CreateExamOrderCommand(UUID patientId, String reason, List<ExamRequest> examRequests) {
 
@@ -25,10 +25,9 @@ public class CreateExamOrderCommand implements ICommand {
     }
 
     public static CreateExamOrderCommand fromRequest(CreateExamOrderRequest request) {
-        return new CreateExamOrderCommand(request.getPatientId(), request.getReason(),
+        return new CreateExamOrderCommand(request.getPatient(), request.getReason(),
                 request.getExams());
     }
-
 
     @Override
     public ICommandMessage getMessage() {
