@@ -8,9 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
@@ -47,11 +45,6 @@ public class UserSystem implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserPermissionBusiness> userRolesClinics = new HashSet<>();
 
-    @CreatedBy
-    private String createdBy;
-
-    @LastModifiedBy
-    private String lastModifiedBy;
 
     @CreatedDate
     private LocalDateTime createdDate;

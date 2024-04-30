@@ -2,7 +2,7 @@ package com.kynsof.identity.application.command.user.create;
 
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
-import com.kynsof.identity.domain.interfaces.IUserSystemService;
+import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerRegisterUserSystemEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.beans.factory.annotation.Autowired;

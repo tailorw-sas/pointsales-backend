@@ -1,6 +1,9 @@
 package com.kynsof.identity.infrastructure.identity;
 
-import com.kynsof.identity.domain.dto.*;
+import com.kynsof.identity.domain.dto.BusinessDto;
+import com.kynsof.identity.domain.dto.PermissionDto;
+import com.kynsof.identity.domain.dto.UserPermissionBusinessDto;
+import com.kynsof.identity.domain.dto.UserSystemDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

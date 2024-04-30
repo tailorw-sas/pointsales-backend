@@ -1,10 +1,10 @@
 package com.kynsof.identity.infrastructure.services;
 
-import com.kynsof.identity.application.command.auth.registrySystemUser.UserSystemRequest;
 import com.kynsof.identity.application.command.auth.autenticate.LoginRequest;
 import com.kynsof.identity.application.command.auth.autenticate.TokenResponse;
 import com.kynsof.identity.application.command.auth.forwardPassword.PasswordChangeRequest;
 import com.kynsof.identity.application.command.auth.registry.UserRequest;
+import com.kynsof.identity.application.command.auth.registrySystemUser.UserSystemRequest;
 import com.kynsof.identity.domain.interfaces.service.IAuthService;
 import com.kynsof.identity.domain.interfaces.service.IOtpService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerRegisterUserEventService;

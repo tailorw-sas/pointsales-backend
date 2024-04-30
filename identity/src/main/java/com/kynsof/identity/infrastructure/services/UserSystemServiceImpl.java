@@ -3,10 +3,11 @@ package com.kynsof.identity.infrastructure.services;
 import com.kynsof.identity.application.query.users.getSearch.UserSystemsResponse;
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
-import com.kynsof.identity.domain.interfaces.IUserSystemService;
+import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
 import com.kynsof.identity.infrastructure.repository.command.UserSystemsWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserSystemReadDataJPARepository;
+import com.kynsof.share.core.domain.UserType;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -64,7 +65,7 @@ public class UserSystemServiceImpl implements IUserSystemService {
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-        filterCreteria(filterCriteria);
+        filterCriteria(filterCriteria);
 
         GenericSpecificationsBuilder<UserSystem> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<UserSystem> data = this.repositoryQuery.findAll(specifications, pageable);
@@ -72,11 +73,20 @@ public class UserSystemServiceImpl implements IUserSystemService {
         return getPaginatedResponse(data);
     }
 
-    private void filterCreteria(List<FilterCriteria> filterCriteria) {
+    private void filterCriteria(List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
+
             if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
                 try {
                     UserStatus enumValue = UserStatus.valueOf((String) filter.getValue());
+                    filter.setValue(enumValue);
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Valor inválido para el tipo Enum RoleStatus: " + filter.getValue());
+                }
+            }
+           else if ("userType".equals(filter.getKey()) && filter.getValue() instanceof String) {
+                try {
+                    UserType enumValue = UserType.valueOf((String) filter.getValue());
                     filter.setValue(enumValue);
                 } catch (IllegalArgumentException e) {
                     System.err.println("Valor inválido para el tipo Enum RoleStatus: " + filter.getValue());
@@ -86,11 +96,11 @@ public class UserSystemServiceImpl implements IUserSystemService {
     }
 
     private PaginatedResponse getPaginatedResponse(Page<UserSystem> data) {
-        List<UserSystemsResponse> allergyResponses = new ArrayList<>();
+        List<UserSystemsResponse> userSystemsResponses = new ArrayList<>();
         for (UserSystem p : data.getContent()) {
-            allergyResponses.add(new UserSystemsResponse(p.toAggregate()));
+            userSystemsResponses.add(new UserSystemsResponse(p.toAggregate()));
         }
-        return new PaginatedResponse(allergyResponses, data.getTotalPages(), data.getNumberOfElements(),
+        return new PaginatedResponse(userSystemsResponses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 

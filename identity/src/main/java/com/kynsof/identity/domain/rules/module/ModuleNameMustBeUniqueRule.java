@@ -4,6 +4,7 @@ import com.kynsof.identity.domain.interfaces.service.IModuleService;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.rules.BusinessRule;
+
 import java.util.UUID;
 
 public class ModuleNameMustBeUniqueRule extends BusinessRule {

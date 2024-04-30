@@ -1,6 +1,5 @@
 package com.kynsof.identity.application.query.module.getbyid;
 
-import com.kynsof.identity.application.query.business.search.BusinessResponse;
 import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.identity.domain.interfaces.service.IModuleService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;

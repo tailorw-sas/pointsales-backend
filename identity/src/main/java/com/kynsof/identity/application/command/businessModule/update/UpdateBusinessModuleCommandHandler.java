@@ -9,10 +9,11 @@ import com.kynsof.identity.domain.interfaces.service.IModuleService;
 import com.kynsof.identity.domain.rules.businessmodule.BusinessModuleMustBeUniqueRule;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateBusinessModuleCommandHandler implements ICommandHandler<UpdateBusinessModuleCommand> {
