@@ -43,7 +43,7 @@ public class UserSystemController {
     }
 
     @PostMapping
-    public ResponseEntity<CreateUserSystemMessage> createUserSystem(@RequestBody CreateUserSystemRequest request) {
+    public ResponseEntity<?> createUserSystem(@RequestBody CreateUserSystemRequest request) {
         CreateUserSystemCommand command = CreateUserSystemCommand.fromRequest(request);
         CreateUserSystemMessage response = mediator.send(command);
         return ResponseEntity.ok(response);

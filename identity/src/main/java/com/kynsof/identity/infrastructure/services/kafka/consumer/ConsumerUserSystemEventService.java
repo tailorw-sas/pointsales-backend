@@ -9,7 +9,6 @@ import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
 import com.kynsof.share.core.domain.kafka.entity.UserSystemKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
@@ -21,7 +20,7 @@ public class ConsumerUserSystemEventService {
     private IUserSystemService service;
 
     // Ejemplo de un método listener
-    @KafkaListener(topics = "user-system", groupId = "user-system-identity")
+   // @KafkaListener(topics = "user-system", groupId = "user-system-identity")
     public void listen(String event) {
         try {
 

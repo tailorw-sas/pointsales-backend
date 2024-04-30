@@ -48,8 +48,7 @@ public class UserService implements IUserService {
 
     @Autowired
     private RestTemplate restTemplate;
-    @Autowired
-    private AuthService authService;
+
 
     private String extractUserIdFromLocationHeader(Response response) {
         String path = response.getLocation().getPath();
@@ -140,19 +139,19 @@ public class UserService implements IUserService {
 //        return Mono.just(false);
 //    }
 
-    public Boolean changeUserPassword(String userId, String oldPassword, String newPassword) {
-
-        UserResource userResource = keycloakProvider.getRealmResource().users().get(userId);
-        UserRepresentation userRepresentation = userResource.toRepresentation();
-        String username = userRepresentation.getUsername();
-        TokenResponse tokenResponse = authService.authenticate(new LoginRequest(username,oldPassword));
-
-        CredentialRepresentation newCredential = new CredentialRepresentation();
-        newCredential.setType(CredentialRepresentation.PASSWORD);
-        newCredential.setTemporary(false);
-        newCredential.setValue(newPassword);
-        userResource.resetPassword(newCredential);
-        return true;
-    }
+//    public Boolean changeUserPassword(String userId, String oldPassword, String newPassword) {
+//
+//        UserResource userResource = keycloakProvider.getRealmResource().users().get(userId);
+//        UserRepresentation userRepresentation = userResource.toRepresentation();
+//        String username = userRepresentation.getUsername();
+//        TokenResponse tokenResponse = authService.authenticate(new LoginRequest(username,oldPassword));
+//
+//        CredentialRepresentation newCredential = new CredentialRepresentation();
+//        newCredential.setType(CredentialRepresentation.PASSWORD);
+//        newCredential.setTemporary(false);
+//        newCredential.setValue(newPassword);
+//        userResource.resetPassword(newCredential);
+//        return true;
+//    }
 
 }

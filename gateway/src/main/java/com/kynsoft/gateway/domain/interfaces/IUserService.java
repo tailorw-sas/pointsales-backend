@@ -14,6 +14,6 @@ public interface IUserService {
     List<UserRepresentation> searchUserByUsername(String username);
     void updateUser(String id, UserRequest userRequest);
 
-    Boolean changeUserPassword(String userId, String oldPassword, String newPassword);
+    //Boolean changeUserPassword(String userId, String oldPassword, String newPassword);
 }
 
