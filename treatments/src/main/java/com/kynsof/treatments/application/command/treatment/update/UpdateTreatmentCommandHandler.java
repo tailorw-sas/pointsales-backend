@@ -36,6 +36,9 @@ public class UpdateTreatmentCommandHandler implements ICommandHandler<UpdateTrea
 
         MedicinesDto medicinesDto = this.medicinesService.findById(UUID.fromString(command.getMedication()));
         update.setMedication(medicinesDto);
+        update.setQuantity(command.getQuantity());
+        update.setMedicineUnit(command.getMedicineUnit());
+
         try {
             ExternalConsultationDto externalConsultationDto = this.externalConsultationService.findById(command.getIdExternalConsultation());
             update.setExternalConsultationDto(externalConsultationDto);
