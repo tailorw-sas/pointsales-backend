@@ -39,7 +39,7 @@ public class ConsumerUserSystemEventService {
                 System.err.println("SE EJECUTA UN CREATED");
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
-                this.service.create(new DoctorDto(eventRead.getId(), "", eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage().toString(), Status.ACTIVE));
+                this.service.create(new DoctorDto(eventRead.getId(), "", eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage(), Status.ACTIVE));
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion
@@ -53,7 +53,7 @@ public class ConsumerUserSystemEventService {
             if (eventType.equals(EventType.UPDATED) && eventRead != null && eventRead.getUserType().equals(UserType.DOCTORS)) {
                 //Definir accion
                 //Definir accion
-                DoctorDto doctorDto = new DoctorDto(eventRead.getId(), "", eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage().toString(), Status.ACTIVE);
+                DoctorDto doctorDto = new DoctorDto(eventRead.getId(), "", eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage(), Status.ACTIVE);
                 this.service.create(doctorDto);
             }
         } catch (JsonProcessingException ex) {
