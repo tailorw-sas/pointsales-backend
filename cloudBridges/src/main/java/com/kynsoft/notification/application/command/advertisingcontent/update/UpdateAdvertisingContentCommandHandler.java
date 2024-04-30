@@ -3,18 +3,12 @@ package com.kynsoft.notification.application.command.advertisingcontent.update;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
-import com.kynsof.share.core.infrastructure.util.CustomMultipartFile;
 import com.kynsof.share.utils.ConfigureTimeZone;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import com.kynsoft.notification.domain.dto.AdvertisingContentDto;
 import com.kynsoft.notification.domain.service.IAdvertisingContentService;
 import com.kynsoft.notification.infrastructure.service.AmazonClient;
-import java.io.IOException;
-import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class UpdateAdvertisingContentCommandHandler implements ICommandHandler<UpdateAdvertisingContentCommand> {
@@ -47,7 +41,7 @@ public class UpdateAdvertisingContentCommandHandler implements ICommandHandler<U
         UpdateIfNotNull.updateIfNotNull(update::setLink, command.getLink());
         update.setType(command.getType());
         update.setUpdatedAt(ConfigureTimeZone.getTimeZone());
-
+        update.setUrl(command.getImage());
         this.service.update(update);
     }
 }

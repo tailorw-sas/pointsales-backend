@@ -16,10 +16,10 @@ public class CreateAdvertisingContentCommand implements ICommand {
     private String title;
     private String description;
     private ContentType type;
-    private byte[] image;
+    private String image;
     private String link;
 
-    public CreateAdvertisingContentCommand(String title, String description, ContentType type, byte[] image, String link) {
+    public CreateAdvertisingContentCommand(String title, String description, ContentType type, String image, String link) {
         this.id = UUID.randomUUID();
         this.title = title;
         this.description = description;
