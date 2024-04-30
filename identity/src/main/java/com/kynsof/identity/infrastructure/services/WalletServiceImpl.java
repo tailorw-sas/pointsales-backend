@@ -20,7 +20,11 @@ public class WalletServiceImpl implements IWalletService {
     @Override
     public WalletDto findByCustomerId(UUID customerId) {
         Optional<Wallet> wallet = repositoryQuery.findByCustomerId(customerId);
+        if (wallet.isPresent()) {
+
         return wallet.get().toAggregate();
+        }
+        return new WalletDto();
     }
 
 //    @Autowired
