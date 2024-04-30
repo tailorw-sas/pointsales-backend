@@ -9,6 +9,8 @@ import com.kynsof.calendar.application.command.receipt.confirmPayment.ConfirmPay
 import com.kynsof.calendar.application.command.receipt.create.CreateReceiptCommand;
 import com.kynsof.calendar.application.command.receipt.create.CreateReceiptMessage;
 import com.kynsof.calendar.application.command.receipt.create.CreateReceiptRequest;
+import com.kynsof.calendar.application.command.receipt.createReceiptScheduled.CreateScheduleReceiptCommand;
+import com.kynsof.calendar.application.command.receipt.createReceiptScheduled.CreateScheduleReceiptRequest;
 import com.kynsof.calendar.application.command.receipt.delete.ReceiptDeleteCommand;
 import com.kynsof.calendar.application.command.receipt.delete.ReceiptDeleteMessage;
 import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptCommand;
@@ -41,7 +43,7 @@ public class ReceiptController {
     }
 
     @PostMapping("")
-    public ResponseEntity<CreateReceiptMessage> create(@RequestBody CreateReceiptRequest createReceiptRequest,
+    public ResponseEntity<?> create(@RequestBody CreateReceiptRequest createReceiptRequest,
                                                        ServerHttpRequest request,
                                                        @RequestHeader(value = "User-Agent", required = false,
                                                                defaultValue = "Unknown") String userAgent) {
@@ -49,6 +51,20 @@ public class ReceiptController {
         String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
 
         CreateReceiptCommand createCommand = CreateReceiptCommand.fromRequest(createReceiptRequest, ipAddress, userAgent);
+        CreateReceiptMessage response = mediator.send(createCommand);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("with-scheduled")
+    public ResponseEntity<?> createWithScheduled(@RequestBody CreateScheduleReceiptRequest createScheduleReceiptRequest,
+                                                       ServerHttpRequest request,
+                                                       @RequestHeader(value = "User-Agent", required = false,
+                                                               defaultValue = "Unknown") String userAgent) {
+
+        String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
+
+        CreateScheduleReceiptCommand createCommand = CreateScheduleReceiptCommand.fromRequest(createScheduleReceiptRequest,
+                ipAddress, userAgent);
         CreateReceiptMessage response = mediator.send(createCommand);
         return ResponseEntity.ok(response);
     }

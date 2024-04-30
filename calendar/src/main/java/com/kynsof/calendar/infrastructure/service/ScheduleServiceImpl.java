@@ -166,7 +166,7 @@ public class ScheduleServiceImpl implements IScheduleService {
     }
 
     @Override
-    public Schedule create(ScheduleDto schedule) {
+    public UUID create(ScheduleDto schedule) {
         List<Schedule> overlappingSchedules = repositoryQuery.findOverlappingSchedules(
                 schedule.getResource().getId(),
                 schedule.getDate(),
@@ -174,7 +174,8 @@ public class ScheduleServiceImpl implements IScheduleService {
                 schedule.getEndingTime());
 
         if (overlappingSchedules.isEmpty()) {
-            return repositoryCommand.save(new Schedule(schedule));
+            Schedule entity = repositoryCommand.save(new Schedule(schedule));
+            return entity.getId();
         }
         throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SCHEDULED_TASK_ALREADY_EXISTS, new ErrorField("id", "A scheduled task for this service already exists.")));
     }
