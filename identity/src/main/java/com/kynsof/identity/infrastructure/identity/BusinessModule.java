@@ -30,7 +30,7 @@ public class BusinessModule {
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
-    private LocalDateTime creationDate;
+    private LocalDateTime createdAt;
 
     public BusinessModule(Business business, ModuleSystem module) {
         this.business = business;
