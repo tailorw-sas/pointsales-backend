@@ -17,7 +17,7 @@ public class RegistrySystemUserCommandHandler implements ICommandHandler<Registr
 
     @Override
     public void handle(RegistrySystemUserCommand command) {
-        String registerUser = authService.registerUserSystem(new UserSystemRequest(
+        String registerUser = authService.registerUserSystem(new UserSystemKycloackRequest(
                 command.getUsername(), command.getEmail(),command.getFirstname(),
                 command.getLastname(),command.getPassword(),command.getUserType()
         ), true);

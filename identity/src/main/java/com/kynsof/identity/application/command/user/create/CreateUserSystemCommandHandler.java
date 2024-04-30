@@ -1,6 +1,6 @@
 package com.kynsof.identity.application.command.user.create;
 
-import com.kynsof.identity.application.command.auth.registrySystemUser.UserSystemRequest;
+import com.kynsof.identity.application.command.auth.registrySystemUser.UserSystemKycloackRequest;
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.identity.domain.interfaces.service.IAuthService;
@@ -29,7 +29,7 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
 
     @Override
     public void handle(CreateUserSystemCommand command) {
-        UserSystemRequest userSystemRequest = new UserSystemRequest(
+        UserSystemKycloackRequest userSystemRequest = new UserSystemKycloackRequest(
                 command.getUserName(),
                 command.getEmail(),
                 command.getName(),
@@ -52,7 +52,7 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
         userDto.setUserType(command.getUserType());
 
        UUID id = userSystemService.create(userDto);
-       this.registerUserSystemEventService.create(userSystemRequest, id.toString());
+       this.registerUserSystemEventService.create(userSystemRequest, id.toString(), command.getImage());
 
        command.setId(id);
 

@@ -4,7 +4,7 @@ import com.kynsof.identity.application.command.auth.autenticate.LoginRequest;
 import com.kynsof.identity.application.command.auth.autenticate.TokenResponse;
 import com.kynsof.identity.application.command.auth.forwardPassword.PasswordChangeRequest;
 import com.kynsof.identity.application.command.auth.registry.UserRequest;
-import com.kynsof.identity.application.command.auth.registrySystemUser.UserSystemRequest;
+import com.kynsof.identity.application.command.auth.registrySystemUser.UserSystemKycloackRequest;
 import com.kynsof.identity.domain.interfaces.service.IAuthService;
 import com.kynsof.identity.domain.interfaces.service.IOtpService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerRegisterUserEventService;
@@ -149,7 +149,7 @@ public class AuthService implements IAuthService {
         }
     }
     @Override
-    public String registerUserSystem(@NonNull UserSystemRequest userRequest, boolean isSystemUser) {
+    public String registerUserSystem(@NonNull UserSystemKycloackRequest userRequest, boolean isSystemUser) {
         UsersResource usersResource = keycloakProvider.getUserResource();
 
         UserRepresentation userRepresentation = new UserRepresentation();
@@ -167,7 +167,7 @@ public class AuthService implements IAuthService {
 
             setNewUserPassword(userRequest.getPassword(), userId, usersResource);
             //  assignRolesToUser(null, userId);
-            this.producerRegisterUserSystemEvent.create(userRequest, userId);
+            this.producerRegisterUserSystemEvent.create(userRequest, userId, command.getImage());
             return userId;
         } else if (response.getStatus() == 409) {
             throw new AlreadyExistsException("User already exists", new ErrorField("email", "Email is already in use"));
