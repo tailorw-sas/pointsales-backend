@@ -1,6 +1,7 @@
 package com.kynsof.identity.infrastructure.services;
 
 import com.kynsof.identity.application.query.module.getbyid.ModuleResponse;
+import com.kynsof.identity.application.query.module.search.ModuleListResponse;
 import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.identity.domain.dto.moduleDto.ModuleDataDto;
 import com.kynsof.identity.domain.dto.moduleDto.ModuleNodeDto;
@@ -67,11 +68,11 @@ public class ModuleServiceImpl implements IModuleService {
     }
 
     private PaginatedResponse getPaginatedResponse(Page<ModuleSystem> data) {
-        List<ModuleResponse> patients = new ArrayList<>();
+        List<ModuleListResponse> moduleListResponses = new ArrayList<>();
         for (ModuleSystem o : data.getContent()) {
-            patients.add(new ModuleResponse(o.toAggregate()));
+            moduleListResponses.add(new ModuleListResponse(o.toAggregate()));
         }
-        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
+        return new PaginatedResponse(moduleListResponses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
@@ -92,7 +93,7 @@ public class ModuleServiceImpl implements IModuleService {
                 return permissionNode;
             }).collect(Collectors.toList());
 
-            moduleNode.setChildren(permissionsNodes); // Agrega los permisos como hijos del módulo
+            moduleNode.setChildren(permissionsNodes);
 
             root.add(moduleNode);
         }

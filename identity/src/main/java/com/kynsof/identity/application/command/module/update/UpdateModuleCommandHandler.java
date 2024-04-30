@@ -11,6 +11,7 @@ import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 @Component
 public class UpdateModuleCommandHandler implements ICommandHandler<UpdateModuleCommand> {
@@ -32,19 +33,17 @@ public class UpdateModuleCommandHandler implements ICommandHandler<UpdateModuleC
 
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getId(), "id", "Module ID cannot be null."));
 
-        ModuleDto update = this.service.findById(command.getId());
+        ModuleDto module = this.service.findById(command.getId());
 
-        UpdateIfNotNull.updateIfNotNull(update::setDescription, command.getDescription());
+        UpdateIfNotNull.updateIfNotNull(module::setDescription, command.getDescription());
 
-        if (command.getName() != null || !command.getName().isEmpty()) {
+        if (!StringUtils.isEmpty(command.getName())) {
             RulesChecker.checkRule(new ModuleNameMustBeUniqueRule(this.service, command.getName(), command.getId()));
-            update.setName(command.getName());
+            module.setName(command.getName());
         }
+        UpdateIfNotNull.updateIfStringNotNull(module::setImage, command.getImage());
 
-
-        update.setImage(command.getImage());
-
-        this.service.update(update);
+        this.service.update(module);
 
 
     }

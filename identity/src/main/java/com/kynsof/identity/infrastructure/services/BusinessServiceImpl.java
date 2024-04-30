@@ -88,7 +88,7 @@ public class BusinessServiceImpl implements IBusinessService {
                                     moduleSystem.getName(),
                                     moduleSystem.getImage(),
                                     moduleSystem.getDescription(),
-                                    null
+                                    new ArrayList<>()
                             )
                     )
                     .collect(Collectors.toList());

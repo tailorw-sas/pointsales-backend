@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Setter
@@ -17,6 +18,7 @@ public class UserSystemDto {
     private String name;
     private String lastName;
     private UserStatus status;
+    private LocalDate createdAt;
 
 
     private String idImage;

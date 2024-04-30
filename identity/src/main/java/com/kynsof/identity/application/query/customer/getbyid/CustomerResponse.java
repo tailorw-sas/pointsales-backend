@@ -5,6 +5,7 @@ import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
@@ -15,12 +16,14 @@ public class CustomerResponse implements IResponse {
     private String name;
     private String lastName;
     private String email;
+    private LocalDate createdAt;
 
     public CustomerResponse(CustomerDto customerDto) {
         this.id = customerDto.getId();
         this.name = customerDto.getFirstName();
         this.lastName = customerDto.getLastName();
         this.email = customerDto.getEmail();
+        this.createdAt = customerDto.getCreatedAt().toLocalDate();
     }
 
 }

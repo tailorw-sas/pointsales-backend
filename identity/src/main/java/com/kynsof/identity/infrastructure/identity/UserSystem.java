@@ -64,6 +64,7 @@ public class UserSystem implements Serializable {
         UserSystemDto dto = new UserSystemDto(this.id, this.userName, this.email, this.name, this.lastName, this.status, this.image);
         dto.setUserType(userType);
         dto.setIdImage(image);
+        dto.setCreatedAt(createdAt.toLocalDate());
         return dto;
     }
 }

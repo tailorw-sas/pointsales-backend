@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -23,6 +24,7 @@ public class UserSystemsResponse implements IResponse {
     private UserStatus status;
     private UserType userType;
     private String image;
+    private LocalDate createdAt;
 
     public UserSystemsResponse(UserSystemDto contactInfoDto) {
         this.id = contactInfoDto.getId();
@@ -33,6 +35,7 @@ public class UserSystemsResponse implements IResponse {
         this.status = contactInfoDto.getStatus();
         this.image = contactInfoDto.getIdImage();
         this.userType = contactInfoDto.getUserType() != null ? contactInfoDto.getUserType() : UserType.UNDEFINED;
+        this.createdAt = contactInfoDto.getCreatedAt();
     }
 
 }

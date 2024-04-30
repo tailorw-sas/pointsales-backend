@@ -9,9 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @NoArgsConstructor
 @Getter
@@ -41,10 +39,10 @@ public class ModuleSystem {
     }
 
     public ModuleDto toAggregate () {
-        Set<PermissionDto> p = new HashSet<>();
+        List<PermissionDto> p = new ArrayList<>();
         for (Permission permission : permissions) {
             p.add(new PermissionDto(permission.getId(), permission.getCode(), permission.getDescription()));
         }
-        return new ModuleDto(id, name, image, description, p);
+        return new ModuleDto(id, name, image, description, p, createdAt);
     }
 }
