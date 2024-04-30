@@ -21,7 +21,7 @@ public class UserSystemDto {
     private LocalDate createdAt;
 
 
-    private String idImage;
+    private String image;
     private UserType userType;
 
     public UserSystemDto(UUID id, String identification, String email, String name, String lastName, UserStatus status, String image) {
@@ -31,7 +31,7 @@ public class UserSystemDto {
         this.name = name;
         this.lastName = lastName;
         this.status = status;
-        this.idImage = image;
+        this.image = image;
     }
 
 

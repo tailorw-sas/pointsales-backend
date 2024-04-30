@@ -57,13 +57,13 @@ public class UserSystem implements Serializable {
         this.lastName = dto.getLastName();
         this.status = dto.getStatus();
         this.userType = dto.getUserType() != null ? dto.getUserType() : UserType.UNDEFINED;
-        this.image = dto.getIdImage() != null ? dto.getIdImage() : null;
+        this.image = dto.getImage() != null ? dto.getImage() : null;
     }
 
     public UserSystemDto toAggregate() {
         UserSystemDto dto = new UserSystemDto(this.id, this.userName, this.email, this.name, this.lastName, this.status, this.image);
         dto.setUserType(userType);
-        dto.setIdImage(image);
+        dto.setImage(image);
         dto.setCreatedAt(createdAt.toLocalDate());
         return dto;
     }

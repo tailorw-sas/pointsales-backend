@@ -29,7 +29,7 @@ public class UpdateUserSystemStepTowCommandHandler implements ICommandHandler<Up
 
 
 
-            update.setIdImage(command.getImage());
+            update.setImage(command.getImage());
 
 
         update.setUserType(command.getUserType());

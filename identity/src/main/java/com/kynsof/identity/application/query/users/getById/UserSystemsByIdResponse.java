@@ -35,7 +35,7 @@ public class UserSystemsByIdResponse implements IResponse {
         this.lastName = userSystemDto.getLastName();
         this.status = userSystemDto.getStatus();
         this.userType = userSystemDto.getUserType();
-        this.image = userSystemDto.getIdImage();
+        this.image = userSystemDto.getImage();
     }
 
 }

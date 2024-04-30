@@ -33,7 +33,7 @@ public class UserSystemsResponse implements IResponse {
         this.name = contactInfoDto.getName();
         this.lastName = contactInfoDto.getLastName();
         this.status = contactInfoDto.getStatus();
-        this.image = contactInfoDto.getIdImage();
+        this.image = contactInfoDto.getImage();
         this.userType = contactInfoDto.getUserType() != null ? contactInfoDto.getUserType() : UserType.UNDEFINED;
         this.createdAt = contactInfoDto.getCreatedAt();
     }
