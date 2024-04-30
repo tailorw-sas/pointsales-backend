@@ -215,7 +215,23 @@
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-    </dependencies>
+
+		<!-- Include RESTEasy Client API -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>6.2.7.Final</version>
+		</dependency>
+
+		<!-- Include RESTEasy Client API -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>6.2.7.Final</version>
+		</dependency>
+
+
+	</dependencies>
 
 	<build>
 		<plugins>
