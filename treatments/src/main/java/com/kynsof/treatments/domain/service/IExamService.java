@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface IExamService {
 
-    void create(ExamDto exam);
+    UUID create(ExamDto exam);
 
     void update(ExamDto exam);
 

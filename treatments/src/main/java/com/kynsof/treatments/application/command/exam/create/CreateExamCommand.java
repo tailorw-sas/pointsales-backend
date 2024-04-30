@@ -20,7 +20,6 @@ public class CreateExamCommand implements ICommand {
     private Double price;
 
     public CreateExamCommand(String name, String description, MedicalExamCategory type, String result, Double price) {
-        this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.type = type;
