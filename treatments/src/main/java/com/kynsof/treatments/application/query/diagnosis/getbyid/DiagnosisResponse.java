@@ -13,11 +13,13 @@ public class DiagnosisResponse implements IResponse {
     private UUID id;
     private String icdCode; // Código CIE-10
     private String description;
+    private DiagnosisExternalConsultationResponse externalConsultation;
 
     public DiagnosisResponse(DiagnosisDto diagnosisDto) {
         this.id = diagnosisDto.getId();
         this.icdCode = diagnosisDto.getIcdCode();
         this.description = diagnosisDto.getDescription();
+        this.externalConsultation = new DiagnosisExternalConsultationResponse(diagnosisDto.getExternalConsultation());
     }
 
 }
