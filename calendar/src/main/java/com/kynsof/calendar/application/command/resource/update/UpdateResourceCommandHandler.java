@@ -3,22 +3,18 @@ package com.kynsof.calendar.application.command.resource.update;
 import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.entity.FileKafka;
-import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResourceCommand> {
 
     private final IResourceService service;
-    private final ProducerSaveFileEventService saveFileEventService;
 
-    public UpdateResourceCommandHandler(IResourceService service, ProducerSaveFileEventService saveFileEventService) {
+
+    public UpdateResourceCommandHandler(IResourceService service) {
         this.service = service;
-        this.saveFileEventService = saveFileEventService;
+
     }
 
     @Override
@@ -34,7 +30,6 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
             UpdateIfNotNull.updateIfStringNotNull(_resource::setRegistrationNumber, command.getRegistrationNumber());
             UpdateIfNotNull.updateIfStringNotNull(_resource::setLanguage, command.getLanguage());
             UpdateIfNotNull.updateIfStringNotNull(_resource::setIdentification, command.getIdentification());
-
             service.update(_resource);
         } catch (Exception ex) {
 
@@ -51,15 +46,5 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
             service.create(_resource);
         }
 
-    }
-
-    private UUID saveImagen(byte[] image) {
-        if (image != null && image.length > 1) {
-            UUID photoId = UUID.randomUUID();
-            FileKafka fileSave = new FileKafka(photoId, "calendar", photoId.toString() + ".png", image);
-            saveFileEventService.create(fileSave);
-            return photoId;
-        }
-        return null;
     }
 }

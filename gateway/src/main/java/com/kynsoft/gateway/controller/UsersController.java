@@ -4,8 +4,6 @@ package com.kynsoft.gateway.controller;
 import com.kynsof.share.core.domain.response.ApiError;
 import com.kynsof.share.core.domain.response.ApiResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsoft.gateway.application.command.auth.registrySystemUser.RegistrySystemUserCommand;
-import com.kynsoft.gateway.application.command.auth.registrySystemUser.RegistrySystemUserMessage;
 import com.kynsoft.gateway.application.command.user.changePassword.ChangePasswordCommand;
 import com.kynsoft.gateway.application.command.user.changePassword.ChangePasswordMessage;
 import com.kynsoft.gateway.application.command.user.update.UpdateUserCommand;
@@ -13,7 +11,6 @@ import com.kynsoft.gateway.application.command.user.update.UpdateUserMessage;
 import com.kynsoft.gateway.domain.dto.user.ChangePasswordRequest;
 import com.kynsoft.gateway.domain.dto.user.ChangeStatusRequest;
 import com.kynsoft.gateway.domain.dto.user.UserRequest;
-import com.kynsoft.gateway.domain.dto.user.UserSystemRequest;
 import com.kynsoft.gateway.domain.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,13 +39,13 @@ public class UsersController {
     public Mono<ResponseEntity<?>> findAllUsers() {
         return Mono.justOrEmpty(ResponseEntity.ok("userService.findAllUsers()"));
     }
-    @PostMapping("/register")
-    public ResponseEntity<ApiResponse<?>> registerSystemUser(@RequestBody UserSystemRequest userRequest) {
-        RegistrySystemUserCommand command = new RegistrySystemUserCommand(userRequest.getUserName(), userRequest.getEmail(), userRequest.getName(),
-                userRequest.getLastName(), userRequest.getPassword(), null, userRequest.getUserType());
-        RegistrySystemUserMessage registryMessage = mediator.send(command);
-        return ResponseEntity.ok(ApiResponse.success(registryMessage.getId()));
-    }
+//    @PostMapping("/register")
+//    public ResponseEntity<ApiResponse<?>> registerSystemUser(@RequestBody UserSystemRequest userRequest) {
+//        RegistrySystemUserCommand command = new RegistrySystemUserCommand(userRequest.getUserName(), userRequest.getEmail(), userRequest.getName(),
+//                userRequest.getLastName(), userRequest.getPassword(), null, userRequest.getUserType());
+//        RegistrySystemUserMessage registryMessage = mediator.send(command);
+//        return ResponseEntity.ok(ApiResponse.success(registryMessage.getId()));
+//    }
 
 //    @GetMapping("/find/{username}")
 //    public Mono<ResponseEntity<?>> searchUserByUsername(@PathVariable String username) {

@@ -31,7 +31,7 @@ public interface IScheduleService {
     boolean findByDateAndTimeInRangeAndStartTimeAndEndingTime(Resource resource, LocalDate date, LocalTime startTime, LocalTime endingTime);
 //    List<Schedule> findByDateAndEndingTimeAndStatus(LocalDate date, LocalTime endingTime);
     void delete(Schedule schedule);
-    Schedule create(ScheduleDto schedule);
+    UUID create(ScheduleDto schedule);
     Schedule changeStatus(Schedule schedule, EStatusSchedule status);
     void createAll(List<ScheduleDto> schedule);
     ScheduleDto update(ScheduleDto schedule);
