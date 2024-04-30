@@ -11,7 +11,7 @@ import java.util.UUID;
 public class UpdateTreatmentRequest {
     private String description;
     private String medication;
-    private String quantity;
+    private int quantity;
     private MedicineUnit medicineUnit;
     private UUID externalConsultation;
 }

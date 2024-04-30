@@ -15,11 +15,11 @@ public class UpdateTreatmentCommand implements ICommand {
     private UUID id;
     private String description;
     private String medication;
-    private String quantity;
+    private int quantity;
     private MedicineUnit medicineUnit;
     private UUID idExternalConsultation;
 
-    public UpdateTreatmentCommand(UUID id, String description, String medication, String quantity, MedicineUnit duration, UUID idExternalConsultation) {
+    public UpdateTreatmentCommand(UUID id, String description, String medication, int quantity, MedicineUnit duration, UUID idExternalConsultation) {
         this.id = id;
         this.description = description;
         this.medication = medication;
