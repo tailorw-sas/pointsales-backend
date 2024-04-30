@@ -43,6 +43,7 @@ public class Exam {
         this.type = examDto.getType();
         this.result = examDto.getResult();
         this.price = examDto.getPrice();
+        this.datePerformed = examDto.getDatePerformed() != null ? examDto.getDatePerformed() : null;
     }
 
     public ExamDto toAggregate() {
