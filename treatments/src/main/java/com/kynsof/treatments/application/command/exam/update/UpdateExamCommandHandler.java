@@ -25,8 +25,10 @@ public class UpdateExamCommandHandler implements ICommandHandler<UpdateExamComma
         UpdateIfNotNull.updateIfStringNotNull(update::setDescription, command.getDescription());
         UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());
         UpdateIfNotNull.updateIfStringNotNull(update::setResult, command.getResult());
-       // UpdateIfNotNull.updateIfStringNotNull(update::setType, command.getType());
+
         update.setPrice(command.getPrice());
+        update.setType(command.getType());
+        update.setDatePerformed(update.getDatePerformed());
 
         serviceImpl.create(update);
     }

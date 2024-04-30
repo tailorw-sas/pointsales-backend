@@ -34,8 +34,8 @@ public class ExamServiceImpl implements IExamService {
     private ExamWriteDataJPARepository repositoryCommand;
 
     @Override
-    public void create(ExamDto examDto) {
-        this.repositoryCommand.save(new Exam(examDto));
+    public UUID create(ExamDto examDto) {
+        return this.repositoryCommand.save(new Exam(examDto)).getId();
     }
 
     @Override

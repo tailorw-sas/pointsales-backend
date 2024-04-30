@@ -12,18 +12,14 @@ import java.util.UUID;
 public class UpdateExternalConsultationCommand implements ICommand {
 
     private UUID id;
-    private UUID patientId;
-    private UUID doctorId;
     private String consultationReason;
     private String medicalHistory;
     private String physicalExam;
     private String observations;
 
-    public UpdateExternalConsultationCommand(UUID id, UUID patientId, UUID doctorId, String consultationReason,
+    public UpdateExternalConsultationCommand(UUID id, String consultationReason,
             String medicalHistory, String physicalExam, String observations) {
         this.id = id;
-        this.patientId = patientId;
-        this.doctorId = doctorId;
         this.consultationReason = consultationReason;
         this.medicalHistory = medicalHistory;
         this.physicalExam = physicalExam;
@@ -31,8 +27,7 @@ public class UpdateExternalConsultationCommand implements ICommand {
     }
 
     public static UpdateExternalConsultationCommand fromRequest(UUID id, UpdateExternalConsultationRequest request) {
-        return new UpdateExternalConsultationCommand(id, request.getPatientId(), request.getDoctorId(),
-                request.getConsultationReason(), request.getMedicalHistory(), request.getPhysicalExam(),
+        return new UpdateExternalConsultationCommand(id, request.getConsultationReason(), request.getMedicalHistory(), request.getPhysicalExam(),
                 request.getObservations());
     }
 

@@ -1,7 +1,5 @@
 package com.kynsof.treatments.infrastructure.service;
 
-
-import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -37,19 +35,15 @@ public class ExternalConsultationServiceImpl implements IExternalConsultationSer
 
     @Override
     public UUID create(ExternalConsultationDto dto) {
-        ExternalConsultation entity =this.repositoryCommand.save(new ExternalConsultation(dto));
+        ExternalConsultation entity = this.repositoryCommand.save(new ExternalConsultation(dto));
         return entity.getId();
     }
 
     @Override
-    public UUID update(ExternalConsultation dto) {
-        if (dto == null || dto.getId() == null) {
-            throw new IllegalArgumentException("Patient DTO or ID cannot be null");
-        }
-        ExternalConsultation entity = this.repositoryCommand.save(dto);
+    public UUID update(ExternalConsultationDto dto) {
+        ExternalConsultation entity = this.repositoryCommand.save(new ExternalConsultation(dto));
         return entity.getId();
     }
-
 
     @Override
     public ExternalConsultationDto findById(UUID id) {
