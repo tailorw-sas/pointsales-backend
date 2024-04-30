@@ -13,16 +13,15 @@ import java.util.UUID;
 public class UpdateResourceCommand implements ICommand {
 
     private UUID id;
-    private String picture;
     private String registrationNumber;
     private String language;
     private EResourceStatus status;
     private Boolean expressAppointments;
     private String identification;
 
-    public UpdateResourceCommand(UUID id,  String picture, String registrationNumber, String language, EResourceStatus status, Boolean expressAppointments, String identification) {
+    public UpdateResourceCommand(UUID id,String registrationNumber, String language, EResourceStatus status, Boolean expressAppointments, String identification) {
         this.id = id;
-        this.picture = picture;
+
         this.registrationNumber = registrationNumber;
         this.language = language;
         this.status = status;
@@ -31,7 +30,7 @@ public class UpdateResourceCommand implements ICommand {
     }
 
     public static UpdateResourceCommand fromRequest(UUID id, UpdateResourceRequest request) {
-        return new UpdateResourceCommand(id,  request.getImage(), request.getRegistrationNumber(), request.getLanguage(),
+        return new UpdateResourceCommand(id,  request.getRegistrationNumber(), request.getLanguage(),
                 request.getStatus(), request.getExpressAppointments(), request.getIdentification());
     }
 
