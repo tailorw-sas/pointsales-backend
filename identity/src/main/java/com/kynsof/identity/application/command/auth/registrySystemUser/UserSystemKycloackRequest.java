@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserSystemRequest {
+public class UserSystemKycloackRequest {
     private String userName;
     private String email;
     private String name;

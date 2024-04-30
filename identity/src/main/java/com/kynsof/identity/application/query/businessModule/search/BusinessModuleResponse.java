@@ -4,9 +4,10 @@ import com.kynsof.identity.application.query.business.search.BusinessResponse;
 import com.kynsof.identity.application.query.module.getbyid.ModuleResponse;
 import com.kynsof.identity.domain.dto.BusinessModuleDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.UUID;
 
 @Getter
 @Setter

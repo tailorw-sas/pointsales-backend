@@ -1,7 +1,6 @@
 package com.kynsof.identity.application.query.userPermissionBusiness.getPermissionsForUserAndBusiness;
 
 import com.kynsof.identity.domain.dto.PermissionDto;
-import com.kynsof.identity.domain.dto.UserPermissionBusinessDto;
 import com.kynsof.identity.domain.interfaces.service.IUserPermissionBusinessService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;

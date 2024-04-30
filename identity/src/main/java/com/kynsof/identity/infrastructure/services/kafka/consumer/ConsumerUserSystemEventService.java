@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
-import com.kynsof.identity.domain.interfaces.IUserSystemService;
+import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
 import com.kynsof.share.core.domain.kafka.entity.UserSystemKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.beans.factory.annotation.Autowired;

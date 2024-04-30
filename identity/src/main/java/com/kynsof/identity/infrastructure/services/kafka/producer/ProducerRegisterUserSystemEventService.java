@@ -2,7 +2,7 @@ package com.kynsof.identity.infrastructure.services.kafka.producer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.identity.application.command.auth.registrySystemUser.UserSystemRequest;
+import com.kynsof.identity.application.command.auth.registrySystemUser.UserSystemKycloackRequest;
 import com.kynsof.share.core.domain.kafka.entity.UserSystemKafka;
 import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
@@ -23,7 +23,7 @@ public class ProducerRegisterUserSystemEventService {
     }
 
     @Async
-    public void create(UserSystemRequest entity, String clientId) {
+    public void create(UserSystemKycloackRequest entity, String clientId, String image) {
 
         try {
             UserSystemKafka event = new UserSystemKafka(
@@ -33,7 +33,7 @@ public class ProducerRegisterUserSystemEventService {
                     entity.getName(),
                     entity.getLastName(),
                    null,
-                    null,
+                    image,
                     entity.getUserType()
 
             );

@@ -1,8 +1,9 @@
 package com.kynsof.identity.application.command.user.update.steptwo;
 
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import java.util.UUID;
 import lombok.Getter;
+
+import java.util.UUID;
 
 @Getter
 public class UpdateUserSystemStepTwoMessage implements ICommandMessage {

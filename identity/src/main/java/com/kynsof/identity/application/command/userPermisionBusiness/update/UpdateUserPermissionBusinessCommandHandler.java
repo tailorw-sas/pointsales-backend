@@ -4,10 +4,10 @@ import com.kynsof.identity.domain.dto.BusinessDto;
 import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.UserPermissionBusinessDto;
 import com.kynsof.identity.domain.dto.UserSystemDto;
-import com.kynsof.identity.domain.interfaces.IUserSystemService;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.domain.interfaces.service.IPermissionService;
 import com.kynsof.identity.domain.interfaces.service.IUserPermissionBusinessService;
+import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 

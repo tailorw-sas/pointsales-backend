@@ -1,6 +1,6 @@
 package com.kynsof.identity.application.command.user.delete;
 
-import com.kynsof.identity.domain.interfaces.IUserSystemService;
+import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 

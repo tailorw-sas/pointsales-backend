@@ -7,8 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -37,6 +41,10 @@ public class Permission {
 
     @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserPermissionBusiness> userPermissionBusinesses = new HashSet<>();
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     public Permission(PermissionDto permissionDto) {
         this.id = permissionDto.getId();

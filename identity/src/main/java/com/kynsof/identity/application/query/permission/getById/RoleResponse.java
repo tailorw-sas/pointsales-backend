@@ -2,11 +2,12 @@ package com.kynsof.identity.application.query.permission.getById;
 
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.UUID;
 
 @Getter
 @Setter

@@ -1,11 +1,16 @@
 package com.kynsof.identity.infrastructure.identity;
 
-import com.kynsof.identity.domain.dto.*;
+import com.kynsof.identity.domain.dto.BusinessDto;
+import com.kynsof.identity.domain.dto.PermissionDto;
+import com.kynsof.identity.domain.dto.UserPermissionBusinessDto;
+import com.kynsof.identity.domain.dto.UserSystemDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -30,6 +35,10 @@ public class UserPermissionBusiness {
     private Business business;
 
     private boolean deleted;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     public UserPermissionBusiness(UUID id, UserSystemDto user, PermissionDto permissionDto, BusinessDto business) {
         this.id = id;

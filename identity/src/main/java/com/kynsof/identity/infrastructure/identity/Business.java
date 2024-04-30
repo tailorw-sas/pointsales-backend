@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -37,6 +39,10 @@ public class Business {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "geographicLocation_id")
     private GeographicLocation geographicLocation;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     public Business(BusinessDto business) {
         this.id = business.getId();

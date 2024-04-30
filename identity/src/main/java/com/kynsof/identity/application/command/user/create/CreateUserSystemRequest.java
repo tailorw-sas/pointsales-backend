@@ -12,5 +12,7 @@ public class CreateUserSystemRequest {
     private String email;
     private String name;
     private String lastName;
+    private String password;
     private UserType userType;
+    private String image;
 }

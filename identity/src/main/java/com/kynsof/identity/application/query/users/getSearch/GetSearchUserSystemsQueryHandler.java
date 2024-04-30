@@ -1,6 +1,7 @@
 package com.kynsof.identity.application.query.users.getSearch;
 
-import com.kynsof.identity.domain.interfaces.IUserSystemService;
+
+import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import org.springframework.stereotype.Component;

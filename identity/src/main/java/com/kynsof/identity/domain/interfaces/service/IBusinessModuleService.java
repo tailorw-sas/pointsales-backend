@@ -4,10 +4,10 @@ import com.kynsof.identity.domain.dto.BusinessModuleDto;
 import com.kynsof.identity.domain.dto.ModuleDto;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.UUID;
-import org.springframework.data.domain.Pageable;
 
 public interface IBusinessModuleService {
     void create(BusinessModuleDto object);
