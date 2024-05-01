@@ -1,7 +1,6 @@
 package com.kynsof.treatments.infrastructure.entity;
 
 import com.kynsof.treatments.domain.dto.DiagnosisDto;
-import com.kynsof.treatments.domain.dto.ExamOrderDto;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.dto.TreatmentDto;
 import jakarta.persistence.*;
@@ -48,7 +47,7 @@ public class ExternalConsultation {
 
     private String observations;
 
-    @OneToOne(mappedBy = "externalConsultation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "externalConsultation", cascade = CascadeType.ALL)
     private ExamOrder examOrder;
 
     public ExternalConsultation(ExternalConsultationDto dto) {
@@ -72,10 +71,10 @@ public class ExternalConsultation {
                 .map(treatment -> new DiagnosisDto(treatment.getId(),
                         treatment.getIcdCode(), treatment.getDescription()))
                 .toList();
-        ExamOrderDto toResponse = this.examOrder != null ? this.examOrder.toAggregate() : null;
+//        ExamOrderDto toResponse = this.examOrder != null ? this.examOrder.toAggregate() : null;
         return new ExternalConsultationDto(this.id, this.patient.toAggregate(), this.doctor.toAggregate(),
                 this.consultationTime, this.consultationReason, this.medicalHistory, this.physicalExam, diagnosisDtoList,
-                treatmentList, this.observations, toResponse);
+                treatmentList, this.observations, null);
     }
 
     @PrePersist
