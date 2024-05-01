@@ -1,7 +1,6 @@
 package com.kynsof.treatments.application.command.diagnosis.update;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.treatments.application.command.diagnosis.create.DiagnosisRequest;
 import com.kynsof.treatments.domain.dto.DiagnosisDto;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.service.IDiagnosisService;
@@ -25,19 +24,13 @@ public class UpdateDiagnosisCommandHandler implements ICommandHandler<UpdateDiag
     @Override
     public void handle(UpdateDiagnosisCommand command) {
         ExternalConsultationDto externalConsultationDto = this.externalConsultationService.findById(command.getIdExternalConsultation());
-        List<DiagnosisDto> treatmentDtoList = externalConsultationDto.getDiagnoses();
-        for (DiagnosisDto treatmentDto : treatmentDtoList) {
-            serviceImpl.delete(treatmentDto.getId());
-        }
+        List<DiagnosisDto> diagnoses = externalConsultationDto.getDiagnoses();
 
-        for (DiagnosisRequest object : command.getDiagnosis()) {
-            DiagnosisDto create = new DiagnosisDto(
-                    UUID.randomUUID(),
-                    object.getIcdCode(),
-                    object.getDescription(),
-                    externalConsultationDto
-            );
-            serviceImpl.create(create);
-        }
+        serviceImpl.deleteByIds(diagnoses.stream().map(DiagnosisDto::getId).toList());
+
+        serviceImpl.create(command.getDiagnosis().stream().map(diagnosisRequest -> new DiagnosisDto(  UUID.randomUUID(),
+                diagnosisRequest.getIcdCode(),
+                diagnosisRequest.getDescription(),
+                externalConsultationDto)).toList());
     }
 }

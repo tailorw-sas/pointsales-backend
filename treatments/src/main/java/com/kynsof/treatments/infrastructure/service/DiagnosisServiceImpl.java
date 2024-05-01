@@ -39,8 +39,9 @@ public class DiagnosisServiceImpl implements IDiagnosisService {
     }
 
     @Override
-    public void create(DiagnosisDto treatment) {
-        this.repositoryCommand.save(new Diagnosis(treatment));
+    public void create(List<DiagnosisDto> diagnosisDtoList) {
+        List<Diagnosis> diagnoses = diagnosisDtoList.stream().map(Diagnosis::new).toList();
+        this.repositoryCommand.saveAll(diagnoses);
     }
 
     @Override
@@ -51,6 +52,11 @@ public class DiagnosisServiceImpl implements IDiagnosisService {
     @Override
     public void delete(UUID id) {
        repositoryCommand.deleteById(id);
+    }
+
+    @Override
+    public void deleteByIds(List<UUID> ids) {
+        repositoryCommand.deleteAllByIdInBatch(ids);
     }
 
     @Override

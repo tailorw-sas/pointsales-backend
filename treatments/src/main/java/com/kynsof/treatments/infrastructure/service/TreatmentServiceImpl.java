@@ -17,7 +17,6 @@ import com.kynsof.treatments.infrastructure.entity.Procedure;
 import com.kynsof.treatments.infrastructure.entity.Treatment;
 import com.kynsof.treatments.infrastructure.repositories.command.TreatmentWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.TreatmentReadDataJPARepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,11 +29,14 @@ import java.util.UUID;
 @Service
 public class TreatmentServiceImpl implements ITreatmentService {
 
-    @Autowired
-    private TreatmentReadDataJPARepository repositoryQuery;
+    private final TreatmentReadDataJPARepository repositoryQuery;
 
-    @Autowired
-    private TreatmentWriteDataJPARepository repositoryCommand;
+    private final TreatmentWriteDataJPARepository repositoryCommand;
+
+    public TreatmentServiceImpl(TreatmentReadDataJPARepository repositoryQuery, TreatmentWriteDataJPARepository repositoryCommand) {
+        this.repositoryQuery = repositoryQuery;
+        this.repositoryCommand = repositoryCommand;
+    }
 
     @Override
     public void create(TreatmentDto treatment) {
@@ -49,6 +51,11 @@ public class TreatmentServiceImpl implements ITreatmentService {
     @Override
     public void delete(UUID id) {
        this.repositoryCommand.deleteById(id);
+    }
+
+    @Override
+    public void deleteByIds(List<UUID> ids) {
+        this.repositoryCommand.deleteAllByIdInBatch(ids);
     }
 
     @Override

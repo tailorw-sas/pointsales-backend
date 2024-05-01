@@ -23,14 +23,15 @@ public class CreateAllDiagnosisCommandHandler implements ICommandHandler<CreateA
     @Override
     public void handle(CreateAllDiagnosisCommand command) {
         ExternalConsultationDto externalConsultationDto = this.externalConsultationService.findById(command.getIdExternalConsultation());
-        for (DiagnosisRequest object : command.getPayload()) {
-            DiagnosisDto create = new DiagnosisDto(
-                    UUID.randomUUID(),
-                    object.getIcdCode(),
-                    object.getDescription(),
-                    externalConsultationDto
-            );
-            serviceImpl.create(create);
-        }
+//        for (DiagnosisRequest object : command.getPayload()) {
+//            DiagnosisDto create = new DiagnosisDto(
+//
+//            );
+//
+//        }
+        serviceImpl.create(command.getPayload().stream().map(diagnosisRequest -> new DiagnosisDto(  UUID.randomUUID(),
+                diagnosisRequest.getIcdCode(),
+                diagnosisRequest.getDescription(),
+                externalConsultationDto)).toList());
     }
 }

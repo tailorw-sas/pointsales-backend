@@ -59,6 +59,7 @@ public class ExternalConsultation {
         this.consultationTime = dto.getConsultationTime();
         this.doctor = new Doctor(dto.getDoctor());
         this.observations = dto.getObservations();
+        this.treatments = dto.getTreatments().stream().map(Treatment::new).toList();
     }
 
     public ExternalConsultationDto toAggregate() {

@@ -10,6 +10,7 @@ import com.kynsof.treatments.domain.service.IMedicinesService;
 import com.kynsof.treatments.domain.service.ITreatmentService;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,9 +31,9 @@ public class UpdateTreatmentCommandHandler implements ICommandHandler<UpdateTrea
     public void handle(UpdateTreatmentCommand command) {
         ExternalConsultationDto externalConsultationDto = this.externalConsultationService.findById(command.getIdExternalConsultation());
         List<TreatmentDto> treatmentDtoList = externalConsultationDto.getTreatments();
-        for (TreatmentDto treatmentDto : treatmentDtoList) {
-            serviceImpl.delete(treatmentDto.getId());
-        }
+        externalConsultationDto.setTreatments(new ArrayList<>());
+        serviceImpl.deleteByIds(treatmentDtoList.stream().map(TreatmentDto::getId).toList());
+        externalConsultationService.update(externalConsultationDto);
 
         for (CreateAllTreatmentRequest createTreatmentRequest : command.getPayload()) {
             MedicinesDto medicinesDto = this.medicinesService.findById(UUID.fromString(createTreatmentRequest.getMedication()));
