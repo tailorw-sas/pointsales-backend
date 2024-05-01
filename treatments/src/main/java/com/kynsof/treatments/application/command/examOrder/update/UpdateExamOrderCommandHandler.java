@@ -7,7 +7,6 @@ import com.kynsof.share.utils.UpdateIfNotNull;
 import com.kynsof.treatments.domain.dto.ExamDto;
 import com.kynsof.treatments.domain.dto.ExamOrderDto;
 import com.kynsof.treatments.domain.dto.PatientDto;
-import com.kynsof.treatments.domain.dto.enumDto.Status;
 import com.kynsof.treatments.domain.service.IExamOrderService;
 import com.kynsof.treatments.domain.service.IExamService;
 import com.kynsof.treatments.domain.service.IPatientsService;
@@ -55,7 +54,9 @@ public class UpdateExamOrderCommandHandler implements ICommandHandler<UpdateExam
                 examRequest.getType(),
                 "",
                 new Date(),
-                examRequest.getPrice()))
+                examRequest.getPrice(),
+                examRequest.getCode()
+        ))
                 .collect(Collectors.toList());
         update.setExams(examDtoList);
 

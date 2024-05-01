@@ -5,9 +5,7 @@ import com.kynsof.treatments.domain.dto.ExamDto;
 import com.kynsof.treatments.domain.dto.ExamOrderDto;
 import com.kynsof.treatments.domain.dto.PatientDto;
 import com.kynsof.treatments.domain.dto.enumDto.Status;
-import com.kynsof.treatments.domain.service.IDoctorService;
 import com.kynsof.treatments.domain.service.IExamOrderService;
-import com.kynsof.treatments.domain.service.IExternalConsultationService;
 import com.kynsof.treatments.domain.service.IPatientsService;
 import org.springframework.stereotype.Component;
 
@@ -19,44 +17,41 @@ import java.util.stream.Collectors;
 @Component
 public class CreateExamOrderCommandHandler implements ICommandHandler<CreateExamOrderCommand> {
 
-    private final IExternalConsultationService externalConsultationService;
     private final IPatientsService patientsService;
-    private final IDoctorService doctorService;
     private final IExamOrderService examOrderService;
 
-    public CreateExamOrderCommandHandler(IExternalConsultationService externalConsultationService, IPatientsService patientsService, IDoctorService doctorService, IExamOrderService examOrderService) {
-        this.externalConsultationService = externalConsultationService;
+    public CreateExamOrderCommandHandler(IPatientsService patientsService, IExamOrderService examOrderService) {
         this.patientsService = patientsService;
-        this.doctorService = doctorService;
         this.examOrderService = examOrderService;
     }
 
     @Override
     public void handle(CreateExamOrderCommand command) {
         PatientDto patientDto = patientsService.findById(command.getPatientId());
-       // DoctorDto doctorDto = doctorService.findById(command.getDoctorId());
+        // DoctorDto doctorDto = doctorService.findById(command.getDoctorId());
 
-        List<ExamDto>examDtoList= command.getExams().stream()
+        List<ExamDto> examDtoList = command.getExams().stream()
                 .map(examRequest -> new ExamDto(
-                        UUID.randomUUID(),
-                        examRequest.getName(),
-                        examRequest.getDescription(),
-                        examRequest.getType(),
-                        "",
-                        new Date(),
-                        examRequest.getPrice()))
+                UUID.randomUUID(),
+                examRequest.getName(),
+                examRequest.getDescription(),
+                examRequest.getType(),
+                "",
+                new Date(),
+                examRequest.getPrice(),
+                examRequest.getCode()
+        ))
                 .collect(Collectors.toList());
-
 
         UUID id = examOrderService.create(new ExamOrderDto(
                 UUID.randomUUID(),
                 command.getReason(),
                 Status.ACTIVE.toString(),
-               0.0,
+                0.0,
                 new Date(),
                 patientDto,
                 examDtoList
         ));
-       command.setId(id);
+        command.setId(id);
     }
 }

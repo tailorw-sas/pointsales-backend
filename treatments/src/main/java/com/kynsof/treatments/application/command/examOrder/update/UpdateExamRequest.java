@@ -11,4 +11,5 @@ public class UpdateExamRequest {
     private String description;
     private MedicalExamCategory type;
     private Double price;
+    private String code;
 }

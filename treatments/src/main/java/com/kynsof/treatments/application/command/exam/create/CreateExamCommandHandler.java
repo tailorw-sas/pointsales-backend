@@ -17,14 +17,17 @@ public class CreateExamCommandHandler implements ICommandHandler<CreateExamComma
 
     @Override
     public void handle(CreateExamCommand command) {
-        UUID id = serviceImpl.create(new ExamDto(
+        ExamDto create = new ExamDto(
                 command.getId(), 
                 command.getName(), 
                 command.getDescription(), 
                 command.getType(), 
                 command.getResult(), 
                 command.getPrice()
-        ));
+        );
+        create.setCode(command.getCode());
+
+        UUID id = serviceImpl.create(create);
         command.setId(id);
     }
 }

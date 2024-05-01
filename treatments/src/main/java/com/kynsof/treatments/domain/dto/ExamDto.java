@@ -21,6 +21,7 @@ public class ExamDto {
     private String result;
     private Date datePerformed;
     private Double price;
+    private String code;
 
     public ExamDto(UUID id, String name, String description, MedicalExamCategory type, String result, Double price) {
         this.id = id;

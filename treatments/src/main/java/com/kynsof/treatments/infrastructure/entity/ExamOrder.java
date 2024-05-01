@@ -51,6 +51,7 @@ public class ExamOrder {
             exam.setType(examDto.getType());
             exam.setResult(examDto.getResult());
             exam.setDatePerformed(examDto.getDatePerformed());
+            exam.setCode(examDto.getCode());
             return exam;
         }).collect(Collectors.toList());
         this.recalculateTotalPrice();
@@ -74,6 +75,7 @@ public class ExamOrder {
           examDto.setPrice(exam.getPrice());
           examDto.setType(exam.getType());
           examDto.setResult(exam.getResult());
+          examDto.setCode(exam.getCode());
          return examDto;
       }).collect(Collectors.toList());
         return new ExamOrderDto(this.id, this.reason, this.status,this.totalPrice, this.orderDate,

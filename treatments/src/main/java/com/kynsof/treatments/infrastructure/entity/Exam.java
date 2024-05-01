@@ -31,6 +31,7 @@ public class Exam {
     @JoinColumn(name = "exam_order_id")
     private ExamOrder examOrder;
 
+    private String code;
     @PrePersist
     protected void onCreate() {
         datePerformed = new Date();
@@ -44,10 +45,11 @@ public class Exam {
         this.result = examDto.getResult();
         this.price = examDto.getPrice();
         this.datePerformed = examDto.getDatePerformed() != null ? examDto.getDatePerformed() : null;
+        this.code = examDto.getCode();
     }
 
     public ExamDto toAggregate() {
-        return new ExamDto(id, name, description, type, result, datePerformed, price);
+        return new ExamDto(id, name, description, type, result, datePerformed, price, code);
     }
 
 }
