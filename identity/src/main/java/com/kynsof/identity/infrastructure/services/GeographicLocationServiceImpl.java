@@ -16,8 +16,10 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
+import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -39,14 +41,14 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
 
     @Override
     public void create(GeographicLocationDto object) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(object, "GeographicLocation", "Business DTO cannot be null."));
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(object.getId(), "GeographicLocation.id", "Business ID cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(object, "GeographicLocation", "Geograafic DTO cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(object.getId(), "GeographicLocation.id", "Geograafic ID cannot be null."));
 
         this.repositoryCommand.save(new GeographicLocation(object));
     }
 
     @Override
-//    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public GeographicLocationDto findById(UUID id) {
         Optional<GeographicLocation> location = this.repositoryQuery.findById(id);
         if (location.isPresent()) {
@@ -63,7 +65,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     }
 
     @Override
-//    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public LocationHierarchyDto findCantonAndProvinceIdsByParroquiaId(UUID parroquiaId) {
         Optional<GeographicLocation> parroquiaOptional = repositoryQuery.findById(parroquiaId);
 
@@ -92,7 +94,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     }
 
     @Override
-    //@Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
             if ("type".equals(filter.getKey()) && filter.getValue() instanceof String) {
@@ -107,8 +109,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
 
         GenericSpecificationsBuilder<GeographicLocation> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<GeographicLocation> data = this.repositoryQuery.findAll(specifications, pageable);
-        PaginatedResponse paginatedResponse = getPaginatedResponse(data);
-        return  paginatedResponse;
+        return getPaginatedResponse(data);
     }
 
     private PaginatedResponse getPaginatedResponse(Page<GeographicLocation> data) {
