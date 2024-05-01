@@ -16,7 +16,6 @@ import com.kynsof.treatments.infrastructure.entity.ExternalConsultation;
 import com.kynsof.treatments.infrastructure.entity.Procedure;
 import com.kynsof.treatments.infrastructure.repositories.command.DiagnosisWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.DiagnosisReadDataJPARepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,11 +28,15 @@ import java.util.UUID;
 @Service
 public class DiagnosisServiceImpl implements IDiagnosisService {
 
-    @Autowired
-    private DiagnosisReadDataJPARepository repositoryQuery;
+    private final DiagnosisReadDataJPARepository repositoryQuery;
 
-    @Autowired
-    private DiagnosisWriteDataJPARepository repositoryCommand;
+    private final DiagnosisWriteDataJPARepository repositoryCommand;
+
+    public DiagnosisServiceImpl(DiagnosisReadDataJPARepository repositoryQuery,
+                                DiagnosisWriteDataJPARepository repositoryCommand) {
+        this.repositoryQuery = repositoryQuery;
+        this.repositoryCommand = repositoryCommand;
+    }
 
     @Override
     public void create(DiagnosisDto treatment) {
@@ -47,7 +50,7 @@ public class DiagnosisServiceImpl implements IDiagnosisService {
 
     @Override
     public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       repositoryCommand.deleteById(id);
     }
 
     @Override

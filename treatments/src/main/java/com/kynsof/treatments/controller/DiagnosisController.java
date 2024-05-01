@@ -3,9 +3,9 @@ package com.kynsof.treatments.controller;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsof.treatments.application.command.diagnosis.createall.CreateAllDiagnosisCommand;
-import com.kynsof.treatments.application.command.diagnosis.createall.CreateAllDiagnosisMessage;
-import com.kynsof.treatments.application.command.diagnosis.createall.Payload;
+import com.kynsof.treatments.application.command.diagnosis.create.CreateAllDiagnosisCommand;
+import com.kynsof.treatments.application.command.diagnosis.create.CreateAllDiagnosisMessage;
+import com.kynsof.treatments.application.command.diagnosis.create.Payload;
 import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosisCommand;
 import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosisMessage;
 import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosisRequest;
@@ -31,16 +31,9 @@ public class DiagnosisController {
         this.mediator = mediator;
     }
 
-//    @PostMapping("")
-//    public ResponseEntity<?> create(@RequestBody CreateDiagnosisRequest request) {
-//        CreateDiagnosisCommand createCommand = CreateDiagnosisCommand.fromRequest(request);
-//        CreateDiagnosisMessage response = mediator.send(createCommand);
-//
-//        return ResponseEntity.ok(response);
-//    }
 
     @PostMapping("")
-    public ResponseEntity<?> createAll(@RequestBody Payload request) {
+    public ResponseEntity<?> create(@RequestBody Payload request) {
         CreateAllDiagnosisCommand createCommand = new CreateAllDiagnosisCommand(request);
         CreateAllDiagnosisMessage response = mediator.send(createCommand);
 
@@ -66,10 +59,10 @@ public class DiagnosisController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") UUID id, @RequestBody UpdateDiagnosisRequest request) {
+    @PatchMapping("")
+    public ResponseEntity<?> update(@RequestBody UpdateDiagnosisRequest request) {
 
-        UpdateDiagnosisCommand command = UpdateDiagnosisCommand.fromRequest(request, id);
+        UpdateDiagnosisCommand command = UpdateDiagnosisCommand.fromRequest(request);
         UpdateDiagnosisMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }

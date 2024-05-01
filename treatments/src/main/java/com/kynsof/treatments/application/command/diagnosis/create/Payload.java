@@ -1,4 +1,4 @@
-package com.kynsof.treatments.application.command.diagnosis.createall;
+package com.kynsof.treatments.application.command.diagnosis.create;
 
 import java.util.List;
 import java.util.UUID;

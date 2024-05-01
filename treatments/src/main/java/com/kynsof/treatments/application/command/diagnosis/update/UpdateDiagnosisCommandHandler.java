@@ -1,14 +1,15 @@
 package com.kynsof.treatments.application.command.diagnosis.update;
 
-import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
-import com.kynsof.share.utils.UpdateIfNotNull;
+import com.kynsof.treatments.application.command.diagnosis.create.DiagnosisRequest;
 import com.kynsof.treatments.domain.dto.DiagnosisDto;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.service.IDiagnosisService;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.UUID;
 
 @Component
 public class UpdateDiagnosisCommandHandler implements ICommandHandler<UpdateDiagnosisCommand> {
@@ -23,19 +24,20 @@ public class UpdateDiagnosisCommandHandler implements ICommandHandler<UpdateDiag
 
     @Override
     public void handle(UpdateDiagnosisCommand command) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getId(), "id", "Procedure ID cannot be null."));
-        DiagnosisDto update = this.serviceImpl.findById(command.getId());
-
-        UpdateIfNotNull.updateIfStringNotNull(update::setDescription, command.getDescription());
-        UpdateIfNotNull.updateIfStringNotNull(update::setIcdCode, command.getIcdCode());
-
-        
-        try {
-            ExternalConsultationDto externalConsultationDto = this.externalConsultationService.findById(command.getIdExternalConsultation());
-            update.setExternalConsultation(externalConsultationDto);
-        } catch (Exception e) {
+        ExternalConsultationDto externalConsultationDto = this.externalConsultationService.findById(command.getIdExternalConsultation());
+        List<DiagnosisDto> treatmentDtoList = externalConsultationDto.getDiagnoses();
+        for (DiagnosisDto treatmentDto : treatmentDtoList) {
+            serviceImpl.delete(treatmentDto.getId());
         }
 
-        serviceImpl.create(update);
+        for (DiagnosisRequest object : command.getDiagnosis()) {
+            DiagnosisDto create = new DiagnosisDto(
+                    UUID.randomUUID(),
+                    object.getIcdCode(),
+                    object.getDescription(),
+                    externalConsultationDto
+            );
+            serviceImpl.create(create);
+        }
     }
 }

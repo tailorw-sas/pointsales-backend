@@ -1,4 +1,4 @@
-package com.kynsof.treatments.application.command.diagnosis.createall;
+package com.kynsof.treatments.application.command.diagnosis.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
