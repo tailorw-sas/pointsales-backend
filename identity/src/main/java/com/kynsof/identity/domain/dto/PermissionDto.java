@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class PermissionDto {
     private PermissionStatusEnm status;
     private String action;
     private boolean deleted = false;
-
+    private LocalDateTime createdAt;
     /**
      * Usar este constructor en el create.
      *
@@ -40,6 +41,7 @@ public class PermissionDto {
         this.id = id;
         this.code = code;
         this.description = description;
+
     }
 
     /**
@@ -51,13 +53,14 @@ public class PermissionDto {
      * @param module
      * @param status
      */
-    public PermissionDto(UUID id, String code, String description, ModuleDto module, PermissionStatusEnm status, String action) {
+    public PermissionDto(UUID id, String code, String description, ModuleDto module, PermissionStatusEnm status, String action,  LocalDateTime createdAt) {
         this.id = id;
         this.code = code;
         this.description = description;
         this.module = module;
         this.status = status;
         this.action = action;
+        this.createdAt = createdAt;
     }
 
 }

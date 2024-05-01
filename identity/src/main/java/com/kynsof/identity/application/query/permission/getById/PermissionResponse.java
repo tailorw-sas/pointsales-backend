@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -23,6 +24,8 @@ public class PermissionResponse implements IResponse {
     private ModuleResponse module;
     private PermissionStatusEnm status;
     private String action;
+    private LocalDateTime createdAt;
+
     public PermissionResponse(PermissionDto response) {
         this.id = response.getId();
         this.code = response.getCode();
@@ -31,6 +34,7 @@ public class PermissionResponse implements IResponse {
                 response.getModule().getName());
         this.status = response.getStatus();
         this.action = response.getAction();
+        this.createdAt = response.getCreatedAt();
     }
 
 }

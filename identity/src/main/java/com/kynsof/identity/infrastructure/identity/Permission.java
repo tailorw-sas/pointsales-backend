@@ -57,6 +57,6 @@ public class Permission {
     }
 
     public PermissionDto toAggregate() {
-        return new PermissionDto(this.id, this.code, this.description, this.module.toAggregate(), this.status, this.action);
+        return new PermissionDto(this.id, this.code, this.description, this.module.toAggregate(), this.status, this.action, createdAt);
     }
 }
