@@ -1,5 +1,6 @@
 package com.kynsof.calendar.application.query;
 
+import com.kynsof.calendar.application.query.service.ServicesResponse;
 import com.kynsof.calendar.domain.dto.PatientDto;
 import com.kynsof.calendar.domain.dto.ReceiptDto;
 import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;

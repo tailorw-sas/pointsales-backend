@@ -1,6 +1,6 @@
 package com.kynsof.calendar.application.query.service.getbyid;
 
-import com.kynsof.calendar.application.query.ServicesResponse;
+import com.kynsof.calendar.application.query.service.ServicesResponse;
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;

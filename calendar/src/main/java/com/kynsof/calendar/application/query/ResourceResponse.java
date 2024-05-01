@@ -1,5 +1,6 @@
 package com.kynsof.calendar.application.query;
 
+import com.kynsof.calendar.application.query.service.ServicesResponse;
 import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;

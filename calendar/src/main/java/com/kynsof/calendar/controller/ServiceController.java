@@ -8,8 +8,7 @@ import com.kynsof.calendar.application.command.service.delete.ServiceDeleteMessa
 import com.kynsof.calendar.application.command.service.update.UpdateServiceCommand;
 import com.kynsof.calendar.application.command.service.update.UpdateServiceMessage;
 import com.kynsof.calendar.application.command.service.update.UpdateServiceRequest;
-import com.kynsof.calendar.application.query.ServicesResponse;
-import com.kynsof.calendar.application.query.service.getAll.FindServiceWithFilterQuery;
+import com.kynsof.calendar.application.query.service.ServicesResponse;
 import com.kynsof.calendar.application.query.service.getbyid.FindServiceByIdQuery;
 import com.kynsof.calendar.application.query.service.getservicesbyidresource.FindServicesByIdResourceQuery;
 import com.kynsof.calendar.application.query.service.search.GetSearchServiceQuery;
@@ -35,7 +34,7 @@ public class ServiceController {
     }
 
     @PostMapping("")
-    public ResponseEntity<CreateServiceMessage> create(@RequestBody CreateServiceRequest request)  {
+    public ResponseEntity<?> create(@RequestBody CreateServiceRequest request)  {
         CreateServiceCommand createCommand = CreateServiceCommand.fromRequest(request);
         CreateServiceMessage response = mediator.send(createCommand);
 
@@ -61,18 +60,6 @@ public class ServiceController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
-                                                    @RequestParam(defaultValue = "0") Integer page,
-                                                    @RequestParam(defaultValue = "") UUID idService,
-                                                    @RequestParam(defaultValue = "") String filter)
-    {
-        Pageable pageable = PageRequest.of(page, pageSize);
-        FindServiceWithFilterQuery query = new FindServiceWithFilterQuery(pageable, idService, filter);
-        PaginatedResponse data = mediator.send(query);
-
-        return ResponseEntity.ok(data);
-    }
 
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
