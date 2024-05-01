@@ -5,7 +5,6 @@ import com.kynsof.identity.domain.dto.GeographicLocationDto;
 import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.domain.interfaces.service.IGeographicLocationService;
 import com.kynsof.identity.domain.rules.business.BusinessNameMustBeUniqueRule;
-import com.kynsof.identity.domain.rules.business.BusinessRucCheckingNumberOfCharactersRule;
 import com.kynsof.identity.domain.rules.business.BusinessRucMustBeUniqueRule;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerUpdateBusinessEventService;
 import com.kynsof.share.core.domain.RulesChecker;
@@ -49,7 +48,7 @@ public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusin
         //Guardo el id del logo actual, para si cambia, mandar a elimianrlo al S3.
         String idLogoDelete = updateBusiness.getLogo();
         UpdateIfNotNull.updateIfNotNull(updateBusiness::setRuc, command.getRuc());
-        RulesChecker.checkRule(new BusinessRucCheckingNumberOfCharactersRule(command.getRuc()));
+       // RulesChecker.checkRule(new BusinessRucCheckingNumberOfCharactersRule(command.getRuc()));
         RulesChecker.checkRule(new BusinessRucMustBeUniqueRule(this.service, command.getRuc(), command.getId()));
 
         UpdateIfNotNull.updateIfNotNull(updateBusiness::setDescription, command.getDescription());
