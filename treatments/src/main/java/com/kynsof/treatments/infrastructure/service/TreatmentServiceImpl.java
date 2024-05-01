@@ -48,7 +48,7 @@ public class TreatmentServiceImpl implements ITreatmentService {
 
     @Override
     public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       this.repositoryCommand.deleteById(id);
     }
 
     @Override

@@ -1,17 +1,17 @@
 package com.kynsof.treatments.application.command.treatment.update;
 
-import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
-import com.kynsof.share.utils.UpdateIfNotNull;
+import com.kynsof.treatments.application.command.treatment.create.CreateAllTreatmentRequest;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.dto.MedicinesDto;
 import com.kynsof.treatments.domain.dto.TreatmentDto;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
 import com.kynsof.treatments.domain.service.IMedicinesService;
 import com.kynsof.treatments.domain.service.ITreatmentService;
-import java.util.UUID;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.UUID;
 
 @Component
 public class UpdateTreatmentCommandHandler implements ICommandHandler<UpdateTreatmentCommand> {
@@ -28,22 +28,24 @@ public class UpdateTreatmentCommandHandler implements ICommandHandler<UpdateTrea
 
     @Override
     public void handle(UpdateTreatmentCommand command) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getId(), "id", "Procedure ID cannot be null."));
-
-        TreatmentDto update = this.serviceImpl.findById(command.getId());
-
-        UpdateIfNotNull.updateIfStringNotNull(update::setDescription, command.getDescription());
-
-        MedicinesDto medicinesDto = this.medicinesService.findById(UUID.fromString(command.getMedication()));
-        update.setMedication(medicinesDto);
-        update.setQuantity(command.getQuantity());
-        update.setMedicineUnit(command.getMedicineUnit());
-
-        try {
-            ExternalConsultationDto externalConsultationDto = this.externalConsultationService.findById(command.getIdExternalConsultation());
-            update.setExternalConsultationDto(externalConsultationDto);
-        } catch (Exception e) {
+        ExternalConsultationDto externalConsultationDto = this.externalConsultationService.findById(command.getIdExternalConsultation());
+        List<TreatmentDto> treatmentDtoList = externalConsultationDto.getTreatments();
+        for (TreatmentDto treatmentDto : treatmentDtoList) {
+            serviceImpl.delete(treatmentDto.getId());
         }
-        serviceImpl.create(update);
+
+        for (CreateAllTreatmentRequest createTreatmentRequest : command.getPayload()) {
+            MedicinesDto medicinesDto = this.medicinesService.findById(UUID.fromString(createTreatmentRequest.getMedication()));
+            TreatmentDto create = new TreatmentDto(
+                    UUID.randomUUID(),
+                    createTreatmentRequest.getDescription(),
+                    medicinesDto,
+                    createTreatmentRequest.getQuantity(),
+                    createTreatmentRequest.getMedicineUnit()
+            );
+            create.setExternalConsultationDto(externalConsultationDto);
+            serviceImpl.create(create);
+        }
+
     }
 }

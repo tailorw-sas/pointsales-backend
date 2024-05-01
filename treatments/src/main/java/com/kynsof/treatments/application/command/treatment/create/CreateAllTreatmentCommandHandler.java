@@ -1,4 +1,4 @@
-package com.kynsof.treatments.application.command.treatment.createall;
+package com.kynsof.treatments.application.command.treatment.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
@@ -28,7 +28,7 @@ public class CreateAllTreatmentCommandHandler implements ICommandHandler<CreateA
     public void handle(CreateAllTreatmentCommand command) {
         ExternalConsultationDto externalConsultationDto = this.externalConsultationService.findById(command.getIdExternalConsultation());
 
-        for (CreateAllTreatmentRequest createTreatmentRequest : command.getPayload()) {
+        for (CreateAllTreatmentRequest createTreatmentRequest : command.getTreatments()) {
             MedicinesDto medicinesDto = this.medicinesService.findById(UUID.fromString(createTreatmentRequest.getMedication()));
             TreatmentDto create = new TreatmentDto(
                     UUID.randomUUID(),

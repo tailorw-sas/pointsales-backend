@@ -1,4 +1,4 @@
-package com.kynsof.treatments.application.command.treatment.createall;
+package com.kynsof.treatments.application.command.treatment.create;
 
 import com.kynsof.treatments.domain.dto.MedicineUnit;
 import lombok.Getter;
