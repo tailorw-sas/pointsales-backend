@@ -22,7 +22,7 @@ public class AdvertisingContentResponse implements IResponse {
     private ContentType type;
     private LocalDate createdAt;
     private LocalDate updatedAt;
-    private String url;
+    private String image;
     private String link;
 
     public AdvertisingContentResponse(AdvertisingContentDto advertisingContentDto) {
@@ -32,7 +32,7 @@ public class AdvertisingContentResponse implements IResponse {
         this.type = advertisingContentDto.getType();
         this.createdAt = advertisingContentDto.getCreatedAt().toLocalDate();
         this.updatedAt = advertisingContentDto.getUpdatedAt().toLocalDate();
-        this.url = advertisingContentDto.getUrl();   
+        this.image = advertisingContentDto.getUrl();
         this.link = advertisingContentDto.getLink();
     }
 
