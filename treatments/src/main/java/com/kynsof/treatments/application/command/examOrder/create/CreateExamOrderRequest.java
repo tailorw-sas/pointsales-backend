@@ -9,8 +9,8 @@ import java.util.UUID;
 @Getter
 @Setter
 public class CreateExamOrderRequest {
-
     private String reason;
     private UUID patient;
     private List<ExamRequest> exams;
+    private UUID externalConsultation;
 }

@@ -19,6 +19,6 @@ public class FindExamOrderByIdExternalConsultationQueryHandler implements IQuery
     public ExamOrderResponse handle(FindExamOrderByIdExternalConsultationQuery query) {
         ExternalConsultationDto externalConsultationDt = this.externalConsultationService.findById(query.getId());
 
-        return new ExamOrderResponse(externalConsultationDt.getExamOrder());
+      return new ExamOrderResponse(externalConsultationDt.getExamOrder());
     }
 }

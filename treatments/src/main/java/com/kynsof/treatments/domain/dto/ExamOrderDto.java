@@ -19,4 +19,5 @@ public class ExamOrderDto {
     private Date orderDate;
     private PatientDto patient;
     private List<ExamDto> exams;
+    private ExternalConsultationDto externalConsultation;
 }

@@ -34,7 +34,8 @@ public class ExamOrder {
     @JoinColumn(name = "patient_id", nullable = false)
     private Patients patient;
 
-    @OneToOne(mappedBy = "examOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne
+    @JoinColumn(name = "external_consultation_id", referencedColumnName = "id")
     private ExternalConsultation externalConsultation;
 
     public ExamOrder(ExamOrderDto dto) {
@@ -79,6 +80,6 @@ public class ExamOrder {
          return examDto;
       }).collect(Collectors.toList());
         return new ExamOrderDto(this.id, this.reason, this.status,this.totalPrice, this.orderDate,
-                this.patient.toAggregate(),examDtoList);
+                this.patient.toAggregate(),examDtoList, externalConsultation.toAggregate());
     }
 }

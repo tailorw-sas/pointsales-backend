@@ -16,17 +16,19 @@ public class CreateExamOrderCommand implements ICommand {
     private String reason;
     private UUID patientId;
     private List<ExamRequest> exams;
+    private final UUID externalConsultation;
 
-    public CreateExamOrderCommand(UUID patientId, String reason, List<ExamRequest> examRequests) {
+    public CreateExamOrderCommand(UUID patientId, String reason, List<ExamRequest> examRequests, UUID externalConsultation) {
 
         this.patientId = patientId;
         this.reason = reason;
         this.exams = examRequests;
+        this.externalConsultation = externalConsultation;
     }
 
     public static CreateExamOrderCommand fromRequest(CreateExamOrderRequest request) {
         return new CreateExamOrderCommand(request.getPatient(), request.getReason(),
-                request.getExams());
+                request.getExams(), request.getExternalConsultation());
     }
 
     @Override

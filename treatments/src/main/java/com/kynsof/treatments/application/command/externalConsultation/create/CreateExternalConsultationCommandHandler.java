@@ -1,9 +1,10 @@
 package com.kynsof.treatments.application.command.externalConsultation.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.treatments.domain.dto.*;
+import com.kynsof.treatments.domain.dto.DoctorDto;
+import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
+import com.kynsof.treatments.domain.dto.PatientDto;
 import com.kynsof.treatments.domain.service.IDoctorService;
-import com.kynsof.treatments.domain.service.IExamOrderService;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
 import com.kynsof.treatments.domain.service.IPatientsService;
 import org.springframework.stereotype.Component;
@@ -17,27 +18,18 @@ public class CreateExternalConsultationCommandHandler implements ICommandHandler
     private final IExternalConsultationService externalConsultationService;
     private final IPatientsService patientsService;
     private final IDoctorService doctorService;
-    private final IExamOrderService examOrderService;
 
-    public CreateExternalConsultationCommandHandler(IExternalConsultationService externalConsultationService, IPatientsService patientsService, IDoctorService doctorService, IExamOrderService examOrderService) {
+    public CreateExternalConsultationCommandHandler(IExternalConsultationService externalConsultationService,
+                                                    IPatientsService patientsService, IDoctorService doctorService) {
         this.externalConsultationService = externalConsultationService;
         this.patientsService = patientsService;
         this.doctorService = doctorService;
-        this.examOrderService = examOrderService;
     }
 
     @Override
     public void handle(CreateExternalConsultationCommand command) {
         PatientDto patientDto = patientsService.findById(command.getPatientId());
         DoctorDto doctorDto = doctorService.findById(command.getDoctorId());
-        ExamOrderDto examOrderDto = null;
-        if (command.getExamOrder() != null) {
-            try {
-                examOrderDto = this.examOrderService.findById(command.getExamOrder());
-            } catch (Exception e) {
-            }
-        }
-
         UUID id = externalConsultationService.create(new ExternalConsultationDto(
                 UUID.randomUUID(),
                 patientDto,
@@ -47,7 +39,7 @@ public class CreateExternalConsultationCommandHandler implements ICommandHandler
                 command.getMedicalHistory(),
                 command.getPhysicalExam(),
                 command.getObservations(),
-                examOrderDto
+                null
         ));
         command.setId(id);
     }

@@ -48,8 +48,7 @@ public class ExternalConsultation {
 
     private String observations;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "exam_order_id") // Asegúrate de que el nombre de la columna coincida con el nombre de la columna en la base de datos
+    @OneToOne(mappedBy = "externalConsultation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ExamOrder examOrder;
 
     public ExternalConsultation(ExternalConsultationDto dto) {
@@ -61,23 +60,17 @@ public class ExternalConsultation {
         this.consultationTime = dto.getConsultationTime();
         this.doctor = new Doctor(dto.getDoctor());
         this.observations = dto.getObservations();
-        this.examOrder = dto.getExamOrder() != null ? new ExamOrder(dto.getExamOrder()) : null;
     }
 
     public ExternalConsultationDto toAggregate() {
         List<TreatmentDto> treatmentList = this.getTreatments().stream()
-                .map(treatment -> {
-                    return new TreatmentDto(treatment.getId(),treatment.getDescription(),
-                            treatment.getMedicines().toAggregate(), treatment.getQuantity(), treatment.getMedicineUnit());
-
-                })
+                .map(treatment -> new TreatmentDto(treatment.getId(),treatment.getDescription(),
+                        treatment.getMedicines().toAggregate(), treatment.getQuantity(), treatment.getMedicineUnit()))
                 .toList();
 
         List<DiagnosisDto> diagnosisDtoList = this.getDiagnoses().stream()
-                .map(treatment -> {
-                    return new DiagnosisDto(treatment.getId(),
-                            treatment.getIcdCode(), treatment.getDescription());
-                })
+                .map(treatment -> new DiagnosisDto(treatment.getId(),
+                        treatment.getIcdCode(), treatment.getDescription()))
                 .toList();
         ExamOrderDto toResponse = this.examOrder != null ? this.examOrder.toAggregate() : null;
         return new ExternalConsultationDto(this.id, this.patient.toAggregate(), this.doctor.toAggregate(),

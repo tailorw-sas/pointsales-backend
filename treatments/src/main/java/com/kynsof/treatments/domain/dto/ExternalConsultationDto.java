@@ -25,7 +25,9 @@ public class ExternalConsultationDto {
     private String observations;
     private ExamOrderDto examOrder;
 
-    public ExternalConsultationDto(UUID id, PatientDto patient, DoctorDto doctor, Date consultationTime, String consultationReason, String medicalHistory, String physicalExam, String observations, ExamOrderDto examOrder) {
+    public ExternalConsultationDto(UUID id, PatientDto patient, DoctorDto doctor, Date consultationTime,
+                                   String consultationReason, String medicalHistory, String physicalExam,
+                                   String observations, ExamOrderDto examOrder) {
         this.id = id;
         this.patient = patient;
         this.doctor = doctor;
