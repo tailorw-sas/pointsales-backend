@@ -15,4 +15,5 @@ import java.util.Map;
 public class GenerateReportKafka implements Serializable {
     private Map<String, Object> parameters;
     private String JasperReportCode;
+    private String email;
 }
