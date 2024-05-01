@@ -56,6 +56,7 @@ public class ExamOrder {
             return exam;
         }).collect(Collectors.toList());
         this.recalculateTotalPrice();
+        externalConsultation = new ExternalConsultation(dto.getExternalConsultation());
     }
 
     public void recalculateTotalPrice() {
