@@ -15,7 +15,6 @@ import com.kynsof.calendar.infrastructure.repository.query.BusinessReadDataJPARe
 import com.kynsof.calendar.infrastructure.repository.query.ResourceReadDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ServiceReadDataJPARepository;
-import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;

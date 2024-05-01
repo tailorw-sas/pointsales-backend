@@ -1,8 +1,8 @@
 package com.kynsof.calendar.application.command.schedule.createlote;
 
 import com.kynsof.calendar.application.command.schedule.createall.ScheduleAllRequest;
-import java.time.DayOfWeek;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
