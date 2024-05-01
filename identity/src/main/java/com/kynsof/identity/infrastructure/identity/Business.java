@@ -59,7 +59,7 @@ public class Business {
     }
 
     public BusinessDto toAggregate () {
-        return new BusinessDto(
+        BusinessDto businessDto = new BusinessDto(
                 id, 
                 name, 
                 latitude, 
@@ -71,5 +71,7 @@ public class Business {
                 geographicLocation != null ? geographicLocation.toAggregate() : null,
                 address
         );
+        businessDto.setCreateAt(createdAt);
+        return businessDto;
     }
 }
