@@ -18,18 +18,28 @@ public class UpdateExamCommand implements ICommand {
     private MedicalExamCategory type;
     private String result;
     private Double price;
+    private String code;
 
-    public UpdateExamCommand(UUID id, String name, String description, MedicalExamCategory type, String result, Double price) {
+    public UpdateExamCommand(UUID id, String name, String description, MedicalExamCategory type, String result, Double price, String code) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.type = type;
         this.result = result;
         this.price = price;
+        this.code = code;
     }
 
     public static UpdateExamCommand fromRequest(UpdateExamRequest request, UUID id) {
-        return new UpdateExamCommand(id, request.getName(), request.getDescription(), request.getType(), request.getResult(), request.getPrice());
+        return new UpdateExamCommand(
+                id, 
+                request.getName(), 
+                request.getDescription(), 
+                request.getType(), 
+                request.getResult(), 
+                request.getPrice(),
+                request.getCode()
+        );
     }
 
     @Override

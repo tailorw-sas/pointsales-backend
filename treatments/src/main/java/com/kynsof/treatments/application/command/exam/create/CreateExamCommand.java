@@ -18,17 +18,26 @@ public class CreateExamCommand implements ICommand {
     private MedicalExamCategory type;
     private String result;
     private Double price;
+    private String code;
 
-    public CreateExamCommand(String name, String description, MedicalExamCategory type, String result, Double price) {
+    public CreateExamCommand(String name, String description, MedicalExamCategory type, String result, Double price, String code) {
         this.name = name;
         this.description = description;
         this.type = type;
         this.result = result;
         this.price = price;
+        this.code = code;
     }
 
     public static CreateExamCommand fromRequest(CreateExamRequest request) {
-        return new CreateExamCommand(request.getName(), request.getDescription(), request.getType(), request.getResult(), request.getPrice());
+        return new CreateExamCommand(
+                request.getName(), 
+                request.getDescription(), 
+                request.getType(), 
+                request.getResult(), 
+                request.getPrice(),
+                request.getCode()
+        );
     }
 
     @Override

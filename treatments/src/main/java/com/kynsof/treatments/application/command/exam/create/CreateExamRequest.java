@@ -12,4 +12,5 @@ public class CreateExamRequest {
     private MedicalExamCategory type;
     private String result;
     private Double price;
+    private String code;
 }
