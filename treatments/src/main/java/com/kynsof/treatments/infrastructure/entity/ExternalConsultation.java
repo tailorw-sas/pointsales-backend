@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -59,7 +60,7 @@ public class ExternalConsultation {
         this.consultationTime = dto.getConsultationTime();
         this.doctor = new Doctor(dto.getDoctor());
         this.observations = dto.getObservations();
-        this.treatments = dto.getTreatments().stream().map(Treatment::new).toList();
+        this.treatments = dto.getTreatments() != null ? dto.getTreatments().stream().map(Treatment::new).toList() : new ArrayList<>();
     }
 
     public ExternalConsultationDto toAggregate() {
