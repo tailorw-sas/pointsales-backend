@@ -97,7 +97,7 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
        for (BusinessServices s : data.getContent()) {
            BusinessServicePriceResponse businessServicePriceResponse = new BusinessServicePriceResponse();
            businessServicePriceResponse.setPrice(s.getPrice());
-           businessServicePriceResponse.setServices(new ServicesResponse(s.getServices().toAggregate()));
+           businessServicePriceResponse.setService(new ServicesResponse(s.getServices().toAggregate()));
            responses.add(businessServicePriceResponse);
        }
         return new PaginatedResponse(responses, data.getTotalPages(), data.getNumberOfElements(),
