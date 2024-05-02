@@ -12,5 +12,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class BusinessServicePriceResponse {
     private Double price;
-    private ServicesResponse services;
+    private ServicesResponse service;
 }
