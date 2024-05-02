@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.command.businessservices.createall;
+package com.kynsof.calendar.application.command.businessService.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.command.businessservices.update;
+package com.kynsof.calendar.application.command.businessService.update;
 
 import lombok.Getter;
 import lombok.Setter;

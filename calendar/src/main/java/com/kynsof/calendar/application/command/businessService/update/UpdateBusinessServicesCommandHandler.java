@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.command.businessservices.update;
+package com.kynsof.calendar.application.command.businessService.update;
 
 import com.kynsof.calendar.domain.dto.BusinessDto;
 import com.kynsof.calendar.domain.dto.BusinessServicesDto;

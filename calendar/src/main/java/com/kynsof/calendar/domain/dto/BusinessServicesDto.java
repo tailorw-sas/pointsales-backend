@@ -16,12 +16,7 @@ public class BusinessServicesDto {
     private UUID id;
     private BusinessDto business;
     private ServiceDto service;
+    private Double price;
     private LocalDateTime createdAt;
-
-    public BusinessServicesDto(UUID id, BusinessDto business, ServiceDto service) {
-        this.id = id;
-        this.business = business;
-        this.service = service;
-    }
 
 }

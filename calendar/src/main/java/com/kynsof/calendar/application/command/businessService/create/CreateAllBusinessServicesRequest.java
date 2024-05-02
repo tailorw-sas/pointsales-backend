@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.command.businessservices.createall;
+package com.kynsof.calendar.application.command.businessService.create;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,5 +10,5 @@ import java.util.UUID;
 @Setter
 public class CreateAllBusinessServicesRequest {
     private UUID idBusiness;
-    private List<UUID> services;
+    private List<CreateBusinessServicesPriceRequest> services;
 }

@@ -1,8 +1,7 @@
-package com.kynsof.calendar.application.command.businessservices.createall;
+package com.kynsof.calendar.application.command.businessService.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
-import com.kynsof.share.core.infrastructure.bus.IMediator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,21 +14,19 @@ public class CreateAllBusinessServicesCommand implements ICommand {
 
     private boolean result;
     private UUID idBusiness;
-    private List<UUID> services;
+    private List<CreateBusinessServicesPriceRequest> services;
 
-    private final IMediator mediator;
-
-    public CreateAllBusinessServicesCommand(UUID idBusiness, List<UUID> services, IMediator mediator) {
+    public CreateAllBusinessServicesCommand(UUID idBusiness, List<CreateBusinessServicesPriceRequest> services) {
         this.idBusiness = idBusiness;
         this.services = List.copyOf(services);
-        this.mediator = mediator;
+
     }
 
-    public static CreateAllBusinessServicesCommand fromRequest(CreateAllBusinessServicesRequest request, IMediator mediator) {
+    public static CreateAllBusinessServicesCommand fromRequest(CreateAllBusinessServicesRequest request) {
         return new CreateAllBusinessServicesCommand(
                 request.getIdBusiness(), 
-                request.getServices(),
-                mediator
+                request.getServices()
+
         );
     }
 

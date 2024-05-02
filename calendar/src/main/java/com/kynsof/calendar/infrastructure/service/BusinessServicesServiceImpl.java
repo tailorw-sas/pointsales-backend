@@ -56,8 +56,8 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
-
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, new ErrorField("id", "BusinessSevice not found.")));
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND,
+                new ErrorField("id", "BusinessService not found.")));
 
     }
 
@@ -96,6 +96,11 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
     public PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId) {
         Page<BusinessServices> data = this.repositoryQuery.findServicesByResourceId(resourceId, pageable);
         return getPaginatedResponse(data);
+    }
+
+    @Override
+    public void createAll(List<BusinessServicesDto> businessServicePrice) {
+        this.repositoryCommand.saveAllAndFlush(businessServicePrice.stream().map(BusinessServices::new).toList());
     }
 
 }
