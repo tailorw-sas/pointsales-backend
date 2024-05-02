@@ -1,12 +1,13 @@
 package com.kynsof.treatments.infrastructure.service;
 
-import com.kynsof.share.core.domain.exception.BusinessException;
+
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.treatments.application.query.cie10.getAll.Cie10Response;
 import com.kynsof.treatments.domain.dto.Cie10Dto;
@@ -15,6 +16,7 @@ import com.kynsof.treatments.infrastructure.entity.Cie10;
 import com.kynsof.treatments.infrastructure.entity.specifications.Cie10Specifications;
 import com.kynsof.treatments.infrastructure.repositories.query.Cie10ReadDataJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,7 +32,7 @@ public class Cie10ServiceImpl implements ICie10Service {
     private Cie10ReadDataJPARepository repositoryQuery;
 
     @Override
-    //@Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames =  CacheConfig.CIE10, unless = "#result == null")
     public Cie10Dto findByCode(String code) {
         Optional<Cie10> cie10ByCode = Optional.ofNullable(this.repositoryQuery.findCie10ByCode(code));
         if (cie10ByCode.isPresent()) {
@@ -40,7 +42,7 @@ public class Cie10ServiceImpl implements ICie10Service {
     }
 
     @Override
-    //@Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames =  CacheConfig.CIE10, unless = "#result == null")
     public PaginatedResponse findAll(Pageable pageable, String name, String code) {
         Cie10Specifications specifications = new Cie10Specifications(name, code);
         Page<Cie10> data = this.repositoryQuery.findAll(specifications, pageable);
@@ -54,6 +56,7 @@ public class Cie10ServiceImpl implements ICie10Service {
     }
 
     @Override
+    @Cacheable(cacheNames =  CacheConfig.CIE10, unless = "#result == null")
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         GenericSpecificationsBuilder<Cie10> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<Cie10> data = this.repositoryQuery.findAll(specifications, pageable);

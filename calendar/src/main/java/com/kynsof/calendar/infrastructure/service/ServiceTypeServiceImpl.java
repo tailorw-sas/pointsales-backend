@@ -12,8 +12,9 @@ import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,14 @@ import java.util.UUID;
 @Service
 public class ServiceTypeServiceImpl implements IServiceTypeService {
 
-    @Autowired
-    private ServiceTypeWriteDataJPARepository repositoryCommand;
+    private final ServiceTypeWriteDataJPARepository repositoryCommand;
 
-    @Autowired
-    private ServiceTypeReadDataJPARepository repositoryQuery;
+    private final ServiceTypeReadDataJPARepository repositoryQuery;
+
+    public ServiceTypeServiceImpl(ServiceTypeWriteDataJPARepository repositoryCommand, ServiceTypeReadDataJPARepository repositoryQuery) {
+        this.repositoryCommand = repositoryCommand;
+        this.repositoryQuery = repositoryQuery;
+    }
 
     @Override
     public void create(ServiceTypeDto object) {
@@ -49,7 +53,7 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
         this.repositoryCommand.save(new ServiceType(objectDelete));
     }
 
-    //@Cacheable(cacheNames = CacheConfig.BUSINESS_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames = CacheConfig.SERVICE_CACHE, unless = "#result == null")
     @Override
     public ServiceTypeDto findById(UUID id) {
 
