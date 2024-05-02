@@ -19,6 +19,7 @@ import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +35,9 @@ public class AmazonClient implements IAmazonClient {
     @Value("${aws.secretKey}")
     private String secretKey;
 
+    @Value("${aws.bucketUrl}")
+    private String bucketUrl;
+
     @Value("${aws.bucketName}")
     private String bucketName;
 
@@ -45,9 +49,16 @@ public class AmazonClient implements IAmazonClient {
 
     @PostConstruct
     private void initializeAmazon() {
-        AwsBasicCredentials credentials = AwsBasicCredentials.create(accessKey, secretKey);
-        s3Client = S3Client.builder().credentialsProvider(StaticCredentialsProvider.create(credentials))
-                .region(Region.US_EAST_2).build();
+//        AwsBasicCredentials credentials = AwsBasicCredentials.create(accessKey, secretKey);
+//        s3Client = S3Client.builder().credentialsProvider(StaticCredentialsProvider.create(credentials))
+//                .region(Region.US_EAST_2).build();
+
+        this.s3Client = S3Client.builder()
+                .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(
+                        accessKey, secretKey)))
+                .endpointOverride(URI.create(bucketUrl))
+                .region(Region.of(region))  // Esta región es simbólica en este contexto
+                .build();
     }
 
     @Override
@@ -55,6 +66,22 @@ public class AmazonClient implements IAmazonClient {
             throws AwsServiceException, SdkClientException, IOException {
 
         PutObjectRequest putObjectRequest = PutObjectRequest.builder().bucket(this.bucketName).key(objectKey).contentType(contentType).contentDisposition("inline").build();
+
+        s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(streamToUpload, streamToUpload.available()));
+
+    }
+
+
+    public void uploadFileV1(InputStream streamToUpload, Long size, String contentType, String objectKey)
+            throws AwsServiceException, SdkClientException, IOException {
+
+//        PutObjectRequest putObjectRequest = PutObjectRequest
+//                .builder().bucket(this.bucketName)
+//                .key(objectKey)
+//                .build();
+
+        PutObjectRequest putObjectRequest = PutObjectRequest.builder().bucket(this.bucketName)
+                .key(objectKey).contentType(contentType).contentDisposition("inline").build();
 
         s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(streamToUpload, streamToUpload.available()));
 
@@ -69,7 +96,7 @@ public class AmazonClient implements IAmazonClient {
         String fileExtension = StringUtils.getFilenameExtension(sanitizedFilename);
         String timestamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
         String name = StringUtils.stripFilenameExtension(sanitizedFilename) + "_" + timestamp + "." + fileExtension;
-        this.uploadFile(file.getInputStream(), file.getSize(), file.getContentType(), name);
+        this.uploadFileV1(file.getInputStream(), file.getSize(), file.getContentType(), name);
 
         return this.cloudfrontDomain + name;
     }
