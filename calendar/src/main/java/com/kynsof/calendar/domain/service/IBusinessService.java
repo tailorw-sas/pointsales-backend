@@ -15,6 +15,7 @@ public interface IBusinessService {
     void update(BusinessDto object);
 
     void delete(UUID id);
+    void deleteIds(List<UUID> ids);
 
     BusinessDto findById(UUID id);
 
@@ -22,4 +23,7 @@ public interface IBusinessService {
 
     PaginatedResponse findBusinessesWithAvailableStockByDateAndService(LocalDate date, UUID serviceId,
                                                                        Pageable pageable);
+
+    PaginatedResponse findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(LocalDate startDate, LocalDate endDate, UUID serviceId,
+                                                                                      Pageable pageable);
 }

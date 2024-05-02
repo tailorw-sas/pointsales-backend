@@ -48,7 +48,10 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
     public void delete(UUID id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    @Override
+    public void deleteIds(List<UUID> ids) {
+        this.repositoryCommand.deleteAllByIdInBatch(ids);
+    }
     @Override
     public BusinessServicesDto findById(UUID id) {
         
@@ -90,6 +93,11 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
     public PaginatedResponse findServicesByBusinessId(Pageable pageable, UUID businessId) {
         Page<Services> data = this.repositoryQuery.findServicesByBusinessId(businessId, pageable);
         return getPaginatedServicesResponse(data);
+    }
+
+    @Override
+    public List<UUID> findBusinessServiceIdByBusinessId( UUID businessId) {
+        return this.repositoryQuery.findBusinessServicesIdByBusinessId(businessId);
     }
 
     @Override

@@ -16,6 +16,7 @@ public interface IBusinessServicesService {
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     PaginatedResponse findServicesByBusinessId(Pageable pageable, UUID businessId);
     PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId);
-
+    List<UUID> findBusinessServiceIdByBusinessId( UUID businessId);
     void createAll(List<BusinessServicesDto> businessServicePrice);
+    void deleteIds(List<UUID> ids);
 }

@@ -19,11 +19,11 @@ public class BusinessServices {
     @Id
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "business_id")
     private Business business;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")
     private Services services;
 

@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface BusinessServicesReadDataJPARepository extends JpaRepository<BusinessServices, UUID>, JpaSpecificationExecutor<BusinessServices> {
@@ -17,6 +18,9 @@ public interface BusinessServicesReadDataJPARepository extends JpaRepository<Bus
 
     @Query("SELECT bs.services FROM BusinessServices bs WHERE bs.business.id = :businessId")
     Page<Services> findServicesByBusinessId(@Param("businessId") UUID businessId, Pageable pageable);
+
+    @Query("SELECT bs.id FROM BusinessServices bs WHERE bs.business.id = :businessId")
+    List<UUID> findBusinessServicesIdByBusinessId(@Param("businessId") UUID businessId);
 
     @Query("SELECT bs FROM BusinessServices bs " +
            "JOIN bs.business b " +

@@ -1,32 +1,35 @@
 package com.kynsof.calendar.application.command.businessService.update;
 
+import com.kynsof.calendar.application.command.businessService.create.CreateBusinessServicesPriceRequest;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
 public class UpdateBusinessServicesCommand implements ICommand {
 
-    private UUID id;
-    private UUID business;
-    private UUID service;
+    private boolean result;
+    private final UUID idBusiness;
+    private final List<CreateBusinessServicesPriceRequest> services;
 
-    public UpdateBusinessServicesCommand(UUID id, UUID business, UUID service) {
-        this.id = id;
-        this.business = business;
-        this.service = service;
+    public UpdateBusinessServicesCommand(UUID business,   List<CreateBusinessServicesPriceRequest> services) {
+
+
+        this.idBusiness = business;
+        this.services = services;
     }
 
-    public static UpdateBusinessServicesCommand fromRequest(UpdateBusinessServicesRequest request, UUID id) {
-        return new UpdateBusinessServicesCommand(id, request.getBusiness(), request.getService());
+    public static UpdateBusinessServicesCommand fromRequest(UpdateBusinessServicesRequest request) {
+        return new UpdateBusinessServicesCommand(request.getIdBusiness(), request.getServices());
     }
 
     @Override
     public ICommandMessage getMessage() {
-        return new UpdateBusinessServicesMessage(id);
+        return new UpdateBusinessServicesMessage(true);
     }
 }

@@ -89,20 +89,17 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
 
 
 
-
     @Query("SELECT new com.kynsof.calendar.domain.dto.ScheduleServiceInfoDto(s.id, s.resource.id, s.date, s.startTime, s.endingTime,  b.name, b.address, b.logo, bs.price) " +
             "FROM Schedule s " +
             "JOIN s.business b " +
             "JOIN BusinessServices bs ON bs.business.id = b.id AND bs.services.id = s.service.id " +
-            "WHERE s.resource.id = :resourceId " +
-            "AND s.business.id = :businessId " +
+            "WHERE s.service.id = :serviceId " +
             "AND s.date BETWEEN :startDate AND :endDate " +
             "AND s.status = 'ACTIVE' " +
             "AND s.stock > 0 " +
             "ORDER BY s.date ASC, s.startTime ASC")
-    List<ScheduleServiceInfoDto> findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(
-            @Param("resourceId") UUID resourceId,
-            @Param("businessId") UUID businessId,
+    Page<ScheduleServiceInfoDto> findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(
+            @Param("serviceId") UUID serviceId,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate,
             Pageable pageable);

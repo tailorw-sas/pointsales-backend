@@ -67,10 +67,10 @@ public class BusinessServiceController {
         return ResponseEntity.ok(data);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<UpdateBusinessServicesMessage> update(@PathVariable("id") UUID id, @RequestBody UpdateBusinessServicesRequest request) {
+    @PatchMapping()
+    public ResponseEntity<UpdateBusinessServicesMessage> update( @RequestBody UpdateBusinessServicesRequest request) {
 
-        UpdateBusinessServicesCommand command = UpdateBusinessServicesCommand.fromRequest(request, id);
+        UpdateBusinessServicesCommand command = UpdateBusinessServicesCommand.fromRequest(request);
         UpdateBusinessServicesMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
