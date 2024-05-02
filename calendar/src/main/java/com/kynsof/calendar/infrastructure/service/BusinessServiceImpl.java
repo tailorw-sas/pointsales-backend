@@ -109,9 +109,11 @@ public class BusinessServiceImpl implements IBusinessService {
     }
 
     @Override
-    public PaginatedResponse findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(LocalDate startDate, LocalDate endDate, UUID serviceId,
+    public PaginatedResponse findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(LocalDate startDate,
+                                                                                             LocalDate endDate, UUID serviceId,String businessName,
                                                                               Pageable pageable) {
-        Page<ScheduleServiceInfoDto> data =  scheduleReadDataJPARepository.findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(serviceId, startDate, endDate,pageable);
+        Page<ScheduleServiceInfoDto> data =  scheduleReadDataJPARepository.
+                findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(serviceId, startDate, endDate,businessName, pageable);
         return new PaginatedResponse(data.stream().toList(), data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }

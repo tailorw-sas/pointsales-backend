@@ -18,4 +18,5 @@ public class findDetailedAvailableSchedulesByResourceAndBusinessAndDateRangeQuer
     private LocalDate startDate;
     private LocalDate endDate;
     private UUID serviceId;
+    private String businessName;
 }

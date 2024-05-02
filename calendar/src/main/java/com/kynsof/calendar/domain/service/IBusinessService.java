@@ -25,5 +25,5 @@ public interface IBusinessService {
                                                                        Pageable pageable);
 
     PaginatedResponse findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(LocalDate startDate, LocalDate endDate, UUID serviceId,
-                                                                                      Pageable pageable);
+                                                                                      String businessName, Pageable pageable);
 }

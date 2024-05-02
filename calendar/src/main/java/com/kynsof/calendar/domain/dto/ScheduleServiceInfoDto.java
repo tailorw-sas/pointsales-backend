@@ -14,7 +14,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ScheduleServiceInfoDto {
-    private UUID idScheduledId;
+    private UUID scheduledId;
+    private UUID businessId;
     private UUID resourceId;
     private LocalDate date;
     private LocalTime startTime;

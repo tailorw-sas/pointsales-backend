@@ -16,6 +16,6 @@ public class findDetailedAvailableSchedulesByResourceAndBusinessAndDateRangeQuer
     @Override
     public PaginatedResponse handle(findDetailedAvailableSchedulesByResourceAndBusinessAndDateRangeQuery query) {
         return this.service.findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(query.getStartDate(),
-                query.getEndDate(), query.getServiceId(), query.getPageable());
+                query.getEndDate(), query.getServiceId(),query.getBusinessName(), query.getPageable());
     }
 }

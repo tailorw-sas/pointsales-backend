@@ -62,7 +62,7 @@ public class BusinessController {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
         findDetailedAvailableSchedulesByResourceAndBusinessAndDateRangeQuery query = new
                 findDetailedAvailableSchedulesByResourceAndBusinessAndDateRangeQuery(pageable, request.getStartDate(),
-                request.getEndDate(), request.getServiceId());
+                request.getEndDate(), request.getServiceId(), request.getBusinessName());
         PaginatedResponse response= mediator.send(query);
         return ResponseEntity.ok(response);
     }
