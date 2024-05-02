@@ -23,4 +23,6 @@ public class ScheduleServiceInfoDto {
     private String businessAddress;
     private String businessLogo;
     private Double servicePrice;
+    private String latitude;
+    private String longitude;
 }

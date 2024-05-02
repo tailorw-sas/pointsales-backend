@@ -46,7 +46,7 @@ public class BusinessController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/with-available-stock")
+    @PostMapping("/with-available-stock-test")
     public ResponseEntity<?> findBusinessesWithAvailableStock(
             @RequestBody findBusinessesWithAvailableStockByDateAndServiceRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
@@ -56,7 +56,7 @@ public class BusinessController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/with-available-stock-test")
+    @PostMapping("/with-available-stock")
     public ResponseEntity<?> findBusinessesWithAvailableStockTest(
             @RequestBody findDetailedAvailableSchedulesByResourceAndBusinessAndDateRangeRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
