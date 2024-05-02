@@ -89,17 +89,19 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
 
 
 
-    @Query("SELECT new com.kynsof.calendar.domain.dto.ScheduleServiceInfoDto(s.id,s.business.id, s.resource.id, s.date, s.startTime, " +
-            "s.endingTime,  b.name, b.address, b.logo, bs.price, s.business.latitude, s.business.longitude) " +
+    @Query("SELECT new com.kynsof.calendar.domain.dto.ScheduleServiceInfoDto(" +
+            "s.business.id, s.business.name, s.business.address, s.business.logo, " +
+            "MIN(bs.price), s.business.latitude, s.business.longitude) " +
             "FROM Schedule s " +
             "JOIN s.business b " +
-            "JOIN BusinessServices bs ON bs.business.id = b.id AND bs.services.id = s.service.id " +
+            "JOIN BusinessServices bs ON bs.business = b AND bs.services.id = s.service.id " +
             "WHERE s.service.id = :serviceId " +
             "AND s.date BETWEEN :startDate AND :endDate " +
             "AND s.status = 'ACTIVE' " +
-            "AND s.business.name LIKE CONCAT('%', :businessName, '%') " +
+            "AND b.name LIKE CONCAT('%', :businessName, '%') " +
             "AND s.stock > 0 " +
-            "ORDER BY s.date ASC, s.startTime ASC")
+            "GROUP BY s.business.id, s.business.name, s.business.address, s.business.logo, s.business.latitude, s.business.longitude " +
+            "ORDER BY MIN(bs.price) ASC")
     Page<ScheduleServiceInfoDto> findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(
             @Param("serviceId") UUID serviceId,
             @Param("startDate") LocalDate startDate,
