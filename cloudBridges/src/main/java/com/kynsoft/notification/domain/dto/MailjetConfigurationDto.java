@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -16,5 +17,6 @@ public class MailjetConfigurationDto {
     private String mailjetApiSecret;
     private String fromEmail;
     private String fromName;
+    private LocalDateTime createdAt;
 
 }

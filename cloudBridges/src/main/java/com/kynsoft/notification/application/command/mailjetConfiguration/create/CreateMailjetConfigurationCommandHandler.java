@@ -5,6 +5,7 @@ import com.kynsoft.notification.domain.dto.MailjetConfigurationDto;
 import com.kynsoft.notification.domain.service.IMailjetConfigurationService;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Component
@@ -25,7 +26,8 @@ public class CreateMailjetConfigurationCommandHandler implements ICommandHandler
                 command.getMailjetApiSecret(),
                 command.getMailjetApiKey(),
                 command.getFromEmail(),
-                command.getFromName()
+                command.getFromName(),
+                LocalDateTime.now()
         ));
         command.setId(id);
     }
