@@ -2,6 +2,7 @@ package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.businesservice.getbyid.BusinessServicesResponse;
 import com.kynsof.calendar.application.query.service.ServicesResponse;
+import com.kynsof.calendar.domain.dto.BusinessServicePriceResponse;
 import com.kynsof.calendar.domain.dto.BusinessServicesDto;
 import com.kynsof.calendar.domain.service.IBusinessServicesService;
 import com.kynsof.calendar.infrastructure.entity.BusinessServices;
@@ -48,7 +49,10 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
     public void delete(UUID id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    @Override
+    public void deleteIds(List<UUID> ids) {
+        this.repositoryCommand.deleteAllByIdInBatch(ids);
+    }
     @Override
     public BusinessServicesDto findById(UUID id) {
         
@@ -56,8 +60,8 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
-
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, new ErrorField("id", "BusinessSevice not found.")));
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND,
+                new ErrorField("id", "BusinessService not found.")));
 
     }
 
@@ -88,14 +92,32 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
 
     @Override
     public PaginatedResponse findServicesByBusinessId(Pageable pageable, UUID businessId) {
-        Page<Services> data = this.repositoryQuery.findServicesByBusinessId(businessId, pageable);
-        return getPaginatedServicesResponse(data);
+        Page<BusinessServices> data = this.repositoryQuery.findServicesByBusinessId(businessId, pageable);
+        List<BusinessServicePriceResponse> responses = new ArrayList<>();
+       for (BusinessServices s : data.getContent()) {
+           BusinessServicePriceResponse businessServicePriceResponse = new BusinessServicePriceResponse();
+           businessServicePriceResponse.setPrice(s.getPrice());
+           businessServicePriceResponse.setService(new ServicesResponse(s.getServices().toAggregate()));
+           responses.add(businessServicePriceResponse);
+       }
+        return new PaginatedResponse(responses, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public List<UUID> findBusinessServiceIdByBusinessId( UUID businessId) {
+        return this.repositoryQuery.findBusinessServicesIdByBusinessId(businessId);
     }
 
     @Override
     public PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId) {
         Page<BusinessServices> data = this.repositoryQuery.findServicesByResourceId(resourceId, pageable);
         return getPaginatedResponse(data);
+    }
+
+    @Override
+    public void createAll(List<BusinessServicesDto> businessServicePrice) {
+        this.repositoryCommand.saveAllAndFlush(businessServicePrice.stream().map(BusinessServices::new).toList());
     }
 
 }

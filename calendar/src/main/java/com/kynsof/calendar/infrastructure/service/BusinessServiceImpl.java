@@ -2,6 +2,7 @@ package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.BusinessResponse;
 import com.kynsof.calendar.domain.dto.BusinessDto;
+import com.kynsof.calendar.domain.dto.ScheduleServiceInfoDto;
 import com.kynsof.calendar.domain.service.IBusinessService;
 import com.kynsof.calendar.infrastructure.entity.Business;
 import com.kynsof.calendar.infrastructure.repository.command.BusinessWriteDataJPARepository;
@@ -77,6 +78,11 @@ public class BusinessServiceImpl implements IBusinessService {
         this.repositoryCommand.save(new Business(objectDelete));
     }
 
+    @Override
+    public void deleteIds(List<UUID> ids) {
+        this.repositoryCommand.deleteAllByIdInBatch(ids);
+    }
+
 //    @Cacheable(cacheNames = CacheConfig.BUSINESS_CACHE, unless = "#result == null")
     @Override
     public BusinessDto findById(UUID id) {
@@ -102,12 +108,22 @@ public class BusinessServiceImpl implements IBusinessService {
         return getPaginatedResponse(data);
     }
 
+    @Override
+    public PaginatedResponse findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(LocalDate startDate,
+                                                                                             LocalDate endDate, UUID serviceId,String businessName,
+                                                                              Pageable pageable) {
+        Page<ScheduleServiceInfoDto> data =  scheduleReadDataJPARepository.
+                findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(serviceId, startDate, endDate,businessName, pageable);
+        return new PaginatedResponse(data.stream().toList(), data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
     private PaginatedResponse getPaginatedResponse(Page<Business> data) {
-        List<BusinessResponse> patients = new ArrayList<>();
+        List<BusinessResponse> businessResponses = new ArrayList<>();
         for (Business o : data.getContent()) {
-            patients.add(new BusinessResponse(o.toAggregate()));
+            businessResponses.add(new BusinessResponse(o.toAggregate()));
         }
-        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
+        return new PaginatedResponse(businessResponses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 

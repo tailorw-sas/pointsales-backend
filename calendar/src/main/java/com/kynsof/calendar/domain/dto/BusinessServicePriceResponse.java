@@ -1,22 +1,16 @@
 package com.kynsof.calendar.domain.dto;
 
+import com.kynsof.calendar.application.query.service.ServicesResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BusinessServicesDto {
-    private UUID id;
-    private BusinessDto business;
-    private ServiceDto service;
+public class BusinessServicePriceResponse {
     private Double price;
-    private LocalDateTime createdAt;
-
+    private ServicesResponse service;
 }

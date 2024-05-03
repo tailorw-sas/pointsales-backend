@@ -1,14 +1,11 @@
 package com.kynsof.calendar.controller;
 
-import com.kynsof.calendar.application.command.businessservices.create.CreateBusinessServicesCommand;
-import com.kynsof.calendar.application.command.businessservices.create.CreateBusinessServicesMessage;
-import com.kynsof.calendar.application.command.businessservices.create.CreateBusinessServicesRequest;
-import com.kynsof.calendar.application.command.businessservices.createall.CreateAllBusinessServicesCommand;
-import com.kynsof.calendar.application.command.businessservices.createall.CreateAllBusinessServicesMessage;
-import com.kynsof.calendar.application.command.businessservices.createall.CreateAllBusinessServicesRequest;
-import com.kynsof.calendar.application.command.businessservices.update.UpdateBusinessServicesCommand;
-import com.kynsof.calendar.application.command.businessservices.update.UpdateBusinessServicesMessage;
-import com.kynsof.calendar.application.command.businessservices.update.UpdateBusinessServicesRequest;
+import com.kynsof.calendar.application.command.businessService.create.CreateAllBusinessServicesCommand;
+import com.kynsof.calendar.application.command.businessService.create.CreateAllBusinessServicesMessage;
+import com.kynsof.calendar.application.command.businessService.create.CreateAllBusinessServicesRequest;
+import com.kynsof.calendar.application.command.businessService.update.UpdateBusinessServicesCommand;
+import com.kynsof.calendar.application.command.businessService.update.UpdateBusinessServicesMessage;
+import com.kynsof.calendar.application.command.businessService.update.UpdateBusinessServicesRequest;
 import com.kynsof.calendar.application.query.businesservice.getbyid.BusinessServicesResponse;
 import com.kynsof.calendar.application.query.businesservice.getbyid.FindBusinessServiceByIdQuery;
 import com.kynsof.calendar.application.query.businesservice.getservicesbybusiness.FindServiceByIdBusinessQuery;
@@ -35,16 +32,8 @@ public class BusinessServiceController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> create(@RequestBody CreateBusinessServicesRequest request)  {
-        CreateBusinessServicesCommand createCommand = CreateBusinessServicesCommand.fromRequest(request);
-        CreateBusinessServicesMessage response = mediator.send(createCommand);
-
-        return ResponseEntity.ok(response);
-    }
-
-    @PostMapping("/create-all-services")
-    public ResponseEntity<?> createAllServices(@RequestBody CreateAllBusinessServicesRequest request)  {
-        CreateAllBusinessServicesCommand createCommand = CreateAllBusinessServicesCommand.fromRequest(request, this.mediator);
+    public ResponseEntity<?> create(@RequestBody CreateAllBusinessServicesRequest request)  {
+        CreateAllBusinessServicesCommand createCommand = CreateAllBusinessServicesCommand.fromRequest(request);
         CreateAllBusinessServicesMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
@@ -78,10 +67,10 @@ public class BusinessServiceController {
         return ResponseEntity.ok(data);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<UpdateBusinessServicesMessage> update(@PathVariable("id") UUID id, @RequestBody UpdateBusinessServicesRequest request) {
+    @PatchMapping()
+    public ResponseEntity<UpdateBusinessServicesMessage> update( @RequestBody UpdateBusinessServicesRequest request) {
 
-        UpdateBusinessServicesCommand command = UpdateBusinessServicesCommand.fromRequest(request, id);
+        UpdateBusinessServicesCommand command = UpdateBusinessServicesCommand.fromRequest(request);
         UpdateBusinessServicesMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }

@@ -9,8 +9,8 @@ import java.util.UUID;
 @Getter
 public class FindServiceByIdBusinessQuery  implements IQuery {
 
-    private UUID id;
-    private Pageable pageable;
+    private final UUID id;
+    private final Pageable pageable;
 
     public FindServiceByIdBusinessQuery(UUID id, Pageable pageable) {
         this.id = id;

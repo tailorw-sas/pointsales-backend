@@ -7,6 +7,7 @@ import com.kynsoft.notification.domain.service.IMailjetConfigurationService;
 import com.kynsoft.notification.domain.service.ITemplateEntityService;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 ;
@@ -31,7 +32,8 @@ public class CreateTemplateEntityCommandHandler implements ICommandHandler<Creat
                 command.getTemplateCode(),
                 command.getName(),
                 command.getDescription(),
-                mailjetConfigurationDto
+                mailjetConfigurationDto,
+                LocalDateTime.now()
         ));
         command.setId(id);
     }

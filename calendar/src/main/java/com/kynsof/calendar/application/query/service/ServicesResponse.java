@@ -20,8 +20,6 @@ public class ServicesResponse implements IResponse, Serializable {
     private EServiceStatus status;
     private String image;
     private String name;
-    private Double normalAppointmentPrice;
-    private Double expressAppointmentPrice;
     private String description;
     private boolean applyIva;
 
@@ -32,8 +30,6 @@ public class ServicesResponse implements IResponse, Serializable {
         this.status = object.getStatus();
         this.image = object.getPicture();
         this.name = object.getName();
-        this.normalAppointmentPrice = object.getNormalAppointmentPrice();
-        this.expressAppointmentPrice = object.getExpressAppointmentPrice();
         this.description = object.getDescription();
         this.applyIva = object.getApplyIva();
     }

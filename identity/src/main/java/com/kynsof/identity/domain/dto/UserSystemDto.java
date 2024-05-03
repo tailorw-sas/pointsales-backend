@@ -15,6 +15,7 @@ public class UserSystemDto {
     private UUID id;
     private String identification;
     private String email;
+    private String userName;
     private String name;
     private String lastName;
     private UserStatus status;

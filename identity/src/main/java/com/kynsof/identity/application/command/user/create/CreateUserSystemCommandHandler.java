@@ -48,7 +48,7 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
                 UserStatus.ACTIVE,
                 command.getImage()
         );
-
+        userDto.setUserName(command.getUserName());
         userDto.setUserType(command.getUserType());
 
        UUID id = userSystemService.create(userDto);

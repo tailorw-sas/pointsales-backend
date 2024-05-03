@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -18,13 +19,15 @@ public class MailjetConfigurationResponse implements IResponse {
     private String mailjetApiSecret;
     private String email;
     private String name;
+    private LocalDate createdAt;
 
-    public MailjetConfigurationResponse(MailjetConfigurationDto patients) {
-        this.id = patients.getId();
-        mailjetApiKey = patients.getMailjetApiKey();
-        mailjetApiSecret = patients.getMailjetApiSecret();
-        email = patients.getFromEmail();
-        name = patients.getFromName();
+    public MailjetConfigurationResponse(MailjetConfigurationDto mailjetConfigurationDto) {
+        this.id = mailjetConfigurationDto.getId();
+        mailjetApiKey = mailjetConfigurationDto.getMailjetApiKey();
+        mailjetApiSecret = mailjetConfigurationDto.getMailjetApiSecret();
+        email = mailjetConfigurationDto.getFromEmail();
+        name = mailjetConfigurationDto.getFromName();
+        createdAt = mailjetConfigurationDto.getCreatedAt().toLocalDate();
     }
 
 }

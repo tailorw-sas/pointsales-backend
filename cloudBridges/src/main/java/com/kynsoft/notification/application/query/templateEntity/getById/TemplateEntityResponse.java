@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -17,12 +18,13 @@ public class TemplateEntityResponse implements IResponse {
     private String templateCode;
     private String name;
     private String description;
-
+    private LocalDate createdAt;
     public TemplateEntityResponse(TemplateDto dto) {
         this.id = dto.getId();
         this.templateCode = dto.getTemplateCode();
         this.name = dto.getName();
         this.description = dto.getDescription();
+        this.createdAt = dto.getCreatedAt().toLocalDate();
     }
 
 }

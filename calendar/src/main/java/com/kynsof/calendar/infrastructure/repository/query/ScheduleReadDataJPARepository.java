@@ -1,6 +1,7 @@
 package com.kynsof.calendar.infrastructure.repository.query;
 
 import com.kynsof.calendar.domain.dto.ScheduleAvailabilityDto;
+import com.kynsof.calendar.domain.dto.ScheduleServiceInfoDto;
 import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.infrastructure.entity.Business;
 import com.kynsof.calendar.infrastructure.entity.Resource;
@@ -85,5 +86,27 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
             @Param("businessId") UUID businessId,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
+
+
+
+    @Query("SELECT new com.kynsof.calendar.domain.dto.ScheduleServiceInfoDto(" +
+            "s.business.id, s.business.name, s.business.address, s.business.logo, " +
+            "MIN(bs.price), s.business.latitude, s.business.longitude) " +
+            "FROM Schedule s " +
+            "JOIN s.business b " +
+            "JOIN BusinessServices bs ON bs.business = b AND bs.services.id = s.service.id " +
+            "WHERE s.service.id = :serviceId " +
+            "AND s.date BETWEEN :startDate AND :endDate " +
+            "AND s.status = 'ACTIVE' " +
+            "AND b.name LIKE CONCAT('%', :businessName, '%') " +
+            "AND s.stock > 0 " +
+            "GROUP BY s.business.id, s.business.name, s.business.address, s.business.logo, s.business.latitude, s.business.longitude " +
+            "ORDER BY MIN(bs.price) ASC")
+    Page<ScheduleServiceInfoDto> findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(
+            @Param("serviceId") UUID serviceId,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate,
+            @Param("businessName") String businessName,
+            Pageable pageable);
 
 }

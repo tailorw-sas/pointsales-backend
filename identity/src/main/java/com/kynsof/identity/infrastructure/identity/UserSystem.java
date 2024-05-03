@@ -51,7 +51,7 @@ public class UserSystem implements Serializable {
 
     public UserSystem(UserSystemDto dto) {
         this.id = dto.getId();
-        this.userName = dto.getIdentification();
+        this.userName = dto.getUserName();
         this.email = dto.getEmail();
         this.name = dto.getName();
         this.lastName = dto.getLastName();

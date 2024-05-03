@@ -7,8 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,11 +37,15 @@ public class MailjetConfiguration implements Serializable {
     @Column(nullable = false)
     private String fromName;
 
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
     @OneToMany(mappedBy = "mailjetConfig", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<TemplateEntity> templates;
 
     public MailjetConfigurationDto toAggregate() {
-        return new MailjetConfigurationDto(id, mailjetApiKey, mailjetApiSecret, fromEmail, fromName);
+        return new MailjetConfigurationDto(id, mailjetApiKey, mailjetApiSecret, fromEmail, fromName, createdAt);
     }
 
     public MailjetConfiguration(MailjetConfigurationDto dto) {
