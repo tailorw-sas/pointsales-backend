@@ -45,7 +45,7 @@ public class JasperReportTemplate extends BaseEntity {
     public JasperReportTemplateDto toAggregate () {
         String templateContentUrlS = templateContentUrl != null ? templateContentUrl : null;
 
-        return new JasperReportTemplateDto(id, templateCode, templateName, templateDescription, templateContentUrlS, type, parameters);
+        return new JasperReportTemplateDto(id, templateCode, templateName, templateDescription, templateContentUrlS, type, parameters, createdAt);
     }
 
 }
