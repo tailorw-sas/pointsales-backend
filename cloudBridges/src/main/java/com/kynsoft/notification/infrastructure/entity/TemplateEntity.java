@@ -6,8 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -35,6 +37,10 @@ public class TemplateEntity {
     @JoinColumn(name = "mailjet_config_id")
     private MailjetConfiguration mailjetConfig;
 
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
     public TemplateEntity(TemplateDto dto) {
         this.id = dto.getId();
         this.templateCode = dto.getTemplateCode();
@@ -44,6 +50,6 @@ public class TemplateEntity {
 
 
     public TemplateDto toAggregate() {
-        return new TemplateDto(this.id, this.templateCode, this.name, this.description, mailjetConfig.toAggregate());
+        return new TemplateDto(this.id, this.templateCode, this.name, this.description, mailjetConfig.toAggregate(), createdAt);
     }
 }
