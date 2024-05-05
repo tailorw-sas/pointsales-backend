@@ -6,6 +6,9 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationCommand;
 import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationMessage;
 import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationRequest;
+import com.kynsof.treatments.application.command.externalConsultation.createAll.CreateExternalConsultationAllCommand;
+import com.kynsof.treatments.application.command.externalConsultation.createAll.CreateExternalConsultationAllMessage;
+import com.kynsof.treatments.application.command.externalConsultation.createAll.CreateExternalConsultationAllRequest;
 import com.kynsof.treatments.application.command.externalConsultation.update.UpdateExternalConsultationCommand;
 import com.kynsof.treatments.application.command.externalConsultation.update.UpdateExternalConsultationMessage;
 import com.kynsof.treatments.application.command.externalConsultation.update.UpdateExternalConsultationRequest;
@@ -35,6 +38,14 @@ public class ExternalConsultationController {
     public ResponseEntity<CreateExternalConsultationMessage> create(@RequestBody CreateExternalConsultationRequest request)  {
         CreateExternalConsultationCommand createCommand = CreateExternalConsultationCommand.fromRequest(request);
         CreateExternalConsultationMessage response = mediator.send(createCommand);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/all")
+    public ResponseEntity<?> createAll(@RequestBody CreateExternalConsultationAllRequest request)  {
+        CreateExternalConsultationAllCommand createCommand = CreateExternalConsultationAllCommand.fromRequest(request);
+        CreateExternalConsultationAllMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
     }

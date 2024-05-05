@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -32,6 +34,10 @@ public class Treatment {
     @ManyToOne
     @JoinColumn(name = "medicines_id")
     private Medicines medicines;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     public Treatment(TreatmentDto treatmentDto) {
         this.id = treatmentDto.getId();

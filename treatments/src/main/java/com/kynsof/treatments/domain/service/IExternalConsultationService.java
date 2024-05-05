@@ -12,6 +12,8 @@ public interface IExternalConsultationService {
 
     UUID create(ExternalConsultationDto externalConsultation);
 
+    UUID createAll(ExternalConsultationDto externalConsultation);
+
     UUID update(ExternalConsultationDto externalConsultation);
 
     void delete(UUID id);
