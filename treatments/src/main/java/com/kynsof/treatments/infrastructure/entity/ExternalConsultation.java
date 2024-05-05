@@ -79,6 +79,10 @@ public class ExternalConsultation {
             diagnosis.setIcdCode(d.getIcdCode());
             return diagnosis;
         }).toList() : new ArrayList<>();
+
+        ExamOrder examOrder = new ExamOrder(dto.getExamOrder());
+        examOrder.setExternalConsultation(this);
+        this.examOrder = examOrder;
     }
 
     public ExternalConsultationDto toAggregate() {

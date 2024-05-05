@@ -19,12 +19,14 @@ public class CreateExternalConsultationAllCommand implements ICommand {
     private String medicalHistory;
     private String physicalExam;
     private String observations;
-    private UUID examOrder;
+    private CreateExamOrderAllRequest examOrder;
     private final List<DiagnosisRequest> diagnosis;
     private final List<TreatmentRequest> treatments;
 
     public CreateExternalConsultationAllCommand(UUID patientId, UUID doctorId, String consultationReason,
-                                                String medicalHistory, String physicalExam, String observations, UUID examOrder, List<DiagnosisRequest> diagnosis, List<TreatmentRequest> treatments) {
+                                                String medicalHistory, String physicalExam, String observations,
+                                                CreateExamOrderAllRequest examOrder, List<DiagnosisRequest> diagnosis,
+                                                List<TreatmentRequest> treatments) {
 
         this.patientId = patientId;
         this.doctorId = doctorId;

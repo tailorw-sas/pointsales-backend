@@ -16,7 +16,7 @@ public class CreateExternalConsultationAllRequest {
     private String medicalHistory;
     private String physicalExam;
     private String observations;
-    private UUID examOrder;
+    private CreateExamOrderAllRequest examOrder;
     private List<DiagnosisRequest> diagnosis;
     private List<TreatmentRequest> treatments;
 }
