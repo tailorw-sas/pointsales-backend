@@ -34,15 +34,15 @@ public class ExternalConsultationController {
         this.mediator = mediator;
     }
 
-    @PostMapping("")
-    public ResponseEntity<CreateExternalConsultationMessage> create(@RequestBody CreateExternalConsultationRequest request)  {
+    @PostMapping("/old")
+    public ResponseEntity<CreateExternalConsultationMessage> createOld(@RequestBody CreateExternalConsultationRequest request)  {
         CreateExternalConsultationCommand createCommand = CreateExternalConsultationCommand.fromRequest(request);
         CreateExternalConsultationMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/all")
+    @PostMapping("")
     public ResponseEntity<?> createAll(@RequestBody CreateExternalConsultationAllRequest request)  {
         CreateExternalConsultationAllCommand createCommand = CreateExternalConsultationAllCommand.fromRequest(request);
         CreateExternalConsultationAllMessage response = mediator.send(createCommand);
