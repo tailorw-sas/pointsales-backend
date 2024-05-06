@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.share.core.domain.kafka.entity.UserSystemKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import com.kynsof.treatments.domain.dto.DoctorDto;
-import com.kynsof.treatments.domain.dto.enumDto.Status;
 import com.kynsof.treatments.domain.service.IDoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -30,11 +29,13 @@ public class ConsumerResourceEventService {
 
             UserSystemKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UserSystemKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
+            DoctorDto doctorDto = this.service.findById(eventRead.getId());
+            doctorDto.setIdentification(eventRead.getIdentification());
+            doctorDto.setName(eventRead.getName());
+            doctorDto.setLastName(eventRead.getLastName());
+            doctorDto.setImage(eventRead.getIdImage());
+           this.service.update(doctorDto);
 
-            if (eventType.equals(EventType.CREATED)) {
-                //Definir accion
-                this.service.update(new DoctorDto(eventRead.getId(), eventRead.getIdentification(), eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage(), Status.ACTIVE));
-            }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerResourceEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
