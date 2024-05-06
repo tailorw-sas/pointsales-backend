@@ -2,7 +2,7 @@ package com.kynsof.treatments.application.query.examOrder.getall;
 
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
-import com.kynsof.treatments.domain.dto.ExamDto;
+import com.kynsof.treatments.application.query.exam.getbyid.ExamResponse;
 import com.kynsof.treatments.domain.dto.ExamOrderDto;
 import com.kynsof.treatments.domain.dto.PatientDto;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ public class ExamOrderResponse implements IResponse {
     private Double totalPrice;
     private Date orderDate;
     private PatientDto patient;
-    private List<ExamDto> exams;
+    private List<ExamResponse> exams;
 
 
     public ExamOrderResponse(ExamOrderDto dto) {
@@ -33,7 +33,7 @@ public class ExamOrderResponse implements IResponse {
         this.status = dto.getStatus();
         this.totalPrice = dto.getTotalPrice();
         this.orderDate = dto.getOrderDate();
-        this.exams = dto.getExams();
+        this.exams = dto.getExams().stream().map(ExamResponse::new).toList();
     }
 
 }
