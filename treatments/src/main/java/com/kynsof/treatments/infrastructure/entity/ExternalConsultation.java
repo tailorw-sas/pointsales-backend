@@ -98,7 +98,7 @@ public class ExternalConsultation {
 //        ExamOrderDto toResponse = this.examOrder != null ? this.examOrder.toAggregate() : null;
         return new ExternalConsultationDto(this.id, this.patient.toAggregate(), this.doctor.toAggregate(),
                 this.consultationTime, this.consultationReason, this.medicalHistory, this.physicalExam, diagnosisDtoList,
-                treatmentList, this.observations, null);
+                treatmentList, this.observations, this.examOrder.toAggregateSimple());
     }
 
     @PrePersist
