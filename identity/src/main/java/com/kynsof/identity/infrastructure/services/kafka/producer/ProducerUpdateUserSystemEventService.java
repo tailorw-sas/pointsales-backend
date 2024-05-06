@@ -27,6 +27,7 @@ public class ProducerUpdateUserSystemEventService {
             UserSystemKafka event = new UserSystemKafka(
                     entity.getId(), 
                     entity.getIdentification(),
+                    entity.getUserName(),
                     entity.getEmail(), 
                     entity.getName(), 
                     entity.getLastName(),

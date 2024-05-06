@@ -4,11 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.calendar.domain.dto.ResourceDto;
-import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.share.core.domain.kafka.entity.UserSystemKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
@@ -20,7 +20,7 @@ public class ConsumerResourceEventService {
     private IResourceService service;
 
     // Ejemplo de un método listener
-//    @KafkaListener(topics = "resource", groupId = "resource-calendar")
+    @KafkaListener(topics = "resource", groupId = "resource-calendar")
     public void listen(String event) {
         try {
 
@@ -29,13 +29,11 @@ public class ConsumerResourceEventService {
 
             UserSystemKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UserSystemKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
+            ResourceDto resourceDto = this.service.findById(eventRead.getId());
+            resourceDto.setName(eventRead.getName() + " " + eventRead.getLastName());
+            resourceDto.setImage(eventRead.getIdImage());
+            this.service.update(resourceDto);
 
-            if (eventType.equals(EventType.CREATED)) {
-                //Definir accion
-                ResourceDto resourceDto = new ResourceDto(eventRead.getId(), eventRead.getName() + " " + eventRead.getLastName(), "", "", EResourceStatus.ACTIVE, true, eventRead.getIdImage());
-                resourceDto.setImage(eventRead.getIdImage());
-                this.service.create(resourceDto);
-            }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerResourceEventService.class.getName()).log(Level.SEVERE, null, ex);
         }

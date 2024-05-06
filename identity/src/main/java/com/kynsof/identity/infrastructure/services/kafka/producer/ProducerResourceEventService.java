@@ -28,6 +28,7 @@ public class ProducerResourceEventService {
             UserSystemKafka event = new UserSystemKafka(
                     entity.getId(), 
                     entity.getIdentification(),
+                    entity.getUserName(),
                     entity.getEmail(), 
                     entity.getName(), 
                     entity.getLastName(),

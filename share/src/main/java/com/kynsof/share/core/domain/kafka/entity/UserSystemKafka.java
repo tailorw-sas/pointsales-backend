@@ -13,6 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserSystemKafka {
     private UUID id;
+    private String identification;
     private String userName;
     private String email;
     private String name;

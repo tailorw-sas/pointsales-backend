@@ -9,6 +9,7 @@ import com.kynsof.treatments.domain.dto.DoctorDto;
 import com.kynsof.treatments.domain.dto.enumDto.Status;
 import com.kynsof.treatments.domain.service.IDoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
@@ -20,7 +21,7 @@ public class ConsumerResourceEventService {
     private IDoctorService service;
 
     // Ejemplo de un método listener
-//    @KafkaListener(topics = "resource", groupId = "resource-treatments")
+    @KafkaListener(topics = "resource", groupId = "resource-treatments")
     public void listen(String event) {
         try {
 
@@ -32,7 +33,7 @@ public class ConsumerResourceEventService {
 
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                this.service.create(new DoctorDto(eventRead.getId(), "", eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage().toString(), Status.ACTIVE));
+                this.service.update(new DoctorDto(eventRead.getId(), eventRead.getIdentification(), eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage(), Status.ACTIVE));
             }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerResourceEventService.class.getName()).log(Level.SEVERE, null, ex);

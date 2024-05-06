@@ -27,7 +27,8 @@ public class ProducerRegisterUserSystemEventService {
 
         try {
             UserSystemKafka event = new UserSystemKafka(
-                    UUID.fromString(clientId), 
+                    UUID.fromString(clientId),
+                    "",
                     entity.getUserName(),
                     entity.getEmail(), 
                     entity.getName(),
