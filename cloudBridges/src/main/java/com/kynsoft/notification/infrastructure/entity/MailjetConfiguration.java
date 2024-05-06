@@ -41,7 +41,7 @@ public class MailjetConfiguration implements Serializable {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "mailjetConfig", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "mailjetConfig", cascade = CascadeType.ALL)
     private List<TemplateEntity> templates;
 
     public MailjetConfigurationDto toAggregate() {
@@ -53,6 +53,7 @@ public class MailjetConfiguration implements Serializable {
         this.mailjetApiSecret = dto.getMailjetApiSecret();
         this.fromEmail = dto.getFromEmail();
         this.fromName = dto.getFromName();
+        this.id = dto.getId();
     }
 
 }

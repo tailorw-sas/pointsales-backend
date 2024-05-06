@@ -36,12 +36,12 @@ public class TemplateEntityServiceImpl implements ITemplateEntityService {
 
     @Override
     public void update(TemplateEntity object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.commandRepository.save(object);
     }
 
     @Override
     public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       this.commandRepository.deleteById(id);
     }
 
     @Override
