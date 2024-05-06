@@ -41,14 +41,7 @@ public class ProducerRegisterUserSystemEventService {
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
-
             this.producer.send("user-system", json);
-            System.err.println("##############################################");
-            System.err.println("##############################################");
-            System.err.println("SE LANZO EL EVENTO DEL USER SYSTEM");
-            System.err.println("##############################################");
-            System.err.println("##############################################");
-            System.err.println("##############################################");
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ProducerRegisterUserSystemEventService.class.getName()).log(Level.SEVERE, null, ex);
         }

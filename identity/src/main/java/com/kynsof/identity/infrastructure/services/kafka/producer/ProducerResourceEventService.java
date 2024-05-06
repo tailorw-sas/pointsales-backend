@@ -39,14 +39,7 @@ public class ProducerResourceEventService {
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
-
-            this.producer.send("resource", json);
-            System.err.println("##############################################");
-            System.err.println("##############################################");
-            System.err.println("SE LANZO EL EVENTO DEL USER SYSTEM");
-            System.err.println("##############################################");
-            System.err.println("##############################################");
-            System.err.println("##############################################");
+            this.producer.send("user-system-update", json);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ProducerResourceEventService.class.getName()).log(Level.SEVERE, null, ex);
         }

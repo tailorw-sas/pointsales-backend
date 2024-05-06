@@ -29,7 +29,7 @@ public class UserSystemsByIdResponse implements IResponse {
 
     public UserSystemsByIdResponse(UserSystemDto userSystemDto) {
         this.id = userSystemDto.getId();
-        this.userName = userSystemDto.getIdentification();
+        this.userName = userSystemDto.getUserName();
         this.email = userSystemDto.getEmail();
         this.name = userSystemDto.getName();
         this.lastName = userSystemDto.getLastName();

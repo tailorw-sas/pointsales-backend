@@ -20,7 +20,7 @@ public class ConsumerResourceEventService {
     private IDoctorService service;
 
     // Ejemplo de un método listener
-    @KafkaListener(topics = "resource", groupId = "resource-treatments")
+    @KafkaListener(topics = "user-system-update", groupId = "treatments")
     public void listen(String event) {
         try {
 
