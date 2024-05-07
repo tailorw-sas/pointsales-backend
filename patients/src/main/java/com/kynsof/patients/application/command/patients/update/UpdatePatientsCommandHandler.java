@@ -9,25 +9,21 @@ import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerUpdatePatientsEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatientsCommand> {
 
     private final IPatientsService serviceImpl;
-    private final ProducerSaveFileEventService saveFileEventService;
     private final IContactInfoService contactInfoService;
     private final IGeographicLocationService geographicLocationService;
     private final ProducerUpdatePatientsEventService updatePatientsEventService;
 
     public UpdatePatientsCommandHandler(IPatientsService serviceImpl,
-                                        ProducerSaveFileEventService saveFileEventService,
                                         IContactInfoService contactInfoService,
                                         IGeographicLocationService geographicLocationService,
                                         ProducerUpdatePatientsEventService updatePatientsEventService) {
         this.serviceImpl = serviceImpl;
-        this.saveFileEventService = saveFileEventService;
         this.contactInfoService = contactInfoService;
         this.geographicLocationService = geographicLocationService;
         this.updatePatientsEventService = updatePatientsEventService;
