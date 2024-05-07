@@ -2,8 +2,11 @@ package com.kynsof.calendar.application.command.resource.update;
 
 import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.service.IResourceService;
+import com.kynsof.calendar.infrastructure.service.kafka.producer.ProducerUpdateResourceEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.kafka.entity.UpdateResourceKafka;
 import com.kynsof.share.utils.UpdateIfNotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,10 +14,11 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
 
     private final IResourceService service;
 
+    @Autowired
+    private ProducerUpdateResourceEventService producerUpdateResourceEventService;
 
     public UpdateResourceCommandHandler(IResourceService service) {
         this.service = service;
-
     }
 
     @Override
@@ -29,18 +33,19 @@ public class UpdateResourceCommandHandler implements ICommandHandler<UpdateResou
             UpdateIfNotNull.updateIfStringNotNull(_resource::setLanguage, command.getLanguage());
             UpdateIfNotNull.updateIfStringNotNull(_resource::setIdentification, command.getIdentification());
             service.update(_resource);
+            this.producerUpdateResourceEventService.update(new UpdateResourceKafka(_resource.getId().toString(), _resource.getIdentification()));
         } catch (Exception ex) {
 
             ResourceDto _resource = new ResourceDto(
-                    command.getId(), 
-                    "", 
-                    command.getRegistrationNumber(), 
+                    command.getId(),
+                    "",
+                    command.getRegistrationNumber(),
                     command.getLanguage(),
-                    command.getStatus(), 
+                    command.getStatus(),
                     command.getExpressAppointments()
             );
             _resource.setIdentification(command.getIdentification());
-            service.create(_resource);
+            this.service.create(_resource);
         }
 
     }
