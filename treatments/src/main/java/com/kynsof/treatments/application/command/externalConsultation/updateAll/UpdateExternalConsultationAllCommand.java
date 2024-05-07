@@ -23,11 +23,12 @@ public class UpdateExternalConsultationAllCommand implements ICommand {
     private final List<UpdateDiagnosisAllRequest> diagnosis;
     private final List<UpdateTreatmentAllRequest> treatments;
 
-    public UpdateExternalConsultationAllCommand(UUID patientId, UUID doctorId, String consultationReason,
+    public UpdateExternalConsultationAllCommand(UUID id,UUID patientId, UUID doctorId, String consultationReason,
                                                 String medicalHistory, String physicalExam, String observations,
                                                 UpdateExamOrderAllRequest examOrder,List<UpdateDiagnosisAllRequest> diagnosis,
                                                 List<UpdateTreatmentAllRequest> treatments) {
 
+        this.id = id;
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.consultationReason = consultationReason;
@@ -39,8 +40,8 @@ public class UpdateExternalConsultationAllCommand implements ICommand {
         this.examOrder = examOrder;
     }
 
-    public static UpdateExternalConsultationAllCommand fromRequest(UpdateExternalConsultationAllRequest request) {
-        return new UpdateExternalConsultationAllCommand(request.getPatient(), request.getDoctor(),
+    public static UpdateExternalConsultationAllCommand fromRequest(UUID id,UpdateExternalConsultationAllRequest request) {
+        return new UpdateExternalConsultationAllCommand(id, request.getPatient(), request.getDoctor(),
                 request.getConsultationReason(), request.getMedicalHistory(), request.getPhysicalExam(),
                 request.getObservations(), request.getExamOrder(), request.getDiagnosis(), request.getTreatments());
     }
