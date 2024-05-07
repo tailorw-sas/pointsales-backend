@@ -106,11 +106,6 @@ class PaymentServiceClient implements IPaymentServiceClient {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<PaymentData> request = new HttpEntity<>(paymentData, headers);
-//            String serviceUrl = "http://" + paymentServiceConfig.getPaymentServiceBaseUrl() + "/placetopay/" +
-//                    paymentServiceConfig.getPaymentServiceClientId() + "/transactions";
-//            String serviceUrl = "http://payment:8080" + "/placetopay/" +
-//                  paymentServiceConfig.getPaymentServiceClientId() + "/transactions";
-
             String serviceUrl = "http://"+paymentServiceConfig.getPaymentServiceBaseUrl()+":"+paymentServiceConfig.getPaymentServicePort()+ "/placetopay/" +
                     paymentServiceConfig.getPaymentServiceClientId() + "/transactions";
             paymentData.setExpiration(getDateTimePlus15MinutesAsString());

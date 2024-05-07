@@ -20,4 +20,14 @@ public class ExamOrderDto {
     private PatientDto patient;
     private List<ExamDto> exams;
     private ExternalConsultationDto externalConsultation;
+
+    public ExamOrderDto(UUID id, String reason, String status, double totalPrice, Date orderDate, PatientDto patientDto, List<ExamDto> examDtoList) {
+        this.id = id;
+        this.reason = reason;
+        this.status = status;
+        this.totalPrice = totalPrice;
+        this.orderDate = orderDate;
+        this.patient = patientDto;
+        this.exams = examDtoList;
+    }
 }

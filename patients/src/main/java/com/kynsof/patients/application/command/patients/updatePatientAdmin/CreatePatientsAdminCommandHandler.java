@@ -23,8 +23,6 @@ public class CreatePatientsAdminCommandHandler implements ICommandHandler<Create
     @Override
     public void handle(CreatePatientAdminCommand command) {
         PatientDto patientDto = serviceImpl.findByIdSimple(command.getId());
-        String idLogo = null;
-
         patientDto.setPhoto(command.getPhoto());
         patientDto.setGender(command.getGender());
         patientDto.setHeight(command.getHeight());

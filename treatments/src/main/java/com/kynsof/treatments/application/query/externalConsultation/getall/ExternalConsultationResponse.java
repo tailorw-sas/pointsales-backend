@@ -1,6 +1,7 @@
 package com.kynsof.treatments.application.query.externalConsultation.getall;
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
+import com.kynsof.treatments.application.query.examOrder.getall.ExamOrderResponse;
 import com.kynsof.treatments.domain.dto.DoctorDto;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.dto.PatientDto;
@@ -8,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -27,9 +27,10 @@ public class ExternalConsultationResponse implements IResponse {
     private String consultationReason;
     private String medicalHistory;
     private String physicalExam;
-    private List<DiagnosisExternalConsultationResponse> diagnoses = new ArrayList<>();
-    private List<TreatmentExternalConsultationResponse> treatments = new ArrayList<>();
+    private List<DiagnosisExternalConsultationResponse> diagnoses;
+    private List<TreatmentExternalConsultationResponse> treatments;
     private String observations;
+    private ExamOrderResponse examOrder;
 
     public ExternalConsultationResponse(ExternalConsultationDto dto) {
         this.id = dto.getId();
@@ -46,6 +47,7 @@ public class ExternalConsultationResponse implements IResponse {
         this.treatments = dto.getTreatments().stream()
                 .map(TreatmentExternalConsultationResponse::new)
                 .collect(Collectors.toList());
+        this.examOrder = new ExamOrderResponse(dto.getExamOrder());
     }
 
 }

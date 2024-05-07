@@ -28,7 +28,7 @@ public class UpdateMailjetConfigurationCommand implements ICommand {
 
     public static UpdateMailjetConfigurationCommand fromRequest(UUID id, UpdateMailjetConfigurationRequest request) {
         return new UpdateMailjetConfigurationCommand(id, request.getMailjetApiKey(), request.getMailjetApiSecret(),
-                request.getFromEmail(), request.getFromName());
+                request.getEmail(), request.getName());
     }
 
 

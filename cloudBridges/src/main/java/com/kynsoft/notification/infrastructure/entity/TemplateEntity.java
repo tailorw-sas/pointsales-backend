@@ -46,6 +46,7 @@ public class TemplateEntity {
         this.templateCode = dto.getTemplateCode();
         this.name = dto.getName();
         this.description = dto.getDescription();
+        this.mailjetConfig = new MailjetConfiguration(dto.getMailjetConfigurationDto());
     }
 
 

@@ -8,6 +8,6 @@ import lombok.Setter;
 public class UpdateMailjetConfigurationRequest {
     private String mailjetApiKey;
     private String mailjetApiSecret;
-    private String fromEmail;
-    private String fromName;
+    private String email;
+    private String name;
 }

@@ -25,9 +25,9 @@ public class UserSystemDto {
     private String image;
     private UserType userType;
 
-    public UserSystemDto(UUID id, String identification, String email, String name, String lastName, UserStatus status, String image) {
+    public UserSystemDto(UUID id, String userName, String email, String name, String lastName, UserStatus status, String image) {
         this.id = id;
-        this.identification = identification;
+        this.userName = userName;
         this.email = email;
         this.name = name;
         this.lastName = lastName;

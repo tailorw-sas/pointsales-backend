@@ -56,7 +56,7 @@ public class ExamOrder {
             return exam;
         }).collect(Collectors.toList());
         this.recalculateTotalPrice();
-        externalConsultation = new ExternalConsultation(dto.getExternalConsultation());
+        externalConsultation = dto.getExternalConsultation() != null ? new ExternalConsultation(dto.getExternalConsultation()) : null;
     }
 
     public void recalculateTotalPrice() {
@@ -82,5 +82,21 @@ public class ExamOrder {
       }).collect(Collectors.toList());
         return new ExamOrderDto(this.id, this.reason, this.status,this.totalPrice, this.orderDate,
                 this.patient.toAggregate(),examDtoList, externalConsultation.toAggregate());
+    }
+
+    public ExamOrderDto toAggregateSimple() {
+        List<ExamDto> examDtoList = this.exams.stream().map(exam -> {
+            ExamDto examDto = new ExamDto();
+            examDto.setId(exam.getId());
+            examDto.setDescription(exam.getDescription());
+            examDto.setName(exam.getName());
+            examDto.setPrice(exam.getPrice());
+            examDto.setType(exam.getType());
+            examDto.setResult(exam.getResult());
+            examDto.setCode(exam.getCode());
+            return examDto;
+        }).collect(Collectors.toList());
+        return new ExamOrderDto(this.id, this.reason, this.status,this.totalPrice, this.orderDate,
+                this.patient.toAggregate(),examDtoList, null);
     }
 }

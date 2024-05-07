@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,6 +53,10 @@ public class ExternalConsultation {
     @OneToOne(mappedBy = "externalConsultation", cascade = CascadeType.ALL)
     private ExamOrder examOrder;
 
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
     public ExternalConsultation(ExternalConsultationDto dto) {
         this.id = dto.getId();
         this.patient = new Patients(dto.getPatient());
@@ -60,7 +66,23 @@ public class ExternalConsultation {
         this.consultationTime = dto.getConsultationTime();
         this.doctor = new Doctor(dto.getDoctor());
         this.observations = dto.getObservations();
-        this.treatments = dto.getTreatments() != null ? dto.getTreatments().stream().map(Treatment::new).toList() : new ArrayList<>();
+        this.treatments = dto.getTreatments() != null ? dto.getTreatments().stream().map(t -> {
+            Treatment treatment = new Treatment(t);
+            treatment.setExternalConsultation(this);
+            return treatment;
+        }).toList() : new ArrayList<>();
+        this.diagnoses = dto.getDiagnoses() != null ? dto.getDiagnoses().stream().map(d -> {
+            Diagnosis diagnosis = new Diagnosis();
+            diagnosis.setId(d.getId());
+            diagnosis.setExternalConsultation(this);
+            diagnosis.setDescription(d.getDescription());
+            diagnosis.setIcdCode(d.getIcdCode());
+            return diagnosis;
+        }).toList() : new ArrayList<>();
+
+        ExamOrder examOrder = new ExamOrder(dto.getExamOrder());
+        examOrder.setExternalConsultation(this);
+        this.examOrder = examOrder;
     }
 
     public ExternalConsultationDto toAggregate() {
@@ -76,7 +98,7 @@ public class ExternalConsultation {
 //        ExamOrderDto toResponse = this.examOrder != null ? this.examOrder.toAggregate() : null;
         return new ExternalConsultationDto(this.id, this.patient.toAggregate(), this.doctor.toAggregate(),
                 this.consultationTime, this.consultationReason, this.medicalHistory, this.physicalExam, diagnosisDtoList,
-                treatmentList, this.observations, null);
+                treatmentList, this.observations, this.examOrder.toAggregateSimple());
     }
 
     @PrePersist

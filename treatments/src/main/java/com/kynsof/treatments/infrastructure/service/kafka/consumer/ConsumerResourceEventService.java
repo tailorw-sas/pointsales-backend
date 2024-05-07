@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.share.core.domain.kafka.entity.UserSystemKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import com.kynsof.treatments.domain.dto.DoctorDto;
-import com.kynsof.treatments.domain.dto.enumDto.Status;
 import com.kynsof.treatments.domain.service.IDoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
@@ -20,7 +20,7 @@ public class ConsumerResourceEventService {
     private IDoctorService service;
 
     // Ejemplo de un método listener
-//    @KafkaListener(topics = "resource", groupId = "resource-treatments")
+    @KafkaListener(topics = "user-system-update", groupId = "treatments")
     public void listen(String event) {
         try {
 
@@ -29,11 +29,12 @@ public class ConsumerResourceEventService {
 
             UserSystemKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UserSystemKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
+            DoctorDto doctorDto = this.service.findById(eventRead.getId());
+            doctorDto.setName(eventRead.getName());
+            doctorDto.setLastName(eventRead.getLastName());
+            doctorDto.setImage(eventRead.getIdImage());
+           this.service.update(doctorDto);
 
-            if (eventType.equals(EventType.CREATED)) {
-                //Definir accion
-                this.service.create(new DoctorDto(eventRead.getId(), "", eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage().toString(), Status.ACTIVE));
-            }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerResourceEventService.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -14,10 +14,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ProducerResourceEventService {
+public class ProducerUserSystemUpdateEventService {
     private final KafkaTemplate<String, String> producer;
 
-    public ProducerResourceEventService(KafkaTemplate<String, String> producer) {
+    public ProducerUserSystemUpdateEventService(KafkaTemplate<String, String> producer) {
         this.producer = producer;
     }
 
@@ -26,28 +26,20 @@ public class ProducerResourceEventService {
 
         try {
             UserSystemKafka event = new UserSystemKafka(
-                    entity.getId(), 
-                    entity.getIdentification(),
+                    entity.getId(),
+                    entity.getUserName(),
                     entity.getEmail(), 
                     entity.getName(), 
                     entity.getLastName(),
-                    null,
                     entity.getImage(),
                     entity.getUserType()
             );
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
-
-            this.producer.send("resource", json);
-            System.err.println("##############################################");
-            System.err.println("##############################################");
-            System.err.println("SE LANZO EL EVENTO DEL USER SYSTEM");
-            System.err.println("##############################################");
-            System.err.println("##############################################");
-            System.err.println("##############################################");
+            this.producer.send("user-system-update", json);
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ProducerResourceEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProducerUserSystemUpdateEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

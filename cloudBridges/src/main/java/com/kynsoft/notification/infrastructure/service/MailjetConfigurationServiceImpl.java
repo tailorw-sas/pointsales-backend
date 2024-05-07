@@ -7,7 +7,6 @@ import com.kynsoft.notification.application.query.mailjetConfiguration.getById.M
 import com.kynsoft.notification.domain.dto.MailjetConfigurationDto;
 import com.kynsoft.notification.domain.service.IMailjetConfigurationService;
 import com.kynsoft.notification.infrastructure.entity.MailjetConfiguration;
-import com.kynsoft.notification.infrastructure.entity.TemplateEntity;
 import com.kynsoft.notification.infrastructure.repository.command.MailjetConfigurationWriteDataJPARepository;
 import com.kynsoft.notification.infrastructure.repository.query.MailjetConfigurationReadDataJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +36,12 @@ public class MailjetConfigurationServiceImpl implements IMailjetConfigurationSer
 
     @Override
     public void update(MailjetConfiguration object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       this.commandRepository.save(object);
     }
 
     @Override
     public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.commandRepository.deleteById(id);
     }
 
     @Override

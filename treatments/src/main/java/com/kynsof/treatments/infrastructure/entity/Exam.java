@@ -21,6 +21,7 @@ public class Exam {
 
     private String name;
     private String description;
+    @Enumerated(EnumType.STRING)
     private MedicalExamCategory type;
     private String result;
     @Temporal(TemporalType.TIMESTAMP)
