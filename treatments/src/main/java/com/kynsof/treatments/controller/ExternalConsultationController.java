@@ -12,6 +12,9 @@ import com.kynsof.treatments.application.command.externalConsultation.createAll.
 import com.kynsof.treatments.application.command.externalConsultation.update.UpdateExternalConsultationCommand;
 import com.kynsof.treatments.application.command.externalConsultation.update.UpdateExternalConsultationMessage;
 import com.kynsof.treatments.application.command.externalConsultation.update.UpdateExternalConsultationRequest;
+import com.kynsof.treatments.application.command.externalConsultation.updateAll.UpdateExternalConsultationAllCommand;
+import com.kynsof.treatments.application.command.externalConsultation.updateAll.UpdateExternalConsultationAllMessage;
+import com.kynsof.treatments.application.command.externalConsultation.updateAll.UpdateExternalConsultationAllRequest;
 import com.kynsof.treatments.application.query.externalConsultation.getById.FindByIdExternalConsultationQuery;
 import com.kynsof.treatments.application.query.externalConsultation.getall.ExternalConsultationResponse;
 import com.kynsof.treatments.application.query.externalConsultation.getall.GetAllExternalConsultationQuery;
@@ -82,6 +85,13 @@ public class ExternalConsultationController {
     }
 
     @PatchMapping(path = "/{id}")
+    public ResponseEntity<?> updateAll(@PathVariable UUID id, @RequestBody UpdateExternalConsultationAllRequest request) {
+        UpdateExternalConsultationAllCommand command = UpdateExternalConsultationAllCommand.fromRequest(id,request );
+        UpdateExternalConsultationAllMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping(path = "/old/{id}")
     public ResponseEntity<UpdateExternalConsultationMessage> update(@PathVariable UUID id, @RequestBody UpdateExternalConsultationRequest request) {
         UpdateExternalConsultationCommand command = UpdateExternalConsultationCommand.fromRequest(id,request );
         UpdateExternalConsultationMessage response = mediator.send(command);
