@@ -7,8 +7,10 @@ import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
+import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerUpdateCustomerEventService;
 import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerUpdatePatientsEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.kafka.entity.UpdateCustomerKafka;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,15 +20,18 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
     private final IContactInfoService contactInfoService;
     private final IGeographicLocationService geographicLocationService;
     private final ProducerUpdatePatientsEventService updatePatientsEventService;
+    private final ProducerUpdateCustomerEventService updateCustomerEventService;
 
     public UpdatePatientsCommandHandler(IPatientsService serviceImpl,
                                         IContactInfoService contactInfoService,
                                         IGeographicLocationService geographicLocationService,
-                                        ProducerUpdatePatientsEventService updatePatientsEventService) {
+                                        ProducerUpdatePatientsEventService updatePatientsEventService,
+                                        ProducerUpdateCustomerEventService updateCustomerEventService) {
         this.serviceImpl = serviceImpl;
         this.contactInfoService = contactInfoService;
         this.geographicLocationService = geographicLocationService;
         this.updatePatientsEventService = updatePatientsEventService;
+        this.updateCustomerEventService = updateCustomerEventService;
     }
 
     @Override
@@ -70,5 +75,10 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
 
         this.updatePatientsEventService.update(serviceImpl.findByIdSimple(command.getId()),
                 command.getCreateContactInfoRequest().getBirthdayDate());
+        this.updateCustomerEventService.update(new UpdateCustomerKafka(
+                patientDto.getId().toString(), 
+                patientDto.getName(), 
+                patientDto.getLastName()
+        ));
     }
 }
