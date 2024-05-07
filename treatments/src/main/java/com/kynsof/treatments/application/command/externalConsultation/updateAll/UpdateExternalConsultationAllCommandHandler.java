@@ -1,4 +1,4 @@
-package com.kynsof.treatments.application.command.externalConsultation.createAll;
+package com.kynsof.treatments.application.command.externalConsultation.updateAll;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.*;
@@ -15,14 +15,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
-public class CreateExternalConsultationCommandAllHandler implements ICommandHandler<CreateExternalConsultationAllCommand> {
+public class UpdateExternalConsultationAllCommandHandler implements ICommandHandler<UpdateExternalConsultationAllCommand> {
 
     private final IExternalConsultationService externalConsultationService;
     private final IPatientsService patientsService;
     private final IDoctorService doctorService;
     private final IMedicinesService medicinesService;
-
-    public CreateExternalConsultationCommandAllHandler(IExternalConsultationService externalConsultationService,
+    public UpdateExternalConsultationAllCommandHandler(IExternalConsultationService externalConsultationService,
                                                        IPatientsService patientsService, IDoctorService doctorService, IMedicinesService medicinesService) {
         this.externalConsultationService = externalConsultationService;
         this.patientsService = patientsService;
@@ -31,10 +30,9 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
     }
 
     @Override
-    public void handle(CreateExternalConsultationAllCommand command) {
+    public void handle(UpdateExternalConsultationAllCommand command) {
         PatientDto patientDto = patientsService.findById(command.getPatientId());
-        DoctorDto doctorDto = doctorService.findById(command.getDoctorId());
-
+        ExternalConsultationDto externalConsultationDto = externalConsultationService.findById(command.getId());
         List<DiagnosisDto> diagnosisDtoList = command.getDiagnosis().stream().map(diagnosisRequest ->
                 new DiagnosisDto(UUID.randomUUID(), diagnosisRequest.getIcdCode(), diagnosisRequest.getDescription())).toList();
 
@@ -71,19 +69,11 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
                 examDtoList
         );
 
-        UUID id = externalConsultationService.createAll(new ExternalConsultationDto(
-                UUID.randomUUID(),
-                patientDto,
-                doctorDto,
-                new Date(),
-                command.getConsultationReason(),
-                command.getMedicalHistory(),
-                command.getPhysicalExam(),
-                diagnosisDtoList,
-                treatmentDtoList,
-                command.getObservations(),
-                examOrderDto
-        ));
+        externalConsultationDto.setExamOrder(examOrderDto);
+        externalConsultationDto.setTreatments(treatmentDtoList);
+        externalConsultationDto.setDiagnoses(diagnosisDtoList);
+
+        UUID id = externalConsultationService.update(externalConsultationDto);
         command.setId(id);
     }
 }
