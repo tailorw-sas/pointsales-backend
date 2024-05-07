@@ -30,7 +30,6 @@ public class ConsumerResourceEventService {
             UserSystemKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UserSystemKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
             DoctorDto doctorDto = this.service.findById(eventRead.getId());
-            doctorDto.setIdentification(eventRead.getIdentification());
             doctorDto.setName(eventRead.getName());
             doctorDto.setLastName(eventRead.getLastName());
             doctorDto.setImage(eventRead.getIdImage());

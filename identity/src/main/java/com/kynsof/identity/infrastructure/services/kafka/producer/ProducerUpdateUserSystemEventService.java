@@ -25,27 +25,18 @@ public class ProducerUpdateUserSystemEventService {
     public void update(UserSystemDto entity) {
         try {
             UserSystemKafka event = new UserSystemKafka(
-                    entity.getId(), 
-                    entity.getIdentification(),
+                    entity.getId(),
                     entity.getUserName(),
                     entity.getEmail(), 
                     entity.getName(), 
                     entity.getLastName(),
-                    null,
                     entity.getImage(),
                     entity.getUserType()
             );
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.UPDATED));
-
             this.producer.send("user-system", json);
-            System.err.println("##############################################");
-            System.err.println("##############################################");
-            System.err.println("SE LANZO EL EVENTO DEL USER SYSTEM");
-            System.err.println("##############################################");
-            System.err.println("##############################################");
-            System.err.println("##############################################");
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ProducerUpdateUserSystemEventService.class.getName()).log(Level.SEVERE, null, ex);
         }

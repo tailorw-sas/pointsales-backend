@@ -3,7 +3,7 @@ package com.kynsof.identity.application.command.user.update;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
 import com.kynsof.identity.infrastructure.services.KeycloakProvider;
-import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerResourceEventService;
+import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerUserSystemUpdateEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
@@ -17,9 +17,9 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
 
     private final IUserSystemService systemService;
     private final KeycloakProvider keycloakProvider;
-    private final ProducerResourceEventService resourceEventService;
+    private final ProducerUserSystemUpdateEventService resourceEventService;
 
-    public UpdateUserSystemCommandHandler(IUserSystemService systemService, KeycloakProvider keycloakProvider, ProducerResourceEventService resourceEventService) {
+    public UpdateUserSystemCommandHandler(IUserSystemService systemService, KeycloakProvider keycloakProvider, ProducerUserSystemUpdateEventService resourceEventService) {
         this.systemService = systemService;
         this.keycloakProvider = keycloakProvider;
         this.resourceEventService = resourceEventService;
