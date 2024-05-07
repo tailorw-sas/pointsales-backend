@@ -61,6 +61,9 @@ public class BusinessServiceImpl implements IBusinessService {
                     if (objectDto.getLongitude() != null) {
                         object.setLongitude(objectDto.getLongitude());
                     }
+                    if (objectDto.getAddress() != null) {
+                        object.setAddress(objectDto.getAddress());
+                    }
                     if (objectDto.getLogo() != null) {
                         object.setLogo(objectDto.getLogo());
                     }
