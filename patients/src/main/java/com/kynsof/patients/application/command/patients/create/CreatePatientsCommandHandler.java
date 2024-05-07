@@ -8,9 +8,11 @@ import com.kynsof.patients.domain.rules.dependent.DependentMustBeUniqueRule;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
+import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerCreateCustomerEventService;
 import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerCreatePatientsEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.kafka.entity.CustomerKafka;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -24,15 +26,18 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
 
 
     private final ProducerCreatePatientsEventService patientEventService;
+    private final ProducerCreateCustomerEventService createCustomerEventService;
 
     public CreatePatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
                                         IGeographicLocationService geographicLocationService,
-                                        ProducerCreatePatientsEventService patientEventService
+                                        ProducerCreatePatientsEventService patientEventService,
+                                        ProducerCreateCustomerEventService createCustomerEventService
     ) {
         this.serviceImpl = serviceImpl;
         this.contactInfoService = contactInfoService;
         this.geographicLocationService = geographicLocationService;
         this.patientEventService = patientEventService;
+        this.createCustomerEventService = createCustomerEventService;
     }
 
     @Override
@@ -60,7 +65,7 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
 
         GeographicLocationDto geographicLocationDto = geographicLocationService.findById(
                 command.getCreateContactInfoRequest().getGeographicLocationId());
-        UUID idContactId = contactInfoService.create(new ContactInfoDto(
+        contactInfoService.create(new ContactInfoDto(
                 UUID.randomUUID(),
                 patientDto,
                 command.getCreateContactInfoRequest().getEmail(),
@@ -71,6 +76,16 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
                 geographicLocationDto
         ));
 
-        this.patientEventService.create(patientDto, command.getCreateContactInfoRequest().getBirthdayDate());
+        this.patientEventService.create(
+                patientDto, 
+                command.getCreateContactInfoRequest().getBirthdayDate()
+        );
+
+        this.createCustomerEventService.create(new CustomerKafka(
+                patientDto.getId().toString(), 
+                patientDto.getName(), 
+                patientDto.getLastName(), 
+                command.getCreateContactInfoRequest().getEmail()
+        ));
     }
 }
