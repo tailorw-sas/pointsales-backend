@@ -1,38 +1,38 @@
-package com.kynsof.identity.infrastructure.services.kafka.producer;
+package com.kynsof.identity.infrastructure.services.kafka.producer.user;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.share.core.domain.kafka.entity.RoleKafka;
+import com.kynsof.identity.application.command.auth.registry.UserRequest;
+import com.kynsof.share.core.domain.kafka.entity.UserKafka;
 import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ProducerRegisterRoleEventService {
+public class ProducerRegisterUserEventService {
     private final KafkaTemplate<String, String> producer;
 
-    public ProducerRegisterRoleEventService(KafkaTemplate<String, String> producer) {
+    public ProducerRegisterUserEventService(KafkaTemplate<String, String> producer) {
         this.producer = producer;
     }
 
     @Async
-    public void create(String Id, String name, String description) {
+    public void create(UserRequest entity, String clientId) {
 
         try {
-            RoleKafka event = new RoleKafka(UUID.fromString(Id), name, description);
+            UserKafka event = new UserKafka(clientId, entity.getUserName(), entity.getEmail(), entity.getName(),
+                    entity.getLastName(), "", "", "", "");
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
-
-            this.producer.send("role", json);
+            this.producer.send("user", json);
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ProducerRegisterRoleEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProducerRegisterUserEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

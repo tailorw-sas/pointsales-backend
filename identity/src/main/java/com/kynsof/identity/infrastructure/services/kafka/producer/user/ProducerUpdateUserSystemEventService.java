@@ -1,4 +1,4 @@
-package com.kynsof.identity.infrastructure.services.kafka.producer;
+package com.kynsof.identity.infrastructure.services.kafka.producer.user;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

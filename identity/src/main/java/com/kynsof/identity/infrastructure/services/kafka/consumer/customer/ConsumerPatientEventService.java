@@ -1,11 +1,12 @@
-package com.kynsof.identity.infrastructure.services.kafka.consumer;
+package com.kynsof.identity.infrastructure.services.kafka.consumer.customer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.identity.domain.dto.CustomerDto;
 import com.kynsof.identity.domain.interfaces.service.ICustomerService;
-import com.kynsof.share.core.domain.kafka.entity.UpdateCustomerKafka;
+import com.kynsof.share.core.domain.kafka.entity.CustomerKafka;
+import com.kynsof.share.utils.ConfigureTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ConsumerUpdateCustomerEventService {
+public class ConsumerPatientEventService {
 
     @Autowired
     private ICustomerService service;
 
-    @KafkaListener(topics = "update-custumer", groupId = "identity-patient-update")
+    @KafkaListener(topics = "create-custumer", groupId = "identity-patient")
     public void listen(String event) {
         try {
             System.err.println("#######################################################");
@@ -31,16 +32,13 @@ public class ConsumerUpdateCustomerEventService {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
-            UpdateCustomerKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UpdateCustomerKafka.class);
+            CustomerKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), CustomerKafka.class);
 
-            CustomerDto update = this.service.findById(UUID.fromString(eventRead.getId()));
-            update.setFirstName(eventRead.getFirstName());
-            update.setLastName(eventRead.getLastName());
-            this.service.update(update);
+            this.service.create(new CustomerDto(UUID.fromString(eventRead.getId()), eventRead.getFirstName(), eventRead.getLastName(), eventRead.getEmail(), ConfigureTimeZone.getTimeZone()));
         } catch (JsonProcessingException ex) {
             System.err.println("########################");
             System.err.println("ERROR: " + ex.getMessage());
-            Logger.getLogger(ConsumerUpdateCustomerEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumerPatientEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
