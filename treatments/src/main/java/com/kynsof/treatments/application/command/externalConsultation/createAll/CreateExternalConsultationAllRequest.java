@@ -12,6 +12,7 @@ public class CreateExternalConsultationAllRequest {
 
     private UUID patient;
     private UUID doctor;
+    private UUID businessId;
     private String consultationReason;
     private String medicalHistory;
     private String physicalExam;

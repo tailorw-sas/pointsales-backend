@@ -1,6 +1,7 @@
 package com.kynsof.treatments.application.query.externalConsultation.getall;
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
+import com.kynsof.treatments.application.query.business.search.BusinessResponse;
 import com.kynsof.treatments.application.query.examOrder.getall.ExamOrderResponse;
 import com.kynsof.treatments.domain.dto.DoctorDto;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
@@ -31,6 +32,7 @@ public class ExternalConsultationResponse implements IResponse {
     private List<TreatmentExternalConsultationResponse> treatments;
     private String observations;
     private ExamOrderResponse examOrder;
+    private BusinessResponse business;
 
     public ExternalConsultationResponse(ExternalConsultationDto dto) {
         this.id = dto.getId();
@@ -48,6 +50,7 @@ public class ExternalConsultationResponse implements IResponse {
                 .map(TreatmentExternalConsultationResponse::new)
                 .collect(Collectors.toList());
         this.examOrder = new ExamOrderResponse(dto.getExamOrder());
+        this.business = new BusinessResponse(dto.getBusiness());
     }
 
 }

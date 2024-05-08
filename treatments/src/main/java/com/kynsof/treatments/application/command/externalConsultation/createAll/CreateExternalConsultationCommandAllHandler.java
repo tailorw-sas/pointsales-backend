@@ -3,6 +3,7 @@ package com.kynsof.treatments.application.command.externalConsultation.createAll
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.*;
 import com.kynsof.treatments.domain.dto.enumDto.Status;
+import com.kynsof.treatments.domain.service.IBusinessService;
 import com.kynsof.treatments.domain.service.IDoctorService;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
 import com.kynsof.treatments.domain.service.IMedicinesService;
@@ -21,19 +22,25 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
     private final IPatientsService patientsService;
     private final IDoctorService doctorService;
     private final IMedicinesService medicinesService;
+    private final IBusinessService businessService;
 
     public CreateExternalConsultationCommandAllHandler(IExternalConsultationService externalConsultationService,
-                                                       IPatientsService patientsService, IDoctorService doctorService, IMedicinesService medicinesService) {
+                                                       IPatientsService patientsService, 
+                                                       IDoctorService doctorService, 
+                                                       IMedicinesService medicinesService,
+                                                       IBusinessService businessService) {
         this.externalConsultationService = externalConsultationService;
         this.patientsService = patientsService;
         this.doctorService = doctorService;
         this.medicinesService = medicinesService;
+        this.businessService = businessService;
     }
 
     @Override
     public void handle(CreateExternalConsultationAllCommand command) {
         PatientDto patientDto = patientsService.findById(command.getPatientId());
         DoctorDto doctorDto = doctorService.findById(command.getDoctorId());
+        BusinessDto businessDto = businessService.findById(command.getBusinessId());
 
         List<DiagnosisDto> diagnosisDtoList = command.getDiagnosis().stream().map(diagnosisRequest ->
                 new DiagnosisDto(UUID.randomUUID(), diagnosisRequest.getIcdCode(), diagnosisRequest.getDescription())).toList();
@@ -82,7 +89,8 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
                 diagnosisDtoList,
                 treatmentDtoList,
                 command.getObservations(),
-                examOrderDto
+                examOrderDto,
+                businessDto
         ));
         command.setId(id);
     }

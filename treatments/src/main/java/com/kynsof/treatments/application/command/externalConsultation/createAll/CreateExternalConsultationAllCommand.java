@@ -15,6 +15,7 @@ public class CreateExternalConsultationAllCommand implements ICommand {
     private UUID id;
     private UUID patientId;
     private UUID doctorId;
+    private UUID businessId;
     private String consultationReason;
     private String medicalHistory;
     private String physicalExam;
@@ -26,10 +27,11 @@ public class CreateExternalConsultationAllCommand implements ICommand {
     public CreateExternalConsultationAllCommand(UUID patientId, UUID doctorId, String consultationReason,
                                                 String medicalHistory, String physicalExam, String observations,
                                                 CreateExamOrderAllRequest examOrder, List<DiagnosisRequest> diagnosis,
-                                                List<TreatmentRequest> treatments) {
+                                                List<TreatmentRequest> treatments, UUID businessId) {
 
         this.patientId = patientId;
         this.doctorId = doctorId;
+        this.businessId = businessId;
         this.consultationReason = consultationReason;
         this.medicalHistory = medicalHistory;
         this.physicalExam = physicalExam;
@@ -42,7 +44,8 @@ public class CreateExternalConsultationAllCommand implements ICommand {
     public static CreateExternalConsultationAllCommand fromRequest(CreateExternalConsultationAllRequest request) {
         return new CreateExternalConsultationAllCommand(request.getPatient(), request.getDoctor(),
                 request.getConsultationReason(), request.getMedicalHistory(), request.getPhysicalExam(),
-                request.getObservations(), request.getExamOrder(),request.getDiagnosis() ,request.getTreatments() );
+                request.getObservations(), request.getExamOrder(),request.getDiagnosis() ,request.getTreatments(), 
+                request.getBusinessId() );
     }
 
     @Override

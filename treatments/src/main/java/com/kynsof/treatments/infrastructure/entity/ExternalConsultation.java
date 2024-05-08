@@ -48,6 +48,10 @@ public class ExternalConsultation {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "externalConsultation")
     private List<Treatment> treatments;
 
+    @ManyToOne
+    @JoinColumn(name = "business_id")
+    private Business business;
+
     private String observations;
 
     @OneToOne(mappedBy = "externalConsultation", cascade = CascadeType.ALL)
@@ -83,6 +87,7 @@ public class ExternalConsultation {
         ExamOrder examOrder = new ExamOrder(dto.getExamOrder());
         examOrder.setExternalConsultation(this);
         this.examOrder = examOrder;
+        this.business = new Business(dto.getBusiness());
     }
 
     public ExternalConsultationDto toAggregate() {
@@ -98,7 +103,7 @@ public class ExternalConsultation {
 //        ExamOrderDto toResponse = this.examOrder != null ? this.examOrder.toAggregate() : null;
         return new ExternalConsultationDto(this.id, this.patient.toAggregate(), this.doctor.toAggregate(),
                 this.consultationTime, this.consultationReason, this.medicalHistory, this.physicalExam, diagnosisDtoList,
-                treatmentList, this.observations, this.examOrder.toAggregateSimple());
+                treatmentList, this.observations, this.examOrder.toAggregateSimple(), business.toAggregate());
     }
 
     @PrePersist
