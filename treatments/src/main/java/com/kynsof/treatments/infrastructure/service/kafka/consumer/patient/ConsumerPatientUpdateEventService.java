@@ -1,4 +1,4 @@
-package com.kynsof.treatments.infrastructure.service.kafka.consumer;
+package com.kynsof.treatments.infrastructure.service.kafka.consumer.patient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -18,12 +18,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ConsumerPatientEventService {
+public class ConsumerPatientUpdateEventService {
 
     @Autowired
     private IPatientsService service;
 
-    @KafkaListener(topics = "patient", groupId = "treatments-patient")
+    @KafkaListener(topics = "patient-update", groupId = "treatments-patient")
     public void listen(String event) {
         try {
             System.err.println("#######################################################");
@@ -37,18 +37,7 @@ public class ConsumerPatientEventService {
             PatientKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), PatientKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
-            if (eventType.equals(EventType.CREATED)) {
-                this.service.create(new PatientDto(
-                        UUID.fromString(eventRead.getId()),
-                        eventRead.getIdentification(),
-                        eventRead.getName(),
-                        eventRead.getLastName(),
-                        eventRead.getGender(),
-                        Status.ACTIVE,
-                        LocalDate.parse(eventRead.getBirthdayDate())
-                ));
-            }
-            if (eventType.equals(EventType.UPDATED)) {
+
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
                 System.err.println("EVENTO DE ACTUALIZA UN PACIENTE");
@@ -63,13 +52,13 @@ public class ConsumerPatientEventService {
                         Status.ACTIVE,
                         LocalDate.parse(eventRead.getBirthdayDate())
                 ));
-            }
+
 
 
         } catch (JsonProcessingException ex) {
             System.err.println("########################");
             System.err.println("ERROR: " + ex.getMessage());
-            Logger.getLogger(ConsumerPatientEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumerPatientUpdateEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -1,8 +1,8 @@
-package com.kynsof.treatments.infrastructure.service.kafka.consumer;
+package com.kynsof.treatments.infrastructure.service.kafka.consumer.business;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.share.core.domain.kafka.entity.UpdateBusinessKafka;
+import com.kynsof.share.core.domain.kafka.entity.BusinessKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import com.kynsof.treatments.domain.dto.BusinessDto;
 import com.kynsof.treatments.domain.service.IBusinessService;
@@ -14,24 +14,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ConsumerUpdateBusinessEventService {
+public class ConsumerBusinessEventService {
 
     @Autowired
     private IBusinessService service;
 
-    @KafkaListener(topics = "update-busines", groupId = "update-busines-treatment")
+    @KafkaListener(topics = "busines", groupId = "busines-treatment")
     public void consumer(String event) {
 
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
-            UpdateBusinessKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UpdateBusinessKafka.class);
+            BusinessKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), BusinessKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
-            this.service.update(new BusinessDto(eventRead.getId(), eventRead.getName(), eventRead.getLogo()));
+            this.service.create(new BusinessDto(eventRead.getId(), eventRead.getName(), eventRead.getLogo()));
         } catch (Exception ex) {
-            Logger.getLogger(ConsumerUpdateBusinessEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumerBusinessEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
