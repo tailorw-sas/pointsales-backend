@@ -1,9 +1,9 @@
-package com.kynsof.patients.infrastructure.services.kafka.producer;
+package com.kynsof.patients.infrastructure.services.kafka.producer.patient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsof.patients.domain.dto.PatientDto;
-import com.kynsof.share.core.domain.kafka.entity.PatientKafka;
+import com.kynsof.share.core.domain.kafka.entity.UserKafka;
 import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import java.time.LocalDate;
@@ -14,10 +14,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ProducerCreatePatientsEventService {
+public class ProducerCreateDependentPatientsEventService {
     private final KafkaTemplate<String, String> producer;
 
-    public ProducerCreatePatientsEventService(KafkaTemplate<String, String> producer) {
+    public ProducerCreateDependentPatientsEventService(KafkaTemplate<String, String> producer) {
         this.producer = producer;
     }
 
@@ -25,26 +25,26 @@ public class ProducerCreatePatientsEventService {
 
         try {
 
-            PatientKafka event = new PatientKafka(
+            UserKafka event = new UserKafka(
                     entity.getId().toString(), 
                     entity.getIdentification(), 
+                    "", 
                     entity.getName(), 
-                    entity.getLastName(),
+                    entity.getLastName(), 
+                    entity.getIdentification(), 
+                    entity.getPhoto(), 
                     entity.getGender().toString(), 
-                    entity.getStatus().name(), 
-                    entity.getPhoto() != null ? entity.getPhoto() : null
+                    entity.getStatus().toString()
             );
 
-            if (birthdayDate != null) {
-                event.setBirthdayDate(birthdayDate.toString());
-            }
+            event.setBirthdayDate(birthdayDate.toString());
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
 
-            this.producer.send("patient", json);
+            this.producer.send("user-dependent", json);
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ProducerCreatePatientsEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProducerCreateDependentPatientsEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

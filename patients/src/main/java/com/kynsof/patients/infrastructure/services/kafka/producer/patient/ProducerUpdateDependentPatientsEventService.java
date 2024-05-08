@@ -1,4 +1,4 @@
-package com.kynsof.patients.infrastructure.services.kafka.producer;
+package com.kynsof.patients.infrastructure.services.kafka.producer.patient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,14 +14,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ProducerCreateDependentPatientsEventService {
+public class ProducerUpdateDependentPatientsEventService {
     private final KafkaTemplate<String, String> producer;
 
-    public ProducerCreateDependentPatientsEventService(KafkaTemplate<String, String> producer) {
+    public ProducerUpdateDependentPatientsEventService(KafkaTemplate<String, String> producer) {
         this.producer = producer;
     }
 
-    public void create(PatientDto entity, LocalDate birthdayDate) {
+    public void update(PatientDto entity, LocalDate birthdayDate) {
 
         try {
 
@@ -36,15 +36,14 @@ public class ProducerCreateDependentPatientsEventService {
                     entity.getGender().toString(), 
                     entity.getStatus().toString()
             );
-
             event.setBirthdayDate(birthdayDate.toString());
 
             ObjectMapper objectMapper = new ObjectMapper();
-            String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
+            String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.UPDATED));
 
             this.producer.send("user-dependent", json);
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ProducerCreateDependentPatientsEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProducerUpdateDependentPatientsEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

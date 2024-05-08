@@ -2,7 +2,7 @@ package com.kynsof.patients.application.command.patients.updatePatientAdmin;
 
 import com.kynsof.patients.domain.dto.PatientDto;
 import com.kynsof.patients.domain.service.IPatientsService;
-import com.kynsof.patients.infrastructure.services.kafka.producer.ProducerUpdatePatientsEventService;
+import com.kynsof.patients.infrastructure.services.kafka.producer.patient.ProducerUpdatePatientsEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 

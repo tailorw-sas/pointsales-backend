@@ -1,8 +1,8 @@
-package com.kynsof.patients.infrastructure.services.kafka.producer;
+package com.kynsof.patients.infrastructure.services.kafka.producer.customer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.share.core.domain.kafka.entity.CustomerKafka;
+import com.kynsof.share.core.domain.kafka.entity.UpdateCustomerKafka;
 import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -12,23 +12,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ProducerCreateCustomerEventService {
+public class ProducerUpdateCustomerEventService {
     private final KafkaTemplate<String, String> producer;
 
-    public ProducerCreateCustomerEventService(KafkaTemplate<String, String> producer) {
+    public ProducerUpdateCustomerEventService(KafkaTemplate<String, String> producer) {
         this.producer = producer;
     }
 
-    public void create(CustomerKafka entity) {
+    public void update(UpdateCustomerKafka entity) {
 
         try {
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(entity, EventType.CREATED));
 
-            this.producer.send("create-custumer", json);
+            this.producer.send("update-custumer", json);
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ProducerCreateCustomerEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProducerUpdateCustomerEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
