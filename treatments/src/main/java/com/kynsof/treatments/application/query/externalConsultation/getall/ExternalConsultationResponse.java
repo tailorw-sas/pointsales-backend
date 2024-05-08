@@ -50,7 +50,7 @@ public class ExternalConsultationResponse implements IResponse {
                 .map(TreatmentExternalConsultationResponse::new)
                 .collect(Collectors.toList());
         this.examOrder = new ExamOrderResponse(dto.getExamOrder());
-        this.business = new BusinessResponse(dto.getBusiness());
+        this.business = dto.getBusiness() != null ? new BusinessResponse(dto.getBusiness()) : null;
     }
 
 }
