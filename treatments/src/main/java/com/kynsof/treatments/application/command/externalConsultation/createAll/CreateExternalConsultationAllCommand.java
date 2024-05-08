@@ -45,7 +45,7 @@ public class CreateExternalConsultationAllCommand implements ICommand {
         return new CreateExternalConsultationAllCommand(request.getPatient(), request.getDoctor(),
                 request.getConsultationReason(), request.getMedicalHistory(), request.getPhysicalExam(),
                 request.getObservations(), request.getExamOrder(),request.getDiagnosis() ,request.getTreatments(), 
-                request.getBusinessId() );
+                request.getBusiness() );
     }
 
     @Override
