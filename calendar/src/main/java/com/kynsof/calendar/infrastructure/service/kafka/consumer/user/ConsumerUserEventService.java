@@ -1,4 +1,4 @@
-package com.kynsof.calendar.infrastructure.service.kafka.consumer;
+package com.kynsof.calendar.infrastructure.service.kafka.consumer.user;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -17,12 +17,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ConsumerDependentPatientsEventService {
+public class ConsumerUserEventService {
     @Autowired
     private IPatientsService service;
 
     // Ejemplo de un método listener
-    @KafkaListener(topics = "user-dependent", groupId = "user-dependent-calendar")
+    @KafkaListener(topics = "user", groupId = "calendar-user")
     public void listen(String event) {
         try {
 
@@ -34,27 +34,19 @@ public class ConsumerDependentPatientsEventService {
 
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                this.service.create(new PatientDto(UUID.fromString(eventRead.getId()),
-                        eventRead.getIdentification(), eventRead.getFirstname(), eventRead.getLastname(), "",
-                        PatientStatus.ACTIVE, null));
+                this.service.create(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(), eventRead.getLastname(), "", PatientStatus.ACTIVE,
+                      null));
             }
             if (eventType.equals(EventType.DELETED)) {
                 //Definir accion
             }
             if (eventType.equals(EventType.UPDATED)) {
                 //Definir accion
-                this.service.update(new PatientDto(
-                        UUID.fromString(eventRead.getId()), 
-                        eventRead.getIdentification(), 
-                        eventRead.getFirstname(),
-                        eventRead.getLastname(), 
-                        eventRead.getGender(), 
-                        PatientStatus.ACTIVE, 
-                        eventRead.getPhone() != null ? UUID.fromString(eventRead.getPhone()) : null
-                ));
+                this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(),
+                        eventRead.getLastname(), "", PatientStatus.ACTIVE,null));
             }
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ConsumerDependentPatientsEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumerUserEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
