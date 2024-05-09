@@ -55,6 +55,16 @@ public class ResourceController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping(path = "/{id}/resources-by-service")
+    public ResponseEntity<?> findServicesByResourceAdminId(@PathVariable UUID id) {
+
+        Pageable pageable = PageRequest.of(0, 1000);
+        FindResourcesByIdServiceQuery query = new FindResourcesByIdServiceQuery(id, pageable);
+        PaginatedResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
                                                     @RequestParam(defaultValue = "0") Integer page,
