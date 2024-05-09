@@ -59,6 +59,8 @@ public class BusinessServiceImpl implements IBusinessService {
 
         objectDelete.setDeleteAt(ConfigureTimeZone.getTimeZone());
         objectDelete.setDeleted(true);
+        objectDelete.setName(objectDelete.getName() + "-" + UUID.randomUUID());
+        objectDelete.setRuc(objectDelete.getRuc() + "-" + UUID.randomUUID());
 
         this.repositoryCommand.save(new Business(objectDelete));
     }
