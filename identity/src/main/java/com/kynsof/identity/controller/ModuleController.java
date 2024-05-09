@@ -3,6 +3,8 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.module.create.CreateModuleCommand;
 import com.kynsof.identity.application.command.module.create.CreateModuleMessage;
 import com.kynsof.identity.application.command.module.create.CreateModuleRequest;
+import com.kynsof.identity.application.command.module.delete.DeleteModuleCommand;
+import com.kynsof.identity.application.command.module.delete.DeleteModuleMessage;
 import com.kynsof.identity.application.command.module.update.UpdateModuleCommand;
 import com.kynsof.identity.application.command.module.update.UpdateModuleMessage;
 import com.kynsof.identity.application.query.module.buildStructure.BuildStructureQuery;
@@ -26,24 +28,26 @@ public class ModuleController {
 
     private final IMediator mediator;
 
-    public ModuleController(IMediator mediator){
+    public ModuleController(IMediator mediator) {
 
         this.mediator = mediator;
     }
 
     @PostMapping()
-    public ResponseEntity<CreateModuleMessage> create(@RequestBody CreateModuleRequest request)  {
+    public ResponseEntity<CreateModuleMessage> create(@RequestBody CreateModuleRequest request) {
         CreateModuleCommand createCommand = CreateModuleCommand.fromRequest(request);
         CreateModuleMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
     }
+
     @GetMapping(path = "/build/{businessId}")
     public ResponseEntity<ModuleBuildResponse> build(@PathVariable UUID businessId) {
         BuildStructureQuery query = new BuildStructureQuery(businessId);
         ModuleBuildResponse response = mediator.send(query);
         return ResponseEntity.ok(response);
     }
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<ModuleResponse> getById(@PathVariable UUID id) {
 
@@ -53,11 +57,19 @@ public class ModuleController {
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable UUID id) {
+
+        DeleteModuleCommand command = new DeleteModuleCommand(id);
+        DeleteModuleMessage response = mediator.send(command);
+
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
-    {
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
-        GetSearchModuleQuery query = new GetSearchModuleQuery(pageable, request.getFilter(),request.getQuery());
+        GetSearchModuleQuery query = new GetSearchModuleQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }

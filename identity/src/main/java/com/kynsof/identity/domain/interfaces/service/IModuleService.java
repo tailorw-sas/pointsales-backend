@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface IModuleService {
     void create(ModuleDto object);
     void update(ModuleDto object);
-    void delete(UUID id);
+    void delete(ModuleDto delete);
     ModuleDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     Long countByNameAndNotId(String name, UUID id);

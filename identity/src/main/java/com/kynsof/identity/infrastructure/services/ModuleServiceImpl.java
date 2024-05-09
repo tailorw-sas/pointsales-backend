@@ -47,8 +47,13 @@ public class ModuleServiceImpl implements IModuleService {
     }
 
     @Override
-    public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void delete(ModuleDto delete) {
+        ModuleSystem moduleSystem = new ModuleSystem(delete);
+
+        moduleSystem.setDeleted(true);
+        moduleSystem.setName(delete.getName() + "-" + UUID.randomUUID());
+
+        this.commandRepository.save(moduleSystem);
     }
 
     @Override
@@ -106,4 +111,13 @@ public class ModuleServiceImpl implements IModuleService {
         return this.queryRepository.countByNameAndNotId(name, id);
     }
 
+    public void updateDelete() {
+        List<ModuleSystem> modules = this.queryRepository.findAll();
+        for (ModuleSystem module : modules) {
+            if (module.getDeleted() == null || !module.getDeleted().equals(Boolean.TRUE)) {
+                module.setDeleted(Boolean.FALSE);
+            }
+            this.commandRepository.save(module);
+        }
+    }
 }
