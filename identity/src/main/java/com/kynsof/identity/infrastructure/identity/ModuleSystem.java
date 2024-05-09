@@ -9,9 +9,11 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "module_system")
 public class ModuleSystem {
@@ -38,35 +40,6 @@ public class ModuleSystem {
         this.name = module.getName();
         this.image = module.getImage();
         this.description = module.getDescription();
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        
-        this.deleted = deleted == null ? false : deleted;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setPermissions(Set<Permission> permissions) {
-        this.permissions = permissions;
     }
 
     public ModuleDto toAggregate () {

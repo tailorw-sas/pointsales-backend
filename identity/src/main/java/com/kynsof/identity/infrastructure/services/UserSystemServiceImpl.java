@@ -47,11 +47,14 @@ public class UserSystemServiceImpl implements IUserSystemService {
     }
 
     @Override
-    public void delete(UUID id) {
-        UserSystemDto userSystemDto = this.findById(id);
-        userSystemDto.setStatus(UserStatus.INACTIVE);
+    public void delete(UserSystemDto userSystemDto) {
+        UserSystem delete = new UserSystem(userSystemDto);
+        delete.setStatus(UserStatus.INACTIVE);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setEmail(delete.getEmail() + "-" + UUID.randomUUID());
+        delete.setUserName(delete.getUserName()+ "-" + UUID.randomUUID());
 
-        this.repositoryCommand.save(new UserSystem(userSystemDto));
+        this.repositoryCommand.save(delete);
     }
 
     @Override

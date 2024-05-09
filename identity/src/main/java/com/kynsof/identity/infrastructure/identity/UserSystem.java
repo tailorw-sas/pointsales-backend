@@ -40,6 +40,9 @@ public class UserSystem implements Serializable {
     private UserType userType;
     private String image;
 
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     // Relationship with User_Role_Clinic
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserPermissionBusiness> userRolesClinics = new HashSet<>();

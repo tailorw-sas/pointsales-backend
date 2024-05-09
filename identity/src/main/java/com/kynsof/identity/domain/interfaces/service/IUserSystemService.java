@@ -11,9 +11,9 @@ import java.util.UUID;
 public interface IUserSystemService {
     UUID create(UserSystemDto userSystemDto);
 
-    void update(UserSystemDto patients);
+    void update(UserSystemDto userSystemDto);
 
-    void delete(UUID id);
+    void delete(UserSystemDto userSystemDto);
 
     UserSystemDto findById(UUID id);
 
