@@ -4,13 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
 public class UpdateExternalConsultationAllRequest {
-    private UUID patient;
-    private UUID doctor;
     private String consultationReason;
     private String medicalHistory;
     private String physicalExam;

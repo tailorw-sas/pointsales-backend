@@ -70,7 +70,7 @@ public class ExamOrderServiceImpl implements IExamOrderService {
 
     @Override
     public void delete(UUID id) {
-        ExamOrderDto examOrderDto = this.findById(id);
+        this.repositoryCommand.deleteById(id);
     }
 
     @Override

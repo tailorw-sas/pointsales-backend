@@ -49,6 +49,11 @@ public class ExamServiceImpl implements IExamService {
     }
 
     @Override
+    public void deleteByIds(List<UUID> ids) {
+        repositoryCommand.deleteAllByIdInBatch(ids);
+    }
+
+    @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         GenericSpecificationsBuilder<Procedure> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<Exam> data = this.repositoryQuery.findAll(specifications, pageable);

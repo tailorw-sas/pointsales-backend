@@ -15,6 +15,8 @@ public interface IExamService {
 
     void delete(UUID id);
 
+    void deleteByIds(List<UUID> ids);
+
     ExamDto findById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);

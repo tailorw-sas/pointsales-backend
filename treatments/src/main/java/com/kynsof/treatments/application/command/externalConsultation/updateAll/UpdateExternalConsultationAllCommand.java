@@ -13,8 +13,6 @@ import java.util.UUID;
 public class UpdateExternalConsultationAllCommand implements ICommand {
 
     private UUID id;
-    private UUID patientId;
-    private UUID doctorId;
     private String consultationReason;
     private String medicalHistory;
     private String physicalExam;
@@ -23,14 +21,12 @@ public class UpdateExternalConsultationAllCommand implements ICommand {
     private final List<UpdateDiagnosisAllRequest> diagnosis;
     private final List<UpdateTreatmentAllRequest> treatments;
 
-    public UpdateExternalConsultationAllCommand(UUID id,UUID patientId, UUID doctorId, String consultationReason,
+    public UpdateExternalConsultationAllCommand(UUID id, String consultationReason,
                                                 String medicalHistory, String physicalExam, String observations,
                                                 UpdateExamOrderAllRequest examOrder,List<UpdateDiagnosisAllRequest> diagnosis,
                                                 List<UpdateTreatmentAllRequest> treatments) {
 
         this.id = id;
-        this.patientId = patientId;
-        this.doctorId = doctorId;
         this.consultationReason = consultationReason;
         this.medicalHistory = medicalHistory;
         this.physicalExam = physicalExam;
@@ -41,8 +37,7 @@ public class UpdateExternalConsultationAllCommand implements ICommand {
     }
 
     public static UpdateExternalConsultationAllCommand fromRequest(UUID id,UpdateExternalConsultationAllRequest request) {
-        return new UpdateExternalConsultationAllCommand(id, request.getPatient(), request.getDoctor(),
-                request.getConsultationReason(), request.getMedicalHistory(), request.getPhysicalExam(),
+        return new UpdateExternalConsultationAllCommand(id, request.getConsultationReason(), request.getMedicalHistory(), request.getPhysicalExam(),
                 request.getObservations(), request.getExamOrder(), request.getDiagnosis(), request.getTreatments());
     }
 
