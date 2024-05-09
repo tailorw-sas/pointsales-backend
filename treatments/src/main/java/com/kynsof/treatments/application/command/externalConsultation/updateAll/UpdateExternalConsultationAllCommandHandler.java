@@ -5,12 +5,14 @@ import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.treatments.domain.dto.*;
 import com.kynsof.treatments.domain.dto.enumDto.Status;
+import com.kynsof.treatments.domain.rules.externalconsultation.ExternalConsultationCreateAtNotEqualsRule;
 import com.kynsof.treatments.domain.service.IDiagnosisService;
 import com.kynsof.treatments.domain.service.IExamOrderService;
 import com.kynsof.treatments.domain.service.IExamService;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
 import com.kynsof.treatments.domain.service.IMedicinesService;
 import com.kynsof.treatments.domain.service.ITreatmentService;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
@@ -47,6 +49,8 @@ public class UpdateExternalConsultationAllCommandHandler implements ICommandHand
     public void handle(UpdateExternalConsultationAllCommand command) {
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getId(), "id", "External Consultation ID cannot be null."));
         ExternalConsultationDto externalConsultationDto = externalConsultationService.findById(command.getId());
+
+        RulesChecker.checkRule(new ExternalConsultationCreateAtNotEqualsRule(externalConsultationDto.getConsultationTime()));
 
         this.delete(externalConsultationDto);
 
