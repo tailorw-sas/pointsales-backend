@@ -14,7 +14,7 @@ public interface ICustomerService {
 
     void update(CustomerDto customer);
 
-    void delete(UUID id);
+    void delete(CustomerDto customer);
 
     CustomerDto findById(UUID id);
 

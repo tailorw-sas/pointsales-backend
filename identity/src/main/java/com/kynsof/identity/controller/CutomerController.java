@@ -3,6 +3,8 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.customer.create.CreateCustomerCommand;
 import com.kynsof.identity.application.command.customer.create.CreateCustomerMessage;
 import com.kynsof.identity.application.command.customer.create.CreateCustomerRequest;
+import com.kynsof.identity.application.command.customer.delete.DeleteCustomerCommand;
+import com.kynsof.identity.application.command.customer.delete.DeleteCustomerMessage;
 import com.kynsof.identity.application.command.customer.update.UpdateCustomerCommand;
 import com.kynsof.identity.application.command.customer.update.UpdateCustomerMessage;
 import com.kynsof.identity.application.command.customer.update.UpdateCustomerRequest;
@@ -85,6 +87,15 @@ public class CutomerController {
         GetSearchCustomerQuery query = new GetSearchCustomerQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable UUID id) {
+
+        DeleteCustomerCommand command = new DeleteCustomerCommand(id);
+        DeleteCustomerMessage response = mediator.send(command);
+
+        return ResponseEntity.ok(response);
     }
 
 }

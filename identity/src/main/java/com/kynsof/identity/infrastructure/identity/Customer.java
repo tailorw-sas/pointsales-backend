@@ -31,6 +31,9 @@ public class Customer {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private Wallet wallet;
 

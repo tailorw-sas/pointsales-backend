@@ -107,4 +107,14 @@ public class UserSystemServiceImpl implements IUserSystemService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    public void updateDelete() {
+        List<UserSystem> customer = this.repositoryQuery.findAll();
+        for (UserSystem module : customer) {
+            if (module.getDeleted() == null || !module.getDeleted().equals(Boolean.TRUE)) {
+                module.setDeleted(Boolean.FALSE);
+            }
+            this.repositoryCommand.save(module);
+        }
+    }
+
 }

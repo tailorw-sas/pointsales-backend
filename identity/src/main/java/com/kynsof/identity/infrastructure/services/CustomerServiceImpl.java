@@ -50,8 +50,12 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void delete(CustomerDto customer) {
+        Customer delete = new Customer(customer);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setEmail(delete.getEmail() + "-" + UUID.randomUUID());
+
+        this.repositoryCommand.save(delete);
     }
 
     @Override
@@ -80,6 +84,16 @@ public class CustomerServiceImpl implements ICustomerService {
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    public void updateDelete() {
+        List<Customer> customer = this.repositoryQuery.findAll();
+        for (Customer module : customer) {
+            if (module.getDeleted() == null || !module.getDeleted().equals(Boolean.TRUE)) {
+                module.setDeleted(Boolean.FALSE);
+            }
+            this.repositoryCommand.save(module);
+        }
     }
 
 }
