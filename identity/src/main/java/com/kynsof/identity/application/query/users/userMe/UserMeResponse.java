@@ -1,13 +1,13 @@
 package com.kynsof.identity.application.query.users.userMe;
 
 
-import com.kynsof.identity.domain.dto.me.BusinessModulePermissionsDto;
+import com.kynsof.identity.domain.dto.me.PermissionInfo;
 import com.kynsof.identity.domain.dto.me.UserMeDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -19,7 +19,7 @@ public class UserMeResponse implements IResponse {
     private String name;
     private String lastName;
     private String image;
-    private Set<BusinessModulePermissionsDto> businesses;
+    private List<BusinessPermissionResponse> businesses;
 
     public UserMeResponse(UserMeDto userMeDto) {
         this.userId = userMeDto.getUserId();
@@ -28,6 +28,9 @@ public class UserMeResponse implements IResponse {
         this.name = userMeDto.getName();
         this.lastName = userMeDto.getLastName();
         this.image = userMeDto.getImage();
-        this.businesses = userMeDto.getBusiness();
+        this.businesses = userMeDto.getBusiness().stream().map(b -> {
+            List<String> permissions = b.getUniquePermissions().stream().map(PermissionInfo::getCode).toList();
+            return new BusinessPermissionResponse(b.getBusinessId(),b.getName(),permissions);
+        }).toList();
     }
 }
