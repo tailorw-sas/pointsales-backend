@@ -52,6 +52,9 @@ public class DoctorServiceImpl implements IDoctorService {
                     if (doctorDto.getStatus() != null) {
                         patient.setStatus(doctorDto.getStatus());
                     }
+                    if (doctorDto.getImage() != null) {
+                        patient.setImage(doctorDto.getImage());
+                    }
 
                     return this.repositoryCommand.save(patient);
                 })
