@@ -180,8 +180,8 @@ public class ResourceServiceImpl implements IResourceService {
     }
 
     @Override
-    public PaginatedResponse findResourcesByServiceId(UUID serviceId, Pageable pageable) {
-        Page<Resource> data = this.repositoryQuery.findResourcesByServiceId(serviceId, pageable);
+    public PaginatedResponse findResourcesByServiceId(UUID businessId, UUID serviceId, Pageable pageable) {
+        Page<Resource> data = this.repositoryQuery.findResourcesByServiceIdAndBusinessId(serviceId,businessId, pageable);
         return getPaginatedResponse(data);
     }
 

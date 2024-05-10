@@ -26,7 +26,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/files")
 public class FileController {
-    private IMediator mediator;
+    private final IMediator mediator;
 
     private final AmazonClient amazonClient;
 
@@ -51,7 +51,7 @@ public class FileController {
         }
     }
 
-    @PostMapping(value = "/upload-file")
+    @PostMapping(value = "")
     public Mono<ResponseEntity<ApiResponse<?>>> upload(@RequestPart("file") FilePart filePart) {
         return DataBufferUtils.join(filePart.content())
                 .flatMap(dataBuffer -> {

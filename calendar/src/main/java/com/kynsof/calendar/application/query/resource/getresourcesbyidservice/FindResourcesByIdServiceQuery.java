@@ -9,11 +9,13 @@ import java.util.UUID;
 @Getter
 public class FindResourcesByIdServiceQuery  implements IQuery {
 
-    private UUID id;
-    private Pageable pageable;
+    private final UUID businessId;
+    private final UUID serviceId;
+    private final Pageable pageable;
 
-    public FindResourcesByIdServiceQuery(UUID id, Pageable pageable) {
-        this.id = id;
+    public FindResourcesByIdServiceQuery(UUID businessId, UUID serviceId, Pageable pageable) {
+        this.businessId = businessId;
+        this.serviceId = serviceId;
         this.pageable = pageable;
     }
 
