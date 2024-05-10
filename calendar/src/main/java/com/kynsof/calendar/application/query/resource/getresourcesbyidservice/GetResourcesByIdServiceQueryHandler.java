@@ -16,6 +16,6 @@ public class GetResourcesByIdServiceQueryHandler implements IQueryHandler<FindRe
     @Override
     public PaginatedResponse handle(FindResourcesByIdServiceQuery query) {
 
-        return this.service.findResourcesByServiceId(query.getId(), query.getPageable());
+        return this.service.findResourcesByServiceId(query.getBusinessId(), query.getServiceId(), query.getPageable());
     }
 }

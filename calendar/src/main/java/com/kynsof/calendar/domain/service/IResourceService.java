@@ -27,5 +27,5 @@ public interface IResourceService {
 
     void addBusiness(UUID businessId, UUID serviceId, LocalDate date);
     void addServicesToResource(UUID resourceId, List<UUID> serviceIds);
-    PaginatedResponse findResourcesByServiceId(UUID serviceId, Pageable pageable);
+    PaginatedResponse findResourcesByServiceId(UUID businessId, UUID serviceId, Pageable pageable);
 }
