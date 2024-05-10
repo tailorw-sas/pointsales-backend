@@ -2,6 +2,8 @@ package com.kynsof.identity.application.command.user.update;
 
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
+import com.kynsof.identity.domain.rules.usersystem.ModuleEmailMustBeUniqueRule;
+import com.kynsof.identity.domain.rules.usersystem.ModuleUserNameMustBeUniqueRule;
 import com.kynsof.identity.infrastructure.services.KeycloakProvider;
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerUserSystemUpdateEventService;
 import com.kynsof.share.core.domain.RulesChecker;
@@ -34,6 +36,7 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
 
         if (command.getEmail() != null && !command.getEmail().isEmpty() && !command.getEmail().equals(objectToUpdate.getEmail())) {
             UpdateIfNotNull.updateIfNotNull(objectToUpdate::setEmail, command.getEmail());
+            RulesChecker.checkRule(new ModuleEmailMustBeUniqueRule(this.systemService, command.getEmail(), objectToUpdate.getId()));
             isPublish = true;
             idUpdate = true;
         }
@@ -60,6 +63,7 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
 
         if (command.getUserName() != null && !command.getUserName().isEmpty() && !command.getUserName().equals(objectToUpdate.getUserName())) {
             UpdateIfNotNull.updateIfNotNull(objectToUpdate::setUserName, command.getUserName());
+            RulesChecker.checkRule(new ModuleUserNameMustBeUniqueRule(this.systemService, command.getUserName(), objectToUpdate.getId()));
             isPublish = true;
             idUpdate = true;
         }

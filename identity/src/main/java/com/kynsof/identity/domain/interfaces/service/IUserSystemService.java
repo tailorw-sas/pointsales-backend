@@ -18,4 +18,8 @@ public interface IUserSystemService {
     UserSystemDto findById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+
+    Long countByUserNameAndNotId(String userName, UUID id);
+
+    Long countByEmailAndNotId(String email, UUID id);
 }

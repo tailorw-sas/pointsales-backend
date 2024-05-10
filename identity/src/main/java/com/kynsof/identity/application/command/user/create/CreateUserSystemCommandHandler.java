@@ -5,7 +5,10 @@ import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.identity.domain.interfaces.service.IAuthService;
 import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
+import com.kynsof.identity.domain.rules.usersystem.ModuleEmailMustBeUniqueRule;
+import com.kynsof.identity.domain.rules.usersystem.ModuleUserNameMustBeUniqueRule;
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerRegisterUserSystemEventService;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,6 +32,9 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
 
     @Override
     public void handle(CreateUserSystemCommand command) {
+        RulesChecker.checkRule(new ModuleEmailMustBeUniqueRule(this.userSystemService, command.getEmail(), UUID.randomUUID()));
+        RulesChecker.checkRule(new ModuleUserNameMustBeUniqueRule(this.userSystemService, command.getUserName(), UUID.randomUUID()));
+
         UserSystemKycloackRequest userSystemRequest = new UserSystemKycloackRequest(
                 command.getUserName(),
                 command.getEmail(),
@@ -37,7 +43,7 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
                 command.getPassword(),
                 command.getUserType()
         );
-       String userId = authService.registerUserSystem(userSystemRequest, true);
+        String userId = authService.registerUserSystem(userSystemRequest, true);
 
         UserSystemDto userDto = new UserSystemDto(
                 UUID.fromString(userId),
@@ -51,10 +57,10 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
         userDto.setUserName(command.getUserName());
         userDto.setUserType(command.getUserType());
 
-       UUID id = userSystemService.create(userDto);
-       this.registerUserSystemEventService.create(userSystemRequest, id.toString(), command.getImage());
+        UUID id = userSystemService.create(userDto);
+        this.registerUserSystemEventService.create(userSystemRequest, id.toString(), command.getImage());
 
-       command.setId(id);
+        command.setId(id);
 
     }
 }
