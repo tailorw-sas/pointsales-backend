@@ -32,7 +32,7 @@ public class PermissionController {
     }
 
     @PostMapping("")
-    public ResponseEntity<CreatePermissionMessage> create(@RequestBody CreatePermissionRequest request) {
+    public ResponseEntity<?> create(@RequestBody CreatePermissionRequest request) {
         CreatePermissionCommand createCommand = CreatePermissionCommand.fromRequest(request);
         CreatePermissionMessage response = mediator.send(createCommand);
 
@@ -40,7 +40,7 @@ public class PermissionController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UpdatePermissionMessage> update(@PathVariable UUID id, @RequestBody UpdatePermissionRequest request) {
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody UpdatePermissionRequest request) {
 
         UpdatePermissionCommand command = UpdatePermissionCommand.fromRequest(request,id);
         UpdatePermissionMessage response = mediator.send(command);
@@ -48,7 +48,7 @@ public class PermissionController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<PermissionResponse> getById(@PathVariable UUID id) {
+    public ResponseEntity<?> getById(@PathVariable UUID id) {
 
         FindPermissionByIdQuery query = new FindPermissionByIdQuery(id);
         PermissionResponse response = mediator.send(query);
@@ -57,7 +57,7 @@ public class PermissionController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    public ResponseEntity<?> search(@RequestBody SearchRequest request)
     {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
         GetSearchPermissionQuery query = new GetSearchPermissionQuery(pageable, request.getFilter(),request.getQuery());
@@ -66,7 +66,7 @@ public class PermissionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DeletePermissionMessage> delete(@PathVariable("id") UUID id) {
+    public ResponseEntity<?> delete(@PathVariable("id") UUID id) {
 
         DeletePermissionCommand command = new DeletePermissionCommand(id);
         DeletePermissionMessage response = mediator.send(command);

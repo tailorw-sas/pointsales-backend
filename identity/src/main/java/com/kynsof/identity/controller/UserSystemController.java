@@ -85,7 +85,7 @@ public class UserSystemController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
+    public ResponseEntity<?> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
         GetSearchUserSystemsQuery query = new GetSearchUserSystemsQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);

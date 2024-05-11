@@ -35,21 +35,21 @@ public class UserPermissionBusinessController {
 
 
     @PostMapping("")
-    public ResponseEntity<CreateUserPermissionBusinessMessage> createLote(@RequestBody UserPermissionBusinessRequest request) {
+    public ResponseEntity<?> createLote(@RequestBody UserPermissionBusinessRequest request) {
         CreateUserPermissionBusinessCommand command = CreateUserPermissionBusinessCommand.fromRequest(request);
         CreateUserPermissionBusinessMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping
-    public ResponseEntity<UpdateUserPermissionBusinessMessage> update(@RequestBody UserRoleBusinessUpdateRequest request) {
+    @PatchMapping()
+    public ResponseEntity<?> update(@RequestBody UserRoleBusinessUpdateRequest request) {
         UpdateUserPermissionBusinessCommand command = UpdateUserPermissionBusinessCommand.fromRequest(request);
         UpdateUserPermissionBusinessMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<UserRoleBusinessResponse> getById(@PathVariable UUID id) {
+    public ResponseEntity<?> getById(@PathVariable UUID id) {
 
         FindByIdUserRoleBusinessQuery query = new FindByIdUserRoleBusinessQuery(id);
         UserRoleBusinessResponse response = mediator.send(query);
@@ -67,7 +67,7 @@ public class UserPermissionBusinessController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    public ResponseEntity<?> search(@RequestBody SearchRequest request)
     {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
         GetSearchUserRolBusinessQuery query = new GetSearchUserRolBusinessQuery(pageable, request.getFilter(),request.getQuery());
@@ -75,8 +75,8 @@ public class UserPermissionBusinessController {
         return ResponseEntity.ok(data);
     }
 
-    @GetMapping("/user/{userId}/business/{businessId}")
-    public ResponseEntity<GetPermissionsForUserAndBusinessResponse> getPermissionsForUserAndBusiness(
+    @GetMapping("/{userId}/business/{businessId}")
+    public ResponseEntity<?> getPermissionsForUserAndBusiness(
             @PathVariable UUID userId,
             @PathVariable UUID businessId) {
         GetPermissionsForUserAndBusinessQuery query = new GetPermissionsForUserAndBusinessQuery(userId, businessId);

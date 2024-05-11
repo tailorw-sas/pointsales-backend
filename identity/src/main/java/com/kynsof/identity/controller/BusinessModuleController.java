@@ -52,7 +52,7 @@ public class BusinessModuleController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<BusinessModuleResponse> getById(@PathVariable UUID id) {
+    public ResponseEntity<?> getById(@PathVariable UUID id) {
 
         FindBusinessModuleByIdQuery query = new FindBusinessModuleByIdQuery(id);
         BusinessModuleResponse response = mediator.send(query);
@@ -70,7 +70,7 @@ public class BusinessModuleController {
     }
 
     @DeleteMapping("/delete-all")
-    public ResponseEntity<DeleteAllBusinessModuleMessage> delete(@RequestBody DeleteAllBusinessModuleRequest request) {
+    public ResponseEntity<?> delete(@RequestBody DeleteAllBusinessModuleRequest request) {
 
         DeleteAllBusinessModuleCommand command = new DeleteAllBusinessModuleCommand(request.getBusinessModules());
         DeleteAllBusinessModuleMessage response = mediator.send(command);
@@ -79,7 +79,7 @@ public class BusinessModuleController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    public ResponseEntity<?> search(@RequestBody SearchRequest request)
     {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
         GetSearchBusinessModuleQuery query = new GetSearchBusinessModuleQuery(pageable, request.getFilter(),request.getQuery());

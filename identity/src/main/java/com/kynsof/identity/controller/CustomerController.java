@@ -30,11 +30,11 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/customer")
-public class CutomerController {
+public class CustomerController {
 
     private final IMediator mediator;
 
-    public CutomerController(IMediator mediator){
+    public CustomerController(IMediator mediator){
 
         this.mediator = mediator;
     }
