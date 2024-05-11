@@ -7,9 +7,9 @@ import com.kynsof.identity.application.command.auth.registry.UserRequest;
 import com.kynsof.identity.application.command.auth.registrySystemUser.UserSystemKycloackRequest;
 import com.kynsof.identity.domain.interfaces.service.IAuthService;
 import com.kynsof.identity.domain.interfaces.service.IOtpService;
+import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerTriggerPasswordResetEventService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerRegisterUserEventService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerRegisterUserSystemEventService;
-import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerTriggerPasswordResetEventService;
 import com.kynsof.share.core.domain.exception.AlreadyExistsException;
 import com.kynsof.share.core.domain.exception.AuthenticateNotFoundException;
 import com.kynsof.share.core.domain.exception.CustomUnauthorizedException;
@@ -34,6 +34,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,7 +46,6 @@ public class AuthService implements IAuthService {
     private final ProducerRegisterUserEventService producerRegisterUserEvent;
     private final IOtpService otpService;
     private final ProducerTriggerPasswordResetEventService producerOtp;
-    private final ProducerRegisterUserSystemEventService producerRegisterUserSystemEvent;
 
     @Autowired
     public AuthService(KeycloakProvider keycloakProvider, RestTemplate restTemplate,
@@ -57,7 +57,6 @@ public class AuthService implements IAuthService {
         this.producerRegisterUserEvent = producerRegisterUserEvent;
         this.otpService = otpService;
         this.producerOtp = producerOtp;
-        this.producerRegisterUserSystemEvent = producerRegisterUserSystemEvent;
     }
 
     @Override
@@ -211,6 +210,23 @@ public class AuthService implements IAuthService {
 
             String userId = user.getId();
             userResource.get(userId).resetPassword(credential);
+            return true;
+        }
+        throw new UserNotFoundException("User not found", new ErrorField("email/password", "Change Password not found"));
+    }
+
+    @Override
+    public Boolean changePassword(String userId, String newPassword) {
+        UserRepresentation user = keycloakProvider.getRealmResource().users().get(userId).toRepresentation();
+        if (user != null) {
+            CredentialRepresentation credential = new CredentialRepresentation();
+            credential.setType(CredentialRepresentation.PASSWORD);
+            credential.setValue(newPassword);
+            credential.setTemporary(false); // True si quieres que sea una contraseña temporal
+
+            user.setCredentials(List.of(credential));
+
+            keycloakProvider.getRealmResource().users().get(userId).resetPassword(credential);
             return true;
         }
         throw new UserNotFoundException("User not found", new ErrorField("email/password", "Change Password not found"));
