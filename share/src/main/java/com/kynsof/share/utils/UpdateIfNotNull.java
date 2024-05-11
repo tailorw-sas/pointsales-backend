@@ -74,4 +74,46 @@ public class UpdateIfNotNull {
         return false;
     }
 
+    public static boolean updateDoubleAndPublish(Consumer<Double> setter, Double newValue, Double oldValue, Consumer<Integer> update, Consumer<Integer> publish) {
+        if (newValue != null && !newValue.equals(oldValue)) {
+            setter.accept(newValue);
+            update.accept(1);
+            publish.accept(1);
+
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean updateDouble(Consumer<Double> setter, Double newValue, Double oldValue, Consumer<Integer> update) {
+        if (newValue != null && !newValue.equals(oldValue)) {
+            setter.accept(newValue);
+            update.accept(1);
+
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean updateBoolean(Consumer<Boolean> setter, Boolean newValue, Boolean oldValue, Consumer<Integer> update) {
+        if (newValue != null && !newValue.equals(oldValue)) {
+            setter.accept(newValue);
+            update.accept(1);
+
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean updateBooleanAndPublish(Consumer<Boolean> setter, Boolean newValue, Boolean oldValue, Consumer<Integer> update, Consumer<Integer> publish) {
+        if (newValue != null && !newValue.equals(oldValue)) {
+            setter.accept(newValue);
+            update.accept(1);
+            publish.accept(1);
+
+            return true;
+        }
+        return false;
+    }
+
 }
