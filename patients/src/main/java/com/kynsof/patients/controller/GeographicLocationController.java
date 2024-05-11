@@ -43,7 +43,7 @@ public class GeographicLocationController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(path = "/parroquia/{id}")
+    @GetMapping(path = "/{id}/parroquia")
     public ResponseEntity<LocationHierarchyResponse> FindByIdGeographicLocation(@PathVariable UUID id) {
 
         LocationHierarchyQuery query = new LocationHierarchyQuery(id);
