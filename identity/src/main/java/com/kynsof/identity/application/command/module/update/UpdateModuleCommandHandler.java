@@ -6,6 +6,7 @@ import com.kynsof.identity.domain.rules.module.ModuleNameMustBeUniqueRule;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
+import com.kynsof.share.utils.ConsumerUpdate;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import org.springframework.stereotype.Component;
 
@@ -25,14 +26,17 @@ public class UpdateModuleCommandHandler implements ICommandHandler<UpdateModuleC
 
         ModuleDto module = this.service.findById(command.getId());
 
-        UpdateIfNotNull.updateIfStringNotNull(module::setDescription, command.getDescription());
+        ConsumerUpdate update = new ConsumerUpdate();
+        UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(module::setDescription, command.getDescription(), module.getDescription(), update::setUpdate);
 
-        if (UpdateIfNotNull.updateIfStringNotNull(module::setName, command.getName())) {
+        if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(module::setName, command.getName(), module.getName(), update::setUpdate)) {
             RulesChecker.checkRule(new ModuleNameMustBeUniqueRule(this.service, command.getName(), command.getId()));
         }
-        UpdateIfNotNull.updateIfStringNotNull(module::setImage, command.getImage());
+        UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(module::setImage, command.getImage(), module.getImage(), update::setUpdate);
 
-        this.service.update(module);
+        if (update.getUpdate() > 0) {
+            this.service.update(module);
+        }
 
     }
 }
