@@ -24,4 +24,12 @@ public class UpdateIfNotNull {
         return false;
     }
 
+    public static boolean updateIfStringNotNullNotEmptyAndNotEquals(Consumer<String> setter, String newValue, String oldValue) {
+        if (newValue != null && !newValue.isEmpty() && !newValue.equals(oldValue)) {
+            setter.accept(newValue);
+            return true;
+        }
+        return false;
+    }
+
 }
