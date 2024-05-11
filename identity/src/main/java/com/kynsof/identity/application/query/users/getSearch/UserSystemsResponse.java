@@ -3,7 +3,7 @@ package com.kynsof.identity.application.query.users.getSearch;
 
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
-import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.EUserType;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class UserSystemsResponse implements IResponse {
     private String name;
     private String lastName;
     private UserStatus status;
-    private UserType userType;
+    private EUserType userType;
     private String image;
     private LocalDate createdAt;
 
@@ -34,7 +34,7 @@ public class UserSystemsResponse implements IResponse {
         this.lastName = contactInfoDto.getLastName();
         this.status = contactInfoDto.getStatus();
         this.image = contactInfoDto.getImage();
-        this.userType = contactInfoDto.getUserType() != null ? contactInfoDto.getUserType() : UserType.UNDEFINED;
+        this.userType = contactInfoDto.getUserType() != null ? contactInfoDto.getUserType() : EUserType.UNDEFINED;
         this.createdAt = contactInfoDto.getCreatedAt();
     }
 

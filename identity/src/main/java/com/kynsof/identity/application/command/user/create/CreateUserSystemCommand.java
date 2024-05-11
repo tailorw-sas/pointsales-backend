@@ -1,6 +1,6 @@
 package com.kynsof.identity.application.command.user.create;
 
-import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.EUserType;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -17,11 +17,11 @@ public class CreateUserSystemCommand implements ICommand {
     private String name;
     private String lastName;
     private final String password;
-    private final UserType userType;
+    private final EUserType userType;
     private final String image;
 
 
-    public CreateUserSystemCommand(String userName, String email, String name, String lastName, String password, UserType userType, String image) {
+    public CreateUserSystemCommand(String userName, String email, String name, String lastName, String password, EUserType userType, String image) {
         this.userName = userName;
         this.email = email;
         this.name = name;

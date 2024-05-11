@@ -7,7 +7,7 @@ import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
 import com.kynsof.identity.infrastructure.repository.command.UserSystemsWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserSystemReadDataJPARepository;
-import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.EUserType;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -89,7 +89,7 @@ public class UserSystemServiceImpl implements IUserSystemService {
             }
            else if ("userType".equals(filter.getKey()) && filter.getValue() instanceof String) {
                 try {
-                    UserType enumValue = UserType.valueOf((String) filter.getValue());
+                    EUserType enumValue = EUserType.valueOf((String) filter.getValue());
                     filter.setValue(enumValue);
                 } catch (IllegalArgumentException e) {
                     System.err.println("Valor inválido para el tipo Enum RoleStatus: " + filter.getValue());

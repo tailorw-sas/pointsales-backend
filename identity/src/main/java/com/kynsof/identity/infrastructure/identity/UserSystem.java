@@ -2,7 +2,7 @@ package com.kynsof.identity.infrastructure.identity;
 
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
-import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.EUserType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,7 +37,7 @@ public class UserSystem implements Serializable {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
     @Enumerated(EnumType.STRING)
-    private UserType userType;
+    private EUserType userType;
     private String image;
 
     @Column(nullable = true)
@@ -59,7 +59,7 @@ public class UserSystem implements Serializable {
         this.name = dto.getName();
         this.lastName = dto.getLastName();
         this.status = dto.getStatus();
-        this.userType = dto.getUserType() != null ? dto.getUserType() : UserType.UNDEFINED;
+        this.userType = dto.getUserType() != null ? dto.getUserType() : EUserType.UNDEFINED;
         this.image = dto.getImage() != null ? dto.getImage() : null;
     }
 

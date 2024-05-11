@@ -1,6 +1,6 @@
 package com.kynsof.identity.application.command.user.update.steptwo;
 
-import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.EUserType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,5 +11,5 @@ import java.util.UUID;
 public class UpdateUserSystemStepTwoRequest {
     private UUID id;
     private String image;
-    private UserType userType;
+    private EUserType userType;
 }

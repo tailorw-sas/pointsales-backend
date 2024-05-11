@@ -4,7 +4,7 @@ package com.kynsof.identity.application.query.users.getById;
 import com.kynsof.identity.domain.dto.RoleDto;
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
-import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.EUserType;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class UserSystemsByIdResponse implements IResponse {
     private String lastName;
     private UserStatus status;
     private List<RoleDto> roles;
-    private UserType userType;
+    private EUserType userType;
     private String image;
 
     public UserSystemsByIdResponse(UserSystemDto userSystemDto) {

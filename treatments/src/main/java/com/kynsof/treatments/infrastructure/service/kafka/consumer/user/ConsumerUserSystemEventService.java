@@ -3,7 +3,7 @@ package com.kynsof.treatments.infrastructure.service.kafka.consumer.user;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.EUserType;
 import com.kynsof.share.core.domain.kafka.entity.UserSystemKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import com.kynsof.treatments.domain.dto.DoctorDto;
@@ -32,7 +32,7 @@ public class ConsumerUserSystemEventService {
             UserSystemKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UserSystemKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
-            if (eventType.equals(EventType.CREATED) && eventRead != null && eventRead.getUserType().equals(UserType.DOCTORS)) {
+            if (eventType.equals(EventType.CREATED) && eventRead != null && eventRead.getUserType().equals(EUserType.DOCTORS)) {
                 //Definir accion
                 System.err.println("#######################################################");
                 System.err.println("#######################################################");
@@ -50,7 +50,7 @@ public class ConsumerUserSystemEventService {
                 System.err.println("#######################################################");
 
             }
-            if (eventType.equals(EventType.UPDATED) && eventRead != null && eventRead.getUserType().equals(UserType.DOCTORS)) {
+            if (eventType.equals(EventType.UPDATED) && eventRead != null && eventRead.getUserType().equals(EUserType.DOCTORS)) {
                 //Definir accion
                 //Definir accion
                 DoctorDto doctorDto = new DoctorDto(eventRead.getId(), "", eventRead.getName(), eventRead.getLastName(), eventRead.getIdImage().toString(), Status.ACTIVE);
