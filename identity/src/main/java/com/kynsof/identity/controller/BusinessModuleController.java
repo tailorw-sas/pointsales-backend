@@ -43,7 +43,7 @@ public class BusinessModuleController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping
+    @PatchMapping
     public ResponseEntity<?> update(@RequestBody UpdateBusinessModuleRequest request) {
 
         UpdateBusinessModuleCommand command = UpdateBusinessModuleCommand.fromRequest(request);
