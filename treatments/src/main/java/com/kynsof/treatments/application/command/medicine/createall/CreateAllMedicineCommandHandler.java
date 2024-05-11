@@ -3,8 +3,9 @@ package com.kynsof.treatments.application.command.medicine.createall;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.MedicinesDto;
 import com.kynsof.treatments.domain.service.IMedicinesService;
-import java.util.UUID;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class CreateAllMedicineCommandHandler implements ICommandHandler<CreateAllMedicinesCommand> {

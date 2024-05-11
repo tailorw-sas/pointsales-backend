@@ -7,9 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.UUID;
-import org.springframework.data.jpa.repository.Query;
 
 public interface ProcedureReadDataJPARepository extends JpaRepository<Procedure, UUID>, JpaSpecificationExecutor<Procedure> {
     Page<Procedure> findAll(Specification specification, Pageable pageable);

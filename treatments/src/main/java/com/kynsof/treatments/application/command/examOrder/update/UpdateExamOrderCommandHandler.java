@@ -10,9 +10,9 @@ import com.kynsof.treatments.domain.dto.PatientDto;
 import com.kynsof.treatments.domain.service.IExamOrderService;
 import com.kynsof.treatments.domain.service.IExamService;
 import com.kynsof.treatments.domain.service.IPatientsService;
-import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;

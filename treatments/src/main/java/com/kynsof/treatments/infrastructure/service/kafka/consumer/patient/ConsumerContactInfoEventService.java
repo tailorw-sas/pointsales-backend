@@ -7,11 +7,11 @@ import com.kynsof.share.core.domain.kafka.entity.ContactInfoKafka;
 import com.kynsof.share.core.domain.kafka.event.EventType;
 import com.kynsof.treatments.domain.dto.PatientDto;
 import com.kynsof.treatments.domain.service.IPatientsService;
-import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

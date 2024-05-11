@@ -3,8 +3,9 @@ package com.kynsof.treatments.application.command.exam.create;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.ExamDto;
 import com.kynsof.treatments.domain.service.IExamService;
-import java.util.UUID;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class CreateExamCommandHandler implements ICommandHandler<CreateExamCommand> {

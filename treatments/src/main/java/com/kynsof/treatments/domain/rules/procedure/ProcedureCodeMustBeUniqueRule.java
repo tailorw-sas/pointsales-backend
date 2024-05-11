@@ -4,6 +4,7 @@ import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.rules.BusinessRule;
 import com.kynsof.treatments.domain.service.IProcedureService;
+
 import java.util.UUID;
 
 public class ProcedureCodeMustBeUniqueRule extends BusinessRule {

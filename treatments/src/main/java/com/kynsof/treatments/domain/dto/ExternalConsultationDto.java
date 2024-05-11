@@ -25,10 +25,10 @@ public class ExternalConsultationDto {
     private String observations;
     private ExamOrderDto examOrder;
     private BusinessDto business;
-
+    private String medicalSpeciality;
     public ExternalConsultationDto(UUID id, PatientDto patient, DoctorDto doctor, Date consultationTime,
                                    String consultationReason, String medicalHistory, String physicalExam,
-                                   String observations, ExamOrderDto examOrder) {
+                                   String observations, ExamOrderDto examOrder, String medicalSpeciality) {
         this.id = id;
         this.patient = patient;
         this.doctor = doctor;
@@ -38,6 +38,7 @@ public class ExternalConsultationDto {
         this.physicalExam = physicalExam;
         this.observations = observations;
         this.examOrder = examOrder;
+        this.medicalSpeciality = medicalSpeciality;
     }
 
 }

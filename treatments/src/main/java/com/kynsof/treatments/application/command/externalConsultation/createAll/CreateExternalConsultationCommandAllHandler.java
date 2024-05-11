@@ -3,11 +3,7 @@ package com.kynsof.treatments.application.command.externalConsultation.createAll
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.*;
 import com.kynsof.treatments.domain.dto.enumDto.Status;
-import com.kynsof.treatments.domain.service.IBusinessService;
-import com.kynsof.treatments.domain.service.IDoctorService;
-import com.kynsof.treatments.domain.service.IExternalConsultationService;
-import com.kynsof.treatments.domain.service.IMedicinesService;
-import com.kynsof.treatments.domain.service.IPatientsService;
+import com.kynsof.treatments.domain.service.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -90,7 +86,8 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
                 treatmentDtoList,
                 command.getObservations(),
                 examOrderDto,
-                businessDto
+                businessDto,
+                command.getMedicalSpeciality()
         ));
         command.setId(id);
     }
