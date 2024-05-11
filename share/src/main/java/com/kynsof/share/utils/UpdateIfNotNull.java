@@ -16,9 +16,59 @@ public class UpdateIfNotNull {
         }
     }
 
+    /**
+     * Valida si el campo no esta nulo o vacio, para poder actualizarlo.
+     * @param setter
+     * @param value
+     * @return 
+     */
     public static boolean updateIfStringNotNull(Consumer<String> setter, String value) {
         if (value != null && !value.isEmpty()) {
             setter.accept(value);
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Valida si el campo no esta nulo o vacio, pero ademas diferente del valor actual, para poder
+     * actualizar. En caso de actualizarlo, actualiza el valor del update para sennalar que se
+     * puede realizar una consulta a BD.
+     * @param setter
+     * @param newValue
+     * @param oldValue
+     * @param update
+     * @return 
+     */
+    public static boolean updateIfStringNotNullNotEmptyAndNotEquals(Consumer<String> setter, String newValue, String oldValue, Consumer<Integer> update) {
+        if (newValue != null && !newValue.isEmpty() && !newValue.equals(oldValue)) {
+            setter.accept(newValue);
+            update.accept(1);
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Este metodo es para ser usado en los campos que se actualizar por evento de kafka.
+     * Valida si el campo no esta nulo o vacio, pero ademas diferente del valor actual, para poder
+     * actualizar. En caso de actualizarlo, actualiza el valor del update para sennalar que se
+     * puede realizar una consulta a BD.
+     * @param setter
+     * @param newValue
+     * @param oldValue
+     * @param update
+     * @param publish
+     * @return 
+     */
+    public static boolean updateIfStringNotNullNotEmptyAndNotEqualsToPublish(Consumer<String> setter, String newValue, String oldValue, Consumer<Integer> update, Consumer<Integer> publish) {
+        if (newValue != null && !newValue.isEmpty() && !newValue.equals(oldValue)) {
+            setter.accept(newValue);
+            update.accept(1);
+            publish.accept(1);
+
             return true;
         }
         return false;

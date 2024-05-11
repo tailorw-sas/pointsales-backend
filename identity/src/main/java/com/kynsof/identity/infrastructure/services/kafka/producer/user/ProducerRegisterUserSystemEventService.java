@@ -42,7 +42,7 @@ public class ProducerRegisterUserSystemEventService {
             this.producer.send("user-system", json);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ProducerRegisterUserSystemEventService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       }
     }
 
 }

@@ -117,4 +117,14 @@ public class UserSystemServiceImpl implements IUserSystemService {
         }
     }
 
+    @Override
+    public Long countByUserNameAndNotId(String userName, UUID id) {
+        return this.repositoryQuery.countByUserNameAndNotId(userName, id);
+    }
+
+    @Override
+    public Long countByEmailAndNotId(String email, UUID id) {
+        return this.repositoryQuery.countByEmailAndNotId(email, id);
+    }
+
 }

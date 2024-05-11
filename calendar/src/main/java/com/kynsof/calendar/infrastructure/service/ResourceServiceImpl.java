@@ -8,6 +8,7 @@ import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.calendar.infrastructure.entity.*;
 import com.kynsof.calendar.infrastructure.entity.specifications.ResourceSpecifications;
+import com.kynsof.calendar.infrastructure.repository.command.BusinessResourceWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.command.BusinessWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.command.ResourceServiceWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.command.ResourceWriteDataJPARepository;
@@ -43,16 +44,18 @@ public class ResourceServiceImpl implements IResourceService {
     @Autowired
 
     private ScheduleReadDataJPARepository scheduleReadDataJPARepository;
+
     @Autowired
     private BusinessReadDataJPARepository businessReadDataJPARepository;
-    @Autowired
-    private BusinessWriteDataJPARepository businessWriteDataJPARepository;
 
     @Autowired
     private ServiceReadDataJPARepository serviceReadRepository;
 
     @Autowired
     private ResourceServiceWriteDataJPARepository resourceServiceWriteDataJPARepository;
+
+    @Autowired
+    private BusinessResourceWriteDataJPARepository businessResourceWriteDataJPARepository;
 
     @Override
     public void create(ResourceDto object) {
@@ -145,15 +148,19 @@ public class ResourceServiceImpl implements IResourceService {
         if (resource.isPresent() && business.isPresent()) {
             Resource resourceObject = resource.get();
             Business businessObject = business.get();
+
             BusinessResource businessResource = new BusinessResource();
+            businessResource.setId(UUID.randomUUID());
             businessResource.setBusiness(businessObject);
             businessResource.setResource(resourceObject);
             businessResource.setCreatedAt(ConfigureTimeZone.getTimeZone());  // Asumiendo que hay un campo para la fecha de creación
-            businessObject.getBusinessResources().add(businessResource);
-            resourceObject.getBusinessResources().add(businessResource);
+            this.businessResourceWriteDataJPARepository.save(businessResource);
 
-            this.repositoryCommand.save(resourceObject);
-            this.businessReadDataJPARepository.save(businessObject);
+//            businessObject.getBusinessResources().add(businessResource);
+//            resourceObject.getBusinessResources().add(businessResource);
+//
+//            this.repositoryCommand.save(resourceObject);
+//            this.businessReadDataJPARepository.save(businessObject);
         }
     }
 
@@ -181,7 +188,7 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Override
     public PaginatedResponse findResourcesByServiceId(UUID businessId, UUID serviceId, Pageable pageable) {
-        Page<Resource> data = this.repositoryQuery.findResourcesByServiceIdAndBusinessId(serviceId,businessId, pageable);
+        Page<Resource> data = this.repositoryQuery.findResourcesByServiceIdAndBusinessId(serviceId, businessId, pageable);
         return getPaginatedResponse(data);
     }
 
