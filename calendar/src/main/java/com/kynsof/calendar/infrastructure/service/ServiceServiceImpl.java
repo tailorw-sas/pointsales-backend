@@ -62,7 +62,7 @@ public class ServiceServiceImpl implements IServiceService {
     @CacheEvict(value = CacheConfig.SERVICE_CACHE, key = "#id")
     public void delete(UUID id) {
     
-        ServiceDto objectDelete = this.findById(id);
+        ServiceDto objectDelete = this.findByIds(id);
         Services delete = new Services(objectDelete);
 
         delete.setStatus(EServiceStatus.INACTIVE);
@@ -75,7 +75,7 @@ public class ServiceServiceImpl implements IServiceService {
     ///@Cacheable(cacheNames = CacheConfig.SERVICE_CACHE, unless = "#result == null")
     @Override
     @Cacheable(cacheNames =  CacheConfig.SERVICE_CACHE, unless = "#result == null")
-    public ServiceDto findById(UUID id) {
+    public ServiceDto findByIds(UUID id) {
         
         Optional<Services> object = this.repositoryQuery.findById(id);
         if (object.isPresent()) {
@@ -84,6 +84,14 @@ public class ServiceServiceImpl implements IServiceService {
 
         throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SERVICE_NOT_FOUND, new ErrorField("id", "Service not found.")));
 
+    }
+
+
+    @Override
+    public List<ServiceDto> findByIds(List<UUID> ids) {
+
+        List<Services> objects = this.repositoryQuery.findAllById(ids);
+        return objects.stream().map(Services::toAggregate).toList();
     }
 
     @Override

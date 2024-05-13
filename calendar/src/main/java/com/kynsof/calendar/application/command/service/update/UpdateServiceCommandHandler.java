@@ -30,7 +30,7 @@ public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServic
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getId(), "id", "Service ID cannot be null."));
 
         ServiceTypeDto serviceTypeDto = serviceTypeService.findById(command.getServiceTypeId());
-        ServiceDto update = service.findById(command.getId());
+        ServiceDto update = service.findByIds(command.getId());
         update.setType(serviceTypeDto);
         update.setPicture(command.getPicture());
 

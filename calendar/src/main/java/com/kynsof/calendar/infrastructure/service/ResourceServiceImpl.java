@@ -9,13 +9,9 @@ import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.calendar.infrastructure.entity.*;
 import com.kynsof.calendar.infrastructure.entity.specifications.ResourceSpecifications;
 import com.kynsof.calendar.infrastructure.repository.command.BusinessResourceWriteDataJPARepository;
-import com.kynsof.calendar.infrastructure.repository.command.BusinessWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.command.ResourceServiceWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.command.ResourceWriteDataJPARepository;
-import com.kynsof.calendar.infrastructure.repository.query.BusinessReadDataJPARepository;
-import com.kynsof.calendar.infrastructure.repository.query.ResourceReadDataJPARepository;
-import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
-import com.kynsof.calendar.infrastructure.repository.query.ServiceReadDataJPARepository;
+import com.kynsof.calendar.infrastructure.repository.query.*;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -53,7 +49,8 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Autowired
     private ResourceServiceWriteDataJPARepository resourceServiceWriteDataJPARepository;
-
+    @Autowired
+    private ResourceServicesReadDataJPARepository resourceServiceReadDataJPARepository;
     @Autowired
     private BusinessResourceWriteDataJPARepository businessResourceWriteDataJPARepository;
 
@@ -168,8 +165,11 @@ public class ResourceServiceImpl implements IResourceService {
     public void addServicesToResource(UUID resourceId, List<UUID> serviceIds) {
         Optional<Resource> resource = this.repositoryQuery.findById(resourceId);
         Resource resourceObject = resource.get();
-        if (resourceObject.getResourceServices() == null) {
-            resourceObject.setResourceServices(new HashSet<>());
+
+        List<UUID> resourceServices = this.resourceServiceReadDataJPARepository.FindResourceServiceByResourceId(resourceId);
+
+        if (!resourceServices.isEmpty()) {
+            this.resourceServiceWriteDataJPARepository.deleteAllById(resourceServices);
         }
         List<Services> servicesToAdd = this.serviceReadRepository.findAllById(serviceIds);
 

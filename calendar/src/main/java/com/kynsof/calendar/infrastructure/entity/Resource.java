@@ -51,7 +51,7 @@ public class Resource {
 
     private String identification;
 
-    @OneToMany(mappedBy = "resource", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "resource")
     private Set<ResourceService> resourceServices = new HashSet<>();
 
     @JsonIgnoreProperties({"qualifications", "resources"})

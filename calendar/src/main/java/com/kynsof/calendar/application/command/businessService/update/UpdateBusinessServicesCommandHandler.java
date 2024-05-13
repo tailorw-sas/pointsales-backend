@@ -36,7 +36,7 @@ public class UpdateBusinessServicesCommandHandler implements ICommandHandler<Upd
         BusinessDto _business = businessService.findById(command.getIdBusiness());
 
         List<BusinessServicesDto> _businessServicePrice = command.getServices().stream().map(service-> {
-            ServiceDto _service = serviceService.findById(service.getService());
+            ServiceDto _service = serviceService.findByIds(service.getService());
             BusinessServicesDto dto = new BusinessServicesDto();
             dto.setId(UUID.randomUUID());
             dto.setService(_service);

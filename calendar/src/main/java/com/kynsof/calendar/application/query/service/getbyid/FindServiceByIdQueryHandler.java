@@ -17,7 +17,7 @@ public class FindServiceByIdQueryHandler implements IQueryHandler<FindServiceByI
 
     @Override
     public ServicesResponse handle(FindServiceByIdQuery query) {
-        ServiceDto response = service.findById(query.getId());
+        ServiceDto response = service.findByIds(query.getId());
 
         return new ServicesResponse(response);
     }
