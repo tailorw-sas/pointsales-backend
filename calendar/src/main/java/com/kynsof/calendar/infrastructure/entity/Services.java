@@ -49,6 +49,9 @@ public class Services {
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean applyIva = true;
 
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     public Services(ServiceDto object) {
         this.id = object.getId();
         this.type = new ServiceType(object.getType());

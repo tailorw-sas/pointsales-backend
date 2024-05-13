@@ -63,9 +63,13 @@ public class ServiceServiceImpl implements IServiceService {
     public void delete(UUID id) {
     
         ServiceDto objectDelete = this.findById(id);
-        objectDelete.setStatus(EServiceStatus.INACTIVE);
+        Services delete = new Services(objectDelete);
 
-        this.repositoryCommand.save(new Services(objectDelete));
+        delete.setStatus(EServiceStatus.INACTIVE);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setName(delete.getName() + " + " + UUID.randomUUID());
+
+        this.repositoryCommand.save(delete);
     }
 
     ///@Cacheable(cacheNames = CacheConfig.SERVICE_CACHE, unless = "#result == null")
