@@ -52,9 +52,29 @@ public class UserSystemServiceImpl implements IUserSystemService {
         delete.setStatus(UserStatus.INACTIVE);
         delete.setDeleted(Boolean.TRUE);
         delete.setEmail(delete.getEmail() + "-" + UUID.randomUUID());
-        delete.setUserName(delete.getUserName()+ "-" + UUID.randomUUID());
+        delete.setUserName(delete.getUserName() + "-" + UUID.randomUUID());
 
         this.repositoryCommand.save(delete);
+    }
+
+    @Override
+    public void deleteAll(List<UUID> users) {
+        List<UserSystem> delete = new ArrayList<>();
+        for (UUID id : users) {
+            try {
+                UserSystemDto user = this.findById(id);
+                UserSystem d = new UserSystem(user);
+                d.setStatus(UserStatus.INACTIVE);
+                d.setDeleted(Boolean.TRUE);
+                d.setEmail(d.getEmail() + "-" + UUID.randomUUID());
+                d.setUserName(d.getUserName() + "-" + UUID.randomUUID());
+
+                delete.add(d);
+            } catch (Exception e) {
+                System.err.println("User not found!!!");
+            }
+        }
+        this.repositoryCommand.saveAll(delete);
     }
 
     @Override
@@ -86,8 +106,7 @@ public class UserSystemServiceImpl implements IUserSystemService {
                 } catch (IllegalArgumentException e) {
                     System.err.println("Valor inválido para el tipo Enum RoleStatus: " + filter.getValue());
                 }
-            }
-           else if ("userType".equals(filter.getKey()) && filter.getValue() instanceof String) {
+            } else if ("userType".equals(filter.getKey()) && filter.getValue() instanceof String) {
                 try {
                     EUserType enumValue = EUserType.valueOf((String) filter.getValue());
                     filter.setValue(enumValue);

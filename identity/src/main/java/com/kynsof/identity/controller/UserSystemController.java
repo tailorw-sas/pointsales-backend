@@ -8,6 +8,9 @@ import com.kynsof.identity.application.command.user.create.CreateUserSystemMessa
 import com.kynsof.identity.application.command.user.create.CreateUserSystemRequest;
 import com.kynsof.identity.application.command.user.delete.DeleteUserSystemsCommand;
 import com.kynsof.identity.application.command.user.delete.DeleteUserSystemsMessage;
+import com.kynsof.identity.application.command.user.deleteAll.DeleteAllUserSystemRequest;
+import com.kynsof.identity.application.command.user.deleteAll.DeleteAllUserSystemsCommand;
+import com.kynsof.identity.application.command.user.deleteAll.DeleteAllUserSystemsMessage;
 import com.kynsof.identity.application.command.user.update.UpdateUserSystemCommand;
 import com.kynsof.identity.application.command.user.update.UpdateUserSystemMessage;
 import com.kynsof.identity.application.command.user.update.UpdateUserSystemRequest;
@@ -107,11 +110,19 @@ public class UserSystemController {
         }
     }
 
-
     @PatchMapping(path = "/{id}/change-password")
     public ResponseEntity<?> changePassword(@PathVariable UUID id, @RequestBody ChangePasswordRequest request) {
         ChangePasswordCommand command = ChangePasswordCommand.fromRequest(id, request);
         ChangePasswordMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<?> delete(@RequestBody DeleteAllUserSystemRequest request) {
+
+        DeleteAllUserSystemsCommand command = new DeleteAllUserSystemsCommand(request.getUsers());
+        DeleteAllUserSystemsMessage response = mediator.send(command);
+
         return ResponseEntity.ok(response);
     }
 

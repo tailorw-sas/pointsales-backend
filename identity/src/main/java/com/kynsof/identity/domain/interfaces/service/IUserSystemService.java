@@ -15,6 +15,8 @@ public interface IUserSystemService {
 
     void delete(UserSystemDto userSystemDto);
 
+    void deleteAll(List<UUID> users);
+
     UserSystemDto findById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
