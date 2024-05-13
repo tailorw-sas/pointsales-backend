@@ -155,8 +155,11 @@ public class ScheduleServiceImpl implements IScheduleService {
     public void delete(UUID id) {
         ScheduleDto _schedule = this.findById(id);
 
-        _schedule.setStatus(EStatusSchedule.INACTIVE);
-        repositoryCommand.save(new Schedule(_schedule));
+        Schedule delete = new Schedule(_schedule);
+        delete.setStatus(EStatusSchedule.INACTIVE);
+        delete.setDeleted(Boolean.TRUE);
+
+        repositoryCommand.save(delete);
     }
 
     @Override

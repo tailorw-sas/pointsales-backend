@@ -52,13 +52,17 @@ public class Schedule {
     private Resource resource;
 
     @JsonIgnoreProperties({"logo", "description", "resources", "services", "schedules", "receipts"})
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "business_id")
     private Business business;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "service_id")
     private Services service;
+
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     @PrePersist
     public void prePersist() {
         this.initialStock = this.stock;
@@ -80,7 +84,7 @@ public class Schedule {
         this.service = new Services(scheduleDto.getService());
     }
 
-    public ScheduleDto toAggregate () {
+    public ScheduleDto toAggregate() {
         return new ScheduleDto(id, resource.toAggregate(), business.toAggregate(), date, startTime, endingTime, stock,
                 initialStock, status, service.toAggregate());
     }
