@@ -48,9 +48,24 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
 
     @Override
     public void delete(UUID id) {
-        ServiceTypeDto objectDelete = this.findById(id);
+        ServiceTypeDto objectDelete = this.getById(id);
 
-        this.repositoryCommand.save(new ServiceType(objectDelete));
+        ServiceType serviceType = new ServiceType(objectDelete);
+        serviceType.setName(objectDelete.getName() + " + " + UUID.randomUUID());
+        serviceType.setDeleted(Boolean.TRUE);
+
+        this.repositoryCommand.save(serviceType);
+    }
+
+    private ServiceTypeDto getById(UUID id) {
+
+        Optional<ServiceType> object = this.repositoryQuery.findById(id);
+        if (object.isPresent()) {
+            return object.get().toAggregate();
+        }
+
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SERVICE_TYPE_NOT_FOUND, new ErrorField("id", "Service Type not found.")));
+
     }
 
     @Cacheable(cacheNames = CacheConfig.SERVICE_CACHE, unless = "#result == null")
@@ -85,6 +100,18 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
     @Override
     public Long countByNameAndNotId(String name, UUID id) {
         return this.repositoryQuery.countByNameAndNotId(name, id);
+    }
+
+    public void updateDelete() {
+        List<ServiceType> modules = this.repositoryQuery.findAll();
+        if (!modules.isEmpty()) {
+            for (ServiceType module : modules) {
+                if (module.getDeleted() == null || !module.getDeleted().equals(Boolean.TRUE)) {
+                    module.setDeleted(Boolean.FALSE);
+                }
+                this.repositoryCommand.save(module);
+            }
+        }
     }
 
 }
