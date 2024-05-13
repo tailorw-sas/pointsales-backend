@@ -16,6 +16,6 @@ public class GetServicesSimpleByIdBusinessQueryHandler implements IQueryHandler<
     @Override
     public PaginatedResponse handle(FindServiceSimpleByIdBusinessQuery query) {
 
-        return this.service.findServicesByBusinessId(query.getPageable(), query.getId());
+        return this.service.findServicesSimpleByBusinessId(query.getPageable(), query.getId());
     }
 }
