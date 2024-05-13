@@ -116,4 +116,16 @@ public class ServiceServiceImpl implements IServiceService {
         return getPaginatedResponse(services);
     }
 
+    public void updateDelete() {
+        List<Services> modules = this.repositoryQuery.findAll();
+        if (!modules.isEmpty()) {
+            for (Services module : modules) {
+                if (module.getDeleted() == null || !module.getDeleted().equals(Boolean.TRUE)) {
+                    module.setDeleted(Boolean.FALSE);
+                }
+                this.repositoryCommand.save(module);
+            }
+        }
+    }
+
 }

@@ -372,4 +372,16 @@ public class ScheduleServiceImpl implements IScheduleService {
         return availableDates;
     }
 
+    public void updateDelete() {
+        List<Schedule> modules = this.repositoryQuery.findAll();
+        if (!modules.isEmpty()) {
+            for (Schedule module : modules) {
+                if (module.getDeleted() == null || !module.getDeleted().equals(Boolean.TRUE)) {
+                    module.setDeleted(Boolean.FALSE);
+                }
+                this.repositoryCommand.save(module);
+            }
+        }
+    }
+
 }

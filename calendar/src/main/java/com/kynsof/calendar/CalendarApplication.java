@@ -1,5 +1,7 @@
 package com.kynsof.calendar;
 
+import com.kynsof.calendar.infrastructure.service.ScheduleServiceImpl;
+import com.kynsof.calendar.infrastructure.service.ServiceServiceImpl;
 import com.kynsof.calendar.infrastructure.service.ServiceTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +16,12 @@ public class CalendarApplication  implements CommandLineRunner {
     @Autowired
     private ServiceTypeServiceImpl serviceImpl;
 
+    @Autowired
+    private ServiceServiceImpl serviceServiceImpl;
+
+    @Autowired
+    private ScheduleServiceImpl scheduleServiceImpl;
+
     public static void main(String[] args) {
         SpringApplication.run(CalendarApplication.class, args);
     }
@@ -21,6 +29,8 @@ public class CalendarApplication  implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         serviceImpl.updateDelete();
+        serviceServiceImpl.updateDelete();
+        scheduleServiceImpl.updateDelete();
     }
 
 }
