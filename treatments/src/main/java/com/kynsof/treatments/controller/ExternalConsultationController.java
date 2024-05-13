@@ -3,15 +3,9 @@ package com.kynsof.treatments.controller;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationCommand;
-import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationMessage;
-import com.kynsof.treatments.application.command.externalConsultation.create.CreateExternalConsultationRequest;
 import com.kynsof.treatments.application.command.externalConsultation.createAll.CreateExternalConsultationAllCommand;
 import com.kynsof.treatments.application.command.externalConsultation.createAll.CreateExternalConsultationAllMessage;
 import com.kynsof.treatments.application.command.externalConsultation.createAll.CreateExternalConsultationAllRequest;
-import com.kynsof.treatments.application.command.externalConsultation.update.UpdateExternalConsultationCommand;
-import com.kynsof.treatments.application.command.externalConsultation.update.UpdateExternalConsultationMessage;
-import com.kynsof.treatments.application.command.externalConsultation.update.UpdateExternalConsultationRequest;
 import com.kynsof.treatments.application.command.externalConsultation.updateAll.UpdateExternalConsultationAllCommand;
 import com.kynsof.treatments.application.command.externalConsultation.updateAll.UpdateExternalConsultationAllMessage;
 import com.kynsof.treatments.application.command.externalConsultation.updateAll.UpdateExternalConsultationAllRequest;
@@ -37,13 +31,6 @@ public class ExternalConsultationController {
         this.mediator = mediator;
     }
 
-    @PostMapping("/old")
-    public ResponseEntity<CreateExternalConsultationMessage> createOld(@RequestBody CreateExternalConsultationRequest request)  {
-        CreateExternalConsultationCommand createCommand = CreateExternalConsultationCommand.fromRequest(request);
-        CreateExternalConsultationMessage response = mediator.send(createCommand);
-
-        return ResponseEntity.ok(response);
-    }
 
     @PostMapping("")
     public ResponseEntity<?> createAll(@RequestBody CreateExternalConsultationAllRequest request)  {
@@ -91,11 +78,6 @@ public class ExternalConsultationController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping(path = "/old/{id}")
-    public ResponseEntity<UpdateExternalConsultationMessage> update(@PathVariable UUID id, @RequestBody UpdateExternalConsultationRequest request) {
-        UpdateExternalConsultationCommand command = UpdateExternalConsultationCommand.fromRequest(id,request );
-        UpdateExternalConsultationMessage response = mediator.send(command);
-        return ResponseEntity.ok(response);
-    }
+
 
 }

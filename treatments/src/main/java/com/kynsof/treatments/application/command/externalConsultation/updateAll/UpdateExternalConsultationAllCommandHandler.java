@@ -6,14 +6,7 @@ import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.treatments.domain.dto.*;
 import com.kynsof.treatments.domain.dto.enumDto.Status;
 import com.kynsof.treatments.domain.rules.externalconsultation.ExternalConsultationCreateAtNotEqualsRule;
-import com.kynsof.treatments.domain.service.IDiagnosisService;
-import com.kynsof.treatments.domain.service.IExamOrderService;
-import com.kynsof.treatments.domain.service.IExamService;
-import com.kynsof.treatments.domain.service.IExternalConsultationService;
-import com.kynsof.treatments.domain.service.IMedicinesService;
-import com.kynsof.treatments.domain.service.ITreatmentService;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import com.kynsof.treatments.domain.service.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -94,6 +87,7 @@ public class UpdateExternalConsultationAllCommandHandler implements ICommandHand
         externalConsultationDto.setTreatments(treatmentDtoList);
         externalConsultationDto.setDiagnoses(diagnosisDtoList);
         externalConsultationDto.setExamOrder(examOrderDto);
+
 
         UUID id = externalConsultationService.update(externalConsultationDto);
         command.setId(id);

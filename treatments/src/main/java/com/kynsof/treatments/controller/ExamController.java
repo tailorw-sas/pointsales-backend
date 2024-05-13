@@ -12,11 +12,12 @@ import com.kynsof.treatments.application.command.exam.update.UpdateExamRequest;
 import com.kynsof.treatments.application.query.exam.getbyid.ExamResponse;
 import com.kynsof.treatments.application.query.exam.getbyid.FindByIdExamQuery;
 import com.kynsof.treatments.application.query.exam.search.GetSearchExamQuery;
-import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/exam")

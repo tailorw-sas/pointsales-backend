@@ -1,6 +1,6 @@
 package com.kynsof.identity.application.command.auth.registrySystemUser;
 
-import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.EUserType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +16,6 @@ public class UserSystemKycloackRequest {
     private String name;
     private String lastName;
     private String password;
-    private UserType userType;
+    private EUserType userType;
     //List<String> roles;
 }

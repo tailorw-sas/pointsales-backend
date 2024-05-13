@@ -1,7 +1,7 @@
 package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.ResourceResponse;
-import com.kynsof.calendar.application.query.businessresource.getbyid.BusinessResourceResponse;
+import com.kynsof.calendar.application.query.businessResource.getbyid.BusinessResourceResponse;
 import com.kynsof.calendar.domain.dto.BusinessResourceDto;
 import com.kynsof.calendar.domain.service.IBusinessResourceService;
 import com.kynsof.calendar.infrastructure.entity.BusinessResource;

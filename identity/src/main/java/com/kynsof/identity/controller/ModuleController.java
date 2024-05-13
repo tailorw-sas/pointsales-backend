@@ -41,15 +41,15 @@ public class ModuleController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(path = "/build/{businessId}")
-    public ResponseEntity<ModuleBuildResponse> build(@PathVariable UUID businessId) {
+    @GetMapping(path = "/{businessId}/build")
+    public ResponseEntity<?> build(@PathVariable UUID businessId) {
         BuildStructureQuery query = new BuildStructureQuery(businessId);
         ModuleBuildResponse response = mediator.send(query);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ModuleResponse> getById(@PathVariable UUID id) {
+    public ResponseEntity<?> getById(@PathVariable UUID id) {
 
         FindModuleByIdQuery query = new FindModuleByIdQuery(id);
         ModuleResponse response = mediator.send(query);
@@ -67,7 +67,7 @@ public class ModuleController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
+    public ResponseEntity<?> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
         GetSearchModuleQuery query = new GetSearchModuleQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);

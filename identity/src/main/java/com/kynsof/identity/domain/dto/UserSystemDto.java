@@ -1,6 +1,6 @@
 package com.kynsof.identity.domain.dto;
 
-import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.EUserType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +23,7 @@ public class UserSystemDto {
 
 
     private String image;
-    private UserType userType;
+    private EUserType userType;
 
     public UserSystemDto(UUID id, String userName, String email, String name, String lastName, UserStatus status, String image) {
         this.id = id;

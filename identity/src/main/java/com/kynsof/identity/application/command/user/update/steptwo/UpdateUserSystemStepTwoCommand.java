@@ -1,6 +1,6 @@
 package com.kynsof.identity.application.command.user.update.steptwo;
 
-import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.EUserType;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -13,9 +13,9 @@ import java.util.UUID;
 public class UpdateUserSystemStepTwoCommand implements ICommand {
     private UUID id;
     private String image;
-    private UserType userType;
+    private EUserType userType;
 
-    public UpdateUserSystemStepTwoCommand(UUID id, String image, UserType userType) {
+    public UpdateUserSystemStepTwoCommand(UUID id, String image, EUserType userType) {
         this.id = id;
         this.image = image;
         this.userType = userType;

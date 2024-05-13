@@ -14,11 +14,12 @@ import com.kynsof.treatments.application.query.procedure.getAll.ProcedureRespons
 import com.kynsof.treatments.application.query.procedure.getByCode.FindByCodeProcedureQuery;
 import com.kynsof.treatments.application.query.procedure.getbyid.FindByIdProcedureQuery;
 import com.kynsof.treatments.application.query.procedure.search.GetSearchProcedureQuery;
-import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/procedure")

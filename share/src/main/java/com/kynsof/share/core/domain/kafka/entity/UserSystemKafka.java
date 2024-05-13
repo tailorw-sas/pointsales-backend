@@ -1,6 +1,6 @@
 package com.kynsof.share.core.domain.kafka.entity;
 
-import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.EUserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +17,5 @@ public class UserSystemKafka {
     private String name;
     private String lastName;
     private String idImage;
-    private UserType userType;
+    private EUserType userType;
 }

@@ -1,5 +1,8 @@
 package com.kynsof.identity.controller;
 
+import com.kynsof.identity.application.command.user.changePassword.ChangePasswordCommand;
+import com.kynsof.identity.application.command.user.changePassword.ChangePasswordMessage;
+import com.kynsof.identity.application.command.user.changePassword.ChangePasswordRequest;
 import com.kynsof.identity.application.command.user.create.CreateUserSystemCommand;
 import com.kynsof.identity.application.command.user.create.CreateUserSystemMessage;
 import com.kynsof.identity.application.command.user.create.CreateUserSystemRequest;
@@ -85,7 +88,7 @@ public class UserSystemController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
+    public ResponseEntity<?> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
         GetSearchUserSystemsQuery query = new GetSearchUserSystemsQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
@@ -103,4 +106,13 @@ public class UserSystemController {
             return ResponseEntity.ok(ApiResponse.fail(ApiError.withSingleError("error", "token", "Error al procesar el token")));
         }
     }
+
+
+    @PatchMapping(path = "/{id}/change-password")
+    public ResponseEntity<?> changePassword(@PathVariable UUID id, @RequestBody ChangePasswordRequest request) {
+        ChangePasswordCommand command = ChangePasswordCommand.fromRequest(id, request);
+        ChangePasswordMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
 }

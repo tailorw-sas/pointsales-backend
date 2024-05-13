@@ -8,6 +8,7 @@ import com.kynsof.calendar.application.command.service.delete.ServiceDeleteMessa
 import com.kynsof.calendar.application.command.service.update.UpdateServiceCommand;
 import com.kynsof.calendar.application.command.service.update.UpdateServiceMessage;
 import com.kynsof.calendar.application.command.service.update.UpdateServiceRequest;
+import com.kynsof.calendar.application.query.businessService.GetServicesSimpleByBusinessId.FindServiceSimpleByIdBusinessQuery;
 import com.kynsof.calendar.application.query.service.ServicesResponse;
 import com.kynsof.calendar.application.query.service.getbyid.FindServiceByIdQuery;
 import com.kynsof.calendar.application.query.service.getservicesbyidresource.FindServicesByIdResourceQuery;
@@ -87,4 +88,13 @@ public class ServiceController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping(path = "/business/{businessId}")
+    public ResponseEntity<?> findServicesByBusinessId(@PathVariable UUID businessId) {
+
+        Pageable pageable = PageRequest.of(0, 1000);
+        FindServiceSimpleByIdBusinessQuery query = new FindServiceSimpleByIdBusinessQuery(businessId, pageable);
+        PaginatedResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
 }

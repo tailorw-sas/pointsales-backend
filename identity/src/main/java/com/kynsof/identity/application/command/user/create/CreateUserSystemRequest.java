@@ -1,7 +1,7 @@
 package com.kynsof.identity.application.command.user.create;
 
 
-import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.EUserType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +13,6 @@ public class CreateUserSystemRequest {
     private String name;
     private String lastName;
     private String password;
-    private UserType userType;
+    private EUserType userType;
     private String image;
 }

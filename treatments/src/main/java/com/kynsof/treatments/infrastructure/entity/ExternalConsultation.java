@@ -41,6 +41,7 @@ public class ExternalConsultation {
     private String consultationReason;
     private String medicalHistory;
     private String physicalExam;
+    private String medicalSpeciality;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "externalConsultation")
     private List<Diagnosis> diagnoses;
@@ -70,6 +71,7 @@ public class ExternalConsultation {
         this.consultationTime = dto.getConsultationTime();
         this.doctor = new Doctor(dto.getDoctor());
         this.observations = dto.getObservations();
+        this.medicalSpeciality = dto.getMedicalSpeciality();
         this.treatments = dto.getTreatments() != null ? dto.getTreatments().stream().map(t -> {
             Treatment treatment = new Treatment(t);
             treatment.setExternalConsultation(this);
@@ -100,10 +102,10 @@ public class ExternalConsultation {
                 .map(treatment -> new DiagnosisDto(treatment.getId(),
                         treatment.getIcdCode(), treatment.getDescription()))
                 .toList();
-//        ExamOrderDto toResponse = this.examOrder != null ? this.examOrder.toAggregate() : null;
         return new ExternalConsultationDto(this.id, this.patient.toAggregate(), this.doctor.toAggregate(),
                 this.consultationTime, this.consultationReason, this.medicalHistory, this.physicalExam, diagnosisDtoList,
-                treatmentList, this.observations, this.examOrder.toAggregateSimple(), business.toAggregate());
+                treatmentList, this.observations, this.examOrder.toAggregateSimple(), business.toAggregate(),
+                medicalSpeciality);
     }
 
     @PrePersist

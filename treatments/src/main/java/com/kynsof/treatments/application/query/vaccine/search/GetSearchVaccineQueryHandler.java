@@ -2,7 +2,6 @@ package com.kynsof.treatments.application.query.vaccine.search;
 
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-import com.kynsof.treatments.domain.service.IPatientVaccineService;
 import com.kynsof.treatments.domain.service.IVaccineService;
 import org.springframework.stereotype.Component;
 

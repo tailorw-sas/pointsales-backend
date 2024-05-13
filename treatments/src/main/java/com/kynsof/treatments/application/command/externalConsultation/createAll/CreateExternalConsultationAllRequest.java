@@ -20,4 +20,5 @@ public class CreateExternalConsultationAllRequest {
     private CreateExamOrderAllRequest examOrder;
     private List<DiagnosisRequest> diagnosis;
     private List<TreatmentRequest> treatments;
+    private String medicalSpeciality;
 }

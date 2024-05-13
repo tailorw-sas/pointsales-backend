@@ -2,9 +2,9 @@ package com.kynsof.treatments.application.query.diagnosis.getdiagnosisbyidextern
 
 import com.kynsof.share.core.domain.bus.query.IQuery;
 import lombok.Getter;
+import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;
-import org.springframework.data.domain.Pageable;
 
 @Getter
 public class FindDiagnosisByIdExternalConsultationQuery implements IQuery {

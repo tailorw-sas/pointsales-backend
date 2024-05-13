@@ -1,6 +1,7 @@
 package com.kynsof.calendar.infrastructure.service;
 
-import com.kynsof.calendar.application.query.businesservice.getbyid.BusinessServicesResponse;
+import com.kynsof.calendar.application.query.businessService.GetServicesSimpleByBusinessId.ServiceSimple;
+import com.kynsof.calendar.application.query.businessService.getbyid.BusinessServicesResponse;
 import com.kynsof.calendar.application.query.service.ServicesResponse;
 import com.kynsof.calendar.domain.dto.BusinessServicePriceResponse;
 import com.kynsof.calendar.domain.dto.BusinessServicesDto;
@@ -100,6 +101,18 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
            businessServicePriceResponse.setService(new ServicesResponse(s.getServices().toAggregate()));
            responses.add(businessServicePriceResponse);
        }
+        return new PaginatedResponse(responses, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public PaginatedResponse findServicesSimpleByBusinessId(Pageable pageable, UUID businessId) {
+        Page<BusinessServices> data = this.repositoryQuery.findServicesByBusinessId(businessId, pageable);
+        List<ServiceSimple> responses = new ArrayList<>();
+        for (BusinessServices s : data.getContent()) {
+            ServiceSimple serviceSimple = new ServiceSimple(s.getServices().getId(), s.getServices().getName());
+            responses.add(serviceSimple);
+        }
         return new PaginatedResponse(responses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }

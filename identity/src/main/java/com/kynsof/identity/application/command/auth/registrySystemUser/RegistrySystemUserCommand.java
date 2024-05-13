@@ -1,6 +1,6 @@
 package com.kynsof.identity.application.command.auth.registrySystemUser;
 
-import com.kynsof.share.core.domain.UserType;
+import com.kynsof.share.core.domain.EUserType;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -19,10 +19,10 @@ public class RegistrySystemUserCommand implements ICommand {
     private final String lastname;
     private final String password;
     private final List<String> roles;
-    private final UserType userType;
+    private final EUserType userType;
 
     public RegistrySystemUserCommand(String username, String email, String firstname, String lastname, String password,
-                                     List<String> roles, UserType userType) {
+                                     List<String> roles, EUserType userType) {
 
         this.username = username;
         this.email = email;

@@ -41,7 +41,7 @@ public class BusinessController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    public ResponseEntity<?> search(@RequestBody SearchRequest request)
     {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
         GetSearchBusinessQuery query = new GetSearchBusinessQuery(pageable, request.getFilter(),request.getQuery());
@@ -59,7 +59,7 @@ public class BusinessController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<BusinessDeleteMessage> delete(@PathVariable("id") UUID id) {
+    public ResponseEntity<?> delete(@PathVariable("id") UUID id) {
 
         BusinessDeleteCommand command = new BusinessDeleteCommand(id);
         BusinessDeleteMessage response = mediator.send(command);
@@ -68,7 +68,7 @@ public class BusinessController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UpdateBusinessMessage> update(@PathVariable("id") UUID id,@RequestBody UpdateBusinessRequest request) {
+    public ResponseEntity<?> update(@PathVariable("id") UUID id,@RequestBody UpdateBusinessRequest request) {
 
         UpdateBusinessCommand command = UpdateBusinessCommand.fromRequest(request,id);
         UpdateBusinessMessage response = mediator.send(command);

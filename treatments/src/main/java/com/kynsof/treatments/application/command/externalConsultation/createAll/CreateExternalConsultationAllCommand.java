@@ -23,11 +23,12 @@ public class CreateExternalConsultationAllCommand implements ICommand {
     private CreateExamOrderAllRequest examOrder;
     private final List<DiagnosisRequest> diagnosis;
     private final List<TreatmentRequest> treatments;
+    private final String medicalSpeciality;
 
     public CreateExternalConsultationAllCommand(UUID patientId, UUID doctorId, String consultationReason,
                                                 String medicalHistory, String physicalExam, String observations,
                                                 CreateExamOrderAllRequest examOrder, List<DiagnosisRequest> diagnosis,
-                                                List<TreatmentRequest> treatments, UUID businessId) {
+                                                List<TreatmentRequest> treatments, UUID businessId, String medicalSpeciality) {
 
         this.patientId = patientId;
         this.doctorId = doctorId;
@@ -39,13 +40,14 @@ public class CreateExternalConsultationAllCommand implements ICommand {
         this.examOrder = examOrder;
         this.diagnosis = diagnosis;
         this.treatments = treatments;
+        this.medicalSpeciality = medicalSpeciality;
     }
 
     public static CreateExternalConsultationAllCommand fromRequest(CreateExternalConsultationAllRequest request) {
         return new CreateExternalConsultationAllCommand(request.getPatient(), request.getDoctor(),
                 request.getConsultationReason(), request.getMedicalHistory(), request.getPhysicalExam(),
                 request.getObservations(), request.getExamOrder(),request.getDiagnosis() ,request.getTreatments(), 
-                request.getBusiness() );
+                request.getBusiness(),request.getMedicalSpeciality() );
     }
 
     @Override

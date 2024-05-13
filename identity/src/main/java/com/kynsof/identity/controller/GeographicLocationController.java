@@ -30,7 +30,7 @@ public class GeographicLocationController {
     }
 
     @PostMapping("")
-    public ResponseEntity<CreateGeographicLocationMessage> create(@RequestBody CreateGeographicLocationRequest request)  {
+    public ResponseEntity<?> create(@RequestBody CreateGeographicLocationRequest request)  {
         CreateGeographicLocationCommand createCommand = CreateGeographicLocationCommand.fromRequest(request);
         CreateGeographicLocationMessage response = mediator.send(createCommand);
 
@@ -38,7 +38,7 @@ public class GeographicLocationController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
+    public ResponseEntity<?> search(@RequestBody SearchRequest request)
     {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
         GetSearchLocationsQuery query = new GetSearchLocationsQuery(pageable, request.getFilter(),request.getQuery());
@@ -47,7 +47,7 @@ public class GeographicLocationController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<GeographicLocationResponse> getById(@PathVariable UUID id) {
+    public ResponseEntity<?> getById(@PathVariable UUID id) {
 
         FindByIdGeographicLocationQuery query = new FindByIdGeographicLocationQuery(id);
         GeographicLocationResponse response = mediator.send(query);
@@ -56,7 +56,7 @@ public class GeographicLocationController {
     }
 
     @GetMapping(path = "/parroquia/{id}")
-    public ResponseEntity<LocationHierarchyResponse> FindByIdGeographicLocation(@PathVariable UUID id) {
+    public ResponseEntity<?> FindByIdGeographicLocation(@PathVariable UUID id) {
 
         LocationHierarchyQuery query = new LocationHierarchyQuery(id);
         LocationHierarchyResponse response = mediator.send(query);
