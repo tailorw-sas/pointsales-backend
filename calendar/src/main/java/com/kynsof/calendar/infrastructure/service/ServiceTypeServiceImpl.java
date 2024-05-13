@@ -37,8 +37,8 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
     }
 
     @Override
-    public void create(ServiceTypeDto object) {
-        this.repositoryCommand.save(new ServiceType(object));
+    public UUID create(ServiceTypeDto object) {
+        return this.repositoryCommand.save(new ServiceType(object)).getId();
     }
 
     @Override

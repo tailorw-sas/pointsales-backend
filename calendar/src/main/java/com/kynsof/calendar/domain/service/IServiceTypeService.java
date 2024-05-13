@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IServiceTypeService {
-    public void create(ServiceTypeDto object);
+    public UUID create(ServiceTypeDto object);
     public void update(ServiceTypeDto object);
     public void delete(UUID id);
     public ServiceTypeDto findById(UUID id);
