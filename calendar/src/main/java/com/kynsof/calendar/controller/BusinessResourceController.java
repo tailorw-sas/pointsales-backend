@@ -12,10 +12,10 @@ import com.kynsof.calendar.application.command.businessresource.delete.DeleteBus
 import com.kynsof.calendar.application.command.businessresource.update.UpdateBusinessResourceCommand;
 import com.kynsof.calendar.application.command.businessresource.update.UpdateBusinessResourceMessage;
 import com.kynsof.calendar.application.command.businessresource.update.UpdateBusinessresourceRequest;
-import com.kynsof.calendar.application.query.businesservice.getresourcebybusiness.FindResourcesByIdBusinessQuery;
-import com.kynsof.calendar.application.query.businessresource.getbyid.BusinessResourceResponse;
-import com.kynsof.calendar.application.query.businessresource.getbyid.FindBusinessResourceByIdQuery;
-import com.kynsof.calendar.application.query.businessresource.search.GetSearchBusinessResourceQuery;
+import com.kynsof.calendar.application.query.businessService.getresourcebybusiness.FindResourcesByIdBusinessQuery;
+import com.kynsof.calendar.application.query.businessResource.getbyid.BusinessResourceResponse;
+import com.kynsof.calendar.application.query.businessResource.getbyid.FindBusinessResourceByIdQuery;
+import com.kynsof.calendar.application.query.businessResource.search.GetSearchBusinessResourceQuery;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;

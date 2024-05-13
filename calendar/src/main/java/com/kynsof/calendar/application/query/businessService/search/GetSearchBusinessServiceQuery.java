@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.query.businessresource.search;
+package com.kynsof.calendar.application.query.businessService.search;
 
 import com.kynsof.share.core.domain.bus.query.IQuery;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetSearchBusinessResourceQuery implements IQuery {
+public class GetSearchBusinessServiceQuery implements IQuery {
 
     private Pageable pageable;
     private List<FilterCriteria> filter;

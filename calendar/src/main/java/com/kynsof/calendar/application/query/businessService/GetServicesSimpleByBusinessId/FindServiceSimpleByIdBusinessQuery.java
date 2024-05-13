@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.query.businesservice.getservicesbybusiness;
+package com.kynsof.calendar.application.query.businessService.GetServicesSimpleByBusinessId;
 
 import com.kynsof.share.core.domain.bus.query.IQuery;
 import lombok.Getter;
@@ -7,12 +7,12 @@ import org.springframework.data.domain.Pageable;
 import java.util.UUID;
 
 @Getter
-public class FindServiceByIdBusinessQuery  implements IQuery {
+public class FindServiceSimpleByIdBusinessQuery implements IQuery {
 
     private final UUID id;
     private final Pageable pageable;
 
-    public FindServiceByIdBusinessQuery(UUID id, Pageable pageable) {
+    public FindServiceSimpleByIdBusinessQuery(UUID id, Pageable pageable) {
         this.id = id;
         this.pageable = pageable;
     }

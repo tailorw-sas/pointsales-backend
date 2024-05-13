@@ -19,4 +19,5 @@ public interface IBusinessServicesService {
     List<UUID> findBusinessServiceIdByBusinessId( UUID businessId);
     void createAll(List<BusinessServicesDto> businessServicePrice);
     void deleteIds(List<UUID> ids);
+    PaginatedResponse findServicesSimpleByBusinessId(Pageable pageable, UUID businessId);
 }

@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.query.businesservice.search;
+package com.kynsof.calendar.application.query.businessService.search;
 
 import com.kynsof.calendar.domain.service.IBusinessServicesService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;

@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.query.businesservice.getbyid;
+package com.kynsof.calendar.application.query.businessService.getbyid;
 
 import com.kynsof.calendar.domain.dto.BusinessServicesDto;
 import com.kynsof.calendar.domain.service.IBusinessServicesService;

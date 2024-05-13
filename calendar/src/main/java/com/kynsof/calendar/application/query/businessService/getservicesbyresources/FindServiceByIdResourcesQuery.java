@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.query.businesservice.getservicesbyresources;
+package com.kynsof.calendar.application.query.businessService.getservicesbyresources;
 
 import com.kynsof.share.core.domain.bus.query.IQuery;
 import lombok.Getter;

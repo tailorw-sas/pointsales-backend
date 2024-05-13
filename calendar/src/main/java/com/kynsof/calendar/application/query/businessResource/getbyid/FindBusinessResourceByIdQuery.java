@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.query.businessresource.getbyid;
+package com.kynsof.calendar.application.query.businessResource.getbyid;
 
 import com.kynsof.share.core.domain.bus.query.IQuery;
 import lombok.Getter;

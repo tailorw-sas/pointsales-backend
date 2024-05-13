@@ -6,10 +6,10 @@ import com.kynsof.calendar.application.command.businessService.create.CreateAllB
 import com.kynsof.calendar.application.command.businessService.update.UpdateBusinessServicesCommand;
 import com.kynsof.calendar.application.command.businessService.update.UpdateBusinessServicesMessage;
 import com.kynsof.calendar.application.command.businessService.update.UpdateBusinessServicesRequest;
-import com.kynsof.calendar.application.query.businesservice.getbyid.BusinessServicesResponse;
-import com.kynsof.calendar.application.query.businesservice.getbyid.FindBusinessServiceByIdQuery;
-import com.kynsof.calendar.application.query.businesservice.getservicesbybusiness.FindServiceByIdBusinessQuery;
-import com.kynsof.calendar.application.query.businesservice.search.GetSearchBusinessServiceQuery;
+import com.kynsof.calendar.application.query.businessService.getbyid.BusinessServicesResponse;
+import com.kynsof.calendar.application.query.businessService.getbyid.FindBusinessServiceByIdQuery;
+import com.kynsof.calendar.application.query.businessService.getServicesByBusiness.FindServiceByIdBusinessQuery;
+import com.kynsof.calendar.application.query.businessService.search.GetSearchBusinessServiceQuery;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -48,11 +48,11 @@ public class BusinessServiceController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(path = "/services/{id}")
-    public ResponseEntity<?> findServicesByBusinessId(@PathVariable UUID id) {
+    @GetMapping(path = "/services/{businessId}")
+    public ResponseEntity<?> findServicesByBusinessId(@PathVariable UUID businessId) {
 
         Pageable pageable = PageRequest.of(0, 1000);
-        FindServiceByIdBusinessQuery query = new FindServiceByIdBusinessQuery(id, pageable);
+        FindServiceByIdBusinessQuery query = new FindServiceByIdBusinessQuery(businessId, pageable);
         PaginatedResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
