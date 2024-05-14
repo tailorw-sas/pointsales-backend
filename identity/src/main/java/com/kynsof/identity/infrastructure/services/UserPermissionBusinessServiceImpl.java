@@ -56,9 +56,7 @@ public class UserPermissionBusinessServiceImpl implements IUserPermissionBusines
     }
 
     @Override
-    public void delete(UUID id) {
-        UserPermissionBusinessDto delete = this.findById(id);
-        delete.setDeleted(true);
+    public void delete(UserPermissionBusinessDto delete) {
         this.commandRepository.delete(new UserPermissionBusiness(delete));
     }
 
@@ -121,6 +119,11 @@ public class UserPermissionBusinessServiceImpl implements IUserPermissionBusines
     @Override
     public Long countByUserAndBusiness(UUID userId, UUID businessId) {
         return this.queryRepository.countByUserAndBusiness(userId, businessId);
+    }
+
+    @Override
+    public Long countByUserAndBusinessNotDeleted(UUID userId, UUID businessId) {
+        return this.queryRepository.countByUserAndBusinessAndNotDeleted(userId, businessId);
     }
 
 }

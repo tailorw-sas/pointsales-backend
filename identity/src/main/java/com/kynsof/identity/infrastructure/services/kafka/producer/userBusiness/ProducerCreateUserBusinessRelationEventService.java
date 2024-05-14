@@ -1,4 +1,4 @@
-package com.kynsof.identity.infrastructure.services.kafka.producer;
+package com.kynsof.identity.infrastructure.services.kafka.producer.userBusiness;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,12 +14,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ProducerCreateUserBusinessEventService {
+public class ProducerCreateUserBusinessRelationEventService {
     private final KafkaTemplate<String, String> producer;
 
     private final IUserPermissionBusinessService userPermissionBusinessService;
 
-    public ProducerCreateUserBusinessEventService(KafkaTemplate<String, String> producer,
+    public ProducerCreateUserBusinessRelationEventService(KafkaTemplate<String, String> producer,
                                                   IUserPermissionBusinessService userPermissionBusinessService) {
         this.producer = producer;
         this.userPermissionBusinessService = userPermissionBusinessService;
@@ -44,7 +44,7 @@ public class ProducerCreateUserBusinessEventService {
                 this.producer.send("user-business", json);
             }
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ProducerCreateUserBusinessEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProducerCreateUserBusinessRelationEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -8,7 +8,7 @@ import com.kynsof.identity.domain.interfaces.service.IBusinessService;
 import com.kynsof.identity.domain.interfaces.service.IPermissionService;
 import com.kynsof.identity.domain.interfaces.service.IUserPermissionBusinessService;
 import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
-import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerCreateUserBusinessEventService;
+import com.kynsof.identity.infrastructure.services.kafka.producer.userBusiness.ProducerCreateUserBusinessRelationEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
@@ -27,13 +27,13 @@ public class CreateUserPermissionBusinessCommandHandler implements ICommandHandl
 
     private final IUserSystemService userSystemService;
 
-    private final ProducerCreateUserBusinessEventService createUserBusinessEventService;
+    private final ProducerCreateUserBusinessRelationEventService createUserBusinessEventService;
 
     public CreateUserPermissionBusinessCommandHandler(IUserPermissionBusinessService service,
                                                       IPermissionService permissionService,
                                                       IBusinessService businessService,
                                                       IUserSystemService userSystemService,
-                                                      ProducerCreateUserBusinessEventService createUserBusinessEventService) {
+                                                      ProducerCreateUserBusinessRelationEventService createUserBusinessEventService) {
         this.service = service;
         this.permissionService = permissionService;
         this.businessService = businessService;

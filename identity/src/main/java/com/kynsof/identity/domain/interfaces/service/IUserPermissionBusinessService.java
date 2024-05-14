@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface IUserPermissionBusinessService {
     void create(List<UserPermissionBusinessDto> userRoleBusiness);
     void update(List<UserPermissionBusinessDto> userRoleBusiness);
-    void delete(UUID id); 
+    void delete(UserPermissionBusinessDto delete); 
     void delete(List<UserPermissionBusinessDto> userRoleBusiness);
     UserPermissionBusinessDto findById(UUID id);
 
@@ -23,4 +23,6 @@ public interface IUserPermissionBusinessService {
     List<PermissionDto> getPermissionsForUserAndBusiness(UUID userId, UUID businessId);
 
     Long countByUserAndBusiness(UUID userId, UUID businessId);
+
+    Long countByUserAndBusinessNotDeleted(UUID userId, UUID businessId);
 }
