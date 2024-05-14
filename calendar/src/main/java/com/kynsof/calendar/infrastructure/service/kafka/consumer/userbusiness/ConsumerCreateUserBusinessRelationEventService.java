@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ConsumerUserBusinessEventService {
+public class ConsumerCreateUserBusinessRelationEventService {
     @Autowired
     private IResourceService resourceService;
 
@@ -44,7 +44,7 @@ public class ConsumerUserBusinessEventService {
 //                this.service.create(new UserBusinessRelationDto(UUID.randomUUID(), userSystemDto, businessDto, "ACTIVE", ConfigureTimeZone.getTimeZone()));
             }
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ConsumerUserBusinessEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumerCreateUserBusinessRelationEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
