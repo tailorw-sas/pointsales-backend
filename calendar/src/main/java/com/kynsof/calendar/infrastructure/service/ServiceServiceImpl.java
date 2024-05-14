@@ -13,11 +13,7 @@ import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -41,7 +37,7 @@ public class ServiceServiceImpl implements IServiceService {
     }
 
     @Override
-    @CachePut(cacheNames =  CacheConfig.SERVICE_CACHE, key = "#result.id")
+    //@CachePut(cacheNames =  CacheConfig.SERVICE_CACHE, key = "#result.id")
     public ServiceDto create(ServiceDto object) {
         object.setStatus(EServiceStatus.ACTIVE);
         Services serviceEntity = new Services(object);
@@ -50,7 +46,7 @@ public class ServiceServiceImpl implements IServiceService {
     }
 
     @Override
-    @CachePut(cacheNames =  CacheConfig.SERVICE_CACHE, key = "#result.id")
+    //@CachePut(cacheNames =  CacheConfig.SERVICE_CACHE, key = "#result.id")
     public ServiceDto update(ServiceDto objectDto) {
 
         Services savedEntity =  this.repositoryCommand.save(new Services(objectDto));
@@ -59,10 +55,10 @@ public class ServiceServiceImpl implements IServiceService {
     }
 
     @Override
-    @CacheEvict(value = CacheConfig.SERVICE_CACHE, key = "#id")
+    //@CacheEvict(value = CacheConfig.SERVICE_CACHE, key = "#id")
     public void delete(UUID id) {
     
-        ServiceDto objectDelete = this.findById(id);
+        ServiceDto objectDelete = this.findByIds(id);
         Services delete = new Services(objectDelete);
 
         delete.setStatus(EServiceStatus.INACTIVE);
@@ -74,8 +70,8 @@ public class ServiceServiceImpl implements IServiceService {
 
     ///@Cacheable(cacheNames = CacheConfig.SERVICE_CACHE, unless = "#result == null")
     @Override
-    @Cacheable(cacheNames =  CacheConfig.SERVICE_CACHE, unless = "#result == null")
-    public ServiceDto findById(UUID id) {
+   // @Cacheable(cacheNames =  CacheConfig.SERVICE_CACHE, unless = "#result == null")
+    public ServiceDto findByIds(UUID id) {
         
         Optional<Services> object = this.repositoryQuery.findById(id);
         if (object.isPresent()) {
@@ -86,8 +82,16 @@ public class ServiceServiceImpl implements IServiceService {
 
     }
 
+
     @Override
-    @Cacheable(cacheNames =  CacheConfig.SERVICE_CACHE, unless = "#result == null")
+    public List<ServiceDto> findByIds(List<UUID> ids) {
+
+        List<Services> objects = this.repositoryQuery.findAllById(ids);
+        return objects.stream().map(Services::toAggregate).toList();
+    }
+
+    @Override
+    //@Cacheable(cacheNames =  CacheConfig.SERVICE_CACHE, unless = "#result == null")
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         GenericSpecificationsBuilder<Service> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<Services> data = this.repositoryQuery.findAll(specifications, pageable);
@@ -104,13 +108,13 @@ public class ServiceServiceImpl implements IServiceService {
     }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.SERVICE_CACHE, unless = "#result == null")
+    //@Cacheable(cacheNames =  CacheConfig.SERVICE_CACHE, unless = "#result == null")
     public Long countByNameAndNotId(String name, UUID id) {
         return this.repositoryQuery.countByNameAndNotId(name, id);
     }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.SERVICE_CACHE, unless = "#result == null")
+   // @Cacheable(cacheNames =  CacheConfig.SERVICE_CACHE, unless = "#result == null")
     public PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId) {
         Page<Services> services = this.repositoryQuery.findServicesByResourceId(resourceId, pageable);
         return getPaginatedResponse(services);

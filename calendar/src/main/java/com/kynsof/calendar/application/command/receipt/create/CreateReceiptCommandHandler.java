@@ -36,7 +36,7 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
     public void handle(CreateReceiptCommand command) {
         PatientDto _patient = this.servicePatient.findById(command.getUser());
         ScheduleDto _schedule = this.serviceSchedule.findById(command.getSchedule());
-        ServiceDto _service = this.serviceService.findById(command.getService());
+        ServiceDto _service = this.serviceService.findByIds(command.getService());
 
         if (_schedule.getStock() == 0) {
             throw new BusinessException(DomainErrorMessage.SCHEDULE_IS_NOT_AVAIBLE, "The selected schedule is not available.");

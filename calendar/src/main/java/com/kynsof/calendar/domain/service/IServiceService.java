@@ -12,7 +12,8 @@ public interface IServiceService {
     ServiceDto create(ServiceDto object);
     ServiceDto update(ServiceDto object);
     void delete(UUID id);
-    ServiceDto findById(UUID id);
+    ServiceDto findByIds(UUID id);
+    List<ServiceDto> findByIds(List<UUID> ids);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId);
     Long countByNameAndNotId(String name, UUID id);

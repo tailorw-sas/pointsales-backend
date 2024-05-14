@@ -47,7 +47,7 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
         ReceiptDto _receipt = this.service.findById(command.getReceiptId());
         PatientDto _patient = this.servicePatient.findById(command.getUserId());
         ScheduleDto _schedule = this.serviceSchedule.findById(command.getScheduleId());
-        ServiceDto _service = this.serviceService.findById(command.getServiceId());
+        ServiceDto _service = this.serviceService.findByIds(command.getServiceId());
 
         _receipt.setAuthorizationCode(transactionsState.getValue().getAuthorization());
         _receipt.setRequestId(command.getRequestId());

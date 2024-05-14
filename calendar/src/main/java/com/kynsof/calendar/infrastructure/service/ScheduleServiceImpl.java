@@ -199,46 +199,46 @@ public class ScheduleServiceImpl implements IScheduleService {
 
     @Override
     public ScheduleDto update(ScheduleDto schedule) {
-        ScheduleDto _schedule = this.findById(schedule.getId());
-        if (!schedule.getDate().equals(_schedule.getDate())) {
-            _schedule.setDate(schedule.getDate());
-        }
-        if (!schedule.getStartTime().equals(_schedule.getStartTime())) {
-            List<Schedule> _schedulesStartTime = this.repositoryQuery.findByDateAndTimeInRange(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getStartTime());
-            if (!_schedulesStartTime.isEmpty()) {
-                throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, new ErrorField("id", "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.")));
-            }
-            _schedule.setStartTime(schedule.getStartTime());
-        }
-        if (!schedule.getEndingTime().equals(_schedule.getEndingTime())) {
-            List<Schedule> _schedulesStartTime = this.repositoryQuery.findByDateAndTimeInRange(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getEndingTime());
-            if (!_schedulesStartTime.isEmpty()) {
-                throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, new ErrorField("id", "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.")));
-            }
-            _schedule.setEndingTime(schedule.getEndingTime());
-        }
-        if (!schedule.getStartTime().equals(_schedule.getStartTime()) && !schedule.getEndingTime().equals(_schedule.getEndingTime())) {
-            if (this.findByResourceAndDateAndStartTimeAndEndingTime(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getStartTime(), schedule.getEndingTime())) {
-                throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXISTS_SCHEDULE_WITH_DATE_STARTTIME_ENDTIME, new ErrorField("id", "There exists a schedule with the same date, start time, and end time.")));
-            }
-        }
-        if (schedule.getStatus().equals(EStatusSchedule.INACTIVE)
-                && _schedule.getStatus().equals(EStatusSchedule.ACTIVE)) {
-            _schedule.setStatus(EStatusSchedule.INACTIVE);
-        }
-        if (schedule.getStatus().equals(EStatusSchedule.ACTIVE)
-                && _schedule.getStatus().equals(EStatusSchedule.INACTIVE)) {
-
-            //Un schedule se pasa de INACTIVE a ACTIVE solo se la fecha actual es menor que la fecha del schedule.
-            LocalDate currentDate = LocalDate.now();
-            LocalTime cTime = LocalTime.now();
-            if (currentDate.isBefore(_schedule.getDate()) || (currentDate.equals(_schedule.getDate()) && cTime.isBefore(_schedule.getStartTime()))) {
-                _schedule.setStatus(EStatusSchedule.ACTIVE);
-            }
-
-        }
-        repositoryCommand.save(new Schedule(_schedule));
-        return _schedule;
+//        ScheduleDto _schedule = this.findById(schedule.getId());
+//        if (!schedule.getDate().equals(_schedule.getDate())) {
+//            _schedule.setDate(schedule.getDate());
+//        }
+//        if (!schedule.getStartTime().equals(_schedule.getStartTime())) {
+//            List<Schedule> _schedulesStartTime = this.repositoryQuery.findByDateAndTimeInRange(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getStartTime());
+//            if (!_schedulesStartTime.isEmpty()) {
+//                throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, new ErrorField("id", "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.")));
+//            }
+//            _schedule.setStartTime(schedule.getStartTime());
+//        }
+//        if (!schedule.getEndingTime().equals(_schedule.getEndingTime())) {
+//            List<Schedule> _schedulesStartTime = this.repositoryQuery.findByDateAndTimeInRange(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getEndingTime());
+//            if (!_schedulesStartTime.isEmpty()) {
+//                throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXISTS_SCHEDULE_SOME_DATE_WHOSE_TIME_RANGE, new ErrorField("id", "There exists a schedule on the same date, whose time range coincides at some moment with what you want to create.")));
+//            }
+//            _schedule.setEndingTime(schedule.getEndingTime());
+//        }
+//        if (!schedule.getStartTime().equals(_schedule.getStartTime()) && !schedule.getEndingTime().equals(_schedule.getEndingTime())) {
+//            if (this.findByResourceAndDateAndStartTimeAndEndingTime(new Resource(_schedule.getResource()), schedule.getDate(), schedule.getStartTime(), schedule.getEndingTime())) {
+//                throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.EXISTS_SCHEDULE_WITH_DATE_STARTTIME_ENDTIME, new ErrorField("id", "There exists a schedule with the same date, start time, and end time.")));
+//            }
+//        }
+//        if (schedule.getStatus().equals(EStatusSchedule.INACTIVE)
+//                && _schedule.getStatus().equals(EStatusSchedule.ACTIVE)) {
+//            _schedule.setStatus(EStatusSchedule.INACTIVE);
+//        }
+//        if (schedule.getStatus().equals(EStatusSchedule.ACTIVE)
+//                && _schedule.getStatus().equals(EStatusSchedule.INACTIVE)) {
+//
+//            //Un schedule se pasa de INACTIVE a ACTIVE solo se la fecha actual es menor que la fecha del schedule.
+//            LocalDate currentDate = LocalDate.now();
+//            LocalTime cTime = LocalTime.now();
+//            if (currentDate.isBefore(_schedule.getDate()) || (currentDate.equals(_schedule.getDate()) && cTime.isBefore(_schedule.getStartTime()))) {
+//                _schedule.setStatus(EStatusSchedule.ACTIVE);
+//            }
+//
+//        }
+        repositoryCommand.save(new Schedule(schedule));
+        return schedule;
     }
 
     /**

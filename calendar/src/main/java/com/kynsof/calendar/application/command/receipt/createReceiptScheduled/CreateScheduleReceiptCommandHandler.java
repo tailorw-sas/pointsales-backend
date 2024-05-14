@@ -33,7 +33,7 @@ public class CreateScheduleReceiptCommandHandler implements ICommandHandler<Crea
     public void handle(CreateScheduleReceiptCommand command) {
         ResourceDto _resource = this.serviceResource.findById(command.getResource());
         BusinessDto _business = this.serviceBusiness.findById(command.getBusinessId());
-        ServiceDto _service = this.serviceService.findById(command.getServiceId());
+        ServiceDto _service = this.serviceService.findByIds(command.getServiceId());
         PatientDto _patient = this.patientsService.findById(command.getUser());
         UUID id = UUID.randomUUID();
         ScheduleDto _scheduled = new ScheduleDto(id, _resource, _business, command.getDate(), command.getStartTime(), command.getEndingTime(),

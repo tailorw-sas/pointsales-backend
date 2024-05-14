@@ -11,5 +11,4 @@ public class CalendarApplication {
     public static void main(String[] args) {
         SpringApplication.run(CalendarApplication.class, args);
     }
-
 }
