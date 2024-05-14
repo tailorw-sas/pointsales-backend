@@ -6,6 +6,7 @@ import com.kynsof.identity.application.command.user.changePassword.ChangePasswor
 import com.kynsof.identity.application.command.user.changePassword.ChangePasswordMessage;
 import com.kynsof.identity.application.command.user.changePassword.ChangePasswordRequest;
 import com.kynsof.identity.application.command.user.changeSelectedBusiness.ChangeSelectedBusinessCommand;
+import com.kynsof.identity.application.command.user.changeSelectedBusiness.ChangeSelectedBusinessMessage;
 import com.kynsof.identity.application.command.user.changeSelectedBusiness.ChangeSelectedBusinessRequest;
 import com.kynsof.identity.application.command.user.create.CreateUserSystemCommand;
 import com.kynsof.identity.application.command.user.create.CreateUserSystemMessage;
@@ -140,7 +141,7 @@ public class UserSystemController {
     @PostMapping(path = "/{id}/business")
     public ResponseEntity<?> changeSelectedBusiness(@PathVariable UUID id,@RequestBody ChangeSelectedBusinessRequest request) {
         ChangeSelectedBusinessCommand command =  ChangeSelectedBusinessCommand.fromRequest(id, request);
-        SendPasswordRecoveryOtpMessage sendPasswordRecoveryOtpMessage = mediator.send(command);
-        return ResponseEntity.ok(ApiResponse.success(sendPasswordRecoveryOtpMessage.getResult()));
+        ChangeSelectedBusinessMessage result = mediator.send(command);
+        return ResponseEntity.ok(ApiResponse.success(result.getResult()));
     }
 }
