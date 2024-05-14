@@ -34,7 +34,7 @@ public class ConsumerPatientEventService {
 
             if (eventType.equals(EventType.CREATED)) {
                 this.service.create(new PatientDto(
-                        UUID.fromString(eventRead.getId()),
+                        UUID.fromString(eventRead.getId()), "",
                         eventRead.getIdentification(),
                         eventRead.getName(),
                         eventRead.getLastName(),
@@ -47,7 +47,7 @@ public class ConsumerPatientEventService {
             if (eventType.equals(EventType.UPDATED)) {
                 this.service.update(new PatientDto(
                         UUID.fromString(eventRead.getId()),
-                        eventRead.getIdentification(),
+                        eventRead.getIdentification(), "",
                         eventRead.getName(),
                         eventRead.getLastName(),
                         eventRead.getGender(),

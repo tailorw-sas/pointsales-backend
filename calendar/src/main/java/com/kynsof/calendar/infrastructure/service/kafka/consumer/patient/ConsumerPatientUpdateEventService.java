@@ -34,7 +34,7 @@ public class ConsumerPatientUpdateEventService {
 
                 this.service.update(new PatientDto(
                         UUID.fromString(eventRead.getId()),
-                        eventRead.getIdentification(),
+                        eventRead.getIdentification(), "",
                         eventRead.getName(),
                         eventRead.getLastName(),
                         eventRead.getGender(),

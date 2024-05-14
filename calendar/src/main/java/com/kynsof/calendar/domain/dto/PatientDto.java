@@ -16,6 +16,7 @@ import java.util.UUID;
 public class PatientDto implements Serializable {
     private UUID id;
     private String identification;
+    private String email;
     private String name;
     private String lastName;
     private String gender;

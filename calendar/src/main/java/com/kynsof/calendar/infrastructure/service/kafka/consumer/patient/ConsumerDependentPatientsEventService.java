@@ -34,7 +34,7 @@ public class ConsumerDependentPatientsEventService {
 
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                this.service.create(new PatientDto(UUID.fromString(eventRead.getId()),
+                this.service.create(new PatientDto(UUID.fromString(eventRead.getId()), "",
                         eventRead.getIdentification(), eventRead.getFirstname(), eventRead.getLastname(), "",
                         PatientStatus.ACTIVE, null));
             }
@@ -44,7 +44,7 @@ public class ConsumerDependentPatientsEventService {
             if (eventType.equals(EventType.UPDATED)) {
                 //Definir accion
                 this.service.update(new PatientDto(
-                        UUID.fromString(eventRead.getId()), 
+                        UUID.fromString(eventRead.getId()), "",
                         eventRead.getIdentification(), 
                         eventRead.getFirstname(),
                         eventRead.getLastname(), 

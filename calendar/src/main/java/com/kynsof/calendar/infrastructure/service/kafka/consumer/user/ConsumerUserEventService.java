@@ -34,7 +34,7 @@ public class ConsumerUserEventService {
 
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-                this.service.create(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(), eventRead.getLastname(), "", PatientStatus.ACTIVE,
+                this.service.create(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getEmail(), eventRead.getFirstname(), eventRead.getLastname(), "", PatientStatus.ACTIVE,
                       null));
             }
             if (eventType.equals(EventType.DELETED)) {
@@ -42,7 +42,7 @@ public class ConsumerUserEventService {
             }
             if (eventType.equals(EventType.UPDATED)) {
                 //Definir accion
-                this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(),
+                this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getEmail(), eventRead.getFirstname(),
                         eventRead.getLastname(), "", PatientStatus.ACTIVE,null));
             }
         } catch (JsonProcessingException ex) {

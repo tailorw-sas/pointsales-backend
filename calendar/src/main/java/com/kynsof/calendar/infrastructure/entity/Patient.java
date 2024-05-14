@@ -16,18 +16,20 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 public class Patient {
+
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private UUID id;
 
     private String identification;
+
+    private String email;
 
     private String name;
 
     private String lastName;
 
     private String gender;
-
 
     private UUID logo;
 
@@ -40,6 +42,7 @@ public class Patient {
     public Patient(PatientDto patients) {
         this.id = patients.getId();
         this.identification = patients.getIdentification();
+        this.email = patients.getEmail();
         this.name = patients.getName();
         this.lastName = patients.getLastName();
         this.gender = patients.getGender();
@@ -48,6 +51,6 @@ public class Patient {
     }
 
     public PatientDto toAggregate() {
-        return new PatientDto(id, identification, name, lastName, gender, status, logo);
+        return new PatientDto(id, identification, email, name, lastName, gender, status, logo);
     }
 }
