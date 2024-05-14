@@ -49,6 +49,26 @@ public class PermissionServiceImpl implements IPermissionService {
     }
 
     @Override
+    public void deleteAll(List<UUID> permissions) {
+        List<Permission> delete = new ArrayList<>();
+        for (UUID id : permissions) {
+            try {
+                PermissionDto permission = this.findById(id);
+
+                Permission d = new Permission(permission);
+                d.setDeleted(true);
+                d.setCode(permission.getCode() + " + " + UUID.randomUUID());
+                d.setStatus(PermissionStatusEnm.INACTIVE);
+
+                delete.add(d);
+            } catch (Exception e) {
+                System.err.println("Permission not found!!!");
+            }
+        }
+        this.writeRepository.saveAll(delete);
+    }
+
+    @Override
     public PermissionDto findById(UUID id) {
         Optional<Permission> object = this.queryRepository.findById(id);
         if (object.isPresent()) {

@@ -13,6 +13,7 @@ public interface IModuleService {
     void create(ModuleDto object);
     void update(ModuleDto object);
     void delete(ModuleDto delete);
+    void deleteAll(List<UUID> modules);
     ModuleDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     Long countByNameAndNotId(String name, UUID id);

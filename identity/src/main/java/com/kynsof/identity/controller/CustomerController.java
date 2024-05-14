@@ -5,6 +5,9 @@ import com.kynsof.identity.application.command.customer.create.CreateCustomerMes
 import com.kynsof.identity.application.command.customer.create.CreateCustomerRequest;
 import com.kynsof.identity.application.command.customer.delete.DeleteCustomerCommand;
 import com.kynsof.identity.application.command.customer.delete.DeleteCustomerMessage;
+import com.kynsof.identity.application.command.customer.deleteAll.DeleteAllCustomerCommand;
+import com.kynsof.identity.application.command.customer.deleteAll.DeleteAllCustomerMessage;
+import com.kynsof.identity.application.command.customer.deleteAll.DeleteAllCustomerRequest;
 import com.kynsof.identity.application.command.customer.update.UpdateCustomerCommand;
 import com.kynsof.identity.application.command.customer.update.UpdateCustomerMessage;
 import com.kynsof.identity.application.command.customer.update.UpdateCustomerRequest;
@@ -94,6 +97,15 @@ public class CustomerController {
 
         DeleteCustomerCommand command = new DeleteCustomerCommand(id);
         DeleteCustomerMessage response = mediator.send(command);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<?> delete(@RequestBody DeleteAllCustomerRequest request) {
+
+        DeleteAllCustomerCommand command = new DeleteAllCustomerCommand(request.getCustomers());
+        DeleteAllCustomerMessage response = mediator.send(command);
 
         return ResponseEntity.ok(response);
     }

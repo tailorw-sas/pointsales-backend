@@ -5,6 +5,9 @@ import com.kynsof.identity.application.command.permission.create.CreatePermissio
 import com.kynsof.identity.application.command.permission.create.CreatePermissionRequest;
 import com.kynsof.identity.application.command.permission.delete.DeletePermissionCommand;
 import com.kynsof.identity.application.command.permission.delete.DeletePermissionMessage;
+import com.kynsof.identity.application.command.permission.deleteAll.DeleteAllPermissionCommand;
+import com.kynsof.identity.application.command.permission.deleteAll.DeleteAllPermissionMessage;
+import com.kynsof.identity.application.command.permission.deleteAll.DeleteAllPermissionsRequest;
 import com.kynsof.identity.application.command.permission.update.UpdatePermissionCommand;
 import com.kynsof.identity.application.command.permission.update.UpdatePermissionMessage;
 import com.kynsof.identity.application.command.permission.update.UpdatePermissionRequest;
@@ -70,6 +73,15 @@ public class PermissionController {
 
         DeletePermissionCommand command = new DeletePermissionCommand(id);
         DeletePermissionMessage response = mediator.send(command);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<?> delete(@RequestBody DeleteAllPermissionsRequest request) {
+
+        DeleteAllPermissionCommand command = new DeleteAllPermissionCommand(request.getPermissions());
+        DeleteAllPermissionMessage response = mediator.send(command);
 
         return ResponseEntity.ok(response);
     }

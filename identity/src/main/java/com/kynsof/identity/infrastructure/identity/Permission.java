@@ -33,7 +33,7 @@ public class Permission {
     private PermissionStatusEnm status;
 
     @Column(nullable = true)
-    private boolean deleted;
+    private boolean deleted = false;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "module_id")

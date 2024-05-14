@@ -16,6 +16,8 @@ public interface ICustomerService {
 
     void delete(CustomerDto customer);
 
+    void deleteAll(List<UUID> customers);
+
     CustomerDto findById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);

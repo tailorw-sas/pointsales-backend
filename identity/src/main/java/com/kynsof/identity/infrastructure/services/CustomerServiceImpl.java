@@ -59,6 +59,24 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
+    public void deleteAll(List<UUID> customers) {
+        List<Customer> delete = new ArrayList<>();
+        for (UUID id : customers) {
+            try {
+                CustomerDto user = this.findById(id);
+                Customer d = new Customer(user);
+                d.setDeleted(Boolean.TRUE);
+                d.setEmail(d.getEmail() + "-" + UUID.randomUUID());
+
+                delete.add(d);
+            } catch (Exception e) {
+                System.err.println("Customer not found!!!");
+            }
+        }
+        this.repositoryCommand.saveAll(delete);
+    }
+
+    @Override
     public CustomerDto findById(UUID id) {
         
         Optional<Customer> object = this.repositoryQuery.findById(id);

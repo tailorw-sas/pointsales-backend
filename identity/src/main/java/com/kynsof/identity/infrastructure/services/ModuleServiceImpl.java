@@ -57,6 +57,24 @@ public class ModuleServiceImpl implements IModuleService {
     }
 
     @Override
+    public void deleteAll(List<UUID> modules) {
+        List<ModuleSystem> delete = new ArrayList<>();
+        for (UUID id : modules) {
+            try {
+                ModuleDto user = this.findById(id);
+                ModuleSystem d = new ModuleSystem(user);
+                d.setDeleted(Boolean.TRUE);
+                d.setName(d.getName() + "-" + UUID.randomUUID());
+
+                delete.add(d);
+            } catch (Exception e) {
+                System.err.println("Module not found!!!");
+            }
+        }
+        this.commandRepository.saveAll(delete);
+    }
+
+    @Override
     public ModuleDto findById(UUID id) {
         Optional<ModuleSystem> object = this.queryRepository.findById(id);
         if (object.isPresent()) {

@@ -5,6 +5,9 @@ import com.kynsof.identity.application.command.module.create.CreateModuleMessage
 import com.kynsof.identity.application.command.module.create.CreateModuleRequest;
 import com.kynsof.identity.application.command.module.delete.DeleteModuleCommand;
 import com.kynsof.identity.application.command.module.delete.DeleteModuleMessage;
+import com.kynsof.identity.application.command.module.deleteAll.DeleteAllModuleCommand;
+import com.kynsof.identity.application.command.module.deleteAll.DeleteAllModuleMessage;
+import com.kynsof.identity.application.command.module.deleteAll.DeleteAllModuleRequest;
 import com.kynsof.identity.application.command.module.update.UpdateModuleCommand;
 import com.kynsof.identity.application.command.module.update.UpdateModuleMessage;
 import com.kynsof.identity.application.query.module.buildStructure.BuildStructureQuery;
@@ -79,6 +82,15 @@ public class ModuleController {
 
         UpdateModuleCommand command = UpdateModuleCommand.fromRequest(request, id);
         UpdateModuleMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<?> delete(@RequestBody DeleteAllModuleRequest request) {
+
+        DeleteAllModuleCommand command = new DeleteAllModuleCommand(request.getModules());
+        DeleteAllModuleMessage response = mediator.send(command);
+
         return ResponseEntity.ok(response);
     }
 

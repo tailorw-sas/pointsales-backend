@@ -16,6 +16,8 @@ public interface IPermissionService {
 
     void delete(PermissionDto objectDto);
 
+    void deleteAll(List<UUID> permissions);
+
     PermissionDto findById(UUID id);
 
     Long countByCodeAndNotId(String name, UUID id);
