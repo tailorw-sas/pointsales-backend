@@ -23,9 +23,10 @@ public class UpdateScheduleCommandHandler  implements ICommandHandler<UpdateSche
     public void handle(UpdateScheduleCommand command) {
        ResourceDto _resource = serviceResource.findById(command.getIdResource());
        ScheduleDto _scheduled = scheduleService.findById(command.getId());
-
-
-        scheduleService.update(new ScheduleDto(command.getId(), _resource, _scheduled.getBusiness(), command.getDate(), command.getStartTime(), command.getEndingTime(), command.getStock(),
-               _scheduled.getInitialStock(), command.getStatus(), _scheduled.getService()));
+       _scheduled.setStock(command.getStock());
+       _scheduled.setDate(command.getDate());
+       _scheduled.setStartTime(command.getStartTime());
+       _scheduled.setEndingTime(command.getEndingTime());
+       scheduleService.update(_scheduled);
     }
 }
