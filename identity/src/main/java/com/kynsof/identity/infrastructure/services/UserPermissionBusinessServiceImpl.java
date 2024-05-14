@@ -38,7 +38,7 @@ public class UserPermissionBusinessServiceImpl implements IUserPermissionBusines
     public void create(List<UserPermissionBusinessDto> userRoleBusiness) {
         List<UserPermissionBusiness> saveUserRoleBusinesses = new ArrayList<>();
         for (UserPermissionBusinessDto userRoleBusines : userRoleBusiness) {
-          //  RulesChecker.checkRule(new UserRoleBusinessMustBeUniqueRule(this, userRoleBusines));
+            //  RulesChecker.checkRule(new UserRoleBusinessMustBeUniqueRule(this, userRoleBusines));
 
             saveUserRoleBusinesses.add(new UserPermissionBusiness(userRoleBusines));
         }
@@ -58,14 +58,18 @@ public class UserPermissionBusinessServiceImpl implements IUserPermissionBusines
     @Override
     public void delete(UUID id) {
         UserPermissionBusinessDto delete = this.findById(id);
+        delete.setDeleted(true);
         this.commandRepository.delete(new UserPermissionBusiness(delete));
     }
 
     @Override
     public void delete(List<UserPermissionBusinessDto> userRoleBusiness) {
-       for (UserPermissionBusinessDto dto : userRoleBusiness){
-           delete(dto.getId());
-       }
+        List<UserPermissionBusiness> deletes = new ArrayList<>();
+        for (UserPermissionBusinessDto dto : userRoleBusiness) {
+            dto.setDeleted(true);
+            deletes.add(new UserPermissionBusiness(dto));
+        }
+        this.commandRepository.saveAll(deletes);
     }
 
     @Override
@@ -87,8 +91,8 @@ public class UserPermissionBusinessServiceImpl implements IUserPermissionBusines
 
     @Override
     public List<UserPermissionBusinessDto> findByUserAndBusiness(UUID userSystemId, UUID businessI) {
-       List<UserPermissionBusiness> data = this.queryRepository.findByUserAndBusiness(userSystemId,businessI);
-       List<UserPermissionBusinessDto> permissionBusinessDtos = new ArrayList<>();
+        List<UserPermissionBusiness> data = this.queryRepository.findByUserAndBusiness(userSystemId, businessI);
+        List<UserPermissionBusinessDto> permissionBusinessDtos = new ArrayList<>();
         for (UserPermissionBusiness o : data) {
             permissionBusinessDtos.add(o.toAggregate());
         }
@@ -104,10 +108,11 @@ public class UserPermissionBusinessServiceImpl implements IUserPermissionBusines
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    @Override
     public List<PermissionDto> getPermissionsForUserAndBusiness(UUID userId, UUID businessId) {
         Set<Permission> permissions = this.queryRepository.findPermissionsByUserIdAndBusinessId(userId, businessId);
         List<PermissionDto> permissionDtos = new ArrayList<>();
-        for (Permission permission : permissions){
+        for (Permission permission : permissions) {
             permissionDtos.add(permission.toAggregate());
         }
         return permissionDtos;
