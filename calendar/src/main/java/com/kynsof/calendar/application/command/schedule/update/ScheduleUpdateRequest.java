@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class ScheduleUpdateRequest {
-    private UUID idResource;
+    private UUID resource;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endingTime;

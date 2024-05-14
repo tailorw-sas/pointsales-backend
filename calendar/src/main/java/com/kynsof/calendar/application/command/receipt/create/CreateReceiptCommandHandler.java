@@ -41,9 +41,8 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
         if (_schedule.getStock() == 0) {
             throw new BusinessException(DomainErrorMessage.SCHEDULE_IS_NOT_AVAIBLE, "The selected schedule is not available.");
         }
-        //TODO hacer un servicio que actualice el stock nada mas yannier
-      //  _schedule.setStock(_schedule.getStock() - 1);
-      //  this.serviceSchedule.update(_schedule);
+      _schedule.setStock(_schedule.getStock() - 1);
+      this.serviceSchedule.update(_schedule);
        ReceiptDto receiptDto = new ReceiptDto(
                 UUID.randomUUID(),
                 command.getPrice(),

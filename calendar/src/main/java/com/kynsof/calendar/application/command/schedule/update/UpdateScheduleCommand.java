@@ -33,7 +33,8 @@ public class UpdateScheduleCommand implements ICommand {
     }
 
     public static UpdateScheduleCommand fromRequest(UUID id,ScheduleUpdateRequest request) {
-        return new UpdateScheduleCommand(id, request.getIdResource(), request.getDate(), request.getStartTime(), request.getEndingTime(), request.getStatus(), request.getStock());
+        return new UpdateScheduleCommand(id, request.getResource(), request.getDate(), request.getStartTime(),
+                request.getEndingTime(), request.getStatus(), request.getStock());
     }
 
     @Override

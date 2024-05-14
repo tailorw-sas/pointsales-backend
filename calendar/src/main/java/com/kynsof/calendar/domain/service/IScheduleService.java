@@ -22,10 +22,6 @@ public interface IScheduleService {
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     Page<Schedule> getAll(Pageable pageable);
     PaginatedResponse findAll(Pageable pageable, UUID resource, LocalDate date, EStatusSchedule status, LocalDate startDate, LocalDate endDate);
-//    List<Schedule> getAllScheduleForResource(UUID id);
-//    List<Schedule> getAllScheduleForResourceAndStatus(UUID id, EStatusSchedule status);
-//    List<Schedule> findByResourceIdAndDateAndStatus(UUID id, LocalDate date);
-//    List<Schedule> findActiveSchedulesAfterDateAndTime(LocalDate date, LocalTime time);
     boolean findByResourceAndDateAndStartTimeAndEndingTime(Resource resource, LocalDate date, LocalTime startTime, LocalTime endingTime);
     boolean findByDateAndTimeInRange(Resource resource, LocalDate date, LocalTime startTime, LocalTime endingTime);
     boolean findByDateAndTimeInRangeAndStartTimeAndEndingTime(Resource resource, LocalDate date, LocalTime startTime, LocalTime endingTime);
