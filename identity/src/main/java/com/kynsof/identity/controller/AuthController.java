@@ -60,11 +60,6 @@ public class AuthController {
 
     }
 
-    //    @PreAuthorize("permitAll()")
-//    @PostMapping("/exchange-google-token")
-//    public Mono<?> exchangeGoogleTokenForKeycloakToken(@RequestBody GoogleTokenRequest googleTokenRequest) {
-//        return userService.getKeycloakTokenUsingGoogleToken(googleTokenRequest.getGoogleToken());
-//    }
     @PostMapping("/forgot-password")
     public ResponseEntity<ApiResponse<?>> forgotPassword(@RequestParam String email) {
         SendPasswordRecoveryOtpCommand command = new SendPasswordRecoveryOtpCommand(email);
