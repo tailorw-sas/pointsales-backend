@@ -2,7 +2,6 @@ package com.kynsof.identity.infrastructure.services.kafka.producer.user;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.identity.application.command.auth.registry.UserRequest;
 import com.kynsof.share.core.domain.kafka.entity.UserKafka;
 import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
@@ -22,14 +21,11 @@ public class ProducerRegisterUserEventService {
     }
 
     @Async
-    public void create(UserRequest entity, String clientId) {
+    public void create(UserKafka entity) {
 
         try {
-            UserKafka event = new UserKafka(clientId, entity.getUserName(), entity.getEmail(), entity.getName(),
-                    entity.getLastName(), "", "", "", "");
-
             ObjectMapper objectMapper = new ObjectMapper();
-            String json = objectMapper.writeValueAsString(new CreateEvent<>(event, EventType.CREATED));
+            String json = objectMapper.writeValueAsString(new CreateEvent<>(entity, EventType.CREATED));
             this.producer.send("user", json);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ProducerRegisterUserEventService.class.getName()).log(Level.SEVERE, null, ex);

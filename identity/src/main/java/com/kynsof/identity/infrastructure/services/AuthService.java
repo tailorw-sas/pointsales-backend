@@ -14,6 +14,7 @@ import com.kynsof.share.core.domain.exception.AlreadyExistsException;
 import com.kynsof.share.core.domain.exception.AuthenticateNotFoundException;
 import com.kynsof.share.core.domain.exception.CustomUnauthorizedException;
 import com.kynsof.share.core.domain.exception.UserNotFoundException;
+import com.kynsof.share.core.domain.kafka.entity.UserKafka;
 import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
 import com.kynsof.share.core.domain.response.ErrorField;
 import io.micrometer.common.lang.NonNull;
@@ -49,9 +50,9 @@ public class AuthService implements IAuthService {
 
     @Autowired
     public AuthService(KeycloakProvider keycloakProvider, RestTemplate restTemplate,
-                       ProducerRegisterUserEventService producerRegisterUserEvent,
-                       IOtpService otpService, ProducerTriggerPasswordResetEventService producerOtp,
-                       ProducerRegisterUserSystemEventService producerRegisterUserSystemEvent) {
+            ProducerRegisterUserEventService producerRegisterUserEvent,
+            IOtpService otpService, ProducerTriggerPasswordResetEventService producerOtp,
+            ProducerRegisterUserSystemEventService producerRegisterUserSystemEvent) {
         this.keycloakProvider = keycloakProvider;
         this.restTemplate = restTemplate;
         this.producerRegisterUserEvent = producerRegisterUserEvent;
@@ -136,8 +137,17 @@ public class AuthService implements IAuthService {
 
             setNewUserPassword(userRequest.getPassword(), userId, usersResource);
 
-            producerRegisterUserEvent.create(userRequest, userId);
-
+            producerRegisterUserEvent.create(new UserKafka(
+                    userId,
+                    userRequest.getUserName(),
+                    userRequest.getEmail(),
+                    userRequest.getName(),
+                    userRequest.getLastName(),
+                    "",
+                    "",
+                    "",
+                    ""
+            ));
 
             return userId;
         } else if (response.getStatus() == 409) {
@@ -147,6 +157,7 @@ public class AuthService implements IAuthService {
             return null;
         }
     }
+
     @Override
     public String registerUserSystem(@NonNull UserSystemKycloackRequest userRequest, boolean isSystemUser) {
         UsersResource usersResource = keycloakProvider.getUserResource();
@@ -166,7 +177,7 @@ public class AuthService implements IAuthService {
 
             setNewUserPassword(userRequest.getPassword(), userId, usersResource);
             //  assignRolesToUser(null, userId);
-           // this.producerRegisterUserSystemEvent.create(userRequest, userId, null);
+            // this.producerRegisterUserSystemEvent.create(userRequest, userId, null);
             return userId;
         } else if (response.getStatus() == 409) {
             throw new AlreadyExistsException("User already exists", new ErrorField("email", "Email is already in use"));
