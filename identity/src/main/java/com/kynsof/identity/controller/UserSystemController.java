@@ -1,5 +1,7 @@
 package com.kynsof.identity.controller;
 
+import com.kynsof.identity.application.command.auth.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpCommand;
+import com.kynsof.identity.application.command.auth.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpMessage;
 import com.kynsof.identity.application.command.user.changePassword.ChangePasswordCommand;
 import com.kynsof.identity.application.command.user.changePassword.ChangePasswordMessage;
 import com.kynsof.identity.application.command.user.changePassword.ChangePasswordRequest;
@@ -115,6 +117,13 @@ public class UserSystemController {
         ChangePasswordCommand command = ChangePasswordCommand.fromRequest(id, request);
         ChangePasswordMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping(path = "/{id}/change-password-otp")
+    public ResponseEntity<?> changePasswordOtp(@RequestParam String email, @PathVariable String id) {
+        SendPasswordRecoveryOtpCommand command = new SendPasswordRecoveryOtpCommand(email);
+        SendPasswordRecoveryOtpMessage sendPasswordRecoveryOtpMessage = mediator.send(command);
+        return ResponseEntity.ok(ApiResponse.success(sendPasswordRecoveryOtpMessage.getResult()));
     }
 
     @DeleteMapping("/delete-all")
