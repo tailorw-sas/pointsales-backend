@@ -5,6 +5,9 @@ import com.kynsof.identity.application.command.userPermisionBusiness.create.Crea
 import com.kynsof.identity.application.command.userPermisionBusiness.create.UserPermissionBusinessRequest;
 import com.kynsof.identity.application.command.userPermisionBusiness.delete.DeleteUserRolBusinessCommand;
 import com.kynsof.identity.application.command.userPermisionBusiness.delete.DeleteUserRolBusinessMessage;
+import com.kynsof.identity.application.command.userPermisionBusiness.deleteRelation.DeleteUserBusinessRelationCommand;
+import com.kynsof.identity.application.command.userPermisionBusiness.deleteRelation.DeleteUserBusinessRelationMessage;
+import com.kynsof.identity.application.command.userPermisionBusiness.deleteRelation.DeleteUserBusinessRelationRequest;
 import com.kynsof.identity.application.command.userPermisionBusiness.update.UpdateUserPermissionBusinessCommand;
 import com.kynsof.identity.application.command.userPermisionBusiness.update.UpdateUserPermissionBusinessMessage;
 import com.kynsof.identity.application.command.userPermisionBusiness.update.UserRoleBusinessUpdateRequest;
@@ -32,7 +35,6 @@ public class UserPermissionBusinessController {
     public UserPermissionBusinessController(IMediator mediator) {
         this.mediator = mediator;
     }
-
 
     @PostMapping("")
     public ResponseEntity<?> createLote(@RequestBody UserPermissionBusinessRequest request) {
@@ -66,11 +68,19 @@ public class UserPermissionBusinessController {
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping("/delete-relation")
+    public ResponseEntity<?> deleteRelation(@RequestBody DeleteUserBusinessRelationRequest request) {
+
+        DeleteUserBusinessRelationCommand command = new DeleteUserBusinessRelationCommand(request.getUserId(), request.getBusinessId());
+        DeleteUserBusinessRelationMessage response = mediator.send(command);
+
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/search")
-    public ResponseEntity<?> search(@RequestBody SearchRequest request)
-    {
+    public ResponseEntity<?> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
-        GetSearchUserRolBusinessQuery query = new GetSearchUserRolBusinessQuery(pageable, request.getFilter(),request.getQuery());
+        GetSearchUserRolBusinessQuery query = new GetSearchUserRolBusinessQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }

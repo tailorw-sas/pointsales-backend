@@ -17,7 +17,7 @@ public interface UserPermissionBusinessReadDataJPARepository extends JpaReposito
 
     Page<UserPermissionBusiness> findAll(Specification specification, Pageable pageable);
 
-    @Query("SELECT upb FROM UserPermissionBusiness upb WHERE upb.user.id = :userId AND upb.business.id = :businessId")
+    @Query("SELECT upb FROM UserPermissionBusiness upb WHERE upb.user.id = :userId AND upb.business.id = :businessId AND upb.deleted = false")
     List<UserPermissionBusiness> findByUserAndBusiness(UUID userId, UUID businessId);
 
     @Query("SELECT COUNT(upb) FROM UserPermissionBusiness upb WHERE upb.user.id = :userId AND upb.business.id = :businessId")
