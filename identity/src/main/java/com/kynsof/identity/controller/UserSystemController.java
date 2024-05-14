@@ -121,8 +121,8 @@ public class UserSystemController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping(path = "/{id}/change-password-otp")
-    public ResponseEntity<?> changePasswordOtp(@RequestParam String email, @PathVariable UUID id) {
+    @PostMapping(path = "/change-password-otp")
+    public ResponseEntity<?> changePasswordOtp(@RequestParam String email,  @AuthenticationPrincipal Jwt jwt) {
         SendPasswordRecoveryOtpCommand command = new SendPasswordRecoveryOtpCommand(email);
         SendPasswordRecoveryOtpMessage sendPasswordRecoveryOtpMessage = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(sendPasswordRecoveryOtpMessage.getResult()));
@@ -137,9 +137,10 @@ public class UserSystemController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping(path = "/{id}/change-selected-business")
-    public ResponseEntity<?> changeSelectedBusiness( @PathVariable UUID id,@RequestBody ChangeSelectedBusinessRequest request) {
-        ChangeSelectedBusinessCommand command =  ChangeSelectedBusinessCommand.fromRequest(id, request);
+    @PostMapping(path = "/business")
+    public ResponseEntity<?> changeSelectedBusiness( @AuthenticationPrincipal Jwt jwt,@RequestBody ChangeSelectedBusinessRequest request) {
+        String userId = jwt.getClaim("sub");
+        ChangeSelectedBusinessCommand command =  ChangeSelectedBusinessCommand.fromRequest(UUID.fromString(userId), request);
         SendPasswordRecoveryOtpMessage sendPasswordRecoveryOtpMessage = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(sendPasswordRecoveryOtpMessage.getResult()));
     }
