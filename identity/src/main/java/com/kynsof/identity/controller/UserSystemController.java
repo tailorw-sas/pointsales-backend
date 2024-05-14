@@ -138,7 +138,7 @@ public class UserSystemController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping(path = "/{id}/business")
+    @PatchMapping(path = "/{id}/business")
     public ResponseEntity<?> changeSelectedBusiness(@PathVariable UUID id,@RequestBody ChangeSelectedBusinessRequest request) {
         ChangeSelectedBusinessCommand command =  ChangeSelectedBusinessCommand.fromRequest(id, request);
         ChangeSelectedBusinessMessage result = mediator.send(command);
