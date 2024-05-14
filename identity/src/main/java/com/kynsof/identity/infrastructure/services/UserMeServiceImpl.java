@@ -75,6 +75,7 @@ public class UserMeServiceImpl implements IUserMeService {
         }
 
         userMeDto.setBusiness(businessModulePermissionsDtos);
+        userMeDto.setSelectedBusiness(user.getSelectedBusiness());
 
         return userMeDto;
 

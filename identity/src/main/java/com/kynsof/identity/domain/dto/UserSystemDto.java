@@ -20,6 +20,7 @@ public class UserSystemDto {
     private String lastName;
     private UserStatus status;
     private LocalDate createdAt;
+    private UUID selectedBusiness;
 
 
     private String image;

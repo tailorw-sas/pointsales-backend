@@ -34,6 +34,6 @@ public class UserMeResponse implements IResponse {
             return new BusinessPermissionResponse(b.getBusinessId(),b.getName(),permissions);
         }).toList();
 
-        this.selectedBusiness = !this.businesses.isEmpty() ? this.businesses.get(0).getBusinessId() : null;
+        this.selectedBusiness = userMeDto.getSelectedBusiness();
     }
 }
