@@ -28,6 +28,7 @@ public class ExternalConsultationResponse implements IResponse {
     private String consultationReason;
     private String medicalHistory;
     private String physicalExam;
+    private String medicalSpeciality;
     private List<DiagnosisExternalConsultationResponse> diagnoses;
     private List<TreatmentExternalConsultationResponse> treatments;
     private String observations;
@@ -43,6 +44,7 @@ public class ExternalConsultationResponse implements IResponse {
         this.consultationTime = dto.getConsultationTime();
         this.doctor = dto.getDoctor();
         this.observations = dto.getObservations();
+        this.medicalSpeciality = dto.getMedicalSpeciality();
         this.diagnoses = dto.getDiagnoses().stream()
                 .map(DiagnosisExternalConsultationResponse::new)
                 .collect(Collectors.toList());
