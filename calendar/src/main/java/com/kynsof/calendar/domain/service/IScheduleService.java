@@ -40,4 +40,6 @@ public interface IScheduleService {
 
     List<LocalDate> findDistinctAvailableDatesByServiceIdAndDateRange(UUID serviceId,LocalDate startDate, LocalDate endDate);
     List<AvailableDateDto> getAvailableDatesAndSlots(UUID resourceId, UUID businessId,  LocalDate startDate, LocalDate endDate);
+    List<Schedule> findOverlappingSchedules(UUID resourceId, LocalDate date, LocalTime startTime, LocalTime endingTime);
+
 }

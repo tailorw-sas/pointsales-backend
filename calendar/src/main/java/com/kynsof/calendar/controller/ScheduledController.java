@@ -3,6 +3,9 @@ package com.kynsof.calendar.controller;
 import com.kynsof.calendar.application.command.schedule.create.CreateScheduleCommand;
 import com.kynsof.calendar.application.command.schedule.create.CreateScheduleMessage;
 import com.kynsof.calendar.application.command.schedule.create.CreateScheduleRequest;
+import com.kynsof.calendar.application.command.schedule.createGoogleStyle.CreateScheduleByLoteGoogleStyleCommand;
+import com.kynsof.calendar.application.command.schedule.createGoogleStyle.CreateScheduleByLoteGoogleStyleMessage;
+import com.kynsof.calendar.application.command.schedule.createGoogleStyle.CreateScheduleByLoteGoogleStyleRequest;
 import com.kynsof.calendar.application.command.schedule.createall.CreateAllScheduleMessage;
 import com.kynsof.calendar.application.command.schedule.createall.CreateAllScheduleRequest;
 import com.kynsof.calendar.application.command.schedule.createall.CreateScheduleAllCommand;
@@ -81,6 +84,20 @@ public class ScheduledController {
                 request.getEndDate(), 
                 request.getSchedules(),
                 request.getDaysToExclude(),
+                mediator
+        ));
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/create-lote-google-style")
+    public ResponseEntity<?> createGoogleStyle(@RequestBody CreateScheduleByLoteGoogleStyleRequest request) throws Exception {
+
+        CreateScheduleByLoteGoogleStyleMessage response = mediator.send(new CreateScheduleByLoteGoogleStyleCommand(
+                request.getResource(), 
+                request.getBusiness(), 
+                request.getService(), 
+                request.getDays(),
                 mediator
         ));
 

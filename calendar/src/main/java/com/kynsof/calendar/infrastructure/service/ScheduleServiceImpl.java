@@ -382,4 +382,9 @@ public class ScheduleServiceImpl implements IScheduleService {
         }
     }
 
+    @Override
+    public List<Schedule> findOverlappingSchedules(UUID resourceId, LocalDate date, LocalTime startTime, LocalTime endingTime) {
+        return this.repositoryQuery.findOverlappingSchedules(resourceId, date, startTime, endingTime);
+    }
+
 }
