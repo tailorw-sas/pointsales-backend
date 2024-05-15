@@ -1,6 +1,7 @@
 package com.kynsoft.notification.application.command.templateEntity.delete;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsoft.notification.domain.dto.TemplateDto;
 import com.kynsoft.notification.domain.service.ITemplateEntityService;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +16,9 @@ public class DeleteTemplateEntityCommandHandler implements ICommandHandler<Delet
 
     @Override
     public void handle(DeleteTemplateEntityCommand command) {
+        TemplateDto object = this.serviceImpl.findById(command.getId());
 
-        serviceImpl.delete(command.getId());
+        serviceImpl.delete(object);
     }
 
 }

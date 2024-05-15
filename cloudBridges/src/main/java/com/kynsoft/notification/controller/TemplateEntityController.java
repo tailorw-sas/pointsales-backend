@@ -6,6 +6,8 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsoft.notification.application.command.templateEntity.create.CreateTemplateEntityCommand;
 import com.kynsoft.notification.application.command.templateEntity.create.CreateTemplateEntityMessage;
 import com.kynsoft.notification.application.command.templateEntity.create.CreateTemplateEntityRequest;
+import com.kynsoft.notification.application.command.templateEntity.delete.DeleteTemplateEntityCommand;
+import com.kynsoft.notification.application.command.templateEntity.delete.DeleteTemplateEntityMessage;
 import com.kynsoft.notification.application.command.templateEntity.update.UpdateTemplateEntityCommand;
 import com.kynsoft.notification.application.command.templateEntity.update.UpdateTemplateEntityMessage;
 import com.kynsoft.notification.application.command.templateEntity.update.UpdateTemplateEntityRequest;
@@ -25,13 +27,13 @@ public class TemplateEntityController {
 
     private final IMediator mediator;
 
-    public TemplateEntityController(IMediator mediator){
+    public TemplateEntityController(IMediator mediator) {
 
         this.mediator = mediator;
     }
 
     @PostMapping("")
-    public ResponseEntity<CreateTemplateEntityMessage> create(@RequestBody CreateTemplateEntityRequest request)  {
+    public ResponseEntity<CreateTemplateEntityMessage> create(@RequestBody CreateTemplateEntityRequest request) {
         CreateTemplateEntityCommand createCommand = CreateTemplateEntityCommand.fromRequest(request);
         CreateTemplateEntityMessage response = mediator.send(createCommand);
 
@@ -40,16 +42,15 @@ public class TemplateEntityController {
 
     @PatchMapping(path = "/{id}")
     public ResponseEntity<UpdateTemplateEntityMessage> update(@PathVariable UUID id, @RequestBody UpdateTemplateEntityRequest request) {
-        UpdateTemplateEntityCommand command = UpdateTemplateEntityCommand.fromRequest(id,request );
+        UpdateTemplateEntityCommand command = UpdateTemplateEntityCommand.fromRequest(id, request);
         UpdateTemplateEntityMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
-    {
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
-        GetSearchTemplateEntityQuery query = new GetSearchTemplateEntityQuery(pageable, request.getFilter(),request.getQuery());
+        GetSearchTemplateEntityQuery query = new GetSearchTemplateEntityQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
@@ -62,6 +63,12 @@ public class TemplateEntityController {
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
 
+        DeleteTemplateEntityCommand query = new DeleteTemplateEntityCommand(id);
+        DeleteTemplateEntityMessage response = mediator.send(query);
+        return ResponseEntity.ok(response);
+    }
 
 }
