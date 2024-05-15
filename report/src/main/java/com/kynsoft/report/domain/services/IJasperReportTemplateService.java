@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface IJasperReportTemplateService {
     void create(JasperReportTemplateDto object);
     void update(JasperReportTemplateDto object);
-    void delete(UUID id);
+    void delete(JasperReportTemplateDto object);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     JasperReportTemplateDto findById(UUID id);
     JasperReportTemplateDto findByTemplateCode(String templateCode);
