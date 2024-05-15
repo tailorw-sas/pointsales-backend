@@ -4,10 +4,7 @@ import com.kynsof.identity.domain.dto.BusinessDto;
 import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.UserPermissionBusinessDto;
 import com.kynsof.identity.domain.dto.UserSystemDto;
-import com.kynsof.identity.domain.interfaces.service.IBusinessService;
-import com.kynsof.identity.domain.interfaces.service.IPermissionService;
-import com.kynsof.identity.domain.interfaces.service.IUserPermissionBusinessService;
-import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
+import com.kynsof.identity.domain.interfaces.service.*;
 import com.kynsof.identity.infrastructure.services.kafka.producer.userBusiness.ProducerCreateUserBusinessRelationEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
@@ -26,18 +23,20 @@ public class CreateUserPermissionBusinessCommandHandler implements ICommandHandl
     private final IBusinessService businessService;
 
     private final IUserSystemService userSystemService;
+    private final IRedisService redisService;
 
     private final ProducerCreateUserBusinessRelationEventService createUserBusinessEventService;
 
     public CreateUserPermissionBusinessCommandHandler(IUserPermissionBusinessService service,
                                                       IPermissionService permissionService,
                                                       IBusinessService businessService,
-                                                      IUserSystemService userSystemService,
+                                                      IUserSystemService userSystemService, IRedisService redisService,
                                                       ProducerCreateUserBusinessRelationEventService createUserBusinessEventService) {
         this.service = service;
         this.permissionService = permissionService;
         this.businessService = businessService;
         this.userSystemService = userSystemService;
+        this.redisService = redisService;
         this.createUserBusinessEventService = createUserBusinessEventService;
     }
 
@@ -54,6 +53,7 @@ public class CreateUserPermissionBusinessCommandHandler implements ICommandHandl
                 userRoleBusinessDtos.add(new UserPermissionBusinessDto(UUID.randomUUID(), userSystemDto, roleDto, businessDto));
             }
 
+        redisService.deleteKey(command.getPayload().getUserId().toString());
         this.service.create(userRoleBusinessDtos);
         this.createUserBusinessEventService.create(userRoleBusinessDtos.get(0));
     }

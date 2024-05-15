@@ -31,7 +31,7 @@ public class CacheConfig {
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();
-        redisCacheConfigurationMap.put(USER_CACHE, createConfig(1, ChronoUnit.MINUTES));
+        redisCacheConfigurationMap.put(USER_CACHE, createConfig(3, ChronoUnit.HOURS));
         redisCacheConfigurationMap.put(QUALIFICATION_CACHE, createConfig(1, ChronoUnit.MINUTES));
         redisCacheConfigurationMap.put(BUSINESS_CACHE, createConfig(1, ChronoUnit.MINUTES));
         redisCacheConfigurationMap.put(PATIENTS_CACHE, createConfig(1, ChronoUnit.MINUTES));
