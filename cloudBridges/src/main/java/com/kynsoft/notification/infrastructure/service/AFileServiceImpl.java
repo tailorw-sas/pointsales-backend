@@ -40,8 +40,12 @@ public class AFileServiceImpl implements IAFileService {
     }
 
     @Override
-    public void delete(UUID id) {
-        this.commandRepository.deleteById(id);
+    public void delete(AFileDto object) {
+        AFile delete = new AFile(object);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setName(delete.getName() + " + " + UUID.randomUUID());
+
+        this.commandRepository.save(delete);
     }
 
     @Override
