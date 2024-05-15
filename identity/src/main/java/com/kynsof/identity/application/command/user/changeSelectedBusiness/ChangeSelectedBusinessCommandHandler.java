@@ -22,7 +22,7 @@ public class ChangeSelectedBusinessCommandHandler implements ICommandHandler<Cha
         UserSystemDto user = userSystemService.findById(command.getUserId());
         user.setSelectedBusiness(command.getBusinessId());
         userSystemService.update(user);
-        redisService.deleteKey(user.getId().toString());
+       // redisService.deleteKey(user.getId().toString());
         command.setResul(true);
     }
 }

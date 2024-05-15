@@ -6,9 +6,7 @@ import com.kynsof.identity.domain.interfaces.service.IUserMeService;
 import com.kynsof.identity.infrastructure.identity.Business;
 import com.kynsof.identity.infrastructure.identity.UserPermissionBusiness;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
-import com.kynsof.identity.infrastructure.repository.query.*;
-import com.kynsof.share.core.infrastructure.redis.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
+import com.kynsof.identity.infrastructure.repository.query.UserPermissionBusinessReadDataJPARepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ public class UserMeServiceImpl implements IUserMeService {
     }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.USER_CACHE, unless = "#result == null")
+   // @Cacheable(cacheNames =  CacheConfig.USER_CACHE, unless = "#result == null")
     public UserMeResponse getUserInfo(UUID userId) {
 
         List<UserPermissionBusiness> userPermissions = this.userPermissionBusinessReadDataJPARepository.findUserPermissionBusinessByUserId(userId);
