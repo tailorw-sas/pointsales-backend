@@ -19,6 +19,7 @@ public class UserMeResponse implements IResponse {
     private String name;
     private String lastName;
     private String image;
+    private UUID selectedBusiness;
     private List<BusinessPermissionResponse> businesses;
 
     public UserMeResponse(UserMeDto userMeDto) {
@@ -32,5 +33,7 @@ public class UserMeResponse implements IResponse {
             List<String> permissions = b.getUniquePermissions().stream().map(PermissionInfo::getCode).toList();
             return new BusinessPermissionResponse(b.getBusinessId(),b.getName(),permissions);
         }).toList();
+
+        this.selectedBusiness = userMeDto.getSelectedBusiness();
     }
 }

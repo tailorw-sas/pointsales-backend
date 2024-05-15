@@ -43,7 +43,9 @@ public class UserSystem implements Serializable {
     @Column(nullable = true)
     private Boolean deleted = false;
 
-    // Relationship with User_Role_Clinic
+    @Column(nullable = true)
+    private UUID selectedBusiness;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserPermissionBusiness> userRolesClinics = new HashSet<>();
 
@@ -61,12 +63,14 @@ public class UserSystem implements Serializable {
         this.status = dto.getStatus();
         this.userType = dto.getUserType() != null ? dto.getUserType() : EUserType.UNDEFINED;
         this.image = dto.getImage() != null ? dto.getImage() : null;
+        this.selectedBusiness = dto.getSelectedBusiness() != null ? dto.getSelectedBusiness() : null;
     }
 
     public UserSystemDto toAggregate() {
         UserSystemDto dto = new UserSystemDto(this.id, this.userName, this.email, this.name, this.lastName, this.status, this.image);
         dto.setUserType(userType);
         dto.setImage(image);
+        dto.setSelectedBusiness(selectedBusiness);
         dto.setCreatedAt(createdAt.toLocalDate());
         return dto;
     }

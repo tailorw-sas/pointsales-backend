@@ -5,6 +5,9 @@ import com.kynsof.identity.application.command.auth.sendPasswordRecoveryOtp.Send
 import com.kynsof.identity.application.command.user.changePassword.ChangePasswordCommand;
 import com.kynsof.identity.application.command.user.changePassword.ChangePasswordMessage;
 import com.kynsof.identity.application.command.user.changePassword.ChangePasswordRequest;
+import com.kynsof.identity.application.command.user.changeSelectedBusiness.ChangeSelectedBusinessCommand;
+import com.kynsof.identity.application.command.user.changeSelectedBusiness.ChangeSelectedBusinessMessage;
+import com.kynsof.identity.application.command.user.changeSelectedBusiness.ChangeSelectedBusinessRequest;
 import com.kynsof.identity.application.command.user.create.CreateUserSystemCommand;
 import com.kynsof.identity.application.command.user.create.CreateUserSystemMessage;
 import com.kynsof.identity.application.command.user.create.CreateUserSystemRequest;
@@ -119,8 +122,8 @@ public class UserSystemController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping(path = "/{id}/change-password-otp")
-    public ResponseEntity<?> changePasswordOtp(@RequestParam String email, @PathVariable String id) {
+    @PostMapping(path = "/change-password-otp")
+    public ResponseEntity<?> changePasswordOtp(@RequestParam String email,  @AuthenticationPrincipal Jwt jwt) {
         SendPasswordRecoveryOtpCommand command = new SendPasswordRecoveryOtpCommand(email);
         SendPasswordRecoveryOtpMessage sendPasswordRecoveryOtpMessage = mediator.send(command);
         return ResponseEntity.ok(ApiResponse.success(sendPasswordRecoveryOtpMessage.getResult()));
@@ -135,4 +138,10 @@ public class UserSystemController {
         return ResponseEntity.ok(response);
     }
 
+    @PatchMapping(path = "/{id}/business")
+    public ResponseEntity<?> changeSelectedBusiness(@PathVariable UUID id,@RequestBody ChangeSelectedBusinessRequest request) {
+        ChangeSelectedBusinessCommand command =  ChangeSelectedBusinessCommand.fromRequest(id, request);
+        ChangeSelectedBusinessMessage result = mediator.send(command);
+        return ResponseEntity.ok(ApiResponse.success(result.getResult()));
+    }
 }

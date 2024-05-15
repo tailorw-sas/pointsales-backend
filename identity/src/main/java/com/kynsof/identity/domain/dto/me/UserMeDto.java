@@ -16,4 +16,5 @@ public class UserMeDto {
     private String lastName;
     private String image;
     private Set<BusinessModulePermissionsDto> business;
+    private UUID selectedBusiness;
 }
