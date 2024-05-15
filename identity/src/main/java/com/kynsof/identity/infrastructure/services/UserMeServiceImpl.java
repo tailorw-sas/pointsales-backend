@@ -1,83 +1,68 @@
 package com.kynsof.identity.infrastructure.services;
 
-import com.kynsof.identity.domain.dto.ModuleDto;
-import com.kynsof.identity.domain.dto.me.BusinessModulePermissionsDto;
-import com.kynsof.identity.domain.dto.me.PermissionInfo;
-import com.kynsof.identity.domain.dto.me.UserMeDto;
+import com.kynsof.identity.application.query.users.userMe.BusinessPermissionResponse;
+import com.kynsof.identity.application.query.users.userMe.UserMeResponse;
 import com.kynsof.identity.domain.interfaces.service.IUserMeService;
 import com.kynsof.identity.infrastructure.identity.Business;
-import com.kynsof.identity.infrastructure.identity.ModuleSystem;
-import com.kynsof.identity.infrastructure.identity.Permission;
+import com.kynsof.identity.infrastructure.identity.UserPermissionBusiness;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
-import com.kynsof.identity.infrastructure.repository.query.BusinessModuleReadDataJPARepository;
-import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARepository;
-import com.kynsof.identity.infrastructure.repository.query.PermissionReadDataJPARepository;
-import com.kynsof.identity.infrastructure.repository.query.UserSystemReadDataJPARepository;
-import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
-import com.kynsof.share.core.domain.exception.DomainErrorMessage;
-import com.kynsof.share.core.domain.exception.GlobalBusinessException;
-import com.kynsof.share.core.domain.response.ErrorField;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.kynsof.identity.infrastructure.repository.query.*;
+import com.kynsof.share.core.infrastructure.redis.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 public class UserMeServiceImpl implements IUserMeService {
 
-    @Autowired
-    private PermissionReadDataJPARepository permissionReadDataJPARepository;
-    @Autowired
-    private UserSystemReadDataJPARepository userSystemReadDataJPARepository;
-    @Autowired
-    private BusinessModuleReadDataJPARepository businessModuleReadDataJPARepository;
 
-    @Autowired
-    private BusinessReadDataJPARepository businessReadDataJPARepository;
+    private final UserPermissionBusinessReadDataJPARepository  userPermissionBusinessReadDataJPARepository;
+
+    public UserMeServiceImpl(UserPermissionBusinessReadDataJPARepository userPermissionBusinessReadDataJPARepository) {
+        this.userPermissionBusinessReadDataJPARepository = userPermissionBusinessReadDataJPARepository;
+    }
 
     @Override
-    public UserMeDto getUserInfo(UUID userId) {
-        Optional<UserSystem> userOptional = userSystemReadDataJPARepository.findById(userId);
-        if (userOptional.isEmpty()) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.USER_NOT_FOUND, new ErrorField("id", "User not found.")));
-        }
+    @Cacheable(cacheNames =  CacheConfig.USER_CACHE, unless = "#result == null")
+    public UserMeResponse getUserInfo(UUID userId) {
 
-        UserSystem user = userOptional.get();
-        UserMeDto userMeDto = new UserMeDto();
-        userMeDto.setUserId(user.getId());
-        userMeDto.setUserName(user.getUserName());
-        userMeDto.setEmail(user.getEmail());
-        userMeDto.setName(user.getName());
-        userMeDto.setLastName(user.getLastName());
-        userMeDto.setImage(user.getImage());
+        List<UserPermissionBusiness> userPermissions = this.userPermissionBusinessReadDataJPARepository.findUserPermissionBusinessByUserId(userId);
 
-        Set<BusinessModulePermissionsDto> businessModulePermissionsDtos = new HashSet<>();
+        Map<UUID, BusinessPermissionResponse> businessResponses = userPermissions.stream()
+                .collect(Collectors.groupingBy(upb -> upb.getBusiness().getId()))
+                .values().stream()
+                .map(userPermissionBusinesses -> {
+                    List<String> permissions = userPermissionBusinesses.stream()
+                            .map(upb -> upb.getPermission().getCode())
+                            .distinct()
+                            .collect(Collectors.toList());
+                    Business business = userPermissionBusinesses.get(0).getBusiness();
 
-        List<Business> businesses = businessReadDataJPARepository.findBusinessesByUserId(userId);
-        for (Business business : businesses) {
-            BusinessModulePermissionsDto businessModulePermissionsDto = new BusinessModulePermissionsDto();
-            businessModulePermissionsDto.setBusinessId(business.getId());
-            businessModulePermissionsDto.setName(business.getName());
+                    return new BusinessPermissionResponse(
+                            business.getId(),
+                            business.getName(),
+                            permissions);
+                })
+                .collect(Collectors.toMap(BusinessPermissionResponse::getBusinessId, bpr -> bpr));
+        return getUserMeResponse(userPermissions, businessResponses);
+    }
 
-            List<ModuleSystem> modules = businessModuleReadDataJPARepository.findModuleSystemByBusinessId(business.getId());
-            Set<PermissionInfo> uniquePermissions = new HashSet<>();
-            for (ModuleSystem module : modules) {
-                List<Permission> permissions = permissionReadDataJPARepository.findByModuleIdAndBusinessId(module.getId(), business.getId());
-                Set<PermissionInfo> permissionInfos = permissions.stream()
-                        .map(p -> new PermissionInfo(p.getId(), new ModuleDto(p.getModule().getId(), p.getModule().getName(), p.getModule().getImage(), p.getModule().getDescription()), p.getCode(), p.getDescription()))
-                        .collect(Collectors.toSet());
-                uniquePermissions.addAll(permissionInfos);
-            }
-
-            businessModulePermissionsDto.setUniquePermissions(uniquePermissions);
-            businessModulePermissionsDtos.add(businessModulePermissionsDto);
-        }
-
-        userMeDto.setBusiness(businessModulePermissionsDtos);
-        userMeDto.setSelectedBusiness(user.getSelectedBusiness());
-
-        return userMeDto;
-
+    private static UserMeResponse getUserMeResponse(List<UserPermissionBusiness> userPermissions, Map<UUID, BusinessPermissionResponse> businessResponses) {
+        UserSystem userSystem = userPermissions.get(0).getUser();
+        return new UserMeResponse(
+                userSystem.getId(),
+                userSystem.getUserName(),
+                userSystem.getEmail(),
+                userSystem.getName(),
+                userSystem.getLastName(),
+                userSystem.getImage(),
+                userSystem.getSelectedBusiness(),
+                new ArrayList<>(businessResponses.values()) // Convertimos el mapa a una lista
+        );
     }
 }

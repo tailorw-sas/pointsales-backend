@@ -28,4 +28,7 @@ public interface UserPermissionBusinessReadDataJPARepository extends JpaReposito
 
     @Query("SELECT p FROM UserPermissionBusiness upb JOIN upb.permission p WHERE upb.user.id = :userId AND upb.business.id = :businessId AND upb.deleted = false")
     Set<Permission> findPermissionsByUserIdAndBusinessId(UUID userId, UUID businessId);
+
+   // @Query("SELECT p FROM UserPermissionBusiness upb JOIN upb.permission p WHERE upb.user.id = :userId AND upb.business.id = :businessId AND upb.deleted = false")
+    List<UserPermissionBusiness> findUserPermissionBusinessByUserId(UUID userId);
 }
