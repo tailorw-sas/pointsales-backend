@@ -7,6 +7,8 @@ import com.kynsof.identity.infrastructure.identity.Business;
 import com.kynsof.identity.infrastructure.identity.UserPermissionBusiness;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
 import com.kynsof.identity.infrastructure.repository.query.*;
+import com.kynsof.share.core.infrastructure.redis.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class UserMeServiceImpl implements IUserMeService {
     }
 
     @Override
+    @Cacheable(cacheNames =  CacheConfig.USER_CACHE, unless = "#result == null")
     public UserMeResponse getUserInfo(UUID userId) {
 
         List<UserPermissionBusiness> userPermissions = this.userPermissionBusinessReadDataJPARepository.findUserPermissionBusinessByUserId(userId);
@@ -46,13 +49,12 @@ public class UserMeServiceImpl implements IUserMeService {
                             permissions);
                 })
                 .collect(Collectors.toMap(BusinessPermissionResponse::getBusinessId, bpr -> bpr));
-        UserMeResponse userMeResponse = getUserMeResponse(userPermissions, businessResponses);
-        return userMeResponse;
+        return getUserMeResponse(userPermissions, businessResponses);
     }
 
     private static UserMeResponse getUserMeResponse(List<UserPermissionBusiness> userPermissions, Map<UUID, BusinessPermissionResponse> businessResponses) {
         UserSystem userSystem = userPermissions.get(0).getUser();
-        UserMeResponse userMeResponse = new UserMeResponse(
+        return new UserMeResponse(
                 userSystem.getId(),
                 userSystem.getUserName(),
                 userSystem.getEmail(),
@@ -62,6 +64,5 @@ public class UserMeServiceImpl implements IUserMeService {
                 userSystem.getSelectedBusiness(),
                 new ArrayList<>(businessResponses.values()) // Convertimos el mapa a una lista
         );
-        return userMeResponse;
     }
 }
