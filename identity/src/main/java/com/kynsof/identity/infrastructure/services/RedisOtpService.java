@@ -1,6 +1,6 @@
 package com.kynsof.identity.infrastructure.services;
 
-import com.kynsof.identity.domain.interfaces.service.IOtpService;
+import com.kynsof.identity.domain.interfaces.service.IRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -10,7 +10,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class RedisOtpService implements IOtpService {
+public class RedisOtpService implements IRedisService {
     private final RedisTemplate<String, String> redisTemplate;
     private final Random random = new Random();
     @Autowired
@@ -34,5 +34,10 @@ public class RedisOtpService implements IOtpService {
     public String generateOtpCode() {
         int otpCode = 100000 + random.nextInt(900000);
         return String.valueOf(otpCode);
+    }
+
+    @Override
+    public void deleteKey(String key) {
+        redisTemplate.delete(key);
     }
 }

@@ -6,7 +6,7 @@ import com.kynsof.identity.application.command.auth.forwardPassword.PasswordChan
 import com.kynsof.identity.application.command.auth.registry.UserRequest;
 import com.kynsof.identity.application.command.auth.registrySystemUser.UserSystemKycloackRequest;
 import com.kynsof.identity.domain.interfaces.service.IAuthService;
-import com.kynsof.identity.domain.interfaces.service.IOtpService;
+import com.kynsof.identity.domain.interfaces.service.IRedisService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerTriggerPasswordResetEventService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerRegisterUserEventService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerRegisterUserSystemEventService;
@@ -35,7 +35,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,14 +44,14 @@ public class AuthService implements IAuthService {
     private final KeycloakProvider keycloakProvider;
     private final RestTemplate restTemplate;
     private final ProducerRegisterUserEventService producerRegisterUserEvent;
-    private final IOtpService otpService;
+    private final IRedisService otpService;
     private final ProducerTriggerPasswordResetEventService producerOtp;
 
     @Autowired
     public AuthService(KeycloakProvider keycloakProvider, RestTemplate restTemplate,
-            ProducerRegisterUserEventService producerRegisterUserEvent,
-            IOtpService otpService, ProducerTriggerPasswordResetEventService producerOtp,
-            ProducerRegisterUserSystemEventService producerRegisterUserSystemEvent) {
+                       ProducerRegisterUserEventService producerRegisterUserEvent,
+                       IRedisService otpService, ProducerTriggerPasswordResetEventService producerOtp,
+                       ProducerRegisterUserSystemEventService producerRegisterUserSystemEvent) {
         this.keycloakProvider = keycloakProvider;
         this.restTemplate = restTemplate;
         this.producerRegisterUserEvent = producerRegisterUserEvent;
