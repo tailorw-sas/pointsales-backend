@@ -44,8 +44,12 @@ public class AdvertisingContentServiceImpl implements IAdvertisingContentService
     }
 
     @Override
-    public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void delete(AdvertisingContentDto object) {
+        AdvertisingContent delete = new AdvertisingContent(object);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setTitle(delete.getTitle() + " + " + UUID.randomUUID());
+
+        this.commandRepository.save(delete);
     }
 
     @Override

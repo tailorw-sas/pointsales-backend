@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 public interface IAdvertisingContentService {
     void create(AdvertisingContentDto object);
     void update(AdvertisingContentDto object);
-    void delete(UUID id);
+    void delete(AdvertisingContentDto object);
     AdvertisingContentDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }
