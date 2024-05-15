@@ -32,6 +32,9 @@ public class BusinessModule {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     public BusinessModule(Business business, ModuleSystem module) {
         this.business = business;
         this.module = module;

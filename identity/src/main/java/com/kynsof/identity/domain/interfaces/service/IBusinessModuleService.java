@@ -14,8 +14,8 @@ public interface IBusinessModuleService {
     void create(List<BusinessModuleDto> objects);
     void update(List<BusinessModuleDto> objects);
     public List<BusinessModuleDto> findBusinessModuleByBusinessId(UUID businessId);
-    void delete(UUID id);
-    void delete(List<UUID> objects);
+    void delete(BusinessModuleDto object);
+    void delete(List<BusinessModuleDto> deletes);
     BusinessModuleDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 

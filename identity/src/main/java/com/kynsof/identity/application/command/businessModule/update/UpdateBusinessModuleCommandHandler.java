@@ -34,7 +34,7 @@ public class UpdateBusinessModuleCommandHandler implements ICommandHandler<Updat
 
         List<BusinessModuleDto> list = this.serviceBusinessModule.findBusinessModuleByBusinessId(businessDto.getId());
 
-        this.detele(list);
+        this.serviceBusinessModule.delete(list);
 
         List<BusinessModuleDto> businessModuleDtos = new ArrayList<>();
         for (UUID idModule : command.getModules()) {
@@ -45,15 +45,5 @@ public class UpdateBusinessModuleCommandHandler implements ICommandHandler<Updat
         }
 
         this.serviceBusinessModule.update(businessModuleDtos);
-    }
-
-    private void detele(List<BusinessModuleDto> list) {
-        List<UUID> delete = new ArrayList<>();
-
-        for (BusinessModuleDto businessModuleDto : list) {
-            delete.add(businessModuleDto.getId());
-        }
-
-        this.serviceBusinessModule.delete(delete);
     }
 }
