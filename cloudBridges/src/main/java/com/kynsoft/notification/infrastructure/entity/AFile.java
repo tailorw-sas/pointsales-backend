@@ -2,6 +2,7 @@ package com.kynsoft.notification.infrastructure.entity;
 
 import com.kynsof.share.core.domain.BaseEntity;
 import com.kynsoft.notification.domain.dto.AFileDto;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,9 @@ public class AFile extends BaseEntity {
     private String name;
     private String microServiceName;
     private String url;
+
+    @Column(nullable = true)
+    private Boolean deleted = false;
 
     public AFile(UUID id, String name, String microServiceName, String url) {
         this.id = id;

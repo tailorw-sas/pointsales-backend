@@ -42,6 +42,9 @@ public class AdvertisingContent {
     @Column(nullable = true)
     private String link;
 
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     public AdvertisingContent(AdvertisingContentDto advertisingContentDto) {
         this.id = advertisingContentDto.getId();
         this.title = advertisingContentDto.getTitle();

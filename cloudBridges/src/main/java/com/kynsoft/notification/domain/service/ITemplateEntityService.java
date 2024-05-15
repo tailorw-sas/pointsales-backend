@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface ITemplateEntityService {
     UUID create(TemplateDto object);
     void update(TemplateEntity object);
-    void delete(UUID id);
+    void delete(TemplateDto object);
     TemplateDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     TemplateDto findByTemplateCode(String templateCode);

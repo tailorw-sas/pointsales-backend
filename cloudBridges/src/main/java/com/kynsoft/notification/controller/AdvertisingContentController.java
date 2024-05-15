@@ -6,6 +6,8 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsoft.notification.application.command.advertisingcontent.create.CreateAdvertisingContentCommand;
 import com.kynsoft.notification.application.command.advertisingcontent.create.CreateAdvertisingContentMessage;
 import com.kynsoft.notification.application.command.advertisingcontent.create.CreateAdvertisingContentRequest;
+import com.kynsoft.notification.application.command.advertisingcontent.delete.DeleteAdvertisingContentCommand;
+import com.kynsoft.notification.application.command.advertisingcontent.delete.DeleteAdvertisingContentMessage;
 import com.kynsoft.notification.application.command.advertisingcontent.update.UpdateAdvertisingContentCommand;
 import com.kynsoft.notification.application.command.advertisingcontent.update.UpdateAdvertisingContentMessage;
 import com.kynsoft.notification.application.command.advertisingcontent.update.UpdateAdvertisingContentRequest;
@@ -61,6 +63,14 @@ public class AdvertisingContentController {
 
         UpdateAdvertisingContentCommand command = UpdateAdvertisingContentCommand.fromRequest(request,id);
         UpdateAdvertisingContentMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+
+        DeleteAdvertisingContentCommand query = new DeleteAdvertisingContentCommand(id);
+        DeleteAdvertisingContentMessage response = mediator.send(query);
         return ResponseEntity.ok(response);
     }
 

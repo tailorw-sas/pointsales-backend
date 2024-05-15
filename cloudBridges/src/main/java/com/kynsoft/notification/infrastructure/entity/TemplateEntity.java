@@ -41,6 +41,9 @@ public class TemplateEntity {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     public TemplateEntity(TemplateDto dto) {
         this.id = dto.getId();
         this.templateCode = dto.getTemplateCode();

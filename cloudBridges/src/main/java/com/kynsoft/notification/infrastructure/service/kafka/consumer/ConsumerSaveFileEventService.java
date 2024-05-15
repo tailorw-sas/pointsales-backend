@@ -63,7 +63,7 @@ public class ConsumerSaveFileEventService {
                 System.err.println("#######################################################");
                     AFileDto deleteFile = this.fileService.findById(eventRead.getId());
                     amazonClient.delete(deleteFile.getUrl());
-                    this.fileService.delete(eventRead.getId());
+                    this.fileService.delete(deleteFile);
 
             }
             if (eventType.equals(EventType.UPDATED)) {

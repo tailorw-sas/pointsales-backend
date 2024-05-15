@@ -40,8 +40,13 @@ public class TemplateEntityServiceImpl implements ITemplateEntityService {
     }
 
     @Override
-    public void delete(UUID id) {
-       this.commandRepository.deleteById(id);
+    public void delete(TemplateDto object) {
+        TemplateEntity delete = new TemplateEntity(object);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setTemplateCode(delete.getTemplateCode() + " + " + UUID.randomUUID());
+        delete.setName(delete.getName()+ " + " + UUID.randomUUID());
+
+        this.commandRepository.save(delete);
     }
 
     @Override

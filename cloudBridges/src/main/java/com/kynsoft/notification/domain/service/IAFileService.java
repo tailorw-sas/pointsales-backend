@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface IAFileService {
     UUID create(AFileDto object);
     void update(AFileDto object);
-    void delete(UUID id);
+    void delete(AFileDto object);
     AFileDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }
