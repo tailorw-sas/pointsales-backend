@@ -1,9 +1,9 @@
 package com.kynsof.identity.domain.interfaces.service;
 
-import com.kynsof.identity.domain.dto.me.UserMeDto;
+import com.kynsof.identity.application.query.users.userMe.UserMeResponse;
 
 import java.util.UUID;
 
 public interface IUserMeService {
-    UserMeDto getUserInfo(UUID userId);
+    UserMeResponse getUserInfo(UUID userId);
 }
