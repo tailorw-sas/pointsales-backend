@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface IMailjetConfigurationService {
     UUID create(MailjetConfigurationDto object);
     void update(MailjetConfiguration object);
-    void delete(UUID id);
+    void delete(MailjetConfigurationDto object);
     MailjetConfigurationDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 }

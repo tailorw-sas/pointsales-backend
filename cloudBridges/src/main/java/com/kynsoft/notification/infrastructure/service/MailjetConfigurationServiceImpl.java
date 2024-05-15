@@ -40,8 +40,12 @@ public class MailjetConfigurationServiceImpl implements IMailjetConfigurationSer
     }
 
     @Override
-    public void delete(UUID id) {
-        this.commandRepository.deleteById(id);
+    public void delete(MailjetConfigurationDto object) {
+
+        MailjetConfiguration delete = new MailjetConfiguration(object);
+        delete.setDeleted(Boolean.TRUE);
+
+        this.commandRepository.save(delete);
     }
 
     @Override
