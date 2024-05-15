@@ -27,6 +27,10 @@ public class ExternalConsultation {
     @GeneratedValue(generator = "UUID")
     private UUID id;
 
+    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer referenceNumber;
+
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patients patient;
