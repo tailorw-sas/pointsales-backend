@@ -46,6 +46,11 @@ public class UserMeServiceImpl implements IUserMeService {
                             permissions);
                 })
                 .collect(Collectors.toMap(BusinessPermissionResponse::getBusinessId, bpr -> bpr));
+        UserMeResponse userMeResponse = getUserMeResponse(userPermissions, businessResponses);
+        return userMeResponse;
+    }
+
+    private static UserMeResponse getUserMeResponse(List<UserPermissionBusiness> userPermissions, Map<UUID, BusinessPermissionResponse> businessResponses) {
         UserSystem userSystem = userPermissions.get(0).getUser();
         UserMeResponse userMeResponse = new UserMeResponse(
                 userSystem.getId(),
