@@ -33,6 +33,9 @@ public class Vaccine {
     private String preventableDiseases;
     private UUID serviceId;
 
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     public Vaccine(VaccineDto vaccine) {
         this.id = vaccine.getId();
         this.name = vaccine.getName();

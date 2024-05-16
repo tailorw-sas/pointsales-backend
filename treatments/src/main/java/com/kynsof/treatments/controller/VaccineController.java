@@ -6,6 +6,8 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.vaccine.create.CreateVaccineCommand;
 import com.kynsof.treatments.application.command.vaccine.create.CreateVaccineMessage;
 import com.kynsof.treatments.application.command.vaccine.create.CreateVaccineRequest;
+import com.kynsof.treatments.application.command.vaccine.delete.VaccineDeleteCommand;
+import com.kynsof.treatments.application.command.vaccine.delete.VaccineDeleteMessage;
 import com.kynsof.treatments.application.command.vaccine.update.UpdateVaccineCommand;
 import com.kynsof.treatments.application.command.vaccine.update.UpdateVaccineMessage;
 import com.kynsof.treatments.application.command.vaccine.update.UpdateVaccineRequest;
@@ -78,6 +80,14 @@ public class VaccineController {
         GetSearchVaccineQuery query = new GetSearchVaccineQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+
+        VaccineDeleteCommand query = new VaccineDeleteCommand(id);
+        VaccineDeleteMessage response = mediator.send(query);
+        return ResponseEntity.ok(response);
     }
 
 //    @PatchMapping(path = "/{id}")

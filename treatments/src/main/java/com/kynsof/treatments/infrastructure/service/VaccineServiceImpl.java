@@ -49,6 +49,15 @@ public class VaccineServiceImpl implements IVaccineService {
         throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.VACCINE_NOT_FOUND, new ErrorField("id", "Vaccine not found.")));
     }
 
+    @Override
+    public void delete(VaccineDto object) {
+        Vaccine delete = new Vaccine(object);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setName(delete.getName() + " + " + UUID.randomUUID());
+
+        this.repositoryCommand.save(delete);
+    }
+
 //    @Override
 //    public List<VaccineDto> getApplicableVaccines(LocalDate birthDate, UUID patientId) {
 //        long monthsOld = ChronoUnit.MONTHS.between(birthDate, LocalDate.now());
