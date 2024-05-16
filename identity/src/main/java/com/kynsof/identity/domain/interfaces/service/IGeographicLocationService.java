@@ -12,6 +12,7 @@ import java.util.UUID;
 public interface IGeographicLocationService {
     void create(GeographicLocationDto object);
     GeographicLocationDto findById(UUID id);
+    void delete(GeographicLocationDto delete);
 
     PaginatedResponse findAll(Pageable pageable);
     LocationHierarchyDto findCantonAndProvinceIdsByParroquiaId(UUID parroquiaId);

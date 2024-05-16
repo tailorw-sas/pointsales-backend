@@ -3,6 +3,8 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.geographiclocations.create.CreateGeographicLocationCommand;
 import com.kynsof.identity.application.command.geographiclocations.create.CreateGeographicLocationMessage;
 import com.kynsof.identity.application.command.geographiclocations.create.CreateGeographicLocationRequest;
+import com.kynsof.identity.application.command.geographiclocations.delete.DeleteGeographicLocationsCommand;
+import com.kynsof.identity.application.command.geographiclocations.delete.DeleteGeographicLocationsMessage;
 import com.kynsof.identity.application.query.business.geographiclocation.findcantonandprovinceIdsbyparroquiaid.LocationHierarchyQuery;
 import com.kynsof.identity.application.query.business.geographiclocation.findcantonandprovinceIdsbyparroquiaid.LocationHierarchyResponse;
 import com.kynsof.identity.application.query.business.geographiclocation.getall.GeographicLocationResponse;
@@ -24,13 +26,13 @@ public class GeographicLocationController {
 
     private final IMediator mediator;
 
-    public GeographicLocationController(IMediator mediator){
+    public GeographicLocationController(IMediator mediator) {
 
         this.mediator = mediator;
     }
 
     @PostMapping("")
-    public ResponseEntity<?> create(@RequestBody CreateGeographicLocationRequest request)  {
+    public ResponseEntity<?> create(@RequestBody CreateGeographicLocationRequest request) {
         CreateGeographicLocationCommand createCommand = CreateGeographicLocationCommand.fromRequest(request);
         CreateGeographicLocationMessage response = mediator.send(createCommand);
 
@@ -38,10 +40,9 @@ public class GeographicLocationController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<?> search(@RequestBody SearchRequest request)
-    {
+    public ResponseEntity<?> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
-        GetSearchLocationsQuery query = new GetSearchLocationsQuery(pageable, request.getFilter(),request.getQuery());
+        GetSearchLocationsQuery query = new GetSearchLocationsQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
@@ -63,4 +64,14 @@ public class GeographicLocationController {
 
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") UUID id) {
+
+        DeleteGeographicLocationsCommand command = new DeleteGeographicLocationsCommand(id);
+        DeleteGeographicLocationsMessage response = mediator.send(command);
+
+        return ResponseEntity.ok(response);
+    }
+
 }

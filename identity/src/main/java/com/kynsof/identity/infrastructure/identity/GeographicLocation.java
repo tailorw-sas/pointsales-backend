@@ -28,6 +28,10 @@ public class GeographicLocation implements Serializable {
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_pk_geographic_location", nullable = true)
     private GeographicLocation parent;
+    
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     public GeographicLocation() {
     }
 
