@@ -23,8 +23,8 @@ public class MailjetConfigurationResponse implements IResponse {
 
     public MailjetConfigurationResponse(MailjetConfigurationDto mailjetConfigurationDto) {
         this.id = mailjetConfigurationDto.getId();
-        mailjetApiKey = mailjetConfigurationDto.getMailjetApiKey();
-        mailjetApiSecret = mailjetConfigurationDto.getMailjetApiSecret();
+        mailjetApiKey = "*******";
+        mailjetApiSecret = "*******";
         email = mailjetConfigurationDto.getFromEmail();
         name = mailjetConfigurationDto.getFromName();
         createdAt = mailjetConfigurationDto.getCreatedAt().toLocalDate();
