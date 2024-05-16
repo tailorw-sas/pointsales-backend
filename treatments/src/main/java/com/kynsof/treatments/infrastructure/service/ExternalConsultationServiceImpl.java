@@ -7,6 +7,7 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import com.kynsof.share.utils.GeneratorRandomNumber;
 import com.kynsof.treatments.application.query.externalConsultation.getall.ExternalConsultationResponse;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
@@ -36,14 +37,20 @@ public class ExternalConsultationServiceImpl implements IExternalConsultationSer
 
     @Override
     public UUID create(ExternalConsultationDto dto) {
-        ExternalConsultation entity = this.repositoryCommand.save(new ExternalConsultation(dto));
+        ExternalConsultation entity = new ExternalConsultation(dto);
+        entity.setReferenceNumber(GeneratorRandomNumber.generateRandomSecurity());
+
+        this.repositoryCommand.save(entity);
         return entity.getId();
     }
 
     @Override
     @Transactional
     public UUID createAll(ExternalConsultationDto dto) {
-        ExternalConsultation entity = this.repositoryCommand.save(new ExternalConsultation(dto));
+        ExternalConsultation entity = new ExternalConsultation(dto);
+        entity.setReferenceNumber(GeneratorRandomNumber.generateRandomSecurity());
+
+        this.repositoryCommand.save(entity);
         return entity.getId();
     }
 
