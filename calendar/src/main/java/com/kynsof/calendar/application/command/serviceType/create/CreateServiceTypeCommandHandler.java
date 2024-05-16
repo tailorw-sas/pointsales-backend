@@ -6,8 +6,9 @@ import com.kynsof.calendar.domain.service.IServiceTypeService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
-import java.util.UUID;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class CreateServiceTypeCommandHandler implements ICommandHandler<CreateServiceTypeCommand> {

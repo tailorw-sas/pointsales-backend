@@ -61,6 +61,7 @@ public class Services {
         this.normalAppointmentPrice = object.getNormalAppointmentPrice();
         this.expressAppointmentPrice = object.getExpressAppointmentPrice();
         this.description = object.getDescription();
+        this.applyIva = object.getApplyIva();
     }
 
     public ServiceDto toAggregate () {
