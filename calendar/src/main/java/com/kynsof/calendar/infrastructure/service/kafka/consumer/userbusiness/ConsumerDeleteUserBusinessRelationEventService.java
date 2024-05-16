@@ -29,7 +29,7 @@ public class ConsumerDeleteUserBusinessRelationEventService {
 
             DeleteUserBusinessKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), DeleteUserBusinessKafka.class);
             BusinessResourceDto delete = this.businessResourceService.findBusinessResourceByBusinessIdAndResourceId(eventRead.getBusinessId(), eventRead.getUserId());
-            this.businessResourceService.delete(delete.getId());
+            this.businessResourceService.delete(delete);
             System.err.println("##############################################");
             System.err.println("##############################################");
             System.err.println("SE ELIMINO");

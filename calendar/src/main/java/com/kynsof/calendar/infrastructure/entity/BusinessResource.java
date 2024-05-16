@@ -29,6 +29,9 @@ public class BusinessResource {
     @Column(name = "createdAt")
     private LocalDateTime createdAt;
 
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     public BusinessResource(BusinessResourceDto businessResourceDto) {
         this.id = businessResourceDto.getId();
         this.business = new Business(businessResourceDto.getBusiness());
