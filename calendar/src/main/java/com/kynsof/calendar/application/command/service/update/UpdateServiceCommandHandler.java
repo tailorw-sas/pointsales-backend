@@ -16,12 +16,10 @@ public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServic
 
     private final IServiceService service;
     private final IServiceTypeService serviceTypeService;
-    private final ProducerSaveFileEventService saveFileEventService;
 
     public UpdateServiceCommandHandler(IServiceService service, IServiceTypeService serviceTypeService, ProducerSaveFileEventService saveFileEventService) {
         this.service = service;
         this.serviceTypeService = serviceTypeService;
-        this.saveFileEventService = saveFileEventService;
     }
 
     @Override

@@ -1,10 +1,11 @@
 package com.kynsof.calendar.application.command.schedule.createGoogleStyle;
 
-import java.util.List;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
+import java.util.UUID;
 
 @Setter
 @Getter
