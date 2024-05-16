@@ -45,8 +45,13 @@ public class ProcedureServiceImpl implements IProcedureService {
     }
 
     @Override
-    public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void delete(ProcedureDto object) {
+        Procedure delete = new Procedure(object);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setName(delete.getName() + " + " + UUID.randomUUID());
+        delete.setCode(delete.getCode() + " + " + UUID.randomUUID());
+
+        this.repositoryCommand.save(delete);
     }
 
     @Override

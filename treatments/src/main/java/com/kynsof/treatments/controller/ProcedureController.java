@@ -6,6 +6,8 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.procedure.create.CreateProcedureCommand;
 import com.kynsof.treatments.application.command.procedure.create.CreateProcedureMessage;
 import com.kynsof.treatments.application.command.procedure.create.CreateProcedureRequest;
+import com.kynsof.treatments.application.command.procedure.delete.ProcedureDeleteCommand;
+import com.kynsof.treatments.application.command.procedure.delete.ProcedureDeleteMessage;
 import com.kynsof.treatments.application.command.procedure.update.UpdateProcedureCommand;
 import com.kynsof.treatments.application.command.procedure.update.UpdateProcedureMessage;
 import com.kynsof.treatments.application.command.procedure.update.UpdateProcedureRequest;
@@ -86,6 +88,14 @@ public class ProcedureController {
         GetSearchProcedureQuery query = new GetSearchProcedureQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+
+        ProcedureDeleteCommand query = new ProcedureDeleteCommand(id);
+        ProcedureDeleteMessage response = mediator.send(query);
+        return ResponseEntity.ok(response);
     }
 
 }

@@ -12,7 +12,7 @@ public class VaccineDeleteMessage implements ICommandMessage {
 
     private final UUID id;
 
-    private final String command = "DELETE_PATIENT";
+    private final String command = "DELETE_VACCINE";
 
     public VaccineDeleteMessage(UUID id) {
         this.id = id;

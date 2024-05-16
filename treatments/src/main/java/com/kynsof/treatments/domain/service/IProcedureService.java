@@ -14,7 +14,7 @@ public interface IProcedureService {
 
     void update(ProcedureDto patients);
 
-    void delete(UUID id);
+    void delete(ProcedureDto id);
 
     ProcedureDto findById(UUID code);
 

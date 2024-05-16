@@ -2,6 +2,7 @@ package com.kynsof.treatments.infrastructure.entity;
 
 import com.kynsof.treatments.domain.dto.ProcedureDto;
 import com.kynsof.treatments.domain.dto.enumDto.MedicalExamCategory;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -26,6 +27,9 @@ public class Procedure {
     @Enumerated(EnumType.STRING)
     private MedicalExamCategory type;
     private Double price;
+
+    @Column(nullable = true)
+    private Boolean deleted = false;
 
     public Procedure(ProcedureDto procedureDto) {
         this.id = procedureDto.getId();
