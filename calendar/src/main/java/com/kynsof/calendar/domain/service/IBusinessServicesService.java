@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface IBusinessServicesService {
     void create(BusinessServicesDto object);
     void update(BusinessServicesDto object);
-    void delete(UUID id);
+    void delete(BusinessServicesDto object);
     BusinessServicesDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     PaginatedResponse findServicesByBusinessId(Pageable pageable, UUID businessId);

@@ -47,16 +47,21 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
     }
 
     @Override
-    public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void delete(BusinessServicesDto object) {
+        BusinessServices delete = new BusinessServices(object);
+        delete.setDeleted(Boolean.TRUE);
+
+        this.repositoryCommand.save(delete);
     }
+
     @Override
     public void deleteIds(List<UUID> ids) {
         this.repositoryCommand.deleteAllByIdInBatch(ids);
     }
+
     @Override
     public BusinessServicesDto findById(UUID id) {
-        
+
         Optional<BusinessServices> object = this.repositoryQuery.findById(id);
         if (object.isPresent()) {
             return object.get().toAggregate();
@@ -95,12 +100,12 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
     public PaginatedResponse findServicesByBusinessId(Pageable pageable, UUID businessId) {
         Page<BusinessServices> data = this.repositoryQuery.findServicesByBusinessId(businessId, pageable);
         List<BusinessServicePriceResponse> responses = new ArrayList<>();
-       for (BusinessServices s : data.getContent()) {
-           BusinessServicePriceResponse businessServicePriceResponse = new BusinessServicePriceResponse();
-           businessServicePriceResponse.setPrice(s.getPrice());
-           businessServicePriceResponse.setService(new ServicesResponse(s.getServices().toAggregate()));
-           responses.add(businessServicePriceResponse);
-       }
+        for (BusinessServices s : data.getContent()) {
+            BusinessServicePriceResponse businessServicePriceResponse = new BusinessServicePriceResponse();
+            businessServicePriceResponse.setPrice(s.getPrice());
+            businessServicePriceResponse.setService(new ServicesResponse(s.getServices().toAggregate()));
+            responses.add(businessServicePriceResponse);
+        }
         return new PaginatedResponse(responses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
@@ -118,7 +123,7 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
     }
 
     @Override
-    public List<UUID> findBusinessServiceIdByBusinessId( UUID businessId) {
+    public List<UUID> findBusinessServiceIdByBusinessId(UUID businessId) {
         return this.repositoryQuery.findBusinessServicesIdByBusinessId(businessId);
     }
 

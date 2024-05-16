@@ -1,8 +1,6 @@
 package com.kynsof.calendar.application.command.businessresource.delete;
 
-import com.kynsof.calendar.domain.dto.BusinessDto;
 import com.kynsof.calendar.domain.dto.BusinessResourceDto;
-import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.service.IBusinessResourceService;
 import com.kynsof.calendar.domain.service.IBusinessService;
 import com.kynsof.calendar.domain.service.IResourceService;
@@ -29,10 +27,10 @@ public class DeleteBusinessResourceCommandHandler implements ICommandHandler<Del
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getBusiness(), "business", "Business ID cannot be null."));
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getResource(), "resource", "Resource ID cannot be null."));
 
-        BusinessDto businessDto = this.serviceBusiness.findById(command.getBusiness());
-        ResourceDto resourceDto = this.serviceResource.findById(command.getResource());
+//        BusinessDto businessDto = this.serviceBusiness.findById(command.getBusiness());
+//        ResourceDto resourceDto = this.serviceResource.findById(command.getResource());
 
-        BusinessResourceDto delete = this.service.findBusinessResourceByBusinessIdAndResourceId(businessDto.getId(), resourceDto.getId());
-        this.service.delete(delete.getId());
+        BusinessResourceDto delete = this.service.findBusinessResourceByBusinessIdAndResourceId(command.getBusiness(), command.getResource());
+        this.service.delete(delete);
     }
 }

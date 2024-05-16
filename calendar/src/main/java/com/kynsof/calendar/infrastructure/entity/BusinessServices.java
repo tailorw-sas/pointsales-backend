@@ -33,6 +33,9 @@ public class BusinessServices {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     public BusinessServices(BusinessServicesDto businessServices) {
         this.id = businessServices.getId();
         this.business = new Business(businessServices.getBusiness());

@@ -16,7 +16,7 @@ import java.util.UUID;
 public interface BusinessModuleReadDataJPARepository extends JpaRepository<BusinessModule, UUID>, JpaSpecificationExecutor<BusinessModule> {
     Page<BusinessModule> findAll(Specification specification, Pageable pageable);
 
-    @Query("SELECT bm FROM BusinessModule bm WHERE bm.business.id = :businessId")
+    @Query("SELECT bm FROM BusinessModule bm WHERE bm.business.id = :businessId AND deleted = false")
     List<BusinessModule> findByBusinessId(@Param("businessId") UUID businessId);
 
     @Query("SELECT bm.module FROM BusinessModule bm WHERE bm.business.id = :businessId")
@@ -25,10 +25,7 @@ public interface BusinessModuleReadDataJPARepository extends JpaRepository<Busin
     @Query("SELECT m FROM BusinessModule bm JOIN bm.module m WHERE bm.business.id = :businessId")
     List<ModuleSystem> findModuleSystemByBusinessId(UUID businessId);
 
-    @Query("SELECT COUNT(b) FROM BusinessModule b WHERE b.business.id = :businessId AND b.module.id = :moduleId")
+    @Query("SELECT COUNT(b) FROM BusinessModule b WHERE b.business.id = :businessId AND b.module.id = :moduleId AND deleted = false")
     Long countByBussinessIdAndModuleId(@Param("businessId") UUID businessId, @Param("moduleId") UUID moduleId);
-
-    @Query("SELECT COUNT(b) FROM BusinessModule b WHERE b.business.id = :businessId AND b.module.id = :moduleId AND b.id <> :id")
-    Long countByBussinessIdAndModuleIdAndNotId(@Param("businessId") UUID businessId, @Param("moduleId") UUID moduleId, @Param("id") UUID id);
 
 }

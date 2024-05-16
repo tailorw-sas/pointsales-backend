@@ -97,13 +97,22 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
     }
 
     @Override
-    public void delete(UUID id) {
-        this.commandRepository.deleteById(id);
+    public void delete(BusinessModuleDto object) {
+        BusinessModule delete = new BusinessModule(object);
+        delete.setDeleted(Boolean.TRUE);
+
+        this.commandRepository.save(delete);
     }
 
     @Override
-    public void delete(List<UUID> objects) {
-        this.commandRepository.deleteAllById(objects);
+    public void delete(List<BusinessModuleDto> deletes) {
+        List<BusinessModule> deletesObject = new ArrayList<>();
+        for (BusinessModuleDto businessModule : deletes) {
+            BusinessModule d = new BusinessModule(businessModule);
+            d.setDeleted(Boolean.TRUE);
+            deletesObject.add(d);
+        }
+        this.commandRepository.saveAll(deletesObject);
     }
 
     @Override

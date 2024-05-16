@@ -6,6 +6,8 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsoft.report.applications.command.jasperReportTemplate.create.CreateJasperReportTemplateCommand;
 import com.kynsoft.report.applications.command.jasperReportTemplate.create.CreateJasperReportTemplateMessage;
 import com.kynsoft.report.applications.command.jasperReportTemplate.create.CreateJasperReportTemplateRequest;
+import com.kynsoft.report.applications.command.jasperReportTemplate.delete.DeleteJasperReportTemplateCommand;
+import com.kynsoft.report.applications.command.jasperReportTemplate.delete.DeleteJasperReportTemplateMessage;
 import com.kynsoft.report.applications.command.jasperReportTemplate.update.UpdateJasperReportTemplateCommand;
 import com.kynsoft.report.applications.command.jasperReportTemplate.update.UpdateJasperReportTemplateMessage;
 import com.kynsoft.report.applications.command.jasperReportTemplate.update.UpdateJasperReportTemplateRequest;
@@ -59,10 +61,18 @@ public class JasperReportTemplateController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<UpdateJasperReportTemplateMessage> update(@PathVariable("id") UUID id,
-                                                                    @RequestBody UpdateJasperReportTemplateRequest request) {
+            @RequestBody UpdateJasperReportTemplateRequest request) {
 
         UpdateJasperReportTemplateCommand command = UpdateJasperReportTemplateCommand.fromRequest(request, id);
         UpdateJasperReportTemplateMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+
+        DeleteJasperReportTemplateCommand query = new DeleteJasperReportTemplateCommand(id);
+        DeleteJasperReportTemplateMessage response = mediator.send(query);
         return ResponseEntity.ok(response);
     }
 

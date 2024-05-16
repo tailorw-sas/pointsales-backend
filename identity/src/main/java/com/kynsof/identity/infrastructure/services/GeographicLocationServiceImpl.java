@@ -48,6 +48,16 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     }
 
     @Override
+    public void delete(GeographicLocationDto delete) {
+        GeographicLocation geolocation = new GeographicLocation(delete);
+
+        geolocation.setDeleted(true);
+        geolocation.setName(delete.getName() + "-" + UUID.randomUUID());
+
+        this.repositoryCommand.save(geolocation);
+    }
+
+    @Override
     @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public GeographicLocationDto findById(UUID id) {
         Optional<GeographicLocation> location = this.repositoryQuery.findById(id);
@@ -94,7 +104,7 @@ public class GeographicLocationServiceImpl implements IGeographicLocationService
     }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    //@Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
             if ("type".equals(filter.getKey()) && filter.getValue() instanceof String) {

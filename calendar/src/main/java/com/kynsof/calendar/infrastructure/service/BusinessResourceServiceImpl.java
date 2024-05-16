@@ -45,8 +45,11 @@ public class BusinessResourceServiceImpl implements IBusinessResourceService {
     }
 
     @Override
-    public void delete(UUID id) {
-        this.repositoryCommand.deleteById(id);
+    public void delete(BusinessResourceDto object) {
+        BusinessResource delete = new BusinessResource(object);
+        delete.setDeleted(Boolean.TRUE);
+
+        this.repositoryCommand.save(delete);
     }
 
     @Override
