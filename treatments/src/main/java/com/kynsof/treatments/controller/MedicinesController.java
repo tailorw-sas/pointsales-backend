@@ -8,6 +8,8 @@ import com.kynsof.treatments.application.command.medicine.create.CreateMedicineM
 import com.kynsof.treatments.application.command.medicine.create.CreateMedicineRequest;
 import com.kynsof.treatments.application.command.medicine.createall.CreateAllMedicineMessage;
 import com.kynsof.treatments.application.command.medicine.createall.CreateAllMedicinesCommand;
+import com.kynsof.treatments.application.command.medicine.delete.MedicineDeleteCommand;
+import com.kynsof.treatments.application.command.medicine.delete.MedicineDeleteMessage;
 import com.kynsof.treatments.application.command.medicine.update.UpdateMedicineCommand;
 import com.kynsof.treatments.application.command.medicine.update.UpdateMedicineMessage;
 import com.kynsof.treatments.application.command.medicine.update.UpdateMedicineRequest;
@@ -72,6 +74,14 @@ public class MedicinesController {
 
         UpdateMedicineCommand command = UpdateMedicineCommand.fromRequest(request, id);
         UpdateMedicineMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+
+        MedicineDeleteCommand query = new MedicineDeleteCommand(id);
+        MedicineDeleteMessage response = mediator.send(query);
         return ResponseEntity.ok(response);
     }
 

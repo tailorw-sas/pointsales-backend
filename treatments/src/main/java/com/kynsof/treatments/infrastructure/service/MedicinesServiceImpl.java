@@ -44,6 +44,14 @@ public class MedicinesServiceImpl implements IMedicinesService {
     }
 
     @Override
+    public void delete(MedicinesDto object) {
+        Medicines delete = new Medicines(object);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setName(delete.getName() + " + " + UUID.randomUUID());
+
+        this.repositoryCommand.save(delete);
+    }
+    @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         GenericSpecificationsBuilder<Procedure> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<Medicines> data = this.repositoryQuery.findAll(specifications, pageable);

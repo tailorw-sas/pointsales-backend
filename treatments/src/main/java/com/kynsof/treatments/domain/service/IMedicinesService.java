@@ -18,4 +18,5 @@ public interface IMedicinesService {
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
+    void delete(MedicinesDto object);
 }
