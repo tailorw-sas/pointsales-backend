@@ -26,6 +26,8 @@ public class ExternalConsultationDto {
     private ExamOrderDto examOrder;
     private BusinessDto business;
     private String medicalSpeciality;
+    private String referenceNumber;
+
     public ExternalConsultationDto(UUID id, PatientDto patient, DoctorDto doctor, Date consultationTime,
                                    String consultationReason, String medicalHistory, String physicalExam,
                                    String observations, ExamOrderDto examOrder, String medicalSpeciality) {

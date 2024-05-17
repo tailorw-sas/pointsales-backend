@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class ExternalConsultationResponse implements IResponse {
 
     private UUID id;
-
+    private String referenceNumber;
     private PatientDto patient;
     private DoctorDto doctor;
     private Date consultationTime;
@@ -37,6 +37,7 @@ public class ExternalConsultationResponse implements IResponse {
 
     public ExternalConsultationResponse(ExternalConsultationDto dto) {
         this.id = dto.getId();
+        this.referenceNumber = dto.getReferenceNumber();
         this.patient = dto.getPatient();
         this.consultationReason = dto.getConsultationReason();
         this.medicalHistory = dto.getMedicalHistory();

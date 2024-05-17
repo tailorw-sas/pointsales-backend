@@ -87,7 +87,8 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
                 command.getObservations(),
                 examOrderDto,
                 businessDto,
-                command.getMedicalSpeciality()
+                command.getMedicalSpeciality(),
+                ""
         ));
         command.setId(id);
     }

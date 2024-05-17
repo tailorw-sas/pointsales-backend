@@ -108,7 +108,7 @@ public class ExternalConsultation {
         return new ExternalConsultationDto(this.id, this.patient.toAggregate(), this.doctor.toAggregate(),
                 this.consultationTime, this.consultationReason, this.medicalHistory, this.physicalExam, diagnosisDtoList,
                 treatmentList, this.observations, this.examOrder.toAggregateSimple(), business.toAggregate(),
-                medicalSpeciality);
+                medicalSpeciality, this.referenceNumber);
     }
 
     @PrePersist
