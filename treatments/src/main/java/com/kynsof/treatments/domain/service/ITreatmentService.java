@@ -15,7 +15,7 @@ public interface ITreatmentService {
 
     void update(TreatmentDto treatment);
 
-    void delete(UUID id);
+    void delete(TreatmentDto treatment);
 
     TreatmentDto findById(UUID id);
     void deleteByIds(List<UUID> ids);

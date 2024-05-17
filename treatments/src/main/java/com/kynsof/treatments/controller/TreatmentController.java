@@ -6,6 +6,8 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.treatment.create.CreateAllTreatmentCommand;
 import com.kynsof.treatments.application.command.treatment.create.CreateAllTreatmentMessage;
 import com.kynsof.treatments.application.command.treatment.create.PayloadTreatment;
+import com.kynsof.treatments.application.command.treatment.delete.TreatmentDeleteCommand;
+import com.kynsof.treatments.application.command.treatment.delete.TreatmentDeleteMessage;
 import com.kynsof.treatments.application.command.treatment.update.UpdateTreatmentCommand;
 import com.kynsof.treatments.application.command.treatment.update.UpdateTreatmentMessage;
 import com.kynsof.treatments.application.command.treatment.update.UpdateTreatmentRequest;
@@ -70,6 +72,14 @@ public class TreatmentController {
     public ResponseEntity<?> update( @RequestBody UpdateTreatmentRequest request) {
         UpdateTreatmentCommand command = UpdateTreatmentCommand.fromRequest(request);
         UpdateTreatmentMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+
+        TreatmentDeleteCommand query = new TreatmentDeleteCommand(id);
+        TreatmentDeleteMessage response = mediator.send(query);
         return ResponseEntity.ok(response);
     }
 

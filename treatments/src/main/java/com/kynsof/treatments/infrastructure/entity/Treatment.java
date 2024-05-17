@@ -39,6 +39,9 @@ public class Treatment {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     public Treatment(TreatmentDto treatmentDto) {
         this.id = treatmentDto.getId();
         this.description = treatmentDto.getDescription();

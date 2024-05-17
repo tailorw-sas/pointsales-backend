@@ -49,8 +49,11 @@ public class TreatmentServiceImpl implements ITreatmentService {
     }
 
     @Override
-    public void delete(UUID id) {
-       this.repositoryCommand.deleteById(id);
+    public void delete(TreatmentDto treatment) {
+        Treatment delete = new Treatment(treatment);
+        delete.setDeleted(Boolean.TRUE);
+
+        this.repositoryCommand.save(delete);
     }
 
     @Override
@@ -102,6 +105,6 @@ public class TreatmentServiceImpl implements ITreatmentService {
     public PaginatedResponse findByExternalConsultation(ExternalConsultationDto externalConsultation, Pageable pageable) {
         Page<Treatment> diagnosis = this.repositoryQuery.findByExternalConsultation(new ExternalConsultation(externalConsultation), pageable);
         return getPaginatedResponse(diagnosis);
-    
+
     }
 }
