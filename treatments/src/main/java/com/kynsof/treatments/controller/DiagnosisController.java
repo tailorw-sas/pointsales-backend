@@ -6,6 +6,8 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.diagnosis.create.CreateAllDiagnosisCommand;
 import com.kynsof.treatments.application.command.diagnosis.create.CreateAllDiagnosisMessage;
 import com.kynsof.treatments.application.command.diagnosis.create.Payload;
+import com.kynsof.treatments.application.command.diagnosis.delete.DiagnosisDeleteCommand;
+import com.kynsof.treatments.application.command.diagnosis.delete.DiagnosisDeleteMessage;
 import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosisCommand;
 import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosisMessage;
 import com.kynsof.treatments.application.command.diagnosis.update.UpdateDiagnosisRequest;
@@ -30,7 +32,6 @@ public class DiagnosisController {
 
         this.mediator = mediator;
     }
-
 
     @PostMapping("")
     public ResponseEntity<?> create(@RequestBody Payload request) {
@@ -68,12 +69,19 @@ public class DiagnosisController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
-    {
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
-        GetSearchDiagnosisQuery query = new GetSearchDiagnosisQuery(pageable, request.getFilter(),request.getQuery());
+        GetSearchDiagnosisQuery query = new GetSearchDiagnosisQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+
+        DiagnosisDeleteCommand query = new DiagnosisDeleteCommand(id);
+        DiagnosisDeleteMessage response = mediator.send(query);
+        return ResponseEntity.ok(response);
     }
 
 }

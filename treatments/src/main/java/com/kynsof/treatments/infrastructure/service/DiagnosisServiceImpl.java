@@ -33,7 +33,7 @@ public class DiagnosisServiceImpl implements IDiagnosisService {
     private final DiagnosisWriteDataJPARepository repositoryCommand;
 
     public DiagnosisServiceImpl(DiagnosisReadDataJPARepository repositoryQuery,
-                                DiagnosisWriteDataJPARepository repositoryCommand) {
+            DiagnosisWriteDataJPARepository repositoryCommand) {
         this.repositoryQuery = repositoryQuery;
         this.repositoryCommand = repositoryCommand;
     }
@@ -50,8 +50,13 @@ public class DiagnosisServiceImpl implements IDiagnosisService {
     }
 
     @Override
-    public void delete(UUID id) {
-       repositoryCommand.deleteById(id);
+    public void delete(DiagnosisDto treatment) {
+        Diagnosis delete = new Diagnosis(treatment);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setIcdCode(delete.getIcdCode() + " + " + UUID.randomUUID());
+        delete.setExternalConsultation(null);
+
+        repositoryCommand.save(delete);
     }
 
     @Override
