@@ -76,7 +76,12 @@ public class ExternalConsultation {
         this.observations = dto.getObservations();
         this.medicalSpeciality = dto.getMedicalSpeciality();
         this.treatments = dto.getTreatments() != null ? dto.getTreatments().stream().map(t -> {
-            Treatment treatment = new Treatment(t);
+            Treatment treatment = new Treatment();
+            treatment.setDescription(t.getDescription());
+            treatment.setId(t.getId());
+            treatment.setMedicineUnit(t.getMedicineUnit());
+            treatment.setMedicines(new Medicines(t.getMedication()));
+            treatment.setQuantity(t.getQuantity());
             treatment.setExternalConsultation(this);
             return treatment;
         }).toList() : new ArrayList<>();
