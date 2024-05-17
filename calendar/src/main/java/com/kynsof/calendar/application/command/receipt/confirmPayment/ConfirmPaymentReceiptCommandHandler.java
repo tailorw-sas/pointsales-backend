@@ -18,6 +18,7 @@ import com.kynsof.share.core.domain.kafka.entity.GenerateReportKafka;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,27 +60,25 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
 
         if (transactionsState.getValue().getStatus().getStatus().equals(EStatusReceipt.APPROVED.toString())) {
             _receipt.setStatus(command.getStatus());
-            _schedule.setStatus(EStatusSchedule.ATTENDED);
+            _schedule.setStatus(EStatusSchedule.RESERVED);
             this.serviceSchedule.update(_schedule);
-            //TODO
-            //Enviar correo
             Map<String, Object> parameters = new HashMap<>();
-            parameters.put("logo", "http://d3ksvzqyx4up5m.cloudfront.net/Ttt_2024-03-14_19-03-33.png");
-            parameters.put("cita", "111111");
-            parameters.put("nombres", "Keimer Montes Oliver");
-            parameters.put("identidad", "0961881992");
-            parameters.put("fecha", "2024-04-23");
-            parameters.put("hora", "10:40");
-            parameters.put("servicio", "GINECOLOGIA");
-            parameters.put("tipo", "CONSULTA EXTERNA");
-            parameters.put("direccion", "Calle 48");
-            parameters.put("lugar", "HOSPITAL MILITAR");
-            parameters.put("fecha_registro", "2024-04-23 10:40");
+            parameters.put("logo", _schedule.getBusiness().getLogo());
+            parameters.put("cita", _receipt.getId().toString());
+            parameters.put("nombres", _patient.getName() + " " + _patient.getLastName());
+            parameters.put("identidad", _patient.getIdentification());
+            parameters.put("fecha", _schedule.getDate());
+            parameters.put("hora", _schedule.getStartTime());
+            parameters.put("servicio", _service.getName());
+            parameters.put("tipo", _service.getType().getName());
+            parameters.put("direccion", _schedule.getBusiness().getAddress());
+            parameters.put("lugar", _schedule.getBusiness().getName());
+            parameters.put("fecha_registro", LocalDateTime.now());
             parameters.put("URL_QR", "http://d3ksvzqyx4up5m.cloudfront.net/Ttt_2024-03-14_19-03-33.png");
 
             GenerateReportKafka report = new GenerateReportKafka();
             report.setParameters(parameters);
-            report.setEmail("penaescalonayannier@gmail.com");
+            report.setEmail(_patient.getEmail());
             report.setJasperReportCode("7777");
 
             this.producerGenerateReportEventService.create(report);
