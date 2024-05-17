@@ -3,39 +3,49 @@ package com.kynsoft.notification.infrastructure.service.kafka.consumer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.share.core.domain.kafka.event.EventType;
-import com.kynsoft.notification.application.SendEmailRequest;
-import com.kynsoft.notification.domain.service.IEmailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
+import com.kynsof.share.core.domain.request.SendEmailRequest;
+import com.kynsoft.notification.application.command.sendMailjetEmail.SendMailJetEMailCommand;
+import com.kynsoft.notification.domain.dto.MailJetAttachment;
+import com.kynsoft.notification.domain.dto.MailJetRecipient;
+import com.kynsoft.notification.domain.dto.MailJetVar;
+import com.kynsoft.notification.domain.dto.MailjetTemplateEnum;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
 public class ConsumerEmailEventService {
-    @Autowired
-    private IEmailService service;
+    private final IMediator mediator;
 
-    // Ejemplo de un método listener
-    @KafkaListener(topics = "email", groupId = "email")
+    public ConsumerEmailEventService(IMediator service) {
+        this.mediator = service;
+    }
+
+    @KafkaListener(topics = "email_confirmation_cite", groupId = "cloud_bridges")
     public void listen(String event) {
         try {
-            System.err.println("#######################################################");
-            System.err.println("#######################################################");
-            System.err.println("SE EJECUTA UN ENVIO DE CORREO");
-            System.err.println("#######################################################");
-            System.err.println("#######################################################");
-
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
-            SendEmailRequest eventRead = objectMapper.treeToValue(rootNode.get("data"), SendEmailRequest.class);
-            EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
+            SendEmailRequest sendEmailRequest = objectMapper.treeToValue(rootNode.get("data"), SendEmailRequest.class);
+            List<MailJetRecipient> mailJetRecipients = new ArrayList<>();
+            mailJetRecipients.add(new MailJetRecipient(sendEmailRequest.getToEmail(), sendEmailRequest.getName()));
 
-            System.out.println("Received event: " + event);
-         //   this.service.sendMail(eventRead.getToEmail(), eventRead.getSubject(), eventRead.getMessage());
+            List<MailJetVar> mailJetVars = List.of(
+                    new MailJetVar("name", sendEmailRequest.getName())
+            );
+            List<MailJetAttachment> mailJetAttachments = new ArrayList<>();
+            mailJetAttachments.add(new MailJetAttachment("application/pdf", "cite.pdf", sendEmailRequest.getFile()));
+            int templateId = MailjetTemplateEnum.EMAIL_CONFIRMATION_CITE.getTemplateId();
+
+            SendMailJetEMailCommand command = new SendMailJetEMailCommand(mailJetRecipients, mailJetVars, mailJetAttachments,
+                    sendEmailRequest.getSubject(), templateId);
+            mediator.send(command);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerEmailEventService.class.getName()).log(Level.SEVERE, null, ex);
         }

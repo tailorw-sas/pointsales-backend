@@ -10,6 +10,7 @@ import com.kynsoft.notification.domain.dto.MailJetRecipient;
 import com.kynsoft.notification.domain.dto.MailJetVar;
 import com.kynsoft.notification.domain.dto.MailjetTemplateEnum;
 import com.kynsoft.notification.domain.service.IEmailService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -38,21 +39,23 @@ public class ConsumerTriggerPasswordResetEventService {
             List<MailJetRecipient> mailJetRecipients = new ArrayList<>();
             mailJetRecipients.add(new MailJetRecipient(otpKafka.getEmail(),otpKafka.getName()));
 
-            List<MailJetVar> vars = Arrays.asList(
-                    new MailJetVar("username", otpKafka.getName()),
-                    new MailJetVar("otp_token", otpKafka.getOtpCode())
-            );
-
-            int  templateId = MailjetTemplateEnum.OTP.getTemplateId();
-      //      EmailRequest emailRequest = new EmailRequest(mailJetRecipients, vars, new ArrayList<>(),"Código Otp", templateId);
-
-            SendMailJetEMailCommand command = new SendMailJetEMailCommand(mailJetRecipients, vars, new ArrayList<>(),
-                    "Código de verificación",templateId);
+            SendMailJetEMailCommand command = getSendMailJetEMailCommand(otpKafka, mailJetRecipients);
             mediator.send(command);
-           // this.service.sendEmailMailjet(emailRequest);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerTriggerPasswordResetEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private static @NotNull SendMailJetEMailCommand getSendMailJetEMailCommand(UserOtpKafka otpKafka, List<MailJetRecipient> mailJetRecipients) {
+        List<MailJetVar> vars = Arrays.asList(
+                new MailJetVar("username", otpKafka.getName()),
+                new MailJetVar("otp_token", otpKafka.getOtpCode())
+        );
+
+        int  templateId = MailjetTemplateEnum.OTP.getTemplateId();
+
+        return new SendMailJetEMailCommand(mailJetRecipients, vars, new ArrayList<>(),
+                "Código de verificación",templateId);
     }
 
 }
