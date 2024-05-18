@@ -44,8 +44,14 @@ public class ExamServiceImpl implements IExamService {
     }
 
     @Override
-    public void delete(UUID id) {
-        this.repositoryCommand.deleteById(id);
+    public void delete(ExamDto examDto) {
+        Exam delete = new Exam(examDto);
+
+        delete.setCode(delete.getCode() + " + " + UUID.randomUUID());
+        delete.setDeleted(Boolean.TRUE);
+        delete.setExamOrder(null);
+
+        this.repositoryCommand.save(delete);
     }
 
     @Override

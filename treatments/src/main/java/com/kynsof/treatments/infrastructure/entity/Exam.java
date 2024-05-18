@@ -15,6 +15,7 @@ import java.util.UUID;
 @Setter
 @Entity
 public class Exam {
+
     @Id
     @GeneratedValue(generator = "UUID")
     private UUID id;
@@ -33,6 +34,10 @@ public class Exam {
     private ExamOrder examOrder;
 
     private String code;
+
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     @PrePersist
     protected void onCreate() {
         datePerformed = new Date();

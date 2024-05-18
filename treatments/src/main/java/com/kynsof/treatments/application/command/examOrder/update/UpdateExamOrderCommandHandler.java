@@ -37,7 +37,7 @@ public class UpdateExamOrderCommandHandler implements ICommandHandler<UpdateExam
         ExamOrderDto update = this.examOrderService.findById(command.getId());
         if (!update.getExams().isEmpty()) {
             for (ExamDto exam : update.getExams()) {
-                this.examService.delete(exam.getId());
+                this.examService.delete(exam);
             }
         }
         update.setExams(new ArrayList<>());
