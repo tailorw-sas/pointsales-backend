@@ -10,7 +10,7 @@ public class ExamDeleteMessage implements ICommandMessage {
 
     private final UUID id;
 
-    private final String command = "DELETE_DIAGNOSIS";
+    private final String command = "DELETE_EXAM";
 
     public ExamDeleteMessage(UUID id) {
         this.id = id;

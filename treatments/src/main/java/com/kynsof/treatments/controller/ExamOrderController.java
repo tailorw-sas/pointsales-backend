@@ -6,6 +6,8 @@ import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.treatments.application.command.examOrder.create.CreateExamOrderCommand;
 import com.kynsof.treatments.application.command.examOrder.create.CreateExamOrderMessage;
 import com.kynsof.treatments.application.command.examOrder.create.CreateExamOrderRequest;
+import com.kynsof.treatments.application.command.examOrder.delete.ExamOrderDeleteCommand;
+import com.kynsof.treatments.application.command.examOrder.delete.ExamOrderDeleteMessage;
 import com.kynsof.treatments.application.command.examOrder.update.UpdateExamOrderCommand;
 import com.kynsof.treatments.application.command.examOrder.update.UpdateExamOrderMessage;
 import com.kynsof.treatments.application.command.examOrder.update.UpdateExamOrderRequest;
@@ -82,4 +84,13 @@ public class ExamOrderController {
         UpdateExamOrderMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+
+        ExamOrderDeleteCommand query = new ExamOrderDeleteCommand(id);
+        ExamOrderDeleteMessage response = mediator.send(query);
+        return ResponseEntity.ok(response);
+    }
+
 }

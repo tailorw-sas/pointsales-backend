@@ -69,8 +69,12 @@ public class ExamOrderServiceImpl implements IExamOrderService {
     }
 
     @Override
-    public void delete(UUID id) {
-        this.repositoryCommand.deleteById(id);
+    public void delete(ExamOrderDto dto) {
+        ExamOrder delete = new ExamOrder(dto);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setExternalConsultation(null);
+
+        this.repositoryCommand.save(delete);
     }
 
     @Override

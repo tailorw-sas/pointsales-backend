@@ -52,7 +52,7 @@ public class ExternalConsultationResponse implements IResponse {
         this.treatments = dto.getTreatments().stream()
                 .map(TreatmentExternalConsultationResponse::new)
                 .collect(Collectors.toList());
-        this.examOrder = new ExamOrderResponse(dto.getExamOrder());
+        this.examOrder = dto.getExamOrder() != null ? new ExamOrderResponse(dto.getExamOrder()) : null;
         this.business = dto.getBusiness() != null ? new BusinessResponse(dto.getBusiness()) : null;
     }
 

@@ -15,7 +15,7 @@ public interface IExamOrderService {
 
     void update(ExamOrderDto externalConsultation);
 
-    void delete(UUID id);
+    void delete(ExamOrderDto dto);
 
     ExamOrderDto findById(UUID id);
 
