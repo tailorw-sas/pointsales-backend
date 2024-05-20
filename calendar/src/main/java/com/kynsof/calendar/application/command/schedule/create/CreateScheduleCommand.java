@@ -2,6 +2,7 @@ package com.kynsof.calendar.application.command.schedule.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,12 +25,14 @@ public class CreateScheduleCommand implements ICommand {
     private final UUID user;
     private final String ipAddress;
     private final String userAgent;
+    private final IMediator mediator;
 
     public CreateScheduleCommand(UUID idResource, UUID idBusiness, LocalDate date, LocalTime startTime, LocalTime endingTime,
-                                 int stock, UUID idService, UUID user, String ipAddress, String userAgent) {
+                                 int stock, UUID idService, UUID user, String ipAddress, String userAgent, IMediator mediator) {
         this.user = user;
         this.ipAddress = ipAddress;
         this.userAgent = userAgent;
+        this.mediator = mediator;
         this.id = UUID.randomUUID();
         this.resource = idResource;
         this.businessId = idBusiness;
@@ -40,10 +43,10 @@ public class CreateScheduleCommand implements ICommand {
         this.serviceId = idService;
     }
 
-    public static CreateScheduleCommand fromRequest(CreateScheduleRequest request, String userAgent, String ipAddress) {
+    public static CreateScheduleCommand fromRequest(CreateScheduleRequest request, String userAgent, String ipAddress, IMediator mediator) {
         return new CreateScheduleCommand(request.getResource(), request.getBusiness(), request.getDate(),
                 request.getStartTime(), request.getEndingTime(), request.getStock(),
-                request.getService(), request.getUser(), ipAddress, userAgent);
+                request.getService(), request.getUser(), ipAddress, userAgent,mediator );
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.kynsof.calendar.application.command.schedule.create;
 
-import com.kynsof.calendar.application.command.receipt.createReceiptScheduled.CreateScheduleReceiptCommand;
+import com.kynsof.calendar.application.command.receipt.create.CreateReceiptCommand;
 import com.kynsof.calendar.domain.dto.BusinessDto;
 import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
@@ -23,41 +23,41 @@ public class CreateScheduleCommandHandler implements ICommandHandler<CreateSched
     private final IResourceService serviceResource;
     private final IBusinessService serviceBusiness;
     private final IServiceService serviceService;
-    private final IMediator mediator;
+    private IMediator mediator;
 
     public CreateScheduleCommandHandler(IScheduleService service, IResourceService serviceResource,
                                         IBusinessService serviceBusiness,
-                                        IServiceService serviceService, IMediator mediator) {
+                                        IServiceService serviceService) {
         this.service = service;
         this.serviceResource = serviceResource;
         this.serviceBusiness = serviceBusiness;
         this.serviceService = serviceService;
-        this.mediator = mediator;
     }
 
     @Override
     public void handle(CreateScheduleCommand command) {
+        this.mediator = command.getMediator();
         ResourceDto _resource = this.serviceResource.findById(command.getResource());
         BusinessDto _business = this.serviceBusiness.findById(command.getBusinessId());
         ServiceDto _service = this.serviceService.findByIds(command.getServiceId());
         UUID id = UUID.randomUUID();
         UUID result = service.create(new ScheduleDto(id, _resource, _business, command.getDate(), command.getStartTime(), command.getEndingTime(),
-                command.getStock(), command.getStock(), EStatusSchedule.ACTIVE,_service));
+                command.getStock(), command.getStock(), EStatusSchedule.ACTIVE, _service));
         command.setId(result);
 
-        CreateScheduleReceiptCommand createScheduleReceiptCommand = new CreateScheduleReceiptCommand(
-                command.getResource(), command.getBusinessId(),
-                command.getDate(),
-                command.getStartTime(),
-                command.getEndingTime(),
-                command.getStock(),
-                command.getServiceId(),
-                "",
-                command.getUser(),
-                command.getIpAddress(),
-                command.getUserAgent()
-        );
-    if(command.getUser() != null) {}
-        mediator.send(createScheduleReceiptCommand);
+
+        if (command.getUser() != null) {
+            CreateReceiptCommand createScheduleReceiptCommand = new CreateReceiptCommand(
+                    _service.getNormalAppointmentPrice(),
+                    false,
+                    "",
+                    command.getUser(),
+                    result,
+                    _service.getId(),
+                    command.getIpAddress(),
+                    command.getUserAgent()
+            );
+            mediator.send(createScheduleReceiptCommand);
+        }
     }
 }

@@ -55,7 +55,7 @@ public class ScheduledController {
                                                         @RequestHeader(value = "User-Agent", required = false,
                                                                 defaultValue = "Unknown") String userAgent) {
         String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
-        CreateScheduleCommand createCommand = CreateScheduleCommand.fromRequest(createScheduleRequest, userAgent, ipAddress);
+        CreateScheduleCommand createCommand = CreateScheduleCommand.fromRequest(createScheduleRequest, userAgent, ipAddress, this.mediator);
         CreateScheduleMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
