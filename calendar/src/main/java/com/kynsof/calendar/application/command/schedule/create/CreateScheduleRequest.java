@@ -17,5 +17,5 @@ public class CreateScheduleRequest {
     private LocalTime startTime;
     private LocalTime endingTime;
     private int stock;
-
+    private UUID user;
 }

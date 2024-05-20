@@ -21,9 +21,15 @@ public class CreateScheduleCommand implements ICommand {
     private LocalTime startTime;
     private LocalTime endingTime;
     private int stock;
+    private final UUID user;
+    private final String ipAddress;
+    private final String userAgent;
 
     public CreateScheduleCommand(UUID idResource, UUID idBusiness, LocalDate date, LocalTime startTime, LocalTime endingTime,
-                                 int stock, UUID idService) {
+                                 int stock, UUID idService, UUID user, String ipAddress, String userAgent) {
+        this.user = user;
+        this.ipAddress = ipAddress;
+        this.userAgent = userAgent;
         this.id = UUID.randomUUID();
         this.resource = idResource;
         this.businessId = idBusiness;
@@ -34,10 +40,10 @@ public class CreateScheduleCommand implements ICommand {
         this.serviceId = idService;
     }
 
-    public static CreateScheduleCommand fromRequest(CreateScheduleRequest request) {
+    public static CreateScheduleCommand fromRequest(CreateScheduleRequest request, String userAgent, String ipAddress) {
         return new CreateScheduleCommand(request.getResource(), request.getBusiness(), request.getDate(),
                 request.getStartTime(), request.getEndingTime(), request.getStock(),
-                request.getService());
+                request.getService(), request.getUser(), ipAddress, userAgent);
     }
 
     @Override

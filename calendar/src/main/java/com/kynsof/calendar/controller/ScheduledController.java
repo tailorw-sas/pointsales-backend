@@ -6,9 +6,6 @@ import com.kynsof.calendar.application.command.schedule.create.CreateScheduleReq
 import com.kynsof.calendar.application.command.schedule.createGoogleStyle.CreateScheduleByLoteGoogleStyleCommand;
 import com.kynsof.calendar.application.command.schedule.createGoogleStyle.CreateScheduleByLoteGoogleStyleMessage;
 import com.kynsof.calendar.application.command.schedule.createGoogleStyle.CreateScheduleByLoteGoogleStyleRequest;
-import com.kynsof.calendar.application.command.schedule.createall.CreateAllScheduleMessage;
-import com.kynsof.calendar.application.command.schedule.createall.CreateAllScheduleRequest;
-import com.kynsof.calendar.application.command.schedule.createall.CreateScheduleAllCommand;
 import com.kynsof.calendar.application.command.schedule.createlote.CreateScheduleByLoteCommand;
 import com.kynsof.calendar.application.command.schedule.createlote.CreateScheduleByLoteMessage;
 import com.kynsof.calendar.application.command.schedule.createlote.CreateScheduleByLoteRequest;
@@ -35,9 +32,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -51,24 +50,13 @@ public class ScheduledController {
     }
 
     @PostMapping("")
-    public ResponseEntity<CreateScheduleMessage> create(@RequestBody CreateScheduleRequest request) {
-        CreateScheduleCommand createCommand = CreateScheduleCommand.fromRequest(request);
+    public ResponseEntity<CreateScheduleMessage> create(@RequestBody CreateScheduleRequest createScheduleRequest,
+                                                        ServerHttpRequest request,
+                                                        @RequestHeader(value = "User-Agent", required = false,
+                                                                defaultValue = "Unknown") String userAgent) {
+        String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
+        CreateScheduleCommand createCommand = CreateScheduleCommand.fromRequest(createScheduleRequest, userAgent, ipAddress);
         CreateScheduleMessage response = mediator.send(createCommand);
-
-        return ResponseEntity.ok(response);
-    }
-
-    @PostMapping("/create-all")
-    public ResponseEntity<CreateAllScheduleMessage> create(@RequestBody CreateAllScheduleRequest request) throws Exception {
-
-        CreateAllScheduleMessage response = mediator.send(new CreateScheduleAllCommand(
-                request.getResourceId(),
-                request.getBusinessId(),
-                request.getServiceId(),
-                request.getDate(),
-                request.getSchedules(),
-                mediator
-        ));
 
         return ResponseEntity.ok(response);
     }
