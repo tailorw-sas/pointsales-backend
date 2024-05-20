@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class BusinessServiceImpl implements IBusinessService {
+    public class BusinessServiceImpl implements IBusinessService {
 
     @Autowired
     private BusinessWriteDataJPARepository repositoryCommand;
@@ -96,6 +96,15 @@ public class BusinessServiceImpl implements IBusinessService {
         }
         return new PaginatedResponse(businessResponses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public List<BusinessDto> findAll() {
+        List<BusinessDto> _business = new ArrayList<>();
+        for (Business business : this.repositoryQuery.findAll()) {
+            _business.add(business.toAggregate());
+        }
+        return _business;
     }
 
 }

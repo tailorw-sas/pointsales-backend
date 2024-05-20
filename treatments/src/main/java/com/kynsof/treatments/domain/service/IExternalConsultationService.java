@@ -3,6 +3,7 @@ package com.kynsof.treatments.domain.service;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
+import java.util.Date;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface IExternalConsultationService {
     PaginatedResponse findAll(Pageable pageable, UUID doctorId, UUID patientId);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filter);
+
+    Long countConsultationsByBusinessAndDateRange(UUID businessId, Date startDate, Date endDate);
 }
