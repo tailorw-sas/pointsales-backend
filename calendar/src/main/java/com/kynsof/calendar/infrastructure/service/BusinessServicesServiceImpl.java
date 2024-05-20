@@ -138,4 +138,9 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
         this.repositoryCommand.saveAllAndFlush(businessServicePrice.stream().map(BusinessServices::new).toList());
     }
 
+    @Override
+    public Long countRelationsBetweenServiceAndBusiness(UUID serviceId, UUID businessId) {
+        return this.repositoryQuery.countRelationsBetweenServiceAndBusiness(serviceId, businessId);
+    }
+
 }
