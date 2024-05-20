@@ -1,6 +1,6 @@
 package com.kynsof.share.core.domain.kafka.entity;
 
-import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExternalConsultationByBusinessKafka {
-    private List<ExternalConsultationByBusiness> externalConsultationByBusinesses;
+public class ExternalConsultationByBusiness {
+    private UUID businessID;
+    private Long cantExternalConsultation;
 }
