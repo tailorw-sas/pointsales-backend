@@ -5,7 +5,11 @@ import com.kynsof.identity.domain.interfaces.service.IPaymentDevService;
 import com.kynsof.identity.infrastructure.identity.PaymentDev;
 import com.kynsof.identity.infrastructure.repository.command.PaymentDevWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.PaymentDevReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +43,11 @@ public class PaymentDevServiceImpl implements IPaymentDevService {
 
     @Override
     public PaymentDevDto findById(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Optional<PaymentDev> object = this.repositoryQuery.findById(id);
+        if (object.isPresent()) {
+            return object.get().toAggregate();
+        }
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.MODULE_NOT_FOUND, new ErrorField("id", "PaymentDev not found.")));
     }
 
     @Override
