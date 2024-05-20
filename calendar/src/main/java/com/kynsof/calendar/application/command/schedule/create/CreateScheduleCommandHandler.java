@@ -57,7 +57,7 @@ public class CreateScheduleCommandHandler implements ICommandHandler<CreateSched
                 command.getIpAddress(),
                 command.getUserAgent()
         );
-
+    if(command.getUser() != null) {}
         mediator.send(createScheduleReceiptCommand);
     }
 }
