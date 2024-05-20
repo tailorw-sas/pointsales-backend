@@ -1,5 +1,6 @@
 package com.kynsof.treatments.infrastructure.entity;
 
+import com.kynsof.share.utils.GeneratorRandomNumber;
 import com.kynsof.treatments.domain.dto.DiagnosisDto;
 import com.kynsof.treatments.domain.dto.ExamOrderDto;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
@@ -66,6 +67,9 @@ public class ExternalConsultation {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     public ExternalConsultation(ExternalConsultationDto dto) {
         this.id = dto.getId();
         this.patient = new Patients(dto.getPatient());
@@ -95,10 +99,13 @@ public class ExternalConsultation {
             return diagnosis;
         }).toList() : new ArrayList<>();
 
-        ExamOrder examOrder = new ExamOrder(dto.getExamOrder());
-        examOrder.setExternalConsultation(this);
+        ExamOrder examOrder = dto.getExamOrder() != null ? new ExamOrder(dto.getExamOrder()) : null;
+        if (examOrder != null) {
+            examOrder.setExternalConsultation(this);
+        }
         this.examOrder = examOrder;
         this.business = new Business(dto.getBusiness());
+        this.referenceNumber = dto.getReferenceNumber() != null ? dto.getReferenceNumber() : GeneratorRandomNumber.generateRandomSecurity();
     }
 
     public ExternalConsultationDto toAggregate() {

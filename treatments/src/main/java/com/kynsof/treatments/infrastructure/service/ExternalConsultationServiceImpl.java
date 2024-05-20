@@ -99,8 +99,11 @@ public class ExternalConsultationServiceImpl implements IExternalConsultationSer
     }
 
     @Override
-    public void delete(UUID id) {
-        ExternalConsultationDto contactInfoDto = this.findById(id);
+    public void delete(ExternalConsultationDto dto) {
+        ExternalConsultation delete = new ExternalConsultation(dto);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setReferenceNumber(delete.getReferenceNumber());
+        this.repositoryCommand.save(delete);
     }
 
 }

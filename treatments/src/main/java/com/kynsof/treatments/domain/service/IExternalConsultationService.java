@@ -16,7 +16,7 @@ public interface IExternalConsultationService {
 
     UUID update(ExternalConsultationDto externalConsultation);
 
-    void delete(UUID id);
+    void delete(ExternalConsultationDto dto);
 
     ExternalConsultationDto findById(UUID id);
 
