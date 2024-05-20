@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -104,6 +105,11 @@ public class ExternalConsultationServiceImpl implements IExternalConsultationSer
         delete.setDeleted(Boolean.TRUE);
         delete.setReferenceNumber(delete.getReferenceNumber());
         this.repositoryCommand.save(delete);
+    }
+
+    @Override
+    public Long countConsultationsByBusinessAndDateRange(UUID businessId, Date startDate, Date endDate) {
+        return this.repositoryQuery.countConsultationsByBusinessAndDateRange(businessId, startDate, endDate);
     }
 
 }
