@@ -134,7 +134,6 @@ public class ScheduledController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<UpdateScheduleMessage> update(@PathVariable("id") UUID id, @RequestBody ScheduleUpdateRequest request) {
-
         UpdateScheduleCommand command = UpdateScheduleCommand.fromRequest(id,request);
         UpdateScheduleMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
