@@ -8,15 +8,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateScheduleAllCommandHandler implements ICommandHandler<CreateScheduleAllCommand> {
 
-    private IMediator mediator;
+    private final IMediator mediator;
 
-    public CreateScheduleAllCommandHandler() {
+    public CreateScheduleAllCommandHandler(IMediator mediator) {
+        this.mediator = mediator;
     }
 
     @Override
     public void handle(CreateScheduleAllCommand command) {
 
-        this.mediator = command.getMediator();
 
         for (ScheduleAllRequest schedule : command.getSchedules()) {
             this.mediator.send(new CreateScheduleCommand(
@@ -26,7 +26,11 @@ public class CreateScheduleAllCommandHandler implements ICommandHandler<CreateSc
                     schedule.getStartTime(),
                     schedule.getEndingTime(),
                     schedule.getStock(),
-                    command.getServiceId()
+                    command.getServiceId(),
+                    null,
+                    "",
+                    ""
+
             ));
         }
     }

@@ -20,8 +20,6 @@ public class CreateScheduleAllCommand implements ICommand {
     private LocalDate date;
     private List<ScheduleAllRequest> schedules;
 
-    private final IMediator mediator;
-
     public CreateScheduleAllCommand(
             UUID idResource,
             UUID idBusiness,
@@ -34,7 +32,6 @@ public class CreateScheduleAllCommand implements ICommand {
         this.serviceId = serviceId;
         this.date = date;
         this.schedules = List.copyOf(schedules);
-        this.mediator = mediator;
     }
 
     @Override
