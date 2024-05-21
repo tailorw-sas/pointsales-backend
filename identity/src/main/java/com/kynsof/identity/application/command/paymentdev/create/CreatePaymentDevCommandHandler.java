@@ -4,6 +4,8 @@ import com.kynsof.identity.domain.dto.PaymentDevDto;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.identity.domain.interfaces.service.IPaymentDevService;
 import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
+import com.kynsof.identity.domain.rules.paymentdev.ModuleReferenceMustBeUniqueRule;
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,7 @@ public class CreatePaymentDevCommandHandler implements ICommandHandler<CreatePay
     @Override
     public void handle(CreatePaymentDevCommand command) {
 
+        RulesChecker.checkRule(new ModuleReferenceMustBeUniqueRule(this.paymentDevService, command.getReference(), command.getId()));
         UserSystemDto userSystemDto = this.userSystemService.findById(command.getUserId());
         PaymentDevDto paymentDevDto = new PaymentDevDto(
                 command.getId(),
