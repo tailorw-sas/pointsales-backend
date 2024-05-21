@@ -1,6 +1,7 @@
 package com.kynsof.treatments.application.query.externalConsultation.getall;
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
+import com.kynsof.share.utils.ConfigureTimeZone;
 import com.kynsof.treatments.application.query.business.search.BusinessResponse;
 import com.kynsof.treatments.application.query.examOrder.getall.ExamOrderResponse;
 import com.kynsof.treatments.domain.dto.DoctorDto;
@@ -34,6 +35,7 @@ public class ExternalConsultationResponse implements IResponse {
     private String observations;
     private ExamOrderResponse examOrder;
     private BusinessResponse business;
+    private boolean isEdit;
 
     public ExternalConsultationResponse(ExternalConsultationDto dto) {
         this.id = dto.getId();
@@ -54,6 +56,7 @@ public class ExternalConsultationResponse implements IResponse {
                 .collect(Collectors.toList());
         this.examOrder = dto.getExamOrder() != null ? new ExamOrderResponse(dto.getExamOrder()) : null;
         this.business = dto.getBusiness() != null ? new BusinessResponse(dto.getBusiness()) : null;
+        this.isEdit = !ConfigureTimeZone.validateEqualsDate(ConfigureTimeZone.convertDateToLocalDateTime(consultationTime));
     }
 
 }

@@ -17,23 +17,11 @@ public class ExternalConsultationCreateAtNotEqualsRule extends BusinessRule {
                 DomainErrorMessage.PROCEDURE_CODE_MUST_BY_UNIQUE,
                 new ErrorField("date", "The external query cannot be modified. Creation date has already passed.")
         );
-        this.date = convertDateToLocalDateTime(consultationTime);
+        this.date = ConfigureTimeZone.convertDateToLocalDateTime(consultationTime);
     }
 
     @Override
     public boolean isBroken() {
-        LocalDateTime today = ConfigureTimeZone.getTimeZone();
-        LocalDate actual = today.toLocalDate();
-        LocalDate save = this.date.toLocalDate();
-
-        return !save.equals(actual);
-    }
-
-    private LocalDateTime convertDateToLocalDateTime(Date date) {
-        Instant instant = date.toInstant();
-        ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
-        LocalDateTime localDateTime = zonedDateTime.toLocalDateTime();
-
-        return localDateTime;
+        return ConfigureTimeZone.validateEqualsDate(date);
     }
 }
