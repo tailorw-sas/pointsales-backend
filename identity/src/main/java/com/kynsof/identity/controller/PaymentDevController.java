@@ -3,6 +3,8 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.paymentdev.create.CreatePaymentDevCommand;
 import com.kynsof.identity.application.command.paymentdev.create.CreatePaymentDevMessage;
 import com.kynsof.identity.application.command.paymentdev.create.CreatePaymentDevRequest;
+import com.kynsof.identity.application.command.paymentdev.delete.DeletePaymentDevCommand;
+import com.kynsof.identity.application.command.paymentdev.delete.DeletePaymentDevMessage;
 import com.kynsof.identity.application.query.paymentdev.getbyid.FindPaymentDevByIdQuery;
 import com.kynsof.identity.application.query.paymentdev.getbyid.PaymentDevResponse;
 import com.kynsof.identity.application.query.paymentdev.search.GetSearchPaymentDevQuery;
@@ -49,6 +51,15 @@ public class PaymentDevController {
         GetSearchPaymentDevQuery query = new GetSearchPaymentDevQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable UUID id) {
+
+        DeletePaymentDevCommand command = new DeletePaymentDevCommand(id);
+        DeletePaymentDevMessage response = mediator.send(command);
+
+        return ResponseEntity.ok(response);
     }
 
 }

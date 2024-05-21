@@ -41,7 +41,11 @@ public class PaymentDevServiceImpl implements IPaymentDevService {
 
     @Override
     public void delete(PaymentDevDto paymentDevDto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PaymentDev delete = new PaymentDev(paymentDevDto);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setReference(delete.getReference() + " + " + UUID.randomUUID());
+
+        this.repositoryCommand.save(delete);
     }
 
     @Override

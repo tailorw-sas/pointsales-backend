@@ -35,6 +35,9 @@ public class PaymentDev {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     public PaymentDev(PaymentDevDto dto) {
         this.id = dto.getId();
         this.user = dto.getUser() != null ? new UserSystem(dto.getUser()) : null;
