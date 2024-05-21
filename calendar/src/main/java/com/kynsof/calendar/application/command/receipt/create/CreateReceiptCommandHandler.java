@@ -42,9 +42,7 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
         if (_schedule.getStock() == 0) {
             throw new BusinessException(DomainErrorMessage.SCHEDULE_IS_NOT_AVAIBLE, "The selected schedule is not available.");
         }
-        _schedule.setStock(_schedule.getStock() - 1);
-        _schedule.setStatus(EStatusSchedule.RESERVED);
-        this.serviceSchedule.update(_schedule);
+
         ReceiptDto receiptDto = new ReceiptDto(
                 UUID.randomUUID(),
                 command.getPrice(),
@@ -60,6 +58,9 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
         receiptDto.setUserAgentCreate(command.getUserAgent());
 
         UUID id = service.create(receiptDto);
+        _schedule.setStock(_schedule.getStock() - 1);
+        _schedule.setStatus(EStatusSchedule.RESERVED);
+        this.serviceSchedule.update(_schedule);
         command.setId(id);
     }
 }
