@@ -1,7 +1,10 @@
 package com.kynsof.share.utils;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class ConfigureTimeZone {
 
@@ -13,4 +16,13 @@ public class ConfigureTimeZone {
         
         return localDateTime;
     }
+    
+    public static LocalDateTime convertDateToLocalDateTime(Date date) {
+        Instant instant = date.toInstant();
+        ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
+        LocalDateTime localDateTime = zonedDateTime.toLocalDateTime();
+
+        return localDateTime;
+    }
+
 }
