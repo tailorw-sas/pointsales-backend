@@ -3,6 +3,7 @@ package com.kynsof.treatments.application.command.externalConsultation.updateAll
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
+import com.kynsof.share.utils.UpdateIfNotNull;
 import com.kynsof.treatments.domain.dto.*;
 import com.kynsof.treatments.domain.dto.enumDto.Status;
 import com.kynsof.treatments.domain.rules.externalconsultation.ExternalConsultationCreateAtNotEqualsRule;
@@ -22,20 +23,17 @@ public class UpdateExternalConsultationAllCommandHandler implements ICommandHand
     private final ITreatmentService treatmentService;
     private final IDiagnosisService diagnosisService;
     private final IExamService examService;
-    private final IExamOrderService examOrderService;
 
     public UpdateExternalConsultationAllCommandHandler(IExternalConsultationService externalConsultationService,
             IMedicinesService medicinesService,
             ITreatmentService treatmentService,
             IDiagnosisService diagnosisService,
-            IExamService examService,
-            IExamOrderService examOrderService) {
+            IExamService examService) {
         this.externalConsultationService = externalConsultationService;
         this.medicinesService = medicinesService;
         this.treatmentService = treatmentService;
         this.diagnosisService = diagnosisService;
         this.examService = examService;
-        this.examOrderService = examOrderService;
     }
 
     @Override
@@ -88,6 +86,11 @@ public class UpdateExternalConsultationAllCommandHandler implements ICommandHand
         externalConsultationDto.setDiagnoses(diagnosisDtoList);
         externalConsultationDto.setExamOrder(examOrderDto);
 
+        UpdateIfNotNull.updateIfNotNull(externalConsultationDto::setConsultationReason, command.getConsultationReason());
+        UpdateIfNotNull.updateIfNotNull(externalConsultationDto::setMedicalHistory, command.getMedicalHistory());
+        UpdateIfNotNull.updateIfNotNull(externalConsultationDto::setPhysicalExam, command.getPhysicalExam());
+        UpdateIfNotNull.updateIfNotNull(externalConsultationDto::setObservations, command.getObservations());
+        UpdateIfNotNull.updateIfNotNull(externalConsultationDto::setMedicalSpeciality, command.getMedicalSpeciality());
 
         UUID id = externalConsultationService.update(externalConsultationDto);
         command.setId(id);

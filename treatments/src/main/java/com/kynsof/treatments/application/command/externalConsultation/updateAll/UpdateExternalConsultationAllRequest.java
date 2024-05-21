@@ -12,6 +12,7 @@ public class UpdateExternalConsultationAllRequest {
     private String medicalHistory;
     private String physicalExam;
     private String observations;
+    private String medicalSpeciality;
     private UpdateExamOrderAllRequest examOrder;
     private List<UpdateDiagnosisAllRequest> diagnosis;
     private List<UpdateTreatmentAllRequest> treatments;
