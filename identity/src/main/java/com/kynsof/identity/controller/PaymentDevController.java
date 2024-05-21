@@ -5,6 +5,9 @@ import com.kynsof.identity.application.command.paymentdev.create.CreatePaymentDe
 import com.kynsof.identity.application.command.paymentdev.create.CreatePaymentDevRequest;
 import com.kynsof.identity.application.command.paymentdev.delete.DeletePaymentDevCommand;
 import com.kynsof.identity.application.command.paymentdev.delete.DeletePaymentDevMessage;
+import com.kynsof.identity.application.command.paymentdev.update.UpdatePaymentDevCommand;
+import com.kynsof.identity.application.command.paymentdev.update.UpdatePaymentDevMessage;
+import com.kynsof.identity.application.command.paymentdev.update.UpdatePaymentDevRequest;
 import com.kynsof.identity.application.query.paymentdev.getbyid.FindPaymentDevByIdQuery;
 import com.kynsof.identity.application.query.paymentdev.getbyid.PaymentDevResponse;
 import com.kynsof.identity.application.query.paymentdev.search.GetSearchPaymentDevQuery;
@@ -59,6 +62,14 @@ public class PaymentDevController {
         DeletePaymentDevCommand command = new DeletePaymentDevCommand(id);
         DeletePaymentDevMessage response = mediator.send(command);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping(path = "/{id}")
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody UpdatePaymentDevRequest request) {
+
+        UpdatePaymentDevCommand command = UpdatePaymentDevCommand.fromRequest(request, id);
+        UpdatePaymentDevMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 

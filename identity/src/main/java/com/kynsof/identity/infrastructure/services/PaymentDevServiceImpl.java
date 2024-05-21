@@ -36,7 +36,7 @@ public class PaymentDevServiceImpl implements IPaymentDevService {
 
     @Override
     public void update(PaymentDevDto paymentDevDto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.repositoryCommand.save(new PaymentDev(paymentDevDto));
     }
 
     @Override
@@ -71,5 +71,10 @@ public class PaymentDevServiceImpl implements IPaymentDevService {
         }
         return new PaginatedResponse(moduleListResponses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    @Override
+    public Long countByReferenceAndNotId(String name, UUID id) {
+        return this.repositoryQuery.countByReferenceAndNotId(name, id);
     }
 }

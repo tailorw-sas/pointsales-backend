@@ -19,4 +19,6 @@ public interface IPaymentDevService {
     PaymentDevDto findById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+
+    Long countByReferenceAndNotId(String name, UUID id);
 }
