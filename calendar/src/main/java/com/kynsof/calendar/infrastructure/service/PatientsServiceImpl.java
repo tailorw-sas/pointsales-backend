@@ -8,10 +8,8 @@ import com.kynsof.calendar.infrastructure.repository.command.PatientsWriteDataJP
 import com.kynsof.calendar.infrastructure.repository.query.PatientsReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
-import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -55,8 +53,7 @@ public class PatientsServiceImpl implements IPatientsService {
 
         return patientDto.getId();
     }
- 
-    @Cacheable(cacheNames = CacheConfig.QUALIFICATION_CACHE, unless = "#result == null")
+    
     @Override
     public PatientDto findById(UUID id) {
         Optional<Patient> patient = this.repositoryQuery.findById(id);
