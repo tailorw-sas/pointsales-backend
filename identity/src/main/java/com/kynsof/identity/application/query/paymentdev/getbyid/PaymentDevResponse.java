@@ -26,6 +26,7 @@ public class PaymentDevResponse implements IResponse {
         this.user = dto.getUser() != null ? new UserSystemsResponse(dto.getUser()) : null;
         this.payment = dto.getPayment();
         this.reference = dto.getReference();
+        this.createdAt = dto.getCreatedAt();
     }
 
 }
