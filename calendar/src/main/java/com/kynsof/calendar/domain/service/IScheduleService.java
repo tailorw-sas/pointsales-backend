@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IScheduleService {
-    public void delete(UUID id);
-    public ScheduleDto findById(UUID id);
+    void delete(UUID id);
+    ScheduleDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     Page<Schedule> getAll(Pageable pageable);
     PaginatedResponse findAll(Pageable pageable, UUID resource, LocalDate date, EStatusSchedule status, LocalDate startDate, LocalDate endDate);
