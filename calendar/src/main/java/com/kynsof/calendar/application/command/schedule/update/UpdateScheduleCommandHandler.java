@@ -1,6 +1,5 @@
 package com.kynsof.calendar.application.command.schedule.update;
 
-import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.calendar.domain.service.IScheduleService;
@@ -21,7 +20,7 @@ public class UpdateScheduleCommandHandler  implements ICommandHandler<UpdateSche
 
     @Override
     public void handle(UpdateScheduleCommand command) {
-       ResourceDto _resource = serviceResource.findById(command.getIdResource());
+       //ResourceDto _resource = serviceResource.findById(command.getIdResource());
        ScheduleDto _scheduled = scheduleService.findById(command.getId());
        _scheduled.setStock(command.getStock());
        _scheduled.setDate(command.getDate());

@@ -29,8 +29,8 @@ public class CreateScheduleAllCommandHandler implements ICommandHandler<CreateSc
                     command.getServiceId(),
                     null,
                     "",
-                    ""
-
+                    "",
+                null
             ));
         }
     }

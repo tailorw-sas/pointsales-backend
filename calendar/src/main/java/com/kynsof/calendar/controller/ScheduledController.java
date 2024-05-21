@@ -55,7 +55,7 @@ public class ScheduledController {
                                                         @RequestHeader(value = "User-Agent", required = false,
                                                                 defaultValue = "Unknown") String userAgent) {
         String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
-        CreateScheduleCommand createCommand = CreateScheduleCommand.fromRequest(createScheduleRequest, userAgent, ipAddress);
+        CreateScheduleCommand createCommand = CreateScheduleCommand.fromRequest(createScheduleRequest, userAgent, ipAddress, this.mediator);
         CreateScheduleMessage response = mediator.send(createCommand);
 
         return ResponseEntity.ok(response);
@@ -134,7 +134,6 @@ public class ScheduledController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<UpdateScheduleMessage> update(@PathVariable("id") UUID id, @RequestBody ScheduleUpdateRequest request) {
-
         UpdateScheduleCommand command = UpdateScheduleCommand.fromRequest(id,request);
         UpdateScheduleMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
