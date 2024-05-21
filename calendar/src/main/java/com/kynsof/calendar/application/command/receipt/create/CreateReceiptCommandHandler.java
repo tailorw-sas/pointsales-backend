@@ -5,6 +5,7 @@ import com.kynsof.calendar.domain.dto.ReceiptDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
+import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.domain.service.IPatientsService;
 import com.kynsof.calendar.domain.service.IReceiptService;
 import com.kynsof.calendar.domain.service.IScheduleService;
@@ -41,9 +42,10 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
         if (_schedule.getStock() == 0) {
             throw new BusinessException(DomainErrorMessage.SCHEDULE_IS_NOT_AVAIBLE, "The selected schedule is not available.");
         }
-      _schedule.setStock(_schedule.getStock() - 1);
-      this.serviceSchedule.update(_schedule);
-       ReceiptDto receiptDto = new ReceiptDto(
+        _schedule.setStock(_schedule.getStock() - 1);
+        _schedule.setStatus(EStatusSchedule.RESERVED);
+        this.serviceSchedule.update(_schedule);
+        ReceiptDto receiptDto = new ReceiptDto(
                 UUID.randomUUID(),
                 command.getPrice(),
                 command.getExpress(),
