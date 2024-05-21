@@ -1,5 +1,6 @@
 package com.kynsof.identity.infrastructure.services;
 
+import com.kynsof.identity.application.query.paymentdev.getbyid.PaymentDevResponse;
 import com.kynsof.identity.domain.dto.PaymentDevDto;
 import com.kynsof.identity.domain.interfaces.service.IPaymentDevService;
 import com.kynsof.identity.infrastructure.identity.PaymentDev;
@@ -11,11 +12,13 @@ import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import org.springframework.data.domain.Page;
 
 @Service
 public class PaymentDevServiceImpl implements IPaymentDevService {
@@ -52,7 +55,17 @@ public class PaymentDevServiceImpl implements IPaymentDevService {
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        GenericSpecificationsBuilder<PaymentDevResponse> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<PaymentDev> data = this.repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
     }
 
+    private PaginatedResponse getPaginatedResponse(Page<PaymentDev> data) {
+        List<PaymentDevResponse> moduleListResponses = new ArrayList<>();
+        for (PaymentDev o : data.getContent()) {
+            moduleListResponses.add(new PaymentDevResponse(o.toAggregate()));
+        }
+        return new PaginatedResponse(moduleListResponses, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
 }

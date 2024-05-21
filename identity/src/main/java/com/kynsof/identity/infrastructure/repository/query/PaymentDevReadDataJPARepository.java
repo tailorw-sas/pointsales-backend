@@ -1,6 +1,5 @@
 package com.kynsof.identity.infrastructure.repository.query;
 
-import com.kynsof.identity.infrastructure.identity.Business;
 import com.kynsof.identity.infrastructure.identity.PaymentDev;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.UUID;
 
 public interface PaymentDevReadDataJPARepository extends JpaRepository<PaymentDev, UUID>, JpaSpecificationExecutor<PaymentDev> {
-    Page<Business> findAll(Specification specification, Pageable pageable);
+    Page<PaymentDev> findAll(Specification specification, Pageable pageable);
 }
