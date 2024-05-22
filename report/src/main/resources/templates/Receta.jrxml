@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Receta" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="151845dd-87c1-4948-9ff8-ec01c724ac0d">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Medinec"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Treatment"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="198"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="797"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -28,7 +28,7 @@
 		<![CDATA[SELECT 
 TO_CHAR(externalconsultation.consultationtime, 'DD/MM/YYYY') AS  consultationtime, externalconsultation.id, externalconsultation.medicalspeciality,
 patients.name, patients.lastname, UPPER(patients.name || ' ' || patients.lastname) as fullname, patients.identification, DATE_PART('year', AGE(patients.birthdate))::int AS edad, patients.gender, 
-doctor."name" as name_dr, doctor.lastname as apellido_dr, UPPER(doctor."name" || ' ' ||  doctor.lastname) as fullname_dr , doctor.registernumber,
+doctor."name" as name_dr, doctor.lastname as apellido_dr, UPPER(doctor."name" || ' ' ||  doctor.lastname) as fullname_dr , doctor.identification as 'registernumber' ,
 medicines."name" as medicine, 
 treatment.description as description_tratment, treatment.medicineunit, treatment.quantity,
 UPPER(business.name) as clinica, business.logo,
