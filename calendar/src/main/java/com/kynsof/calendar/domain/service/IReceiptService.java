@@ -20,4 +20,5 @@ public interface IReceiptService {
     PaginatedResponse findAll(Pageable pageable, String filter, UUID resource, UUID user, UUID service, UUID schedule, LocalDate date, LocalDate startDate, LocalDate endDate, EStatusReceipt status);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     Optional<Receipt> findByRequestId(String requestId);
+    ReceiptDto findReceiptByUserIdAndScheduleId(UUID user, UUID schedule);
 }

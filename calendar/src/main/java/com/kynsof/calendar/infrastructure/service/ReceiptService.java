@@ -171,4 +171,14 @@ public class ReceiptService implements IReceiptService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    @Override
+    public ReceiptDto findReceiptByUserIdAndScheduleId(UUID user, UUID schedule) {
+        Optional<Receipt> object = this.receiptRepositoryQuery.findReceiptByUserIdAndScheduleId(user, schedule);
+        if (object.isPresent()) {
+            return object.get().toAggregate();
+        }
+        return null;
+        //throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.RESOURCE_NOT_FOUND, new ErrorField("id", "Receipt not found.")));
+    }
+
 }

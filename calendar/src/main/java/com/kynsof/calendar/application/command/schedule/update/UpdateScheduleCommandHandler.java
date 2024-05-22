@@ -1,31 +1,51 @@
 package com.kynsof.calendar.application.command.schedule.update;
 
-import com.kynsof.calendar.domain.dto.ScheduleDto;
-import com.kynsof.calendar.domain.service.IResourceService;
-import com.kynsof.calendar.domain.service.IScheduleService;
+import com.kynsof.calendar.application.command.schedule.create.CreateScheduleCommand;
+import com.kynsof.calendar.domain.dto.ReceiptDto;
+import com.kynsof.calendar.domain.service.IReceiptService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UpdateScheduleCommandHandler  implements ICommandHandler<UpdateScheduleCommand> {
+public class UpdateScheduleCommandHandler implements ICommandHandler<UpdateScheduleCommand> {
 
+    private final IReceiptService serviceReceipt;
+    private IMediator mediator;
 
-    private final IScheduleService scheduleService;
-    private final IResourceService serviceResource;
-    
-    public UpdateScheduleCommandHandler(IScheduleService service, IResourceService serviceResource) {
-        this.scheduleService = service;
-        this.serviceResource = serviceResource;
+    public UpdateScheduleCommandHandler(IReceiptService serviceReceipt) {
+        this.serviceReceipt = serviceReceipt;
     }
 
     @Override
     public void handle(UpdateScheduleCommand command) {
-       //ResourceDto _resource = serviceResource.findById(command.getIdResource());
-       ScheduleDto _scheduled = scheduleService.findById(command.getId());
-       _scheduled.setStock(command.getStock());
-       _scheduled.setDate(command.getDate());
-       _scheduled.setStartTime(command.getStartTime());
-       _scheduled.setEndingTime(command.getEndingTime());
-       scheduleService.update(_scheduled);
+        this.mediator = command.getMediator();
+        if (command.getUser() != null) {
+            /**
+             * Se busca si existe una reserva para el usuario y con el mismo
+             * horario.
+             */
+            ReceiptDto _receipt = this.serviceReceipt.findReceiptByUserIdAndScheduleId(command.getUser(), command.getId());
+
+            if (_receipt == null) {
+                /**
+                 * Si no existe la reserva se manda a crear.
+                 */
+                this.mediator.send(new CreateScheduleCommand(
+                        command.getResource(),
+                        command.getBusiness(),
+                        command.getDate(),
+                        command.getStartTime(),
+                        command.getEndingTime(),
+                        command.getStock(),
+                        command.getService(),
+                        command.getUser(),
+                        command.getIpAddress(),
+                        command.getUserAgent(),
+                        mediator
+                ));
+            }
+        }
+
     }
 }

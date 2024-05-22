@@ -51,9 +51,9 @@ public class ScheduledController {
 
     @PostMapping("")
     public ResponseEntity<CreateScheduleMessage> create(@RequestBody CreateScheduleRequest createScheduleRequest,
-                                                        ServerHttpRequest request,
-                                                        @RequestHeader(value = "User-Agent", required = false,
-                                                                defaultValue = "Unknown") String userAgent) {
+            ServerHttpRequest request,
+            @RequestHeader(value = "User-Agent", required = false,
+                    defaultValue = "Unknown") String userAgent) {
         String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
         CreateScheduleCommand createCommand = CreateScheduleCommand.fromRequest(createScheduleRequest, userAgent, ipAddress, this.mediator);
         CreateScheduleMessage response = mediator.send(createCommand);
@@ -65,11 +65,11 @@ public class ScheduledController {
     public ResponseEntity<CreateScheduleByLoteMessage> create(@RequestBody CreateScheduleByLoteRequest request) throws Exception {
 
         CreateScheduleByLoteMessage response = mediator.send(new CreateScheduleByLoteCommand(
-                request.getResourceId(), 
-                request.getBusinessId(), 
-                request.getServiceId(), 
-                request.getStartDate(), 
-                request.getEndDate(), 
+                request.getResourceId(),
+                request.getBusinessId(),
+                request.getServiceId(),
+                request.getStartDate(),
+                request.getEndDate(),
                 request.getSchedules(),
                 request.getDaysToExclude(),
                 mediator
@@ -82,9 +82,9 @@ public class ScheduledController {
     public ResponseEntity<?> createGoogleStyle(@RequestBody CreateScheduleByLoteGoogleStyleRequest request) throws Exception {
 
         CreateScheduleByLoteGoogleStyleMessage response = mediator.send(new CreateScheduleByLoteGoogleStyleCommand(
-                request.getResource(), 
-                request.getBusiness(), 
-                request.getService(), 
+                request.getResource(),
+                request.getBusiness(),
+                request.getService(),
                 request.getDays(),
                 mediator
         ));
@@ -133,8 +133,14 @@ public class ScheduledController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UpdateScheduleMessage> update(@PathVariable("id") UUID id, @RequestBody ScheduleUpdateRequest request) {
-        UpdateScheduleCommand command = UpdateScheduleCommand.fromRequest(id,request);
+    public ResponseEntity<UpdateScheduleMessage> update(
+            @PathVariable("id") UUID id,
+            @RequestBody ScheduleUpdateRequest createScheduleRequest,
+            ServerHttpRequest request,
+            @RequestHeader(value = "User-Agent", required = false,
+                    defaultValue = "Unknown") String userAgent) {
+        String ipAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
+        UpdateScheduleCommand command = UpdateScheduleCommand.fromRequest(id, createScheduleRequest, mediator, ipAddress, userAgent);
         UpdateScheduleMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
@@ -148,8 +154,8 @@ public class ScheduledController {
     }
 
     @PostMapping("/{resourceId}/available-dates")
-    public ResponseEntity<?> getAvailableDatesAndSlotsQuery( @PathVariable UUID resourceId, @RequestBody AvailableDatesByResourceRequest request) {
-        GetAvailableDatesAndSlotsQuery query = new GetAvailableDatesAndSlotsQuery( resourceId, request.getBusinessId(),
+    public ResponseEntity<?> getAvailableDatesAndSlotsQuery(@PathVariable UUID resourceId, @RequestBody AvailableDatesByResourceRequest request) {
+        GetAvailableDatesAndSlotsQuery query = new GetAvailableDatesAndSlotsQuery(resourceId, request.getBusinessId(),
                 request.getStartDate(), request.getFinalDate());
         GetAvailableDatesAndSlotsResponse availableDates = mediator.send(query);
         return ResponseEntity.ok(availableDates);
