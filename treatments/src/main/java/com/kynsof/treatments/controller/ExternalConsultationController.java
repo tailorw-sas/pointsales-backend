@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+import org.springframework.data.domain.Sort;
 
 @RestController
 @RequestMapping("/api/external-consultation")
@@ -43,7 +44,10 @@ public class ExternalConsultationController {
 
     @PostMapping("/search")
     public ResponseEntity<?> search(@RequestBody SearchRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize())
+                                            .withSort(Sort.by("consultationTime").descending());
+
         GetSearchExternalConsultationQuery query = new GetSearchExternalConsultationQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
