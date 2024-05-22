@@ -3,7 +3,7 @@ package com.kynsoft.notification.infrastructure.service.kafka.consumer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
+import com.kynsof.share.core.domain.kafka.entity.UserWelcomKafka;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsoft.notification.application.command.sendMailjetEmail.SendMailJetEMailCommand;
 import com.kynsoft.notification.domain.dto.MailJetRecipient;
@@ -29,16 +29,16 @@ public class ConsumerWelcomEmailEventService {
         this.mediator = mediator;
     }
 
-    @KafkaListener(topics = "welcom-email", groupId = "notification")
+    @KafkaListener(topics = "welcom-email", groupId = "notification-welcom")
     public void listen(String event) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
             //TODO yannier capturar el evento con el nombre del usuario, el usuario y la contraseña para enviar por correo
-            UserOtpKafka otpKafka = objectMapper.treeToValue(rootNode.get("data"), UserOtpKafka.class);
+            UserWelcomKafka otpKafka = objectMapper.treeToValue(rootNode.get("data"), UserWelcomKafka.class);
             List<MailJetRecipient> mailJetRecipients = new ArrayList<>();
-            mailJetRecipients.add(new MailJetRecipient(otpKafka.getEmail(),otpKafka.getName()));
+            mailJetRecipients.add(new MailJetRecipient(otpKafka.getEmail(),otpKafka.getFullName()));
 
             SendMailJetEMailCommand command = getSendMailJetEMailCommand(otpKafka, mailJetRecipients);
             mediator.send(command);
@@ -47,11 +47,12 @@ public class ConsumerWelcomEmailEventService {
         }
     }
 
-    private static @NotNull SendMailJetEMailCommand getSendMailJetEMailCommand(UserOtpKafka otpKafka, List<MailJetRecipient> mailJetRecipients) {
+    private static @NotNull SendMailJetEMailCommand getSendMailJetEMailCommand(UserWelcomKafka otpKafka, List<MailJetRecipient> mailJetRecipients) {
         List<MailJetVar> vars = Arrays.asList(
-                new MailJetVar("user_name", otpKafka.getName()),
-                new MailJetVar("name", otpKafka.getName()),
-                new MailJetVar("temp_password", otpKafka.getOtpCode())
+                new MailJetVar("user_name", otpKafka.getUserName()),
+                new MailJetVar("name", otpKafka.getFullName()),
+                new MailJetVar("temp_password", otpKafka.getPassword()),
+                new MailJetVar("temp_email", otpKafka.getEmail())
         );
 
         int  templateId = MailjetTemplateEnum.WELCOM.getTemplateId();
