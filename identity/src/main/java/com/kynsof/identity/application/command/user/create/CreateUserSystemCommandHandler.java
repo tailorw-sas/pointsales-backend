@@ -8,8 +8,10 @@ import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
 import com.kynsof.identity.domain.rules.usersystem.ModuleEmailMustBeUniqueRule;
 import com.kynsof.identity.domain.rules.usersystem.ModuleUserNameMustBeUniqueRule;
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerRegisterUserSystemEventService;
+import com.kynsof.identity.infrastructure.services.kafka.producer.user.welcom.ProducerUserWelcomEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.kafka.entity.UserWelcomKafka;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,9 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
 
     private final IUserSystemService userSystemService;
     private final IAuthService authService;
+
+    @Autowired
+    private ProducerUserWelcomEventService producerUserWelcomEventService;
 
     @Autowired
     private ProducerRegisterUserSystemEventService registerUserSystemEventService;
@@ -59,7 +64,11 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
 
         UUID id = userSystemService.create(userDto);
         this.registerUserSystemEventService.create(userSystemRequest, id.toString(), command.getImage());
-
+        this.producerUserWelcomEventService.create(new UserWelcomKafka(userDto.getEmail(), 
+                                                                     command.getPassword(),
+                                                                     command.getUserName(), 
+                                                                     command.getName() + " " + command.getLastName()
+                                                                    ));
         command.setId(id);
 
     }
