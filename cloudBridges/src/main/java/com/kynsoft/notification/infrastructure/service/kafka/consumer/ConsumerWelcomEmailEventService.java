@@ -20,20 +20,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ConsumerTriggerPasswordResetEventService {
+public class ConsumerWelcomEmailEventService {
 
     private final IMediator mediator;
 
-    public ConsumerTriggerPasswordResetEventService(IMediator mediator) {
+    public ConsumerWelcomEmailEventService(IMediator mediator) {
+
         this.mediator = mediator;
     }
 
-    @KafkaListener(topics = "otp", groupId = "otp")
+    @KafkaListener(topics = "welcom-email", groupId = "notification")
     public void listen(String event) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
+            //TODO yannier capturar el evento con el nombre del usuario, el usuario y la contraseña para enviar por correo
             UserOtpKafka otpKafka = objectMapper.treeToValue(rootNode.get("data"), UserOtpKafka.class);
             List<MailJetRecipient> mailJetRecipients = new ArrayList<>();
             mailJetRecipients.add(new MailJetRecipient(otpKafka.getEmail(),otpKafka.getName()));
@@ -41,20 +43,21 @@ public class ConsumerTriggerPasswordResetEventService {
             SendMailJetEMailCommand command = getSendMailJetEMailCommand(otpKafka, mailJetRecipients);
             mediator.send(command);
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ConsumerTriggerPasswordResetEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumerWelcomEmailEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private static @NotNull SendMailJetEMailCommand getSendMailJetEMailCommand(UserOtpKafka otpKafka, List<MailJetRecipient> mailJetRecipients) {
         List<MailJetVar> vars = Arrays.asList(
-                new MailJetVar("username", otpKafka.getName()),
-                new MailJetVar("otp_token", otpKafka.getOtpCode())
+                new MailJetVar("user_name", otpKafka.getName()),
+                new MailJetVar("name", otpKafka.getName()),
+                new MailJetVar("temp_password", otpKafka.getOtpCode())
         );
 
-        int  templateId = MailjetTemplateEnum.OTP.getTemplateId();
+        int  templateId = MailjetTemplateEnum.WELCOM.getTemplateId();
 
         return new SendMailJetEMailCommand(mailJetRecipients, vars, new ArrayList<>(),
-                "Código de verificación",templateId);
+                "Correo de Bienvenida",templateId);
     }
 
 }

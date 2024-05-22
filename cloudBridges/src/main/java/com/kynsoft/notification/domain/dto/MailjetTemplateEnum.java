@@ -6,6 +6,7 @@ import lombok.Getter;
 public enum MailjetTemplateEnum {
 
     OTP(5964805),
+    WELCOM(5965446),
     EMAIL_CONFIRMATION_CITE(22222);
 
 
