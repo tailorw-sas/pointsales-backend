@@ -1,6 +1,5 @@
 package com.kynsof.identity.application.query.users.getSearch;
 
-
 import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.share.core.domain.EUserType;
@@ -16,6 +15,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class UserSystemsResponse implements IResponse {
+
     private UUID id;
     private String userName;
     private String email;
@@ -28,7 +28,7 @@ public class UserSystemsResponse implements IResponse {
 
     public UserSystemsResponse(UserSystemDto contactInfoDto) {
         this.id = contactInfoDto.getId();
-        this.userName = contactInfoDto.getIdentification();
+        this.userName = contactInfoDto.getUserName();
         this.email = contactInfoDto.getEmail();
         this.name = contactInfoDto.getName();
         this.lastName = contactInfoDto.getLastName();
