@@ -30,6 +30,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+import org.springframework.data.domain.Sort;
 
 @RestController
 @RequestMapping("/api/customer")
@@ -37,13 +38,13 @@ public class CustomerController {
 
     private final IMediator mediator;
 
-    public CustomerController(IMediator mediator){
+    public CustomerController(IMediator mediator) {
 
         this.mediator = mediator;
     }
 
     @PostMapping()
-    public ResponseEntity<?> create(@RequestBody CreateCustomerRequest request)  {
+    public ResponseEntity<?> create(@RequestBody CreateCustomerRequest request) {
         CreateCustomerCommand createCommand = CreateCustomerCommand.fromRequest(request);
         CreateCustomerMessage response = mediator.send(createCommand);
 
@@ -51,15 +52,15 @@ public class CustomerController {
     }
 
     @PostMapping("/wallet/balance")
-    public ResponseEntity<?> createWalletBalance(@AuthenticationPrincipal Jwt jwt,@RequestBody CreateWalletTransactionRequest request)  {
+    public ResponseEntity<?> createWalletBalance(@AuthenticationPrincipal Jwt jwt, @RequestBody CreateWalletTransactionRequest request) {
         String userId = jwt.getClaim("sub");
-        CreateWalletTransactionCommand createCommand = CreateWalletTransactionCommand.fromRequest(UUID.fromString(userId),request);
+        CreateWalletTransactionCommand createCommand = CreateWalletTransactionCommand.fromRequest(UUID.fromString(userId), request);
         CreateWalletTransactionMessage response = mediator.send(createCommand);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/wallet/balance")
-    public ResponseEntity<?> getWalletBalance(@AuthenticationPrincipal Jwt jwt)  {
+    public ResponseEntity<?> getWalletBalance(@AuthenticationPrincipal Jwt jwt) {
         String userId = jwt.getClaim("sub");
         FindByCustomerIdQuery createCommand = new FindByCustomerIdQuery(UUID.fromString(userId));
         WalletResponse response = mediator.send(createCommand);
@@ -69,7 +70,7 @@ public class CustomerController {
     @PatchMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") UUID id, @RequestBody UpdateCustomerRequest request) {
 
-        UpdateCustomerCommand command = UpdateCustomerCommand.fromRequest(request,id);
+        UpdateCustomerCommand command = UpdateCustomerCommand.fromRequest(request, id);
         UpdateCustomerMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
@@ -84,10 +85,11 @@ public class CustomerController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<?> search(@RequestBody SearchRequest request)
-    {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
-        GetSearchCustomerQuery query = new GetSearchCustomerQuery(pageable, request.getFilter(),request.getQuery());
+    public ResponseEntity<?> search(@RequestBody SearchRequest request) {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize())
+                .withSort(Sort.by("firstName").ascending());
+
+        GetSearchCustomerQuery query = new GetSearchCustomerQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }

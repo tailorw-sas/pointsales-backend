@@ -23,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+import org.springframework.data.domain.Sort;
 
 @RestController
 @RequestMapping("/api/permission")
@@ -45,7 +46,7 @@ public class PermissionController {
     @PatchMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody UpdatePermissionRequest request) {
 
-        UpdatePermissionCommand command = UpdatePermissionCommand.fromRequest(request,id);
+        UpdatePermissionCommand command = UpdatePermissionCommand.fromRequest(request, id);
         UpdatePermissionMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
@@ -60,10 +61,11 @@ public class PermissionController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<?> search(@RequestBody SearchRequest request)
-    {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
-        GetSearchPermissionQuery query = new GetSearchPermissionQuery(pageable, request.getFilter(),request.getQuery());
+    public ResponseEntity<?> search(@RequestBody SearchRequest request) {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize())
+                .withSort(Sort.by("code").ascending());
+
+        GetSearchPermissionQuery query = new GetSearchPermissionQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
