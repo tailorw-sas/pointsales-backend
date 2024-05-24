@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+import org.springframework.data.domain.Sort;
 
 @RestController
 @RequestMapping("/api/business")
@@ -27,13 +28,13 @@ public class BusinessController {
 
     private final IMediator mediator;
 
-    public BusinessController(IMediator mediator){
+    public BusinessController(IMediator mediator) {
 
         this.mediator = mediator;
     }
 
     @PostMapping()
-    public ResponseEntity<CreateBusinessMessage> create(@RequestBody CreateBusinessRequest request)  {
+    public ResponseEntity<CreateBusinessMessage> create(@RequestBody CreateBusinessRequest request) {
         CreateBusinessCommand createCommand = CreateBusinessCommand.fromRequest(request);
         CreateBusinessMessage response = mediator.send(createCommand);
 
@@ -41,10 +42,11 @@ public class BusinessController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<?> search(@RequestBody SearchRequest request)
-    {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
-        GetSearchBusinessQuery query = new GetSearchBusinessQuery(pageable, request.getFilter(),request.getQuery());
+    public ResponseEntity<?> search(@RequestBody SearchRequest request) {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize())
+                .withSort(Sort.by("name").ascending());
+
+        GetSearchBusinessQuery query = new GetSearchBusinessQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
@@ -68,9 +70,9 @@ public class BusinessController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") UUID id,@RequestBody UpdateBusinessRequest request) {
+    public ResponseEntity<?> update(@PathVariable("id") UUID id, @RequestBody UpdateBusinessRequest request) {
 
-        UpdateBusinessCommand command = UpdateBusinessCommand.fromRequest(request,id);
+        UpdateBusinessCommand command = UpdateBusinessCommand.fromRequest(request, id);
         UpdateBusinessMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }

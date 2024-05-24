@@ -41,6 +41,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+import org.springframework.data.domain.Sort;
 
 @RestController
 @RequestMapping("/api/users")
@@ -97,7 +98,9 @@ public class UserSystemController {
 
     @PostMapping("/search")
     public ResponseEntity<?> search(@RequestBody SearchRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize())
+                                            .withSort(Sort.by("name").ascending());
+
         GetSearchUserSystemsQuery query = new GetSearchUserSystemsQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
