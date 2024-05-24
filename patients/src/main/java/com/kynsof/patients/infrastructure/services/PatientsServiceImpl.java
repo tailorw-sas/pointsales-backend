@@ -231,12 +231,12 @@ public class PatientsServiceImpl implements IPatientsService {
     }
 
     @Override
-    public void delete(UUID id) {
-        Optional<Patients> patient = this.repositoryQuery.findById(id);
-        PatientDto patientDto = patient.get().toAggregate();
-        patientDto.setStatus(Status.INACTIVE);
+    public void delete(PatientDto patientDto) {
+        Patients delete = new Patients(patientDto);
+        delete.setDeleted(Boolean.TRUE);
+        delete.setIdentification(patientDto.getIdentification() + " - " + UUID.randomUUID());
 
-        this.repositoryCommand.save(new Patients(patientDto));
+        this.repositoryCommand.save(delete);
     }
 
     @Override

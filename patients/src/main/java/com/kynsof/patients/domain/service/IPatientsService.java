@@ -15,7 +15,7 @@ public interface IPatientsService {
     UUID createDependent(DependentPatientDto patients);
     UUID update(PatientDto patients);
     void updateDependent(DependentPatientDto patients);
-    void delete(UUID id);
+    void delete(PatientDto patientDto);
 
     PatientByIdDto findById(UUID id);
     PatientDto findByIdSimple(UUID id);

@@ -77,6 +77,9 @@ public class Patients implements Serializable {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(nullable = true)
+    private Boolean deleted = false;
+
     public Patients(PatientDto patients) {
         this.id = patients.getId();
         this.identification = patients.getIdentification();
