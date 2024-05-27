@@ -60,8 +60,8 @@ public class FileController {
                     DataBufferUtils.release(dataBuffer);
 
                     // Crear MultipartFile a partir de bytes
-                    MultipartFile multipartFile = new MockMultipartFile("file",
-                            filePart.filename(), Objects.requireNonNull(filePart.headers().getContentType()).toString(), bytes);
+                    MultipartFile multipartFile = new MockMultipartFile("file"+"-"+UUID.randomUUID(),
+                            filePart.filename()+"-"+UUID.randomUUID(), Objects.requireNonNull(filePart.headers().getContentType()).toString(), bytes);
 
                     try {
                         // Llamar a AmazonClient para guardar el archivo
