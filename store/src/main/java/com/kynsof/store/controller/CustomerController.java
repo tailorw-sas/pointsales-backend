@@ -1,5 +1,6 @@
 package com.kynsof.store.controller;
 
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -13,7 +14,6 @@ import com.kynsof.store.application.command.customer.update.UpdateCustomerMessag
 import com.kynsof.store.application.query.customer.getAll.CustomerResponse;
 import com.kynsof.store.application.query.customer.getAll.GetAllCustomerQuery;
 import com.kynsof.store.application.query.customer.getById.FindCustomerByIdQuery;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,7 +61,7 @@ public class CustomerController {
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> searchCategories(@RequestBody SearchRequest request)
     {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetAllCustomerQuery query = new GetAllCustomerQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

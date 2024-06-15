@@ -1,5 +1,6 @@
 package com.kynsof.treatments.controller;
 
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -14,7 +15,6 @@ import com.kynsof.treatments.application.command.exam.update.UpdateExamRequest;
 import com.kynsof.treatments.application.query.exam.getbyid.ExamResponse;
 import com.kynsof.treatments.application.query.exam.getbyid.FindByIdExamQuery;
 import com.kynsof.treatments.application.query.exam.search.GetSearchExamQuery;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +52,7 @@ public class ExamController {
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
     {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetSearchExamQuery query = new GetSearchExamQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

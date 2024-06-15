@@ -1,9 +1,10 @@
 package com.kynsof.treatments.infrastructure.repositories.job;
 
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Setter
 @Getter

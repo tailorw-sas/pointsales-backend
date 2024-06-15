@@ -4,8 +4,9 @@ import com.kynsof.identity.domain.dto.UserPermissionBusinessDto;
 import com.kynsof.identity.domain.interfaces.service.IUserPermissionBusinessService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.userBusiness.ProducerDeleteUserBusinessRelationEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import java.util.List;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class DeleteUserBusinessRelationCommandHandler implements ICommandHandler<DeleteUserBusinessRelationCommand> {

@@ -1,12 +1,7 @@
 package com.kynsof.rrhh.doman.interfaces.services;
 
 import com.kynsof.rrhh.doman.dto.BusinessDto;
-import com.kynsof.share.core.domain.request.FilterCriteria;
-import com.kynsof.share.core.domain.response.PaginatedResponse;
-import org.springframework.data.domain.Pageable;
 
-import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 public interface IBusinessService {

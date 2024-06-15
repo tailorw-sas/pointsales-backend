@@ -10,6 +10,7 @@ import com.kynsof.patients.application.query.insuarance.getById.FindByIdInsuranc
 import com.kynsof.patients.application.query.insuarance.getall.GetAllInsuranceQuery;
 import com.kynsof.patients.application.query.insuarance.getall.InsuranceResponse;
 import com.kynsof.patients.application.query.insuarance.search.GetSearchInsuranceQuery;
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -50,7 +51,7 @@ public class InsuranceController {
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
     {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetSearchInsuranceQuery query = new GetSearchInsuranceQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

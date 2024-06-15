@@ -13,4 +13,6 @@ public class SearchRequest  implements Serializable {
     private String query;
     private Integer pageSize;
     private Integer page;
+    private String sortBy;
+    private SortTypeEnum sortType;
 }

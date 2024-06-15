@@ -1,5 +1,6 @@
 package com.kynsof.store.controller;
 
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -13,7 +14,6 @@ import com.kynsof.store.application.command.category.update.UpdateCategoryMessag
 import com.kynsof.store.application.query.category.getAll.CategoryResponse;
 import com.kynsof.store.application.query.category.getAll.GetAllCategoriesQuery;
 import com.kynsof.store.application.query.category.getById.FindCategoryByIdQuery;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,7 +61,7 @@ public class CategoryController {
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> searchCategories(@RequestBody SearchRequest request)
     {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetAllCategoriesQuery query = new GetAllCategoriesQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

@@ -3,12 +3,12 @@ package com.kynsoft.notification.infrastructure.entity;
 import com.kynsoft.notification.domain.dto.AdvertisingContentDto;
 import com.kynsoft.notification.domain.dto.ContentType;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity

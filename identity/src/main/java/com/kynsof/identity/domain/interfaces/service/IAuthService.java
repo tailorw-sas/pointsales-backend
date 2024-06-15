@@ -15,4 +15,5 @@ public interface IAuthService {
     Boolean forwardPassword(PasswordChangeRequest changeRequest);
     Boolean sendPasswordRecoveryOtp(String email);
     Boolean changePassword(String userId, String newPassword);
+    Boolean firstChangePassword(String userId, String email, String newPassword, String oldPassword);
 }

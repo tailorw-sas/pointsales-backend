@@ -1,5 +1,6 @@
 package com.kynsof.treatments.controller;
 
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -62,7 +63,7 @@ public class TreatmentController {
 
     @PostMapping("/search")
     public ResponseEntity<?> search(@RequestBody SearchRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetSearchTreatmentQuery query = new GetSearchTreatmentQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

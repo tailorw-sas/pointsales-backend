@@ -6,13 +6,14 @@ import com.kynsof.treatments.domain.service.IBusinessService;
 import com.kynsof.treatments.domain.service.IExternalConsultationService;
 import com.kynsof.treatments.infrastructure.service.kafka.procedure.externalConsultationByBusiness.ProducerExternalConsultationByBusinessEventService;
 import jakarta.transaction.Transactional;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 @Component
 public class ExternalConsultationScheduled {

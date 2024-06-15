@@ -15,6 +15,7 @@ import com.kynsof.calendar.application.query.resource.getAll.FindResourceWithFil
 import com.kynsof.calendar.application.query.resource.getbyid.FindResourceByIdQuery;
 import com.kynsof.calendar.application.query.resource.getresourcesbyidservice.FindResourcesByIdServiceQuery;
 import com.kynsof.calendar.application.query.resource.search.GetSearchResourceQuery;
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -72,7 +73,7 @@ public class ResourceController {
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
     {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetSearchResourceQuery query = new GetSearchResourceQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

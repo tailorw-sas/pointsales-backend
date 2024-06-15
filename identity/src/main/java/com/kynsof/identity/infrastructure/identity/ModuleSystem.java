@@ -5,11 +5,11 @@ import com.kynsof.identity.domain.dto.PermissionDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import lombok.Setter;
 
 @NoArgsConstructor
 @Getter

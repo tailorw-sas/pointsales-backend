@@ -11,16 +11,15 @@ import com.kynsof.identity.application.command.business.update.UpdateBusinessReq
 import com.kynsof.identity.application.query.business.getbyid.BusinessByIdResponse;
 import com.kynsof.identity.application.query.business.getbyid.FindBusinessByIdQuery;
 import com.kynsof.identity.application.query.business.search.GetSearchBusinessQuery;
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
-import org.springframework.data.domain.Sort;
 
 @RestController
 @RequestMapping("/api/business")
@@ -43,8 +42,7 @@ public class BusinessController {
 
     @PostMapping("/search")
     public ResponseEntity<?> search(@RequestBody SearchRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize())
-                .withSort(Sort.by("name").ascending());
+        Pageable pageable = PageableUtil.createPageable(request);
 
         GetSearchBusinessQuery query = new GetSearchBusinessQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);

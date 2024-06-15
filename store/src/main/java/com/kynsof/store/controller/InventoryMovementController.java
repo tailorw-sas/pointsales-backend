@@ -1,5 +1,6 @@
 package com.kynsof.store.controller;
 
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -10,7 +11,6 @@ import com.kynsof.store.application.query.inventory.getAll.GetAlInventoryQuery;
 import com.kynsof.store.application.query.inventory.getAll.InventoryResponse;
 import com.kynsof.store.application.query.inventory.getById.FindInventoryByIdQuery;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +53,7 @@ public class InventoryMovementController {
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> searchInventory(@RequestBody SearchRequest request)
     {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetAlInventoryQuery query = new GetAlInventoryQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

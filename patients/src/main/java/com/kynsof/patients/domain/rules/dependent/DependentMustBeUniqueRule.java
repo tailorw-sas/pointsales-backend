@@ -4,6 +4,7 @@ import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.rules.BusinessRule;
+
 import java.util.UUID;
 
 public class DependentMustBeUniqueRule extends BusinessRule {

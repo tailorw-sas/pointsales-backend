@@ -11,11 +11,11 @@ import com.kynsof.calendar.application.command.serviceType.update.UpdateServiceT
 import com.kynsof.calendar.application.query.ServiceTypeResponse;
 import com.kynsof.calendar.application.query.serviceType.getbyid.FindServiceTypeByIdQuery;
 import com.kynsof.calendar.application.query.serviceType.search.GetSearchServiceTypeQuery;
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +43,7 @@ public class ServiceTypeController {
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
     {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetSearchServiceTypeQuery query = new GetSearchServiceTypeQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

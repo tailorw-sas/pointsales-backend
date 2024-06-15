@@ -1,9 +1,9 @@
 package com.kynsoft.report.applications.command.generateTemplate;
 
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsoft.report.domain.dto.JasperReportTemplateDto;
 import com.kynsoft.report.domain.services.IJasperReportTemplateService;
 import com.kynsoft.report.domain.services.IReportService;
-import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import org.springframework.stereotype.Component;
 

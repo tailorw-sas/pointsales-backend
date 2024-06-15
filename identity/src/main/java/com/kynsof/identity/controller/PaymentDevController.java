@@ -11,14 +11,15 @@ import com.kynsof.identity.application.command.paymentdev.update.UpdatePaymentDe
 import com.kynsof.identity.application.query.paymentdev.getbyid.FindPaymentDevByIdQuery;
 import com.kynsof.identity.application.query.paymentdev.getbyid.PaymentDevResponse;
 import com.kynsof.identity.application.query.paymentdev.search.GetSearchPaymentDevQuery;
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import java.util.UUID;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/payment-dev")
@@ -50,7 +51,7 @@ public class PaymentDevController {
 
     @PostMapping("/search")
     public ResponseEntity<?> search(@RequestBody SearchRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetSearchPaymentDevQuery query = new GetSearchPaymentDevQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

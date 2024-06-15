@@ -17,11 +17,11 @@ import com.kynsof.treatments.application.query.externalConsultation.getall.GetAl
 import com.kynsof.treatments.application.query.externalConsultation.search.GetSearchExternalConsultationQuery;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
-import org.springframework.data.domain.Sort;
 
 @RestController
 @RequestMapping("/api/external-consultation")

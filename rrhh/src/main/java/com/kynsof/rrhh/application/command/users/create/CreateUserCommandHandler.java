@@ -6,8 +6,9 @@ import com.kynsof.rrhh.doman.interfaces.services.IUserSystemService;
 import com.kynsof.rrhh.doman.rules.users.UserSystemEmailValidateRule;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import java.util.UUID;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class CreateUserCommandHandler implements ICommandHandler<CreateUserCommand> {

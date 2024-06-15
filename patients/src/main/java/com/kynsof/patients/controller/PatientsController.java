@@ -20,6 +20,7 @@ import com.kynsof.patients.application.query.patients.getByIdentification.FindPa
 import com.kynsof.patients.application.query.patients.getall.GetAllPatientsFilterQuery;
 import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import com.kynsof.patients.application.query.patients.search.GetSearchPatientsQuery;
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.ApiError;
 import com.kynsof.share.core.domain.response.ApiResponse;
@@ -93,7 +94,7 @@ public class PatientsController {
 
     @PostMapping("/search")
     public ResponseEntity<?> search(@RequestBody SearchRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetSearchPatientsQuery query = new GetSearchPatientsQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

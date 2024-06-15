@@ -1,5 +1,6 @@
 package com.kynsoft.notification.controller;
 
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -14,7 +15,6 @@ import com.kynsoft.notification.application.command.templateEntity.update.Update
 import com.kynsoft.notification.application.query.templateEntity.getById.FindTemplateEntityByIdQuery;
 import com.kynsoft.notification.application.query.templateEntity.getById.TemplateEntityResponse;
 import com.kynsoft.notification.application.query.templateEntity.search.GetSearchTemplateEntityQuery;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +49,7 @@ public class TemplateEntityController {
 
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetSearchTemplateEntityQuery query = new GetSearchTemplateEntityQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

@@ -1,6 +1,5 @@
 package com.kynsof.rrhh.application.query.device.getbyid;
 
-import com.kynsof.rrhh.application.query.business.getbyid.*;
 import com.kynsof.share.core.domain.bus.query.IQuery;
 import lombok.Getter;
 

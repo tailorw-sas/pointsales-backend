@@ -10,10 +10,10 @@ import com.kynsof.identity.application.query.business.geographiclocation.findcan
 import com.kynsof.identity.application.query.business.geographiclocation.getall.GeographicLocationResponse;
 import com.kynsof.identity.application.query.business.geographiclocation.getbyid.FindByIdGeographicLocationQuery;
 import com.kynsof.identity.application.query.business.geographiclocation.search.GetSearchLocationsQuery;
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,7 @@ public class GeographicLocationController {
 
     @PostMapping("/search")
     public ResponseEntity<?> search(@RequestBody SearchRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetSearchLocationsQuery query = new GetSearchLocationsQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

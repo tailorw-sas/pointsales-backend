@@ -3,9 +3,9 @@ package com.kynsof.treatments.domain.service;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
-import java.util.Date;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 

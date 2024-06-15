@@ -5,7 +5,7 @@ import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.rules.BusinessRule;
 import com.kynsof.share.utils.ConfigureTimeZone;
 
-import java.time.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ExternalConsultationCreateAtNotEqualsRule extends BusinessRule {

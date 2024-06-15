@@ -1,5 +1,5 @@
 package com.kynsoft.notification.application.command.mailjetConfiguration.create;
-;
+
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsoft.notification.domain.dto.MailjetConfigurationDto;
 import com.kynsoft.notification.domain.service.IMailjetConfigurationService;
@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+;
 
 @Component
 public class CreateMailjetConfigurationCommandHandler implements ICommandHandler<CreateMailjetConfigurationCommand> {

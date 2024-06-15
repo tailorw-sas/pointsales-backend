@@ -1,5 +1,6 @@
 package com.kynsof.treatments.controller;
 
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -17,7 +18,6 @@ import com.kynsof.treatments.application.query.vaccine.getall.VaccineResponse;
 import com.kynsof.treatments.application.query.vaccine.search.GetSearchVaccineQuery;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +60,7 @@ public class VaccineController {
 
     @PostMapping("/eligible/{patientId}")
     public ResponseEntity<?> getEligibleVaccines( @PathVariable  UUID patientId,@RequestBody SearchRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetEligibleVaccinesQuery query = new GetEligibleVaccinesQuery(patientId, pageable, request.getFilter());
         PaginatedResponse response = mediator.send(query);
         return ResponseEntity.ok(response);
@@ -76,7 +76,7 @@ public class VaccineController {
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
     {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetSearchVaccineQuery query = new GetSearchVaccineQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

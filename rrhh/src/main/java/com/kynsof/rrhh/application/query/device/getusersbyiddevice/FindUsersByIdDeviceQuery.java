@@ -2,9 +2,9 @@ package com.kynsof.rrhh.application.query.device.getusersbyiddevice;
 
 import com.kynsof.share.core.domain.bus.query.IQuery;
 import lombok.Getter;
+import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;
-import org.springframework.data.domain.Pageable;
 
 @Getter
 public class FindUsersByIdDeviceQuery  implements IQuery {

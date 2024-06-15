@@ -19,10 +19,10 @@ import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleRece
 import com.kynsof.calendar.application.query.ReceiptResponse;
 import com.kynsof.calendar.application.query.receipt.getbyid.FindReceiptByIdQuery;
 import com.kynsof.calendar.application.query.receipt.search.GetSearchReceiptQuery;
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -123,7 +123,7 @@ public class ReceiptController {
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
     {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetSearchReceiptQuery query = new GetSearchReceiptQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

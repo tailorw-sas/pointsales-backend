@@ -6,10 +6,10 @@ import com.kynsof.share.core.domain.kafka.entity.ExternalConsultationByBusiness;
 import com.kynsof.share.core.domain.kafka.entity.ExternalConsultationByBusinessKafka;
 import com.kynsof.share.core.domain.kafka.event.CreateEvent;
 import com.kynsof.share.core.domain.kafka.event.EventType;
-import java.util.List;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

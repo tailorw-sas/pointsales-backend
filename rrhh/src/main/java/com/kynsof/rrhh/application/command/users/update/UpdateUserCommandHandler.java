@@ -8,8 +8,9 @@ import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
-import java.util.UUID;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class UpdateUserCommandHandler implements ICommandHandler<UpdateUserCommand> {

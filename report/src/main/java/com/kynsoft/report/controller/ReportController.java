@@ -1,11 +1,11 @@
 package com.kynsoft.report.controller;
 
+import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsoft.report.applications.command.generateTemplate.GenerateTemplateCommand;
 import com.kynsoft.report.applications.command.generateTemplate.GenerateTemplateMessage;
 import com.kynsoft.report.applications.command.generateTemplate.GenerateTemplateRequest;
 import com.kynsoft.report.applications.query.reportTemplate.GetReportParameterByCodeQuery;
 import com.kynsoft.report.applications.query.reportTemplate.GetReportParameterByCodeResponse;
-import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

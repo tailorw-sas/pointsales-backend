@@ -4,7 +4,6 @@ import com.kynsof.patients.application.query.patients.getall.PatientsResponse;
 import com.kynsof.patients.domain.dto.DependentPatientDto;
 import com.kynsof.patients.domain.dto.PatientByIdDto;
 import com.kynsof.patients.domain.dto.PatientDto;
-import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.entity.Insurance;
 import com.kynsof.patients.infrastructure.entity.Patients;

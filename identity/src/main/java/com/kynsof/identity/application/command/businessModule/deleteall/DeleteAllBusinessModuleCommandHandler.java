@@ -3,9 +3,10 @@ package com.kynsof.identity.application.command.businessModule.deleteall;
 import com.kynsof.identity.domain.dto.BusinessModuleDto;
 import com.kynsof.identity.domain.interfaces.service.IBusinessModuleService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Component;
 
 @Component
 public class DeleteAllBusinessModuleCommandHandler implements ICommandHandler<DeleteAllBusinessModuleCommand> {

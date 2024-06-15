@@ -146,4 +146,10 @@ public class UserSystemServiceImpl implements IUserSystemService {
         return this.repositoryQuery.countByEmailAndNotId(email, id);
     }
 
+    @Override
+    public UserSystemDto findByEmail(String email) {
+        Optional<UserSystem> userSystem = this.repositoryQuery.findByEmail(email);
+        return userSystem.map(UserSystem::toAggregate).orElse(null);
+    }
+
 }

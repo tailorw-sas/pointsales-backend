@@ -1,8 +1,8 @@
 package com.kynsoft.report.applications.query.jasperreporttemplate.getbyid;
 
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsoft.report.domain.dto.JasperReportTemplateDto;
 import com.kynsoft.report.domain.services.IJasperReportTemplateService;
-import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
 @Component

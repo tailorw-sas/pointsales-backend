@@ -4,8 +4,9 @@ import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.enumType.PermissionStatusEnm;
 import com.kynsof.identity.domain.interfaces.service.IPermissionService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import java.util.UUID;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class DeletePermissionCommandHandler implements ICommandHandler<DeletePermissionCommand> {

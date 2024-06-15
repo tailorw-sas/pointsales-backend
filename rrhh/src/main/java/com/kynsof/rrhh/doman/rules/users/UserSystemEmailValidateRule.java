@@ -3,6 +3,7 @@ package com.kynsof.rrhh.doman.rules.users;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.rules.BusinessRule;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

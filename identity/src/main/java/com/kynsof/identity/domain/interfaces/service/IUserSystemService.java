@@ -24,4 +24,6 @@ public interface IUserSystemService {
     Long countByUserNameAndNotId(String userName, UUID id);
 
     Long countByEmailAndNotId(String email, UUID id);
+
+    UserSystemDto findByEmail(String email);
 }

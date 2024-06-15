@@ -16,6 +16,7 @@ import com.kynsof.calendar.application.query.businessResource.getbyid.BusinessRe
 import com.kynsof.calendar.application.query.businessResource.getbyid.FindBusinessResourceByIdQuery;
 import com.kynsof.calendar.application.query.businessResource.search.GetSearchBusinessResourceQuery;
 import com.kynsof.calendar.application.query.businessService.getresourcebybusiness.FindResourcesByIdBusinessQuery;
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -83,7 +84,7 @@ public class BusinessResourceController {
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
     {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        Pageable pageable = PageableUtil.createPageable(request);
         GetSearchBusinessResourceQuery query = new GetSearchBusinessResourceQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);

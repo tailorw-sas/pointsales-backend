@@ -1,10 +1,6 @@
 package com.kynsof.patients.application.command.medicalInformation.create;
 
-import com.kynsof.patients.domain.dto.AllergyDto;
-import com.kynsof.patients.domain.dto.CurrentMedicationDto;
-import com.kynsof.patients.domain.dto.MedicalInformationDto;
-import com.kynsof.patients.domain.dto.MedicalInformationUpdateDto;
-import com.kynsof.patients.domain.dto.PatientDto;
+import com.kynsof.patients.domain.dto.*;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IMedicalInformationService;
 import com.kynsof.patients.domain.service.IPatientsService;

@@ -1,8 +1,8 @@
 package com.kynsoft.report.infrastructure.entity;
 
+import com.kynsof.share.core.domain.BaseEntity;
 import com.kynsoft.report.domain.dto.JasperReportTemplateDto;
 import com.kynsoft.report.domain.dto.JasperReportTemplateType;
-import com.kynsof.share.core.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
