@@ -15,7 +15,6 @@ import com.kynsoft.notification.application.command.mailjetConfiguration.update.
 import com.kynsoft.notification.application.query.mailjetConfiguration.getById.FindMailjetConfigurationByIdQuery;
 import com.kynsoft.notification.application.query.mailjetConfiguration.getById.MailjetConfigurationResponse;
 import com.kynsoft.notification.application.query.mailjetConfiguration.search.GetSearchMailjetConfigurationQuery;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

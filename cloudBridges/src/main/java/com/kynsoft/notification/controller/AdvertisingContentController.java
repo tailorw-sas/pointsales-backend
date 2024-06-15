@@ -15,12 +15,12 @@ import com.kynsoft.notification.application.command.advertisingcontent.update.Up
 import com.kynsoft.notification.application.query.advertisingcontent.getById.AdvertisingContentResponse;
 import com.kynsoft.notification.application.query.advertisingcontent.getById.FindAdvertisingContentByIdQuery;
 import com.kynsoft.notification.application.query.advertisingcontent.search.GetSearchAdvertisingContentQuery;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/advertising-content")
