@@ -7,8 +7,8 @@ import java.util.UUID;
 
 public class CustomMultipartFile implements MultipartFile {
 
-    private byte[] input;
-    private String name;
+    private final byte[] input;
+    private final String name;
 
     public CustomMultipartFile(byte[] input, String name) {
         this.input = input;

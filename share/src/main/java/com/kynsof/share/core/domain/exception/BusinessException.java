@@ -1,12 +1,16 @@
 package com.kynsof.share.core.domain.exception;
 
 
+import lombok.Getter;
+
 public class BusinessException extends RuntimeException {
 
+    @Getter
     private final int status;
 
     private final String message;
 
+    @Getter
     private final String details;
 
     public BusinessException(DomainErrorMessage status, String details) {
@@ -16,17 +20,9 @@ public class BusinessException extends RuntimeException {
         this.details = details;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
     @Override
     public String getMessage() {
         return message;
-    }
-
-    public String getDetails() {
-        return details;
     }
 
 }

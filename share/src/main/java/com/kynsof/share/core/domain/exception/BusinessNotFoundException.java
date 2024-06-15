@@ -1,9 +1,13 @@
 package com.kynsof.share.core.domain.exception;
 
+import lombok.Getter;
+
 public class BusinessNotFoundException extends RuntimeException {
 
+    @Getter
     private final GlobalBusinessException brokenRule;
 
+    @Getter
     private final int status;
 
     private final String message;
@@ -15,17 +19,9 @@ public class BusinessNotFoundException extends RuntimeException {
         this.brokenRule = brokenRule;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
     @Override
     public String getMessage() {
         return message;
-    }
-
-    public GlobalBusinessException getBrokenRule() {
-        return brokenRule;
     }
 
 }

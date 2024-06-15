@@ -1,7 +1,9 @@
 package com.kynsof.share.core.domain.exception;
 
 import com.kynsof.share.core.domain.response.ErrorField;
+import lombok.Getter;
 
+@Getter
 public class GlobalBusinessException {
 
     private final DomainErrorMessage error;
@@ -11,14 +13,6 @@ public class GlobalBusinessException {
     public GlobalBusinessException(DomainErrorMessage error, ErrorField errorField) {
         this.error = error;
         this.errorField = errorField;
-    }
-
-    public DomainErrorMessage getError() {
-        return error;
-    }
-
-    public ErrorField getErrorField() {
-        return errorField;
     }
 
 }
