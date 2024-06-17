@@ -38,9 +38,6 @@ public class ExamOrder {
     @JoinColumn(name = "external_consultation_id", referencedColumnName = "id")
     private ExternalConsultation externalConsultation;
 
-    @Column(nullable = true)
-    private Boolean deleted = false;
-
     public ExamOrder(ExamOrderDto dto) {
         this.id = dto.getId();
         this.reason = dto.getReason();

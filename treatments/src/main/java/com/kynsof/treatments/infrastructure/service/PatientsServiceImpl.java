@@ -76,10 +76,11 @@ public class PatientsServiceImpl implements IPatientsService {
 
     @Override
     public void delete(UUID id) {
-        PatientDto patientDelete = this.findById(id);
-        patientDelete.setStatus(Status.INACTIVE);
-
-        this.repositoryCommand.save(new Patients(patientDelete));
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
 }

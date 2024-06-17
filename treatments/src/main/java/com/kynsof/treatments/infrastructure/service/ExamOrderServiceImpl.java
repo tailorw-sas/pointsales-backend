@@ -70,11 +70,11 @@ public class ExamOrderServiceImpl implements IExamOrderService {
 
     @Override
     public void delete(ExamOrderDto dto) {
-        ExamOrder delete = new ExamOrder(dto);
-        delete.setDeleted(Boolean.TRUE);
-        delete.setExternalConsultation(null);
-
-        this.repositoryCommand.save(delete);
+        try {
+            this.repositoryCommand.deleteById(dto.getId());
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override

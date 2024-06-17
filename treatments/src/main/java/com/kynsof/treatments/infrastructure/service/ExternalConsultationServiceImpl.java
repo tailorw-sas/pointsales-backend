@@ -97,10 +97,11 @@ public class ExternalConsultationServiceImpl implements IExternalConsultationSer
 
     @Override
     public void delete(ExternalConsultationDto dto) {
-        ExternalConsultation delete = new ExternalConsultation(dto);
-        delete.setDeleted(Boolean.TRUE);
-        delete.setReferenceNumber(delete.getReferenceNumber());
-        this.repositoryCommand.save(delete);
+        try {
+            this.repositoryCommand.deleteById(dto.getId());
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override

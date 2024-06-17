@@ -35,9 +35,6 @@ public class Exam {
 
     private String code;
 
-    @Column(nullable = true)
-    private Boolean deleted = false;
-
     @PrePersist
     protected void onCreate() {
         datePerformed = new Date();
