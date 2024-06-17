@@ -1,6 +1,6 @@
 package com.kynsof.rrhh.application.query.business.getbyid;
 
-import com.kynsof.rrhh.doman.dto.BusinessDto;
+import com.kynsof.rrhh.domain.dto.BusinessDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

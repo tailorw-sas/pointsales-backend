@@ -1,6 +1,6 @@
 package com.kynsof.rrhh.application.query.users.search;
 
-import com.kynsof.rrhh.doman.interfaces.services.IUserSystemService;
+import com.kynsof.rrhh.domain.interfaces.services.IUserSystemService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import org.springframework.stereotype.Component;

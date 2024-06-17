@@ -1,11 +1,11 @@
 package com.kynsof.rrhh.infrastructure.services;
 
 import com.kynsof.rrhh.application.query.users.getbyid.UserSystemsByIdResponse;
-import com.kynsof.rrhh.doman.dto.UserSystemDto;
-import com.kynsof.rrhh.doman.interfaces.services.IUserSystemService;
+import com.kynsof.rrhh.domain.dto.UserSystemDto;
+import com.kynsof.rrhh.domain.interfaces.services.IUserSystemService;
 import com.kynsof.rrhh.infrastructure.identity.UserSystem;
 import com.kynsof.rrhh.infrastructure.repository.query.UserSystemReadDataJPARepository;
-import com.kynsof.rrhh.infrastructure.repository.query.command.UserSystemsWriteDataJPARepository;
+import com.kynsof.rrhh.infrastructure.repository.command.UserSystemsWriteDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;

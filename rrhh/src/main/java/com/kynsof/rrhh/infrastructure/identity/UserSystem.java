@@ -1,7 +1,7 @@
 package com.kynsof.rrhh.infrastructure.identity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kynsof.rrhh.doman.dto.UserSystemDto;
+import com.kynsof.rrhh.domain.dto.UserSystemDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +16,7 @@ import java.util.UUID;
 @Table(name = "user_system")
 @Getter
 @Setter
+@Inheritance(strategy = InheritanceType.JOINED)
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserSystem implements Serializable {

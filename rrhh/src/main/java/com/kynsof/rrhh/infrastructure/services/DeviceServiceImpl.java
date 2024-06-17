@@ -2,12 +2,12 @@ package com.kynsof.rrhh.infrastructure.services;
 
 import com.kynsof.rrhh.application.query.device.getbyid.DeviceResponse;
 import com.kynsof.rrhh.application.query.users.getbyid.UserSystemsByIdResponse;
-import com.kynsof.rrhh.doman.dto.DeviceDto;
-import com.kynsof.rrhh.doman.interfaces.services.IDeviceService;
+import com.kynsof.rrhh.domain.dto.DeviceDto;
+import com.kynsof.rrhh.domain.interfaces.services.IDeviceService;
 import com.kynsof.rrhh.infrastructure.identity.Device;
 import com.kynsof.rrhh.infrastructure.identity.UserSystem;
 import com.kynsof.rrhh.infrastructure.repository.query.DeviceReadDataJPARepository;
-import com.kynsof.rrhh.infrastructure.repository.query.command.DeviceWriteDataJPARepository;
+import com.kynsof.rrhh.infrastructure.repository.command.DeviceWriteDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;

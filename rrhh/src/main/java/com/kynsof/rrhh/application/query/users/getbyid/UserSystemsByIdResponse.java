@@ -1,6 +1,6 @@
 package com.kynsof.rrhh.application.query.users.getbyid;
 
-import com.kynsof.rrhh.doman.dto.UserSystemDto;
+import com.kynsof.rrhh.domain.dto.UserSystemDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

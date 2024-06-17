@@ -1,7 +1,7 @@
 package com.kynsof.rrhh.application.query.users.getbyid;
 
-import com.kynsof.rrhh.doman.dto.UserSystemDto;
-import com.kynsof.rrhh.doman.interfaces.services.IUserSystemService;
+import com.kynsof.rrhh.domain.dto.UserSystemDto;
+import com.kynsof.rrhh.domain.interfaces.services.IUserSystemService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 

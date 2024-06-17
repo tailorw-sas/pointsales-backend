@@ -1,7 +1,7 @@
 package com.kynsof.rrhh.application.query.device.getbyid;
 
-import com.kynsof.rrhh.doman.dto.DeviceDto;
-import com.kynsof.rrhh.doman.interfaces.services.IDeviceService;
+import com.kynsof.rrhh.domain.dto.DeviceDto;
+import com.kynsof.rrhh.domain.interfaces.services.IDeviceService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 

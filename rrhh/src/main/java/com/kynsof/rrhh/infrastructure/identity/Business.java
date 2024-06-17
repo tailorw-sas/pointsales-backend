@@ -1,6 +1,6 @@
 package com.kynsof.rrhh.infrastructure.identity;
 
-import com.kynsof.rrhh.doman.dto.BusinessDto;
+import com.kynsof.rrhh.domain.dto.BusinessDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

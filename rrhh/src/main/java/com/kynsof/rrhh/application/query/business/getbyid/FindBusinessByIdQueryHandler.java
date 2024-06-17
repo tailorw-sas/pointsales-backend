@@ -1,7 +1,7 @@
 package com.kynsof.rrhh.application.query.business.getbyid;
 
-import com.kynsof.rrhh.doman.dto.BusinessDto;
-import com.kynsof.rrhh.doman.interfaces.services.IBusinessService;
+import com.kynsof.rrhh.domain.dto.BusinessDto;
+import com.kynsof.rrhh.domain.interfaces.services.IBusinessService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 

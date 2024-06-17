@@ -1,10 +1,10 @@
 package com.kynsof.rrhh.infrastructure.services;
 
-import com.kynsof.rrhh.doman.dto.BusinessDto;
-import com.kynsof.rrhh.doman.interfaces.services.IBusinessService;
+import com.kynsof.rrhh.domain.dto.BusinessDto;
+import com.kynsof.rrhh.domain.interfaces.services.IBusinessService;
 import com.kynsof.rrhh.infrastructure.identity.Business;
 import com.kynsof.rrhh.infrastructure.repository.query.BusinessReadDataJPARepository;
-import com.kynsof.rrhh.infrastructure.repository.query.command.BusinessWriteDataJPARepository;
+import com.kynsof.rrhh.infrastructure.repository.command.BusinessWriteDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;

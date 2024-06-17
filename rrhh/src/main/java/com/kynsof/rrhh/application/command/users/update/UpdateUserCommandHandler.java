@@ -1,9 +1,9 @@
 package com.kynsof.rrhh.application.command.users.update;
 
-import com.kynsof.rrhh.doman.dto.UserSystemDto;
-import com.kynsof.rrhh.doman.dto.UserSystemImageDto;
-import com.kynsof.rrhh.doman.interfaces.services.IUserSystemService;
-import com.kynsof.rrhh.doman.rules.users.UserSystemEmailValidateRule;
+import com.kynsof.rrhh.domain.dto.UserSystemDto;
+import com.kynsof.rrhh.domain.dto.UserSystemImageDto;
+import com.kynsof.rrhh.domain.interfaces.services.IUserSystemService;
+import com.kynsof.rrhh.domain.rules.users.UserSystemEmailValidateRule;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;

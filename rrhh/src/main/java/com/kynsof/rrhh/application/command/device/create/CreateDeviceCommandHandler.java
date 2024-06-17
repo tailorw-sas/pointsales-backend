@@ -1,11 +1,11 @@
 package com.kynsof.rrhh.application.command.device.create;
 
-import com.kynsof.rrhh.doman.dto.BusinessDto;
-import com.kynsof.rrhh.doman.dto.DeviceDto;
-import com.kynsof.rrhh.doman.interfaces.services.IBusinessService;
-import com.kynsof.rrhh.doman.interfaces.services.IDeviceService;
-import com.kynsof.rrhh.doman.rules.device.DeviceIpValidateRule;
-import com.kynsof.rrhh.doman.rules.device.DeviceSerialMustBeNullRule;
+import com.kynsof.rrhh.domain.dto.BusinessDto;
+import com.kynsof.rrhh.domain.dto.DeviceDto;
+import com.kynsof.rrhh.domain.interfaces.services.IBusinessService;
+import com.kynsof.rrhh.domain.interfaces.services.IDeviceService;
+import com.kynsof.rrhh.domain.rules.device.DeviceIpValidateRule;
+import com.kynsof.rrhh.domain.rules.device.DeviceSerialMustBeNullRule;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
