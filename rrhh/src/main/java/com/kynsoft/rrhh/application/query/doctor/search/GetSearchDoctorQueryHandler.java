@@ -2,14 +2,14 @@ package com.kynsoft.rrhh.application.query.doctor.search;
 
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-import com.kynsoft.rrhh.domain.interfaces.services.IUserSystemService;
+import com.kynsoft.rrhh.domain.interfaces.services.IDoctorService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GetSearchDoctorQueryHandler implements IQueryHandler<GetSearchDoctorQuery, PaginatedResponse>{
-    private final IUserSystemService service;
+    private final IDoctorService service;
 
-    public GetSearchDoctorQueryHandler(IUserSystemService service) {
+    public GetSearchDoctorQueryHandler(IDoctorService service) {
         this.service = service;
     }
 
