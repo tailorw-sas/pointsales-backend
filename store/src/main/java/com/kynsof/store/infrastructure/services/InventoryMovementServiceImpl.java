@@ -29,8 +29,6 @@ public class InventoryMovementServiceImpl implements IInventoryMovementService {
     @Autowired
     private InventoryReadDataJPARepository readRepository;
 
-
-
     @Override
     public UUID create(InventoryMovementDto inventoryMovementDto) {
         InventoryMovement movement = new InventoryMovement(inventoryMovementDto);
