@@ -1,7 +1,9 @@
 package com.kynsof.share.core.domain.exception;
 
 import com.kynsof.share.core.domain.rules.BusinessRule;
+import lombok.Getter;
 
+@Getter
 public class BusinessRuleValidationException extends RuntimeException {
 
     private final BusinessRule brokenRule;
@@ -19,22 +21,6 @@ public class BusinessRuleValidationException extends RuntimeException {
         this.status = brokenRule.getError().value();
         this.message = brokenRule.getError().getReasonPhrase();
         this.details = brokenRule.getErrorField().getMessage();
-    }
-
-    public BusinessRule getBrokenRule() {
-        return brokenRule;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getDetails() {
-        return details;
     }
 
     @Override

@@ -2,7 +2,10 @@ package com.kynsof.treatments.infrastructure.entity;
 
 import com.kynsof.treatments.domain.dto.ProcedureDto;
 import com.kynsof.treatments.domain.dto.enumDto.MedicalExamCategory;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

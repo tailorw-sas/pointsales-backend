@@ -3,7 +3,6 @@ package com.kynsof.patients.infrastructure.services;
 import com.kynsof.patients.domain.dto.MedicalInformationDto;
 import com.kynsof.patients.domain.dto.MedicalInformationUpdateDto;
 import com.kynsof.patients.domain.dto.PatientDto;
-import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IMedicalInformationService;
 import com.kynsof.patients.infrastructure.entity.MedicalInformation;
 import com.kynsof.patients.infrastructure.entity.Patients;

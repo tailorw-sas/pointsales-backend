@@ -2,7 +2,6 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.currentMedication.getall.CurrentMedicationResponse;
 import com.kynsof.patients.domain.dto.CurrentMerdicationEntityDto;
-import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.ICurrentMedicationService;
 import com.kynsof.patients.infrastructure.entity.CurrentMedication;
 import com.kynsof.patients.infrastructure.repository.command.CurrentMedicationWriteDataJPARepository;

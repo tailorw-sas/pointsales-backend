@@ -2,7 +2,6 @@ package com.kynsoft.notification.infrastructure.entity;
 
 import com.kynsof.share.core.domain.BaseEntity;
 import com.kynsoft.notification.domain.dto.AFileDto;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

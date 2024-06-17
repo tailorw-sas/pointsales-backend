@@ -2,9 +2,7 @@ package com.kynsoft.rrhh.application.query.assistant.getbyid;
 
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsoft.rrhh.domain.dto.AssistantDto;
-import com.kynsoft.rrhh.domain.dto.DoctorDto;
 import com.kynsoft.rrhh.domain.interfaces.services.IAssistantService;
-import com.kynsoft.rrhh.domain.interfaces.services.IDoctorService;
 import org.springframework.stereotype.Component;
 
 @Component
