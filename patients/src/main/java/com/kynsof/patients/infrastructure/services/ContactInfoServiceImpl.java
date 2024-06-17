@@ -2,7 +2,6 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.contactInfo.getall.ContactInfoResponse;
 import com.kynsof.patients.domain.dto.ContactInfoDto;
-import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.infrastructure.entity.ContactInformation;
 import com.kynsof.patients.infrastructure.repository.command.ContactInfoWriteDataJPARepository;
@@ -113,10 +112,11 @@ public class ContactInfoServiceImpl implements IContactInfoService {
 
     @Override
     public void delete(UUID id) {
-        ContactInfoDto contactInfoDto = this.findById(id);
-        contactInfoDto.setStatus(Status.INACTIVE);
-        
-        this.repositoryCommand.save(new ContactInformation(contactInfoDto));
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
 }

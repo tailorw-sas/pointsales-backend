@@ -1,6 +1,5 @@
 package com.kynsof.patients.infrastructure.services;
 
-
 import com.kynsof.patients.application.query.insuarance.getall.InsuranceResponse;
 import com.kynsof.patients.domain.dto.InsuranceDto;
 import com.kynsof.patients.domain.service.IInsuranceService;
@@ -45,7 +44,11 @@ public class InsuranceServiceImpl implements IInsuranceService {
 
     @Override
     public void delete(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override
@@ -54,13 +57,13 @@ public class InsuranceServiceImpl implements IInsuranceService {
         if (insurance.isPresent()) {
             return insurance.get().toAggregate();
         }
-      throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.INSURANCE_NOT_FOUND, new ErrorField("id", "Insurance not found.")));
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.INSURANCE_NOT_FOUND, new ErrorField("id", "Insurance not found.")));
     }
 
     @Override
     public PaginatedResponse findAll(Pageable pageable) {
 
-        Page<Insurance> data = this.repositoryQuery.findAll( pageable);
+        Page<Insurance> data = this.repositoryQuery.findAll(pageable);
 
         return getPaginatedResponse(data);
     }
