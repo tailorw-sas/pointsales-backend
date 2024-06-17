@@ -45,11 +45,11 @@ public class AdvertisingContentServiceImpl implements IAdvertisingContentService
 
     @Override
     public void delete(AdvertisingContentDto object) {
-        AdvertisingContent delete = new AdvertisingContent(object);
-        delete.setDeleted(Boolean.TRUE);
-        delete.setTitle(delete.getTitle() + " + " + UUID.randomUUID());
-
-        this.commandRepository.save(delete);
+        try {
+            this.commandRepository.deleteById(object.getId());
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override

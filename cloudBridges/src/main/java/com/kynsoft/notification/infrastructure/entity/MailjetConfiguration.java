@@ -41,9 +41,6 @@ public class MailjetConfiguration implements Serializable {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true)
-    private Boolean deleted = false;
-
     @OneToMany(mappedBy = "mailjetConfig", cascade = CascadeType.ALL)
     private List<TemplateEntity> templates;
 

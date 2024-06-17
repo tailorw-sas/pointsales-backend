@@ -1,6 +1,10 @@
 package com.kynsoft.notification.infrastructure.service;
 
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsoft.notification.application.query.templateEntity.getById.TemplateEntityResponse;
@@ -41,12 +45,11 @@ public class TemplateEntityServiceImpl implements ITemplateEntityService {
 
     @Override
     public void delete(TemplateDto object) {
-        TemplateEntity delete = new TemplateEntity(object);
-        delete.setDeleted(Boolean.TRUE);
-        delete.setTemplateCode(delete.getTemplateCode() + " + " + UUID.randomUUID());
-        delete.setName(delete.getName()+ " + " + UUID.randomUUID());
-
-        this.commandRepository.save(delete);
+        try {
+            this.commandRepository.deleteById(object.getId());
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override

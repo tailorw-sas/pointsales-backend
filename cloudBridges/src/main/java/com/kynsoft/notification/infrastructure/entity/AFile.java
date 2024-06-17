@@ -22,9 +22,6 @@ public class AFile extends BaseEntity {
     private String microServiceName;
     private String url;
 
-    @Column(nullable = true)
-    private Boolean deleted = false;
-
     public AFile(UUID id, String name, String microServiceName, String url) {
         this.id = id;
         this.name = name;
