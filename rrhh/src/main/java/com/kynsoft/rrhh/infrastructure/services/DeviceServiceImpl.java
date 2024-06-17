@@ -1,13 +1,5 @@
 package com.kynsoft.rrhh.infrastructure.services;
 
-import com.kynsoft.rrhh.application.query.device.getbyid.DeviceResponse;
-import com.kynsoft.rrhh.application.query.users.getbyid.UserSystemsByIdResponse;
-import com.kynsoft.rrhh.domain.dto.DeviceDto;
-import com.kynsoft.rrhh.domain.interfaces.services.IDeviceService;
-import com.kynsoft.rrhh.infrastructure.identity.Device;
-import com.kynsoft.rrhh.infrastructure.identity.UserSystem;
-import com.kynsoft.rrhh.infrastructure.repository.query.DeviceReadDataJPARepository;
-import com.kynsoft.rrhh.infrastructure.repository.command.DeviceWriteDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -15,6 +7,14 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import com.kynsoft.rrhh.application.query.device.getbyid.DeviceResponse;
+import com.kynsoft.rrhh.application.query.users.getbyid.UserSystemsByIdResponse;
+import com.kynsoft.rrhh.domain.dto.DeviceDto;
+import com.kynsoft.rrhh.domain.interfaces.services.IDeviceService;
+import com.kynsoft.rrhh.infrastructure.identity.Device;
+import com.kynsoft.rrhh.infrastructure.identity.UserSystem;
+import com.kynsoft.rrhh.infrastructure.repository.command.DeviceWriteDataJPARepository;
+import com.kynsoft.rrhh.infrastructure.repository.query.DeviceReadDataJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,7 +1,7 @@
 package com.kynsoft.rrhh.application.query.doctor.getbyid;
 
-import com.kynsoft.rrhh.domain.dto.DoctorDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
+import com.kynsoft.rrhh.domain.dto.DoctorDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,7 @@
 package com.kynsoft.rrhh.application.query.business.getbyid;
 
-import com.kynsoft.rrhh.domain.dto.BusinessDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
+import com.kynsoft.rrhh.domain.dto.BusinessDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

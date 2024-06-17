@@ -1,5 +1,12 @@
 package com.kynsoft.rrhh.infrastructure.services;
 
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
+import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsoft.rrhh.application.query.doctor.getbyid.DoctorResponse;
 import com.kynsoft.rrhh.application.query.users.getbyid.UserSystemsByIdResponse;
 import com.kynsoft.rrhh.domain.dto.DoctorDto;
@@ -8,13 +15,6 @@ import com.kynsoft.rrhh.infrastructure.identity.Doctor;
 import com.kynsoft.rrhh.infrastructure.identity.UserSystem;
 import com.kynsoft.rrhh.infrastructure.repository.command.DoctorWriteDataJPARepository;
 import com.kynsoft.rrhh.infrastructure.repository.query.DoctorReadDataJPARepository;
-import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
-import com.kynsof.share.core.domain.exception.DomainErrorMessage;
-import com.kynsof.share.core.domain.exception.GlobalBusinessException;
-import com.kynsof.share.core.domain.request.FilterCriteria;
-import com.kynsof.share.core.domain.response.ErrorField;
-import com.kynsof.share.core.domain.response.PaginatedResponse;
-import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

@@ -3,8 +3,8 @@ package com.kynsoft.rrhh.infrastructure.services;
 import com.kynsoft.rrhh.domain.dto.UserBusinessRelationDto;
 import com.kynsoft.rrhh.domain.interfaces.services.IUserBusinessRelationService;
 import com.kynsoft.rrhh.infrastructure.identity.UserBusinessRelation;
-import com.kynsoft.rrhh.infrastructure.repository.query.UserBusinessRelationReadDataJPARepository;
 import com.kynsoft.rrhh.infrastructure.repository.command.UserBusinessRelationWriteDataJPARepository;
+import com.kynsoft.rrhh.infrastructure.repository.query.UserBusinessRelationReadDataJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,11 +1,11 @@
 package com.kynsoft.rrhh.application.command.doctor.update;
 
-import com.kynsoft.rrhh.domain.dto.DoctorDto;
-import com.kynsoft.rrhh.domain.interfaces.services.IDoctorService;
-import com.kynsoft.rrhh.domain.rules.users.UserSystemEmailValidateRule;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
+import com.kynsoft.rrhh.domain.dto.DoctorDto;
+import com.kynsoft.rrhh.domain.interfaces.services.IDoctorService;
+import com.kynsoft.rrhh.domain.rules.users.UserSystemEmailValidateRule;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,8 +1,8 @@
 package com.kynsoft.rrhh.application.command.doctor.delete;
 
+import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsoft.rrhh.domain.dto.DoctorDto;
 import com.kynsoft.rrhh.domain.interfaces.services.IDoctorService;
-import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
 @Component

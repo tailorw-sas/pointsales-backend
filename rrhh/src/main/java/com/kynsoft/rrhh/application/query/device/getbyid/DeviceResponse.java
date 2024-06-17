@@ -1,8 +1,8 @@
 package com.kynsoft.rrhh.application.query.device.getbyid;
 
+import com.kynsof.share.core.domain.bus.query.IResponse;
 import com.kynsoft.rrhh.domain.dto.BusinessDto;
 import com.kynsoft.rrhh.domain.dto.DeviceDto;
-import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,8 +1,8 @@
 package com.kynsoft.rrhh.application.query.doctor.getbyid;
 
+import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsoft.rrhh.domain.dto.DoctorDto;
 import com.kynsoft.rrhh.domain.interfaces.services.IDoctorService;
-import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
 @Component

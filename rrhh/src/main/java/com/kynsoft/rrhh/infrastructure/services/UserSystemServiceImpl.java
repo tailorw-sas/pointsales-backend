@@ -1,11 +1,5 @@
 package com.kynsoft.rrhh.infrastructure.services;
 
-import com.kynsoft.rrhh.application.query.users.getbyid.UserSystemsByIdResponse;
-import com.kynsoft.rrhh.domain.dto.UserSystemDto;
-import com.kynsoft.rrhh.domain.interfaces.services.IUserSystemService;
-import com.kynsoft.rrhh.infrastructure.identity.UserSystem;
-import com.kynsoft.rrhh.infrastructure.repository.query.UserSystemReadDataJPARepository;
-import com.kynsoft.rrhh.infrastructure.repository.command.UserSystemsWriteDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -13,6 +7,12 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import com.kynsoft.rrhh.application.query.users.getbyid.UserSystemsByIdResponse;
+import com.kynsoft.rrhh.domain.dto.UserSystemDto;
+import com.kynsoft.rrhh.domain.interfaces.services.IUserSystemService;
+import com.kynsoft.rrhh.infrastructure.identity.UserSystem;
+import com.kynsoft.rrhh.infrastructure.repository.command.UserSystemsWriteDataJPARepository;
+import com.kynsoft.rrhh.infrastructure.repository.query.UserSystemReadDataJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
