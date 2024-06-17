@@ -44,12 +44,11 @@ public class JasperReportTemplateServiceImpl implements IJasperReportTemplateSer
 
     @Override
     public void delete(JasperReportTemplateDto object) {
-        JasperReportTemplate delete = new JasperReportTemplate(object);
-        delete.setDeleted(Boolean.TRUE);
-        delete.setTemplateCode(delete.getTemplateCode() + " + " + UUID.randomUUID());
-        delete.setTemplateName(delete.getTemplateName()+ " + " + UUID.randomUUID());
-
-        this.commandRepository.save(delete);
+        try {
+            this.commandRepository.deleteById(object.getId());
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override

@@ -32,9 +32,6 @@ public class JasperReportTemplate extends BaseEntity {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true)
-    private Boolean deleted = false;
-
     public JasperReportTemplate(JasperReportTemplateDto jasperReportTemplateDto) {
         this.id = jasperReportTemplateDto.getId();
         this.templateCode = jasperReportTemplateDto.getTemplateCode();
