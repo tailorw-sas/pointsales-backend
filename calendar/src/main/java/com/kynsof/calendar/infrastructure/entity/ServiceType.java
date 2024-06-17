@@ -31,9 +31,6 @@ public class ServiceType {
     @OneToMany(mappedBy = "type")
     private Set<Services> services;
 
-    @Column(nullable = true)
-    private Boolean deleted = false;
-
     public ServiceType(ServiceTypeDto dto) {
         this.id = dto.getId();
         this.name = dto.getName();

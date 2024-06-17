@@ -1,9 +1,11 @@
 package com.kynsof.store.infrastructure.services;
 
-
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.share.utils.UpdateIfNotNull;
@@ -31,6 +33,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Autowired
     private CustomerReadDataJPARepository repositoryQuery;
+
     @Override
     public UUID create(CustomerDto categoryDto) {
         Customer additionalInformation = this.repositoryCommand.save(new Customer(categoryDto));
@@ -56,7 +59,11 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public void delete(UUID id) {
-
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override
@@ -70,7 +77,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public PaginatedResponse findAll(Pageable pageable) {
-        Page<Customer> data = this.repositoryQuery.findAll( pageable);
+        Page<Customer> data = this.repositoryQuery.findAll(pageable);
 
         return getPaginatedResponse(data);
     }

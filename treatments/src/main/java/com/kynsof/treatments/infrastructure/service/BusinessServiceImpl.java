@@ -61,9 +61,11 @@ import java.util.UUID;
 
     @Override
     public void delete(UUID id) {
-        BusinessDto objectDelete = this.findById(id);
-
-        this.repositoryCommand.save(new Business(objectDelete));
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override

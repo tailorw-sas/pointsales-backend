@@ -68,11 +68,11 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Override
     public void delete(UUID id) {
-
-        ResourceDto objectDelete = this.findById(id);
-        objectDelete.setStatus(EResourceStatus.INACTIVE);
-
-        this.repositoryCommand.save(new Resource(objectDelete));
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
 //    @Cacheable(cacheNames = CacheConfig.RESOURCE_CACHE, unless = "#result == null")

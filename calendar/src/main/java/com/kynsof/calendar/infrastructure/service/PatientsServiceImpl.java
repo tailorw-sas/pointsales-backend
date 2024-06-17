@@ -7,7 +7,10 @@ import com.kynsof.calendar.infrastructure.entity.Patient;
 import com.kynsof.calendar.infrastructure.repository.command.PatientsWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.PatientsReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
+import com.kynsof.share.core.domain.response.ErrorField;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,10 +69,11 @@ public class PatientsServiceImpl implements IPatientsService {
 
     @Override
     public void delete(UUID id) {
-        PatientDto patientDelete = this.findById(id);
-        patientDelete.setStatus(PatientStatus.INACTIVE);
-
-        this.repositoryCommand.save(new Patient(patientDelete));
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
 }

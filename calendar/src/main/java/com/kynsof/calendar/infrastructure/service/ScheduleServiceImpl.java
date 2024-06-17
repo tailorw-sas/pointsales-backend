@@ -127,13 +127,11 @@ public class ScheduleServiceImpl implements IScheduleService {
 
     @Override
     public void delete(UUID id) {
-        ScheduleDto _schedule = this.findById(id);
-
-        Schedule delete = new Schedule(_schedule);
-        delete.setStatus(EStatusSchedule.INACTIVE);
-        delete.setDeleted(Boolean.TRUE);
-
-        repositoryCommand.save(delete);
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override
@@ -344,18 +342,6 @@ public class ScheduleServiceImpl implements IScheduleService {
         });
 
         return availableDates;
-    }
-
-    public void updateDelete() {
-        List<Schedule> modules = this.repositoryQuery.findAll();
-        if (!modules.isEmpty()) {
-            for (Schedule module : modules) {
-                if (module.getDeleted() == null || !module.getDeleted().equals(Boolean.TRUE)) {
-                    module.setDeleted(Boolean.FALSE);
-                }
-                this.repositoryCommand.save(module);
-            }
-        }
     }
 
     @Override

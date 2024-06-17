@@ -45,11 +45,11 @@ public class MedicinesServiceImpl implements IMedicinesService {
 
     @Override
     public void delete(MedicinesDto object) {
-        Medicines delete = new Medicines(object);
-        delete.setDeleted(Boolean.TRUE);
-        delete.setName(delete.getName() + " + " + UUID.randomUUID());
-
-        this.repositoryCommand.save(delete);
+        try {
+            this.repositoryCommand.deleteById(object.getId());
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {

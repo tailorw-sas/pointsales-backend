@@ -46,13 +46,11 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
 
     @Override
     public void delete(UUID id) {
-        ServiceTypeDto objectDelete = this.getById(id);
-
-        ServiceType serviceType = new ServiceType(objectDelete);
-        serviceType.setName(objectDelete.getName() + " + " + UUID.randomUUID());
-        serviceType.setDeleted(Boolean.TRUE);
-
-        this.repositoryCommand.save(serviceType);
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     private ServiceTypeDto getById(UUID id) {
@@ -98,18 +96,6 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
     @Override
     public Long countByNameAndNotId(String name, UUID id) {
         return this.repositoryQuery.countByNameAndNotId(name, id);
-    }
-
-    public void updateDelete() {
-        List<ServiceType> modules = this.repositoryQuery.findAll();
-        if (!modules.isEmpty()) {
-            for (ServiceType module : modules) {
-                if (module.getDeleted() == null || !module.getDeleted().equals(Boolean.TRUE)) {
-                    module.setDeleted(Boolean.FALSE);
-                }
-                this.repositoryCommand.save(module);
-            }
-        }
     }
 
 }

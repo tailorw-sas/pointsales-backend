@@ -51,12 +51,11 @@ public class DiagnosisServiceImpl implements IDiagnosisService {
 
     @Override
     public void delete(DiagnosisDto treatment) {
-        Diagnosis delete = new Diagnosis(treatment);
-        delete.setDeleted(Boolean.TRUE);
-        delete.setIcdCode(delete.getIcdCode() + " + " + UUID.randomUUID());
-        delete.setExternalConsultation(null);
-
-        repositoryCommand.save(delete);
+        try {
+            this.repositoryCommand.deleteById(treatment.getId());
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override

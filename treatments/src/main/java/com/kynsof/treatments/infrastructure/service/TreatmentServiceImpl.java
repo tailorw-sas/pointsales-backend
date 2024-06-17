@@ -50,10 +50,11 @@ public class TreatmentServiceImpl implements ITreatmentService {
 
     @Override
     public void delete(TreatmentDto treatment) {
-        Treatment delete = new Treatment(treatment);
-        delete.setDeleted(Boolean.TRUE);
-
-        this.repositoryCommand.save(delete);
+        try {
+            this.repositoryCommand.deleteById(treatment.getId());
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override

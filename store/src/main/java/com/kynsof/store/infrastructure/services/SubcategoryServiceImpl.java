@@ -1,8 +1,11 @@
 package com.kynsof.store.infrastructure.services;
 
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.store.application.query.subcategory.getAll.SubcategoryResponse;
@@ -25,6 +28,7 @@ import java.util.UUID;
 
 @Service
 public class SubcategoryServiceImpl implements ISubcategoryService {
+
     @Autowired
     private SubcategoryWriteDataJPARepository repositoryCommand;
     @Autowired
@@ -45,10 +49,10 @@ public class SubcategoryServiceImpl implements ISubcategoryService {
         return repositoryQuery.findById(subcategoryDto.getId())
                 .map(subcategory -> {
                     subcategory.setName(subcategoryDto.getName() != null ? subcategoryDto.getName() : subcategory.getName());
-                    subcategory.setDescription(subcategoryDto.getDescription() != null ?
-                            subcategoryDto.getDescription() : subcategory.getDescription());
-                    subcategory.setCategory(subcategoryDto.getCategoryId() != null ?
-                            new Category(subcategoryDto.getCategory()) : subcategory.getCategory());
+                    subcategory.setDescription(subcategoryDto.getDescription() != null
+                            ? subcategoryDto.getDescription() : subcategory.getDescription());
+                    subcategory.setCategory(subcategoryDto.getCategoryId() != null
+                            ? new Category(subcategoryDto.getCategory()) : subcategory.getCategory());
                     return repositoryCommand.save(subcategory);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("SubCategory with ID " + subcategoryDto.getId() + " not found"))
@@ -57,7 +61,11 @@ public class SubcategoryServiceImpl implements ISubcategoryService {
 
     @Override
     public void delete(UUID id) {
-
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override
@@ -71,7 +79,7 @@ public class SubcategoryServiceImpl implements ISubcategoryService {
 
     @Override
     public PaginatedResponse findAll(Pageable pageable) {
-        Page<Subcategory> data = this.repositoryQuery.findAll( pageable);
+        Page<Subcategory> data = this.repositoryQuery.findAll(pageable);
 
         return getPaginatedResponse(data);
     }

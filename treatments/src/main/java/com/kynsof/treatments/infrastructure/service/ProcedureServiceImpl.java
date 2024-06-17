@@ -46,12 +46,11 @@ public class ProcedureServiceImpl implements IProcedureService {
 
     @Override
     public void delete(ProcedureDto object) {
-        Procedure delete = new Procedure(object);
-        delete.setDeleted(Boolean.TRUE);
-        delete.setName(delete.getName() + " + " + UUID.randomUUID());
-        delete.setCode(delete.getCode() + " + " + UUID.randomUUID());
-
-        this.repositoryCommand.save(delete);
+        try {
+            this.repositoryCommand.deleteById(object.getId());
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override

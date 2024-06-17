@@ -67,9 +67,6 @@ public class ExternalConsultation {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true)
-    private Boolean deleted = false;
-
     public ExternalConsultation(ExternalConsultationDto dto) {
         this.id = dto.getId();
         this.patient = new Patients(dto.getPatient());

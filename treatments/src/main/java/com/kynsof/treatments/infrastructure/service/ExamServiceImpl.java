@@ -45,13 +45,11 @@ public class ExamServiceImpl implements IExamService {
 
     @Override
     public void delete(ExamDto examDto) {
-        Exam delete = new Exam(examDto);
-
-        delete.setCode(delete.getCode() + " + " + UUID.randomUUID());
-        delete.setDeleted(Boolean.TRUE);
-        delete.setExamOrder(null);
-
-        this.repositoryCommand.save(delete);
+        try {
+            this.repositoryCommand.deleteById(examDto.getId());
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override

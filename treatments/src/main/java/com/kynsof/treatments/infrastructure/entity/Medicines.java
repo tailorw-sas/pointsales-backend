@@ -21,9 +21,6 @@ public class Medicines {
     @Column(unique = true)
     private String name;
 
-    @Column(nullable = true)
-    private Boolean deleted = false;
-
     public Medicines(MedicinesDto medicine) {
         this.id = medicine.getId();
         this.name = medicine.getName();

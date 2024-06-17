@@ -7,7 +7,11 @@ import com.kynsof.patients.domain.service.ICurrentMedicationService;
 import com.kynsof.patients.infrastructure.entity.CurrentMedication;
 import com.kynsof.patients.infrastructure.repository.command.CurrentMedicationWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.CurrentMedicationReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,10 +84,11 @@ public class CurrentMedicationServiceImpl implements ICurrentMedicationService {
 
     @Override
     public void delete(UUID id) {
-        CurrentMerdicationEntityDto currentMerdicationEntityDto = this.findById(id);
-        currentMerdicationEntityDto.setStatus(Status.INACTIVE);
-
-        this.repositoryCommand.save(new CurrentMedication(currentMerdicationEntityDto));
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
 }

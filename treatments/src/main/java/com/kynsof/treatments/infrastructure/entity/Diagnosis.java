@@ -31,9 +31,6 @@ public class Diagnosis {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true)
-    private Boolean deleted = false;
-
     public Diagnosis(DiagnosisDto diagnosisDto) {
         this.id = diagnosisDto.getId();
         this.icdCode = diagnosisDto.getIcdCode();

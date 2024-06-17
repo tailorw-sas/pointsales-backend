@@ -3,12 +3,15 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.allergy.getall.AllergyResponse;
 import com.kynsof.patients.domain.dto.AllergyEntityDto;
-import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IAllergyService;
 import com.kynsof.patients.infrastructure.entity.Allergy;
 import com.kynsof.patients.infrastructure.repository.command.AllergyWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.AllergyReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,10 +84,11 @@ public class AllergyServiceImpl implements IAllergyService {
 
     @Override
     public void delete(UUID id) {
-        AllergyEntityDto contactInfoDto = this.findById(id);
-        contactInfoDto.setStatus(Status.INACTIVE);
-
-        this.repositoryCommand.save(new Allergy(contactInfoDto));
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
 }

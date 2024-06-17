@@ -2,12 +2,15 @@ package com.kynsof.patients.infrastructure.services;
 
 import com.kynsof.patients.application.query.additionalInfo.getall.AdditionalInfoResponse;
 import com.kynsof.patients.domain.dto.AdditionalInformationDto;
-import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IAdditionalInfoService;
 import com.kynsof.patients.infrastructure.entity.AdditionalInformation;
 import com.kynsof.patients.infrastructure.repository.command.AdditionaltInfoWriteDataJPARepository;
 import com.kynsof.patients.infrastructure.repository.query.AdditionalInfoReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import jakarta.persistence.EntityNotFoundException;
@@ -97,9 +100,11 @@ public class AdditionalInfoServiceImpl implements IAdditionalInfoService {
 
     @Override
     public void delete(UUID id) {
-        AdditionalInformationDto additionalInformationDto = this.findById(id);
-        additionalInformationDto.setStatus(Status.INACTIVE);
-        this.repositoryCommand.save(new AdditionalInformation(additionalInformationDto));
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
 }

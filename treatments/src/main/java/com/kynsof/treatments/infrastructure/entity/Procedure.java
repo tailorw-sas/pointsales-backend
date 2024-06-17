@@ -24,9 +24,6 @@ public class Procedure {
     private MedicalExamCategory type;
     private Double price;
 
-    @Column(nullable = true)
-    private Boolean deleted = false;
-
     public Procedure(ProcedureDto procedureDto) {
         this.id = procedureDto.getId();
         this.code = procedureDto.getCode();

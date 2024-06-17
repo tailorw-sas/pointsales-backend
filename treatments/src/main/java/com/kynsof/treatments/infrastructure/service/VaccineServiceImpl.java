@@ -51,11 +51,11 @@ public class VaccineServiceImpl implements IVaccineService {
 
     @Override
     public void delete(VaccineDto object) {
-        Vaccine delete = new Vaccine(object);
-        delete.setDeleted(Boolean.TRUE);
-        delete.setName(delete.getName() + " + " + UUID.randomUUID());
-
-        this.repositoryCommand.save(delete);
+        try {
+            this.repositoryCommand.deleteById(object.getId());
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
 //    @Override
