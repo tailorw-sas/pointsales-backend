@@ -60,9 +60,6 @@ public class Schedule {
     @JoinColumn(name = "service_id")
     private Services service;
 
-    @Column(nullable = true)
-    private Boolean deleted = false;
-
     @PrePersist
     public void prePersist() {
         this.initialStock = this.stock;

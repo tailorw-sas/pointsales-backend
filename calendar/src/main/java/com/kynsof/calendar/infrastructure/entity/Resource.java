@@ -44,9 +44,6 @@ public class Resource {
 
     private Boolean expressAppointments;
 
-    @Column(nullable = true)
-    private boolean deleted;
-
     private String image;
 
     private String identification;

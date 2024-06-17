@@ -46,10 +46,11 @@ public class BusinessResourceServiceImpl implements IBusinessResourceService {
 
     @Override
     public void delete(BusinessResourceDto object) {
-        BusinessResource delete = new BusinessResource(object);
-        delete.setDeleted(Boolean.TRUE);
-
-        this.repositoryCommand.save(delete);
+        try {
+            this.repositoryCommand.deleteById(object.getId());
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Override

@@ -13,10 +13,13 @@ import com.kynsof.calendar.infrastructure.repository.command.QualificationWriteD
 import com.kynsof.calendar.infrastructure.repository.query.QualificationReadDataJPARepository;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.kafka.config.SimpleEmailKafka;
 import com.kynsof.share.core.domain.kafka.producer.email.ProducerEmailEventService;
 import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
@@ -61,14 +64,11 @@ public class QualificationServiceImpl implements IQualificationService {
 
     @Override
     public void delete(UUID id) {
-        QualificationDto objectDelete = this.findById(id);
-        objectDelete.setStatus(EQualificationStatus.INACTIVE);
-
-        objectDelete.setDeleted(true);
-
-        objectDelete.setDescription(objectDelete.getDescription() + UUID.randomUUID().toString());
-
-        this.repositoryCommand.save(new Qualification(objectDelete));
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     @Cacheable(cacheNames = CacheConfig.QUALIFICATION_CACHE, unless = "#result == null")

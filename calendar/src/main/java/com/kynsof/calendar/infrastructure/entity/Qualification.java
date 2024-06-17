@@ -27,9 +27,6 @@ public class Qualification {
     @Column(unique = true)
     private String description;
 
-    @Column(nullable = true)
-    private boolean deleted;
-
     @Enumerated(EnumType.STRING)
     private EQualificationStatus status;
 
@@ -46,10 +43,9 @@ public class Qualification {
         this.id = qualification.getId();
         this.description = qualification.getDescription();
         this.status = qualification.getStatus();
-       this.deleted = qualification.isDeleted();
     }
 
     public QualificationDto toAggregate () {
-        return new QualificationDto(id, description, status,  deleted);
+        return new QualificationDto(id, description, status);
     }
 }

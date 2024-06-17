@@ -57,15 +57,11 @@ public class ServiceServiceImpl implements IServiceService {
     @Override
     //@CacheEvict(value = CacheConfig.SERVICE_CACHE, key = "#id")
     public void delete(UUID id) {
-    
-        ServiceDto objectDelete = this.findByIds(id);
-        Services delete = new Services(objectDelete);
-
-        delete.setStatus(EServiceStatus.INACTIVE);
-        delete.setDeleted(Boolean.TRUE);
-        delete.setName(delete.getName() + " + " + UUID.randomUUID());
-
-        this.repositoryCommand.save(delete);
+        try {
+            this.repositoryCommand.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+        }
     }
 
     ///@Cacheable(cacheNames = CacheConfig.SERVICE_CACHE, unless = "#result == null")
@@ -118,18 +114,6 @@ public class ServiceServiceImpl implements IServiceService {
     public PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId) {
         Page<Services> services = this.repositoryQuery.findServicesByResourceId(resourceId, pageable);
         return getPaginatedResponse(services);
-    }
-
-    public void updateDelete() {
-        List<Services> modules = this.repositoryQuery.findAll();
-        if (!modules.isEmpty()) {
-            for (Services module : modules) {
-                if (module.getDeleted() == null || !module.getDeleted().equals(Boolean.TRUE)) {
-                    module.setDeleted(Boolean.FALSE);
-                }
-                this.repositoryCommand.save(module);
-            }
-        }
     }
 
 }

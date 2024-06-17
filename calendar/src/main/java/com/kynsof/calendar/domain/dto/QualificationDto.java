@@ -19,17 +19,10 @@ public class QualificationDto implements Serializable {
 
     private String description;
     private EQualificationStatus status;
-    private boolean deleted;
 
     public QualificationDto(UUID id, String description) {
         this.id = id;
         this.description = description;
-    }
-
-    public QualificationDto(UUID id, String description, EQualificationStatus status) {
-        this.id = id;
-        this.description = description;
-        this.status = status;
     }
 
 }
