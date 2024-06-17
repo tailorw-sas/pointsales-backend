@@ -33,7 +33,9 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
                 command.getStatus(),
                 command.getRegisterNumber(),
                 command.getLanguage(),
-                command.isExpress()
+                command.isExpress(),
+                command.getPhoneNumber(),
+                command.getImage()
         );
 
         service.create(doctorSave);

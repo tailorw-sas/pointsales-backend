@@ -35,7 +35,9 @@ public class Doctor extends UserSystem {
                 this.getStatus(),
                 this.registerNumber,
                 this.language,
-                this.isExpress
+                this.isExpress,
+                this.getPhoneNumber(),
+                this.getImage()
         );
     }
 }

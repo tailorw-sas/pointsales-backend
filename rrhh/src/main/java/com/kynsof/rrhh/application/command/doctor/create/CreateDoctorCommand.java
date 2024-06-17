@@ -20,6 +20,8 @@ public class CreateDoctorCommand implements ICommand {
     private String registerNumber;
     private String language;
     private boolean isExpress;
+    private String phoneNumber;
+    private String image;
 
     public CreateDoctorCommand(UUID id,String identification, String email, String name, String lastName, String status,
                                String registerNumber, String language, boolean isExpress) {

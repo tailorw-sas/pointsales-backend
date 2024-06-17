@@ -18,4 +18,6 @@ public class CreateDoctorRequest {
     private String registerNumber;
     private String language;
     private boolean isExpress;
+    private String phoneNumber;
+    private String image;
 }
