@@ -16,7 +16,7 @@ public interface ExternalConsultationReadDataJPARepository extends JpaRepository
 
     Page<ExternalConsultation> findAll(Specification specification, Pageable pageable);
 
-    @Query("SELECT COUNT(ec) FROM ExternalConsultation ec JOIN ec.business b WHERE b.id = :businessId AND ec.deleted = false AND ec.consultationTime >= :startDate AND ec.consultationTime < :endDate")
+    @Query("SELECT COUNT(ec) FROM ExternalConsultation ec JOIN ec.business b WHERE b.id = :businessId AND  ec.consultationTime >= :startDate AND ec.consultationTime < :endDate")
     Long countConsultationsByBusinessAndDateRange(@Param("businessId") UUID businessId, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 }
