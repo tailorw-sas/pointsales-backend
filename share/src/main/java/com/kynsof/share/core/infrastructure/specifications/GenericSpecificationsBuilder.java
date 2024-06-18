@@ -28,10 +28,10 @@ public class GenericSpecificationsBuilder<T> implements Specification<T> {
         List<Predicate> andPredicates = new ArrayList<>();
         List<Predicate> orPredicates = new ArrayList<>();
 
-        // Si el campo 'deleted' existe, agregarlo a las condiciones AND
-        if (doesClassContainField(root.getJavaType(), "deleted")) {
-            andPredicates.add(cb.isFalse(root.get("deleted")));
-        }
+//        // Si el campo 'deleted' existe, agregarlo a las condiciones AND
+//        if (doesClassContainField(root.getJavaType(), "deleted")) {
+//            andPredicates.add(cb.isFalse(root.get("deleted")));
+//        }
 
         for (SearchCriteria criteria : params) {
             Predicate predicate = new GenericSpecification<T>(criteria).toPredicate(root, query, cb);
