@@ -29,6 +29,6 @@ public interface BusinessServicesReadDataJPARepository extends JpaRepository<Bus
            "WHERE r.id = :resourceId")
     Page<BusinessServices> findServicesByResourceId(@Param("resourceId") UUID resourceId, Pageable pageable);
 
-    @Query("SELECT COUNT(bs) FROM BusinessServices bs WHERE bs.services.id = :serviceId AND bs.business.id = :businessId AND bs.deleted = false")
+    @Query("SELECT COUNT(bs) FROM BusinessServices bs WHERE bs.services.id = :serviceId AND bs.business.id = :businessId")
     Long countRelationsBetweenServiceAndBusiness(@Param("serviceId") UUID serviceId, @Param("businessId") UUID businessId);
 }
