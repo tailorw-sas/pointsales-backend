@@ -5,7 +5,6 @@ import com.kynsof.calendar.domain.rules.servicetype.SeviceTypeNameMustBeUniqueRu
 import com.kynsof.calendar.domain.service.IServiceTypeService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -14,11 +13,9 @@ import java.util.UUID;
 public class CreateServiceTypeCommandHandler implements ICommandHandler<CreateServiceTypeCommand> {
 
     private final IServiceTypeService service;
-    private final ProducerSaveFileEventService saveFileEventService;
 
-    public CreateServiceTypeCommandHandler(IServiceTypeService service, ProducerSaveFileEventService saveFileEventService) {
+    public CreateServiceTypeCommandHandler(IServiceTypeService service) {
         this.service = service;
-        this.saveFileEventService = saveFileEventService;
     }
 
     @Override
