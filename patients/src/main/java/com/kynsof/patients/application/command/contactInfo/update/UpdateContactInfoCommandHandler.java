@@ -30,13 +30,20 @@ public class UpdateContactInfoCommandHandler implements ICommandHandler<UpdateCo
     @Override
     public void handle(UpdateContactInfoCommand command) {
         PatientDto patientDto = patientsService.findByIdSimple(command.getPatientId());
-        GeographicLocationDto geographicLocationDto = geographicLocationService.findById(command.getGeographicLocationId());
+
+        GeographicLocationDto province = geographicLocationService.findById(command.getProvince());
+        GeographicLocationDto canton = geographicLocationService.findById(command.getCanton());
+        GeographicLocationDto parroquia = geographicLocationService.findById(command.getParroquia());
+
         ContactInfoDto contactInfoDto = contactInfoService.findById(command.getId());
         contactInfoDto.setAddress(command.getAddress());
         contactInfoDto.setBirthdayDate(command.getBirthdayDate());
         contactInfoDto.setTelephone(command.getTelephone());
         contactInfoDto.setStatus(Status.ACTIVE);
-        contactInfoDto.setGeographicLocation(geographicLocationDto);
+        contactInfoDto.setProvince(province);
+        contactInfoDto.setCanton(canton);
+        contactInfoDto.setParroquia(parroquia);
+
         contactInfoService.update(contactInfoDto);
         this.producerCreateContactEventService.create(contactInfoDto);
     }

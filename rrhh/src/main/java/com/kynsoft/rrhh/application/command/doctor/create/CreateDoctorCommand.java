@@ -34,8 +34,8 @@ public class CreateDoctorCommand implements ICommand {
         this.registerNumber = registerNumber;
         this.language = language;
         this.isExpress = isExpress;
-        this.phoneNumber = phoneNumber;
         this.image = image;
+        this.phoneNumber = phoneNumber;
     }
 
     public static CreateDoctorCommand fromRequest(CreateDoctorRequest request) {

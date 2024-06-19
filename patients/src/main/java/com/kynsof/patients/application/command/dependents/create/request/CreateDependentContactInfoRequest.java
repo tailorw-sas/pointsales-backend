@@ -13,9 +13,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateDependentContactInfoRequest {
+
     private String email;
     private String telephone;
     private String address;
     private LocalDate birthdayDate;
-    private UUID geographicLocationId;
+    private UUID province;
+    private UUID canton;
+    private UUID parroquia;
 }

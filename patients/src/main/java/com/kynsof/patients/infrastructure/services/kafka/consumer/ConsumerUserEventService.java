@@ -21,17 +21,17 @@ import java.util.logging.Logger;
 
 @Service
 public class ConsumerUserEventService {
-    @Autowired
-    private  IPatientsService service;
 
     @Autowired
-    private  IContactInfoService contactInfoService;
+    private IPatientsService service;
+
+    @Autowired
+    private IContactInfoService contactInfoService;
 
 //    public ConsumerUserEventService(IPatientsService service, IContactInfoService contactInfoService) {
 //        this.service = service;
 //        this.contactInfoService = contactInfoService;
 //    }
-
     // Ejemplo de un método listener
     @KafkaListener(topics = "user", groupId = "patient-user")
     public void listen(String event) {
@@ -42,17 +42,17 @@ public class ConsumerUserEventService {
 
             UserKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UserKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
-            
+
             if (eventType.equals(EventType.CREATED)) {
                 //Definir accion
-               UUID patientId = this.service.create(new PatientDto(UUID.fromString(eventRead.getId()),
+                UUID patientId = this.service.create(new PatientDto(UUID.fromString(eventRead.getId()),
                         null, eventRead.getFirstname(), eventRead.getLastname(), GenderType.UNDEFINED, Status.ACTIVE,
-                        null, null,null, null, null, null, 0));
+                        null, null, null, null, null, null, 0));
 
-               PatientDto patientDto = this.service.findByIdSimple(patientId);
-               this.contactInfoService.create(new ContactInfoDto(UUID.randomUUID(),patientDto, eventRead.getEmail(),
-                       eventRead.getPhone(),null, null,Status.ACTIVE,null
-                       ));
+                PatientDto patientDto = this.service.findByIdSimple(patientId);
+                this.contactInfoService.create(new ContactInfoDto(UUID.randomUUID(), patientDto, eventRead.getEmail(),
+                        eventRead.getPhone(), null, null, Status.ACTIVE, null, null, null
+                ));
 
             }
             if (eventType.equals(EventType.DELETED)) {
@@ -73,7 +73,7 @@ public class ConsumerUserEventService {
                 System.err.println("#######################################################");
                 this.service.update(new PatientDto(UUID.fromString(eventRead.getId()),
                         "", eventRead.getFirstname(), eventRead.getLastname(), GenderType.OTHER, Status.ACTIVE,
-                        null, null,null, null, null, null, 0));
+                        null, null, null, null, null, null, 0));
             }
 
         } catch (JsonProcessingException ex) {

@@ -16,6 +16,7 @@ import java.util.UUID;
 @Setter
 @Entity
 public class ContactInformation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -36,8 +37,16 @@ public class ContactInformation {
     private Status status;
 
     @ManyToOne()
-    @JoinColumn(name = "geographic_location_id",nullable = true)
-    private GeographicLocation geographicLocation;
+    @JoinColumn(name = "province_id", nullable = true)
+    private GeographicLocation province;
+
+    @ManyToOne()
+    @JoinColumn(name = "canton_id", nullable = true)
+    private GeographicLocation canton;
+
+    @ManyToOne()
+    @JoinColumn(name = "parroquia_id", nullable = true)
+    private GeographicLocation parroquia;
 
     public ContactInformation(ContactInfoDto contactInfoDto) {
         this.id = contactInfoDto.getId();
@@ -47,13 +56,26 @@ public class ContactInformation {
         this.address = contactInfoDto.getAddress();
         this.birthdayDate = contactInfoDto.getBirthdayDate();
         this.status = contactInfoDto.getStatus();
-        this.geographicLocation =contactInfoDto.getGeographicLocation() != null ? new GeographicLocation(contactInfoDto.getGeographicLocation()) : null;
+        this.province = contactInfoDto.getProvince() != null ? new GeographicLocation(contactInfoDto.getProvince()) : null;
+        this.canton = contactInfoDto.getCanton() != null ? new GeographicLocation(contactInfoDto.getCanton()) : null;
+        this.parroquia = contactInfoDto.getParroquia() != null ? new GeographicLocation(contactInfoDto.getParroquia()) : null;
     }
 
     public ContactInfoDto toAggregate() {
-        GeographicLocationDto geographicLocationDto = geographicLocation != null ? geographicLocation.toAggregate() : null;
-        return new ContactInfoDto(getId(), getPatient().toAggregate(), getEmail(), getTelephone(), getAddress(), getBirthdayDate(), getStatus(),
-                geographicLocationDto
-                );
+        GeographicLocationDto provinceDto = province != null ? province.toAggregate() : null;
+        GeographicLocationDto cantonDto = canton != null ? canton.toAggregate() : null;
+        GeographicLocationDto parroquiaDto = parroquia != null ? parroquia.toAggregate() : null;
+        return new ContactInfoDto(
+                getId(), 
+                getPatient().toAggregate(), 
+                getEmail(), 
+                getTelephone(), 
+                getAddress(), 
+                getBirthdayDate(), 
+                getStatus(),
+                provinceDto, 
+                cantonDto, 
+                parroquiaDto
+        );
     }
 }

@@ -11,28 +11,32 @@ import java.util.UUID;
 @Getter
 @Setter
 public class CreateContactInfoCommand implements ICommand {
+
     private UUID id;
     private UUID patientId;
     private String telephone;
     private String address;
     private LocalDate birthdayDate;
-    private UUID geographicLocationId;
-
+    private UUID province;
+    private UUID canton;
+    private UUID parroquia;
 
     public CreateContactInfoCommand(UUID patientId, String telephone, String address, LocalDate localDate,
-                                   UUID geographicLocationId ) {
+            UUID province, UUID canton, UUID parroquia) {
         this.patientId = patientId;
         this.telephone = telephone;
         this.address = address;
         this.birthdayDate = localDate;
-        this.geographicLocationId = geographicLocationId;
+        this.province = province;
+        this.canton = canton;
+        this.parroquia = parroquia;
     }
 
     public static CreateContactInfoCommand fromRequest(UUID patientId, CreateContactInfoRequest request) {
         return new CreateContactInfoCommand(patientId, request.getTelephone(),
-                request.getAddress(),request.getBirthdayDate(), request.getGeographicLocation());
+                request.getAddress(), request.getBirthdayDate(), request.getProvince(),
+                request.getCanton(), request.getParroquia());
     }
-
 
     @Override
     public ICommandMessage getMessage() {

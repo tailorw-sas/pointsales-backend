@@ -12,5 +12,7 @@ public class CreateContactInfoRequest {
     private String telephone;
     private String address;
     private LocalDate birthdayDate;
-    private UUID geographicLocation;
+    private UUID province;
+    private UUID canton;
+    private UUID parroquia;
 }
