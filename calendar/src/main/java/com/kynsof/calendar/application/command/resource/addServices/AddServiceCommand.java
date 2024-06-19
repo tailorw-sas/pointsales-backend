@@ -13,21 +13,23 @@ import java.util.UUID;
 public class AddServiceCommand implements ICommand {
 
     private final UUID id;
+    private final UUID businessId;
     private final String name;
     private final String image;
     private final List<UUID> serviceIds;
 
-    public AddServiceCommand(UUID id, String name, String image, List<UUID> serviceIds) {
+    public AddServiceCommand(UUID id, UUID businessId, String name, String image, List<UUID> serviceIds) {
 
 
         this.id = id;
+        this.businessId = businessId;
         this.name = name;
         this.image = image;
         this.serviceIds = serviceIds;
     }
 
-    public static AddServiceCommand fromRequest(Create request) {
-        return new AddServiceCommand(request.getResourceId(), request.getName(), request.getImage(), request.getServiceIds());
+    public static AddServiceCommand fromRequest(CreateResourceRequest request) {
+        return new AddServiceCommand(request.getResourceId(), request.getBusinessId(), request.getName(), request.getImage(), request.getServiceIds());
     }
 
     @Override

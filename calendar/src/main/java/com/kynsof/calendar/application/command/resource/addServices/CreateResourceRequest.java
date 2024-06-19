@@ -8,8 +8,9 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class Create {
+public class CreateResourceRequest {
     private UUID resourceId;
+    private UUID businessId;
     private String name;
     private String image;
     private List<UUID> serviceIds;
