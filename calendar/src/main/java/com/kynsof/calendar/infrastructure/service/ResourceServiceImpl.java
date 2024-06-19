@@ -4,6 +4,7 @@ import com.kynsof.calendar.application.query.ResourceResponse;
 import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.dto.ResourceWithSchedulesDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
+import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.calendar.infrastructure.entity.*;
@@ -20,7 +21,6 @@ import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.share.utils.ConfigureTimeZone;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,27 +32,25 @@ import java.util.stream.Collectors;
 @Service
 public class ResourceServiceImpl implements IResourceService {
 
-    @Autowired
-    private ResourceWriteDataJPARepository repositoryCommand;
+    private final ResourceWriteDataJPARepository repositoryCommand;
+    private final ResourceReadDataJPARepository repositoryQuery;
+    private final ScheduleReadDataJPARepository scheduleReadDataJPARepository;
+    private final BusinessReadDataJPARepository businessReadDataJPARepository;
+    private final ServiceReadDataJPARepository serviceReadRepository;
+    private final ResourceServiceWriteDataJPARepository resourceServiceWriteDataJPARepository;
+    private final ResourceServicesReadDataJPARepository resourceServiceReadDataJPARepository;
+    private final BusinessResourceWriteDataJPARepository businessResourceWriteDataJPARepository;
 
-    @Autowired
-    private ResourceReadDataJPARepository repositoryQuery;
-    @Autowired
-
-    private ScheduleReadDataJPARepository scheduleReadDataJPARepository;
-
-    @Autowired
-    private BusinessReadDataJPARepository businessReadDataJPARepository;
-
-    @Autowired
-    private ServiceReadDataJPARepository serviceReadRepository;
-
-    @Autowired
-    private ResourceServiceWriteDataJPARepository resourceServiceWriteDataJPARepository;
-    @Autowired
-    private ResourceServicesReadDataJPARepository resourceServiceReadDataJPARepository;
-    @Autowired
-    private BusinessResourceWriteDataJPARepository businessResourceWriteDataJPARepository;
+    public ResourceServiceImpl(ResourceWriteDataJPARepository repositoryCommand, ResourceReadDataJPARepository repositoryQuery, ScheduleReadDataJPARepository scheduleReadDataJPARepository, BusinessReadDataJPARepository businessReadDataJPARepository, ServiceReadDataJPARepository serviceReadRepository, ResourceServiceWriteDataJPARepository resourceServiceWriteDataJPARepository, ResourceServicesReadDataJPARepository resourceServiceReadDataJPARepository, BusinessResourceWriteDataJPARepository businessResourceWriteDataJPARepository) {
+        this.repositoryCommand = repositoryCommand;
+        this.repositoryQuery = repositoryQuery;
+        this.scheduleReadDataJPARepository = scheduleReadDataJPARepository;
+        this.businessReadDataJPARepository = businessReadDataJPARepository;
+        this.serviceReadRepository = serviceReadRepository;
+        this.resourceServiceWriteDataJPARepository = resourceServiceWriteDataJPARepository;
+        this.resourceServiceReadDataJPARepository = resourceServiceReadDataJPARepository;
+        this.businessResourceWriteDataJPARepository = businessResourceWriteDataJPARepository;
+    }
 
     @Override
     public void create(ResourceDto object) {
@@ -190,6 +188,12 @@ public class ResourceServiceImpl implements IResourceService {
     public PaginatedResponse findResourcesByServiceId(UUID businessId, UUID serviceId, Pageable pageable) {
         Page<Resource> data = this.repositoryQuery.findResourcesByServiceIdAndBusinessId(serviceId, businessId, pageable);
         return getPaginatedResponse(data);
+    }
+
+    @Override
+    public List<ServiceDto> getAllServicesByResourceAndBusiness(UUID resourceId, UUID businessId) {
+        List<Services> services = repositoryQuery.findAllServicesByResourceAndBusiness(resourceId, businessId);
+        return services.stream().map(Services::toAggregate).toList();
     }
 
 }
