@@ -33,6 +33,8 @@ public class UpdateDoctorCommandHandler implements ICommandHandler<UpdateDoctorC
         doctorSave.setIdentification(command.getIdentification());
         doctorSave.setName(command.getName());
         doctorSave.setLastName(command.getLastName());
+        doctorSave.setPhoneNumber(command.getPhoneNumber());
+        doctorSave.setImage(command.getImage());
 
         service.update(doctorSave);
     }
