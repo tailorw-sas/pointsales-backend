@@ -2,19 +2,24 @@ package com.kynsoft.rrhh.application.command.doctor.create;
 
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.kafka.entity.DoctorKafka;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsoft.rrhh.domain.dto.DoctorDto;
 import com.kynsoft.rrhh.domain.interfaces.services.IDoctorService;
 import com.kynsoft.rrhh.domain.rules.users.UserSystemEmailValidateRule;
+import com.kynsoft.rrhh.infrastructure.services.kafka.producer.doctor.ProducerReplicateDoctorService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorCommand> {
 
     private final IDoctorService service;
+    private final ProducerReplicateDoctorService producerReplicateDoctorService;
 
-    public CreateDoctorCommandHandler(IDoctorService service) {
+    public CreateDoctorCommandHandler(IDoctorService service,
+                                      ProducerReplicateDoctorService producerReplicateDoctorService) {
         this.service = service;
+        this.producerReplicateDoctorService = producerReplicateDoctorService;
     }
 
     @Override
@@ -39,5 +44,12 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
         );
 
         service.create(doctorSave);
+        producerReplicateDoctorService.create(new DoctorKafka(
+                doctorSave.getId(), 
+                doctorSave.getIdentification(), 
+                doctorSave.getEmail(), 
+                doctorSave.getName(), 
+                doctorSave.getLastName()
+        ));
     }
 }
