@@ -1,6 +1,5 @@
 package com.kynsof.patients.application.query.contactInfo.getall;
 
-
 import com.kynsof.patients.domain.dto.ContactInfoDto;
 import com.kynsof.patients.domain.dto.GeographicLocationDto;
 import com.kynsof.share.core.domain.bus.query.IResponse;
@@ -15,6 +14,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class ContactInfoResponse implements IResponse {
+
     private UUID id;
 
     private UUID patientId;
@@ -26,7 +26,9 @@ public class ContactInfoResponse implements IResponse {
     private String address;
 
     private LocalDate birthdayDate;
-    private GeographicLocationDto geolocation;
+    private GeographicLocationDto province;
+    private GeographicLocationDto canton;
+    private GeographicLocationDto parroquia;
 
     public ContactInfoResponse(ContactInfoDto contactInfoDto) {
         this.id = contactInfoDto.getId();
@@ -35,8 +37,12 @@ public class ContactInfoResponse implements IResponse {
         this.telephone = contactInfoDto.getTelephone();
         this.address = contactInfoDto.getAddress();
         this.birthdayDate = contactInfoDto.getBirthdayDate();
-        this.geolocation = contactInfoDto.getGeographicLocation() != null
-                ? contactInfoDto.getGeographicLocation() : null;
+        this.province = contactInfoDto.getProvince() != null
+                ? contactInfoDto.getProvince() : null;
+        this.canton = contactInfoDto.getCanton() != null
+                ? contactInfoDto.getCanton() : null;
+        this.parroquia = contactInfoDto.getParroquia() != null
+                ? contactInfoDto.getParroquia() : null;
     }
 
 }

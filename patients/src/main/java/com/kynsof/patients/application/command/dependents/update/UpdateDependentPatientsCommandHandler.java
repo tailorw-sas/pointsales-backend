@@ -38,7 +38,9 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
     @Override
     public void handle(UpdateDependentPatientsCommand command) {
         ContactInfoDto contactInfoDto = contactInfoService.findByPatientId(command.getId());
-        GeographicLocationDto geographicLocationDto = geographicLocationService.findById(command.getCreateContactInfoRequest().getGeographicLocationId());
+        GeographicLocationDto province = geographicLocationService.findById(command.getCreateContactInfoRequest().getProvince());
+        GeographicLocationDto canton = geographicLocationService.findById(command.getCreateContactInfoRequest().getCanton());
+        GeographicLocationDto parroquia = geographicLocationService.findById(command.getCreateContactInfoRequest().getParroquia());
         PatientDto prime = serviceImpl.findByIdSimple(command.getPrimeId());
         PatientDto dependent = serviceImpl.findByIdSimple(command.getId());
 
@@ -67,14 +69,18 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
             contactInfoDto.setTelephone(command.getCreateContactInfoRequest().getTelephone());
             contactInfoDto.setBirthdayDate(command.getCreateContactInfoRequest().getBirthdayDate());
             contactInfoDto.setEmail(command.getCreateContactInfoRequest().getEmail());
-            contactInfoDto.setGeographicLocation(geographicLocationDto);
+            contactInfoDto.setProvince(province);
+            contactInfoDto.setCanton(canton);
+            contactInfoDto.setParroquia(parroquia);
             contactInfoDto.setStatus(Status.ACTIVE);
             contactInfoService.create(contactInfoDto);
         } else {
             contactInfoDto.setAddress(command.getCreateContactInfoRequest().getAddress());
             contactInfoDto.setTelephone(command.getCreateContactInfoRequest().getTelephone());
             contactInfoDto.setBirthdayDate(command.getCreateContactInfoRequest().getBirthdayDate());
-            contactInfoDto.setGeographicLocation(geographicLocationDto);
+            contactInfoDto.setProvince(province);
+            contactInfoDto.setCanton(canton);
+            contactInfoDto.setParroquia(parroquia);
             contactInfoDto.setEmail(command.getCreateContactInfoRequest().getEmail());
             contactInfoDto.setStatus(Status.ACTIVE);
             contactInfoService.update(contactInfoDto);

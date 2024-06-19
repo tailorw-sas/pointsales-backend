@@ -21,7 +21,7 @@ public class CreateContactInfoCommandHandler implements ICommandHandler<CreateCo
     private final IGeographicLocationService geographicLocationService;
     private final ProducerCreateContactEventService producerCreateContactEventService;
 
-    public CreateContactInfoCommandHandler(IContactInfoService serviceImpl, IPatientsService patientsService, 
+    public CreateContactInfoCommandHandler(IContactInfoService serviceImpl, IPatientsService patientsService,
             IGeographicLocationService geographicLocationService, ProducerCreateContactEventService producerCreateContactEventService) {
         this.contactInfoService = serviceImpl;
         this.patientsService = patientsService;
@@ -32,7 +32,9 @@ public class CreateContactInfoCommandHandler implements ICommandHandler<CreateCo
     @Override
     public void handle(CreateContactInfoCommand command) {
         PatientDto patientDto = patientsService.findByIdSimple(command.getPatientId());
-        GeographicLocationDto geographicLocationDto = geographicLocationService.findById(command.getGeographicLocationId());
+        GeographicLocationDto province = geographicLocationService.findById(command.getProvince());
+        GeographicLocationDto canton = geographicLocationService.findById(command.getCanton());
+        GeographicLocationDto parroquia = geographicLocationService.findById(command.getParroquia());
 
         ContactInfoDto contactInfoDto = contactInfoService.findByPatientId(command.getPatientId());
 
@@ -45,7 +47,9 @@ public class CreateContactInfoCommandHandler implements ICommandHandler<CreateCo
                     command.getAddress(),
                     command.getBirthdayDate(),
                     Status.ACTIVE,
-                    geographicLocationDto
+                    province,
+                    canton,
+                    parroquia
             );
             UUID id = contactInfoService.create(create);
             command.setId(id);
@@ -56,7 +60,9 @@ public class CreateContactInfoCommandHandler implements ICommandHandler<CreateCo
             contactInfoDto.setBirthdayDate(command.getBirthdayDate());
             contactInfoDto.setTelephone(command.getTelephone());
             contactInfoDto.setStatus(Status.ACTIVE);
-            contactInfoDto.setGeographicLocation(geographicLocationDto);
+            contactInfoDto.setProvince(province);
+            contactInfoDto.setCanton(canton);
+            contactInfoDto.setParroquia(parroquia);
             contactInfoService.update(contactInfoDto);
             command.setId(contactInfoDto.getId());
             this.producerCreateContactEventService.create(contactInfoDto);

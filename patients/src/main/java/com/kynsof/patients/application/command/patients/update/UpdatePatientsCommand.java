@@ -13,6 +13,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class UpdatePatientsCommand implements ICommand {
+
     private UUID id;
     private String identification;
     private String name;
@@ -28,9 +29,9 @@ public class UpdatePatientsCommand implements ICommand {
     private DisabilityType disabilityType;
 
     public UpdatePatientsCommand(UUID id, String identification, String name, String lastName, GenderType gender,
-                                 Double weight, Double height, Boolean hasDisability, Boolean isPregnant,
-                                 String photo, int gestationTime,
-                                 CreatePatientContactInfoRequest createContactInfoRequest, DisabilityType disabilityType){
+            Double weight, Double height, Boolean hasDisability, Boolean isPregnant,
+            String photo, int gestationTime,
+            CreatePatientContactInfoRequest createContactInfoRequest, DisabilityType disabilityType) {
 
         this.identification = identification;
         this.name = name;
@@ -48,11 +49,10 @@ public class UpdatePatientsCommand implements ICommand {
     }
 
     public static UpdatePatientsCommand fromRequest(UUID id, UpdatePatientsRequest request) {
-        return new UpdatePatientsCommand(id,request.getIdentification(), request.getName(), request.getLastName(), request.getGender(),
-                request.getWeight(),request.getHeight(),request.getHasDisability(),request.getIsPregnant(),
-                 request.getImage(),request.getGestationTime(), request.getContactInfo(), request.getDisabilityType());
+        return new UpdatePatientsCommand(id, request.getIdentification(), request.getName(), request.getLastName(), request.getGender(),
+                request.getWeight(), request.getHeight(), request.getHasDisability(), request.getIsPregnant(),
+                request.getImage(), request.getGestationTime(), request.getContactInfo(), request.getDisabilityType());
     }
-
 
     @Override
     public ICommandMessage getMessage() {

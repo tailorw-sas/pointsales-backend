@@ -24,14 +24,13 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
     private final IContactInfoService contactInfoService;
     private final IGeographicLocationService geographicLocationService;
 
-
     private final ProducerCreatePatientsEventService patientEventService;
     private final ProducerCreateCustomerEventService createCustomerEventService;
 
     public CreatePatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
-                                        IGeographicLocationService geographicLocationService,
-                                        ProducerCreatePatientsEventService patientEventService,
-                                        ProducerCreateCustomerEventService createCustomerEventService
+            IGeographicLocationService geographicLocationService,
+            ProducerCreatePatientsEventService patientEventService,
+            ProducerCreateCustomerEventService createCustomerEventService
     ) {
         this.serviceImpl = serviceImpl;
         this.contactInfoService = contactInfoService;
@@ -63,8 +62,9 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
         command.setId(id);
         patientDto.setId(id);
 
-        GeographicLocationDto geographicLocationDto = geographicLocationService.findById(
-                command.getCreateContactInfoRequest().getGeographicLocationId());
+        GeographicLocationDto province = geographicLocationService.findById(command.getCreateContactInfoRequest().getProvince());
+        GeographicLocationDto canton = geographicLocationService.findById(command.getCreateContactInfoRequest().getCanton());
+        GeographicLocationDto parroquia = geographicLocationService.findById(command.getCreateContactInfoRequest().getParroquia());
         contactInfoService.create(new ContactInfoDto(
                 UUID.randomUUID(),
                 patientDto,
@@ -73,18 +73,20 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
                 command.getCreateContactInfoRequest().getAddress(),
                 command.getCreateContactInfoRequest().getBirthdayDate(),
                 Status.ACTIVE,
-                geographicLocationDto
+                province,
+                canton,
+                parroquia
         ));
 
         this.patientEventService.create(
-                patientDto, 
+                patientDto,
                 command.getCreateContactInfoRequest().getBirthdayDate()
         );
 
         this.createCustomerEventService.create(new CustomerKafka(
-                patientDto.getId().toString(), 
-                patientDto.getName(), 
-                patientDto.getLastName(), 
+                patientDto.getId().toString(),
+                patientDto.getName(),
+                patientDto.getLastName(),
                 command.getCreateContactInfoRequest().getEmail()
         ));
     }

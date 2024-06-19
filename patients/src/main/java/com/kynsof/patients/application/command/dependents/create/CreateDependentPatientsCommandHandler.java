@@ -29,9 +29,9 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
     private final ProducerCreateCustomerEventService createCustomerEventService;
 
     public CreateDependentPatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
-                                                 IGeographicLocationService geographicLocationService,
-                                                 ProducerCreateDependentPatientsEventService dependentPatientsEventService,
-                                                 ProducerCreateCustomerEventService createCustomerEventService
+            IGeographicLocationService geographicLocationService,
+            ProducerCreateDependentPatientsEventService dependentPatientsEventService,
+            ProducerCreateCustomerEventService createCustomerEventService
     ) {
         this.serviceImpl = serviceImpl;
         this.contactInfoService = contactInfoService;
@@ -44,7 +44,6 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
     public void handle(CreateDependentPatientsCommand command) {
 
         PatientDto prime = serviceImpl.findByIdSimple(command.getPrimeId());
-
 
         UUID idDependent = UUID.randomUUID();
         RulesChecker.checkRule(new DependentMustBeUniqueRule(this.serviceImpl, command.getIdentification(), idDependent));
@@ -67,8 +66,9 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
         );
         UUID id = serviceImpl.createDependent(dependentPatientDto);
         PatientDto patientDto = serviceImpl.findByIdSimple(id);
-        GeographicLocationDto geographicLocationDto = geographicLocationService.findById(
-                command.getCreateContactInfoRequest().getGeographicLocationId());
+        GeographicLocationDto province = geographicLocationService.findById(command.getCreateContactInfoRequest().getProvince());
+        GeographicLocationDto canton = geographicLocationService.findById(command.getCreateContactInfoRequest().getCanton());
+        GeographicLocationDto parroquia = geographicLocationService.findById(command.getCreateContactInfoRequest().getParroquia());
         contactInfoService.create(new ContactInfoDto(
                 UUID.randomUUID(),
                 patientDto,
@@ -77,14 +77,16 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 command.getCreateContactInfoRequest().getAddress(),
                 command.getCreateContactInfoRequest().getBirthdayDate(),
                 Status.ACTIVE,
-                geographicLocationDto
+                province,
+                canton,
+                parroquia
         ));
         command.setId(id);
         this.dependentPatientsEventService.create(patientDto, command.getCreateContactInfoRequest().getBirthdayDate());
         this.createCustomerEventService.create(new CustomerKafka(
-                id.toString(), 
-                dependentPatientDto.getName(), 
-                dependentPatientDto.getLastName(), 
+                id.toString(),
+                dependentPatientDto.getName(),
+                dependentPatientDto.getLastName(),
                 command.getCreateContactInfoRequest().getEmail()
         ));
     }
