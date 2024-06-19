@@ -21,6 +21,9 @@ public class DoctorResponse implements IResponse {
     private String registerNumber;
     private String language;
     private boolean isExpress;
+    private String phoneNumber;
+    private String image;
+
 
     public DoctorResponse(DoctorDto userSystemDto) {
         this.id = userSystemDto.getId();
@@ -32,6 +35,8 @@ public class DoctorResponse implements IResponse {
         this.language = userSystemDto.getLanguage();
         this.isExpress = userSystemDto.isExpress();
         this.identification = userSystemDto.getIdentification();
+        this.phoneNumber = userSystemDto.getPhoneNumber();
+        this.image = userSystemDto.getImage();
     }
 
 }

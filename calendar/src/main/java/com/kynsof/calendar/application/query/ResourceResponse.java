@@ -22,10 +22,4 @@ public class ResourceResponse implements IResponse {
         this.name = object.getName();
         this.image = object.getImage();
     }
-
-    public ResourceResponse(UUID id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
 }
