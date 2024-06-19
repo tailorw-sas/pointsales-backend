@@ -116,10 +116,10 @@ public class ResourceController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{resourceId}/services")
+    @GetMapping("/{resourceId}/services/{businessId}")
     public ResponseEntity<?> getAllServicesByResourceAndBusiness(
             @PathVariable UUID resourceId,
-            @RequestParam UUID businessId) {
+            @PathVariable UUID businessId) {
         getServiceByBusinessIdByResourceIdQuery query = new getServiceByBusinessIdByResourceIdQuery(resourceId, businessId);
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
