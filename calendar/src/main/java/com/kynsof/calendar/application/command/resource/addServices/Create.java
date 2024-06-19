@@ -8,10 +8,9 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class AddServiceRequest {
+public class Create {
     private UUID resourceId;
     private String name;
     private String image;
     private List<UUID> serviceIds;
-
 }

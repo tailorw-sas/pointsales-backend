@@ -2,7 +2,7 @@ package com.kynsof.calendar.controller;
 
 import com.kynsof.calendar.application.command.resource.addServices.AddServiceCommand;
 import com.kynsof.calendar.application.command.resource.addServices.AddServiceMessage;
-import com.kynsof.calendar.application.command.resource.addServices.AddServiceRequest;
+import com.kynsof.calendar.application.command.resource.addServices.Create;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +23,7 @@ public class ResourceServiceController {
 
 
     @PostMapping("")
-    public ResponseEntity<?> addServices( @RequestBody AddServiceRequest request)
+    public ResponseEntity<?> addServices( @RequestBody Create request)
     {
         AddServiceCommand command = AddServiceCommand.fromRequest(request);
         AddServiceMessage response = mediator.send(command);

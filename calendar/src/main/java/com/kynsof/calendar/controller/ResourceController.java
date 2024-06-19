@@ -2,7 +2,7 @@ package com.kynsof.calendar.controller;
 
 import com.kynsof.calendar.application.command.resource.addServices.AddServiceCommand;
 import com.kynsof.calendar.application.command.resource.addServices.AddServiceMessage;
-import com.kynsof.calendar.application.command.resource.addServices.AddServiceRequest;
+import com.kynsof.calendar.application.command.resource.addServices.Create;
 import com.kynsof.calendar.application.command.resource.delete.ResourceDeleteCommand;
 import com.kynsof.calendar.application.command.resource.delete.ResourceDeleteMessage;
 import com.kynsof.calendar.application.command.resource.update.UpdateResourceCommand;
@@ -107,8 +107,8 @@ public class ResourceController {
         return ResponseEntity.ok(data);
     }
 
-    @PostMapping("/add-services")
-    public ResponseEntity<?> addServices( @RequestBody AddServiceRequest request)
+    @PostMapping()
+    public ResponseEntity<?> create( @RequestBody Create request)
     {
         AddServiceCommand command = AddServiceCommand.fromRequest(request);
         AddServiceMessage response = mediator.send(command);
