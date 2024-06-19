@@ -42,12 +42,6 @@ public class DoctorServiceImpl implements IDoctorService {
                     if (doctorDto.getName() != null) {
                         patient.setName(doctorDto.getName());
                     }
-                    if (doctorDto.getLastName() != null) {
-                        patient.setLastName(doctorDto.getLastName());
-                    }
-                    if (doctorDto.getIdentification() != null) {
-                        patient.setIdentification(doctorDto.getIdentification());
-                    }
                     if (doctorDto.getStatus() != null) {
                         patient.setStatus(doctorDto.getStatus());
                     }

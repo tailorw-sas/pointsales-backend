@@ -20,29 +20,19 @@ public class Doctor {
     @Column(name="id")
     private UUID id;
 
-    @Column(unique = false)
-    private String identification;
-
     private String name;
-
-    private String lastName;
-
-    @Column(nullable = true)
     private String image;
-
     @Enumerated(EnumType.STRING)
     private Status status;
 
     public Doctor(DoctorDto doctor) {
         this.id = doctor.getId();
-        this.identification = doctor.getIdentification();
         this.name = doctor.getName();
-        this.lastName = doctor.getLastName();
         this.image = doctor.getImage();
         this.status = doctor.getStatus();
     }
 
     public DoctorDto toAggregate() {
-        return new DoctorDto(this.id, this.identification, this.name, this.lastName, this.image, this.status);
+        return new DoctorDto(this.id,  this.name,  this.image, this.status);
     }
 }

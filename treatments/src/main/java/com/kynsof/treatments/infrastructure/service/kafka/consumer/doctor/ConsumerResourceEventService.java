@@ -31,7 +31,6 @@ public class ConsumerResourceEventService {
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
             DoctorDto doctorDto = this.service.findById(eventRead.getId());
             doctorDto.setName(eventRead.getName());
-            doctorDto.setLastName(eventRead.getLastName());
             doctorDto.setImage(eventRead.getIdImage());
            this.service.update(doctorDto);
 

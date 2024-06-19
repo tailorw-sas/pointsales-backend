@@ -26,12 +26,9 @@ public class ConsumerUpdateResourceEventService {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
-
             UpdateResourceKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), UpdateResourceKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
-
             DoctorDto doctorDto = this.service.findById(UUID.fromString(eventRead.getId()));
-            doctorDto.setIdentification(eventRead.getIdentification());
             this.service.update(doctorDto);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerUpdateResourceEventService.class.getName()).log(Level.SEVERE, null, ex);
