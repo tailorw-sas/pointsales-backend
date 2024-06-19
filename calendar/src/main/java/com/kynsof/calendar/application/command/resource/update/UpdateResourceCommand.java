@@ -6,32 +6,31 @@ import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
 public class UpdateResourceCommand implements ICommand {
 
-    private UUID id;
-    private String registrationNumber;
-    private String language;
-    private EResourceStatus status;
-    private Boolean expressAppointments;
-    private String identification;
+    private final UUID id;
+    private final String name;
+    private final String image;
+    private final EResourceStatus status;
+    private final List<UUID> serviceIds;
 
-    public UpdateResourceCommand(UUID id,String registrationNumber, String language, EResourceStatus status, Boolean expressAppointments, String identification) {
+    public UpdateResourceCommand(UUID id,  String name, String image, EResourceStatus status, List<UUID> serviceIds) {
+
         this.id = id;
-
-        this.registrationNumber = registrationNumber;
-        this.language = language;
+        this.name = name;
+        this.image = image;
         this.status = status;
-        this.expressAppointments = expressAppointments;
-        this.identification = identification;
+        this.serviceIds = serviceIds;
     }
 
     public static UpdateResourceCommand fromRequest(UUID id, UpdateResourceRequest request) {
-        return new UpdateResourceCommand(id,  request.getRegistrationNumber(), request.getLanguage(),
-                request.getStatus(), request.getExpressAppointments(), request.getIdentification());
+        return new UpdateResourceCommand(id,  request.getName(), request.getImage(),
+                request.getStatus(), request.getServiceIds());
     }
 
     @Override

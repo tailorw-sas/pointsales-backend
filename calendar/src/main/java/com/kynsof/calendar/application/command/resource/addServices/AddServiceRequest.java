@@ -10,6 +10,8 @@ import java.util.UUID;
 @Setter
 public class AddServiceRequest {
     private UUID resourceId;
+    private String name;
+    private String image;
     private List<UUID> serviceIds;
 
 }

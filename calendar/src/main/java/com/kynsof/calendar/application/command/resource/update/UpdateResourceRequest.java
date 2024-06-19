@@ -4,12 +4,14 @@ import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.UUID;
+
 @Getter
 @Setter
 public class UpdateResourceRequest {
-    private String registrationNumber;
-    private String language;
+    private String name;
+    private String image;
     private EResourceStatus status;
-    private Boolean expressAppointments;
-    private String identification;
+    private List<UUID> serviceIds;
 }
