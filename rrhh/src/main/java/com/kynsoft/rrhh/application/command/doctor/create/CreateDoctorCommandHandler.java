@@ -54,7 +54,8 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
                 doctorSave.getIdentification(), 
                 doctorSave.getEmail(), 
                 doctorSave.getName(), 
-                doctorSave.getLastName()
+                doctorSave.getLastName(),
+                doctorSave.getImage()
         ));
     }
 }
