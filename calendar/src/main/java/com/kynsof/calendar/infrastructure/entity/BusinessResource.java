@@ -39,5 +39,4 @@ public class BusinessResource {
     public BusinessResourceDto toAggregate () {
         return new BusinessResourceDto(id, business.toAggregate(), resource.toAggregate(), createdAt);
     }
-
 }

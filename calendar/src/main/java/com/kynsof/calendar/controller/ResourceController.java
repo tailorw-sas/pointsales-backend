@@ -2,7 +2,7 @@ package com.kynsof.calendar.controller;
 
 import com.kynsof.calendar.application.command.resource.addServices.AddServiceCommand;
 import com.kynsof.calendar.application.command.resource.addServices.AddServiceMessage;
-import com.kynsof.calendar.application.command.resource.addServices.Create;
+import com.kynsof.calendar.application.command.resource.addServices.CreateResourceRequest;
 import com.kynsof.calendar.application.command.resource.delete.ResourceDeleteCommand;
 import com.kynsof.calendar.application.command.resource.delete.ResourceDeleteMessage;
 import com.kynsof.calendar.application.command.resource.update.UpdateResourceCommand;
@@ -12,6 +12,7 @@ import com.kynsof.calendar.application.query.ResourceResponse;
 import com.kynsof.calendar.application.query.resource.findResourcesWithAvailableSchedules.ScheduleSearchCriteriaRequest;
 import com.kynsof.calendar.application.query.resource.findResourcesWithAvailableSchedules.findResourcesWithAvailableSchedulesQuery;
 import com.kynsof.calendar.application.query.resource.getAll.FindResourceWithFilterQuery;
+import com.kynsof.calendar.application.query.resource.getServiceByBusinessIdByResourceId.getServiceByBusinessIdByResourceIdQuery;
 import com.kynsof.calendar.application.query.resource.getbyid.FindResourceByIdQuery;
 import com.kynsof.calendar.application.query.resource.getresourcesbyidservice.FindResourcesByIdServiceQuery;
 import com.kynsof.calendar.application.query.resource.search.GetSearchResourceQuery;
@@ -108,11 +109,20 @@ public class ResourceController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> create( @RequestBody Create request)
+    public ResponseEntity<?> create( @RequestBody CreateResourceRequest request)
     {
         AddServiceCommand command = AddServiceCommand.fromRequest(request);
         AddServiceMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{resourceId}/services/{businessId}")
+    public ResponseEntity<?> getAllServicesByResourceAndBusiness(
+            @PathVariable UUID resourceId,
+            @PathVariable UUID businessId) {
+        getServiceByBusinessIdByResourceIdQuery query = new getServiceByBusinessIdByResourceIdQuery(resourceId, businessId);
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 
 }

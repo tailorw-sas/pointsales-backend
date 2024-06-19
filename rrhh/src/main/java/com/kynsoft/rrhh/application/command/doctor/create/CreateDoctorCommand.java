@@ -20,11 +20,11 @@ public class CreateDoctorCommand implements ICommand {
     private String registerNumber;
     private String language;
     private boolean isExpress;
-    private String phoneNumber;
-    private String image;
+    private final String phoneNumber;
+    private final String image;
 
-    public CreateDoctorCommand(UUID id,String identification, String email, String name, String lastName, String status,
-                               String registerNumber, String language, boolean isExpress, String image) {
+    public CreateDoctorCommand(UUID id, String identification, String email, String name, String lastName, String status,
+                               String registerNumber, String language, boolean isExpress, String phoneNumber, String image) {
         this.id = id;
         this.identification = identification;
         this.email = email;
@@ -35,6 +35,7 @@ public class CreateDoctorCommand implements ICommand {
         this.language = language;
         this.isExpress = isExpress;
         this.image = image;
+        this.phoneNumber = phoneNumber;
     }
 
     public static CreateDoctorCommand fromRequest(CreateDoctorRequest request) {
@@ -48,8 +49,8 @@ public class CreateDoctorCommand implements ICommand {
                 request.getRegisterNumber(),
                 request.getLanguage(),
                 request.isExpress(),
-                request.getImage()
-        );
+                request.getPhoneNumber(),
+                request.getImage());
     }
 
     @Override

@@ -19,11 +19,11 @@ public class BusinessServices {
     @Id
     private UUID id;
 
-    @ManyToOne( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "business_id")
     private Business business;
 
-    @ManyToOne( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_id")
     private Services services;
 
@@ -41,7 +41,6 @@ public class BusinessServices {
     }
 
     public BusinessServicesDto toAggregate () {
-        return new BusinessServicesDto(id, business.toAggregate(), services.toAggregate(),price, createdAt);
+        return new BusinessServicesDto(id, business.toAggregate(), services.toAggregate(), price, createdAt);
     }
-
 }

@@ -1,6 +1,7 @@
 package com.kynsof.calendar.domain.service;
 
 import com.kynsof.calendar.domain.dto.ResourceDto;
+import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import org.springframework.data.domain.Pageable;
@@ -28,4 +29,6 @@ public interface IResourceService {
     void addBusiness(UUID businessId, UUID serviceId, LocalDate date);
     void addServicesToResource(UUID resourceId, List<UUID> serviceIds);
     PaginatedResponse findResourcesByServiceId(UUID businessId, UUID serviceId, Pageable pageable);
+
+    List<ServiceDto> getAllServicesByResourceAndBusiness(UUID resourceId, UUID businessId);
 }

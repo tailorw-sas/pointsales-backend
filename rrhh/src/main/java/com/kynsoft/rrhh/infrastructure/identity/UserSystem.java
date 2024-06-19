@@ -56,11 +56,10 @@ public class UserSystem implements Serializable {
         this.lastName = dto.getLastName();
         this.status = dto.getStatus();
         this.image = dto.getImage();
+        this.phoneNumber = dto.getPhoneNumber();
     }
 
     public UserSystemDto toAggregate() {
-
-        //UserSystemImageDto i = this.image != null ? this.image.toAggregate() : null;
         return new UserSystemDto(this.id, this.identification, this.email,
                 this.name, this.lastName, this.status,this.phoneNumber,this.image );
     }
