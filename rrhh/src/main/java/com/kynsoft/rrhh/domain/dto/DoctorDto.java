@@ -14,7 +14,7 @@ public class DoctorDto extends UserSystemDto {
 
     public DoctorDto(UUID id, String identification, String email, String name, String lastName, String status,
                      String registerNumber, String language, boolean isExpress, String phoneNumber, String image) {
-        super(id, identification, email, name, lastName, status, phoneNumber, image);
+        super(id, identification, name, lastName, email, status, phoneNumber, image);
         this.registerNumber = registerNumber;
         this.language = language;
         this.isExpress = isExpress;
