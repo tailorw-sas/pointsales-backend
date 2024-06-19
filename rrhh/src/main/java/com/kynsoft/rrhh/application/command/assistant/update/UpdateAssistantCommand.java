@@ -12,23 +12,40 @@ import java.util.UUID;
 public class UpdateAssistantCommand implements ICommand {
 
     private UUID id;
-    private String serialId;
-    private String ip;
-    private UUID businessId;
+    private final String identification;
+    private final String email;
+    private final String name;
+    private final String lastName;
+    private final String status;
+    private final String phoneNumber;
+    private final String image;
+    private final String department;
 
-    public UpdateAssistantCommand(UUID id, String serialId, String ip, UUID businessId) {
+
+    public UpdateAssistantCommand(UUID id, String identification, String email, String name, String lastName, String status, String phoneNumber, String image, String department) {
         this.id = id;
-        this.serialId = serialId;
-        this.ip = ip;
-        this.businessId = businessId;
+
+        this.identification = identification;
+        this.email = email;
+        this.name = name;
+        this.lastName = lastName;
+        this.status = status;
+        this.phoneNumber = phoneNumber;
+        this.image = image;
+        this.department = department;
     }
 
     public static UpdateAssistantCommand fromRequest(UpdateAssistantRequest request, UUID id) {
         return new UpdateAssistantCommand(
                 id,
-                request.getSerialId(), 
-                request.getIp(),
-                request.getBusinessId()
+                request.getIdentification(),
+                request.getEmail(),
+                request.getName(),
+                request.getLastName(),
+                request.getStatus(),
+                request.getPhoneNumber(),
+                request.getImage(),
+                request.getDepartment()
         );
     }
 

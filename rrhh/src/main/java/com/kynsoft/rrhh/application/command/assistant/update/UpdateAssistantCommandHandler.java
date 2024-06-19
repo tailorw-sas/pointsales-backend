@@ -1,42 +1,33 @@
 package com.kynsoft.rrhh.application.command.assistant.update;
 
-import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
-import com.kynsof.share.utils.UpdateIfNotNull;
-import com.kynsoft.rrhh.domain.dto.BusinessDto;
-import com.kynsoft.rrhh.domain.dto.DeviceDto;
-import com.kynsoft.rrhh.domain.interfaces.services.IBusinessService;
-import com.kynsoft.rrhh.domain.interfaces.services.IDeviceService;
-import com.kynsoft.rrhh.domain.rules.device.DeviceIpValidateRule;
+import com.kynsoft.rrhh.domain.dto.AssistantDto;
+import com.kynsoft.rrhh.domain.interfaces.services.IAssistantService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateAssistantCommandHandler implements ICommandHandler<UpdateAssistantCommand> {
 
-    private final IDeviceService service;
-    private final IBusinessService businessService;
+    private final IAssistantService service;
 
-    public UpdateAssistantCommandHandler(IDeviceService service, IBusinessService businessService) {
+
+    public UpdateAssistantCommandHandler(IAssistantService service) {
         this.service = service;
-        this.businessService = businessService;
     }
 
     @Override
     public void handle(UpdateAssistantCommand command) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule(command.getId(), "Device.id", "Device ID cannot be null."));
-        DeviceDto update = this.service.findById(command.getId());
 
-        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getBusinessId(), "Device.business.id", "Device.business ID cannot be null."));
-        BusinessDto business = this.businessService.findById(command.getBusinessId());
-        update.setBusiness(business);
+        AssistantDto assistantDto = service.findById(command.getId());
+        assistantDto.setName(command.getName());
+        assistantDto.setEmail(command.getEmail());
+        assistantDto.setDepartment(command.getDepartment());
+        assistantDto.setIdentification(command.getIdentification());
+        assistantDto.setLastName(command.getLastName());
+        assistantDto.setStatus(command.getStatus());
+        assistantDto.setPhoneNumber(command.getPhoneNumber());
+        assistantDto.setImage(command.getImage());
 
-        if (command.getIp() != null && !command.getIp().isEmpty()) {
-            RulesChecker.checkRule(new DeviceIpValidateRule(command.getIp()));
-            update.setIp(command.getIp());
-        }
-        UpdateIfNotNull.updateIfStringNotNull(update::setSerialId, command.getSerialId());
-
-        service.update(update);
+        service.update(assistantDto);
     }
 }

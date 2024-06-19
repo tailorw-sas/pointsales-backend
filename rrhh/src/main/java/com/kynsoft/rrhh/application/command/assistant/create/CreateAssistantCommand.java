@@ -21,9 +21,9 @@ public class CreateAssistantCommand implements ICommand {
     private String image;
     private String department;
 
-    public CreateAssistantCommand(String identification, String email, String name, String lastName, String status,
+    public CreateAssistantCommand(UUID id,String identification, String email, String name, String lastName, String status,
                                   String phoneNumber, String image, String department) {
-        this.id = UUID.randomUUID();
+        this.id = id;
         this.identification = identification;
         this.email = email;
         this.name = name;
@@ -36,6 +36,7 @@ public class CreateAssistantCommand implements ICommand {
 
     public static CreateAssistantCommand fromRequest(CreateAssistantRequest request) {
         return new CreateAssistantCommand(
+                request.getId(),
                 request.getIdentification(),
                 request.getEmail(),
                 request.getName(),

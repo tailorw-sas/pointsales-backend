@@ -3,12 +3,15 @@ package com.kynsoft.rrhh.application.command.assistant.update;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 public class UpdateAssistantRequest {
-    private String serialId;
-    private String ip;
-    private UUID businessId;
+    private String identification;
+    private String email;
+    private String name;
+    private String lastName;
+    private String status;
+    private String phoneNumber;
+    private String image;
+    private String department;
 }
