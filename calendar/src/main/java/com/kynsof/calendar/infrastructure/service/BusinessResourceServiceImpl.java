@@ -15,7 +15,6 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,11 +27,14 @@ import java.util.UUID;
 @Service
 public class BusinessResourceServiceImpl implements IBusinessResourceService {
 
-    @Autowired
-    private BusinessResourceWriteDataJPARepository repositoryCommand;
+    private final BusinessResourceWriteDataJPARepository repositoryCommand;
 
-    @Autowired
-    private BusinessResourceReadDataJPARepository repositoryQuery;
+    private final BusinessResourceReadDataJPARepository repositoryQuery;
+
+    public BusinessResourceServiceImpl(BusinessResourceWriteDataJPARepository repositoryCommand, BusinessResourceReadDataJPARepository repositoryQuery) {
+        this.repositoryCommand = repositoryCommand;
+        this.repositoryQuery = repositoryQuery;
+    }
 
     @Override
     public void create(BusinessResourceDto object) {
