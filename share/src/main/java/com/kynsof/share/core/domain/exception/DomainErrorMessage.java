@@ -73,7 +73,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     EXTERNAL_CONSULTATION_NOT_FOUND(667, Series.DOMAIN_ERROR, "External Consultation not found."),
     DOCTOR_NOT_FOUND(668, Series.DOMAIN_ERROR, "Doctor not found."),
     CIE10_NOT_FOUND(669, Series.DOMAIN_ERROR, "Cie10 not found."),
-    NOT_DELETE(1000, Series.DOMAIN_ERROR, "Element cannot be deleted has a related element.");
+    NOT_DELETE(1000, Series.DOMAIN_ERROR, "Element cannot be deleted has a related element."),
+    MUST_BY_UNIQUE(1002, Series.DOMAIN_ERROR, "must be unique.");
 
     private static final DomainErrorMessage[] VALUES;
 
