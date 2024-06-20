@@ -53,7 +53,7 @@ public class AssistantServiceImpl implements IAssistantService {
 
     @Override
     public AssistantDto findById(UUID id) {
-        
+
         Optional<Assistant> object = this.repositoryQuery.findById(id);
         if (object.isPresent()) {
             return object.get().toAggregate();
@@ -88,5 +88,14 @@ public class AssistantServiceImpl implements IAssistantService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    @Override
+    public Long countByIdentificationAndNotId(String identification) {
+        return this.repositoryQuery.countByIdentificationAndNotId(identification);
+    }
+
+    @Override
+    public Long countByEmailAndNotId(String email) {
+        return this.repositoryQuery.countByEmailAndNotId(email);
+    }
 
 }

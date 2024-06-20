@@ -14,4 +14,6 @@ public interface IAssistantService {
     void delete(AssistantDto object);
     AssistantDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    Long countByIdentificationAndNotId(String identification);
+    Long countByEmailAndNotId(String email);
 }

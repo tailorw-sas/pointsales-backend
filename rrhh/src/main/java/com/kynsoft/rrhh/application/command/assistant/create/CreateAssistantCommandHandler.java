@@ -5,6 +5,8 @@ import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsoft.rrhh.domain.dto.AssistantDto;
 import com.kynsoft.rrhh.domain.interfaces.services.IAssistantService;
+import com.kynsoft.rrhh.domain.rules.assistant.AssistantEmailMustBeUniqueRule;
+import com.kynsoft.rrhh.domain.rules.assistant.AssistantIdentificationMustBeUniqueRule;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,9 +20,10 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
 
     @Override
     public void handle(CreateAssistantCommand command) {
-//        RulesChecker.checkRule(new AssistantEmailValidateRule(command.getEmail()));
-//        RulesChecker.checkRule(new AssistantIdentificationMustBeNullRule(command.getIdentification()));
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getStatus(), "Assistant.status", "Assistant status cannot be null."));
+
+        RulesChecker.checkRule(new AssistantEmailMustBeUniqueRule(this.service, command.getEmail()));
+        RulesChecker.checkRule(new AssistantIdentificationMustBeUniqueRule(this.service, command.getIdentification()));
 
         AssistantDto assistantSave = new AssistantDto(
                 command.getId(),
