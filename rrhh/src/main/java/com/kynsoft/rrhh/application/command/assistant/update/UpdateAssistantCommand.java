@@ -22,7 +22,8 @@ public class UpdateAssistantCommand implements ICommand {
     private final String department;
 
 
-    public UpdateAssistantCommand(UUID id, String identification, String email, String name, String lastName, String status, String phoneNumber, String image, String department) {
+    public UpdateAssistantCommand(UUID id, String identification, String email, String name, String lastName,
+                                  String status, String phoneNumber, String image, String department) {
         this.id = id;
 
         this.identification = identification;

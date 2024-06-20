@@ -21,7 +21,6 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
 //        RulesChecker.checkRule(new AssistantEmailValidateRule(command.getEmail()));
 //        RulesChecker.checkRule(new AssistantIdentificationMustBeNullRule(command.getIdentification()));
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getStatus(), "Assistant.status", "Assistant status cannot be null."));
-
         AssistantDto assistantSave = new AssistantDto(
                 command.getId(),
                 command.getIdentification(),
