@@ -1,5 +1,6 @@
 package com.kynsof.calendar.application.command.service.create;
 
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,4 +17,6 @@ public class CreateServiceRequest {
     private Double expressAppointmentPrice;
     private String description;
     private boolean applyIva;
+    private EServiceStatus status;
+    private Integer estimatedDuration;
 }

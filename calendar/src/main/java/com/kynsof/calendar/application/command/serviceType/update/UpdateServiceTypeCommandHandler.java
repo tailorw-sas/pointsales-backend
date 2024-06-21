@@ -4,7 +4,6 @@ import com.kynsof.calendar.domain.dto.ServiceTypeDto;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import org.springframework.stereotype.Component;
@@ -13,11 +12,9 @@ import org.springframework.stereotype.Component;
 public class UpdateServiceTypeCommandHandler implements ICommandHandler<UpdateServiceTypeCommand> {
 
     private final IServiceTypeService service;
-    private final ProducerSaveFileEventService saveFileEventService;
 
-    public UpdateServiceTypeCommandHandler(IServiceTypeService service, ProducerSaveFileEventService saveFileEventService) {
+    public UpdateServiceTypeCommandHandler(IServiceTypeService service) {
         this.service = service;
-        this.saveFileEventService = saveFileEventService;
     }
 
     @Override
@@ -29,6 +26,7 @@ public class UpdateServiceTypeCommandHandler implements ICommandHandler<UpdateSe
 
         UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());
         update.setPicture(command.getPicture());
+        update.setStatus(command.getStatus());
         service.update(update);
     }
 }

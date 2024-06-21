@@ -2,7 +2,6 @@ package com.kynsof.calendar.application.command.service.create;
 
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.ServiceTypeDto;
-import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import com.kynsof.calendar.domain.rules.service.SeviceNameMustBeUniqueRule;
 import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
@@ -29,13 +28,15 @@ public class CreateServiceCommandHandler implements ICommandHandler<CreateServic
         ServiceDto serviceDto = service.create(new ServiceDto(
                 command.getId(),
                 serviceTypeDto,
-                EServiceStatus.ACTIVE,
+                command.getStatus(),
                 command.getImage(),
                 command.getName(),
                 command.getNormalAppointmentPrice(),
                 command.getExpressAppointmentPrice(),
                 command.getDescription(),
-                command.isApplyIva()));
+                command.isApplyIva(),
+                command.getEstimatedDuration()
+        ));
 
         command.setId(serviceDto.getId());
     }

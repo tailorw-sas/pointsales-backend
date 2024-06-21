@@ -1,5 +1,6 @@
 package com.kynsof.calendar.application.command.service.update;
 
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,4 +16,6 @@ public class UpdateServiceRequest {
     private Double expressAppointmentPrice;
     private String description;
     private boolean applyIva;
+    private EServiceStatus status;
+    private Integer estimatedDuration;
 }

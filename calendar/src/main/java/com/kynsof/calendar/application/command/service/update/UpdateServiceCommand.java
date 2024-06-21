@@ -1,5 +1,6 @@
 package com.kynsof.calendar.application.command.service.update;
 
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -19,9 +20,12 @@ public class UpdateServiceCommand implements ICommand {
     private Double expressAppointmentPrice;
     private String description;
     private boolean applyIva;
+    private EServiceStatus status;
+    private Integer estimatedDuration;
 
     public UpdateServiceCommand(UUID id, UUID serviceTypeId, String picture, String name, Double normalAppointmentPrice,
-                                Double expressAppointmentPrice, String description, boolean applyIva) {
+                                Double expressAppointmentPrice, String description, boolean applyIva,
+                                EServiceStatus status, Integer estimatedDuration) {
         this.id = id;
         this.serviceTypeId = serviceTypeId;
         this.picture = picture;
@@ -30,13 +34,15 @@ public class UpdateServiceCommand implements ICommand {
         this.expressAppointmentPrice = expressAppointmentPrice;
         this.description = description;
         this.applyIva = applyIva;
+        this.status = status;
+        this.estimatedDuration = estimatedDuration;
     }
 
 
     public static UpdateServiceCommand fromRequest(UUID id, UpdateServiceRequest request) {
         return new UpdateServiceCommand(id, request.getType(), request.getImage(),
                 request.getName(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(),
-                request.getDescription(), request.isApplyIva());
+                request.getDescription(), request.isApplyIva(), request.getStatus(), request.getEstimatedDuration());
     }
 
     @Override

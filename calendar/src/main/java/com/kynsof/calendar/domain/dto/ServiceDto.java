@@ -23,6 +23,7 @@ public class ServiceDto implements Serializable {
     private Double expressAppointmentPrice;
     private String description;
     private Boolean applyIva;
+    private int estimatedDuration;
 
 
 

@@ -36,6 +36,8 @@ public class Services {
     private String name;
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
+    @Column(nullable = true)
+    private Integer estimatedDuration;
 
     @Size(max = 2000)
     private String description;
@@ -59,10 +61,11 @@ public class Services {
         this.expressAppointmentPrice = object.getExpressAppointmentPrice();
         this.description = object.getDescription();
         this.applyIva = object.getApplyIva();
+        this.estimatedDuration = object.getEstimatedDuration();
     }
 
     public ServiceDto toAggregate () {
         return new ServiceDto(id, type.toAggregate(), status, picture, name, normalAppointmentPrice,
-                expressAppointmentPrice, description, applyIva);
+                expressAppointmentPrice, description, applyIva, estimatedDuration);
     }
 }

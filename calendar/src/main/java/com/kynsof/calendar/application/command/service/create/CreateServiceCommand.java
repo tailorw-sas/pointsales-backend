@@ -1,5 +1,6 @@
 package com.kynsof.calendar.application.command.service.create;
 
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -19,9 +20,12 @@ public class CreateServiceCommand implements ICommand {
     private Double normalAppointmentPrice;
     private Double expressAppointmentPrice;
     private boolean applyIva;
+    private EServiceStatus status;
+    private Integer estimatedDuration;
 
     public CreateServiceCommand(String name, String picture, String description, UUID serviceTypeId,
-                                Double normalAppointmentPrice, Double expressAppointmentPrice, Boolean applyIva) {
+                                Double normalAppointmentPrice, Double expressAppointmentPrice, Boolean applyIva,
+                                EServiceStatus status, Integer estimatedDuration) {
         this.applyIva = applyIva;
         this.id = UUID.randomUUID();
         this.name = name;
@@ -30,11 +34,14 @@ public class CreateServiceCommand implements ICommand {
         this.type = serviceTypeId;
         this.normalAppointmentPrice = normalAppointmentPrice;
         this.expressAppointmentPrice = expressAppointmentPrice;
+        this.status = status;
+        this.estimatedDuration = estimatedDuration;
     }
 
     public static CreateServiceCommand fromRequest(CreateServiceRequest request) {
         return new CreateServiceCommand(request.getName(), request.getImage(), request.getDescription(),
-                request.getType(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(),request.isApplyIva() );
+                request.getType(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(),
+                request.isApplyIva(), request.getStatus(), request.getEstimatedDuration());
     }
 
     @Override

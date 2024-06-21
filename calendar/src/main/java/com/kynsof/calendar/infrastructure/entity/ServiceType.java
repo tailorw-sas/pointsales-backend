@@ -1,6 +1,7 @@
 package com.kynsof.calendar.infrastructure.entity;
 
 import com.kynsof.calendar.domain.dto.ServiceTypeDto;
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -28,6 +29,9 @@ public class ServiceType {
     private String name;
     private String picture;
 
+    @Enumerated(EnumType.STRING)
+    private EServiceStatus status;
+
     @OneToMany(mappedBy = "type")
     private Set<Services> services;
 
@@ -35,9 +39,10 @@ public class ServiceType {
         this.id = dto.getId();
         this.name = dto.getName();
         this.picture = dto.getPicture();
+        this.status = dto.getStatus();
     }
 
     public ServiceTypeDto toAggregate() {
-        return new ServiceTypeDto(this.id, this.name,this.picture);
+        return new ServiceTypeDto(this.id, this.name,this.picture, status);
     }
 }
