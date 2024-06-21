@@ -1,17 +1,17 @@
-package com.kynsoft.rrhh.domain.rules.doctor;
+package com.kynsoft.rrhh.domain.rules.assistant;
 
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.rules.BusinessRule;
-import com.kynsoft.rrhh.domain.interfaces.services.IDoctorService;
+import com.kynsoft.rrhh.domain.interfaces.services.IAssistantService;
 
-public class DoctorEmailMustBeUniqueRule extends BusinessRule {
+public class AssistantEmailMustBeUniqueRule extends BusinessRule {
 
-    private final IDoctorService service;
+    private final IAssistantService service;
 
     private final String email;
 
-    public DoctorEmailMustBeUniqueRule(IDoctorService service, String email) {
+    public AssistantEmailMustBeUniqueRule(IAssistantService service, String email) {
         super(
                 DomainErrorMessage.MUST_BY_UNIQUE, 
                 new ErrorField("email", "The email " + DomainErrorMessage.MUST_BY_UNIQUE.getReasonPhrase())

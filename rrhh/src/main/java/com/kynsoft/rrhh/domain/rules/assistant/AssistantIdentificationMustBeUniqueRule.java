@@ -1,17 +1,17 @@
-package com.kynsoft.rrhh.domain.rules.doctor;
+package com.kynsoft.rrhh.domain.rules.assistant;
 
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.rules.BusinessRule;
-import com.kynsoft.rrhh.domain.interfaces.services.IDoctorService;
+import com.kynsoft.rrhh.domain.interfaces.services.IAssistantService;
 
-public class DoctorIdentificationMustBeUniqueRule extends BusinessRule {
+public class AssistantIdentificationMustBeUniqueRule extends BusinessRule {
 
-    private final IDoctorService service;
+    private final IAssistantService service;
 
     private final String identification;
 
-    public DoctorIdentificationMustBeUniqueRule(IDoctorService service, String identification) {
+    public AssistantIdentificationMustBeUniqueRule(IAssistantService service, String identification) {
         super(
                 DomainErrorMessage.MUST_BY_UNIQUE, 
                 new ErrorField("identification", "The identification " + DomainErrorMessage.MUST_BY_UNIQUE.getReasonPhrase())
