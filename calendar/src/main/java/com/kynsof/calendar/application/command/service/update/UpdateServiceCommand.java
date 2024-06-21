@@ -21,10 +21,11 @@ public class UpdateServiceCommand implements ICommand {
     private String description;
     private boolean applyIva;
     private EServiceStatus status;
+    private Integer estimatedDuration;
 
     public UpdateServiceCommand(UUID id, UUID serviceTypeId, String picture, String name, Double normalAppointmentPrice,
                                 Double expressAppointmentPrice, String description, boolean applyIva,
-                                EServiceStatus status) {
+                                EServiceStatus status, Integer estimatedDuration) {
         this.id = id;
         this.serviceTypeId = serviceTypeId;
         this.picture = picture;
@@ -34,13 +35,14 @@ public class UpdateServiceCommand implements ICommand {
         this.description = description;
         this.applyIva = applyIva;
         this.status = status;
+        this.estimatedDuration = estimatedDuration;
     }
 
 
     public static UpdateServiceCommand fromRequest(UUID id, UpdateServiceRequest request) {
         return new UpdateServiceCommand(id, request.getType(), request.getImage(),
                 request.getName(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(),
-                request.getDescription(), request.isApplyIva(), request.getStatus());
+                request.getDescription(), request.isApplyIva(), request.getStatus(), request.getEstimatedDuration());
     }
 
     @Override
