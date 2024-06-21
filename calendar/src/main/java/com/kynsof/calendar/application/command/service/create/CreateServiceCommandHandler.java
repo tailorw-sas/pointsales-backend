@@ -29,7 +29,7 @@ public class CreateServiceCommandHandler implements ICommandHandler<CreateServic
         ServiceDto serviceDto = service.create(new ServiceDto(
                 command.getId(),
                 serviceTypeDto,
-                EServiceStatus.ACTIVE,
+                command.getStatus(),
                 command.getImage(),
                 command.getName(),
                 command.getNormalAppointmentPrice(),

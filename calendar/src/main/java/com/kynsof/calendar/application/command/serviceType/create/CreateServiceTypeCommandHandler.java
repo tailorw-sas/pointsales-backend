@@ -25,7 +25,8 @@ public class CreateServiceTypeCommandHandler implements ICommandHandler<CreateSe
         UUID id = service.create(new ServiceTypeDto(
                 command.getId(),
                 command.getName(),
-                command.getPicture()
+                command.getPicture(),
+                command.getStatus()
         ));
         command.setId(id);
     }

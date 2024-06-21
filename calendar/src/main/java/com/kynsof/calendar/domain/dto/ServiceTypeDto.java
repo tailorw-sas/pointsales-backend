@@ -1,5 +1,6 @@
 package com.kynsof.calendar.domain.dto;
 
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,7 @@ public class ServiceTypeDto  implements Serializable {
     private UUID id;
     private String name;
     private String picture;
+    
+    private EServiceStatus status;
+
 }

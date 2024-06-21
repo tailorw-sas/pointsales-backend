@@ -1,5 +1,6 @@
 package com.kynsof.calendar.application.command.serviceType.update;
 
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -14,15 +15,17 @@ public class UpdateServiceTypeCommand implements ICommand {
     private UUID id;
     private String name;
     private final String picture;
+    private EServiceStatus status;
 
-    public UpdateServiceTypeCommand(UUID id, String description, String picture) {
+    public UpdateServiceTypeCommand(UUID id, String description, String picture, EServiceStatus status) {
         this.id = id;
         this.name = description;
         this.picture = picture;
+        this.status = status;
     }
 
     public static UpdateServiceTypeCommand fromRequest(UUID id, UpdateServiceTypeRequest request) {
-        return new UpdateServiceTypeCommand(id, request.getName(), request.getImage() );
+        return new UpdateServiceTypeCommand(id, request.getName(), request.getImage(), request.getStatus());
     }
 
     @Override
