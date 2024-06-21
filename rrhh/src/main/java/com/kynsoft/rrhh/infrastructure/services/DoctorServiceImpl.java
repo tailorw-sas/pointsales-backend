@@ -89,13 +89,23 @@ public class DoctorServiceImpl implements IDoctorService {
     }
 
     @Override
-    public Long countByIdentificationAndNotId(String identification) {
-        return this.repositoryQuery.countByIdentificationAndNotId(identification);
+    public Long countByIdentification(String identification) {
+        return this.repositoryQuery.countByIdentification(identification);
     }
 
     @Override
-    public Long countByEmailAndNotId(String email) {
-        return this.repositoryQuery.countByEmailAndNotId(email);
+    public Long countByEmail(String email) {
+        return this.repositoryQuery.countByEmail(email);
+    }
+
+    @Override
+    public Long countByIdentificationAndNotId(String identification, UUID id) {
+        return this.repositoryQuery.countByIdentificationAndNotId(identification, id);
+    }
+
+    @Override
+    public Long countByEmailAndNotId(String email, UUID id) {
+        return this.repositoryQuery.countByEmailAndNotId(email, id);
     }
 
 }

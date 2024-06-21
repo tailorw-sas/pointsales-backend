@@ -22,7 +22,7 @@ public class AssistantEmailMustBeUniqueRule extends BusinessRule {
 
     @Override
     public boolean isBroken() {
-        return this.service.countByEmailAndNotId(email) > 0;
+        return this.service.countByEmail(email) > 0;
     }
 
 }

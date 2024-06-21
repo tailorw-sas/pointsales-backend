@@ -14,6 +14,8 @@ public interface IDoctorService {
     void delete(DoctorDto object);
     DoctorDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
-    Long countByIdentificationAndNotId(String identification);
-    Long countByEmailAndNotId(String email);
+    Long countByIdentification(String identification);
+    Long countByEmail(String email);
+    Long countByIdentificationAndNotId(String identification, UUID id);
+    Long countByEmailAndNotId(String email, UUID id);
 }

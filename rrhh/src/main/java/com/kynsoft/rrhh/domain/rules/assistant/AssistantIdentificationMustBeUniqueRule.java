@@ -22,7 +22,7 @@ public class AssistantIdentificationMustBeUniqueRule extends BusinessRule {
 
     @Override
     public boolean isBroken() {
-        return this.service.countByIdentificationAndNotId(identification) > 0;
+        return this.service.countByIdentification(identification) > 0;
     }
 
 }
