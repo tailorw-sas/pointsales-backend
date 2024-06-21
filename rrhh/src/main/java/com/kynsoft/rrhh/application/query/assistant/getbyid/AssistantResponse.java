@@ -18,9 +18,10 @@ public class AssistantResponse implements IResponse {
     private String name;
     private String lastName;
     private String status;
-    private String registerNumber;
-    private String language;
-    private boolean isExpress;
+    private String phoneNumber;
+    private String image;
+    private String department;
+
 
     public AssistantResponse(AssistantDto dto) {
         this.id = dto.getId();
@@ -29,6 +30,9 @@ public class AssistantResponse implements IResponse {
         this.lastName = dto.getLastName();
         this.status = dto.getStatus();
         this.identification = dto.getIdentification();
+        this.phoneNumber = dto.getPhoneNumber();
+        this.image = dto.getImage();
+        this.department = dto.getDepartment();
     }
 
 }
