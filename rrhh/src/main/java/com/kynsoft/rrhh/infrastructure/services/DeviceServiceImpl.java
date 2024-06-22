@@ -15,6 +15,7 @@ import com.kynsoft.rrhh.infrastructure.identity.Device;
 import com.kynsoft.rrhh.infrastructure.identity.UserSystem;
 import com.kynsoft.rrhh.infrastructure.repository.command.DeviceWriteDataJPARepository;
 import com.kynsoft.rrhh.infrastructure.repository.query.DeviceReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +42,9 @@ public class DeviceServiceImpl implements IDeviceService {
 
     @Override
     public void update(DeviceDto object) {
-        this.repositoryCommand.save(new Device(object));
+        Device update = new Device(object);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
     @Override

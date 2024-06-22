@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "user_business_relation")
@@ -33,6 +34,13 @@ public class UserBusinessRelation {
 
     @Column(name = "date")
     private LocalDateTime date;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public UserBusinessRelation(UserBusinessRelationDto userBusinessRelation) {
         this.id = userBusinessRelation.getId();

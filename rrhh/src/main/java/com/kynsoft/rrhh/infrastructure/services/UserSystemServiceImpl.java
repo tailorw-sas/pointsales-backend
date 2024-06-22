@@ -13,6 +13,7 @@ import com.kynsoft.rrhh.domain.interfaces.services.IUserSystemService;
 import com.kynsoft.rrhh.infrastructure.identity.UserSystem;
 import com.kynsoft.rrhh.infrastructure.repository.command.UserSystemsWriteDataJPARepository;
 import com.kynsoft.rrhh.infrastructure.repository.query.UserSystemReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +42,9 @@ public class UserSystemServiceImpl implements IUserSystemService {
 
     @Override
     public void update(UserSystemDto userSystemDto) {
-        this.repositoryCommand.save(new UserSystem(userSystemDto));
+        UserSystem update = new UserSystem(userSystemDto);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
     @Override
