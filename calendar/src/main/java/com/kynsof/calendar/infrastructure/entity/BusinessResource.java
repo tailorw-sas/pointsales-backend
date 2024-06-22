@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -26,11 +28,12 @@ public class BusinessResource {
     @JoinColumn(name = "resource_id")
     private Resource resource;
 
-    @Column(name = "createdAt", nullable = true, updatable = true)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
+
 
     public BusinessResource(BusinessResourceDto businessResourceDto) {
         this.id = businessResourceDto.getId();

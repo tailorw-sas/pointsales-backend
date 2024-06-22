@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -20,7 +21,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Receipt {
-        
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -64,10 +65,9 @@ public class Receipt {
     private EStatusReceipt previousStatus;
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public Receipt(ReceiptDto receipt) {
@@ -91,8 +91,8 @@ public class Receipt {
 
     public ReceiptDto toAggregate() {
         return new ReceiptDto(id, price, express, reasons, user.toAggregate(), schedule.toAggregate(),
-                service.toAggregate(), status, requestId, authorizationCode, reference,sessionId,ipAddressCreate,
-                ipAddressPayment,userAgentCreate, userAgentPayment);
+                service.toAggregate(), status, requestId, authorizationCode, reference, sessionId, ipAddressCreate,
+                ipAddressPayment, userAgentCreate, userAgentPayment);
     }
 
     @PostLoad
@@ -101,6 +101,7 @@ public class Receipt {
     public void onLoad() {
         previousStatus = this.status;
     }
+
     @PreUpdate
     public void onPreUpdate() {
         if (EStatusReceipt.APPROVED.equals(status) && !status.equals(previousStatus)) {
