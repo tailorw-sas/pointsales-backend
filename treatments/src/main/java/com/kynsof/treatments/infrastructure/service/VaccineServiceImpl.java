@@ -22,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +114,9 @@ public class VaccineServiceImpl implements IVaccineService {
 
     @Override
     public void update(VaccineDto vaccineDto) {
-        this.repositoryCommand.save(new Vaccine(vaccineDto));
+        Vaccine update = new Vaccine(vaccineDto);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
     @Override

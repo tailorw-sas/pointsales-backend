@@ -14,6 +14,7 @@ import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -58,6 +59,7 @@ public class AdditionalInfoServiceImpl implements IAdditionalInfoService {
                     if (additionalInformationDto.getPatient() != null)
                         additionalInformation.setPatient(additionalInformationDto.getPatient());
 
+                    additionalInformation.setUpdatedAt(LocalDateTime.now());
                     return this.repositoryCommand.save(additionalInformation);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Additional Information with ID " + additionalInformationDto.getId() + " not found"));

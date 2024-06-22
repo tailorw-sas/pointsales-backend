@@ -64,9 +64,13 @@ public class Schedule {
     public void prePersist() {
         this.initialStock = this.stock;
     }
+
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Schedule(ScheduleDto scheduleDto) {
         this.id = scheduleDto.getId();

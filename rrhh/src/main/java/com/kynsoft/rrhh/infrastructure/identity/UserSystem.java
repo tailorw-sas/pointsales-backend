@@ -8,8 +8,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "user_system")
@@ -46,7 +48,12 @@ public class UserSystem implements Serializable {
     @OneToMany(mappedBy = "userSystem", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserBusinessRelation> userBusinessRelations;
 
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
 
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public UserSystem(UserSystemDto dto) {
         this.id = dto.getId();

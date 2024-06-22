@@ -35,9 +35,13 @@ public class Patient {
 
     @Enumerated(EnumType.STRING)
     private PatientStatus status;
+
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Patient(PatientDto patients) {
         this.id = patients.getId();

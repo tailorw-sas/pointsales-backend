@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -159,6 +160,7 @@ public class ScheduleServiceImpl implements IScheduleService {
     public Schedule changeStatus(Schedule schedule, EStatusSchedule status) {
 
         schedule.setStatus(status);
+        schedule.setUpdatedAt(LocalDateTime.now());
 
         return repositoryCommand.save(schedule);
     }

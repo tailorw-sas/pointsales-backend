@@ -3,6 +3,7 @@ package com.kynsof.treatments.infrastructure.entity;
 import com.kynsof.treatments.domain.dto.ExamDto;
 import com.kynsof.treatments.domain.dto.ExamOrderDto;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import org.hibernate.annotations.CreationTimestamp;
 
 @NoArgsConstructor
 @Getter
@@ -37,6 +39,13 @@ public class ExamOrder {
     @OneToOne
     @JoinColumn(name = "external_consultation_id", referencedColumnName = "id")
     private ExternalConsultation externalConsultation;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public ExamOrder(ExamOrderDto dto) {
         this.id = dto.getId();

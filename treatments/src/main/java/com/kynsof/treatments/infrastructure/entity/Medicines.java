@@ -4,11 +4,13 @@ import com.kynsof.treatments.domain.dto.MedicinesDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @NoArgsConstructor
 @Getter
@@ -20,6 +22,13 @@ public class Medicines {
     private UUID id;
     @Column(unique = true)
     private String name;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Medicines(MedicinesDto medicine) {
         this.id = medicine.getId();

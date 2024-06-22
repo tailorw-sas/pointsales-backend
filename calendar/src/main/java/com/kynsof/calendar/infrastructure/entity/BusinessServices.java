@@ -30,8 +30,11 @@ public class BusinessServices {
     private Double price;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public BusinessServices(BusinessServicesDto businessServices) {
         this.id = businessServices.getId();

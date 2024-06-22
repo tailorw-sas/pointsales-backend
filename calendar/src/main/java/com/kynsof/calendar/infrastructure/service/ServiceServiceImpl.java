@@ -14,6 +14,7 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import java.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,9 @@ public class ServiceServiceImpl implements IServiceService {
     //@CachePut(cacheNames =  CacheConfig.SERVICE_CACHE, key = "#result.id")
     public ServiceDto update(ServiceDto objectDto) {
 
-        Services savedEntity =  this.repositoryCommand.save(new Services(objectDto));
+        Services update = new Services(objectDto);
+        update.setUpdatedAt(LocalDateTime.now());
+        Services savedEntity =  this.repositoryCommand.save(update);
         return savedEntity.toAggregate();
 
     }

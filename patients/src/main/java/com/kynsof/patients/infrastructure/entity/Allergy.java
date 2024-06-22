@@ -3,11 +3,13 @@ package com.kynsof.patients.infrastructure.entity;
 import com.kynsof.patients.domain.dto.AllergyEntityDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @NoArgsConstructor
 @Getter
@@ -27,6 +29,13 @@ public class Allergy {
     @ManyToOne
     @JoinColumn(name = "medical_information_id", nullable = false)
     private MedicalInformation medicalInformation;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Allergy(AllergyEntityDto dto) {
         this.id = dto.getId();

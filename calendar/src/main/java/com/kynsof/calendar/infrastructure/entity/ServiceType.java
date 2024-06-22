@@ -5,6 +5,7 @@ import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import lombok.Setter;
 
 import java.util.Set;
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Getter
@@ -34,6 +36,13 @@ public class ServiceType {
 
     @OneToMany(mappedBy = "type")
     private Set<Services> services;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public ServiceType(ServiceTypeDto dto) {
         this.id = dto.getId();

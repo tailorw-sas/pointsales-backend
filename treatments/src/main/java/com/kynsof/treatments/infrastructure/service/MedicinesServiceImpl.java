@@ -14,6 +14,7 @@ import com.kynsof.treatments.infrastructure.entity.Medicines;
 import com.kynsof.treatments.infrastructure.entity.Procedure;
 import com.kynsof.treatments.infrastructure.repositories.command.MedicinesWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.MedicinesReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,7 +41,9 @@ public class MedicinesServiceImpl implements IMedicinesService {
 
     @Override
     public void update(MedicinesDto medicines) {
-        this.repositoryCommand.save(new Medicines(medicines));
+        Medicines updte = new Medicines(medicines);
+        updte.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(updte);
     }
 
     @Override

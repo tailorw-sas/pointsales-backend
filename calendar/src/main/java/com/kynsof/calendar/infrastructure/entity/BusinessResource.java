@@ -26,8 +26,11 @@ public class BusinessResource {
     @JoinColumn(name = "resource_id")
     private Resource resource;
 
-    @Column(name = "createdAt")
+    @Column(name = "createdAt", nullable = true, updatable = true)
     private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public BusinessResource(BusinessResourceDto businessResourceDto) {
         this.id = businessResourceDto.getId();

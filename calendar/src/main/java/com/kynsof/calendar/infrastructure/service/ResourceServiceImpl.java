@@ -26,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -61,6 +62,8 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Override
     public void update(ResourceDto objectDto) {
+        Resource update = new Resource(objectDto);
+        update.setUpdatedAt(LocalDateTime.now());
         this.repositoryCommand.save(new Resource(objectDto));
     }
 

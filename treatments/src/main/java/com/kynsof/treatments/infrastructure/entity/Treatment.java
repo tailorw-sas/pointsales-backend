@@ -36,8 +36,11 @@ public class Treatment {
     private Medicines medicines;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Treatment(TreatmentDto treatmentDto) {
         this.id = treatmentDto.getId();

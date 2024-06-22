@@ -17,6 +17,7 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -51,7 +52,9 @@ public class WalletTransactionServiceImpl implements IWalletTransactionService {
 
     @Override
     public void update(WalletTransactionDto objectDto) {
-        this.repositoryCommand.save(new WalletTransaction(objectDto));
+        WalletTransaction update = new WalletTransaction(objectDto);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
 

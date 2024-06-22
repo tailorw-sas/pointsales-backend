@@ -3,11 +3,13 @@ package com.kynsof.patients.infrastructure.entity;
 import com.kynsof.patients.domain.dto.AdditionalInformationDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @NoArgsConstructor
 @Getter
@@ -31,6 +33,13 @@ public class AdditionalInformation {
     @OneToOne
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patients patient;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public AdditionalInformation(AdditionalInformationDto additionalInformationDto) {
         id = additionalInformationDto.getId();

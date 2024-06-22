@@ -15,6 +15,7 @@ import com.kynsoft.rrhh.infrastructure.identity.Assistant;
 import com.kynsoft.rrhh.infrastructure.identity.UserSystem;
 import com.kynsoft.rrhh.infrastructure.repository.command.AssistantWriteDataJPARepository;
 import com.kynsoft.rrhh.infrastructure.repository.query.AssistantReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,9 @@ public class AssistantServiceImpl implements IAssistantService {
 
     @Override
     public void update(AssistantDto object) {
-        this.repositoryCommand.save(new Assistant(object));
+        Assistant update = new Assistant(object);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
     @Override

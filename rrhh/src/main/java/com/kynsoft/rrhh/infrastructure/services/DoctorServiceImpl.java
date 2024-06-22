@@ -15,6 +15,7 @@ import com.kynsoft.rrhh.infrastructure.identity.Doctor;
 import com.kynsoft.rrhh.infrastructure.identity.UserSystem;
 import com.kynsoft.rrhh.infrastructure.repository.command.DoctorWriteDataJPARepository;
 import com.kynsoft.rrhh.infrastructure.repository.query.DoctorReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,9 @@ public class DoctorServiceImpl implements IDoctorService {
 
     @Override
     public void update(DoctorDto object) {
-        this.repositoryCommand.save(new Doctor(object));
+        Doctor update = new Doctor(object);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
     @Override

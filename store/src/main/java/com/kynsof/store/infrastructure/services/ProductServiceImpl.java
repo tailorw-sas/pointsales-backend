@@ -17,6 +17,7 @@ import com.kynsof.store.infrastructure.entity.Supplier;
 import com.kynsof.store.infrastructure.repositories.command.ProductWriteDataJPARepository;
 import com.kynsof.store.infrastructure.repositories.queries.ProductReadDataJPARepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -61,6 +62,7 @@ public class ProductServiceImpl implements IProductService {
                         product.setSupplier(new Supplier(productDto.getSupplierEntityDto()));
                     }
 
+                    product.setUpdatedAt(LocalDateTime.now());
                     return repositoryCommand.save(product);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Product with ID " + productDto.getId() + " not found"))

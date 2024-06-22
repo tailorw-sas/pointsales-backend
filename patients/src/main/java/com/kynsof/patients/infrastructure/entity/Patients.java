@@ -74,8 +74,11 @@ public class Patients implements Serializable {
     private List<Insurance> insurances;
 
     @CreationTimestamp
-    @Column(updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     @Column(nullable = true)
     private Boolean deleted = false;

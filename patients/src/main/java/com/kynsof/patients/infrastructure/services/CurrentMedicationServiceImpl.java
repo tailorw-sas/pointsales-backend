@@ -13,6 +13,7 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,6 +44,7 @@ public class CurrentMedicationServiceImpl implements ICurrentMedicationService {
         if (dto == null || dto.getId() == null) {
             throw new IllegalArgumentException("Patient DTO or ID cannot be null");
         }
+        dto.setUpdatedAt(LocalDateTime.now());
         CurrentMedication entity = this.repositoryCommand.save(dto);
 
         return dto.getId();

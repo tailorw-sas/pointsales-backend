@@ -28,12 +28,15 @@ public class BusinessModule {
     @JoinColumn(name = "module_id")
     private ModuleSystem module;
 
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
     @Column(nullable = true)
     private Boolean deleted = false;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public BusinessModule(Business business, ModuleSystem module) {
         this.business = business;

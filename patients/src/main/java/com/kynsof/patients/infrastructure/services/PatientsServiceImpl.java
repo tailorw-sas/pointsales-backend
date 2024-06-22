@@ -18,6 +18,7 @@ import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -59,7 +60,9 @@ public class PatientsServiceImpl implements IPatientsService {
         if (patientDto == null || patientDto.getId() == null) {
             throw new IllegalArgumentException("Patient DTO or ID cannot be null");
         }
-        this.repositoryCommand.save(new Patients(patientDto));
+        Patients update = new Patients(patientDto);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
         return patientDto.getId();
     }
 

@@ -28,10 +28,12 @@ public class Business{
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<BusinessResource> businessResources = new HashSet<>();
 
-
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Business(BusinessDto business) {
         this.id = business.getId();

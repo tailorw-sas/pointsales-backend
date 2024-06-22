@@ -2,11 +2,13 @@ package com.kynsoft.rrhh.infrastructure.identity;
 
 import com.kynsoft.rrhh.domain.dto.DeviceDto;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "device")
@@ -29,6 +31,13 @@ public class Device {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "business_id", nullable = false)
     private Business business;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Device(DeviceDto device) {
         this.id = device.getId();

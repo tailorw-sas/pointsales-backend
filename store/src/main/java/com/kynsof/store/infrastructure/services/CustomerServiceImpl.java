@@ -15,6 +15,7 @@ import com.kynsof.store.domain.services.ICustomerService;
 import com.kynsof.store.infrastructure.entity.Customer;
 import com.kynsof.store.infrastructure.repositories.command.CustomerWriteDataJPARepository;
 import com.kynsof.store.infrastructure.repositories.queries.CustomerReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,8 +53,10 @@ public class CustomerServiceImpl implements ICustomerService {
         UpdateIfNotNull.updateIfNotNull(update::setLastName, customerDto.getLastName());
         UpdateIfNotNull.updateIfNotNull(update::setFirstName, customerDto.getFirstName());
         UpdateIfNotNull.updateIfNotNull(update::setPhone, customerDto.getPhone());
-
-        repositoryCommand.save(new Customer(update));
+        
+        Customer cus = new Customer(update);
+        cus.setUpdatedAt(LocalDateTime.now());
+        repositoryCommand.save(cus);
         return customerDto.getId();
     }
 

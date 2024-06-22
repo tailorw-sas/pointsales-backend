@@ -16,6 +16,7 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +44,9 @@ public class ModuleServiceImpl implements IModuleService {
 
     @Override
     public void update(ModuleDto object) {
-        this.commandRepository.save(new ModuleSystem(object));
+        ModuleSystem update = new ModuleSystem(object);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.commandRepository.save(update);
     }
 
     @Override
