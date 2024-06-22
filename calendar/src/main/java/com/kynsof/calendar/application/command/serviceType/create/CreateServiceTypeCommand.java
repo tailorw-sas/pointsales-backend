@@ -16,16 +16,18 @@ public class CreateServiceTypeCommand implements ICommand {
     private String name;
     private final String picture;
     private EServiceStatus status;
+    private String code;
 
-    public CreateServiceTypeCommand(String name, String picture, EServiceStatus status) {
+    public CreateServiceTypeCommand(String name, String picture, EServiceStatus status, String code) {
         this.picture = picture;
         this.id = UUID.randomUUID();
         this.name = name;
         this.status = status;
+        this.code = code;
     }
 
     public static CreateServiceTypeCommand fromRequest(CreateServiceTypeRequest request) {
-        return new CreateServiceTypeCommand(request.getName(), request.getImage(), request.getStatus());
+        return new CreateServiceTypeCommand(request.getName(), request.getImage(), request.getStatus(), request.getCode());
     }
 
     @Override

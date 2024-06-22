@@ -35,6 +35,9 @@ public class Services {
     @Enumerated(EnumType.STRING)
     private EServiceStatus status;
 
+    @Column(unique = true)
+    private String code;
+
     private String picture;
     private String name;
     private Double normalAppointmentPrice;
@@ -71,10 +74,11 @@ public class Services {
         this.description = object.getDescription();
         this.applyIva = object.getApplyIva();
         this.estimatedDuration = object.getEstimatedDuration();
+        this.code = object.getCode();
     }
 
     public ServiceDto toAggregate () {
         return new ServiceDto(id, type.toAggregate(), status, picture, name, normalAppointmentPrice,
-                expressAppointmentPrice, description, applyIva, estimatedDuration);
+                expressAppointmentPrice, description, applyIva, estimatedDuration, code);
     }
 }
