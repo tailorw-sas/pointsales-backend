@@ -15,6 +15,7 @@ import com.kynsof.treatments.infrastructure.entity.PatientVaccine;
 import com.kynsof.treatments.infrastructure.entity.specifications.PatientVaccineSpecifications;
 import com.kynsof.treatments.infrastructure.repositories.command.PatientVaccineWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.PatientVaccineReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,6 +46,7 @@ public class PatientVaccineServiceImpl implements IPatientVaccineService {
         if (dto == null || dto.getId() == null) {
             throw new IllegalArgumentException("Patient DTO or ID cannot be null");
         }
+        dto.setUpdatedAt(LocalDateTime.now());
         PatientVaccine entity = this.repositoryCommand.save(dto);
         return entity.getId();
     }

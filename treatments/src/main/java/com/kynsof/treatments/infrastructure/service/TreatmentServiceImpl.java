@@ -17,6 +17,7 @@ import com.kynsof.treatments.infrastructure.entity.Procedure;
 import com.kynsof.treatments.infrastructure.entity.Treatment;
 import com.kynsof.treatments.infrastructure.repositories.command.TreatmentWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.TreatmentReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,9 @@ public class TreatmentServiceImpl implements ITreatmentService {
 
     @Override
     public void update(TreatmentDto treatment) {
-        this.repositoryCommand.save(new Treatment(treatment));
+        Treatment update = new Treatment(treatment);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
     @Override

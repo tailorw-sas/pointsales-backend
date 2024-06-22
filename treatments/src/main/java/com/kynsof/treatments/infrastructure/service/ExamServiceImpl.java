@@ -14,6 +14,7 @@ import com.kynsof.treatments.infrastructure.entity.Exam;
 import com.kynsof.treatments.infrastructure.entity.Procedure;
 import com.kynsof.treatments.infrastructure.repositories.command.ExamWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.ExamReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,7 +41,9 @@ public class ExamServiceImpl implements IExamService {
 
     @Override
     public void update(ExamDto examDto) {
-        this.repositoryCommand.save(new Exam(examDto));
+        Exam update = new Exam(examDto);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
     @Override

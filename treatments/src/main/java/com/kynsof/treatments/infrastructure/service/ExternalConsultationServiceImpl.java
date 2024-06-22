@@ -15,6 +15,7 @@ import com.kynsof.treatments.infrastructure.entity.ExternalConsultation;
 import com.kynsof.treatments.infrastructure.entity.specifications.ExternalConsultationSpecifications;
 import com.kynsof.treatments.infrastructure.repositories.command.ExternalConsultationWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.ExternalConsultationReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,7 +54,9 @@ public class ExternalConsultationServiceImpl implements IExternalConsultationSer
 
     @Override
     public UUID update(ExternalConsultationDto dto) {
-        ExternalConsultation entity = this.repositoryCommand.save(new ExternalConsultation(dto));
+        ExternalConsultation update = new ExternalConsultation(dto);
+        update.setUpdatedAt(LocalDateTime.now());
+        ExternalConsultation entity = this.repositoryCommand.save(update);
         return entity.getId();
     }
 

@@ -16,6 +16,7 @@ import com.kynsof.treatments.infrastructure.entity.ExternalConsultation;
 import com.kynsof.treatments.infrastructure.entity.Procedure;
 import com.kynsof.treatments.infrastructure.repositories.command.DiagnosisWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.DiagnosisReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -46,7 +47,9 @@ public class DiagnosisServiceImpl implements IDiagnosisService {
 
     @Override
     public void update(DiagnosisDto treatment) {
-        this.repositoryCommand.save(new Diagnosis(treatment));
+        Diagnosis update = new Diagnosis(treatment);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
     @Override

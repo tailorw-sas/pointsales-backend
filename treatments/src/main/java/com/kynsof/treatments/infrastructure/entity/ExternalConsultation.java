@@ -64,8 +64,11 @@ public class ExternalConsultation {
     private ExamOrder examOrder;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public ExternalConsultation(ExternalConsultationDto dto) {
         this.id = dto.getId();

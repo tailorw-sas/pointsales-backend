@@ -28,8 +28,11 @@ public class Diagnosis {
     private ExternalConsultation externalConsultation;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Diagnosis(DiagnosisDto diagnosisDto) {
         this.id = diagnosisDto.getId();

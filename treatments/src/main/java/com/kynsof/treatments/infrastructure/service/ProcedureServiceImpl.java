@@ -15,6 +15,7 @@ import com.kynsof.treatments.infrastructure.entity.Procedure;
 import com.kynsof.treatments.infrastructure.entity.specifications.ProcedureSpecifications;
 import com.kynsof.treatments.infrastructure.repositories.command.ProcedureWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.ProcedureReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +42,9 @@ public class ProcedureServiceImpl implements IProcedureService {
 
     @Override
     public void update(ProcedureDto patients) {
-        this.repositoryCommand.save(new Procedure(patients));
+        Procedure update = new Procedure(patients);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
     @Override

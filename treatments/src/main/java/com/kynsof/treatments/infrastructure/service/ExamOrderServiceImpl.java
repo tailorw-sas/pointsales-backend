@@ -16,6 +16,7 @@ import com.kynsof.treatments.infrastructure.entity.ExternalConsultation;
 import com.kynsof.treatments.infrastructure.entity.specifications.ExamOrderSpecifications;
 import com.kynsof.treatments.infrastructure.repositories.command.ExamOrderWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.ExamOrderReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +44,9 @@ public class ExamOrderServiceImpl implements IExamOrderService {
 
     @Override
     public void update(ExamOrderDto examOrder) {
-        this.repositoryCommand.save(new ExamOrder(examOrder));
+        ExamOrder update = new ExamOrder(examOrder);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
     @Override
