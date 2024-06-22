@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @NoArgsConstructor
 @Getter
@@ -47,6 +49,13 @@ public class ContactInformation {
     @ManyToOne()
     @JoinColumn(name = "parroquia_id", nullable = true)
     private GeographicLocation parroquia;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public ContactInformation(ContactInfoDto contactInfoDto) {
         this.id = contactInfoDto.getId();

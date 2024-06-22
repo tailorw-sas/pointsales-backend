@@ -16,6 +16,7 @@ import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -67,6 +68,7 @@ public class MedicalInformationServiceImpl implements IMedicalInformationService
             medicalInformation.setStatus(medicalInformationDto.getStatus());
         }
 
+        medicalInformation.setUpdatedAt(LocalDateTime.now());
         repositoryCommand.save(medicalInformation);
 
         return medicalInformation.getId();

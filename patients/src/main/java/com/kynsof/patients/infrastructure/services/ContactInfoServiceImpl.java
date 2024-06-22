@@ -13,6 +13,7 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,7 +56,9 @@ public class ContactInfoServiceImpl implements IContactInfoService {
 //                })
 //                .orElseThrow(() -> new EntityNotFoundException("ContactInfo with ID " + contactInfoDto.getId() + " not found"));
 
-        this.repositoryCommand.save(new ContactInformation(contactInfoDto));
+        ContactInformation update = new ContactInformation(contactInfoDto);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
         return contactInfoDto.getId();
     }
 
