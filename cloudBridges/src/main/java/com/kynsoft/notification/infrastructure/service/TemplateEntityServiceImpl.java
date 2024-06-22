@@ -13,6 +13,7 @@ import com.kynsoft.notification.domain.service.ITemplateEntityService;
 import com.kynsoft.notification.infrastructure.entity.TemplateEntity;
 import com.kynsoft.notification.infrastructure.repository.command.TemplateEntityWriteDataJPARepository;
 import com.kynsoft.notification.infrastructure.repository.query.TemplateEntityReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +41,7 @@ public class TemplateEntityServiceImpl implements ITemplateEntityService {
 
     @Override
     public void update(TemplateEntity object) {
+        object.setUpdatedAt(LocalDateTime.now());
         this.commandRepository.save(object);
     }
 

@@ -13,6 +13,7 @@ import com.kynsoft.notification.domain.service.IMailjetConfigurationService;
 import com.kynsoft.notification.infrastructure.entity.MailjetConfiguration;
 import com.kynsoft.notification.infrastructure.repository.command.MailjetConfigurationWriteDataJPARepository;
 import com.kynsoft.notification.infrastructure.repository.query.MailjetConfigurationReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +41,7 @@ public class MailjetConfigurationServiceImpl implements IMailjetConfigurationSer
 
     @Override
     public void update(MailjetConfiguration object) {
+        object.setUpdatedAt(LocalDateTime.now());
        this.commandRepository.save(object);
     }
 

@@ -14,6 +14,7 @@ import com.kynsoft.notification.domain.service.IAdvertisingContentService;
 import com.kynsoft.notification.infrastructure.entity.AdvertisingContent;
 import com.kynsoft.notification.infrastructure.repository.command.AdvertisingContentWriteDataJPARepository;
 import com.kynsoft.notification.infrastructure.repository.query.AdvertisingContentReadDataJPARepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,7 +41,9 @@ public class AdvertisingContentServiceImpl implements IAdvertisingContentService
 
     @Override
     public void update(AdvertisingContentDto object) {
-        this.commandRepository.save(new AdvertisingContent(object));
+        AdvertisingContent update = new AdvertisingContent(object);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.commandRepository.save(update);
     }
 
     @Override

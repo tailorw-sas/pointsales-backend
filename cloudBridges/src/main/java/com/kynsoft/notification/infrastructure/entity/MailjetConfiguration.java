@@ -38,8 +38,11 @@ public class MailjetConfiguration implements Serializable {
     private String fromName;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "mailjetConfig", cascade = CascadeType.ALL)
     private List<TemplateEntity> templates;

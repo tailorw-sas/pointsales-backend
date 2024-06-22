@@ -30,10 +30,10 @@ public class AdvertisingContent {
     @Column(nullable = false)
     private ContentType type;
 
-    @Column(nullable = true, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime updatedAt;
 
     @Column(nullable = true)

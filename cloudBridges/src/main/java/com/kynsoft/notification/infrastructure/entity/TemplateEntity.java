@@ -38,8 +38,11 @@ public class TemplateEntity {
     private MailjetConfiguration mailjetConfig;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public TemplateEntity(TemplateDto dto) {
         this.id = dto.getId();
