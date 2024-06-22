@@ -12,6 +12,7 @@ import com.kynsof.store.infrastructure.entity.Product;
 import com.kynsof.store.infrastructure.repositories.command.OrderDetailWriteDataJPARepository;
 import com.kynsof.store.infrastructure.repositories.queries.OrderDetailReadDataJPARepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -51,6 +52,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
                     if (orderDetailDto.getPrice() != null) {
                         orderDetail.setPrice(orderDetailDto.getPrice());
                     }
+                    orderDetail.setUpdatedAt(LocalDateTime.now());
                     return repositoryCommand.save(orderDetail);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("OrderDetail with ID " + orderDetailDto.getId() + " not found"))

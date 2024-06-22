@@ -16,6 +16,7 @@ import com.kynsof.store.infrastructure.entity.Supplier;
 import com.kynsof.store.infrastructure.repositories.command.SupplierWriteDataJPARepository;
 import com.kynsof.store.infrastructure.repositories.queries.SupplierReadDataJPARepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,6 +53,7 @@ public class SupplierServiceImpl implements ISupplierService {
                     supplier.setAddress(supplierDto.getAddress() != null ? supplierDto.getAddress() : supplier.getAddress());
                     supplier.setPhone(supplierDto.getPhone() != null ? supplierDto.getPhone() : supplier.getPhone());
                     supplier.setEmail(supplierDto.getEmail() != null ? supplierDto.getEmail() : supplier.getEmail());
+                    supplier.setUpdatedAt(LocalDateTime.now());
                     return repositoryCommand.save(supplier);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Supplier with ID " + supplierDto.getId() + " not found"))

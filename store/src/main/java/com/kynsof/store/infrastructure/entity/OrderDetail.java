@@ -3,11 +3,13 @@ package com.kynsof.store.infrastructure.entity;
 import com.kynsof.store.domain.dto.OrderDetailDto;
 import com.kynsof.store.infrastructure.enumDto.OrderDetailStatus;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @NoArgsConstructor
@@ -31,6 +33,13 @@ public class OrderDetail {
 
     @Enumerated(EnumType.STRING)
     private OrderDetailStatus status;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public OrderDetail(OrderDetailDto orderDetailDto) {
         this.id = orderDetailDto.getId();

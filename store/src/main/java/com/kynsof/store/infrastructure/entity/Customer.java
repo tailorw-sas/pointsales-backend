@@ -3,6 +3,7 @@ package com.kynsof.store.infrastructure.entity;
 import com.kynsof.store.domain.dto.CustomerDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
 @Setter
@@ -28,6 +30,13 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Order> orders = new ArrayList<>();
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Customer(CustomerDto customerDto) {
         this.id = customerDto.getId();

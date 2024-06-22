@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @NoArgsConstructor
@@ -31,7 +32,13 @@ public class InventoryMovement {
     private MovementType movementType;
 
     private String description;
+    
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
 
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public InventoryMovement(InventoryMovementDto inventoryMovementDto) {
         this.id = inventoryMovementDto.getId();

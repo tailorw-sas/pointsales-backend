@@ -2,11 +2,13 @@ package com.kynsof.store.infrastructure.entity;
 
 import com.kynsof.store.domain.dto.ProductEntityDto;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @NoArgsConstructor
@@ -28,6 +30,13 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Product(ProductEntityDto productDto) {
         this.id = productDto.getId(); // Asumiendo que se permite establecer el ID directamente. Si no, omitir para generación automática.

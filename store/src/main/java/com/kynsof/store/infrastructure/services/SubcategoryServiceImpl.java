@@ -16,6 +16,7 @@ import com.kynsof.store.infrastructure.entity.Subcategory;
 import com.kynsof.store.infrastructure.repositories.command.SubcategoryWriteDataJPARepository;
 import com.kynsof.store.infrastructure.repositories.queries.SubcategoryReadDataJPARepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,6 +54,7 @@ public class SubcategoryServiceImpl implements ISubcategoryService {
                             ? subcategoryDto.getDescription() : subcategory.getDescription());
                     subcategory.setCategory(subcategoryDto.getCategoryId() != null
                             ? new Category(subcategoryDto.getCategory()) : subcategory.getCategory());
+                    subcategory.setUpdatedAt(LocalDateTime.now());
                     return repositoryCommand.save(subcategory);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("SubCategory with ID " + subcategoryDto.getId() + " not found"))

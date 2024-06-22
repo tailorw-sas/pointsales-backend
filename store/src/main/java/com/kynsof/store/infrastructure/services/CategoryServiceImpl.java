@@ -15,6 +15,7 @@ import com.kynsof.store.infrastructure.entity.Category;
 import com.kynsof.store.infrastructure.repositories.command.CategoryWriteDataJPARepository;
 import com.kynsof.store.infrastructure.repositories.queries.CategoryReadDataJPARepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,6 +53,7 @@ public class CategoryServiceImpl implements ICategoryService {
                     category.setName(categoryDto.getName() != null ? categoryDto.getName() : category.getName());
                     category.setDescription(categoryDto.getDescription() != null
                             ? categoryDto.getDescription() : category.getDescription());
+                    category.setUpdatedAt(LocalDateTime.now());
                     return repositoryCommand.save(category);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Category with ID " + categoryDto.getId() + " not found"))

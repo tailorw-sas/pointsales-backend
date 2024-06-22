@@ -16,6 +16,7 @@ import com.kynsof.store.infrastructure.entity.Order;
 import com.kynsof.store.infrastructure.repositories.command.OrderWriteDataJPARepository;
 import com.kynsof.store.infrastructure.repositories.queries.OrderReadDataJPARepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,7 @@ public class OrderServiceImpl implements IOrderService {
                         order.setOrderDate(orderDto.getOrderDate());
                     if (orderDto.getStatus() != null)
                         order.setStatus(orderDto.getStatus());
+                    order.setUpdatedAt(LocalDateTime.now());
                     return repositoryCommand.save(order);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Order with ID " + orderDto.getId() + " not found"))

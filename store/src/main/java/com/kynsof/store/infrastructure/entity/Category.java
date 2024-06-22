@@ -2,12 +2,14 @@ package com.kynsof.store.infrastructure.entity;
 
 import com.kynsof.store.domain.dto.CategoryDto;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @NoArgsConstructor
@@ -21,6 +23,13 @@ public class Category {
     private String description;
     @OneToMany(mappedBy = "category")
     private List<Subcategory> subcategories;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Category(CategoryDto categoryDto) {
         this.id = categoryDto.getId();
