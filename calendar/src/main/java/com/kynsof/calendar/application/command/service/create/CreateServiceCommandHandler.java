@@ -35,7 +35,8 @@ public class CreateServiceCommandHandler implements ICommandHandler<CreateServic
                 command.getExpressAppointmentPrice(),
                 command.getDescription(),
                 command.isApplyIva(),
-                command.getEstimatedDuration()
+                command.getEstimatedDuration(),
+                command.getCode()
         ));
 
         command.setId(serviceDto.getId());

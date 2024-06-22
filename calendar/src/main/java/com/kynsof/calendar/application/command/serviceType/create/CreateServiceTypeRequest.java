@@ -13,5 +13,6 @@ public class CreateServiceTypeRequest {
     @NotBlank(message = "Image is required and cannot be blank")
     private  String image;
     private EServiceStatus status;
+    private String code;
 
 }

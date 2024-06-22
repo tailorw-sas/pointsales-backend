@@ -19,4 +19,5 @@ public class CreateServiceRequest {
     private boolean applyIva;
     private EServiceStatus status;
     private Integer estimatedDuration;
+    private String code;
 }

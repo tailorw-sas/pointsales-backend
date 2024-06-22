@@ -15,12 +15,14 @@ public class ServiceTypeResponse implements IResponse {
     private UUID id;
     private String name;
     private String image;
+    private String code;
 
 
     public ServiceTypeResponse(ServiceTypeDto object) {
         this.id = object.getId();
         this.name = object.getName();
         this.image = object.getPicture();
+        this.code = object.getCode();
     }
 
 }

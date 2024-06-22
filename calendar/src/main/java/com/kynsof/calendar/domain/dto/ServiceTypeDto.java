@@ -19,5 +19,6 @@ public class ServiceTypeDto  implements Serializable {
     private String picture;
     
     private EServiceStatus status;
+    private String code;
 
 }

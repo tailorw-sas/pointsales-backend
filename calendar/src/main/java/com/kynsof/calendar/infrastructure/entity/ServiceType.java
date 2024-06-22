@@ -32,6 +32,9 @@ public class ServiceType {
     private String name;
     private String picture;
 
+    @Column(unique = true)
+    private String code;
+
     @Enumerated(EnumType.STRING)
     private EServiceStatus status;
 
@@ -49,9 +52,10 @@ public class ServiceType {
         this.name = dto.getName();
         this.picture = dto.getPicture();
         this.status = dto.getStatus();
+        this.code = dto.getCode();
     }
 
     public ServiceTypeDto toAggregate() {
-        return new ServiceTypeDto(this.id, this.name,this.picture, status);
+        return new ServiceTypeDto(this.id, this.name,this.picture, status, code);
     }
 }

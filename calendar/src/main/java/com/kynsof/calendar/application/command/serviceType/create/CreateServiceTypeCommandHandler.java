@@ -26,7 +26,8 @@ public class CreateServiceTypeCommandHandler implements ICommandHandler<CreateSe
                 command.getId(),
                 command.getName(),
                 command.getPicture(),
-                command.getStatus()
+                command.getStatus(),
+                command.getCode()
         ));
         command.setId(id);
     }
