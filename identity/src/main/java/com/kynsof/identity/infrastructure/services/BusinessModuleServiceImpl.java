@@ -91,7 +91,8 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
     public void update(List<BusinessModuleDto> objects) {
         List<BusinessModule> businessModules = new ArrayList<>();
         for (BusinessModuleDto object : objects) {
-            businessModules.add(new BusinessModule(object));
+            BusinessModule update = new BusinessModule(object);
+            businessModules.add(update);
         }
         this.commandRepository.saveAll(businessModules);
     }

@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -46,7 +47,9 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public void update(CustomerDto customer) {
-        this.repositoryCommand.save(new Customer(customer));
+        Customer update = new Customer(customer);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
     @Override

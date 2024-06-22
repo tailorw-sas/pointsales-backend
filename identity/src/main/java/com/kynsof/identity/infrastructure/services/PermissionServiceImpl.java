@@ -14,6 +14,7 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,7 +41,9 @@ public class PermissionServiceImpl implements IPermissionService {
 
     @Override
     public void update(PermissionDto objectDto) {
-        this.writeRepository.save(new Permission(objectDto));
+        Permission update = new Permission(objectDto);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.writeRepository.save(update);
     }
 
     @Override

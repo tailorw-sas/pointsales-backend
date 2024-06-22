@@ -12,6 +12,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Getter
@@ -46,6 +47,13 @@ public class WalletTransaction {
 
     @Column(nullable = true)
     private String authorizationCode;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public WalletTransaction(WalletTransactionDto dto) {
         this.id = dto.getId();

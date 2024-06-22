@@ -43,8 +43,11 @@ public class Permission {
     private Set<UserPermissionBusiness> userPermissionBusinesses = new HashSet<>();
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Permission(PermissionDto permissionDto) {
         this.id = permissionDto.getId();
