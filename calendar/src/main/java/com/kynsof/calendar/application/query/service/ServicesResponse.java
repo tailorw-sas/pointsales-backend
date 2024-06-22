@@ -23,6 +23,9 @@ public class ServicesResponse implements IResponse, Serializable {
     private String description;
     private boolean applyIva;
 
+    private Double normalAppointmentPrice;
+    private Double expressAppointmentPrice;
+    private int estimatedDuration;
 
     public ServicesResponse(ServiceDto object) {
         this.id = object.getId();
@@ -32,6 +35,9 @@ public class ServicesResponse implements IResponse, Serializable {
         this.name = object.getName();
         this.description = object.getDescription();
         this.applyIva = object.getApplyIva();
+        this.normalAppointmentPrice = object.getNormalAppointmentPrice();
+        this.expressAppointmentPrice = object.getExpressAppointmentPrice();
+        this.estimatedDuration = object.getEstimatedDuration();
     }
 
 }
