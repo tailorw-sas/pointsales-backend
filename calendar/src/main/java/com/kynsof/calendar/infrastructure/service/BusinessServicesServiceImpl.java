@@ -17,6 +17,7 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +44,9 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
 
     @Override
     public void update(BusinessServicesDto object) {
-        this.repositoryCommand.save(new BusinessServices(object));
+        BusinessServices update = new BusinessServices(object);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
     @Override

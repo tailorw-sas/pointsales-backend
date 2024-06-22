@@ -42,8 +42,11 @@ public class Resource {
     private Set<BusinessResource> businessResources = new HashSet<>();
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Resource(ResourceDto resourceDto) {
         this.id = resourceDto.getId();

@@ -13,6 +13,7 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import java.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,9 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
 
     @Override
     public void update(ServiceTypeDto objectDto) {
-        this.repositoryCommand.save(new ServiceType(objectDto));
+        ServiceType update = new ServiceType(objectDto);
+        update.setUpdatedAt(LocalDateTime.now());
+        this.repositoryCommand.save(update);
     }
 
     @Override

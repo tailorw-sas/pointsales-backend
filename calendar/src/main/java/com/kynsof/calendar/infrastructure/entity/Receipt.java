@@ -58,13 +58,17 @@ public class Receipt {
     private String userAgentCreate;
     private String userAgentPayment;
 
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
     private LocalDateTime paymentDate;
 
     @Transient
     private EStatusReceipt previousStatus;
+
+    @CreationTimestamp
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = true, updatable = true)
+    private LocalDateTime updatedAt;
 
     public Receipt(ReceiptDto receipt) {
         this.id = receipt.getId();
