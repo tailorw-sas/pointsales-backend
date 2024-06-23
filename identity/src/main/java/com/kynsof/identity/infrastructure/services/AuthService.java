@@ -229,7 +229,7 @@ public class AuthService implements IAuthService {
         userRepresentation.setFirstName(firstName);
         userRepresentation.setLastName(lastName);
         userRepresentation.setEmail(email);
-        userRepresentation.setUsername(username);
+        userRepresentation.setUsername(email);
         userRepresentation.setEnabled(true);
         userRepresentation.setEmailVerified(true);
 
