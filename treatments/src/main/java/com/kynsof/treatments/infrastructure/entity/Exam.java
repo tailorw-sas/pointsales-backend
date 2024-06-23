@@ -3,14 +3,15 @@ package com.kynsof.treatments.infrastructure.entity;
 import com.kynsof.treatments.domain.dto.ExamDto;
 import com.kynsof.treatments.domain.dto.enumDto.MedicalExamCategory;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
-import org.hibernate.annotations.CreationTimestamp;
 
 @NoArgsConstructor
 @Getter
@@ -38,10 +39,9 @@ public class Exam {
     private String code;
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @PrePersist

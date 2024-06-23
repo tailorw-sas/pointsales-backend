@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @NoArgsConstructor
 @Getter
@@ -24,10 +25,9 @@ public class Medicines {
     private String name;
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public Medicines(MedicinesDto medicine) {

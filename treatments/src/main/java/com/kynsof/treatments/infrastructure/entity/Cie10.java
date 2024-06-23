@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,10 +31,9 @@ public class Cie10 implements Serializable {
     private String name;
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public Cie10Dto toAggregate() {

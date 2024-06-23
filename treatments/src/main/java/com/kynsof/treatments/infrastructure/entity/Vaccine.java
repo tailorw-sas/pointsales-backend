@@ -4,14 +4,15 @@ import com.kynsof.treatments.domain.dto.VaccineDto;
 import com.kynsof.treatments.domain.dto.enumDto.RouteOfAdministration;
 import com.kynsof.treatments.domain.dto.enumDto.VaccineType;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,10 +37,9 @@ public class Vaccine {
     private UUID serviceId;
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public Vaccine(VaccineDto vaccine) {
