@@ -14,105 +14,103 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class PermissionServiceImpl implements IPermissionService {
 
-    @Autowired
-    private PermissionWriteDataJPARepository writeRepository;
+    private final PermissionWriteDataJPARepository writeRepository;
+    private final PermissionReadDataJPARepository queryRepository;
 
     @Autowired
-    private PermissionReadDataJPARepository queryRepository;
+    public PermissionServiceImpl(PermissionWriteDataJPARepository writeRepository, PermissionReadDataJPARepository queryRepository) {
+        this.writeRepository = writeRepository;
+        this.queryRepository = queryRepository;
+    }
 
     @Override
+    @Transactional
     public void create(PermissionDto dto) {
-        this.writeRepository.save(new Permission(dto));
+        writeRepository.save(new Permission(dto));
     }
 
     @Override
+    @Transactional
     public void update(PermissionDto objectDto) {
-        Permission update = new Permission(objectDto);
+        var update = new Permission(objectDto);
         update.setUpdatedAt(LocalDateTime.now());
-        this.writeRepository.save(update);
+        writeRepository.save(update);
     }
 
     @Override
+    @Transactional
     public void delete(PermissionDto objectDto) {
-        this.writeRepository.save(new Permission(objectDto));
+        writeRepository.save(new Permission(objectDto));
     }
 
     @Override
+    @Transactional
     public void deleteAll(List<UUID> permissions) {
-        List<Permission> delete = new ArrayList<>();
-        for (UUID id : permissions) {
-            try {
-                PermissionDto permission = this.findById(id);
+        var delete = permissions.stream()
+                .map(this::findById)
+                .map(this::deactivatePermission)
+                .toList();
+        writeRepository.saveAll(delete);
+    }
 
-                Permission d = new Permission(permission);
-                d.setDeleted(true);
-                d.setCode(permission.getCode() + " + " + UUID.randomUUID());
-                d.setStatus(PermissionStatusEnm.INACTIVE);
-
-                delete.add(d);
-            } catch (Exception e) {
-                System.err.println("Permission not found!!!");
-            }
-        }
-        this.writeRepository.saveAll(delete);
+    private Permission deactivatePermission(PermissionDto permissionDto) {
+        var permission = new Permission(permissionDto);
+        permission.setCode(permissionDto.getCode() + " + " + UUID.randomUUID());
+        permission.setStatus(PermissionStatusEnm.INACTIVE);
+        return permission;
     }
 
     @Override
     public PermissionDto findById(UUID id) {
-        Optional<Permission> object = this.queryRepository.findById(id);
-        if (object.isPresent()) {
-            return object.get().toAggregate();
-        }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PERMISSION_NOT_FOUND, new ErrorField("id", "Permission not found.")));
+        return queryRepository.findById(id)
+                .map(Permission::toAggregate)
+                .orElseThrow(() -> new BusinessNotFoundException(new GlobalBusinessException(
+                        DomainErrorMessage.PERMISSION_NOT_FOUND, new ErrorField("id", "Permission not found."))));
     }
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-        filterCreteria(filterCriteria);
-        GenericSpecificationsBuilder<Permission> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-        Page<Permission> data = this.queryRepository.findAll(specifications, pageable);
+        filterCriteria(filterCriteria);
+        var specifications = new GenericSpecificationsBuilder<Permission>(filterCriteria);
+        var data = queryRepository.findAll(specifications, pageable);
         return getPaginatedResponse(data);
     }
 
-    private void filterCreteria(List<FilterCriteria> filterCriteria) {
-        for (FilterCriteria filter : filterCriteria) {
+    private void filterCriteria(List<FilterCriteria> filterCriteria) {
+        filterCriteria.forEach(filter -> {
             if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
                 try {
-                    PermissionStatusEnm enumValue = PermissionStatusEnm.valueOf((String) filter.getValue());
-                    filter.setValue(enumValue);
+                    filter.setValue(PermissionStatusEnm.valueOf((String) filter.getValue()));
                 } catch (IllegalArgumentException e) {
-                    System.err.println("Valor inválido para el tipo Enum Permisos: " + filter.getValue());
+                    System.err.println("Invalid value for enum PermissionStatusEnm: " + filter.getValue());
                 }
             }
-        }
+        });
     }
 
     private PaginatedResponse getPaginatedResponse(Page<Permission> data) {
-        List<PermissionSearchResponse> patients = new ArrayList<>();
-        for (Permission o : data.getContent()) {
-            patients.add(new PermissionSearchResponse(o.toAggregate()));
-        }
-        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
+        var permissionResponses = data.getContent().stream()
+                .map(permission -> new PermissionSearchResponse(permission.toAggregate()))
+                .toList();
+        return new PaginatedResponse(permissionResponses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
     @Override
     public Long countByCodeAndNotId(String name, UUID id) {
-        return this.queryRepository.countByCodeAndNotId(name, id);
+        return queryRepository.countByCodeAndNotId(name, id);
     }
-
 }

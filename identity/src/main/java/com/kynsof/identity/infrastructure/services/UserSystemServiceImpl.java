@@ -15,144 +15,124 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import java.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class UserSystemServiceImpl implements IUserSystemService {
 
-    @Autowired
-    private UserSystemsWriteDataJPARepository repositoryCommand;
+    private final UserSystemsWriteDataJPARepository repositoryCommand;
+    private final UserSystemReadDataJPARepository repositoryQuery;
 
-    @Autowired
-    private UserSystemReadDataJPARepository repositoryQuery;
+    public UserSystemServiceImpl(UserSystemReadDataJPARepository repositoryQuery, UserSystemsWriteDataJPARepository repositoryCommand) {
+        this.repositoryQuery = repositoryQuery;
+        this.repositoryCommand = repositoryCommand;
+    }
 
     @Override
+    @Transactional
     public UUID create(UserSystemDto userSystemDto) {
-        UserSystem data = new UserSystem(userSystemDto);
-        UserSystem userSystem = this.repositoryCommand.save(data);
+        var data = new UserSystem(userSystemDto);
+        var userSystem = repositoryCommand.save(data);
         return userSystem.getId();
     }
 
     @Override
+    @Transactional
     public void update(UserSystemDto userSystemDto) {
-        UserSystem update = new UserSystem(userSystemDto);
+        var update = new UserSystem(userSystemDto);
         update.setUpdatedAt(LocalDateTime.now());
-        this.repositoryCommand.save(update);
+        repositoryCommand.save(update);
     }
 
     @Override
+    @Transactional
     public void delete(UserSystemDto userSystemDto) {
-        UserSystem delete = new UserSystem(userSystemDto);
-        delete.setStatus(UserStatus.INACTIVE);
-        delete.setDeleted(Boolean.TRUE);
-        delete.setEmail(delete.getEmail() + "-" + UUID.randomUUID());
-        delete.setUserName(delete.getUserName() + "-" + UUID.randomUUID());
-
-        this.repositoryCommand.save(delete);
+        repositoryCommand.save(deactivateUser(userSystemDto));
     }
 
     @Override
+    @Transactional
     public void deleteAll(List<UUID> users) {
-        List<UserSystem> delete = new ArrayList<>();
-        for (UUID id : users) {
-            try {
-                UserSystemDto user = this.findById(id);
-                UserSystem d = new UserSystem(user);
-                d.setStatus(UserStatus.INACTIVE);
-                d.setDeleted(Boolean.TRUE);
-                d.setEmail(d.getEmail() + "-" + UUID.randomUUID());
-                d.setUserName(d.getUserName() + "-" + UUID.randomUUID());
+        var delete = users.stream()
+                .map(this::findById)
+                .map(this::deactivateUser)
+                .toList();
+        repositoryCommand.saveAll(delete);
+    }
 
-                delete.add(d);
-            } catch (Exception e) {
-                System.err.println("User not found!!!");
-            }
-        }
-        this.repositoryCommand.saveAll(delete);
+    private UserSystem deactivateUser(UserSystemDto userSystemDto) {
+        var user = new UserSystem(userSystemDto);
+        user.setStatus(UserStatus.INACTIVE);
+        user.setEmail(user.getEmail() + "-" + UUID.randomUUID());
+        user.setUserName(user.getUserName() + "-" + UUID.randomUUID());
+        return user;
     }
 
     @Override
     public UserSystemDto findById(UUID id) {
-        Optional<UserSystem> userSystem = this.repositoryQuery.findById(id);
-        if (userSystem.isPresent()) {
-            return userSystem.get().toAggregate();
-        }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.USER_NOT_FOUND, new ErrorField("id", "User not found.")));
+        return repositoryQuery.findById(id)
+                .map(UserSystem::toAggregate)
+                .orElseThrow(() -> new BusinessNotFoundException(new GlobalBusinessException(
+                        DomainErrorMessage.USER_NOT_FOUND, new ErrorField("id", "User not found."))));
     }
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         filterCriteria(filterCriteria);
-
-        GenericSpecificationsBuilder<UserSystem> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-        Page<UserSystem> data = this.repositoryQuery.findAll(specifications, pageable);
-
+        var specifications = new GenericSpecificationsBuilder<UserSystem>(filterCriteria);
+        var data = repositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(data);
     }
 
     private void filterCriteria(List<FilterCriteria> filterCriteria) {
-        for (FilterCriteria filter : filterCriteria) {
-
+        filterCriteria.forEach(filter -> {
             if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
-                try {
-                    UserStatus enumValue = UserStatus.valueOf((String) filter.getValue());
-                    filter.setValue(enumValue);
-                } catch (IllegalArgumentException e) {
-                    System.err.println("Valor inválido para el tipo Enum RoleStatus: " + filter.getValue());
-                }
+                filter.setValue(parseEnum(UserStatus.class, (String) filter.getValue(), "UserStatus"));
             } else if ("userType".equals(filter.getKey()) && filter.getValue() instanceof String) {
-                try {
-                    EUserType enumValue = EUserType.valueOf((String) filter.getValue());
-                    filter.setValue(enumValue);
-                } catch (IllegalArgumentException e) {
-                    System.err.println("Valor inválido para el tipo Enum RoleStatus: " + filter.getValue());
-                }
+                filter.setValue(parseEnum(EUserType.class, (String) filter.getValue(), "EUserType"));
             }
+        });
+    }
+
+    private <T extends Enum<T>> T parseEnum(Class<T> enumClass, String value, String enumName) {
+        try {
+            return Enum.valueOf(enumClass, value);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Invalid value for enum " + enumName + ": " + value);
+            return null;
         }
     }
 
     private PaginatedResponse getPaginatedResponse(Page<UserSystem> data) {
-        List<UserSystemsResponse> userSystemsResponses = new ArrayList<>();
-        for (UserSystem p : data.getContent()) {
-            userSystemsResponses.add(new UserSystemsResponse(p.toAggregate()));
-        }
+        var userSystemsResponses = data.getContent().stream()
+                .map(UserSystem::toAggregate)
+                .map(UserSystemsResponse::new)
+                .toList();
         return new PaginatedResponse(userSystemsResponses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
-    public void updateDelete() {
-        List<UserSystem> customer = this.repositoryQuery.findAll();
-        for (UserSystem module : customer) {
-            if (module.getDeleted() == null || !module.getDeleted().equals(Boolean.TRUE)) {
-                module.setDeleted(Boolean.FALSE);
-            }
-            this.repositoryCommand.save(module);
-        }
-    }
-
     @Override
     public Long countByUserNameAndNotId(String userName, UUID id) {
-        return this.repositoryQuery.countByUserNameAndNotId(userName, id);
+        return repositoryQuery.countByUserNameAndNotId(userName, id);
     }
 
     @Override
     public Long countByEmailAndNotId(String email, UUID id) {
-        return this.repositoryQuery.countByEmailAndNotId(email, id);
+        return repositoryQuery.countByEmailAndNotId(email, id);
     }
 
     @Override
     public UserSystemDto findByEmail(String email) {
-        Optional<UserSystem> userSystem = this.repositoryQuery.findByEmail(email);
-        return userSystem.map(UserSystem::toAggregate).orElse(null);
+        return repositoryQuery.findByEmail(email)
+                .map(UserSystem::toAggregate)
+                .orElse(null);
     }
-
 }

@@ -15,7 +15,7 @@ public interface PaymentDevReadDataJPARepository extends JpaRepository<PaymentDe
 
     Page<PaymentDev> findAll(Specification specification, Pageable pageable);
 
-    @Query("SELECT COUNT(b) FROM PaymentDev b WHERE b.reference = :reference AND b.id <> :id AND b.deleted = false")
+    @Query("SELECT COUNT(b) FROM PaymentDev b WHERE b.reference = :reference AND b.id <> :id")
     Long countByReferenceAndNotId(@Param("reference") String name, @Param("id") UUID id);
 
 }

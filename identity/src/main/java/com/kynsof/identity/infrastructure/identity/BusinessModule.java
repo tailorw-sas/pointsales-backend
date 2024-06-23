@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -28,14 +29,10 @@ public class BusinessModule {
     @JoinColumn(name = "module_id")
     private ModuleSystem module;
 
-    @Column(nullable = true)
-    private Boolean deleted = false;
-
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public BusinessModule(Business business, ModuleSystem module) {

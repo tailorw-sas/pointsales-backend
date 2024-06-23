@@ -16,129 +16,114 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class ModuleServiceImpl implements IModuleService {
 
-    @Autowired
-    private ModuleWriteDataJPARepository commandRepository;
+    private final ModuleWriteDataJPARepository commandRepository;
+    private final ModuleReadDataJPARepository queryRepository;
 
     @Autowired
-    private ModuleReadDataJPARepository queryRepository;
+    public ModuleServiceImpl(ModuleWriteDataJPARepository commandRepository, ModuleReadDataJPARepository queryRepository) {
+        this.commandRepository = commandRepository;
+        this.queryRepository = queryRepository;
+    }
 
     @Override
+    @Transactional
     public void create(ModuleDto object) {
-        this.commandRepository.save(new ModuleSystem(object));
+        commandRepository.save(new ModuleSystem(object));
     }
 
     @Override
+    @Transactional
     public void update(ModuleDto object) {
-        ModuleSystem update = new ModuleSystem(object);
+        var update = new ModuleSystem(object);
         update.setUpdatedAt(LocalDateTime.now());
-        this.commandRepository.save(update);
+        commandRepository.save(update);
     }
 
     @Override
+    @Transactional
     public void delete(ModuleDto delete) {
-        ModuleSystem moduleSystem = new ModuleSystem(delete);
-
-        moduleSystem.setDeleted(true);
+        var moduleSystem = new ModuleSystem(delete);
         moduleSystem.setName(delete.getName() + "-" + UUID.randomUUID());
-
-        this.commandRepository.save(moduleSystem);
+        commandRepository.save(moduleSystem);
     }
 
     @Override
+    @Transactional
     public void deleteAll(List<UUID> modules) {
-        List<ModuleSystem> delete = new ArrayList<>();
-        for (UUID id : modules) {
-            try {
-                ModuleDto user = this.findById(id);
-                ModuleSystem d = new ModuleSystem(user);
-                d.setDeleted(Boolean.TRUE);
-                d.setName(d.getName() + "-" + UUID.randomUUID());
+        var delete = modules.stream()
+                .map(this::findById)
+                .map(this::createDeactivatedModule)
+                .toList();
+        commandRepository.saveAll(delete);
+    }
 
-                delete.add(d);
-            } catch (Exception e) {
-                System.err.println("Module not found!!!");
-            }
-        }
-        this.commandRepository.saveAll(delete);
+    private ModuleSystem createDeactivatedModule(ModuleDto moduleDto) {
+        var moduleSystem = new ModuleSystem(moduleDto);
+        moduleSystem.setName(moduleDto.getName() + "-" + UUID.randomUUID());
+        return moduleSystem;
     }
 
     @Override
     public ModuleDto findById(UUID id) {
-        Optional<ModuleSystem> object = this.queryRepository.findById(id);
-        if (object.isPresent()) {
-            return object.get().toAggregate();
-        }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.MODULE_NOT_FOUND, new ErrorField("id", "Module not found.")));
+        return queryRepository.findById(id)
+                .map(ModuleSystem::toAggregate)
+                .orElseThrow(() -> new BusinessNotFoundException(new GlobalBusinessException(
+                        DomainErrorMessage.MODULE_NOT_FOUND, new ErrorField("id", "Module not found."))));
     }
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-        GenericSpecificationsBuilder<ModuleResponse> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-        Page<ModuleSystem> data = this.queryRepository.findAll(specifications, pageable);
+        var specifications = new GenericSpecificationsBuilder<ModuleResponse>(filterCriteria);
+        var data = queryRepository.findAll(specifications, pageable);
         return getPaginatedResponse(data);
     }
 
     private PaginatedResponse getPaginatedResponse(Page<ModuleSystem> data) {
-        List<ModuleListResponse> moduleListResponses = new ArrayList<>();
-        for (ModuleSystem o : data.getContent()) {
-            moduleListResponses.add(new ModuleListResponse(o.toAggregate()));
-        }
+        var moduleListResponses = data.getContent().stream()
+                .map(module -> new ModuleListResponse(module.toAggregate()))
+                .toList();
         return new PaginatedResponse(moduleListResponses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    @Override
     public List<ModuleNodeDto> buildStructure() {
-        List<ModuleSystem> modules = queryRepository.findAll();
-        List<ModuleNodeDto> root = new ArrayList<>();
+        var modules = queryRepository.findAll();
+        return modules.stream().map(this::createModuleNode).toList();
+    }
 
-        for (ModuleSystem module : modules) {
-            ModuleNodeDto moduleNode = new ModuleNodeDto();
-            moduleNode.setKey(module.getId().toString());
-            moduleNode.setData(new ModuleDataDto(module.getName(), "Module", module.getName()));
+    private ModuleNodeDto createModuleNode(ModuleSystem module) {
+        var moduleNode = new ModuleNodeDto();
+        moduleNode.setKey(module.getId().toString());
+        moduleNode.setData(new ModuleDataDto(module.getName(), "Module", module.getName()));
 
-            List<ModuleNodeDto> permissionsNodes = module.getPermissions().stream().map(permission -> {
-                ModuleNodeDto permissionNode = new ModuleNodeDto();
-                permissionNode.setKey(permission.getId().toString());
-                ModuleDataDto permissionData = new ModuleDataDto(permission.getDescription(), "Permission", permission.getCode());
-                permissionNode.setData(permissionData);
-                return permissionNode;
-            }).collect(Collectors.toList());
+        var permissionsNodes = module.getPermissions().stream()
+                .map(permission -> {
+                    var permissionNode = new ModuleNodeDto();
+                    permissionNode.setKey(permission.getId().toString());
+                    permissionNode.setData(new ModuleDataDto(permission.getDescription(), "Permission", permission.getCode()));
+                    return permissionNode;
+                }).toList();
 
-            moduleNode.setChildren(permissionsNodes);
-
-            root.add(moduleNode);
-        }
-
-        return root;
+        moduleNode.setChildren(permissionsNodes);
+        return moduleNode;
     }
 
     @Override
     public Long countByNameAndNotId(String name, UUID id) {
-        return this.queryRepository.countByNameAndNotId(name, id);
-    }
-
-    public void updateDelete() {
-        List<ModuleSystem> modules = this.queryRepository.findAll();
-        for (ModuleSystem module : modules) {
-            if (module.getDeleted() == null || !module.getDeleted().equals(Boolean.TRUE)) {
-                module.setDeleted(Boolean.FALSE);
-            }
-            this.commandRepository.save(module);
-        }
+        return queryRepository.countByNameAndNotId(name, id);
     }
 }

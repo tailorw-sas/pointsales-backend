@@ -5,12 +5,13 @@ import com.kynsof.identity.domain.dto.enumType.GeographicLocationType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
-import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Getter
@@ -30,15 +31,11 @@ public class GeographicLocation implements Serializable {
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_pk_geographic_location", nullable = true)
     private GeographicLocation parent;
-    
-    @Column(nullable = true)
-    private Boolean deleted = false;
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public GeographicLocation() {

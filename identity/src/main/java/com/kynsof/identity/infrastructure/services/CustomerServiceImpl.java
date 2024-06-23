@@ -55,7 +55,6 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public void delete(CustomerDto customer) {
         Customer delete = new Customer(customer);
-        delete.setDeleted(Boolean.TRUE);
         delete.setEmail(delete.getEmail() + "-" + UUID.randomUUID());
 
         this.repositoryCommand.save(delete);
@@ -68,7 +67,6 @@ public class CustomerServiceImpl implements ICustomerService {
             try {
                 CustomerDto user = this.findById(id);
                 Customer d = new Customer(user);
-                d.setDeleted(Boolean.TRUE);
                 d.setEmail(d.getEmail() + "-" + UUID.randomUUID());
 
                 delete.add(d);
@@ -107,14 +105,5 @@ public class CustomerServiceImpl implements ICustomerService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
-    public void updateDelete() {
-        List<Customer> customer = this.repositoryQuery.findAll();
-        for (Customer module : customer) {
-            if (module.getDeleted() == null || !module.getDeleted().equals(Boolean.TRUE)) {
-                module.setDeleted(Boolean.FALSE);
-            }
-            this.repositoryCommand.save(module);
-        }
-    }
 
 }

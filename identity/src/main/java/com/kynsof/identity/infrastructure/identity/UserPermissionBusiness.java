@@ -1,14 +1,12 @@
 package com.kynsof.identity.infrastructure.identity;
 
-import com.kynsof.identity.domain.dto.BusinessDto;
-import com.kynsof.identity.domain.dto.PermissionDto;
 import com.kynsof.identity.domain.dto.UserPermissionBusinessDto;
-import com.kynsof.identity.domain.dto.UserSystemDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -34,28 +32,17 @@ public class UserPermissionBusiness {
     @JoinColumn(name = "business_id")
     private Business business;
 
-    private boolean deleted;
-
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    public UserPermissionBusiness(UUID id, UserSystemDto user, PermissionDto permissionDto, BusinessDto business) {
-        this.id = id;
-        this.user = new UserSystem(user);
-        this.permission = new Permission(permissionDto);
-        this.business = new Business(business);
-    }
 
     public UserPermissionBusiness(UserPermissionBusinessDto userRoleBusinessDto) {
         this.id = userRoleBusinessDto.getId();
         this.user = new UserSystem(userRoleBusinessDto.getUser());
         this.permission = new Permission(userRoleBusinessDto.getPermission());
         this.business = new Business(userRoleBusinessDto.getBusiness());
-        this.deleted = userRoleBusinessDto.isDeleted();
     }
 
     public UserPermissionBusinessDto toAggregate () {

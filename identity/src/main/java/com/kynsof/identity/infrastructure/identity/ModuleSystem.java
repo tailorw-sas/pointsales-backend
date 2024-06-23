@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -24,19 +25,14 @@ public class ModuleSystem {
     private String name;
     private String image;
     private String description;
-
-    @Column(nullable = true)
-    private Boolean deleted = false;
-
-    @CreationTimestamp
-    @Column(nullable = true, updatable = true)
-    private LocalDateTime createdAt;
-
-    @Column(nullable = true, updatable = true)
-    private LocalDateTime updatedAt;
-
     @OneToMany(mappedBy = "module", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Permission> permissions = new HashSet<>();
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
     public ModuleSystem(ModuleDto module) {
         this.id = module.getId();

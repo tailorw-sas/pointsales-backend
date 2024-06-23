@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -28,11 +29,10 @@ public class PaymentDev {
     private String reference;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true)
-    private Boolean deleted = false;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
     public PaymentDev(PaymentDevDto dto) {
         this.id = dto.getId();

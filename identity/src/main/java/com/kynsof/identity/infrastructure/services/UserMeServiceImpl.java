@@ -3,10 +3,14 @@ package com.kynsof.identity.infrastructure.services;
 import com.kynsof.identity.application.query.users.userMe.BusinessPermissionResponse;
 import com.kynsof.identity.application.query.users.userMe.UserMeResponse;
 import com.kynsof.identity.domain.interfaces.service.IUserMeService;
-import com.kynsof.identity.infrastructure.identity.Business;
 import com.kynsof.identity.infrastructure.identity.UserPermissionBusiness;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
 import com.kynsof.identity.infrastructure.repository.query.UserPermissionBusinessReadDataJPARepository;
+import com.kynsof.identity.infrastructure.repository.query.UserSystemReadDataJPARepository;
+import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
+import com.kynsof.share.core.domain.exception.GlobalBusinessException;
+import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -20,28 +24,38 @@ import java.util.stream.Collectors;
 @Service
 public class UserMeServiceImpl implements IUserMeService {
 
+    private final UserPermissionBusinessReadDataJPARepository userPermissionBusinessReadDataJPARepository;
+    private final UserSystemReadDataJPARepository repositoryQuery;
 
-    private final UserPermissionBusinessReadDataJPARepository  userPermissionBusinessReadDataJPARepository;
-
-    public UserMeServiceImpl(UserPermissionBusinessReadDataJPARepository userPermissionBusinessReadDataJPARepository) {
+    public UserMeServiceImpl(UserPermissionBusinessReadDataJPARepository userPermissionBusinessReadDataJPARepository,
+                             UserSystemReadDataJPARepository repositoryQuery) {
         this.userPermissionBusinessReadDataJPARepository = userPermissionBusinessReadDataJPARepository;
+        this.repositoryQuery = repositoryQuery;
     }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.USER_CACHE, unless = "#result == null", key = "#userId")
+    @Cacheable(cacheNames = CacheConfig.USER_CACHE, unless = "#result == null", key = "#userId")
     public UserMeResponse getUserInfo(UUID userId) {
+        var userSystem = repositoryQuery.findById(userId)
+                .orElseThrow(() -> new BusinessNotFoundException(new GlobalBusinessException(
+                        DomainErrorMessage.USER_NOT_FOUND, new ErrorField("id", "User not found."))));
 
-        List<UserPermissionBusiness> userPermissions = this.userPermissionBusinessReadDataJPARepository.findUserPermissionBusinessByUserId(userId);
+        var userPermissions = userPermissionBusinessReadDataJPARepository.findUserPermissionBusinessByUserId(userId);
+        var businessResponses = groupUserPermissionsByBusiness(userPermissions);
 
-        Map<UUID, BusinessPermissionResponse> businessResponses = userPermissions.stream()
+        return createUserMeResponse(userSystem, businessResponses);
+    }
+
+    private Map<UUID, BusinessPermissionResponse> groupUserPermissionsByBusiness(List<UserPermissionBusiness> userPermissions) {
+        return userPermissions.stream()
                 .collect(Collectors.groupingBy(upb -> upb.getBusiness().getId()))
                 .values().stream()
                 .map(userPermissionBusinesses -> {
-                    List<String> permissions = userPermissionBusinesses.stream()
+                    var permissions = userPermissionBusinesses.stream()
                             .map(upb -> upb.getPermission().getCode())
                             .distinct()
-                            .collect(Collectors.toList());
-                    Business business = userPermissionBusinesses.get(0).getBusiness();
+                            .toList();
+                    var business = userPermissionBusinesses.get(0).getBusiness();
 
                     return new BusinessPermissionResponse(
                             business.getId(),
@@ -49,11 +63,9 @@ public class UserMeServiceImpl implements IUserMeService {
                             permissions);
                 })
                 .collect(Collectors.toMap(BusinessPermissionResponse::getBusinessId, bpr -> bpr));
-        return getUserMeResponse(userPermissions, businessResponses);
     }
 
-    private static UserMeResponse getUserMeResponse(List<UserPermissionBusiness> userPermissions, Map<UUID, BusinessPermissionResponse> businessResponses) {
-        UserSystem userSystem = userPermissions.get(0).getUser();
+    private UserMeResponse createUserMeResponse(UserSystem userSystem, Map<UUID, BusinessPermissionResponse> businessResponses) {
         return new UserMeResponse(
                 userSystem.getId(),
                 userSystem.getUserName(),
@@ -62,7 +74,7 @@ public class UserMeServiceImpl implements IUserMeService {
                 userSystem.getLastName(),
                 userSystem.getImage(),
                 userSystem.getSelectedBusiness(),
-                new ArrayList<>(businessResponses.values()) // Convertimos el mapa a una lista
+                new ArrayList<>(businessResponses.values())
         );
     }
 }

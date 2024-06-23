@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -32,9 +33,6 @@ public class Permission {
     @Enumerated(EnumType.STRING)
     private PermissionStatusEnm status;
 
-    @Column(nullable = true)
-    private boolean deleted = false;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "module_id")
     private ModuleSystem module;
@@ -43,10 +41,9 @@ public class Permission {
     private Set<UserPermissionBusiness> userPermissionBusinesses = new HashSet<>();
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public Permission(PermissionDto permissionDto) {
@@ -56,7 +53,6 @@ public class Permission {
         this.action = permissionDto.getAction();
         this.module = new ModuleSystem(permissionDto.getModule());
         this.status = permissionDto.getStatus();
-        this.deleted = permissionDto.isDeleted();
     }
 
     public PermissionDto toAggregate() {

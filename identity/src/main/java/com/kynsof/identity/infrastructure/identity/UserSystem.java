@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -41,19 +42,15 @@ public class UserSystem implements Serializable {
     private String image;
 
     @Column(nullable = true)
-    private Boolean deleted = false;
-
-    @Column(nullable = true)
     private UUID selectedBusiness;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserPermissionBusiness> userRolesClinics = new HashSet<>();
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public UserSystem(UserSystemDto dto) {

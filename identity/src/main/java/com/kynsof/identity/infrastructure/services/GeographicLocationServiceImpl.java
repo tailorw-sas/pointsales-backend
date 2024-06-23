@@ -1,6 +1,5 @@
 package com.kynsof.identity.infrastructure.services;
 
-
 import com.kynsof.identity.application.query.business.geographiclocation.getall.GeographicLocationResponse;
 import com.kynsof.identity.domain.dto.*;
 import com.kynsof.identity.domain.dto.enumType.GeographicLocationType;
@@ -18,117 +17,108 @@ import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.core.infrastructure.redis.CacheConfig;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class GeographicLocationServiceImpl implements IGeographicLocationService {
 
+    private final GeographicLocationReadDataJPARepository repositoryQuery;
+    private final GeographicLocationWriteDataJPARepository repositoryCommand;
 
-    @Autowired
-    private GeographicLocationReadDataJPARepository repositoryQuery;
-
-    @Autowired
-    private GeographicLocationWriteDataJPARepository repositoryCommand;
+    public GeographicLocationServiceImpl(GeographicLocationReadDataJPARepository repositoryQuery,
+                                         GeographicLocationWriteDataJPARepository repositoryCommand) {
+        this.repositoryQuery = repositoryQuery;
+        this.repositoryCommand = repositoryCommand;
+    }
 
     @Override
+    @Transactional
     public void create(GeographicLocationDto object) {
-        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(object, "GeographicLocation", "Geograafic DTO cannot be null."));
-        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(object.getId(), "GeographicLocation.id", "Geograafic ID cannot be null."));
-
-        this.repositoryCommand.save(new GeographicLocation(object));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(object, "GeographicLocation", "Geographic DTO cannot be null."));
+        RulesChecker.checkRule(new ValidateObjectNotNullRule<>(object.getId(), "GeographicLocation.id", "Geographic ID cannot be null."));
+        repositoryCommand.save(new GeographicLocation(object));
     }
 
     @Override
+    @Transactional
     public void delete(GeographicLocationDto delete) {
-        GeographicLocation geolocation = new GeographicLocation(delete);
-
-        geolocation.setDeleted(true);
+        var geolocation = new GeographicLocation(delete);
         geolocation.setName(delete.getName() + "-" + UUID.randomUUID());
-
-        this.repositoryCommand.save(geolocation);
+        repositoryCommand.save(geolocation);
     }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames = CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public GeographicLocationDto findById(UUID id) {
-        Optional<GeographicLocation> location = this.repositoryQuery.findById(id);
-        if (location.isPresent()) {
-            return location.get().toAggregate();
-        }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("id", "GeographicLocation not found.")));
+        return repositoryQuery.findById(id)
+                .map(GeographicLocation::toAggregate)
+                .orElseThrow(() -> new BusinessNotFoundException(new GlobalBusinessException(
+                        DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("id", "GeographicLocation not found."))));
     }
 
     @Override
     public PaginatedResponse findAll(Pageable pageable) {
-        Page<GeographicLocation> data = this.repositoryQuery.findAll(pageable);
-
+        var data = repositoryQuery.findAll(pageable);
         return getPaginatedResponse(data);
     }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames = CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public LocationHierarchyDto findCantonAndProvinceIdsByParroquiaId(UUID parroquiaId) {
-        Optional<GeographicLocation> parroquiaOptional = repositoryQuery.findById(parroquiaId);
+        var parroquia = repositoryQuery.findById(parroquiaId)
+                .filter(loc -> loc.getType() == GeographicLocationType.PARROQUIA && loc.getParent() != null)
+                .orElseThrow(() -> new BusinessNotFoundException(new GlobalBusinessException(
+                        DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("GeographicLocation.type", "Location not found."))));
 
-        if (parroquiaOptional.isEmpty()) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("GeographicLocation.type", "Location not found.")));
-        }
-
-        GeographicLocation parroquia = parroquiaOptional.get();
-        if (parroquia.getType() != GeographicLocationType.PARROQUIA || parroquia.getParent() == null) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("GeographicLocation.type", "Location not found.")));
-        }
-
-        GeographicLocation canton = parroquia.getParent();
+        var canton = parroquia.getParent();
         if (canton.getType() != GeographicLocationType.CANTON || canton.getParent() == null) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("GeographicLocation.type", "Location not found.")));
+            throw new BusinessNotFoundException(new GlobalBusinessException(
+                    DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("GeographicLocation.type", "Location not found.")));
         }
 
-        GeographicLocation province = canton.getParent();
+        var province = canton.getParent();
         if (province.getType() != GeographicLocationType.PROVINCE) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("GeographicLocation.type", "Location not found.")));
+            throw new BusinessNotFoundException(new GlobalBusinessException(
+                    DomainErrorMessage.GEOGRAPHIC_LOCATION_NOT_FOUND, new ErrorField("GeographicLocation.type", "Location not found.")));
         }
 
-        return new LocationHierarchyDto(new ProvinceDto(province.getId(),province.getName()),
-                new CantonDto(canton.getId(),canton.getName()),
-                new ParroquiaDto(parroquia.getId(),parroquia.getName()));
+        return new LocationHierarchyDto(
+                new ProvinceDto(province.getId(), province.getName()),
+                new CantonDto(canton.getId(), canton.getName()),
+                new ParroquiaDto(parroquia.getId(), parroquia.getName())
+        );
     }
 
     @Override
-    //@Cacheable(cacheNames =  CacheConfig.LOCATION_CACHE, unless = "#result == null")
+    @Cacheable(cacheNames = CacheConfig.LOCATION_CACHE, unless = "#result == null")
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-        for (FilterCriteria filter : filterCriteria) {
+        filterCriteria.forEach(filter -> {
             if ("type".equals(filter.getKey()) && filter.getValue() instanceof String) {
                 try {
-                    GeographicLocationType enumValue = GeographicLocationType.valueOf((String) filter.getValue());
-                    filter.setValue(enumValue);
+                    filter.setValue(GeographicLocationType.valueOf((String) filter.getValue()));
                 } catch (IllegalArgumentException e) {
-                    System.err.println("Valor inválido para el tipo Enum GeographicLocationType: " + filter.getValue());
+                    System.err.println("Invalid value for GeographicLocationType enum: " + filter.getValue());
                 }
             }
-        }
+        });
 
-        GenericSpecificationsBuilder<GeographicLocation> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-        Page<GeographicLocation> data = this.repositoryQuery.findAll(specifications, pageable);
+        var specifications = new GenericSpecificationsBuilder<GeographicLocation>(filterCriteria);
+        var data = repositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(data);
     }
 
     private PaginatedResponse getPaginatedResponse(Page<GeographicLocation> data) {
-        List<GeographicLocationResponse> allergyResponses = new ArrayList<>();
-        for (GeographicLocation p : data.getContent()) {
-            allergyResponses.add(new GeographicLocationResponse(p.toAggregate()));
-        }
-        return new PaginatedResponse(allergyResponses, data.getTotalPages(), data.getNumberOfElements(),
+        var responses = data.getContent().stream()
+                .map(geographicLocation -> new GeographicLocationResponse(geographicLocation.toAggregate()))
+                .toList();
+        return new PaginatedResponse(responses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
-
 }

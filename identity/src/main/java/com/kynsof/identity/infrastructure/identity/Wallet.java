@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -36,29 +37,10 @@ public class Wallet {
     private Set<WalletTransaction> transactions = new HashSet<>();
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    public void addTransaction(WalletTransaction transaction) {
-        transactions.add(transaction);
-        transaction.setWallet(this);
-    }
-
-    public void removeTransaction(WalletTransaction transaction) {
-        transactions.remove(transaction);
-        transaction.setWallet(null);
-    }
-
-    public void credit(BigDecimal amount) {
-        balance = balance.add(amount);
-    }
-
-    public void debit(BigDecimal amount) {
-        balance = balance.subtract(amount);
-    }
 
     public Wallet(WalletDto dto) {
         this.id = dto.getId();

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -31,7 +32,7 @@ public class Business {
     private String address;
     @Enumerated(EnumType.STRING)
     private EBusinessStatus status;
-    private boolean deleted;
+
 
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserPermissionBusiness> userRoleBusinesses = new HashSet<>();
@@ -41,10 +42,9 @@ public class Business {
     private GeographicLocation geographicLocation;
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public Business(BusinessDto business) {
@@ -56,7 +56,6 @@ public class Business {
         this.logo = business.getLogo();
         this.ruc = business.getRuc();
         this.status = business.getStatus();
-        this.deleted = business.isDeleted();
         this.geographicLocation = business.getGeographicLocationDto() != null ? new GeographicLocation(business.getGeographicLocationDto()) : null;
         this.address = business.getAddress();
     }

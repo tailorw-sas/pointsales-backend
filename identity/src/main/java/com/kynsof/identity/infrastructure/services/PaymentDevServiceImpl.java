@@ -45,7 +45,7 @@ public class PaymentDevServiceImpl implements IPaymentDevService {
     @Override
     public void delete(PaymentDevDto paymentDevDto) {
         PaymentDev delete = new PaymentDev(paymentDevDto);
-        delete.setDeleted(Boolean.TRUE);
+
         delete.setReference(delete.getReference() + " + " + UUID.randomUUID());
 
         this.repositoryCommand.save(delete);
