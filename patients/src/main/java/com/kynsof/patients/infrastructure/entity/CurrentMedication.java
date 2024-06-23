@@ -33,7 +33,9 @@ public class CurrentMedication {
     private MedicalInformation medicalInformation;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;

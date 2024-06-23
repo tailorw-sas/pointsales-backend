@@ -42,7 +42,9 @@ public class MedicalInformation {
     private List<CurrentMedication> currentMedications;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
