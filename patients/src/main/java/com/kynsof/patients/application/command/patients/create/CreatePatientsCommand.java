@@ -28,10 +28,10 @@ public class CreatePatientsCommand implements ICommand {
     private CreatePatientContactInfoRequest createContactInfoRequest;
     private DisabilityType disabilityType;
 
-    public CreatePatientsCommand(String identification, String name, String lastName, GenderType gender, Double weight,
+    public CreatePatientsCommand(UUID id,String identification, String name, String lastName, GenderType gender, Double weight,
                                  Double height, Boolean hasDisability, Boolean isPregnant, String photo,
                                  int gestationTime, CreatePatientContactInfoRequest createContactInfoRequest,DisabilityType disabilityType){
-
+        this.id = id;
         this.identification = identification;
         this.name = name;
         this.lastName = lastName;
@@ -48,9 +48,10 @@ public class CreatePatientsCommand implements ICommand {
     }
 
     public static CreatePatientsCommand fromRequest(CreatePatientsRequest request) {
-        return new CreatePatientsCommand(request.getIdentification(), request.getName(), request.getLastName(), request.getGender(),
-                request.getWeight(),request.getHeight(),request.getHasDisability(),request.getIsPregnant(),
-                request.getImage(),request.getGestationTime(), request.getContactInfo(), request.getDisabilityType());
+        return new CreatePatientsCommand(request.getUd(), request.getIdentification(), request.getName(),
+                request.getLastName(), request.getGender(), request.getWeight(),request.getHeight(),
+                request.getHasDisability(),request.getIsPregnant(), request.getImage(),request.getGestationTime(),
+                request.getContactInfo(), request.getDisabilityType());
     }
 
 

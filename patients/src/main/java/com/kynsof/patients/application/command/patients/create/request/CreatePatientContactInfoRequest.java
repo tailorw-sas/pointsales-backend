@@ -17,7 +17,5 @@ public class CreatePatientContactInfoRequest {
     private String telephone;
     private String address;
     private LocalDate birthdayDate;
-    private UUID province;
-    private UUID canton;
     private UUID parroquia;
 }
