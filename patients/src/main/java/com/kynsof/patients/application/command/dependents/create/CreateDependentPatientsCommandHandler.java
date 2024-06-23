@@ -66,8 +66,6 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
         );
         UUID id = serviceImpl.createDependent(dependentPatientDto);
         PatientDto patientDto = serviceImpl.findByIdSimple(id);
-        GeographicLocationDto province = geographicLocationService.findById(command.getCreateContactInfoRequest().getProvince());
-        GeographicLocationDto canton = geographicLocationService.findById(command.getCreateContactInfoRequest().getCanton());
         GeographicLocationDto parroquia = geographicLocationService.findById(command.getCreateContactInfoRequest().getParroquia());
         contactInfoService.create(new ContactInfoDto(
                 UUID.randomUUID(),
