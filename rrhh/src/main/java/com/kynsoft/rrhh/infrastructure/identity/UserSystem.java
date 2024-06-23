@@ -50,6 +50,7 @@ public class UserSystem implements Serializable {
     private Set<UserBusinessRelation> userBusinessRelations;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
