@@ -37,10 +37,6 @@ public class ContactInfoResponse implements IResponse {
         this.telephone = contactInfoDto.getTelephone();
         this.address = contactInfoDto.getAddress();
         this.birthdayDate = contactInfoDto.getBirthdayDate();
-        this.province = contactInfoDto.getProvince() != null
-                ? contactInfoDto.getProvince() : null;
-        this.canton = contactInfoDto.getCanton() != null
-                ? contactInfoDto.getCanton() : null;
         this.parroquia = contactInfoDto.getParroquia() != null
                 ? contactInfoDto.getParroquia() : null;
     }

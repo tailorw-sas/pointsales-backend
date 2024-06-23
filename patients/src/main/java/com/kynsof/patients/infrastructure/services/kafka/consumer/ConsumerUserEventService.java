@@ -51,7 +51,7 @@ public class ConsumerUserEventService {
 
                 PatientDto patientDto = this.service.findByIdSimple(patientId);
                 this.contactInfoService.create(new ContactInfoDto(UUID.randomUUID(), patientDto, eventRead.getEmail(),
-                        eventRead.getPhone(), null, null, Status.ACTIVE, null, null, null
+                        eventRead.getPhone(), null, null, Status.ACTIVE, null
                 ));
 
             }

@@ -40,8 +40,6 @@ public class UpdateContactInfoCommandHandler implements ICommandHandler<UpdateCo
         contactInfoDto.setBirthdayDate(command.getBirthdayDate());
         contactInfoDto.setTelephone(command.getTelephone());
         contactInfoDto.setStatus(Status.ACTIVE);
-        contactInfoDto.setProvince(province);
-        contactInfoDto.setCanton(canton);
         contactInfoDto.setParroquia(parroquia);
 
         contactInfoService.update(contactInfoDto);

@@ -40,14 +40,6 @@ public class ContactInformation {
     private Status status;
 
     @ManyToOne()
-    @JoinColumn(name = "province_id", nullable = true)
-    private GeographicLocation province;
-
-    @ManyToOne()
-    @JoinColumn(name = "canton_id", nullable = true)
-    private GeographicLocation canton;
-
-    @ManyToOne()
     @JoinColumn(name = "parroquia_id", nullable = true)
     private GeographicLocation parroquia;
 
@@ -65,14 +57,11 @@ public class ContactInformation {
         this.address = contactInfoDto.getAddress();
         this.birthdayDate = contactInfoDto.getBirthdayDate();
         this.status = contactInfoDto.getStatus();
-        this.province = contactInfoDto.getProvince() != null ? new GeographicLocation(contactInfoDto.getProvince()) : null;
-        this.canton = contactInfoDto.getCanton() != null ? new GeographicLocation(contactInfoDto.getCanton()) : null;
         this.parroquia = contactInfoDto.getParroquia() != null ? new GeographicLocation(contactInfoDto.getParroquia()) : null;
     }
 
     public ContactInfoDto toAggregate() {
-        GeographicLocationDto provinceDto = province != null ? province.toAggregate() : null;
-        GeographicLocationDto cantonDto = canton != null ? canton.toAggregate() : null;
+
         GeographicLocationDto parroquiaDto = parroquia != null ? parroquia.toAggregate() : null;
         return new ContactInfoDto(
                 getId(), 
@@ -82,8 +71,6 @@ public class ContactInformation {
                 getAddress(), 
                 getBirthdayDate(), 
                 getStatus(),
-                provinceDto, 
-                cantonDto, 
                 parroquiaDto
         );
     }

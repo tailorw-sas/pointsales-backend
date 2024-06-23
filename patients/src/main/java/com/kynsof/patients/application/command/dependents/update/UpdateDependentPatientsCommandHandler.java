@@ -69,8 +69,6 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
             contactInfoDto.setTelephone(command.getCreateContactInfoRequest().getTelephone());
             contactInfoDto.setBirthdayDate(command.getCreateContactInfoRequest().getBirthdayDate());
             contactInfoDto.setEmail(command.getCreateContactInfoRequest().getEmail());
-            contactInfoDto.setProvince(province);
-            contactInfoDto.setCanton(canton);
             contactInfoDto.setParroquia(parroquia);
             contactInfoDto.setStatus(Status.ACTIVE);
             contactInfoService.create(contactInfoDto);
@@ -78,8 +76,6 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
             contactInfoDto.setAddress(command.getCreateContactInfoRequest().getAddress());
             contactInfoDto.setTelephone(command.getCreateContactInfoRequest().getTelephone());
             contactInfoDto.setBirthdayDate(command.getCreateContactInfoRequest().getBirthdayDate());
-            contactInfoDto.setProvince(province);
-            contactInfoDto.setCanton(canton);
             contactInfoDto.setParroquia(parroquia);
             contactInfoDto.setEmail(command.getCreateContactInfoRequest().getEmail());
             contactInfoDto.setStatus(Status.ACTIVE);

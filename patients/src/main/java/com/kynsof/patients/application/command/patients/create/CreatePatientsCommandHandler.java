@@ -61,9 +61,9 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
         UUID id = serviceImpl.create(patientDto);
         command.setId(id);
         patientDto.setId(id);
-
-        GeographicLocationDto province = geographicLocationService.findById(command.getCreateContactInfoRequest().getProvince());
-        GeographicLocationDto canton = geographicLocationService.findById(command.getCreateContactInfoRequest().getCanton());
+//
+//        GeographicLocationDto province = geographicLocationService.findById(command.getCreateContactInfoRequest().getProvince());
+//        GeographicLocationDto canton = geographicLocationService.findById(command.getCreateContactInfoRequest().getCanton());
         GeographicLocationDto parroquia = geographicLocationService.findById(command.getCreateContactInfoRequest().getParroquia());
         contactInfoService.create(new ContactInfoDto(
                 UUID.randomUUID(),
@@ -73,8 +73,6 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
                 command.getCreateContactInfoRequest().getAddress(),
                 command.getCreateContactInfoRequest().getBirthdayDate(),
                 Status.ACTIVE,
-                province,
-                canton,
                 parroquia
         ));
 

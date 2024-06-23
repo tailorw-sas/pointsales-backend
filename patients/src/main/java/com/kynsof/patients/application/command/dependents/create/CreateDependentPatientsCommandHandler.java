@@ -77,8 +77,6 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 command.getCreateContactInfoRequest().getAddress(),
                 command.getCreateContactInfoRequest().getBirthdayDate(),
                 Status.ACTIVE,
-                province,
-                canton,
                 parroquia
         ));
         command.setId(id);

@@ -38,8 +38,6 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
     public void handle(UpdatePatientsCommand command) {
         ContactInfoDto contactInfoDto = contactInfoService.findByPatientId(command.getId());
         PatientDto patientDto = serviceImpl.findByIdSimple(command.getId());
-        GeographicLocationDto province = geographicLocationService.findById(command.getCreateContactInfoRequest().getProvince());
-        GeographicLocationDto canton = geographicLocationService.findById(command.getCreateContactInfoRequest().getCanton());
         GeographicLocationDto parroquia = geographicLocationService.findById(command.getCreateContactInfoRequest().getParroquia());
 
         patientDto.setIdentification(command.getIdentification());
@@ -61,8 +59,6 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
             contactInfoDto.setTelephone(command.getCreateContactInfoRequest().getTelephone());
             contactInfoDto.setBirthdayDate(command.getCreateContactInfoRequest().getBirthdayDate());
             contactInfoDto.setEmail(command.getCreateContactInfoRequest().getEmail());
-            contactInfoDto.setProvince(province);
-            contactInfoDto.setCanton(canton);
             contactInfoDto.setParroquia(parroquia);
             contactInfoDto.setStatus(Status.ACTIVE);
             contactInfoService.create(contactInfoDto);
@@ -70,8 +66,6 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
             contactInfoDto.setAddress(command.getCreateContactInfoRequest().getAddress());
             contactInfoDto.setTelephone(command.getCreateContactInfoRequest().getTelephone());
             contactInfoDto.setBirthdayDate(command.getCreateContactInfoRequest().getBirthdayDate());
-            contactInfoDto.setProvince(province);
-            contactInfoDto.setCanton(canton);
             contactInfoDto.setParroquia(parroquia);
             contactInfoDto.setEmail(command.getCreateContactInfoRequest().getEmail());
             contactInfoDto.setStatus(Status.ACTIVE);

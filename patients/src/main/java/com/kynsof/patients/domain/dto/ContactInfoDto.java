@@ -22,8 +22,6 @@ public class ContactInfoDto implements Serializable {
     private String address;
     private LocalDate birthdayDate;
     private Status status;
-    private GeographicLocationDto province;
-    private GeographicLocationDto canton;
     private GeographicLocationDto parroquia;
 
 }
