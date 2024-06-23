@@ -11,7 +11,6 @@ import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerTrigge
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerRegisterUserEventService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerRegisterUserSystemEventService;
 import com.kynsof.share.core.domain.exception.*;
-import com.kynsof.share.core.domain.kafka.entity.UserKafka;
 import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
 import com.kynsof.share.core.domain.response.ErrorField;
 import io.micrometer.common.lang.NonNull;
@@ -101,17 +100,17 @@ public class AuthService implements IAuthService {
     public String registerUser(@NonNull UserRequest userRequest, boolean isSystemUser) {
         String userId = createUser(userRequest.getName(), userRequest.getLastName(), userRequest.getEmail(), userRequest.getUserName(), userRequest.getPassword());
 
-        producerRegisterUserEvent.create(new UserKafka(
-                userId,
-                userRequest.getUserName(),
-                userRequest.getEmail(),
-                userRequest.getName(),
-                userRequest.getLastName(),
-                "",
-                "",
-                "",
-                ""
-        ));
+//        producerRegisterUserEvent.create(new UserKafka(
+//                userId,
+//                userRequest.getUserName(),
+//                userRequest.getEmail(),
+//                userRequest.getName(),
+//                userRequest.getLastName(),
+//                "",
+//                "",
+//                "",
+//                ""
+//        ));
 
         return userId;
     }
