@@ -50,7 +50,9 @@ public class WalletTransaction {
     private String authorizationCode;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;

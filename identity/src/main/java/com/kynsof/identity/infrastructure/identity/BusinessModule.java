@@ -30,7 +30,9 @@ public class BusinessModule {
     private ModuleSystem module;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;

@@ -73,15 +73,6 @@ public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusin
 
         //Lanza el evento de integracion
         updateBusinessEventService.update(updateBusiness);
-//        if (logoId != null) {
-//            //Si logoId es diferente de null, fue porque se cambio, por lo cual debe ser eliminado en actual.
-//            this.deleteFileEventService.delete(new FileKafka(UUID.fromString(idLogoDelete), "identity", "", null));
-//
-//            //Manda a crear el nuevo logo en el S3.
-//            FileKafka fileSave = new FileKafka(UUID.fromString(logoId), "identity", UUID.randomUUID().toString(),
-//                command.getLogo());
-//            saveFileEventService.create(fileSave);
-//        }
     }
 
 }

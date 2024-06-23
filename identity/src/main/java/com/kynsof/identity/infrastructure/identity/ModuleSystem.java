@@ -29,7 +29,9 @@ public class ModuleSystem {
     private Set<Permission> permissions = new HashSet<>();
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;

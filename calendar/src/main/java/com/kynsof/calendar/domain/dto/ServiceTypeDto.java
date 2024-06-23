@@ -17,7 +17,6 @@ public class ServiceTypeDto  implements Serializable {
     private UUID id;
     private String name;
     private String picture;
-    
     private EServiceStatus status;
     private String code;
 

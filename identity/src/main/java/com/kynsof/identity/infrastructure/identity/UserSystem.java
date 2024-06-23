@@ -48,6 +48,7 @@ public class UserSystem implements Serializable {
     private Set<UserPermissionBusiness> userRolesClinics = new HashSet<>();
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp

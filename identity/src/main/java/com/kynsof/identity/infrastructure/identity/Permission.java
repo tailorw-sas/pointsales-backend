@@ -41,7 +41,9 @@ public class Permission {
     private Set<UserPermissionBusiness> userPermissionBusinesses = new HashSet<>();
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;

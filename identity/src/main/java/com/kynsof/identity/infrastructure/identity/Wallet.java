@@ -37,7 +37,9 @@ public class Wallet {
     private Set<WalletTransaction> transactions = new HashSet<>();
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
