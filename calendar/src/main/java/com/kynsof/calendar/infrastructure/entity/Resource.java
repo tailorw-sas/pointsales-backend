@@ -43,7 +43,9 @@ public class Resource {
     private Set<BusinessResource> businessResources = new HashSet<>();
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;

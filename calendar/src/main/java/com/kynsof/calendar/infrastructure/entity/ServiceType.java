@@ -42,6 +42,7 @@ public class ServiceType {
     private Set<Services> services;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp

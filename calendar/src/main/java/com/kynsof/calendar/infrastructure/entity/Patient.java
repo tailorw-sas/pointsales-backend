@@ -38,7 +38,9 @@ public class Patient {
     private PatientStatus status;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;

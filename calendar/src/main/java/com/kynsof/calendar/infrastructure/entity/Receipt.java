@@ -65,7 +65,9 @@ public class Receipt {
     private EStatusReceipt previousStatus;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;

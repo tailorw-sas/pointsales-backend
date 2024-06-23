@@ -29,7 +29,9 @@ public class BusinessResource {
     private Resource resource;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;

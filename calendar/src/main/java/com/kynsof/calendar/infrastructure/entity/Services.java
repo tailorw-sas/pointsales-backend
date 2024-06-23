@@ -58,7 +58,9 @@ public class Services {
     private Boolean applyIva = true;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
