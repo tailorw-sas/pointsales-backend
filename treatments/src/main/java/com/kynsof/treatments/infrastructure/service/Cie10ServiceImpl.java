@@ -1,6 +1,5 @@
 package com.kynsof.treatments.infrastructure.service;
 
-
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -15,62 +14,55 @@ import com.kynsof.treatments.domain.service.ICie10Service;
 import com.kynsof.treatments.infrastructure.entity.Cie10;
 import com.kynsof.treatments.infrastructure.entity.specifications.Cie10Specifications;
 import com.kynsof.treatments.infrastructure.repositories.query.Cie10ReadDataJPARepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class Cie10ServiceImpl implements ICie10Service {
 
-    @Autowired
-    private Cie10ReadDataJPARepository repositoryQuery;
+    private final Cie10ReadDataJPARepository repositoryQuery;
+
+    public Cie10ServiceImpl(Cie10ReadDataJPARepository repositoryQuery) {
+        this.repositoryQuery = repositoryQuery;
+    }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.CIE10, unless = "#result == null")
+    @Cacheable(cacheNames = CacheConfig.CIE10, unless = "#result == null")
     public Cie10Dto findByCode(String code) {
         Optional<Cie10> cie10ByCode = Optional.ofNullable(this.repositoryQuery.findCie10ByCode(code));
         if (cie10ByCode.isPresent()) {
             return cie10ByCode.get().toAggregate();
         }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.CIE10_NOT_FOUND, new ErrorField("id", "Cie10 not found.")));
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.CIE10_NOT_FOUND,
+                new ErrorField("id", "Cie10 not found.")));
     }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.CIE10, unless = "#result == null")
+    @Cacheable(cacheNames = CacheConfig.CIE10, unless = "#result == null")
     public PaginatedResponse findAll(Pageable pageable, String name, String code) {
-        Cie10Specifications specifications = new Cie10Specifications(name, code);
-        Page<Cie10> data = this.repositoryQuery.findAll(specifications, pageable);
-
-        List<Cie10Response> allergyResponses = new ArrayList<>();
-        for (Cie10 p : data.getContent()) {
-            allergyResponses.add(new Cie10Response(p.toAggregate()));
-        }
-        return new PaginatedResponse(allergyResponses, data.getTotalPages(), data.getNumberOfElements(),
-                data.getTotalElements(), data.getSize(), data.getNumber());
+        var specifications = new Cie10Specifications(name, code);
+        var data = repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(data);
     }
 
     @Override
-    @Cacheable(cacheNames =  CacheConfig.CIE10, unless = "#result == null")
+    @Cacheable(cacheNames = CacheConfig.CIE10, unless = "#result == null")
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-        GenericSpecificationsBuilder<Cie10> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-        Page<Cie10> data = this.repositoryQuery.findAll(specifications, pageable);
+        var specifications = new GenericSpecificationsBuilder<Cie10>(filterCriteria);
+        var data = repositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(data);
-
     }
 
     private PaginatedResponse getPaginatedResponse(Page<Cie10> data) {
-        List<Cie10Response> patients = new ArrayList<>();
-        for (Cie10 o : data.getContent()) {
-            patients.add(new Cie10Response(o.toAggregate()));
-        }
-        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
+        var responses = data.getContent().stream()
+                .map(cie10 -> new Cie10Response(cie10.toAggregate()))
+                .toList();
+        return new PaginatedResponse(responses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
-
 }
