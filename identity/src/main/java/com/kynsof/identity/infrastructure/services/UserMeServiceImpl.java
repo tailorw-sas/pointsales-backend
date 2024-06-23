@@ -11,8 +11,6 @@ import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.response.ErrorField;
-import com.kynsof.share.core.infrastructure.redis.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,7 +32,7 @@ public class UserMeServiceImpl implements IUserMeService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConfig.USER_CACHE, unless = "#result == null", key = "#userId")
+   // @Cacheable(cacheNames = CacheConfig.USER_CACHE, unless = "#result == null", key = "#userId")
     public UserMeResponse getUserInfo(UUID userId) {
         var userSystem = repositoryQuery.findById(userId)
                 .orElseThrow(() -> new BusinessNotFoundException(new GlobalBusinessException(
