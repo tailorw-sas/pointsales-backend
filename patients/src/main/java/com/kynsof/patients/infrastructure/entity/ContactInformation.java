@@ -7,11 +7,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import org.hibernate.annotations.CreationTimestamp;
 
 @NoArgsConstructor
 @Getter
@@ -51,10 +52,9 @@ public class ContactInformation {
     private GeographicLocation parroquia;
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public ContactInformation(ContactInfoDto contactInfoDto) {

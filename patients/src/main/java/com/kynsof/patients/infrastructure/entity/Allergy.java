@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @NoArgsConstructor
 @Getter
@@ -31,10 +32,9 @@ public class Allergy {
     private MedicalInformation medicalInformation;
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public Allergy(AllergyEntityDto dto) {

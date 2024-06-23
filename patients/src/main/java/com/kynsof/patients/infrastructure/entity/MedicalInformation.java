@@ -5,15 +5,16 @@ import com.kynsof.patients.domain.dto.CurrentMedicationDto;
 import com.kynsof.patients.domain.dto.MedicalInformationDto;
 import com.kynsof.patients.domain.dto.enumTye.Status;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import org.hibernate.annotations.CreationTimestamp;
 
 @NoArgsConstructor
 @Getter
@@ -41,10 +42,9 @@ public class MedicalInformation {
     private List<CurrentMedication> currentMedications;
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public MedicalInformation(MedicalInformationDto dto) {
