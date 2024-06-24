@@ -1,6 +1,7 @@
 package com.kynsof.calendar.application.query;
 
 import com.kynsof.calendar.domain.dto.ServiceTypeDto;
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ public class ServiceTypeResponse implements IResponse {
     private String name;
     private String image;
     private String code;
+    private EServiceStatus status;
 
 
     public ServiceTypeResponse(ServiceTypeDto object) {
@@ -23,6 +25,7 @@ public class ServiceTypeResponse implements IResponse {
         this.name = object.getName();
         this.image = object.getPicture();
         this.code = object.getCode();
+        this.status = object.getStatus();
     }
 
 }
