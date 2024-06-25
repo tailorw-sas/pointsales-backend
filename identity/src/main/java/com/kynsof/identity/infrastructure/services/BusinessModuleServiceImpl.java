@@ -47,8 +47,9 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
     @Override
     public List<ModuleDto> findModulesByBusinessId(UUID businessId) {
         return queryRepository.findByBusinessId(businessId).stream()
-                .map(businessModule -> {
-                    var module = businessModule.getModule();
+                .map(BusinessModule::getModule)
+                .distinct()
+                .map(module -> {
                     var permissionsDto = module.getPermissions().stream()
                             .map(permission -> new PermissionDto(
                                     permission.getId(),
