@@ -26,7 +26,7 @@ public class ProducerReplicateDoctorService {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(entity, EventType.CREATED));
-            this.producer.send("inmune-replicate-doctor", json);
+            this.producer.send("medinec-replicate-doctor", json);
         } catch (Exception ex) {
             Logger.getLogger(ProducerReplicateDoctorService.class.getName()).log(Level.SEVERE, null, ex);
         }

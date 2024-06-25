@@ -20,4 +20,5 @@ public class CreateDoctorRequest {
     private boolean isExpress;
     private String phoneNumber;
     private String image;
+    private UUID business;
 }

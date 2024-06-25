@@ -1,11 +1,12 @@
 package com.kynsof.share.core.domain.kafka.entity;
 
-import java.io.Serializable;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -19,4 +20,5 @@ public class DoctorKafka implements Serializable {
     private String name;
     private String lastName;
     private String image;
+    private String business;
 }

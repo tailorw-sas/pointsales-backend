@@ -1,25 +1,30 @@
-package com.kynsof.treatments.infrastructure.service.kafka.consumer.create.doctor;
+package com.kynsof.calendar.infrastructure.service.kafka.consumer.resource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kynsof.calendar.domain.dto.ResourceDto;
+import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
+import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.share.core.domain.kafka.entity.DoctorKafka;
-import com.kynsof.treatments.domain.dto.DoctorDto;
-import com.kynsof.treatments.domain.dto.enumDto.Status;
-import com.kynsof.treatments.domain.service.IDoctorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
 public class ConsumerCreateDoctorEventService {
-    @Autowired
-    private IDoctorService service;
+    private final IResourceService service;
+    private final IResourceService resourceService;
 
-    // Ejemplo de un método listener
+    public ConsumerCreateDoctorEventService(IResourceService service, IResourceService resourceService) {
+        this.service = service;
+        this.resourceService = resourceService;
+    }
+
     @KafkaListener(topics = "medinec-replicate-doctor", groupId = "treatments")
     public void listen(String event) {
         try {
@@ -28,11 +33,12 @@ public class ConsumerCreateDoctorEventService {
             JsonNode rootNode = objectMapper.readTree(event);
             DoctorKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), DoctorKafka.class);
             
-            this.service.create(new DoctorDto(
+            this.service.create(new ResourceDto(
                     eventRead.getId(), eventRead.getName() + " " + eventRead.getLastName(), 
-                    eventRead.getImage(), 
-                    Status.ACTIVE
+                    eventRead.getImage(), EResourceStatus.ACTIVE
             ));
+
+            resourceService.addBusiness(UUID.fromString(eventRead.getBusiness()), eventRead.getId(), LocalDate.now());
 
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerCreateDoctorEventService.class.getName()).log(Level.SEVERE, null, ex);
