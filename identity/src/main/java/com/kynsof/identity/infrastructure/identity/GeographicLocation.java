@@ -55,11 +55,45 @@ public class GeographicLocation implements Serializable {
         return Objects.hash(name);
     }
 
+//   public GeographicLocationDto toAggregate() {
+//        GeographicLocationDto parentDto = null;
+//        if (this.parent != null) {
+//            parentDto = new GeographicLocationDto(this.parent.getId(), this.parent.getName(), this.parent.getType(), null);
+//        }
+//        return new GeographicLocationDto(this.id, this.name, this.type, parentDto);
+//    }
+
     public GeographicLocationDto toAggregate() {
-        GeographicLocationDto parentDto = null;
+        GeographicLocationDto provinceDto = null;
+        GeographicLocationDto cantonDto = null;
+        GeographicLocationDto parroquiaDto = null;
+
         if (this.parent != null) {
-            parentDto = new GeographicLocationDto(this.parent.getId(), this.parent.getName(), this.parent.getType(), null);
+            if (this.parent.getParent() != null) {
+                if (this.parent.getParent().getParent() != null) {
+                    provinceDto = new GeographicLocationDto(
+                            this.parent.getParent().getParent().getId(),
+                            this.parent.getParent().getParent().getName(),
+                            this.parent.getParent().getParent().getType(),
+                            null
+                    );
+                }
+                cantonDto = new GeographicLocationDto(
+                        this.parent.getParent().getId(),
+                        this.parent.getParent().getName(),
+                        this.parent.getParent().getType(),
+                        provinceDto
+                );
+            }
+            parroquiaDto = new GeographicLocationDto(
+                    this.parent.getId(),
+                    this.parent.getName(),
+                    this.parent.getType(),
+                    cantonDto
+            );
         }
-        return new GeographicLocationDto(this.id, this.name, this.type, parentDto);
+
+        return new GeographicLocationDto(this.id, this.name, this.type, parroquiaDto);
     }
+
 }
