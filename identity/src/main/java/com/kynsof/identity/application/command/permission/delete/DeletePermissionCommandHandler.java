@@ -23,7 +23,6 @@ public class DeletePermissionCommandHandler implements ICommandHandler<DeletePer
 
         delete.setStatus(PermissionStatusEnm.INACTIVE);
         delete.setCode(delete.getCode() + "-" + UUID.randomUUID());
-        delete.setDeleted(true);
 
         service.delete(delete);
     }

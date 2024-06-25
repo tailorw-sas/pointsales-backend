@@ -19,7 +19,6 @@ public class PermissionDto {
     private ModuleDto module;
     private PermissionStatusEnm status;
     private String action;
-    private boolean deleted = false;
     private LocalDateTime createdAt;
     /**
      * Usar este constructor en el create.
