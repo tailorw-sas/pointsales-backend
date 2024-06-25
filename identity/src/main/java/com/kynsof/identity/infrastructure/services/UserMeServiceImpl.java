@@ -7,6 +7,7 @@ import com.kynsof.identity.infrastructure.identity.UserPermissionBusiness;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
 import com.kynsof.identity.infrastructure.repository.query.UserPermissionBusinessReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserSystemReadDataJPARepository;
+import com.kynsof.share.core.domain.EUserType;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -37,6 +38,12 @@ public class UserMeServiceImpl implements IUserMeService {
         var userSystem = repositoryQuery.findById(userId)
                 .orElseThrow(() -> new BusinessNotFoundException(new GlobalBusinessException(
                         DomainErrorMessage.USER_NOT_FOUND, new ErrorField("id", "User not found."))));
+
+        if (userSystem.getUserType().equals(EUserType.SUPER_ADMIN)) {
+            var userPermissions = userPermissionBusinessReadDataJPARepository.findAllGroupedByPermissionAndBusiness();
+            var businessResponses = groupUserPermissionsByBusiness(userPermissions);
+            return createUserMeResponse(userSystem, businessResponses);
+        }
 
         var userPermissions = userPermissionBusinessReadDataJPARepository.findUserPermissionBusinessByUserId(userId);
         var businessResponses = groupUserPermissionsByBusiness(userPermissions);

@@ -39,7 +39,7 @@ public class DataSeeder implements ApplicationRunner {
             userDto.setName("ADMIN");
             userDto.setLastName("ADMIN");
             userDto.setStatus(UserStatus.ACTIVE);
-            userDto.setUserType(EUserType.SYSTEM);
+            userDto.setUserType(EUserType.SUPER_ADMIN);
             writeRepository.save(new UserSystem(userDto));
 
             System.out.println("Seeder: Usuario creado con éxito.");

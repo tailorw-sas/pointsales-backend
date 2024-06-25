@@ -30,4 +30,7 @@ public interface UserPermissionBusinessReadDataJPARepository extends JpaReposito
     Set<Permission> findPermissionsByUserIdAndBusinessId(UUID userId, UUID businessId);
 
     List<UserPermissionBusiness> findUserPermissionBusinessByUserId(UUID userId);
+
+    @Query("SELECT upb FROM UserPermissionBusiness upb GROUP BY upb.id, upb.business.id, upb.createdAt, upb.permission.id, upb.updatedAt, upb.user.id")
+    List<UserPermissionBusiness> findAllGroupedByPermissionAndBusiness();
 }
