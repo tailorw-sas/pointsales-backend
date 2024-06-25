@@ -37,11 +37,6 @@ public class BusinessModule {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public BusinessModule(Business business, ModuleSystem module) {
-        this.business = business;
-        this.module = module;
-    }
-
     public BusinessModule(BusinessModuleDto businessModuleDto) {
         this.id = businessModuleDto.getId();
         this.business = new Business(businessModuleDto.getBusiness());

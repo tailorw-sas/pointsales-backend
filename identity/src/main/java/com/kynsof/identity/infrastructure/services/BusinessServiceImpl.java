@@ -18,7 +18,6 @@ import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsof.share.utils.ConfigureTimeZone;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -33,14 +32,17 @@ import java.util.stream.Collectors;
 @Service
 public class BusinessServiceImpl implements IBusinessService {
 
-    @Autowired
-    private BusinessWriteDataJPARepository repositoryCommand;
+    private final BusinessWriteDataJPARepository repositoryCommand;
 
-    @Autowired
-    private BusinessReadDataJPARepository repositoryQuery;
+    private final BusinessReadDataJPARepository repositoryQuery;
 
-    @Autowired
-    private BusinessModuleReadDataJPARepository businessModuleReadDataJPARepository;
+    private final BusinessModuleReadDataJPARepository businessModuleReadDataJPARepository;
+
+    public BusinessServiceImpl(BusinessWriteDataJPARepository repositoryCommand, BusinessReadDataJPARepository repositoryQuery, BusinessModuleReadDataJPARepository businessModuleReadDataJPARepository) {
+        this.repositoryCommand = repositoryCommand;
+        this.repositoryQuery = repositoryQuery;
+        this.businessModuleReadDataJPARepository = businessModuleReadDataJPARepository;
+    }
 
     @Override
     public void create(BusinessDto object) {
@@ -48,7 +50,7 @@ public class BusinessServiceImpl implements IBusinessService {
     }
 
     @Override
-    public void update(BusinessDto objectDto) {        
+    public void update(BusinessDto objectDto) {
         Business update = new Business(objectDto);
         update.setUpdatedAt(LocalDateTime.now());
         this.repositoryCommand.save(update);
@@ -79,7 +81,7 @@ public class BusinessServiceImpl implements IBusinessService {
         throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND, new ErrorField("id", "Business not found.")));
     }
 
-   // @Cacheable(cacheNames = CacheConfig.BUSINESS_CACHE, unless = "#result == null")
+    // @Cacheable(cacheNames = CacheConfig.BUSINESS_CACHE, unless = "#result == null")
     @Override
     public BusinessDto findById(UUID id) {
         Optional<Business> object = this.repositoryQuery.findById(id);
@@ -115,7 +117,7 @@ public class BusinessServiceImpl implements IBusinessService {
 
     private void filterCreteria(List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
-            if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
+            if ("status" .equals(filter.getKey()) && filter.getValue() instanceof String) {
                 try {
                     EBusinessStatus enumValue = EBusinessStatus.valueOf((String) filter.getValue());
                     filter.setValue(enumValue);
