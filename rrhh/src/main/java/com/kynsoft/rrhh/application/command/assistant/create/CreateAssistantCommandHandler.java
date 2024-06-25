@@ -4,18 +4,30 @@ import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsoft.rrhh.domain.dto.AssistantDto;
+import com.kynsoft.rrhh.domain.dto.BusinessDto;
+import com.kynsoft.rrhh.domain.dto.UserBusinessRelationDto;
 import com.kynsoft.rrhh.domain.interfaces.services.IAssistantService;
+import com.kynsoft.rrhh.domain.interfaces.services.IBusinessService;
+import com.kynsoft.rrhh.domain.interfaces.services.IUserBusinessRelationService;
 import com.kynsoft.rrhh.domain.rules.assistant.AssistantEmailMustBeUniqueRule;
 import com.kynsoft.rrhh.domain.rules.assistant.AssistantIdentificationMustBeUniqueRule;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Component
 public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssistantCommand> {
 
     private final IAssistantService service;
+    private final IBusinessService businessService;
+    private final IUserBusinessRelationService userBusinessRelationService;
 
-    public CreateAssistantCommandHandler(IAssistantService service) {
+    public CreateAssistantCommandHandler(IAssistantService service, IBusinessService businessService,
+                                         IUserBusinessRelationService userBusinessRelationService) {
         this.service = service;
+        this.businessService = businessService;
+        this.userBusinessRelationService = userBusinessRelationService;
     }
 
     @Override
@@ -24,7 +36,7 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
 
         RulesChecker.checkRule(new AssistantEmailMustBeUniqueRule(this.service, command.getEmail()));
         RulesChecker.checkRule(new AssistantIdentificationMustBeUniqueRule(this.service, command.getIdentification()));
-
+        BusinessDto businessDto = this.businessService.findById(command.getBusiness());
         AssistantDto assistantSave = new AssistantDto(
                 command.getId(),
                 command.getIdentification(),
@@ -38,5 +50,8 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
         );
 
         service.create(assistantSave);
+
+        this.userBusinessRelationService.create(new UserBusinessRelationDto(UUID.randomUUID(),
+                assistantSave,businessDto, "ACTIVE", LocalDateTime.now()));
     }
 }

@@ -17,4 +17,5 @@ public class CreateAssistantRequest {
     private String phoneNumber;
     private String image;
     private String department;
+    private UUID business;
 }

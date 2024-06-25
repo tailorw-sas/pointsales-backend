@@ -20,9 +20,10 @@ public class CreateAssistantCommand implements ICommand {
     private String phoneNumber;
     private String image;
     private String department;
+    private final UUID business;
 
-    public CreateAssistantCommand(UUID id,String identification, String email, String name, String lastName, String status,
-                                  String phoneNumber, String image, String department) {
+    public CreateAssistantCommand(UUID id, String identification, String email, String name, String lastName, String status,
+                                  String phoneNumber, String image, String department, UUID business) {
         this.id = id;
         this.identification = identification;
         this.email = email;
@@ -32,6 +33,7 @@ public class CreateAssistantCommand implements ICommand {
         this.phoneNumber = phoneNumber;
         this.image = image;
         this.department = department;
+        this.business = business;
     }
 
     public static CreateAssistantCommand fromRequest(CreateAssistantRequest request) {
@@ -44,7 +46,8 @@ public class CreateAssistantCommand implements ICommand {
                 request.getStatus(),
                 request.getPhoneNumber(),
                 request.getImage(),
-                request.getDepartment()
+                request.getDepartment(),
+                request.getBusiness()
         );
     }
 
