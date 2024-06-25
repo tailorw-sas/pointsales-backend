@@ -12,7 +12,9 @@ import lombok.Setter;
 public class CustomerKafka {
 
     private String id;
+    private String identificationNumber;
     private String firstName;
     private String lastName;
     private String email;
+    private String image;
 }

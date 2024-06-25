@@ -81,9 +81,11 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
         this.dependentPatientsEventService.create(patientDto, command.getCreateContactInfoRequest().getBirthdayDate());
         this.createCustomerEventService.create(new CustomerKafka(
                 id.toString(),
+                dependentPatientDto.getIdentification(),
                 dependentPatientDto.getName(),
                 dependentPatientDto.getLastName(),
-                command.getCreateContactInfoRequest().getEmail()
+                command.getCreateContactInfoRequest().getEmail(),
+                command.getPhoto()
         ));
     }
 }

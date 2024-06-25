@@ -30,8 +30,6 @@ public class Patient {
 
     private String lastName;
 
-    private String gender;
-
     private UUID logo;
 
     @Enumerated(EnumType.STRING)
@@ -51,12 +49,11 @@ public class Patient {
         this.email = patients.getEmail();
         this.name = patients.getName();
         this.lastName = patients.getLastName();
-        this.gender = patients.getGender();
         this.status = patients.getStatus();
         this.logo = patients.getLogo();
     }
 
     public PatientDto toAggregate() {
-        return new PatientDto(id, identification, email, name, lastName, gender, status, logo);
+        return new PatientDto(id, identification, email, name, lastName, status, logo);
     }
 }

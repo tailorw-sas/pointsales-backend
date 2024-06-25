@@ -11,7 +11,6 @@ import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.response.ErrorField;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,11 +19,14 @@ import java.util.UUID;
 @Service
 public class PatientsServiceImpl implements IPatientsService {
 
-    @Autowired
-    private PatientsWriteDataJPARepository repositoryCommand;
+    private final PatientsWriteDataJPARepository repositoryCommand;
 
-    @Autowired
-    private PatientsReadDataJPARepository repositoryQuery;
+    private final PatientsReadDataJPARepository repositoryQuery;
+
+    public PatientsServiceImpl(PatientsWriteDataJPARepository repositoryCommand, PatientsReadDataJPARepository repositoryQuery) {
+        this.repositoryCommand = repositoryCommand;
+        this.repositoryQuery = repositoryQuery;
+    }
 
 
     @Override
@@ -45,7 +47,6 @@ public class PatientsServiceImpl implements IPatientsService {
                     if (patientDto.getLastName() != null) patient.setLastName(patientDto.getLastName());
                     if (patientDto.getIdentification() != null)
                         patient.setIdentification(patientDto.getIdentification());
-                    if (patientDto.getGender() != null) patient.setGender(patientDto.getGender());
                     if (patientDto.getStatus() != null) patient.setStatus(patientDto.getStatus());
                     if(patientDto.getLogo() != null) patient.setLogo(patientDto.getLogo());
 

@@ -28,9 +28,9 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
     private final ProducerCreateCustomerEventService createCustomerEventService;
 
     public CreatePatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
-            IGeographicLocationService geographicLocationService,
-            ProducerCreatePatientsEventService patientEventService,
-            ProducerCreateCustomerEventService createCustomerEventService
+                                        IGeographicLocationService geographicLocationService,
+                                        ProducerCreatePatientsEventService patientEventService,
+                                        ProducerCreateCustomerEventService createCustomerEventService
     ) {
         this.serviceImpl = serviceImpl;
         this.contactInfoService = contactInfoService;
@@ -44,7 +44,7 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
         UUID idPatient = UUID.randomUUID();
         RulesChecker.checkRule(new DependentMustBeUniqueRule(this.serviceImpl, command.getIdentification(), idPatient));
         PatientDto patientDto = new PatientDto(
-                idPatient,
+                command.getId(),
                 command.getIdentification(),
                 command.getName(),
                 command.getLastName(),
@@ -83,9 +83,11 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
 
         this.createCustomerEventService.create(new CustomerKafka(
                 patientDto.getId().toString(),
+                patientDto.getIdentification(),
                 patientDto.getName(),
                 patientDto.getLastName(),
-                command.getCreateContactInfoRequest().getEmail()
+                command.getCreateContactInfoRequest().getEmail(),
+                patientDto.getPhoto()
         ));
     }
 }
