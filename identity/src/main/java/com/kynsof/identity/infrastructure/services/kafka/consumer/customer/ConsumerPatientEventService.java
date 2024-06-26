@@ -29,7 +29,7 @@ public class ConsumerPatientEventService {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
-            CustomerKafka eventRead = objectMapper.treeToValue(rootNode, CustomerKafka.class);
+            CustomerKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), CustomerKafka.class);
 
             this.service.create(new CustomerDto(UUID.fromString(eventRead.getId()), eventRead.getFirstName(), eventRead.getLastName(), eventRead.getEmail(), ConfigureTimeZone.getTimeZone()));
         } catch (JsonProcessingException ex) {
