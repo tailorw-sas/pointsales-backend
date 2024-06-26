@@ -28,10 +28,12 @@ public class ConsumerPatientEventService {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
-            CustomerKafka eventRead = objectMapper.treeToValue(rootNode,
+            CustomerKafka eventRead = objectMapper.treeToValue(rootNode.get("data"),
                     CustomerKafka.class);
+
             this.service.create(new PatientDto(
-                    UUID.fromString(eventRead.getId()), "",
+                    UUID.fromString(eventRead.getId()),
+                    eventRead.getEmail(),
                     eventRead.getIdentificationNumber(),
                     eventRead.getFirstName(),
                     eventRead.getLastName(),
