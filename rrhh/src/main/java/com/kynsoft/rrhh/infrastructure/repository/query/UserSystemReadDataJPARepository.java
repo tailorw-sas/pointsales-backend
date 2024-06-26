@@ -7,10 +7,12 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserSystemReadDataJPARepository extends JpaRepository<UserSystem, UUID>,
         JpaSpecificationExecutor<UserSystem> {
     Page<UserSystem> findAll(Specification specification, Pageable pageable);
 
+    Optional<UserSystem> findByIdentification(String identification);
 }

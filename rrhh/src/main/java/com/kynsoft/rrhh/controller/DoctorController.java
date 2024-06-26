@@ -16,6 +16,8 @@ import com.kynsoft.rrhh.application.command.doctor.update.UpdateDoctorRequest;
 import com.kynsoft.rrhh.application.query.doctor.getbyid.DoctorResponse;
 import com.kynsoft.rrhh.application.query.doctor.getbyid.FindByIdDoctorQuery;
 import com.kynsoft.rrhh.application.query.doctor.search.GetSearchDoctorQuery;
+import com.kynsoft.rrhh.application.query.users.getByIdentification.FindByIdentificationUserSystemsQuery;
+import com.kynsoft.rrhh.application.query.users.getByIdentification.UserSystemsByIdentificationResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +48,15 @@ public class DoctorController {
 
         FindByIdDoctorQuery query = new FindByIdDoctorQuery(id);
         DoctorResponse response = mediator.send(query);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/identification/{identification}")
+    public ResponseEntity<?> getByIdentification(@PathVariable String identification) {
+
+        FindByIdentificationUserSystemsQuery query = new FindByIdentificationUserSystemsQuery(identification);
+        UserSystemsByIdentificationResponse response = mediator.send(query);
 
         return ResponseEntity.ok(response);
     }

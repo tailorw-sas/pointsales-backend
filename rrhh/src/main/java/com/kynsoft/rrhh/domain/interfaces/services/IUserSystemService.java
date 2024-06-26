@@ -18,4 +18,5 @@ public interface IUserSystemService {
     UserSystemDto findById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    UserSystemDto getUserByIdentification(String identification);
 }

@@ -16,6 +16,9 @@ import com.kynsof.calendar.application.command.receipt.delete.ReceiptDeleteMessa
 import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptCommand;
 import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptMessage;
 import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptRequest;
+import com.kynsof.calendar.application.command.receipt.updateStatus.UpdateStatusReceiptCommand;
+import com.kynsof.calendar.application.command.receipt.updateStatus.UpdateStatusReceiptMessage;
+import com.kynsof.calendar.application.command.receipt.updateStatus.UpdateStatusReceiptRequest;
 import com.kynsof.calendar.application.query.ReceiptResponse;
 import com.kynsof.calendar.application.query.receipt.getbyid.FindReceiptByIdQuery;
 import com.kynsof.calendar.application.query.receipt.search.GetSearchReceiptQuery;
@@ -135,6 +138,17 @@ public class ReceiptController {
         ReceiptDeleteCommand command = new ReceiptDeleteCommand(id);
         ReceiptDeleteMessage response = mediator.send(command);
 
+        return ResponseEntity.ok(response);
+    }
+
+
+
+    @PostMapping("/change-status/{receiptId}")
+    public ResponseEntity<?> changeStatus(@PathVariable UUID receiptId, @RequestBody UpdateStatusReceiptRequest confirmPaymentReceiptRequest) {
+
+        UpdateStatusReceiptCommand createCommand = UpdateStatusReceiptCommand.fromRequest(receiptId,
+                confirmPaymentReceiptRequest );
+        UpdateStatusReceiptMessage response = mediator.send(createCommand);
         return ResponseEntity.ok(response);
     }
 

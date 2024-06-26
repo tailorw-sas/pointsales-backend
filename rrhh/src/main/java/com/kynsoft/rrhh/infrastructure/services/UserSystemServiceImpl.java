@@ -10,15 +10,16 @@ import com.kynsof.share.core.infrastructure.specifications.GenericSpecifications
 import com.kynsoft.rrhh.application.query.users.getbyid.UserSystemsByIdResponse;
 import com.kynsoft.rrhh.domain.dto.UserSystemDto;
 import com.kynsoft.rrhh.domain.interfaces.services.IUserSystemService;
+import com.kynsoft.rrhh.infrastructure.identity.Assistant;
+import com.kynsoft.rrhh.infrastructure.identity.Doctor;
 import com.kynsoft.rrhh.infrastructure.identity.UserSystem;
 import com.kynsoft.rrhh.infrastructure.repository.command.UserSystemsWriteDataJPARepository;
 import com.kynsoft.rrhh.infrastructure.repository.query.UserSystemReadDataJPARepository;
-import java.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,11 +28,14 @@ import java.util.UUID;
 @Service
 public class UserSystemServiceImpl implements IUserSystemService {
 
-    @Autowired
-    private UserSystemsWriteDataJPARepository repositoryCommand;
+    private final UserSystemsWriteDataJPARepository repositoryCommand;
 
-    @Autowired
-    private UserSystemReadDataJPARepository repositoryQuery;
+    private final UserSystemReadDataJPARepository repositoryQuery;
+
+    public UserSystemServiceImpl(UserSystemsWriteDataJPARepository repositoryCommand, UserSystemReadDataJPARepository repositoryQuery) {
+        this.repositoryCommand = repositoryCommand;
+        this.repositoryQuery = repositoryQuery;
+    }
 
     @Override
     public UUID create(UserSystemDto userSystemDto) {
@@ -58,6 +62,22 @@ public class UserSystemServiceImpl implements IUserSystemService {
             return userSystem.get().toAggregate();
         }
         throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.USER_NOT_FOUND, new ErrorField("User.id", "User not found.")));
+    }
+    @Override
+    public UserSystemDto getUserByIdentification(String identification) {
+        Optional<UserSystem> userSystemOptional = repositoryQuery.findByIdentification(identification);
+        if (userSystemOptional.isPresent()) {
+            UserSystem userSystem = userSystemOptional.get();
+            if (userSystem instanceof Doctor) {
+                return ((Doctor) userSystem).toAggregate();
+            } else if (userSystem instanceof Assistant) {
+                return ((Assistant) userSystem).toAggregate();
+            } else {
+                return userSystem.toAggregate();
+            }
+        } else {
+            throw new RuntimeException("User not found");
+        }
     }
 
     @Override
