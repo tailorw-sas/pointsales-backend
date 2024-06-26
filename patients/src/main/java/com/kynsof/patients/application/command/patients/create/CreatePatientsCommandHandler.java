@@ -42,7 +42,8 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
     @Override
     public void handle(CreatePatientsCommand command) {
         UUID idPatient = UUID.randomUUID();
-        RulesChecker.checkRule(new DependentMustBeUniqueRule(this.serviceImpl, command.getIdentification(), idPatient));
+        RulesChecker.checkRule(new DependentMustBeUniqueRule(this.serviceImpl, command.getIdentification(), command.getId()));
+        GeographicLocationDto parroquia = geographicLocationService.findById(command.getCreateContactInfoRequest().getParroquia());
         PatientDto patientDto = new PatientDto(
                 command.getId(),
                 command.getIdentification(),
@@ -64,7 +65,7 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
 //
 //        GeographicLocationDto province = geographicLocationService.findById(command.getCreateContactInfoRequest().getProvince());
 //        GeographicLocationDto canton = geographicLocationService.findById(command.getCreateContactInfoRequest().getCanton());
-        GeographicLocationDto parroquia = geographicLocationService.findById(command.getCreateContactInfoRequest().getParroquia());
+
         contactInfoService.create(new ContactInfoDto(
                 UUID.randomUUID(),
                 patientDto,
