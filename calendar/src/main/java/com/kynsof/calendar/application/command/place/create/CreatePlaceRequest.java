@@ -14,5 +14,6 @@ public class CreatePlaceRequest {
     private EServiceStatus status;
     private String code;
     private UUID block;
+    private UUID business;
 
 }

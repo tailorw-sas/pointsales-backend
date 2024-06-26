@@ -18,5 +18,6 @@ public class BlockDto implements Serializable {
     private String name;
     private EServiceStatus status;
     private String code;
+    private BusinessDto businessDto;
 
 }

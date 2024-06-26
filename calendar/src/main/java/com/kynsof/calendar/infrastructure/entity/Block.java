@@ -38,6 +38,10 @@ public class Block {
     @Enumerated(EnumType.STRING)
     private EServiceStatus status;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "business_id", nullable = false)
+    private Business business;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -53,9 +57,10 @@ public class Block {
         this.name = dto.getName();
         this.status = dto.getStatus();
         this.code = dto.getCode();
+        this.business = new Business(dto.getBusinessDto());
     }
 
     public BlockDto toAggregate() {
-        return new BlockDto(this.id, this.name, status, code);
+        return new BlockDto(this.id, this.name, status, code, business.toAggregate());
     }
 }

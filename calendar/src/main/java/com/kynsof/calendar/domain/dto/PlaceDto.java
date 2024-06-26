@@ -19,5 +19,5 @@ public class PlaceDto implements Serializable {
     private EServiceStatus status;
     private String code;
     private BlockDto block;
-
+    private BusinessDto businessDto;
 }

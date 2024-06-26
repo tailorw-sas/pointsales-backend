@@ -16,8 +16,10 @@ public class CreateBlockCommand implements ICommand {
     private String name;
     private EServiceStatus status;
     private String code;
+    private final UUID business;
 
-    public CreateBlockCommand(String name,  EServiceStatus status, String code) {
+    public CreateBlockCommand(String name, EServiceStatus status, String code, UUID business) {
+        this.business = business;
 
         this.id = UUID.randomUUID();
         this.name = name;
@@ -26,7 +28,8 @@ public class CreateBlockCommand implements ICommand {
     }
 
     public static CreateBlockCommand fromRequest(CreateBlockRequest request) {
-        return new CreateBlockCommand(request.getName(),  request.getStatus(), request.getCode());
+        return new CreateBlockCommand(request.getName(),  request.getStatus(), request.getCode(),
+                request.getBusiness());
     }
 
     @Override

@@ -47,15 +47,20 @@ public class Place {
     @JoinColumn(name = "block_id", nullable = false)
     private Block block;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "business_id", nullable = false)
+    private Business business;
+
     public Place(PlaceDto dto) {
         this.id = dto.getId();
         this.name = dto.getName();
         this.status = dto.getStatus();
         this.code = dto.getCode();
-        this.block = new Block(dto.getBlock()); // Assuming dto has BlockDto
+        this.block = new Block(dto.getBlock());
+        this.business = new Business(dto.getBusinessDto());
     }
 
     public PlaceDto toAggregate() {
-        return new PlaceDto(this.id, this.name, status, code, block.toAggregate());
+        return new PlaceDto(this.id, this.name, status, code, block.toAggregate(), business.toAggregate());
     }
 }

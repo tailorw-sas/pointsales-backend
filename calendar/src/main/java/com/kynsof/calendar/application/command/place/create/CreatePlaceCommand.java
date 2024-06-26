@@ -17,9 +17,11 @@ public class CreatePlaceCommand implements ICommand {
     private String name;
     private EServiceStatus status;
     private final UUID block;
+    private final UUID business;
 
-    public CreatePlaceCommand(String name, EServiceStatus status, String code, UUID block) {
+    public CreatePlaceCommand(String name, EServiceStatus status, String code, UUID block, UUID business) {
         this.block = block;
+        this.business = business;
         this.id = UUID.randomUUID();
         this.name = name;
         this.status = status;
@@ -28,7 +30,7 @@ public class CreatePlaceCommand implements ICommand {
 
     public static CreatePlaceCommand fromRequest(CreatePlaceRequest request) {
         return new CreatePlaceCommand(request.getName(),  request.getStatus(), request.getCode(),
-                request.getBlock());
+                request.getBlock(), request.getBusiness());
     }
 
     @Override
