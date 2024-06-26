@@ -12,7 +12,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class CreatePatientsRequest {
-    private UUID ud;
+    private UUID id;
     private String identification;
     private String name;
     private String lastName;

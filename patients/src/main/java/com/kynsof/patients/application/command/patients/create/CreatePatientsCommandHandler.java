@@ -76,10 +76,10 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
                 parroquia
         ));
 
-        this.patientEventService.create(
-                patientDto,
-                command.getCreateContactInfoRequest().getBirthdayDate()
-        );
+//        this.patientEventService.create(
+//                patientDto,
+//                command.getCreateContactInfoRequest().getBirthdayDate()
+//        );
 
         this.createCustomerEventService.create(new CustomerKafka(
                 patientDto.getId().toString(),
