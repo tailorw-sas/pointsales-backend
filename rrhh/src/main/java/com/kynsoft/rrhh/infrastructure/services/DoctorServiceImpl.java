@@ -8,18 +8,16 @@ import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsoft.rrhh.application.query.doctor.getbyid.DoctorResponse;
-import com.kynsoft.rrhh.application.query.users.getbyid.UserSystemsByIdResponse;
 import com.kynsoft.rrhh.domain.dto.DoctorDto;
 import com.kynsoft.rrhh.domain.interfaces.services.IDoctorService;
 import com.kynsoft.rrhh.infrastructure.identity.Doctor;
-import com.kynsoft.rrhh.infrastructure.identity.UserSystem;
 import com.kynsoft.rrhh.infrastructure.repository.command.DoctorWriteDataJPARepository;
 import com.kynsoft.rrhh.infrastructure.repository.query.DoctorReadDataJPARepository;
-import java.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +67,7 @@ public class DoctorServiceImpl implements IDoctorService {
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         GenericSpecificationsBuilder<Doctor> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+       //Page<UserBusinessRelation> responses =  this.userBusinessRelationReadDataJPARepository.findAll(specifications, pageable);
         Page<Doctor> data = this.repositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(data);
     }
@@ -82,14 +81,6 @@ public class DoctorServiceImpl implements IDoctorService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
-    private PaginatedResponse getPaginatedResponseUserSystem(Page<UserSystem> data) {
-        List<UserSystemsByIdResponse> users = new ArrayList<>();
-        for (UserSystem o : data.getContent()) {
-            users.add(new UserSystemsByIdResponse(o.toAggregate()));
-        }
-        return new PaginatedResponse(users, data.getTotalPages(), data.getNumberOfElements(),
-                data.getTotalElements(), data.getSize(), data.getNumber());
-    }
 
     @Override
     public Long countByIdentification(String identification) {

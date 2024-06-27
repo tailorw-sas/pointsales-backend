@@ -5,7 +5,6 @@ import com.kynsoft.rrhh.domain.interfaces.services.IUserBusinessRelationService;
 import com.kynsoft.rrhh.infrastructure.identity.UserBusinessRelation;
 import com.kynsoft.rrhh.infrastructure.repository.command.UserBusinessRelationWriteDataJPARepository;
 import com.kynsoft.rrhh.infrastructure.repository.query.UserBusinessRelationReadDataJPARepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -13,11 +12,14 @@ import java.util.UUID;
 @Service
 public class UserBusinessRelationServiceImpl implements IUserBusinessRelationService {
 
-    @Autowired
-    private UserBusinessRelationWriteDataJPARepository repositoryCommand;
+    private final UserBusinessRelationWriteDataJPARepository repositoryCommand;
 
-    @Autowired
-    private UserBusinessRelationReadDataJPARepository repositoryQuery;
+    private final UserBusinessRelationReadDataJPARepository repositoryQuery;
+
+    public UserBusinessRelationServiceImpl(UserBusinessRelationWriteDataJPARepository repositoryCommand, UserBusinessRelationReadDataJPARepository repositoryQuery) {
+        this.repositoryCommand = repositoryCommand;
+        this.repositoryQuery = repositoryQuery;
+    }
 
     @Override
     public void create(UserBusinessRelationDto object) {
