@@ -2,6 +2,7 @@ package com.kynsof.calendar.application.command.receipt.createReceiptScheduled;
 
 import com.kynsof.calendar.application.command.receipt.create.CreateReceiptCommand;
 import com.kynsof.calendar.domain.dto.*;
+import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.domain.service.*;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
@@ -43,7 +44,7 @@ public class CreateScheduleReceiptCommandHandler implements ICommandHandler<Crea
 
         CreateReceiptCommand createReceiptCommand = new CreateReceiptCommand(
                 _service.getNormalAppointmentPrice(), false, command.getReason(), command.getUser(), scheduledId, command.getServiceId(),
-                command.getIpAddress(), command.getUserAgent()
+                command.getIpAddress(), command.getUserAgent(), EStatusReceipt.PENDING
         );
         mediator.send(createReceiptCommand);
     }
