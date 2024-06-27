@@ -15,7 +15,6 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,11 +26,15 @@ import java.util.stream.Collectors;
 @Service
 public class UserPermissionBusinessServiceImpl implements IUserPermissionBusinessService {
 
-    @Autowired
-    private UserPermissionBusinessWriteDataJPARepository commandRepository;
+    private final UserPermissionBusinessWriteDataJPARepository commandRepository;
 
-    @Autowired
-    private UserPermissionBusinessReadDataJPARepository queryRepository;
+    private final UserPermissionBusinessReadDataJPARepository queryRepository;
+
+    public UserPermissionBusinessServiceImpl(UserPermissionBusinessWriteDataJPARepository commandRepository,
+                                             UserPermissionBusinessReadDataJPARepository queryRepository) {
+        this.commandRepository = commandRepository;
+        this.queryRepository = queryRepository;
+    }
 
     @Override
     @Transactional
@@ -60,15 +63,12 @@ public class UserPermissionBusinessServiceImpl implements IUserPermissionBusines
         this.commandRepository.delete(new UserPermissionBusiness(delete));
     }
 
+    @Transactional
     @Override
-    public void delete(List<UserPermissionBusinessDto> userRoleBusiness) {
-        List<UserPermissionBusiness> deletes = new ArrayList<>();
-        for (UserPermissionBusinessDto dto : userRoleBusiness) {
-            dto.setDeleted(true);
-            deletes.add(new UserPermissionBusiness(dto));
-        }
-        this.commandRepository.saveAll(deletes);
+    public void delete(UUID businessId, UUID userId) {
+        commandRepository.deleteAllByUserIdAndBusinessId(userId, businessId);
     }
+
 
     @Override
     public UserPermissionBusinessDto findById(UUID id) {

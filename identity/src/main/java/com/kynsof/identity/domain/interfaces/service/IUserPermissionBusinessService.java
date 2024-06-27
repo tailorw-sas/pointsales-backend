@@ -13,7 +13,7 @@ public interface IUserPermissionBusinessService {
     void create(List<UserPermissionBusinessDto> userRoleBusiness);
     void update(List<UserPermissionBusinessDto> userRoleBusiness);
     void delete(UserPermissionBusinessDto delete); 
-    void delete(List<UserPermissionBusinessDto> userRoleBusiness);
+    void delete(UUID businessId, UUID userId);
     UserPermissionBusinessDto findById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);

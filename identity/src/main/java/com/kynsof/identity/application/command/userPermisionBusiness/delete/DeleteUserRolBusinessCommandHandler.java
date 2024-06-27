@@ -22,7 +22,6 @@ public class DeleteUserRolBusinessCommandHandler implements ICommandHandler<Dele
     public void handle(DeleteUserRolBusinessCommand command) {
 
         UserPermissionBusinessDto delete = this.serviceImpl.findById(command.getId());
-        delete.setDeleted(true);
         serviceImpl.delete(delete);
         if (this.serviceImpl.countByUserAndBusinessNotDeleted(delete.getUser().getId(), delete.getBusiness().getId()) == 0) {
             this.deleteUserBusinessRelationEventService.delete(delete.getUser().getId(), delete.getBusiness().getId());

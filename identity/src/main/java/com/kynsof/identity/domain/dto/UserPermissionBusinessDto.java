@@ -14,7 +14,6 @@ public class UserPermissionBusinessDto {
     private UserSystemDto user;
     private PermissionDto permission;
     private BusinessDto business;
-    private boolean deleted = false;
 
     public UserPermissionBusinessDto(UUID id, UserSystemDto user, PermissionDto role, BusinessDto business) {
         this.id = id;

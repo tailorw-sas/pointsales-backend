@@ -28,7 +28,7 @@ public class DeleteUserBusinessRelationCommandHandler implements ICommandHandler
                 .stream()
                 .toList();
         if (!currentPermissions.isEmpty()) {
-            this.service.delete(currentPermissions);
+        //    this.service.delete(currentPermissions);
             this.deleteUserBusinessRelationEventService.delete(currentPermissions.get(0).getUser().getId(), currentPermissions.get(0).getBusiness().getId());
         }
     }

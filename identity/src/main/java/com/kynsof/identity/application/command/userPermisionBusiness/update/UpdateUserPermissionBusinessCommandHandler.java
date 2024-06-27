@@ -41,26 +41,6 @@ public class UpdateUserPermissionBusinessCommandHandler implements ICommandHandl
 
         UserSystemDto userSystemDto = userSystemService.findById(updateRequest.getUserId());
         BusinessDto businessDto = businessService.findById(updateRequest.getBusinessId());
-
-        List<UserPermissionBusinessDto> currentPermissions = service.findByUserAndBusiness(userSystemDto.getId(),
-                        businessDto.getId())
-                .stream()
-                .toList();
-
-//        Set<UUID> newPermissionIds = new HashSet<>(updateRequest.getPermissionIds());
-//        Set<UUID> currentPermissionIds = currentPermissions.stream()
-//                .map(permission -> permission.getPermission().getId())
-//                .collect(Collectors.toSet());
-//
-//        // Determinar cambios necesarios
-//        Set<UUID> permissionsToAdd = new HashSet<>(newPermissionIds);
-//        permissionsToAdd.removeAll(currentPermissionIds);
-//
-//        Set<UUID> permissionsToRemove = new HashSet<>(currentPermissionIds);
-//        permissionsToRemove.removeAll(newPermissionIds);
-//        List<UserPermissionBusinessDto> addPermissionUserBusinessList = new ArrayList<>();
-//        List<UserPermissionBusinessDto> deletePermissionUserBusinessList = new ArrayList<>();
-        // Ejecutar cambios
         List<UserPermissionBusinessDto> addPermissionUserBusinessList = new java.util.ArrayList<>(List.of());
         for (UUID permissionIdToAdd : command.getPayload().getPermissionIds()) {
             PermissionDto permissionDto = permissionService.findById(permissionIdToAdd);
@@ -72,21 +52,9 @@ public class UpdateUserPermissionBusinessCommandHandler implements ICommandHandl
             addPermissionUserBusinessList.add(newUserPermissionBusiness);
         }
 
-//        for (UUID permissionIdToRemove : permissionsToRemove) {
-//            currentPermissions.stream()
-//                    .filter(p -> p.getPermission().getId().equals(permissionIdToRemove))
-//                    .findFirst().ifPresent(deletePermissionUserBusinessList::add);
-//        }
+        service.delete(updateRequest.getBusinessId(), updateRequest.getUserId());
 
-        service.delete(currentPermissions);
         service.create(addPermissionUserBusinessList);
 
-    }
-
-
-    private boolean validate(UserPermissionBusinessDto payloadUpdate, UserPermissionBusinessDto toUpdate) {
-        return !(payloadUpdate.getBusiness().getId().equals(toUpdate.getBusiness().getId()) &&
-                payloadUpdate.getPermission().getId().equals(toUpdate.getPermission().getId()) &&
-                payloadUpdate.getUser().getId().equals(toUpdate.getUser().getId()));
     }
 }
