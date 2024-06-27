@@ -65,7 +65,9 @@ public class ExternalConsultation {
     private ExamOrder examOrder;
 
     @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
