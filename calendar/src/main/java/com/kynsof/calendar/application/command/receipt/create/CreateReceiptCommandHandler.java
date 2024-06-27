@@ -4,7 +4,6 @@ import com.kynsof.calendar.domain.dto.PatientDto;
 import com.kynsof.calendar.domain.dto.ReceiptDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.dto.ServiceDto;
-import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.domain.service.IPatientsService;
 import com.kynsof.calendar.domain.service.IReceiptService;
@@ -40,7 +39,7 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
         ServiceDto _service = this.serviceService.findByIds(command.getService());
 
         if (_schedule.getStock() == 0) {
-            throw new BusinessException(DomainErrorMessage.SCHEDULE_IS_NOT_AVAIBLE, "The selected schedule is not available.");
+            throw new BusinessException(DomainErrorMessage.SCHEDULE_IS_NOT_AVAIBLE, "La cita no está disponible.");
         }
 
         ReceiptDto receiptDto = new ReceiptDto(
@@ -51,7 +50,7 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
                 _patient,
                 _schedule,
                 _service,
-                EStatusReceipt.PRE_RESERVE
+                command.getStatus()
 
         );
         receiptDto.setIpAddressCreate(command.getIpAddress());
