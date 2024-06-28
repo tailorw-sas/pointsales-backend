@@ -24,7 +24,6 @@
         <spring-security-oauth2.version>2.5.2.RELEASE</spring-security-oauth2.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     </properties>
-
     <dependencyManagement>
         <dependencies>
             <!-- Override Lombok provided by Spring Boot -->
