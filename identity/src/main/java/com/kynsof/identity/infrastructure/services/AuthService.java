@@ -98,21 +98,7 @@ public class AuthService implements IAuthService {
 
     @Override
     public String registerUser(@NonNull UserRequest userRequest, boolean isSystemUser) {
-        String userId = createUser(userRequest.getName(), userRequest.getLastName(), userRequest.getEmail(), userRequest.getUserName(), userRequest.getPassword());
-
-//        producerRegisterUserEvent.create(new UserKafka(
-//                userId,
-//                userRequest.getUserName(),
-//                userRequest.getEmail(),
-//                userRequest.getName(),
-//                userRequest.getLastName(),
-//                "",
-//                "",
-//                "",
-//                ""
-//        ));
-
-        return userId;
+        return createUser(userRequest.getName(), userRequest.getLastName(), userRequest.getEmail(), userRequest.getUserName(), userRequest.getPassword());
     }
 
     @Override
@@ -182,6 +168,22 @@ public class AuthService implements IAuthService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Boolean delete(String userId) {
+        UsersResource usersResource = keycloakProvider.getRealmResource().users();
+        UserRepresentation user = usersResource.get(userId).toRepresentation();
+        if (user == null) {
+            throw new UserNotFoundException("User not found", new ErrorField("userId", "User not found with the provided ID"));
+        }
+
+        try {
+            usersResource.get(userId).remove();
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete user", e);
+        }
     }
 
     private HttpHeaders createHeaders() {

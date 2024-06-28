@@ -16,4 +16,5 @@ public interface IAuthService {
     Boolean sendPasswordRecoveryOtp(String email);
     Boolean changePassword(String userId, String newPassword);
     Boolean firstChangePassword(String userId, String email, String newPassword, String oldPassword);
+    Boolean delete(String userId);
 }

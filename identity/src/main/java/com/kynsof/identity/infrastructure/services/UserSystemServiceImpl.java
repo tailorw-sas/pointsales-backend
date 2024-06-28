@@ -54,7 +54,7 @@ public class UserSystemServiceImpl implements IUserSystemService {
     @Override
     @Transactional
     public void delete(UserSystemDto userSystemDto) {
-        repositoryCommand.save(deactivateUser(userSystemDto));
+        repositoryCommand.deleteById(userSystemDto.getId());
     }
 
     @Override
