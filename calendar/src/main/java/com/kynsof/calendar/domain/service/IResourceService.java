@@ -18,16 +18,16 @@ public interface IResourceService {
     void delete(UUID id);
 
     ResourceDto findById(UUID id);
-
-    PaginatedResponse findAll(Pageable pageable, UUID idObject, String filter);
-
+    
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
     PaginatedResponse findResourcesWithAvailableSchedules(UUID businessId, UUID serviceId, LocalDate date,
-                                                                       Pageable pageable);
+                                                          Pageable pageable);
 
     void addBusiness(UUID businessId, UUID serviceId, LocalDate date);
+
     void addServicesToResource(UUID resourceId, List<UUID> serviceIds);
+
     PaginatedResponse findResourcesByServiceId(UUID businessId, UUID serviceId, Pageable pageable);
 
     List<ServiceDto> getAllServicesByResourceAndBusiness(UUID resourceId, UUID businessId);

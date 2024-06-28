@@ -51,6 +51,9 @@ public class Services {
     @OneToMany(mappedBy = "service",fetch = FetchType.EAGER)
     private Set<ResourceService> resourceServices = new HashSet<>();
 
+    @OneToMany(mappedBy = "services",fetch = FetchType.EAGER)
+    private Set<Turn> turns = new HashSet<>();
+
     @OneToMany(mappedBy = "service")
     private Set<Schedule> schedules = new HashSet<>();
 

@@ -15,7 +15,6 @@ import com.kynsof.calendar.application.command.schedule.update.ScheduleUpdateReq
 import com.kynsof.calendar.application.command.schedule.update.UpdateScheduleCommand;
 import com.kynsof.calendar.application.command.schedule.update.UpdateScheduleMessage;
 import com.kynsof.calendar.application.query.ScheduleResponse;
-import com.kynsof.calendar.application.query.schedule.getAll.FindScheduleWithFilterQuery;
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesAndSlots.AvailableDatesByResourceRequest;
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesAndSlots.GetAvailableDatesAndSlotsQuery;
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesAndSlots.GetAvailableDatesAndSlotsResponse;
@@ -24,19 +23,15 @@ import com.kynsof.calendar.application.query.schedule.getAvailableDatesByService
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesByServiceId.GetAvailableDatesByServiceIdResponse;
 import com.kynsof.calendar.application.query.schedule.getbyid.FindScheduleByIdQuery;
 import com.kynsof.calendar.application.query.schedule.search.GetSearchScheduleQuery;
-import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -93,20 +88,6 @@ public class ScheduledController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
-            @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "") UUID resource,
-            @RequestParam(defaultValue = "") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
-            @RequestParam(defaultValue = "") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
-            @RequestParam(defaultValue = "") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
-            @RequestParam(defaultValue = "") EStatusSchedule status) {
-        Pageable pageable = PageRequest.of(page, pageSize);
-        FindScheduleWithFilterQuery query = new FindScheduleWithFilterQuery(pageable, resource, date, startDate, endDate, status);
-        PaginatedResponse data = mediator.send(query);
-
-        return ResponseEntity.ok(data);
-    }
 
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {

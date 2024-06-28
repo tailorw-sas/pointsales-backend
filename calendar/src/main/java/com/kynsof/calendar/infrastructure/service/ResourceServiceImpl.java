@@ -8,7 +8,6 @@ import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.calendar.infrastructure.entity.*;
-import com.kynsof.calendar.infrastructure.entity.specifications.ResourceSpecifications;
 import com.kynsof.calendar.infrastructure.repository.command.BusinessResourceWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.command.ResourceServiceWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.command.ResourceWriteDataJPARepository;
@@ -89,18 +88,6 @@ public class ResourceServiceImpl implements IResourceService {
 
     }
 
-    @Override
-    public PaginatedResponse findAll(Pageable pageable, UUID idObject, String filter) {
-        ResourceSpecifications specifications = new ResourceSpecifications(idObject, filter);
-        Page<Resource> data = this.repositoryQuery.findAll(specifications, pageable);
-
-        List<ResourceResponse> objects = new ArrayList<>();
-        for (Resource o : data.getContent()) {
-            objects.add(new ResourceResponse(o.toAggregate()));
-        }
-        return new PaginatedResponse(objects, data.getTotalPages(), data.getNumberOfElements(),
-                data.getTotalElements(), data.getSize(), data.getNumber());
-    }
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {

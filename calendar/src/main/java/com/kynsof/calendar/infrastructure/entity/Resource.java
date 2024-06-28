@@ -42,6 +42,9 @@ public class Resource {
     @OneToMany(mappedBy = "resource", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<BusinessResource> businessResources = new HashSet<>();
 
+    @OneToMany(mappedBy = "resource", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Turn> turns = new HashSet<>();
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;

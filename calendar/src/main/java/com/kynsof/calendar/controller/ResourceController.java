@@ -11,7 +11,6 @@ import com.kynsof.calendar.application.command.resource.update.UpdateResourceReq
 import com.kynsof.calendar.application.query.ResourceResponse;
 import com.kynsof.calendar.application.query.resource.findResourcesWithAvailableSchedules.ScheduleSearchCriteriaRequest;
 import com.kynsof.calendar.application.query.resource.findResourcesWithAvailableSchedules.findResourcesWithAvailableSchedulesQuery;
-import com.kynsof.calendar.application.query.resource.getAll.FindResourceWithFilterQuery;
 import com.kynsof.calendar.application.query.resource.getServiceByBusinessIdByResourceId.getServiceByBusinessIdByResourceIdQuery;
 import com.kynsof.calendar.application.query.resource.getbyid.FindResourceByIdQuery;
 import com.kynsof.calendar.application.query.resource.getresourcesbyidservice.FindResourcesByIdServiceQuery;
@@ -57,19 +56,6 @@ public class ResourceController {
         return ResponseEntity.ok(response);
     }
 
-
-    @GetMapping("/all")
-    public ResponseEntity<PaginatedResponse> getAll(@RequestParam(defaultValue = "20") Integer pageSize,
-                                                    @RequestParam(defaultValue = "0") Integer page,
-                                                    @RequestParam(defaultValue = "") UUID idBusiness,
-                                                    @RequestParam(defaultValue = "") String filter)
-    {
-        Pageable pageable = PageRequest.of(page, pageSize);
-        FindResourceWithFilterQuery query = new FindResourceWithFilterQuery(pageable, idBusiness, filter);
-        PaginatedResponse data = mediator.send(query);
-
-        return ResponseEntity.ok(data);
-    }
 
     @PostMapping("/search")
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
