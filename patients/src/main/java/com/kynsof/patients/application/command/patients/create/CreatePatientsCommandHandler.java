@@ -88,7 +88,8 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
                 patientDto.getName(),
                 patientDto.getLastName(),
                 command.getCreateContactInfoRequest().getEmail(),
-                patientDto.getPhoto()
+                patientDto.getPhoto(),
+                command.getCreateContactInfoRequest().getBirthdayDate()
         ));
     }
 }

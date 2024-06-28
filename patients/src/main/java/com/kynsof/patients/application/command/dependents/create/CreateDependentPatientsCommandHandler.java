@@ -85,7 +85,8 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 dependentPatientDto.getName(),
                 dependentPatientDto.getLastName(),
                 command.getCreateContactInfoRequest().getEmail(),
-                command.getPhoto()
+                command.getPhoto(),
+                command.getCreateContactInfoRequest().getBirthdayDate()
         ));
     }
 }

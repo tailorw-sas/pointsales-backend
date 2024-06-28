@@ -18,8 +18,11 @@ import java.util.logging.Logger;
 @Service
 public class ConsumerPatientEventService {
 
-    @Autowired
-    private IPatientsService service;
+    private final IPatientsService service;
+
+    public ConsumerPatientEventService(IPatientsService service) {
+        this.service = service;
+    }
 
     @KafkaListener(topics = "medinec-create-patient", groupId = "calendar-patient")
     public void listen(String event) {
