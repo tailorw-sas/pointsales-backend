@@ -7,7 +7,6 @@ import com.kynsof.calendar.domain.dto.PatientDto;
 import com.kynsof.calendar.domain.dto.enumType.PatientStatus;
 import com.kynsof.calendar.domain.service.IPatientsService;
 import com.kynsof.share.core.domain.kafka.entity.CustomerKafka;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -19,16 +18,18 @@ import java.util.logging.Logger;
 public class ConsumerPatientEventService {
 
     private final IPatientsService service;
+    private final ObjectMapper objectMapper;
 
-    public ConsumerPatientEventService(IPatientsService service) {
+    public ConsumerPatientEventService(IPatientsService service, ObjectMapper objectMapper) {
         this.service = service;
+        this.objectMapper = objectMapper;
     }
 
     @KafkaListener(topics = "medinec-create-patient", groupId = "calendar-patient")
     public void listen(String event) {
         try {
 
-            ObjectMapper objectMapper = new ObjectMapper();
+           // ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
             CustomerKafka eventRead = objectMapper.treeToValue(rootNode.get("data"),
@@ -41,7 +42,7 @@ public class ConsumerPatientEventService {
                     eventRead.getFirstName(),
                     eventRead.getLastName(),
                     PatientStatus.ACTIVE,
-                    eventRead.getImage() != null ? UUID.fromString(eventRead.getImage()) : null
+                    eventRead.getImage()
             ));
 
         } catch (JsonProcessingException ex) {

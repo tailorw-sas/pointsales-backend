@@ -18,16 +18,17 @@ import java.util.logging.Logger;
 public class ConsumerPatientEventService {
 
     private final IPatientsService service;
-
-    public ConsumerPatientEventService(IPatientsService service) {
+    private final ObjectMapper objectMapper;
+    public ConsumerPatientEventService(IPatientsService service, ObjectMapper objectMapper) {
         this.service = service;
+        this.objectMapper = objectMapper;
     }
 
-    @KafkaListener(topics = "medinec-create-patient", groupId = "calendar-treatments")
+    @KafkaListener(topics = "medinec-create-patient", groupId = "treatments-patient")
     public void listen(String event) {
         try {
 
-            ObjectMapper objectMapper = new ObjectMapper();
+           // ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
             CustomerKafka eventRead = objectMapper.treeToValue(rootNode.get("data"),

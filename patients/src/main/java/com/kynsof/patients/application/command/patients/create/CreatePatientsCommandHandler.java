@@ -41,7 +41,6 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
 
     @Override
     public void handle(CreatePatientsCommand command) {
-        UUID idPatient = UUID.randomUUID();
         RulesChecker.checkRule(new DependentMustBeUniqueRule(this.serviceImpl, command.getIdentification(), command.getId()));
         GeographicLocationDto parroquia = geographicLocationService.findById(command.getCreateContactInfoRequest().getParroquia());
         PatientDto patientDto = new PatientDto(
@@ -62,9 +61,6 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
         UUID id = serviceImpl.create(patientDto);
         command.setId(id);
         patientDto.setId(id);
-//
-//        GeographicLocationDto province = geographicLocationService.findById(command.getCreateContactInfoRequest().getProvince());
-//        GeographicLocationDto canton = geographicLocationService.findById(command.getCreateContactInfoRequest().getCanton());
 
         contactInfoService.create(new ContactInfoDto(
                 UUID.randomUUID(),
@@ -76,11 +72,6 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
                 Status.ACTIVE,
                 parroquia
         ));
-
-//        this.patientEventService.create(
-//                patientDto,
-//                command.getCreateContactInfoRequest().getBirthdayDate()
-//        );
 
         this.createCustomerEventService.create(new CustomerKafka(
                 patientDto.getId().toString(),

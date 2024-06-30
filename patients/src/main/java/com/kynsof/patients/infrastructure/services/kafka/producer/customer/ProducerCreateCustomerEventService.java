@@ -14,16 +14,17 @@ import java.util.logging.Logger;
 @Service
 public class ProducerCreateCustomerEventService {
     private final KafkaTemplate<String, String> producer;
-
-    public ProducerCreateCustomerEventService(KafkaTemplate<String, String> producer) {
+    private final ObjectMapper objectMapper;
+    public ProducerCreateCustomerEventService(KafkaTemplate<String, String> producer, ObjectMapper objectMapper) {
         this.producer = producer;
+        this.objectMapper = objectMapper;
     }
 
     public void create(CustomerKafka entity) {
 
         try {
 
-            ObjectMapper objectMapper = new ObjectMapper();
+            //ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(entity, EventType.CREATED));
 
             this.producer.send("medinec-create-patient", json);

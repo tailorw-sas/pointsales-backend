@@ -30,7 +30,7 @@ public class Patient {
 
     private String lastName;
 
-    private UUID logo;
+    private String image;
 
     @Enumerated(EnumType.STRING)
     private PatientStatus status;
@@ -50,10 +50,10 @@ public class Patient {
         this.name = patients.getName();
         this.lastName = patients.getLastName();
         this.status = patients.getStatus();
-        this.logo = patients.getLogo();
+        this.image = patients.getImage();
     }
 
     public PatientDto toAggregate() {
-        return new PatientDto(id, identification, email, name, lastName, status, logo);
+        return new PatientDto(id, identification, email, name, lastName, status, image);
     }
 }
