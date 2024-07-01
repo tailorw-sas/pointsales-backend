@@ -1,15 +1,15 @@
 package com.kynsof.calendar.application.query.place.search;
 
-import com.kynsof.calendar.domain.service.IBlockService;
+import com.kynsof.calendar.domain.service.IPlaceService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GetSearchPlaceQueryHandler implements IQueryHandler<GetSearchPlaceQuery, PaginatedResponse>{
-    private final IBlockService service;
+    private final IPlaceService service;
     
-    public GetSearchPlaceQueryHandler(IBlockService service) {
+    public GetSearchPlaceQueryHandler(IPlaceService service) {
         this.service = service;
     }
 

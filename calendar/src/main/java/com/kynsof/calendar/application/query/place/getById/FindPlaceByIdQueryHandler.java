@@ -1,24 +1,24 @@
 package com.kynsof.calendar.application.query.place.getById;
 
-import com.kynsof.calendar.application.query.BlockResponse;
-import com.kynsof.calendar.domain.dto.BlockDto;
-import com.kynsof.calendar.domain.service.IBlockService;
+import com.kynsof.calendar.application.query.PlaceResponse;
+import com.kynsof.calendar.domain.dto.PlaceDto;
+import com.kynsof.calendar.domain.service.IPlaceService;
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FindPlaceByIdQueryHandler implements IQueryHandler<FindPlaceByIdQuery, BlockResponse>  {
+public class FindPlaceByIdQueryHandler implements IQueryHandler<FindPlaceByIdQuery, PlaceResponse>  {
 
-    private final IBlockService service;
+    private final IPlaceService service;
 
-    public FindPlaceByIdQueryHandler(IBlockService service) {
+    public FindPlaceByIdQueryHandler(IPlaceService service) {
         this.service = service;
     }
 
     @Override
-    public BlockResponse handle(FindPlaceByIdQuery query) {
-        BlockDto response = service.findById(query.getId());
+    public PlaceResponse handle(FindPlaceByIdQuery query) {
+        PlaceDto response = service.findById(query.getId());
 
-        return new BlockResponse(response);
+        return new PlaceResponse(response);
     }
 }
