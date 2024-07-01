@@ -37,8 +37,8 @@ public class ConsumerPatientEventService {
 
             this.service.create(new PatientDto(
                     UUID.fromString(eventRead.getId()),
-                    eventRead.getEmail(),
                     eventRead.getIdentificationNumber(),
+                    eventRead.getEmail(),
                     eventRead.getFirstName(),
                     eventRead.getLastName(),
                     PatientStatus.ACTIVE,
