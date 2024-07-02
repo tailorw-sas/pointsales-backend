@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -38,10 +39,10 @@ public class MailjetConfiguration implements Serializable {
     private String fromName;
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "mailjetConfig", cascade = CascadeType.ALL)
