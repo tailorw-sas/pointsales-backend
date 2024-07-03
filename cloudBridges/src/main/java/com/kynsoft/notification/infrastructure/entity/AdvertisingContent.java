@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -20,26 +22,27 @@ public class AdvertisingContent {
     @Id
     private UUID id;
 
-    @Column(nullable = true)
+    @Column()
     private String title;
 
-    @Column(nullable = true)
+    @Column()
     private String description;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ContentType type;
 
-    @Column(nullable = true, updatable = true)
+    @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @Column(nullable = true)
+    @Column()
     private String url;
 
-    @Column(nullable = true)
+    @Column()
     private String link;
 
     public AdvertisingContent(AdvertisingContentDto advertisingContentDto) {
