@@ -1,0 +1,25 @@
+package com.kynsoft.socket.controller;
+
+import com.kynsoft.socket.messages.NewServiceMessage;
+import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/notification")
+public class NotificationController {
+    private final SimpMessageSendingOperations messagingTemplate;
+
+    public NotificationController(SimpMessageSendingOperations messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
+    }
+
+    @PostMapping("/service")
+    public ResponseEntity<?> create(@RequestBody NewServiceMessage request) {
+        messagingTemplate.convertAndSend("/queue/services" + request.getCampId(), request);
+        return ResponseEntity.ok(true);
+    }
+}

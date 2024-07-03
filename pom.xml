@@ -26,6 +26,7 @@
         <module>chat</module>
         <module>rrhh</module>
         <module>report</module>
+        <module>socketService</module>
     </modules>
     <build>
 
