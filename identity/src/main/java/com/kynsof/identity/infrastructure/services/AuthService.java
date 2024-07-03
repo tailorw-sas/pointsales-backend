@@ -10,6 +10,7 @@ import com.kynsof.identity.domain.interfaces.service.IRedisService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerTriggerPasswordResetEventService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerRegisterUserEventService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerRegisterUserSystemEventService;
+import com.kynsof.share.core.domain.EUserType;
 import com.kynsof.share.core.domain.exception.*;
 import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
 import com.kynsof.share.core.domain.response.ErrorField;
@@ -98,12 +99,14 @@ public class AuthService implements IAuthService {
 
     @Override
     public String registerUser(@NonNull UserRequest userRequest, boolean isSystemUser) {
-        return createUser(userRequest.getName(), userRequest.getLastName(), userRequest.getEmail(), userRequest.getUserName(), userRequest.getPassword());
+        return createUser(userRequest.getName(), userRequest.getLastName(), userRequest.getEmail(),
+                userRequest.getUserName(), userRequest.getPassword(), EUserType.PATIENTS.toString().toUpperCase());
     }
 
     @Override
     public String registerUserSystem(@NonNull UserSystemKycloackRequest userRequest, boolean isSystemUser) {
-        return createUser(userRequest.getName(), userRequest.getLastName(), userRequest.getEmail(), userRequest.getUserName(), userRequest.getPassword());
+        return createUser(userRequest.getName(), userRequest.getLastName(), userRequest.getEmail(),
+                userRequest.getUserName(), userRequest.getPassword(),userRequest.getUserType().toString().toUpperCase());
     }
 
     @Override
@@ -223,7 +226,7 @@ public class AuthService implements IAuthService {
         throw new AuthenticateNotFoundException("The username or password is incorrect. Please try again.", new ErrorField("email/password", "The username or password is incorrect. Please try again."));
     }
 
-    private String createUser(String firstName, String lastName, String email, String username, String password) {
+    private String createUser(String firstName, String lastName, String email, String username, String password, String role) {
         UsersResource usersResource = keycloakProvider.getUserResource();
 
         UserRepresentation userRepresentation = new UserRepresentation();
@@ -239,6 +242,9 @@ public class AuthService implements IAuthService {
         if (response.getStatus() == 201) {
             String userId = extractUserIdFromLocation(response.getLocation().getPath());
             setNewUserPassword(password, userId, usersResource);
+            List<String> roles = new ArrayList<>();
+            roles.add(role);
+            assignRolesToUser(roles, userId);
             return userId;
         } else if (response.getStatus() == 409) {
             throw new AlreadyExistsException("User already exists", new ErrorField("email", "Email is already in use"));
@@ -264,20 +270,32 @@ public class AuthService implements IAuthService {
             return;
         }
 
-        UsersResource usersResource = keycloakProvider.getUserResource();
-        RealmResource realmResource = keycloakProvider.getRealmResource();
-        String clientId = realmResource.clients().findByClientId(keycloakProvider.getClient_id()).get(0).getId();
-        ClientResource clientResource = realmResource.clients().get(clientId);
-        List<RoleRepresentation> roleRepresentations = new ArrayList<>();
+        try {
+            UsersResource usersResource = keycloakProvider.getUserResource();
+            RealmResource realmResource = keycloakProvider.getRealmResource();
+            String clientId = realmResource.clients().findByClientId(keycloakProvider.getClient_id()).get(0).getId();
+            ClientResource clientResource = realmResource.clients().get(clientId);
+            List<RoleRepresentation> roleRepresentations = new ArrayList<>();
 
-        RolesResource rolesResource = clientResource.roles();
-        for (String roleName : roles) {
-            RoleRepresentation role = rolesResource.get(roleName).toRepresentation();
-            roleRepresentations.add(role);
+            RolesResource rolesResource = clientResource.roles();
+            for (String roleName : roles) {
+                RoleRepresentation role = rolesResource.get(roleName).toRepresentation();
+                if (role != null) {
+                    roleRepresentations.add(role);
+                } else {
+                    System.err.println("Role not found: " + roleName);
+                }
+            }
+
+            if (!roleRepresentations.isEmpty()) {
+                usersResource.get(userId).roles().clientLevel(clientId).add(roleRepresentations);
+            } else {
+                System.err.println("No roles to assign to user: " + userId);
+            }
+        } catch (Exception e) {
+            System.err.println("Error assigning roles to user: " + e.getMessage());
+            e.printStackTrace();
         }
 
-        if (!roleRepresentations.isEmpty()) {
-            usersResource.get(userId).roles().realmLevel().add(roleRepresentations);
-        }
     }
 }

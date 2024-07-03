@@ -9,7 +9,6 @@ import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.services.kafka.producer.customer.ProducerCreateCustomerEventService;
-import com.kynsof.patients.infrastructure.services.kafka.producer.patient.ProducerCreatePatientsEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.CustomerKafka;
@@ -28,7 +27,6 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
 
     public CreatePatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
                                         IGeographicLocationService geographicLocationService,
-                                        ProducerCreatePatientsEventService patientEventService,
                                         ProducerCreateCustomerEventService createCustomerEventService
     ) {
         this.serviceImpl = serviceImpl;
