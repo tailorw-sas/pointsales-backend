@@ -24,7 +24,6 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
     private final IContactInfoService contactInfoService;
     private final IGeographicLocationService geographicLocationService;
 
-    private final ProducerCreatePatientsEventService patientEventService;
     private final ProducerCreateCustomerEventService createCustomerEventService;
 
     public CreatePatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
@@ -35,7 +34,6 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
         this.serviceImpl = serviceImpl;
         this.contactInfoService = contactInfoService;
         this.geographicLocationService = geographicLocationService;
-        this.patientEventService = patientEventService;
         this.createCustomerEventService = createCustomerEventService;
     }
 
