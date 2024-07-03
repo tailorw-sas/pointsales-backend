@@ -29,6 +29,7 @@ public class CreateUserSystemCommand implements ICommand {
         this.password = password;
         this.userType = userType;
         this.image = image;
+        this.id = id;
     }
 
     public static CreateUserSystemCommand fromRequest(CreateUserSystemRequest request) {
