@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -38,10 +39,10 @@ public class TemplateEntity {
     private MailjetConfiguration mailjetConfig;
 
     @CreationTimestamp
-    @Column(nullable = true, updatable = true)
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true, updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public TemplateEntity(TemplateDto dto) {
