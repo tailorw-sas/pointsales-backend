@@ -24,4 +24,7 @@ public interface UserSystemReadDataJPARepository extends JpaRepository<UserSyste
 
     @Query("SELECT b FROM UserSystem b WHERE b.email = :email")
     Optional<UserSystem> findByEmail(String email);
+
+    @Query("SELECT b FROM UserSystem b WHERE b.keyCloakId = :keyCloakId")
+    Optional<UserSystem> findByKeyCloakIdl(UUID keyCloakId);
 }
