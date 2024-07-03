@@ -78,7 +78,6 @@ public class Patients implements Serializable {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
