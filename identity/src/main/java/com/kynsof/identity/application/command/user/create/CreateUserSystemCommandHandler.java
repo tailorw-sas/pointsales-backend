@@ -49,7 +49,7 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
         String userId = authService.registerUserSystem(userSystemRequest, true);
 
         UserSystemDto userDto = new UserSystemDto(
-                UUID.fromString(userId),
+                command.getId(),
                 command.getUserName(),
                 command.getEmail(),
                 command.getName(),
@@ -57,6 +57,7 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
                 UserStatus.ACTIVE,
                 command.getImage()
         );
+        userDto.setKeyCloakId(UUID.fromString(userId));
         userDto.setUserName(command.getUserName());
         userDto.setUserType(command.getUserType());
 

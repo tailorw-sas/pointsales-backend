@@ -21,7 +21,7 @@ public class CreateUserSystemCommand implements ICommand {
     private final String image;
 
 
-    public CreateUserSystemCommand(String userName, String email, String name, String lastName, String password, EUserType userType, String image) {
+    public CreateUserSystemCommand(UUID id,String userName, String email, String name, String lastName, String password, EUserType userType, String image) {
         this.userName = userName;
         this.email = email;
         this.name = name;
@@ -33,6 +33,7 @@ public class CreateUserSystemCommand implements ICommand {
 
     public static CreateUserSystemCommand fromRequest(CreateUserSystemRequest request) {
         return new CreateUserSystemCommand(
+                UUID.randomUUID(),
                 request.getUserName(),
                 request.getEmail(),
                 request.getName(),

@@ -25,8 +25,10 @@ public class UserSystemDto {
 
     private String image;
     private EUserType userType;
+    private UUID keyCloakId;
 
-    public UserSystemDto(UUID id, String userName, String email, String name, String lastName, UserStatus status, String image) {
+    public UserSystemDto(UUID id, String userName, String email, String name,
+                         String lastName, UserStatus status, String image) {
         this.id = id;
         this.userName = userName;
         this.email = email;

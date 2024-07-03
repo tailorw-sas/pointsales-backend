@@ -14,7 +14,6 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,11 +25,14 @@ import java.util.*;
 @Service
 public class CustomerServiceImpl implements ICustomerService {
 
-    @Autowired
-    private CustomerWriteDataJPARepository repositoryCommand;
+    private final CustomerWriteDataJPARepository repositoryCommand;
 
-    @Autowired
-    private CustomerReadDataJPARepository repositoryQuery;
+    private final CustomerReadDataJPARepository repositoryQuery;
+
+    public CustomerServiceImpl(CustomerReadDataJPARepository repositoryQuery, CustomerWriteDataJPARepository repositoryCommand) {
+        this.repositoryQuery = repositoryQuery;
+        this.repositoryCommand = repositoryCommand;
+    }
 
     @Override
     public void create(CustomerDto dto) {

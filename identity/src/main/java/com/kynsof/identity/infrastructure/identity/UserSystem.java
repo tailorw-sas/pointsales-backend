@@ -54,6 +54,9 @@ public class UserSystem implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Column(unique = true)
+    private UUID keyCloakId;
+
     public UserSystem(UserSystemDto dto) {
         this.id = dto.getId();
         this.userName = dto.getUserName();
@@ -64,6 +67,7 @@ public class UserSystem implements Serializable {
         this.userType = dto.getUserType() != null ? dto.getUserType() : EUserType.UNDEFINED;
         this.image = dto.getImage() != null ? dto.getImage() : null;
         this.selectedBusiness = dto.getSelectedBusiness() != null ? dto.getSelectedBusiness() : null;
+        this.keyCloakId = dto.getKeyCloakId();
     }
 
     public UserSystemDto toAggregate() {
@@ -72,6 +76,7 @@ public class UserSystem implements Serializable {
         dto.setImage(image);
         dto.setSelectedBusiness(selectedBusiness);
         dto.setCreatedAt(createdAt.toLocalDate());
+        dto.setKeyCloakId(keyCloakId);
         return dto;
     }
 }
