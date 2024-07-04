@@ -22,7 +22,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +73,6 @@ public class ReceiptService implements IReceiptService {
     @Override
     public void update(ReceiptDto dto) {
         Receipt receipt = new Receipt(dto);
-        receipt.setUpdatedAt(LocalDateTime.now());
         this.receiptRepositoryCommand.save(receipt);
     }
 

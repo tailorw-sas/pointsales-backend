@@ -1,6 +1,5 @@
 package com.kynsof.calendar.application.command.receipt.updateStatus;
 
-import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptMessage;
 import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
@@ -30,6 +29,6 @@ public class UpdateStatusReceiptCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return new RescheduleReceiptMessage(UUID.randomUUID());
+        return new UpdateStatusReceiptMessage(id);
     }
 }

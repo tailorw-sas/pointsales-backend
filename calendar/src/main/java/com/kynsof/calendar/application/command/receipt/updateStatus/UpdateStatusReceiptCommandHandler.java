@@ -5,7 +5,6 @@ import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import com.kynsof.calendar.domain.service.IReceiptService;
 import com.kynsof.calendar.domain.service.IScheduleService;
-import com.kynsof.share.core.application.payment.domain.service.IPaymentServiceClient;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +13,10 @@ public class UpdateStatusReceiptCommandHandler implements ICommandHandler<Update
 
     private final IReceiptService service;
     private final IScheduleService serviceSchedule;
-    private final IPaymentServiceClient paymentServiceClient;
 
-    public UpdateStatusReceiptCommandHandler(IReceiptService service, IScheduleService scheduleService, IPaymentServiceClient paymentServiceClient) {
+    public UpdateStatusReceiptCommandHandler(IReceiptService service, IScheduleService scheduleService) {
         this.service = service;
         this.serviceSchedule = scheduleService;
-        this.paymentServiceClient = paymentServiceClient;
     }
 
     @Override
