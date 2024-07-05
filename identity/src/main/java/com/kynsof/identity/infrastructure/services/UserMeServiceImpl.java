@@ -35,9 +35,9 @@ public class UserMeServiceImpl implements IUserMeService {
     @Override
    // @Cacheable(cacheNames = CacheConfig.USER_CACHE, unless = "#result == null", key = "#userId")
     public UserMeResponse getUserInfo(UUID userId) {
-        var userSystem = repositoryQuery.findByKeyCloakIdl(userId)
+        var userSystem = repositoryQuery.findByKeyCloakId(userId)
                 .orElseThrow(() -> new BusinessNotFoundException(new GlobalBusinessException(
-                        DomainErrorMessage.USER_NOT_FOUND, new ErrorField("id", "User not found."))));
+                        DomainErrorMessage.USER_NOT_FOUND, new ErrorField("id", DomainErrorMessage.USER_NOT_FOUND.getReasonPhrase()))));
 
         if (userSystem.getUserType().equals(EUserType.SUPER_ADMIN)) {
             List<BusinessPermissionResponse> businessPermissionResponses =getAllBusinessesWithPermissions();

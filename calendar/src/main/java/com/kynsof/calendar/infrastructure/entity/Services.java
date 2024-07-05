@@ -68,6 +68,9 @@ public class Services {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @OneToMany(mappedBy = "services", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<BusinessServices> businessServices = new HashSet<>();
+
     public Services(ServiceDto object) {
         this.id = object.getId();
         this.type = new ServiceType(object.getType());
