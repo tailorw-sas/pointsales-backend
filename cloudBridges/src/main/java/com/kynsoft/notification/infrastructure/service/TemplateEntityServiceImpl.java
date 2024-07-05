@@ -13,12 +13,12 @@ import com.kynsoft.notification.domain.service.ITemplateEntityService;
 import com.kynsoft.notification.infrastructure.entity.TemplateEntity;
 import com.kynsoft.notification.infrastructure.repository.command.TemplateEntityWriteDataJPARepository;
 import com.kynsoft.notification.infrastructure.repository.query.TemplateEntityReadDataJPARepository;
-import java.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,30 +27,37 @@ import java.util.UUID;
 @Service
 public class TemplateEntityServiceImpl implements ITemplateEntityService {
 
-    @Autowired
-    private TemplateEntityWriteDataJPARepository commandRepository;
+    private final TemplateEntityWriteDataJPARepository commandRepository;
 
-    @Autowired
-    private TemplateEntityReadDataJPARepository queryRepository;
+    private final TemplateEntityReadDataJPARepository queryRepository;
+
+    public TemplateEntityServiceImpl(TemplateEntityWriteDataJPARepository commandRepository, TemplateEntityReadDataJPARepository queryRepository) {
+        this.commandRepository = commandRepository;
+        this.queryRepository = queryRepository;
+    }
 
     @Override
+    @Transactional
     public UUID create(TemplateDto object) {
         TemplateEntity entity = this.commandRepository.save(new TemplateEntity(object));
         return entity.getId();
     }
 
     @Override
+    @Transactional
     public void update(TemplateEntity object) {
         object.setUpdatedAt(LocalDateTime.now());
         this.commandRepository.save(object);
     }
 
     @Override
+    @Transactional
     public void delete(TemplateDto object) {
         try {
             this.commandRepository.deleteById(object.getId());
         } catch (Exception e) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE,
+                    new ErrorField("id", "Element cannot be deleted has a related element.")));
         }
     }
 

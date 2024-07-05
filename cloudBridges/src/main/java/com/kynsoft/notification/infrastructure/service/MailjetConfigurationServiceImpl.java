@@ -13,10 +13,10 @@ import com.kynsoft.notification.domain.service.IMailjetConfigurationService;
 import com.kynsoft.notification.infrastructure.entity.MailjetConfiguration;
 import com.kynsoft.notification.infrastructure.repository.command.MailjetConfigurationWriteDataJPARepository;
 import com.kynsoft.notification.infrastructure.repository.query.MailjetConfigurationReadDataJPARepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,29 +26,36 @@ import java.util.UUID;
 @Service
 public class MailjetConfigurationServiceImpl implements IMailjetConfigurationService {
 
-    @Autowired
-    private MailjetConfigurationWriteDataJPARepository commandRepository;
+    private final MailjetConfigurationWriteDataJPARepository commandRepository;
 
-    @Autowired
-    private MailjetConfigurationReadDataJPARepository queryRepository;
+    private final MailjetConfigurationReadDataJPARepository queryRepository;
+
+    public MailjetConfigurationServiceImpl(MailjetConfigurationWriteDataJPARepository commandRepository, MailjetConfigurationReadDataJPARepository queryRepository) {
+        this.commandRepository = commandRepository;
+        this.queryRepository = queryRepository;
+    }
 
     @Override
+    @Transactional
     public UUID create(MailjetConfigurationDto object) {
         MailjetConfiguration entity = this.commandRepository.save(new MailjetConfiguration(object));
         return entity.getId();
     }
 
     @Override
+    @Transactional
     public void update(MailjetConfiguration object) {
        this.commandRepository.save(object);
     }
 
     @Override
+    @Transactional
     public void delete(MailjetConfigurationDto object) {
         try {
             this.commandRepository.deleteById(object.getId());
         } catch (Exception e) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE,
+                    new ErrorField("id", DomainErrorMessage.NOT_DELETE.getReasonPhrase())));
         }
     }
 
