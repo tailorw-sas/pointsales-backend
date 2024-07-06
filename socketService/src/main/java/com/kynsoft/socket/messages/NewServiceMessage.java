@@ -10,11 +10,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class NewServiceMessage{
-    private String identification;
-    private String name;
-    private String zone;
-    private String company;
-    private String department;
-    private String status;
-    private String campId;
+   private String shift;
+   private String service;
+   private String local;
+   private String blockCode;
 }

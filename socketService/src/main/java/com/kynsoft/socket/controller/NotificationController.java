@@ -17,9 +17,15 @@ public class NotificationController {
         this.messagingTemplate = messagingTemplate;
     }
 
-    @PostMapping("/service")
-    public ResponseEntity<?> create(@RequestBody NewServiceMessage request) {
-        messagingTemplate.convertAndSend("/queue/services" + request.getCampId(), request);
+    @PostMapping("/turnero")
+    public ResponseEntity<?> queueTurnero(@RequestBody NewServiceMessage request) {
+        messagingTemplate.convertAndSend("/queue/turnero" + request.getBlockCode(), request);
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/local")
+    public ResponseEntity<?> queueService(@RequestBody NewServiceMessage request) {
+        messagingTemplate.convertAndSend("/queue/local" + request.getBlockCode(), request);
         return ResponseEntity.ok(true);
     }
 }
