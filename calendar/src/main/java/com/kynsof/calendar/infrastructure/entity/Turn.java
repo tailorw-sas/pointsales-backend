@@ -52,7 +52,7 @@ public class Turn {
     @Column(name = "status", nullable = false)
     private ETurnStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "business_id", nullable = false)
     private Business business;
 
@@ -80,7 +80,7 @@ public class Turn {
     public TurnDto toAggregate() {
         TurnDto turnDto = new TurnDto(
                 id,
-                resource.toAggregate(),
+                resource != null ? resource.toAggregate() : null,
                 services.toAggregate(),
                 identification,
                 orderNumber,
