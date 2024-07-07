@@ -41,6 +41,7 @@ public class TurnResponse implements IResponse {
         this.waitingTime = object.getWaitingTime();
         this.status = object.getStatus();
         this.business = object.getBusiness();
+        this.createAt = object.getCreateAt();
     }
 
 }
