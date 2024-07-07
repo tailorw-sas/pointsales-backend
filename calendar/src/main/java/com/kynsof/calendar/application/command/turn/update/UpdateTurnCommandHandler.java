@@ -30,7 +30,7 @@ public class UpdateTurnCommandHandler implements ICommandHandler<UpdateTurnComma
     public void handle(UpdateTurnCommand command) {
         TurnDto turnDto = turnService.findById(command.getId());
         BusinessDto businessDto = businessService.findById(command.getBusiness());
-        ResourceDto resourceDto = resourceService.findById(command.getDoctor());
+        ResourceDto resourceDto = command.getDoctor() != null ? resourceService.findById(command.getDoctor()) : null;
         ServiceDto serviceDto = serviceService.findByIds(command.getService());
 
         turnDto.setBusiness(businessDto);

@@ -32,7 +32,8 @@ public class CreateTurnCommandHandler implements ICommandHandler<CreateTurnComma
     @Override
     public void handle(CreateTurnCommand command) {
         BusinessDto businessDto = businessService.findById(command.getBusiness());
-        ResourceDto resourceDto = resourceService.findById(command.getDoctor());
+
+        ResourceDto resourceDto = command.getDoctor() != null ? resourceService.findById(command.getDoctor()) : null;
         ServiceDto serviceDto = serviceService.findByIds(command.getService());
         UUID id = turnService.create(new TurnDto(
                 command.getId(),
