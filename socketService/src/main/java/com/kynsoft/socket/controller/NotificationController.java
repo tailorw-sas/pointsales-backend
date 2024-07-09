@@ -19,13 +19,13 @@ public class NotificationController {
 
     @PostMapping("/turnero")
     public ResponseEntity<?> queueTurnero(@RequestBody NewServiceMessage request) {
-        messagingTemplate.convertAndSend("/queue/turnero" + request.getBlockCode(), request);
+        messagingTemplate.convertAndSend("/queue/turnero" + request.getQueueId(), request);
         return ResponseEntity.ok(true);
     }
 
     @PostMapping("/local")
     public ResponseEntity<?> queueService(@RequestBody NewServiceMessage request) {
-        messagingTemplate.convertAndSend("/queue/local" + request.getBlockCode(), request);
+        messagingTemplate.convertAndSend("/queue/local" + request.getQueueId(), request);
         return ResponseEntity.ok(true);
     }
 }
