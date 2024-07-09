@@ -1,4 +1,4 @@
-package com.kynsof.identity.infrastructure.services.kafka.consumer.resource;
+package com.kynsof.identity.infrastructure.services.kafka.consumer.users.assistant;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,15 +13,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ConsumerUpdateDoctorEventService {
+public class ConsumerUpdateAssistantEventService {
     private final IMediator mediator;
 
-    public ConsumerUpdateDoctorEventService(IMediator mediator) {
+    public ConsumerUpdateAssistantEventService(IMediator mediator) {
 
         this.mediator = mediator;
     }
 
-    @KafkaListener(topics = "medinec-doctor-update", groupId = "identity-doctor")
+    @KafkaListener(topics = "medinec-update-assistant", groupId = "identity-doctor")
     public void listen(String event) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -33,13 +33,13 @@ public class ConsumerUpdateDoctorEventService {
                     eventRead.getEmail(),
                     eventRead.getName(),
                     eventRead.getLastName(),
-                    EUserType.DOCTORS,
+                    EUserType.ASSISTANTS,
                     eventRead.getImage()
             );
             mediator.send(command);
 
         } catch (Exception ex) {
-            Logger.getLogger(ConsumerUpdateDoctorEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumerUpdateAssistantEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

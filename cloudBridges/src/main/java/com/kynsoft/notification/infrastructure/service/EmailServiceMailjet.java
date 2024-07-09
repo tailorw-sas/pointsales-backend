@@ -38,7 +38,7 @@ public class EmailServiceMailjet implements IEmailService {
 //        try {
 //
 //            MailjetClient client1 = new MailjetClient(mailjetApiKey, mailjetApiSecret);
-//            MailjetRequest request = new MailjetRequest(Email.resource)
+//            MailjetRequest request = new MailjetRequest(Email.users)
 //                    .property(Email.FROMEMAIL, fromEmail)
 //                    .property(Email.FROMNAME, fromName)
 //                    .property(Email.SUBJECT, subject)

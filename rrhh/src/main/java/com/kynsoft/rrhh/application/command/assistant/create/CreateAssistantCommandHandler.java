@@ -2,6 +2,7 @@ package com.kynsoft.rrhh.application.command.assistant.create;
 
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.kafka.entity.DoctorKafka;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsoft.rrhh.domain.dto.AssistantDto;
 import com.kynsoft.rrhh.domain.dto.BusinessDto;
@@ -11,6 +12,7 @@ import com.kynsoft.rrhh.domain.interfaces.services.IBusinessService;
 import com.kynsoft.rrhh.domain.interfaces.services.IUserBusinessRelationService;
 import com.kynsoft.rrhh.domain.rules.assistant.AssistantEmailMustBeUniqueRule;
 import com.kynsoft.rrhh.domain.rules.assistant.AssistantIdentificationMustBeUniqueRule;
+import com.kynsoft.rrhh.infrastructure.services.kafka.producer.assistant.ProducerReplicateAssistantService;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -22,12 +24,14 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
     private final IAssistantService service;
     private final IBusinessService businessService;
     private final IUserBusinessRelationService userBusinessRelationService;
+    private final ProducerReplicateAssistantService producerReplicateAssistantService;
 
     public CreateAssistantCommandHandler(IAssistantService service, IBusinessService businessService,
-                                         IUserBusinessRelationService userBusinessRelationService) {
+                                         IUserBusinessRelationService userBusinessRelationService, ProducerReplicateAssistantService producerReplicateAssistantService) {
         this.service = service;
         this.businessService = businessService;
         this.userBusinessRelationService = userBusinessRelationService;
+        this.producerReplicateAssistantService = producerReplicateAssistantService;
     }
 
     @Override
@@ -53,5 +57,15 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
 
         this.userBusinessRelationService.create(new UserBusinessRelationDto(UUID.randomUUID(),
                 assistantSave,businessDto, "ACTIVE", LocalDateTime.now()));
+
+        producerReplicateAssistantService.create(new DoctorKafka(
+                assistantSave.getId(),
+                assistantSave.getIdentification(),
+                assistantSave.getEmail(),
+                assistantSave.getName(),
+                assistantSave.getLastName(),
+                assistantSave.getImage(),
+                command.getBusiness().toString()
+        ));
     }
 }

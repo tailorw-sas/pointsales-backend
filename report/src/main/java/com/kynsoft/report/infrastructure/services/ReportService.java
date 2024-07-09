@@ -31,11 +31,11 @@ public class ReportService implements IReportService {
 
         //  String jrxmlUrl = "http://d2cebw6tssfqem.cloudfront.net/cita_2024-04-17_11-38-05.jrxml";
         InputStream inputStream = new ByteArrayInputStream(Objects.requireNonNull(restTemplate.getForObject(jrxmlUrl, byte[].class)));
-//        Resource resource = resourceLoader.getResource("classpath:templates/cita.jrxml");
-//        if (!resource.exists() || !resource.isReadable()) {
+//        Resource users = resourceLoader.getResource("classpath:templates/cita.jrxml");
+//        if (!users.exists() || !users.isReadable()) {
 //            throw new IOException("El archivo JRXML no se puede leer desde la ruta especificada.");
 //        }
-//        InputStream inputStream = resource.getInputStream();
+//        InputStream inputStream = users.getInputStream();
         JasperReport jasperReport = null;
         try {
             jasperReport = JasperCompileManager.compileReport(inputStream);
@@ -123,11 +123,11 @@ public class ReportService implements IReportService {
 //
 //        //  String jrxmlUrl = "http://d2cebw6tssfqem.cloudfront.net/cita_2024-04-17_11-38-05.jrxml";
 //        InputStream inputStream = new ByteArrayInputStream(Objects.requireNonNull(restTemplate.getForObject(jrxmlUrl, byte[].class)));
-////        Resource resource = resourceLoader.getResource("classpath:templates/cita.jrxml");
-////        if (!resource.exists() || !resource.isReadable()) {
+////        Resource users = resourceLoader.getResource("classpath:templates/cita.jrxml");
+////        if (!users.exists() || !users.isReadable()) {
 ////            throw new IOException("El archivo JRXML no se puede leer desde la ruta especificada.");
 ////        }
-////        InputStream inputStream = resource.getInputStream();
+////        InputStream inputStream = users.getInputStream();
 //        JasperReport jasperReport = null;
 //        try {
 //            jasperReport = JasperCompileManager.compileReport(inputStream);

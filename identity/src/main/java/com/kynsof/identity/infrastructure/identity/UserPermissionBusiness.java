@@ -36,7 +36,6 @@ public class UserPermissionBusiness {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 

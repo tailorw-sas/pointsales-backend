@@ -22,7 +22,7 @@ public class CacheConfig {
     public static final String BUSINESS_CACHE = "business-cache";
     public static final String PATIENTS_CACHE = "patients-cache";
     public static final String RECEIPT_CACHE = "receipt-cache";
-    public static final String RESOURCE_CACHE = "resource-cache";
+    public static final String RESOURCE_CACHE = "users-cache";
     public static final String SCHEDULE_CACHE = "schedule-cache";
     public static final String SERVICE_CACHE = "service-cache";
     public static final String IMAGE_CACHE = "image-cache";

@@ -92,8 +92,8 @@ public class VaccineController {
 
 //    @PatchMapping(path = "/{id}")
 //    private  ResponseEntity<?> generateCertificate(){
-//        Resource resource = resourceLoader.getResource("classpath:templates/hello.jrxml");
-//        InputStream inputStream = resource.getInputStream();
+//        Resource users = resourceLoader.getResource("classpath:templates/hello.jrxml");
+//        InputStream inputStream = users.getInputStream();
 //
 //    }
 

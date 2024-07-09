@@ -1,4 +1,4 @@
-package com.kynsof.identity.infrastructure.services.kafka.consumer.resource;
+package com.kynsof.identity.infrastructure.services.kafka.consumer.users.assistant;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,15 +14,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ConsumerCreateDoctorEventService {
+public class ConsumerCreateAssistantEventService {
     private final IMediator mediator;
 
-    public ConsumerCreateDoctorEventService(IMediator mediator) {
+    public ConsumerCreateAssistantEventService(IMediator mediator) {
 
         this.mediator = mediator;
     }
 
-    @KafkaListener(topics = "medinec-replicate-doctor", groupId = "identity-doctor")
+    @KafkaListener(topics = "medinec-replicate-assistant", groupId = "identity-doctor")
     public void listen(String event) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -36,13 +36,13 @@ public class ConsumerCreateDoctorEventService {
                     eventRead.getName(),
                     eventRead.getLastName(),
                     PasswordGenerator.generatePassword(),
-                    EUserType.DOCTORS,
+                    EUserType.ASSISTANTS,
                     eventRead.getImage()
             );
             mediator.send(command);
 
         } catch (Exception ex) {
-            Logger.getLogger(ConsumerCreateDoctorEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumerCreateAssistantEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

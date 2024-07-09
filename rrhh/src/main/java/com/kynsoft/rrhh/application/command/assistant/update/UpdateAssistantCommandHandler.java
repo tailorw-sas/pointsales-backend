@@ -2,22 +2,25 @@ package com.kynsoft.rrhh.application.command.assistant.update;
 
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.kafka.entity.DoctorKafka;
 import com.kynsof.share.utils.ConsumerUpdate;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import com.kynsoft.rrhh.domain.dto.AssistantDto;
 import com.kynsoft.rrhh.domain.interfaces.services.IAssistantService;
 import com.kynsoft.rrhh.domain.rules.assistant.UpdateAssistantEmailMustBeUniqueRule;
 import com.kynsoft.rrhh.domain.rules.assistant.UpdateAssistantIdentificationMustBeUniqueRule;
+import com.kynsoft.rrhh.infrastructure.services.kafka.producer.assistant.ProducerReplicateAssistantService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateAssistantCommandHandler implements ICommandHandler<UpdateAssistantCommand> {
 
     private final IAssistantService service;
+    private final ProducerReplicateAssistantService producerReplicateAssistantService;
 
-
-    public UpdateAssistantCommandHandler(IAssistantService service) {
+    public UpdateAssistantCommandHandler(IAssistantService service, ProducerReplicateAssistantService producerReplicateAssistantService) {
         this.service = service;
+        this.producerReplicateAssistantService = producerReplicateAssistantService;
     }
 
     @Override
@@ -25,19 +28,48 @@ public class UpdateAssistantCommandHandler implements ICommandHandler<UpdateAssi
 
         ConsumerUpdate update = new ConsumerUpdate();
         AssistantDto assistantDto = service.findById(command.getId());
+        boolean isUpdated = false;
+
         if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setEmail, command.getEmail(), assistantDto.getEmail(), update::setUpdate)) {
             RulesChecker.checkRule(new UpdateAssistantEmailMustBeUniqueRule(this.service, command.getEmail(), command.getId()));
+            isUpdated = true;
         }
-        if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setIdentification, command.getIdentification(), assistantDto.getEmail(), update::setUpdate)) {
+        if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setIdentification, command.getIdentification(), assistantDto.getIdentification(), update::setUpdate)) {
             RulesChecker.checkRule(new UpdateAssistantIdentificationMustBeUniqueRule(this.service, command.getIdentification(), command.getId()));
+            isUpdated = true;
         }
-        UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setName, command.getName(), assistantDto.getName(), update::setUpdate);
-        UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setLastName, command.getLastName(), assistantDto.getLastName(), update::setUpdate);
-        UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setDepartment, command.getDepartment(), assistantDto.getDepartment(), update::setUpdate);
-        UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setPhoneNumber, command.getPhoneNumber(), assistantDto.getPhoneNumber(), update::setUpdate);
-        UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setImage, command.getImage(), assistantDto.getImage(), update::setUpdate);
-        assistantDto.setStatus(command.getStatus());
+        if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setName, command.getName(), assistantDto.getName(), update::setUpdate)) {
+            isUpdated = true;
+        }
+        if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setLastName, command.getLastName(), assistantDto.getLastName(), update::setUpdate)) {
+            isUpdated = true;
+        }
+        if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setDepartment, command.getDepartment(), assistantDto.getDepartment(), update::setUpdate)) {
+            isUpdated = true;
+        }
+        if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setPhoneNumber, command.getPhoneNumber(), assistantDto.getPhoneNumber(), update::setUpdate)) {
+            isUpdated = true;
+        }
+        if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setImage, command.getImage(), assistantDto.getImage(), update::setUpdate)) {
+            isUpdated = true;
+        }
+        if (command.getStatus() != null && !command.getStatus().equals(assistantDto.getStatus())) {
+            assistantDto.setStatus(command.getStatus());
+            isUpdated = true;
+        }
 
-        service.update(assistantDto);
+        if (isUpdated) {
+            service.update(assistantDto);
+
+            producerReplicateAssistantService.create(new DoctorKafka(
+                    assistantDto.getId(),
+                    assistantDto.getIdentification(),
+                    assistantDto.getEmail(),
+                    assistantDto.getName(),
+                    assistantDto.getLastName(),
+                    assistantDto.getImage(),
+                    null
+            ));
+        }
     }
 }
