@@ -12,27 +12,6 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 @Controller
 public class SocketController {
-
-    @MessageMapping("/config.turnero")
-    @SendToUser(destinations = "/queue/services")
-    public Message addTurneroUser(Message chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-        // Add username in web socket session
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getFrom());
-        headerAccessor.setSessionId(chatMessage.getFrom());
-
-        return chatMessage;
-    }
-
-    @MessageMapping("/config.local")
-    @SendToUser(destinations = "/queue/local")
-    public Message addLocalUser(Message chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-        // Add username in web socket session
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getFrom());
-        headerAccessor.setSessionId(chatMessage.getFrom());
-
-        return chatMessage;
-    }
-
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
