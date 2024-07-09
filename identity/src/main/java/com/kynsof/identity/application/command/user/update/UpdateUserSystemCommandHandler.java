@@ -72,15 +72,15 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
             resourceEventService.create(objectToUpdate);
         }
         if (idUpdate) {
-            updateUserKeycloak(command);
+            updateUserKeycloak(command,objectToUpdate.getKeyCloakId().toString());
             systemService.update(objectToUpdate);
 
         }
     }
 
-    private void updateUserKeycloak(UpdateUserSystemCommand userRequest) {
+    private void updateUserKeycloak(UpdateUserSystemCommand userRequest, String userKeycloakId) {
         try {
-            UserResource userResource = keycloakProvider.getUserResource().get(userRequest.getId().toString());
+            UserResource userResource = keycloakProvider.getUserResource().get(userKeycloakId);
             UserRepresentation user = userResource.toRepresentation();
             if (userRequest.getUserName() != null) {
                 user.setUsername(userRequest.getUserName());
