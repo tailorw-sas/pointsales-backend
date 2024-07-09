@@ -44,7 +44,7 @@ public class UserMeServiceImpl implements IUserMeService {
             return createUserMeResponse(userSystem,businessPermissionResponses );
         }
 
-        var userPermissions = userPermissionBusinessReadDataJPARepository.findUserPermissionBusinessByUserId(userId);
+        var userPermissions = userPermissionBusinessReadDataJPARepository.findUserPermissionBusinessByUserId(userSystem.getId());
         var businessResponses = groupUserPermissionsByBusiness(userPermissions);
 
         return createUserMeResponse(userSystem,    new ArrayList<>(businessResponses.values()));
