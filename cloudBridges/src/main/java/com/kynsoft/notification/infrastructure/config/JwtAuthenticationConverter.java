@@ -29,7 +29,7 @@ public class JwtAuthenticationConverter  implements Converter<Jwt, Mono<Abstract
     @Value("${jwt.auth.converter.principle-attribute}")
     private String principleAttribute = "preferred_username";
     
-    @Value("${jwt.auth.converter.users-id}")
+    @Value("${jwt.auth.converter.resource-id}")
     private String resourceId = "quipux-gateway";
     
     @NonNull
