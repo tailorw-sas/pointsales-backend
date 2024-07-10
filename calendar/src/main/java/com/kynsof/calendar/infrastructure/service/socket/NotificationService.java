@@ -24,17 +24,17 @@ public class NotificationService {
         this.restTemplate = restTemplate;
     }
 
-    public void sendNotification(NewServiceMessage message) {
+    public void sendNotification(Object message, String endpoint) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<NewServiceMessage> request = new HttpEntity<>(message, headers);
+            var request = new HttpEntity<>(message, headers);
 
             String notificationUrl = UriComponentsBuilder.newInstance()
                     .scheme("http")
                     .host(host)
                     .port(port)
-                    .path("/api/notification/turnero")
+                    .path(endpoint)
                     .toUriString();
 
             ResponseEntity<Boolean> response = restTemplate.postForEntity(notificationUrl, request, Boolean.class);

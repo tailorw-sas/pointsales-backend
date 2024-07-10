@@ -9,9 +9,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewServiceMessage {
+public class LocalServiceMessage {
+    // local id that receives the service
+    private String queueId;
+
     private String shift;
     private String service;
-    private String local;
-    private String queueId;
+
+    private String identification;
+    private boolean preferential;
 }

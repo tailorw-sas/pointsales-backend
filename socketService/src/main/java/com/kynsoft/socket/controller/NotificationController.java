@@ -1,5 +1,6 @@
 package com.kynsoft.socket.controller;
 
+import com.kynsoft.socket.messages.LocalServiceMessage;
 import com.kynsoft.socket.messages.NewServiceMessage;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -24,7 +25,7 @@ public class NotificationController {
     }
 
     @PostMapping("/local")
-    public ResponseEntity<?> queueService(@RequestBody NewServiceMessage request) {
+    public ResponseEntity<?> queueService(@RequestBody LocalServiceMessage request) {
         messagingTemplate.convertAndSend("/queue/local" + request.getQueueId(), request);
         return ResponseEntity.ok(true);
     }

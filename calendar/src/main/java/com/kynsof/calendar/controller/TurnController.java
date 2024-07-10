@@ -74,5 +74,4 @@ public class TurnController {
         UpdateTurnMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
-
 }
