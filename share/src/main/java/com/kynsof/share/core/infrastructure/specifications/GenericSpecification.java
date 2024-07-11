@@ -98,7 +98,15 @@ public class GenericSpecification<T> implements Specification<T> {
                     yield builder.lessThanOrEqualTo(path.as(String.class), value.toString());
                 }
             }
-            case NOT_EQUALS -> builder.notEqual(path, value);
+            case NOT_EQUALS -> {
+                if (value instanceof LocalDate) {
+                    yield builder.notEqual(path.as(LocalDate.class), (LocalDate) value);
+                } else if (value instanceof LocalDateTime) {
+                    yield builder.notEqual(path.as(LocalDateTime.class), (LocalDateTime) value);
+                } else {
+                    yield builder.notEqual(path, value);
+                }
+            }
             case IN -> {
                 CriteriaBuilder.In<Object> inClause = builder.in(path);
                 if (value instanceof List) {
