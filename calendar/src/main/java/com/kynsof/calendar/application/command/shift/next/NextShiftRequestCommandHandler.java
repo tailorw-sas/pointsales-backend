@@ -1,16 +1,16 @@
 package com.kynsof.calendar.application.command.shift.next;
 
-import com.kynsof.calendar.application.command.turn.create.RandomNumberGenerator;
-import com.kynsof.calendar.domain.dto.BlockDto;
+import com.kynsof.calendar.domain.dto.TurnDto;
 import com.kynsof.calendar.domain.service.IPlaceService;
 import com.kynsof.calendar.domain.service.IServiceService;
+import com.kynsof.calendar.domain.service.ITurnService;
 import com.kynsof.calendar.infrastructure.service.socket.LocalServiceMessage;
 import com.kynsof.calendar.infrastructure.service.socket.NewServiceMessage;
 import com.kynsof.calendar.infrastructure.service.socket.NotificationService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
-import java.util.Random;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -19,11 +19,13 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
     private final NotificationService notificationService;
     private final IPlaceService placeService;
     private final IServiceService serviceService;
+    private final ITurnService turnService;
 
-    public NextShiftRequestCommandHandler(NotificationService notificationService, IPlaceService placeService, IServiceService serviceService) {
+    public NextShiftRequestCommandHandler(NotificationService notificationService, IPlaceService placeService, IServiceService serviceService, ITurnService turnService) {
         this.notificationService = notificationService;
         this.placeService = placeService;
         this.serviceService = serviceService;
+        this.turnService = turnService;
     }
 
     @Override
@@ -34,7 +36,10 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         // message to send to the shift queue
         var message = new NewServiceMessage();
         // TODO: Generate shift code
-        message.setShift(service.getCode() + "-" + String.format("%02d", RandomNumberGenerator.generateRandomNumber(0, 10)));
+        List<TurnDto> turnDtoList = turnService.findByServiceId(service.getId(), place.getBusinessDto().getId());
+        TurnDto turnDto = turnDtoList.get(0);
+
+        message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getPosition()));
         message.setService(service.getName());
         message.setLocal(place.getName());
 
@@ -48,8 +53,8 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         localMessage.setShift(message.getShift());
 
         // TODO: Get the information of the patient and pass it to the local queue
-        localMessage.setPreferential(false);
-        localMessage.setIdentification("9999999999");
+        localMessage.setPreferential(turnDto.getIsPreferential());
+        localMessage.setIdentification(turnDto.getIdentification());
 
         // TODO: Send the notification using integration events
         notificationService.sendNotification(message, "/api/notification/turnero");

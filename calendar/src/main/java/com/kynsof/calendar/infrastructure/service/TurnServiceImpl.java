@@ -87,6 +87,16 @@ public class TurnServiceImpl implements ITurnService {
         return getPaginatedResponse(data);
     }
 
+    @Override
+    public List<TurnDto> findByServiceId(UUID serviceId, UUID businessId) {
+        return this.repositoryQuery.findByServiceId(serviceId, businessId);
+    }
+
+    @Override
+    public int findPositionByServiceId(UUID serviceId, UUID businessDtoId) {
+        return this.repositoryQuery.findPositionByServiceId(serviceId, businessDtoId);
+    }
+
     private PaginatedResponse getPaginatedResponse(Page<Turn> data) {
         List<TurnResponse> patients = new ArrayList<>();
         for (Turn o : data.getContent()) {

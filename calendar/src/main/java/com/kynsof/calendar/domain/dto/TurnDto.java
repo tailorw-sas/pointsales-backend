@@ -26,11 +26,12 @@ public class TurnDto {
     private ETurnStatus status;
     private BusinessDto business;
     private LocalDateTime createAt;
+    private  Integer position;
 
-    public TurnDto(UUID id, ResourceDto doctorId,  ServiceDto specialtyCode, String identification,
+    public TurnDto(UUID id, ResourceDto doctorId, ServiceDto specialtyCode, String identification,
                    Integer orderNumber, EPriority priority, Boolean isPreferential,
                    String waitingTime, ETurnStatus status,
-                   BusinessDto business) {
+                   BusinessDto business, Integer position) {
         this.id = id;
         this.doctor = doctorId;
         this.services = specialtyCode;
@@ -41,6 +42,7 @@ public class TurnDto {
         this.waitingTime = waitingTime;
         this.status = status;
         this.business = business;
+        this.position = position;
     }
 
     public TurnDto toAggregate() {
@@ -54,7 +56,8 @@ public class TurnDto {
                 isPreferential,
                 waitingTime,
                 status,
-                business
+                business,
+                position
         );
     }
 }

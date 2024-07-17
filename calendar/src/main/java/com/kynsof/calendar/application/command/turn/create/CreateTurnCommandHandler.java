@@ -35,6 +35,8 @@ public class CreateTurnCommandHandler implements ICommandHandler<CreateTurnComma
 
         ResourceDto resourceDto = command.getDoctor() != null ? resourceService.findById(command.getDoctor()) : null;
         ServiceDto serviceDto = serviceService.findByIds(command.getService());
+
+        int position = turnService.findPositionByServiceId(serviceDto.getId(), businessDto.getId());
         UUID id = turnService.create(new TurnDto(
                 command.getId(),
                 resourceDto,
@@ -45,7 +47,8 @@ public class CreateTurnCommandHandler implements ICommandHandler<CreateTurnComma
                 command.getIsPreferential(),
                 "0 min",
                 ETurnStatus.PENDING,
-                businessDto
+                businessDto,
+                position+1
         ));
         command.setId(id);
     }

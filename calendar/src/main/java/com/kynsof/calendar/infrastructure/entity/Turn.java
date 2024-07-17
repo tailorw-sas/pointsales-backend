@@ -38,6 +38,8 @@ public class Turn {
     @Column(name = "order_number", nullable = false)
     private Integer orderNumber;
 
+    private Integer position;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "priority", nullable = false)
     private EPriority priority;
@@ -88,7 +90,8 @@ public class Turn {
                 isPreferential,
                 waitingTime,
                 status,
-                business != null ? business.toAggregate() : null
+                business != null ? business.toAggregate() : null,
+                position
         );
         turnDto.setCreateAt(createdAt);
         return turnDto;
