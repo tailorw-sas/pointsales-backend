@@ -48,7 +48,11 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         var message = new NewServiceMessage();
         // TODO: Generate shift code
         List<TurnDto> turnDtoList = turnService.findByServiceId(service.getId(), place.getBusinessDto().getId());
-        TurnDto turnDto = !turnDtoList.isEmpty() ? turnDtoList.get(0) : null;
+
+        TurnDto turnDto = turnDtoList.stream()
+                .filter(turnDtoTem -> turnDtoTem.getStatus() == ETurnStatus.IN_PROGRESS)
+                .findFirst()
+                .orElse(turnDtoList.isEmpty() ? null : turnDtoList.get(0));
         //TODO buscar si existe un turno en progreso para ese local devolver ese turno, si no hay pendiente busco el siguiente de la cola
         if (turnDto != null) {
             message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getOrderNumber()));
