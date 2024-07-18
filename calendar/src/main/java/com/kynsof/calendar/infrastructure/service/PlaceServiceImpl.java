@@ -2,6 +2,7 @@ package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.PlaceResponse;
 import com.kynsof.calendar.domain.dto.PlaceDto;
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import com.kynsof.calendar.domain.service.IPlaceService;
 import com.kynsof.calendar.infrastructure.entity.Place;
 import com.kynsof.calendar.infrastructure.repository.command.PlaceWriteDataJPARepository;
@@ -82,9 +83,26 @@ public class PlaceServiceImpl implements IPlaceService {
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        filterCriteria(filterCriteria);
         GenericSpecificationsBuilder<Place> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<Place> data = this.repositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(data);
+    }
+    private void filterCriteria(List<FilterCriteria> filterCriteria) {
+        filterCriteria.forEach(filter -> {
+            if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
+                filter.setValue(parseEnum(EServiceStatus.class, (String) filter.getValue(), "EServiceStatus"));
+            }
+        });
+    }
+
+    private <T extends Enum<T>> T parseEnum(Class<T> enumClass, String value, String enumName) {
+        try {
+            return Enum.valueOf(enumClass, value);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Invalid value for enum " + enumName + ": " + value);
+            return null;
+        }
     }
 
     private PaginatedResponse getPaginatedResponse(Page<Place> data) {
