@@ -1,5 +1,6 @@
 package com.kynsof.calendar.infrastructure.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kynsof.calendar.domain.dto.ReceiptDto;
 import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
 import jakarta.persistence.*;
@@ -9,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -24,7 +24,6 @@ public class Receipt {
 
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
     private Double price;
@@ -33,19 +32,19 @@ public class Receipt {
     @Size(max = 200)
     private String reasons;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_pk_user")
     private Patient user;
 
-    //@JsonIgnore
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_pk_schedule")
     private Schedule schedule;
 
-    //@JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "fk_pk_service")
-    private Services service;
+//    @JsonIgnore
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "fk_pk_service")
+//    private Services service;
 
     @Enumerated(EnumType.STRING)
     private EStatusReceipt status;
@@ -80,7 +79,7 @@ public class Receipt {
         this.status = receipt.getStatus();
         this.user = new Patient(receipt.getUser());
         this.schedule = receipt.getSchedule() != null ? new Schedule(receipt.getSchedule()) : null;
-        this.service = new Services(receipt.getService());
+       // this.service = new Services(receipt.getService());
         this.requestId = receipt.getRequestId();
         this.authorizationCode = receipt.getAuthorizationCode();
         this.reference = receipt.getReference();
@@ -93,7 +92,7 @@ public class Receipt {
 
     public ReceiptDto toAggregate() {
         return new ReceiptDto(id, price, express, reasons, user.toAggregate(), schedule.toAggregate(),
-                service.toAggregate(), status, requestId, authorizationCode, reference, sessionId, ipAddressCreate,
+                schedule.getService().toAggregate(), status, requestId, authorizationCode, reference, sessionId, ipAddressCreate,
                 ipAddressPayment, userAgentCreate, userAgentPayment);
     }
 

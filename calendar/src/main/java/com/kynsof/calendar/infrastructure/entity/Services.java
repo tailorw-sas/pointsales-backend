@@ -48,13 +48,13 @@ public class Services {
     @Size(max = 2000)
     private String description;
 
-    @OneToMany(mappedBy = "service",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "service",fetch = FetchType.LAZY)
     private Set<ResourceService> resourceServices = new HashSet<>();
 
-    @OneToMany(mappedBy = "services",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "services",fetch = FetchType.LAZY)
     private Set<Turn> turns = new HashSet<>();
 
-    @OneToMany(mappedBy = "service")
+    @OneToMany(mappedBy = "service",fetch = FetchType.LAZY)
     private Set<Schedule> schedules = new HashSet<>();
 
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
