@@ -16,8 +16,8 @@ import com.kynsof.share.core.infrastructure.specifications.GenericSpecifications
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,9 +41,9 @@ public class TurnServiceImpl implements ITurnService {
     }
 
     @Override
+    @Transactional
     public void update(TurnDto objectDto) {
         Turn update = new Turn(objectDto);
-        update.setUpdatedAt(LocalDateTime.now());
         this.repositoryCommand.save(update);
     }
 
