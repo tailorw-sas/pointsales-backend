@@ -58,6 +58,9 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
             localMessage.setPreferential(turnDto.getIsPreferential());
             localMessage.setIdentification(turnDto.getIdentification());
 
+            turnDto.setLocal(place.getCode());
+            turnService.update(turnDto);
+
             // TODO: Send the notification using integration events
             notificationService.sendNotification(message, "/api/notification/turnero");
             notificationService.sendNotification(localMessage, "/api/notification/local");
