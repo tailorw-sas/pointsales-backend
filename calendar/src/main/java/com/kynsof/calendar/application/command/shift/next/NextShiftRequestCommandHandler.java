@@ -37,6 +37,8 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         var place = placeService.findById(UUID.fromString(command.getLocal()));
         var service = serviceService.findByIds(UUID.fromString(command.getService()));
         var resource = resourceService.findById(UUID.fromString(command.getDoctor()));
+
+        //TODO buscar si existe un turno en progreso para ese local devolver ese turno
          if(command.getLastShift() != null || command.getLastShift().length() > 3) {
              var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
              lastShift.setStatus(ETurnStatus.COMPLETED);
@@ -49,7 +51,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         TurnDto turnDto = !turnDtoList.isEmpty() ? turnDtoList.get(0) : null;
 
         if (turnDto != null) {
-            message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getPosition()));
+            message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getOrderNumber()));
             message.setService(service.getName());
             message.setLocal(place.getName());
 
