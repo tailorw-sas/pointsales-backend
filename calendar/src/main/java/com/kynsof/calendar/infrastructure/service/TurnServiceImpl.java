@@ -89,12 +89,12 @@ public class TurnServiceImpl implements ITurnService {
 
     @Override
     public List<TurnDto> findByServiceId(UUID serviceId, UUID businessId) {
-        return this.repositoryQuery.findByServiceId(serviceId, businessId);
+        return null;//this.repositoryQuery.findByServiceId(serviceId, businessId);
     }
 
     @Override
     public int findPositionByServiceId(UUID serviceId, UUID businessDtoId) {
-        return this.repositoryQuery.findPositionByServiceId(serviceId, businessDtoId);
+        return 0;// this.repositoryQuery.findPositionByServiceId(serviceId, businessDtoId);
     }
 
     private PaginatedResponse getPaginatedResponse(Page<Turn> data) {
