@@ -37,7 +37,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         var place = placeService.findById(UUID.fromString(command.getLocal()));
         var service = serviceService.findByIds(UUID.fromString(command.getService()));
         var resource = resourceService.findById(UUID.fromString(command.getDoctor()));
-         if(command.getLastShift() != null || command.getLastShift().length() < 3) {
+         if(command.getLastShift() != null || command.getLastShift().length() > 3) {
              var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
              lastShift.setStatus(ETurnStatus.ATTENDED);
              turnService.update(lastShift);
