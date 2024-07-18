@@ -37,27 +37,31 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         var message = new NewServiceMessage();
         // TODO: Generate shift code
         List<TurnDto> turnDtoList = turnService.findByServiceId(service.getId(), place.getBusinessDto().getId());
-        TurnDto turnDto = turnDtoList.get(0);
+        TurnDto turnDto = !turnDtoList.isEmpty() ? turnDtoList.get(0) : null;
 
-        message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getPosition()));
-        message.setService(service.getName());
-        message.setLocal(place.getName());
+        if (turnDto != null) {
+            message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getPosition()));
+            message.setService(service.getName());
+            message.setLocal(place.getName());
 
-        var block = place.getBlock();
-        message.setQueueId(block.getCode());
+            var block = place.getBlock();
+            message.setQueueId(block.getCode());
 
-        // message to send to the local queue
-        var localMessage = new LocalServiceMessage();
-        localMessage.setService(service.getName());
-        localMessage.setQueueId(place.getId().toString());
-        localMessage.setShift(message.getShift());
+            // message to send to the local queue
+            var localMessage = new LocalServiceMessage();
+            localMessage.setService(service.getName());
+            localMessage.setQueueId(place.getId().toString());
+            localMessage.setShift(message.getShift());
 
-        // TODO: Get the information of the patient and pass it to the local queue
-        localMessage.setPreferential(turnDto.getIsPreferential());
-        localMessage.setIdentification(turnDto.getIdentification());
+            // TODO: Get the information of the patient and pass it to the local queue
+            localMessage.setPreferential(turnDto.getIsPreferential());
+            localMessage.setIdentification(turnDto.getIdentification());
 
-        // TODO: Send the notification using integration events
-        notificationService.sendNotification(message, "/api/notification/turnero");
-        notificationService.sendNotification(localMessage, "/api/notification/local");
+            // TODO: Send the notification using integration events
+            notificationService.sendNotification(message, "/api/notification/turnero");
+            notificationService.sendNotification(localMessage, "/api/notification/local");
+        }
+
+
     }
 }
