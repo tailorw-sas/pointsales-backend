@@ -1,6 +1,7 @@
 package com.kynsof.calendar.application.command.shift.next;
 
 import com.kynsof.calendar.domain.dto.TurnDto;
+import com.kynsof.calendar.domain.dto.enumType.ETurnStatus;
 import com.kynsof.calendar.domain.service.IPlaceService;
 import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.calendar.domain.service.IServiceService;
@@ -36,6 +37,11 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         var place = placeService.findById(UUID.fromString(command.getLocal()));
         var service = serviceService.findByIds(UUID.fromString(command.getService()));
         var resource = resourceService.findById(UUID.fromString(command.getDoctor()));
+         if(command.getLastShift() != null) {
+             var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
+             lastShift.setStatus(ETurnStatus.ATTENDED);
+             turnService.update(lastShift);
+         }
         // message to send to the shift queue
         var message = new NewServiceMessage();
         // TODO: Generate shift code

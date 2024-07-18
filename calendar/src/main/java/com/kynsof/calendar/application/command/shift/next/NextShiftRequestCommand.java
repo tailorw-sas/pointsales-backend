@@ -16,9 +16,10 @@ public class NextShiftRequestCommand implements ICommand {
     private String local;
     private String service;
     private String doctor;
+    private String lastShift;
 
     public static NextShiftRequestCommand fromRequest(NextShiftRequest request) {
-        return new NextShiftRequestCommand(request.getLocal(), request.getService(), request.getDoctor());
+        return new NextShiftRequestCommand(request.getLocal(), request.getService(), request.getDoctor(), request.getLastShift());
     }
 
     @Override

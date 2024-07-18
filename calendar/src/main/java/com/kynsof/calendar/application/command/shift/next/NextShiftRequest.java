@@ -10,4 +10,5 @@ public class NextShiftRequest {
     private String local;
     private String service;
     private String doctor;
+    private String lastShift;
 }
