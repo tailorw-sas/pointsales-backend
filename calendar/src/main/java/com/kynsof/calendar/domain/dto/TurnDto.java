@@ -27,6 +27,7 @@ public class TurnDto {
     private BusinessDto business;
     private LocalDateTime createAt;
     private  Integer position;
+    private String Local;
 
     public TurnDto(UUID id, ResourceDto doctorId, ServiceDto specialtyCode, String identification,
                    Integer orderNumber, EPriority priority, Boolean isPreferential,

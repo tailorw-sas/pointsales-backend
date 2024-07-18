@@ -58,10 +58,10 @@ public class Turn {
     @JoinColumn(name = "business_id", nullable = false)
     private Business business;
 
+    private String local;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
@@ -77,6 +77,7 @@ public class Turn {
         this.waitingTime = turnDto.getWaitingTime();
         this.status = turnDto.getStatus();
         this.business = turnDto.getBusiness() != null ? new Business(turnDto.getBusiness()) : null;
+        this.local = turnDto.getLocal();
     }
 
     public TurnDto toAggregate() {
@@ -93,6 +94,7 @@ public class Turn {
                 business != null ? business.toAggregate() : null,
                 position
         );
+        turnDto.setLocal(local);
         turnDto.setCreateAt(createdAt);
         return turnDto;
     }
