@@ -32,8 +32,8 @@ public class NotificationService {
 
             String notificationUrl = UriComponentsBuilder.newInstance()
                     .scheme("http")
-                    .host("socket-service.medinec.svc.cluster.local")
-                    .port(7171)
+                    .host(host)
+                    .port(port)
                     .path(endpoint)
                     .toUriString();
 
