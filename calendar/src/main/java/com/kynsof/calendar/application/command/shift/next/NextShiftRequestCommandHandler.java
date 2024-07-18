@@ -2,6 +2,7 @@ package com.kynsof.calendar.application.command.shift.next;
 
 import com.kynsof.calendar.domain.dto.TurnDto;
 import com.kynsof.calendar.domain.service.IPlaceService;
+import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.calendar.domain.service.ITurnService;
 import com.kynsof.calendar.infrastructure.service.socket.LocalServiceMessage;
@@ -20,19 +21,21 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
     private final IPlaceService placeService;
     private final IServiceService serviceService;
     private final ITurnService turnService;
+    private final IResourceService resourceService;
 
-    public NextShiftRequestCommandHandler(NotificationService notificationService, IPlaceService placeService, IServiceService serviceService, ITurnService turnService) {
+    public NextShiftRequestCommandHandler(NotificationService notificationService, IPlaceService placeService, IServiceService serviceService, ITurnService turnService, IResourceService resourceService) {
         this.notificationService = notificationService;
         this.placeService = placeService;
         this.serviceService = serviceService;
         this.turnService = turnService;
+        this.resourceService = resourceService;
     }
 
     @Override
     public void handle(NextShiftRequestCommand command) {
         var place = placeService.findById(UUID.fromString(command.getLocal()));
         var service = serviceService.findByIds(UUID.fromString(command.getService()));
-
+        var resource = resourceService.findById(UUID.fromString(command.getDoctor()));
         // message to send to the shift queue
         var message = new NewServiceMessage();
         // TODO: Generate shift code
@@ -59,6 +62,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
             localMessage.setIdentification(turnDto.getIdentification());
 
             turnDto.setLocal(place.getCode());
+            turnDto.setDoctor(resource);
             turnService.update(turnDto);
 
             // TODO: Send the notification using integration events
