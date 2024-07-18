@@ -31,9 +31,9 @@ public class NotificationService {
             var request = new HttpEntity<>(message, headers);
 
             String notificationUrl = UriComponentsBuilder.newInstance()
-                    .scheme("http")
-                    .host(host)
-                    .port(port)
+                    .scheme("https")
+                    .host("socket-service.medinec.svc.cluster.local")
+                    .port(7171)
                     .path(endpoint)
                     .toUriString();
 
