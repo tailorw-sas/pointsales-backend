@@ -39,7 +39,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         var resource = resourceService.findById(UUID.fromString(command.getDoctor()));
          if(command.getLastShift() != null || command.getLastShift().length() > 3) {
              var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
-             lastShift.setStatus(ETurnStatus.ATTENDED);
+             lastShift.setStatus(ETurnStatus.COMPLETED);
              turnService.update(lastShift);
          }
         // message to send to the shift queue
@@ -69,6 +69,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
 
             turnDto.setLocal(place.getCode());
             turnDto.setDoctor(resource);
+            turnDto.setStatus(ETurnStatus.IN_PROGRESS);
             turnService.update(turnDto);
 
             // TODO: Send the notification using integration events
