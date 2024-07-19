@@ -1,12 +1,12 @@
 package com.kynsof.calendar.infrastructure.service;
 
-import com.kynsof.calendar.application.query.BlockResponse;
-import com.kynsof.calendar.domain.dto.BlockDto;
+import com.kynsof.calendar.application.query.AttendanceLogResponse;
+import com.kynsof.calendar.domain.dto.AttendanceLogDto;
 import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
-import com.kynsof.calendar.domain.service.IBlockService;
-import com.kynsof.calendar.infrastructure.entity.Block;
-import com.kynsof.calendar.infrastructure.repository.command.BlockWriteDataJPARepository;
-import com.kynsof.calendar.infrastructure.repository.query.BlockReadDataJPARepository;
+import com.kynsof.calendar.domain.service.IAttendanceLogService;
+import com.kynsof.calendar.infrastructure.entity.AttendanceLog;
+import com.kynsof.calendar.infrastructure.repository.command.AttendanceLogWriteDataJPARepository;
+import com.kynsof.calendar.infrastructure.repository.query.AttendanceLogReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -24,25 +24,25 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class BlockServiceImpl implements IBlockService {
+public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
-    private final BlockWriteDataJPARepository repositoryCommand;
+    private final AttendanceLogWriteDataJPARepository repositoryCommand;
 
-    private final BlockReadDataJPARepository repositoryQuery;
+    private final AttendanceLogReadDataJPARepository repositoryQuery;
 
-    public BlockServiceImpl(BlockWriteDataJPARepository repositoryCommand, BlockReadDataJPARepository repositoryQuery) {
+    public AttendanceLogServiceImpl(AttendanceLogWriteDataJPARepository repositoryCommand, AttendanceLogReadDataJPARepository repositoryQuery) {
         this.repositoryCommand = repositoryCommand;
         this.repositoryQuery = repositoryQuery;
     }
 
     @Override
-    public UUID create(BlockDto object) {
-        return this.repositoryCommand.save(new Block(object)).getId();
+    public UUID create(AttendanceLogDto object) {
+        return this.repositoryCommand.save(new AttendanceLog(object)).getId();
     }
 
     @Override
-    public void update(BlockDto objectDto) {
-        Block update = new Block(objectDto);
+    public void update(AttendanceLogDto objectDto) {
+        AttendanceLog update = new AttendanceLog(objectDto);
         this.repositoryCommand.save(update);
     }
 
@@ -55,9 +55,9 @@ public class BlockServiceImpl implements IBlockService {
         }
     }
 
-    private BlockDto getById(UUID id) {
+    private AttendanceLogDto getById(UUID id) {
 
-        Optional<Block> object = this.repositoryQuery.findById(id);
+        Optional<AttendanceLog> object = this.repositoryQuery.findById(id);
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
@@ -68,9 +68,9 @@ public class BlockServiceImpl implements IBlockService {
 
     //@Cacheable(cacheNames = CacheConfig.SERVICE_CACHE, unless = "#result == null")
     @Override
-    public BlockDto findById(UUID id) {
+    public AttendanceLogDto findById(UUID id) {
 
-        Optional<Block> object = this.repositoryQuery.findById(id);
+        Optional<AttendanceLog> object = this.repositoryQuery.findById(id);
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
@@ -82,8 +82,8 @@ public class BlockServiceImpl implements IBlockService {
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         filterCriteria(filterCriteria);
-        GenericSpecificationsBuilder<Block> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-        Page<Block> data = this.repositoryQuery.findAll(specifications, pageable);
+        GenericSpecificationsBuilder<AttendanceLog> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<AttendanceLog> data = this.repositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(data);
     }
 
@@ -102,10 +102,10 @@ public class BlockServiceImpl implements IBlockService {
             return null;
         }
     }
-    private PaginatedResponse getPaginatedResponse(Page<Block> data) {
-        List<BlockResponse> patients = new ArrayList<>();
-        for (Block o : data.getContent()) {
-            patients.add(new BlockResponse(o.toAggregate()));
+    private PaginatedResponse getPaginatedResponse(Page<AttendanceLog> data) {
+        List<AttendanceLogResponse> patients = new ArrayList<>();
+        for (AttendanceLog o : data.getContent()) {
+            patients.add(new AttendanceLogResponse(o.toAggregate()));
         }
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());

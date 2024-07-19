@@ -25,4 +25,11 @@ public class ShiftController {
         mediator.send(command);
         return ResponseEntity.ok(true);
     }
+
+    @PostMapping("stop")
+    public ResponseEntity<?> stop(@RequestBody NextShiftRequest request) {
+        var command = NextShiftRequestCommand.fromRequest(request);
+        mediator.send(command);
+        return ResponseEntity.ok(true);
+    }
 }
