@@ -1,11 +1,10 @@
 package com.kynsof.calendar.application.command.shift.next;
 
+import com.kynsof.calendar.domain.dto.AttendanceLogDto;
 import com.kynsof.calendar.domain.dto.TurnDto;
+import com.kynsof.calendar.domain.dto.enumType.AttentionLocalStatus;
 import com.kynsof.calendar.domain.dto.enumType.ETurnStatus;
-import com.kynsof.calendar.domain.service.IPlaceService;
-import com.kynsof.calendar.domain.service.IResourceService;
-import com.kynsof.calendar.domain.service.IServiceService;
-import com.kynsof.calendar.domain.service.ITurnService;
+import com.kynsof.calendar.domain.service.*;
 import com.kynsof.calendar.infrastructure.service.socket.LocalServiceMessage;
 import com.kynsof.calendar.infrastructure.service.socket.NewServiceMessage;
 import com.kynsof.calendar.infrastructure.service.socket.NotificationService;
@@ -23,13 +22,15 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
     private final IServiceService serviceService;
     private final ITurnService turnService;
     private final IResourceService resourceService;
+    private final IAttendanceLogService attendanceLogService;
 
-    public NextShiftRequestCommandHandler(NotificationService notificationService, IPlaceService placeService, IServiceService serviceService, ITurnService turnService, IResourceService resourceService) {
+    public NextShiftRequestCommandHandler(NotificationService notificationService, IPlaceService placeService, IServiceService serviceService, ITurnService turnService, IResourceService resourceService, IAttendanceLogService attendanceLogService) {
         this.notificationService = notificationService;
         this.placeService = placeService;
         this.serviceService = serviceService;
         this.turnService = turnService;
         this.resourceService = resourceService;
+        this.attendanceLogService = attendanceLogService;
     }
 
     @Override
@@ -55,7 +56,17 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
                 .orElse(turnDtoList.isEmpty() ? null : turnDtoList.get(0));
 
         // Exit if there is no turn in progress
-        if (turnDto == null) return;
+        if (turnDto == null) {
+            AttendanceLogDto attendanceLogDto = new AttendanceLogDto();
+            attendanceLogDto.setId(UUID.randomUUID());
+            attendanceLogDto.setBusiness(place.getBusinessDto());
+            attendanceLogDto.setResource(resource);
+            attendanceLogDto.setService(service);
+            attendanceLogDto.setStatus(AttentionLocalStatus.AVAILABLE);
+            attendanceLogDto.setLocal(command.getLocal());
+            attendanceLogService.create(attendanceLogDto);
+            return;
+        };
 
         //TODO buscar si existe un turno en progreso para ese local devolver ese turno, si no hay pendiente busco el siguiente de la cola
         message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getOrderNumber()));

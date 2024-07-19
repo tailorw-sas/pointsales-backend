@@ -51,6 +51,7 @@ public class AttendanceLog {
         this.service = new Services(attendanceLogDto.getService());
         this.resource = new Resource(attendanceLogDto.getResource());
         this.local = attendanceLogDto.getLocal();
+        this.status = attendanceLogDto.getStatus();
     }
 
     public  AttendanceLogDto toAggregate() {
