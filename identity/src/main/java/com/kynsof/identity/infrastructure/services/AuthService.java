@@ -40,7 +40,6 @@ public class AuthService implements IAuthService {
 
     private final KeycloakProvider keycloakProvider;
     private final RestTemplate restTemplate;
-    private final ProducerRegisterUserEventService producerRegisterUserEvent;
     private final IRedisService otpService;
     private final ProducerTriggerPasswordResetEventService producerOtp;
 
@@ -51,7 +50,6 @@ public class AuthService implements IAuthService {
                        ProducerRegisterUserSystemEventService producerRegisterUserSystemEvent) {
         this.keycloakProvider = keycloakProvider;
         this.restTemplate = restTemplate;
-        this.producerRegisterUserEvent = producerRegisterUserEvent;
         this.otpService = otpService;
         this.producerOtp = producerOtp;
     }
