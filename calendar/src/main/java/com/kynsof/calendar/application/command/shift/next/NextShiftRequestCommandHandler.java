@@ -45,9 +45,8 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
             turnService.update(lastShift);
         }
 
-        // message to send to the shift queue
-        var message = new NewServiceMessage();
-        // TODO: Generate shift code
+
+
         List<TurnDto> turnDtoList = turnService.findByServiceId(service.getId(), place.getBusinessDto().getId());
 
         var turnDto = turnDtoList.stream()
@@ -55,7 +54,6 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
                 .findFirst()
                 .orElse(turnDtoList.isEmpty() ? null : turnDtoList.get(0));
 
-        // Exit if there is no turn in progress
         if (turnDto == null) {
             AttendanceLogDto attendanceLogDto = new AttendanceLogDto();
             attendanceLogDto.setId(UUID.randomUUID());
@@ -63,12 +61,13 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
             attendanceLogDto.setResource(resource);
             attendanceLogDto.setService(service);
             attendanceLogDto.setStatus(AttentionLocalStatus.AVAILABLE);
-            attendanceLogDto.setLocal(command.getLocal());
+            attendanceLogDto.setPlace(place);
             attendanceLogService.create(attendanceLogDto);
             return;
-        };
+        }
 
-        //TODO buscar si existe un turno en progreso para ese local devolver ese turno, si no hay pendiente busco el siguiente de la cola
+        // message to send to the shift queue
+        var message = new NewServiceMessage();
         message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getOrderNumber()));
         message.setService(service.getName());
         message.setLocal(place.getName());
@@ -82,7 +81,6 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         localMessage.setQueueId(place.getId().toString());
         localMessage.setShift(message.getShift());
         localMessage.setPreferential(turnDto.getIsPreferential());
-        // TODO: Get the information of the patient and pass it to the local queue
         localMessage.setPreferential(turnDto.getIsPreferential());
         localMessage.setIdentification(turnDto.getIdentification());
         localMessage.setShiftId(turnDto.getId().toString());

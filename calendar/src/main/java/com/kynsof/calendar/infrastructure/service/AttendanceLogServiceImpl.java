@@ -17,6 +17,7 @@ import com.kynsof.share.core.infrastructure.specifications.GenericSpecifications
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,17 +37,20 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
     }
 
     @Override
+    @Transactional
     public UUID create(AttendanceLogDto object) {
         return this.repositoryCommand.save(new AttendanceLog(object)).getId();
     }
 
     @Override
+    @Transactional
     public void update(AttendanceLogDto objectDto) {
         AttendanceLog update = new AttendanceLog(objectDto);
         this.repositoryCommand.save(update);
     }
 
     @Override
+    @Transactional
     public void delete(UUID id) {
         try {
             this.repositoryCommand.deleteById(id);
@@ -55,18 +59,13 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
         }
     }
 
-    private AttendanceLogDto getById(UUID id) {
-
-        Optional<AttendanceLog> object = this.repositoryQuery.findById(id);
-        if (object.isPresent()) {
-            return object.get().toAggregate();
-        }
-
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SERVICE_TYPE_NOT_FOUND, new ErrorField("id", "Service Type not found.")));
+    @Override
+    public AttendanceLogDto getByServiceId(UUID serviceId, UUID businessId) {
+        List<AttendanceLog> object = this.repositoryQuery.getByServiceId(serviceId, businessId);
+        return object.stream().map(AttendanceLog::toAggregate).findFirst().orElse(null);
 
     }
 
-    //@Cacheable(cacheNames = CacheConfig.SERVICE_CACHE, unless = "#result == null")
     @Override
     public AttendanceLogDto findById(UUID id) {
 
@@ -94,6 +93,7 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
             }
         });
     }
+
     private <T extends Enum<T>> T parseEnum(Class<T> enumClass, String value, String enumName) {
         try {
             return Enum.valueOf(enumClass, value);
@@ -102,6 +102,7 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
             return null;
         }
     }
+
     private PaginatedResponse getPaginatedResponse(Page<AttendanceLog> data) {
         List<AttendanceLogResponse> patients = new ArrayList<>();
         for (AttendanceLog o : data.getContent()) {

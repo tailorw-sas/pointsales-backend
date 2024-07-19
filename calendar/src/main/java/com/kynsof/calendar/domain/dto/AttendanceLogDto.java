@@ -18,5 +18,5 @@ public class AttendanceLogDto {
     private BusinessDto business;
     private ServiceDto service;
     private AttentionLocalStatus status;
-    private String local;
+    private PlaceDto place;
 }

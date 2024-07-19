@@ -1,14 +1,11 @@
 package com.kynsof.calendar.application.command.turn.create;
 
-import com.kynsof.calendar.domain.dto.BusinessDto;
-import com.kynsof.calendar.domain.dto.ResourceDto;
-import com.kynsof.calendar.domain.dto.ServiceDto;
-import com.kynsof.calendar.domain.dto.TurnDto;
+import com.kynsof.calendar.domain.dto.*;
 import com.kynsof.calendar.domain.dto.enumType.ETurnStatus;
-import com.kynsof.calendar.domain.service.IBusinessService;
-import com.kynsof.calendar.domain.service.IResourceService;
-import com.kynsof.calendar.domain.service.IServiceService;
-import com.kynsof.calendar.domain.service.ITurnService;
+import com.kynsof.calendar.domain.service.*;
+import com.kynsof.calendar.infrastructure.service.socket.LocalServiceMessage;
+import com.kynsof.calendar.infrastructure.service.socket.NewServiceMessage;
+import com.kynsof.calendar.infrastructure.service.socket.NotificationService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
@@ -21,12 +18,19 @@ public class CreateTurnCommandHandler implements ICommandHandler<CreateTurnComma
     private final IBusinessService businessService;
     private final IResourceService resourceService;
     private final IServiceService serviceService;
+    private  final IAttendanceLogService attendanceLogService;
+    private final NotificationService notificationService;
 
-    public CreateTurnCommandHandler(ITurnService turnService, IBusinessService businessService, IResourceService resourceService, IServiceService serviceService) {
+    public CreateTurnCommandHandler(ITurnService turnService, IBusinessService businessService,
+                                    IResourceService resourceService, IServiceService serviceService,
+                                    IAttendanceLogService attendanceLogService,
+                                    NotificationService notificationService) {
         this.turnService = turnService;
         this.businessService = businessService;
         this.resourceService = resourceService;
         this.serviceService = serviceService;
+        this.attendanceLogService = attendanceLogService;
+        this.notificationService = notificationService;
     }
 
     @Override
@@ -34,13 +38,56 @@ public class CreateTurnCommandHandler implements ICommandHandler<CreateTurnComma
         BusinessDto businessDto = businessService.findById(command.getBusiness());
 
         ResourceDto resourceDto = command.getDoctor() != null ? resourceService.findById(command.getDoctor()) : null;
-        ServiceDto serviceDto = serviceService.findByIds(command.getService());
+        ServiceDto service = serviceService.findByIds(command.getService());
+        AttendanceLogDto attendanceLogDto = attendanceLogService.getByServiceId(service.getId(), businessDto.getId());
 
-        int position = turnService.findPositionByServiceId(serviceDto.getId(), businessDto.getId());
+        if(attendanceLogDto != null) {
+            attendanceLogService.delete(attendanceLogDto.getId());
+           // int position = turnService.findPositionByServiceId(service.getId(), businessDto.getId());
+            var turnDto = new TurnDto(
+                    command.getId(),
+                    resourceDto,
+                    service,
+                    command.getIdentification(),
+                    RandomNumberGenerator.generateRandomNumber(0,100),
+                    command.getPriority(),
+                    command.getIsPreferential(),
+                    "0 min",
+                    ETurnStatus.IN_PROGRESS,
+                    businessDto,
+                    0
+            );
+            UUID id = turnService.create(turnDto);
+
+            var message = new NewServiceMessage();
+            message.setShift(service.getCode() + "-" + String.format("%02d", 1));
+            message.setService(service.getName());
+            message.setLocal(attendanceLogDto.getPlace().getCode());
+
+            var block = attendanceLogDto.getPlace().getBlock();
+            message.setQueueId(block.getCode());
+
+            // message to send to the local queue
+            var localMessage = new LocalServiceMessage();
+            localMessage.setService(service.getName());
+            localMessage.setQueueId(attendanceLogDto.getPlace().getId().toString());
+            localMessage.setShift(message.getShift());
+            localMessage.setPreferential(turnDto.getIsPreferential());
+            localMessage.setPreferential(turnDto.getIsPreferential());
+            localMessage.setIdentification(turnDto.getIdentification());
+            localMessage.setShiftId(turnDto.getId().toString());
+            localMessage.setStatus(turnDto.getStatus().toString());
+            notificationService.sendNotification(message, "/api/notification/turnero");
+            notificationService.sendNotification(localMessage, "/api/notification/local");
+            command.setId(id);
+            return;
+        }
+
+      //  int position = turnService.findPositionByServiceId(service.getId(), businessDto.getId());
         UUID id = turnService.create(new TurnDto(
                 command.getId(),
                 resourceDto,
-                serviceDto,
+                service,
                 command.getIdentification(),
                 RandomNumberGenerator.generateRandomNumber(0,100),
                 command.getPriority(),
@@ -48,7 +95,7 @@ public class CreateTurnCommandHandler implements ICommandHandler<CreateTurnComma
                 "0 min",
                 ETurnStatus.PENDING,
                 businessDto,
-                position+1
+                1
         ));
         command.setId(id);
     }

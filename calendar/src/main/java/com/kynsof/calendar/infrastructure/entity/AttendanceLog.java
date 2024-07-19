@@ -22,16 +22,16 @@ public class AttendanceLog {
     private UUID id;
 
     @JsonIgnoreProperties({"picture", "services", "qualifications"})
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "resource_id")
     private Resource resource;
 
     @JsonIgnoreProperties({"logo", "description", "resources", "services", "schedules", "receipts"})
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "business_id")
     private Business business;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_id")
     private Services service;
 
@@ -42,7 +42,9 @@ public class AttendanceLog {
     @Enumerated(EnumType.STRING)
     private AttentionLocalStatus status;
 
-    private String local;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "place_id")
+    private Place place;
 
 
     public AttendanceLog(AttendanceLogDto attendanceLogDto) {
@@ -50,13 +52,13 @@ public class AttendanceLog {
         this.business = new Business(attendanceLogDto.getBusiness());
         this.service = new Services(attendanceLogDto.getService());
         this.resource = new Resource(attendanceLogDto.getResource());
-        this.local = attendanceLogDto.getLocal();
+        this.place = new Place(attendanceLogDto.getPlace());
         this.status = attendanceLogDto.getStatus();
     }
 
     public  AttendanceLogDto toAggregate() {
         return new AttendanceLogDto(id, resource.toAggregate(), business.toAggregate(), service.toAggregate(),status,
-                local);
+                place.toAggregate());
     }
 
 }
