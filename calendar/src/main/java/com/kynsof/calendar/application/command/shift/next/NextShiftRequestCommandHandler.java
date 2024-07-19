@@ -38,51 +38,51 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         var service = serviceService.findByIds(UUID.fromString(command.getService()));
         var resource = resourceService.findById(UUID.fromString(command.getDoctor()));
 
+        if (command.getLastShift() != null && command.getLastShift().length() > 3) {
+            var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
+            lastShift.setStatus(ETurnStatus.COMPLETED);
+            turnService.update(lastShift);
+        }
 
-         if(command.getLastShift() != null || command.getLastShift().length() > 3) {
-             var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
-             lastShift.setStatus(ETurnStatus.COMPLETED);
-             turnService.update(lastShift);
-         }
         // message to send to the shift queue
         var message = new NewServiceMessage();
         // TODO: Generate shift code
         List<TurnDto> turnDtoList = turnService.findByServiceId(service.getId(), place.getBusinessDto().getId());
 
-        TurnDto turnDto = turnDtoList.stream()
+        var turnDto = turnDtoList.stream()
                 .filter(turnDtoTem -> turnDtoTem.getStatus() == ETurnStatus.IN_PROGRESS)
                 .findFirst()
                 .orElse(turnDtoList.isEmpty() ? null : turnDtoList.get(0));
+
+        // Exit if there is no turn in progress
+        if (turnDto == null) return;
+
         //TODO buscar si existe un turno en progreso para ese local devolver ese turno, si no hay pendiente busco el siguiente de la cola
-        if (turnDto != null) {
-            message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getOrderNumber()));
-            message.setService(service.getName());
-            message.setLocal(place.getName());
+        message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getOrderNumber()));
+        message.setService(service.getName());
+        message.setLocal(place.getName());
 
-            var block = place.getBlock();
-            message.setQueueId(block.getCode());
+        var block = place.getBlock();
+        message.setQueueId(block.getCode());
 
-            // message to send to the local queue
-            var localMessage = new LocalServiceMessage();
-            localMessage.setService(service.getName());
-            localMessage.setQueueId(place.getId().toString());
-            localMessage.setShift(message.getShift());
-            localMessage.setPreferential(turnDto.getIsPreferential());
+        // message to send to the local queue
+        var localMessage = new LocalServiceMessage();
+        localMessage.setService(service.getName());
+        localMessage.setQueueId(place.getId().toString());
+        localMessage.setShift(message.getShift());
+        localMessage.setPreferential(turnDto.getIsPreferential());
 
-            // TODO: Get the information of the patient and pass it to the local queue
-            localMessage.setPreferential(turnDto.getIsPreferential());
-            localMessage.setIdentification(turnDto.getIdentification());
+        // TODO: Get the information of the patient and pass it to the local queue
+        localMessage.setPreferential(turnDto.getIsPreferential());
+        localMessage.setIdentification(turnDto.getIdentification());
 
-            turnDto.setLocal(place.getCode());
-            turnDto.setDoctor(resource);
-            turnDto.setStatus(ETurnStatus.IN_PROGRESS);
-            turnService.update(turnDto);
+        turnDto.setLocal(place.getCode());
+        turnDto.setDoctor(resource);
+        turnDto.setStatus(ETurnStatus.IN_PROGRESS);
+        turnService.update(turnDto);
 
-            // TODO: Send the notification using integration events
-            notificationService.sendNotification(message, "/api/notification/turnero");
-            notificationService.sendNotification(localMessage, "/api/notification/local");
-        }
-
-
+        // TODO: Send the notification using integration events
+        notificationService.sendNotification(message, "/api/notification/turnero");
+        notificationService.sendNotification(localMessage, "/api/notification/local");
     }
 }
