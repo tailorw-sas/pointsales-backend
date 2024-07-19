@@ -21,12 +21,14 @@ public class NotificationController {
     @PostMapping("/turnero")
     public ResponseEntity<?> queueTurnero(@RequestBody NewServiceMessage request) {
         messagingTemplate.convertAndSend("/queue/turnero" + request.getQueueId(), request);
+        System.out.println("Notificación enviada al turnero." + request.getQueueId());
         return ResponseEntity.ok(true);
     }
 
     @PostMapping("/local")
     public ResponseEntity<?> queueService(@RequestBody LocalServiceMessage request) {
         messagingTemplate.convertAndSend("/queue/local" + request.getQueueId(), request);
+        System.out.println("Notificación enviada al local." + request.getQueueId());
         return ResponseEntity.ok(true);
     }
 }
