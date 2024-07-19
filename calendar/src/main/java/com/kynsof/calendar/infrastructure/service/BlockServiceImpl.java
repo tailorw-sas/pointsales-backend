@@ -2,6 +2,7 @@ package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.BlockResponse;
 import com.kynsof.calendar.domain.dto.BlockDto;
+import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
 import com.kynsof.calendar.domain.service.IBlockService;
 import com.kynsof.calendar.infrastructure.entity.Block;
 import com.kynsof.calendar.infrastructure.repository.command.BlockWriteDataJPARepository;
@@ -82,11 +83,27 @@ public class BlockServiceImpl implements IBlockService {
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
+        filterCriteria(filterCriteria);
         GenericSpecificationsBuilder<Block> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<Block> data = this.repositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(data);
     }
 
+    private void filterCriteria(List<FilterCriteria> filterCriteria) {
+        filterCriteria.forEach(filter -> {
+            if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
+                filter.setValue(parseEnum(EServiceStatus.class, (String) filter.getValue(), "EServiceStatus"));
+            }
+        });
+    }
+    private <T extends Enum<T>> T parseEnum(Class<T> enumClass, String value, String enumName) {
+        try {
+            return Enum.valueOf(enumClass, value);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Invalid value for enum " + enumName + ": " + value);
+            return null;
+        }
+    }
     private PaginatedResponse getPaginatedResponse(Page<Block> data) {
         List<BlockResponse> patients = new ArrayList<>();
         for (Block o : data.getContent()) {
