@@ -71,7 +71,6 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         localMessage.setQueueId(place.getId().toString());
         localMessage.setShift(message.getShift());
         localMessage.setPreferential(turnDto.getIsPreferential());
-
         // TODO: Get the information of the patient and pass it to the local queue
         localMessage.setPreferential(turnDto.getIsPreferential());
         localMessage.setIdentification(turnDto.getIdentification());
