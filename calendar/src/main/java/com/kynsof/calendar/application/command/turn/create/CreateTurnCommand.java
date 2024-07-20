@@ -19,24 +19,25 @@ public class CreateTurnCommand implements ICommand {
     private EPriority priority;
     private Boolean isPreferential;
     private final UUID business;
+    private final Boolean isNeedPayment;
 
     public CreateTurnCommand(UUID doctor, UUID service, String identification,
                              EPriority priority, Boolean isPreferential,
-                             UUID business) {
+                             UUID business, Boolean isNeedPayment) {
+        this.isNeedPayment = isNeedPayment;
         this.id = UUID.randomUUID();
         this.doctor = doctor;
         this.service = service;
         this.identification = identification;
         this.priority = priority;
         this.isPreferential = isPreferential;
-
         this.business = business;
     }
 
     public static CreateTurnCommand fromRequest(CreateTurnRequest request) {
         return new CreateTurnCommand(request.getDoctor(), request.getService(), request.getIdentification(),
                 request.getPriority(), request.getIsPreferential(),
-                request.getBusiness());
+                request.getBusiness(),request.getIsNeedPayment() );
     }
 
     @Override

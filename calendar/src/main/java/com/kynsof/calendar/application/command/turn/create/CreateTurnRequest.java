@@ -16,5 +16,5 @@ public class CreateTurnRequest {
     private String identification;
     private EPriority priority;
     private Boolean isPreferential;
-
+    private Boolean isNeedPayment;
 }

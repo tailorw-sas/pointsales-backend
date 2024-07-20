@@ -28,6 +28,7 @@ public class TurnResponse implements IResponse {
     private ETurnStatus status;
     private BusinessDto business;
     private LocalDateTime createAt;
+    private Boolean isNeedPayment;
 
 
     public TurnResponse(TurnDto object) {
@@ -42,6 +43,7 @@ public class TurnResponse implements IResponse {
         this.status = object.getStatus();
         this.business = object.getBusiness();
         this.createAt = object.getCreateAt();
+        this.isNeedPayment = object.getIsNeedPayment();
     }
 
 }
