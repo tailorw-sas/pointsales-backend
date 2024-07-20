@@ -55,7 +55,8 @@ public class CreateTurnCommandHandler implements ICommandHandler<CreateTurnComma
                     "0 min",
                     ETurnStatus.IN_PROGRESS,
                     businessDto,
-                    0
+                    0,
+                    command.getIsNeedPayment()
             );
             UUID id = turnService.create(turnDto);
 
@@ -95,7 +96,8 @@ public class CreateTurnCommandHandler implements ICommandHandler<CreateTurnComma
                 "0 min",
                 ETurnStatus.PENDING,
                 businessDto,
-                1
+                1,
+                command.getIsNeedPayment()
         ));
         command.setId(id);
     }
