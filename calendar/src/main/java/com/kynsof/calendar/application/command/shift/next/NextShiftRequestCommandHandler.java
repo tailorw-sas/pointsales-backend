@@ -38,17 +38,17 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         var place = placeService.findById(UUID.fromString(command.getLocal()));
         var service = serviceService.findByIds(UUID.fromString(command.getService()));
         var resource = resourceService.findById(UUID.fromString(command.getDoctor()));
-
+        UUID serviceId = service.getId();
         if (command.getLastShift() != null && command.getLastShift().length() > 3) {
             var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
-            lastShift.setStatus(ETurnStatus.COMPLETED);
             turnService.update(lastShift);
         }
-
-
-
-        List<TurnDto> turnDtoList = turnService.findByServiceId(service.getId(), place.getBusinessDto().getId());
-
+        List<TurnDto> turnDtoList;
+        if (serviceId == UUID.fromString("c8dad20a-234e-4e1b-ad3c-fda5316e3714")) {
+            turnDtoList = turnService.findByServiceId(serviceId, place.getBusinessDto().getId());
+        } else {
+            turnDtoList = turnService.findByServiceId(serviceId, place.getBusinessDto().getId());
+        }
         var turnDto = turnDtoList.stream()
                 .filter(turnDtoTem -> turnDtoTem.getStatus() == ETurnStatus.IN_PROGRESS)
                 .findFirst()

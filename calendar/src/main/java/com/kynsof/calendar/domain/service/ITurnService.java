@@ -19,7 +19,9 @@ public interface ITurnService {
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
-    List<TurnDto> findByServiceId(UUID id, UUID uuid);
+    List<TurnDto> findByServiceId(UUID serviceId, UUID businessId);
+
+    List<TurnDto> findByServiceByFinanceId(UUID businessId);
 
     int findPositionByServiceId(UUID id, UUID businessDtoId);
 }

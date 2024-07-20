@@ -39,7 +39,11 @@ public class CreateTurnCommandHandler implements ICommandHandler<CreateTurnComma
 
         ResourceDto resourceDto = command.getDoctor() != null ? resourceService.findById(command.getDoctor()) : null;
         ServiceDto service = serviceService.findByIds(command.getService());
-        AttendanceLogDto attendanceLogDto = attendanceLogService.getByServiceId(service.getId(), businessDto.getId());
+        UUID serviceId = service.getId();
+        if(command.getIsPreferential()){
+            serviceId = UUID.fromString("c8dad20a-234e-4e1b-ad3c-fda5316e3714");
+        }
+        AttendanceLogDto attendanceLogDto = attendanceLogService.getByServiceId(serviceId, businessDto.getId());
 
         if(attendanceLogDto != null) {
             attendanceLogService.delete(attendanceLogDto.getId());

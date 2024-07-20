@@ -1,6 +1,5 @@
 package com.kynsof.calendar.infrastructure.repository.query;
 
-import com.kynsof.calendar.domain.dto.enumType.ETurnStatus;
 import com.kynsof.calendar.infrastructure.entity.Turn;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -17,5 +16,12 @@ public interface TurnReadDataJPARepository extends JpaRepository<Turn, UUID>, Jp
             " AND (t.status = 'PENDING' OR t.status = 'IN_PROGRESS')" +
             " ORDER BY t.createdAt ASC")
     List<Turn> findByServiceId(UUID serviceId, UUID businessId);
+
+    @Query("SELECT t FROM Turn t" +
+            " WHERE t.isNeedPayment = true" +
+            " AND t.business.id = :businessId" +
+            " AND (t.status = 'PENDING' OR t.status = 'IN_PROGRESS')" +
+            " ORDER BY t.createdAt ASC")
+    List<Turn> findByServiceByFinanceId(UUID businessId);
 }
 
