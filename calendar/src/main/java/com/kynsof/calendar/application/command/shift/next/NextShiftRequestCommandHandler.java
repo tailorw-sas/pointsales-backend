@@ -45,7 +45,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         }
         List<TurnDto> turnDtoList;
         if (serviceId == UUID.fromString("c8dad20a-234e-4e1b-ad3c-fda5316e3714")) {
-            turnDtoList = turnService.findByServiceId(serviceId, place.getBusinessDto().getId());
+            turnDtoList = turnService.findByServiceByFinanceId( place.getBusinessDto().getId());
         } else {
             turnDtoList = turnService.findByServiceId(serviceId, place.getBusinessDto().getId());
         }
