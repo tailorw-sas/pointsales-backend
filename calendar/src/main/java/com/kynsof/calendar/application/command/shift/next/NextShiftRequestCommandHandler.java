@@ -45,6 +45,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         UUID serviceId = service.getId();
         if (command.getLastShift() != null && command.getLastShift().length() > 3) {
             var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
+            lastShift.setStatus(ETurnStatus.COMPLETED);
             turnService.update(lastShift);
             if (lastShift.getNextServices() != null) {
                 CreateTurnRequest request = new CreateTurnRequest();
