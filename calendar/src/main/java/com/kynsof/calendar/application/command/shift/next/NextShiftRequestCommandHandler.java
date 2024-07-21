@@ -55,6 +55,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
                 request.setBusiness(lastShift.getBusiness().getId());
                 request.setIsPreferential(lastShift.getIsPreferential());
                 request.setIsNeedPayment(lastShift.getIsNeedPayment());
+                request.setIdentification(lastShift.getIdentification());
                 UUID uuid = turnCreationService.createTurn(request);
                 command.setId(uuid);
             } else command.setId(null);
