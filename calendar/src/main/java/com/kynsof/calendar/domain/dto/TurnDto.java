@@ -29,6 +29,7 @@ public class TurnDto {
     private  Integer position;
     private String Local;
     private Boolean isNeedPayment;
+    private UUID nextServices;
 
     public TurnDto(UUID id, ResourceDto doctorId, ServiceDto specialtyCode, String identification,
                    Integer orderNumber, EPriority priority, Boolean isPreferential,

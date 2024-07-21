@@ -1,10 +1,12 @@
 package com.kynsof.calendar.application.command.shift.next;
 
+import com.kynsof.calendar.application.command.turn.create.CreateTurnRequest;
 import com.kynsof.calendar.domain.dto.AttendanceLogDto;
 import com.kynsof.calendar.domain.dto.TurnDto;
 import com.kynsof.calendar.domain.dto.enumType.AttentionLocalStatus;
 import com.kynsof.calendar.domain.dto.enumType.ETurnStatus;
 import com.kynsof.calendar.domain.service.*;
+import com.kynsof.calendar.infrastructure.service.TurnCreationService;
 import com.kynsof.calendar.infrastructure.service.socket.LocalServiceMessage;
 import com.kynsof.calendar.infrastructure.service.socket.NewServiceMessage;
 import com.kynsof.calendar.infrastructure.service.socket.NotificationService;
@@ -23,14 +25,16 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
     private final ITurnService turnService;
     private final IResourceService resourceService;
     private final IAttendanceLogService attendanceLogService;
+    private final TurnCreationService turnCreationService;
 
-    public NextShiftRequestCommandHandler(NotificationService notificationService, IPlaceService placeService, IServiceService serviceService, ITurnService turnService, IResourceService resourceService, IAttendanceLogService attendanceLogService) {
+    public NextShiftRequestCommandHandler(NotificationService notificationService, IPlaceService placeService, IServiceService serviceService, ITurnService turnService, IResourceService resourceService, IAttendanceLogService attendanceLogService, TurnCreationService turnCreationService) {
         this.notificationService = notificationService;
         this.placeService = placeService;
         this.serviceService = serviceService;
         this.turnService = turnService;
         this.resourceService = resourceService;
         this.attendanceLogService = attendanceLogService;
+        this.turnCreationService = turnCreationService;
     }
 
     @Override
@@ -42,13 +46,19 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         if (command.getLastShift() != null && command.getLastShift().length() > 3) {
             var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
             turnService.update(lastShift);
+            if (lastShift.getNextServices() != null) {
+                CreateTurnRequest request = new CreateTurnRequest();
+                request.setDoctor(lastShift.getDoctor().getId());
+                request.setPriority(lastShift.getPriority());
+                request.setService(lastShift.getNextServices());
+                request.setBusiness(lastShift.getBusiness().getId());
+                request.setIsPreferential(lastShift.getIsPreferential());
+                request.setIsNeedPayment(lastShift.getIsNeedPayment());
+                 turnCreationService.createTurn(request);
+            }
         }
-        List<TurnDto> turnDtoList;
-        if (serviceId == UUID.fromString("c8dad20a-234e-4e1b-ad3c-fda5316e3714")) {
-            turnDtoList = turnService.findByServiceByFinanceId( place.getBusinessDto().getId());
-        } else {
-            turnDtoList = turnService.findByServiceId(serviceId, place.getBusinessDto().getId());
-        }
+        List<TurnDto> turnDtoList = turnService.findByServiceId(serviceId, place.getBusinessDto().getId());
+
         var turnDto = turnDtoList.stream()
                 .filter(turnDtoTem -> turnDtoTem.getStatus() == ETurnStatus.IN_PROGRESS)
                 .findFirst()

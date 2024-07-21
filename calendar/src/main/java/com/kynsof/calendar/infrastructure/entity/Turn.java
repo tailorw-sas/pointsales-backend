@@ -55,6 +55,7 @@ public class Turn {
     private ETurnStatus status;
 
     private Boolean isNeedPayment;
+    private UUID nextServices;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "business_id", nullable = false)
@@ -81,6 +82,7 @@ public class Turn {
         this.business = turnDto.getBusiness() != null ? new Business(turnDto.getBusiness()) : null;
         this.local = turnDto.getLocal();
         this.isNeedPayment = turnDto.getIsNeedPayment();
+        this.nextServices = turnDto.getNextServices();
     }
 
     public TurnDto toAggregate() {
@@ -98,6 +100,7 @@ public class Turn {
                 position,
                 isNeedPayment
         );
+        turnDto.setNextServices(nextServices);
         turnDto.setLocal(local);
         turnDto.setCreateAt(createdAt);
         return turnDto;
