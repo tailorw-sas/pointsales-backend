@@ -41,11 +41,11 @@ public class TurnCreationService {
         ServiceDto service = serviceService.findByIds(command.getService());
         UUID serviceId = service.getId();
         UUID nextService = null;
-        if (command.getIsPreferential()) {
-            serviceId = UUID.fromString("c8dad20a-234e-4e1b-ad3c-fda5316e3714");
-            service = serviceService.findByIds(serviceId);
-            nextService = command.getService();
-        }
+//        if (command.getIsPreferential()) {
+//            serviceId = UUID.fromString("c8dad20a-234e-4e1b-ad3c-fda5316e3714");
+//            service = serviceService.findByIds(serviceId);
+//            nextService = command.getService();
+//        }
         AttendanceLogDto attendanceLogDto = attendanceLogService.getByServiceId(serviceId, businessDto.getId());
 
         if (attendanceLogDto != null) {
