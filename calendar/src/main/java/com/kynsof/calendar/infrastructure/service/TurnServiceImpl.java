@@ -93,6 +93,15 @@ public class TurnServiceImpl implements ITurnService {
     }
 
     @Override
+    public TurnDto findByLocalId(String local, UUID businessId) {
+        List<Turn> object = this.repositoryQuery.findByLocalId(local, businessId);
+        return object.stream().map(turn -> {
+            return turn.toAggregate();
+
+        }).findFirst().orElse(null);
+    }
+
+    @Override
     public List<TurnDto> findByServiceByFinanceId( UUID businessId) {
         return this.repositoryQuery.findByServiceByFinanceId(businessId).stream().map(Turn::toAggregate).toList();
     }

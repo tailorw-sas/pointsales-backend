@@ -1,10 +1,11 @@
 package com.kynsof.calendar.application.command.shift.stop;
 
+import com.kynsof.calendar.domain.dto.TurnDto;
 import com.kynsof.calendar.domain.dto.enumType.AttentionLocalStatus;
+import com.kynsof.calendar.domain.dto.enumType.ETurnStatus;
 import com.kynsof.calendar.domain.service.IAttendanceLogService;
 import com.kynsof.calendar.domain.service.IPlaceService;
-import com.kynsof.calendar.domain.service.IResourceService;
-import com.kynsof.calendar.domain.service.IServiceService;
+import com.kynsof.calendar.domain.service.ITurnService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
@@ -14,18 +15,15 @@ import java.util.UUID;
 public class StopShiftRequestCommandHandler implements ICommandHandler<StopShiftRequestCommand> {
 
     private final IPlaceService placeService;
-    private final IServiceService serviceService;
-    private final IResourceService resourceService;
     private final IAttendanceLogService attendanceLogService;
+    private final ITurnService turnService;
 
 
-    public StopShiftRequestCommandHandler( IPlaceService placeService, IServiceService serviceService,
-                                           IResourceService resourceService,
-                                           IAttendanceLogService attendanceLogService) {
+    public StopShiftRequestCommandHandler(IPlaceService placeService,
+                                          IAttendanceLogService attendanceLogService, ITurnService turnService) {
         this.placeService = placeService;
-        this.serviceService = serviceService;
-        this.resourceService = resourceService;
         this.attendanceLogService = attendanceLogService;
+        this.turnService = turnService;
     }
 
     @Override
@@ -34,6 +32,10 @@ public class StopShiftRequestCommandHandler implements ICommandHandler<StopShift
         var existLocalActive = this.attendanceLogService.getByLocalId(place.getId(), place.getBusinessDto().getId());
         existLocalActive.setStatus(AttentionLocalStatus.PAUSED);
         attendanceLogService.update(existLocalActive);
+
+        TurnDto turnDto = turnService.findByLocalId(place.getCode(), place.getBusinessDto().getId());
+        turnDto.setStatus(ETurnStatus.COMPLETED);
+        turnService.update(turnDto);
 
     }
 }

@@ -21,6 +21,8 @@ public interface ITurnService {
 
     List<TurnDto> findByServiceId(UUID serviceId, UUID businessId);
 
+    TurnDto findByLocalId(String local, UUID businessId);
+
     List<TurnDto> findByServiceByFinanceId(UUID businessId);
 
     int findPositionByServiceId(UUID id, UUID businessDtoId);
