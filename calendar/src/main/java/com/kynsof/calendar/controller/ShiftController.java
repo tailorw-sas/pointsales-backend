@@ -2,6 +2,8 @@ package com.kynsof.calendar.controller;
 
 import com.kynsof.calendar.application.command.shift.next.NextShiftRequest;
 import com.kynsof.calendar.application.command.shift.next.NextShiftRequestCommand;
+import com.kynsof.calendar.application.command.shift.stop.StopShiftRequest;
+import com.kynsof.calendar.application.command.shift.stop.StopShiftRequestCommand;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +29,8 @@ public class ShiftController {
     }
 
     @PostMapping("stop")
-    public ResponseEntity<?> stop(@RequestBody NextShiftRequest request) {
-        var command = NextShiftRequestCommand.fromRequest(request);
+    public ResponseEntity<?> stop(@RequestBody StopShiftRequest request) {
+        var command = StopShiftRequestCommand.fromRequest(request);
         mediator.send(command);
         return ResponseEntity.ok(true);
     }
