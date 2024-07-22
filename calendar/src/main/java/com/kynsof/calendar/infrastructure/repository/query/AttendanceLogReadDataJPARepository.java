@@ -17,4 +17,7 @@ public interface AttendanceLogReadDataJPARepository extends JpaRepository<Attend
     @Query("select a from AttendanceLog a where a.service.id = :serviceId and  a.business.id = :businessId and " +
             "a.status = 'AVAILABLE' order by a.createdAt asc ")
     List<AttendanceLog> getByServiceId(UUID serviceId, UUID businessId);
+
+    @Query("select a from AttendanceLog a where a.place.id = :placeId and  a.business.id = :businessId")
+    List<AttendanceLog> getByPlaceId(UUID placeId, UUID businessId);
 }

@@ -1,8 +1,7 @@
 package com.kynsof.calendar.application.command.shift.next;
 
 import com.kynsof.calendar.application.command.turn.create.CreateTurnRequest;
-import com.kynsof.calendar.domain.dto.AttendanceLogDto;
-import com.kynsof.calendar.domain.dto.TurnDto;
+import com.kynsof.calendar.domain.dto.*;
 import com.kynsof.calendar.domain.dto.enumType.AttentionLocalStatus;
 import com.kynsof.calendar.domain.dto.enumType.ETurnStatus;
 import com.kynsof.calendar.domain.service.*;
@@ -39,26 +38,21 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
 
     @Override
     public void handle(NextShiftRequestCommand command) {
+
+
         var place = placeService.findById(UUID.fromString(command.getLocal()));
         var service = serviceService.findByIds(UUID.fromString(command.getService()));
         var resource = resourceService.findById(UUID.fromString(command.getDoctor()));
+
+        var existLocalActive = this.attendanceLogService.getByLocalId(place.getId(), place.getBusinessDto().getId());
+        if(existLocalActive == null){
+            AttendanceLogDto  createLocal = getAttendanceLogDto(place, resource, service, AttentionLocalStatus.AVAILABLE);
+            attendanceLogService.create(createLocal);
+        }
+
         UUID serviceId = service.getId();
         if (command.getLastShift() != null && command.getLastShift().length() > 3) {
-            var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
-            lastShift.setStatus(ETurnStatus.COMPLETED);
-            turnService.update(lastShift);
-            if (lastShift.getNextServices() != null) {
-                CreateTurnRequest request = new CreateTurnRequest();
-                request.setDoctor(lastShift.getDoctor().getId());
-                request.setPriority(lastShift.getPriority());
-                request.setService(lastShift.getNextServices());
-                request.setBusiness(lastShift.getBusiness().getId());
-                request.setIsPreferential(lastShift.getIsPreferential());
-                request.setIsNeedPayment(lastShift.getIsNeedPayment());
-                request.setIdentification(lastShift.getIdentification());
-                UUID uuid = turnCreationService.createTurn(request);
-                command.setId(uuid);
-            } else command.setId(null);
+            generateNextShift(command);
         }
         List<TurnDto> turnDtoList = turnService.findByServiceId(serviceId, place.getBusinessDto().getId());
 
@@ -68,17 +62,38 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
                 .orElse(turnDtoList.isEmpty() ? null : turnDtoList.get(0));
 
         if (turnDto == null) {
-            AttendanceLogDto attendanceLogDto = new AttendanceLogDto();
-            attendanceLogDto.setId(UUID.randomUUID());
-            attendanceLogDto.setBusiness(place.getBusinessDto());
-            attendanceLogDto.setResource(resource);
-            attendanceLogDto.setService(service);
-            attendanceLogDto.setStatus(AttentionLocalStatus.AVAILABLE);
-            attendanceLogDto.setPlace(place);
+            AttendanceLogDto  attendanceLogDto = getAttendanceLogDto(place, resource, service, AttentionLocalStatus.AVAILABLE);
             attendanceLogService.create(attendanceLogDto);
             return;
         }
 
+        sendNotification(service, turnDto, place, resource);
+    }
+
+    private void generateNextShift(NextShiftRequestCommand command) {
+        var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
+        lastShift.setStatus(ETurnStatus.COMPLETED);
+        turnService.update(lastShift);
+        if (lastShift.getNextServices() != null) {
+            CreateTurnRequest request = getCreateTurnRequest(lastShift);
+            UUID uuid = turnCreationService.createTurn(request);
+            command.setId(uuid);
+        } else command.setId(null);
+    }
+
+    private static CreateTurnRequest getCreateTurnRequest(TurnDto lastShift) {
+        CreateTurnRequest request = new CreateTurnRequest();
+        request.setDoctor(lastShift.getDoctor().getId());
+        request.setPriority(lastShift.getPriority());
+        request.setService(lastShift.getNextServices());
+        request.setBusiness(lastShift.getBusiness().getId());
+        request.setIsPreferential(lastShift.getIsPreferential());
+        request.setIsNeedPayment(lastShift.getIsNeedPayment());
+        request.setIdentification(lastShift.getIdentification());
+        return request;
+    }
+
+    private void sendNotification(ServiceDto service, TurnDto turnDto, PlaceDto place, ResourceDto resource) {
         // message to send to the shift queue
         var message = new NewServiceMessage();
         message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getOrderNumber()));
@@ -107,5 +122,17 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         // TODO: Send the notification using integration events
         notificationService.sendNotification(message, "/api/notification/turnero");
         notificationService.sendNotification(localMessage, "/api/notification/local");
+    }
+
+    private static AttendanceLogDto getAttendanceLogDto(PlaceDto place, ResourceDto resource, ServiceDto service,
+                                                        AttentionLocalStatus status) {
+        AttendanceLogDto attendanceLogDto = new AttendanceLogDto();
+        attendanceLogDto.setId(UUID.randomUUID());
+        attendanceLogDto.setBusiness(place.getBusinessDto());
+        attendanceLogDto.setResource(resource);
+        attendanceLogDto.setService(service);
+        attendanceLogDto.setStatus(status);
+        attendanceLogDto.setPlace(place);
+        return attendanceLogDto;
     }
 }

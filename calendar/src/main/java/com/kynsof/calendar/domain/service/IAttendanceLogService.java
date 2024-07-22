@@ -20,4 +20,6 @@ public interface IAttendanceLogService {
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
     AttendanceLogDto getByServiceId(UUID serviceId, UUID businessId);
+
+    AttendanceLogDto getByLocalId(UUID placeId, UUID businessId);
 }

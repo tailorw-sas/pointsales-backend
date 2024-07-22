@@ -1,6 +1,5 @@
 package com.kynsof.calendar.application.command.shift.stop;
 
-import com.kynsof.calendar.domain.dto.AttendanceLogDto;
 import com.kynsof.calendar.domain.dto.enumType.AttentionLocalStatus;
 import com.kynsof.calendar.domain.service.IAttendanceLogService;
 import com.kynsof.calendar.domain.service.IPlaceService;
@@ -32,17 +31,9 @@ public class StopShiftRequestCommandHandler implements ICommandHandler<StopShift
     @Override
     public void handle(StopShiftRequestCommand command) {
         var place = placeService.findById(UUID.fromString(command.getLocal()));
-        var service = serviceService.findByIds(UUID.fromString(command.getService()));
-        var resource = resourceService.findById(UUID.fromString(command.getDoctor()));
-
-        AttendanceLogDto attendanceLogDto = new AttendanceLogDto();
-        attendanceLogDto.setId(UUID.randomUUID());
-        attendanceLogDto.setBusiness(place.getBusinessDto());
-        attendanceLogDto.setResource(resource);
-        attendanceLogDto.setService(service);
-        attendanceLogDto.setStatus(AttentionLocalStatus.PAUSED);
-        attendanceLogDto.setPlace(place);
-        attendanceLogService.create(attendanceLogDto);
+        var existLocalActive = this.attendanceLogService.getByLocalId(place.getId(), place.getBusinessDto().getId());
+        existLocalActive.setStatus(AttentionLocalStatus.PAUSED);
+        attendanceLogService.update(existLocalActive);
 
     }
 }

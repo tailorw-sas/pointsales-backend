@@ -14,18 +14,16 @@ import java.util.UUID;
 public class StopShiftRequestCommand implements ICommand {
     private UUID id;
     private String local;
-    private String service;
-    private String doctor;
 
-    public StopShiftRequestCommand(String local, String service, String doctor) {
+
+    public StopShiftRequestCommand(String local) {
 
         this.local = local;
-        this.service = service;
-        this.doctor = doctor;
+
     }
 
     public static StopShiftRequestCommand fromRequest(StopShiftRequest request) {
-        return new StopShiftRequestCommand(request.getLocal(), request.getService(), request.getDoctor());
+        return new StopShiftRequestCommand(request.getLocal());
     }
 
     @Override

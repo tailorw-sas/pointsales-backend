@@ -67,8 +67,13 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
     }
 
     @Override
-    public AttendanceLogDto findById(UUID id) {
+    public AttendanceLogDto getByLocalId(UUID placeId, UUID businessId) {
+        List<AttendanceLog> object = this.repositoryQuery.getByPlaceId(placeId, businessId);
+        return object.stream().map(AttendanceLog::toAggregate).findFirst().orElse(null);
+    }
 
+    @Override
+    public AttendanceLogDto findById(UUID id) {
         Optional<AttendanceLog> object = this.repositoryQuery.findById(id);
         if (object.isPresent()) {
             return object.get().toAggregate();

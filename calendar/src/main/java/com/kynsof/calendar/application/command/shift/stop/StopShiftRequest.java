@@ -8,6 +8,5 @@ import lombok.Setter;
 @Setter
 public class StopShiftRequest {
     private String local;
-    private String service;
-    private String doctor;
+
 }
