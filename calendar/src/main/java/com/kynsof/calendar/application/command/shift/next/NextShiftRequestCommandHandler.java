@@ -48,6 +48,9 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         if(existLocalActive == null){
             AttendanceLogDto  createLocal = getAttendanceLogDto(place, resource, service, AttentionLocalStatus.AVAILABLE);
             attendanceLogService.create(createLocal);
+        }else{
+            existLocalActive.setStatus(AttentionLocalStatus.AVAILABLE);
+            attendanceLogService.update(existLocalActive);
         }
 
         UUID serviceId = service.getId();
