@@ -147,6 +147,13 @@ public class GenericSpecification<T> implements Specification<T> {
             case IS_NOT_NULL -> builder.isNotNull(path);
             case IS_TRUE -> builder.isTrue(path.as(Boolean.class));
             case IS_FALSE -> builder.isFalse(path.as(Boolean.class));
+            case EXISTS -> {
+                Subquery<Long> subquery = query.subquery(Long.class);
+                Root<T> subRoot = (Root<T>) subquery.from(root.getJavaType());
+                subquery.select(builder.count(subRoot))
+                        .where(builder.equal(subRoot.get(criteria.getKey()).get("id"), root.get("id")));
+                yield builder.exists(subquery);
+            }
             default -> throw new IllegalArgumentException("Operación no soportada: " + criteria.getOperation());
         };
     }

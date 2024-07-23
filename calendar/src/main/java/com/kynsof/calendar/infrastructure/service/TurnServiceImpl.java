@@ -56,17 +56,6 @@ public class TurnServiceImpl implements ITurnService {
         }
     }
 
-    private TurnDto getById(UUID id) {
-
-        Optional<Turn> object = this.repositoryQuery.findById(id);
-        if (object.isPresent()) {
-            return object.get().toAggregate();
-        }
-
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SERVICE_TYPE_NOT_FOUND, new ErrorField("id", "Service Type not found.")));
-
-    }
-
     //@Cacheable(cacheNames = CacheConfig.SERVICE_CACHE, unless = "#result == null")
     @Override
     public TurnDto findById(UUID id) {
@@ -95,10 +84,7 @@ public class TurnServiceImpl implements ITurnService {
     @Override
     public TurnDto findByLocalId(String local, UUID businessId) {
         List<Turn> object = this.repositoryQuery.findByLocalId(local, businessId);
-        return object.stream().map(turn -> {
-            return turn.toAggregate();
-
-        }).findFirst().orElse(null);
+        return object.stream().map(Turn::toAggregate).findFirst().orElse(null);
     }
 
     @Override
