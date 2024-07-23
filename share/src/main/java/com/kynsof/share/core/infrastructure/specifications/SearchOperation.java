@@ -16,5 +16,6 @@ public enum SearchOperation implements Serializable {
     IS_NOT_NULL,
     IS_TRUE,
     IS_FALSE,
-    EXISTS
+    EXISTS,
+    NOT_EXISTS
 }
