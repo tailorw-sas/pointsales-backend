@@ -67,7 +67,7 @@ public class DataSeeder implements ApplicationRunner {
             business.setLatitude("");
             business.setLongitude("");
             business.setLogo("");
-            business.setRuc("1793211446001‰");
+            business.setRuc("1793211446001");
             businessWriteDataJPARepository.save(business);
         }
     }
