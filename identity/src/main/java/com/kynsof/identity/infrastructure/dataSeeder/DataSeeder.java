@@ -4,10 +4,15 @@ import com.kynsof.identity.domain.dto.UserStatus;
 import com.kynsof.identity.domain.dto.UserSystemDto;
 import com.kynsof.identity.domain.dto.enumType.EBusinessStatus;
 import com.kynsof.identity.infrastructure.identity.Business;
+import com.kynsof.identity.infrastructure.identity.BusinessModule;
+import com.kynsof.identity.infrastructure.identity.ModuleSystem;
 import com.kynsof.identity.infrastructure.identity.UserSystem;
+import com.kynsof.identity.infrastructure.repository.command.BusinessModuleWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.command.BusinessWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.command.UserSystemsWriteDataJPARepository;
+import com.kynsof.identity.infrastructure.repository.query.BusinessModuleReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.BusinessReadDataJPARepository;
+import com.kynsof.identity.infrastructure.repository.query.ModuleReadDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.UserSystemReadDataJPARepository;
 import com.kynsof.share.core.domain.EUserType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +31,24 @@ public class DataSeeder implements ApplicationRunner {
     private final BusinessReadDataJPARepository businessReadDataJPARepository;
     private final BusinessWriteDataJPARepository businessWriteDataJPARepository;
 
+    private final BusinessModuleWriteDataJPARepository businessModuleWriteDataJPARepository;
+
+    private final ModuleReadDataJPARepository moduleReadDataJPARepository;
+
 
     @Autowired
     public DataSeeder(UserSystemReadDataJPARepository readRepository, UserSystemsWriteDataJPARepository writeRepository,
-                      BusinessReadDataJPARepository businessReadDataJPARepository, BusinessWriteDataJPARepository businessWriteDataJPARepository) {
+                      BusinessReadDataJPARepository businessReadDataJPARepository,
+                      BusinessWriteDataJPARepository businessWriteDataJPARepository,
+                      BusinessModuleReadDataJPARepository businessModuleReadDataJPARepository,
+                      BusinessModuleWriteDataJPARepository businessModuleWriteDataJPARepository,
+                      ModuleReadDataJPARepository moduleReadDataJPARepository) {
         this.readRepository = readRepository;
         this.writeRepository = writeRepository;
         this.businessReadDataJPARepository = businessReadDataJPARepository;
         this.businessWriteDataJPARepository = businessWriteDataJPARepository;
+        this.businessModuleWriteDataJPARepository = businessModuleWriteDataJPARepository;
+        this.moduleReadDataJPARepository = moduleReadDataJPARepository;
     }
 
     @Override
@@ -58,7 +73,7 @@ public class DataSeeder implements ApplicationRunner {
             System.out.println("Seeder: El usuario con ID " + userId + " ya existe.");
         }
 
-        if (!businessReadDataJPARepository.findAll().isEmpty()) {
+        if (businessReadDataJPARepository.findAll().isEmpty()) {
             Business business = new Business();
             business.setId(UUID.randomUUID());
             business.setName("KYNSOFT");
@@ -69,6 +84,14 @@ public class DataSeeder implements ApplicationRunner {
             business.setLogo("");
             business.setRuc("1793211446001");
             businessWriteDataJPARepository.save(business);
+
+            BusinessModule businessModule = new BusinessModule();
+            businessModule.setId(UUID.randomUUID());
+            businessModule.setBusiness(business);
+
+            ModuleSystem moduleSystem = moduleReadDataJPARepository.findAll().get(0);
+            businessModule.setModule(moduleSystem);
+            businessModuleWriteDataJPARepository.save(businessModule);
         }
     }
 }
