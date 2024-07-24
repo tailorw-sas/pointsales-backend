@@ -56,7 +56,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
 
 
         if (command.getLastShift() != null && command.getLastShift().length() > 3) {
-            generateNextShift(command);
+            updateShift(command);
         }
         List<TurnDto> turnDtoList = turnService.findByServiceIds(ids, place.getBusinessDto().getId());
 
@@ -78,7 +78,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         this.attendanceLogService.deleteByIds(existLocalActive.stream().map(AttendanceLogDto::getId).toList());
         sendNotification(turnDto.getServices(), turnDto, place, resource);
     }
-    private void generateNextShift(NextShiftRequestCommand command) {
+    private void updateShift(NextShiftRequestCommand command) {
         var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
         lastShift.setStatus(ETurnStatus.COMPLETED);
         turnService.update(lastShift);
