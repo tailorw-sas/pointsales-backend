@@ -3,15 +3,15 @@ package com.kynsof.store.infrastructure.entity;
 import com.kynsof.store.domain.dto.CustomerDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
 @Setter

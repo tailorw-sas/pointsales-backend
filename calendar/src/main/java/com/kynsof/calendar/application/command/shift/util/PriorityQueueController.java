@@ -1,7 +1,8 @@
 package com.kynsof.calendar.application.command.shift.util;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.List;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class PriorityQueueController {
     private final List<PriorityQueue> priorityQueueList = new ArrayList<>();

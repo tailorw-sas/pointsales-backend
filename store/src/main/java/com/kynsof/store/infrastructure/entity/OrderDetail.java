@@ -3,13 +3,13 @@ package com.kynsof.store.infrastructure.entity;
 import com.kynsof.store.domain.dto.OrderDetailDto;
 import com.kynsof.store.infrastructure.enumDto.OrderDetailStatus;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
