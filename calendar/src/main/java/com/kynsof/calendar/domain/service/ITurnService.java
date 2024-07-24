@@ -19,7 +19,7 @@ public interface ITurnService {
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
-    List<TurnDto> findByServiceId(UUID serviceId, UUID businessId);
+    List<TurnDto> findByServiceIds(List<UUID> serviceId, UUID businessId);
 
     TurnDto findByLocalId(String local, UUID businessId);
 

@@ -11,11 +11,11 @@ import java.util.UUID;
 public interface TurnReadDataJPARepository extends JpaRepository<Turn, UUID>, JpaSpecificationExecutor<Turn> {
 
     @Query("SELECT t FROM Turn t" +
-            " WHERE t.services.id = :serviceId" +
+            " WHERE t.services.id IN :serviceIds" +
             " AND t.business.id = :businessId" +
             " AND (t.status = 'PENDING' OR t.status = 'IN_PROGRESS')" +
             " ORDER BY t.createdAt ASC")
-    List<Turn> findByServiceId(UUID serviceId, UUID businessId);
+    List<Turn> findByServiceIds( List<UUID> serviceIds, UUID businessId);
 
     @Query("SELECT t FROM Turn t" +
             " WHERE t.isNeedPayment = true" +

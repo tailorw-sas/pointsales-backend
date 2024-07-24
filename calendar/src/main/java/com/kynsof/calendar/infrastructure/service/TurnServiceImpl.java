@@ -77,8 +77,8 @@ public class TurnServiceImpl implements ITurnService {
     }
 
     @Override
-    public List<TurnDto> findByServiceId(UUID serviceId, UUID businessId) {
-        return this.repositoryQuery.findByServiceId(serviceId, businessId).stream().map(Turn::toAggregate).toList();
+    public List<TurnDto> findByServiceIds(List<UUID> serviceId, UUID businessId) {
+        return this.repositoryQuery.findByServiceIds(serviceId, businessId).stream().map(Turn::toAggregate).toList();
     }
 
     @Override

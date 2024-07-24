@@ -38,26 +38,28 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
 
     @Override
     public void handle(NextShiftRequestCommand command) {
-
-
         var place = placeService.findById(UUID.fromString(command.getLocal()));
-        var service = serviceService.findByIds(UUID.fromString(command.getService().get(1)));
+        List<UUID> ids = command.getService().stream().map(UUID::fromString).toList();
+        var services = serviceService.findByIds(ids);
         var resource = resourceService.findById(UUID.fromString(command.getDoctor()));
 
         var existLocalActive = this.attendanceLogService.getByLocalId(place.getId(), place.getBusinessDto().getId());
         if(existLocalActive == null){
-            AttendanceLogDto  createLocal = getAttendanceLogDto(place, resource, service, AttentionLocalStatus.AVAILABLE);
-            attendanceLogService.create(createLocal);
+            services.stream().map(serviceDto -> {
+                AttendanceLogDto  attendanceLogDto = getAttendanceLogDto(place, resource, serviceDto, AttentionLocalStatus.AVAILABLE);
+                attendanceLogService.create(attendanceLogDto);
+                return null;
+            });
         }else{
             existLocalActive.setStatus(AttentionLocalStatus.AVAILABLE);
             attendanceLogService.update(existLocalActive);
         }
 
-        UUID serviceId = service.getId();
+
         if (command.getLastShift() != null && command.getLastShift().length() > 3) {
             generateNextShift(command);
         }
-        List<TurnDto> turnDtoList = turnService.findByServiceId(serviceId, place.getBusinessDto().getId());
+        List<TurnDto> turnDtoList = turnService.findByServiceIds(ids, place.getBusinessDto().getId());
 
         var turnDto = turnDtoList.stream()
                 .filter(turnDtoTem -> turnDtoTem.getStatus() == ETurnStatus.IN_PROGRESS)
@@ -65,23 +67,22 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
                 .orElse(turnDtoList.isEmpty() ? null : turnDtoList.get(0));
 
         if (turnDto == null) {
-            AttendanceLogDto  attendanceLogDto = getAttendanceLogDto(place, resource, service, AttentionLocalStatus.AVAILABLE);
-            attendanceLogService.create(attendanceLogDto);
+            services.stream().map(serviceDto -> {
+                AttendanceLogDto  attendanceLogDto = getAttendanceLogDto(place, resource, serviceDto, AttentionLocalStatus.AVAILABLE);
+                attendanceLogService.create(attendanceLogDto);
+                return null;
+            });
+
             return;
         }
 
-        sendNotification(service, turnDto, place, resource);
+        sendNotification(turnDto.getServices(), turnDto, place, resource);
     }
 
     private void generateNextShift(NextShiftRequestCommand command) {
         var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
         lastShift.setStatus(ETurnStatus.COMPLETED);
         turnService.update(lastShift);
-//        if (lastShift.getNextServices() != null) {
-//            CreateTurnRequest request = getCreateTurnRequest(lastShift);
-//            UUID uuid = turnCreationService.createTurn(request);
-//            command.setId(uuid);
-//        } else command.setId(null);
     }
 
     private static CreateTurnRequest getCreateTurnRequest(TurnDto lastShift) {
