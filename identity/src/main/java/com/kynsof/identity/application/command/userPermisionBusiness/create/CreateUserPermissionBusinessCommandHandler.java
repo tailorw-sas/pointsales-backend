@@ -43,15 +43,15 @@ public class CreateUserPermissionBusinessCommandHandler implements ICommandHandl
     @Override
     public void handle(CreateUserPermissionBusinessCommand command) {
         List<UserPermissionBusinessDto> userRoleBusinessDtos = new ArrayList<>();
+        UserPermissionBusinessRequest userRoleBusinessRequest = command.getPayload();
+        service.delete(userRoleBusinessRequest.getBusinessId(), userRoleBusinessRequest.getUserId());
+        UserSystemDto userSystemDto = this.userSystemService.findById(userRoleBusinessRequest.getUserId());
+        BusinessDto businessDto = this.businessService.findById(userRoleBusinessRequest.getBusinessId());
 
-      UserPermissionBusinessRequest userRoleBusinessRequest = command.getPayload();
-            UserSystemDto userSystemDto = this.userSystemService.findById(userRoleBusinessRequest.getUserId());
-            BusinessDto businessDto = this.businessService.findById(userRoleBusinessRequest.getBusinessId());
-
-            for (UUID role : userRoleBusinessRequest.getPermissionIds()) {
-                PermissionDto roleDto = this.permissionService.findById(role);
-                userRoleBusinessDtos.add(new UserPermissionBusinessDto(UUID.randomUUID(), userSystemDto, roleDto, businessDto));
-            }
+        for (UUID role : userRoleBusinessRequest.getPermissionIds()) {
+            PermissionDto roleDto = this.permissionService.findById(role);
+            userRoleBusinessDtos.add(new UserPermissionBusinessDto(UUID.randomUUID(), userSystemDto, roleDto, businessDto));
+        }
 
         redisService.deleteKey(command.getPayload().getUserId().toString());
         this.service.create(userRoleBusinessDtos);
