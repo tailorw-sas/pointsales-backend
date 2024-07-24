@@ -55,9 +55,9 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
 //        }
 
 
-//        if (command.getLastShift() != null && command.getLastShift().length() > 3) {
-//            generateNextShift(command);
-//        }
+        if (command.getLastShift() != null && command.getLastShift().length() > 3) {
+            generateNextShift(command);
+        }
         List<TurnDto> turnDtoList = turnService.findByServiceIds(ids, place.getBusinessDto().getId());
 
         var turnDto = turnDtoList.stream()
@@ -78,8 +78,12 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         this.attendanceLogService.deleteByIds(existLocalActive.stream().map(AttendanceLogDto::getId).toList());
         sendNotification(turnDto.getServices(), turnDto, place, resource);
     }
+    private void generateNextShift(NextShiftRequestCommand command) {
+        var lastShift = turnService.findById(UUID.fromString(command.getLastShift()));
+        lastShift.setStatus(ETurnStatus.COMPLETED);
+        turnService.update(lastShift);
+    }
 
-    
     private void sendNotification(ServiceDto service, TurnDto turnDto, PlaceDto place, ResourceDto resource) {
         // message to send to the shift queue
         var message = new NewServiceMessage();
