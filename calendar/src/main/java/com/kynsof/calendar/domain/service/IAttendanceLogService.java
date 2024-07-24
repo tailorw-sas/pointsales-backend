@@ -21,5 +21,7 @@ public interface IAttendanceLogService {
 
     AttendanceLogDto getByServiceId(UUID serviceId, UUID businessId);
 
-    AttendanceLogDto getByLocalId(UUID placeId, UUID businessId);
+    List<AttendanceLogDto> getByLocalId(UUID placeId, UUID businessId);
+
+    void deleteByIds(List<UUID> list);
 }

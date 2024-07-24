@@ -29,9 +29,12 @@ public class StopShiftRequestCommandHandler implements ICommandHandler<StopShift
     @Override
     public void handle(StopShiftRequestCommand command) {
         var place = placeService.findById(UUID.fromString(command.getLocal()));
-        var existLocalActive = this.attendanceLogService.getByLocalId(place.getId(), place.getBusinessDto().getId());
-        existLocalActive.setStatus(AttentionLocalStatus.PAUSED);
-        attendanceLogService.update(existLocalActive);
+        var existLocalActives = this.attendanceLogService.getByLocalId(place.getId(), place.getBusinessDto().getId());
+        existLocalActives.stream().map(existLocalActive -> {
+            existLocalActive.setStatus(AttentionLocalStatus.PAUSED);
+            attendanceLogService.update(existLocalActive);
+            return null;
+        });
 
         TurnDto turnDto = turnService.findByLocalId(place.getCode(), place.getBusinessDto().getId());
         turnDto.setStatus(ETurnStatus.COMPLETED);

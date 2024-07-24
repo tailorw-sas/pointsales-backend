@@ -67,9 +67,14 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
     }
 
     @Override
-    public AttendanceLogDto getByLocalId(UUID placeId, UUID businessId) {
+    public List<AttendanceLogDto> getByLocalId(UUID placeId, UUID businessId) {
         List<AttendanceLog> object = this.repositoryQuery.getByPlaceId(placeId, businessId);
-        return object.stream().map(AttendanceLog::toAggregate).findFirst().orElse(null);
+        return object.stream().map(AttendanceLog::toAggregate).toList();
+    }
+
+    @Override
+    public void deleteByIds(List<UUID> list) {
+        this.repositoryCommand.deleteAllById(list);
     }
 
     @Override
