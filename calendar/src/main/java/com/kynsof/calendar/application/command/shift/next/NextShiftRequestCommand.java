@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -14,11 +15,11 @@ import java.util.UUID;
 public class NextShiftRequestCommand implements ICommand {
     private UUID id;
     private String local;
-    private String service;
+    private List<String> service;
     private String doctor;
     private String lastShift;
 
-    public NextShiftRequestCommand(String local, String service, String doctor, String lastShift) {
+    public NextShiftRequestCommand(String local, List<String> service, String doctor, String lastShift) {
 
         this.local = local;
         this.service = service;
@@ -27,7 +28,7 @@ public class NextShiftRequestCommand implements ICommand {
     }
 
     public static NextShiftRequestCommand fromRequest(NextShiftRequest request) {
-        return new NextShiftRequestCommand(request.getLocal(), request.getService().get(0), request.getDoctor(), request.getLastShift());
+        return new NextShiftRequestCommand(request.getLocal(), request.getService(), request.getDoctor(), request.getLastShift());
     }
 
     @Override

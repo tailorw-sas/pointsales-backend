@@ -41,7 +41,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
 
 
         var place = placeService.findById(UUID.fromString(command.getLocal()));
-        var service = serviceService.findByIds(UUID.fromString(command.getService()));
+        var service = serviceService.findByIds(UUID.fromString(command.getService().get(1)));
         var resource = resourceService.findById(UUID.fromString(command.getDoctor()));
 
         var existLocalActive = this.attendanceLogService.getByLocalId(place.getId(), place.getBusinessDto().getId());
