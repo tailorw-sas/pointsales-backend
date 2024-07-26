@@ -26,7 +26,7 @@ public class FirstsChangePasswordCommand implements ICommand {
 
     public static FirstsChangePasswordCommand fromRequest(FirstsChangePasswordRequest request) {
         return new FirstsChangePasswordCommand(request.getEmail(), request.getNewPassword(), request.getOldPassword(),
-                request.getCodeOtp());
+                request.getOtp());
     }
 
 

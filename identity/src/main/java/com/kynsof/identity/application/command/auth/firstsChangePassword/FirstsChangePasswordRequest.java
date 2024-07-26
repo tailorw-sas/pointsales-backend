@@ -11,5 +11,5 @@ public class FirstsChangePasswordRequest {
     private String email;
     private String newPassword;
     private String oldPassword;
-    private String codeOtp;
+    private String otp;
 }
