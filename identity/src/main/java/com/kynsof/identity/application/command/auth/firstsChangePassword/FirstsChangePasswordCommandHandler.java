@@ -30,7 +30,7 @@ public class FirstsChangePasswordCommandHandler implements ICommandHandler<First
         }
         UserSystemDto userSystemDto = userSystemService.findByEmail(command.getEmail());
         if (userSystemDto != null) {
-            Boolean result = authService.firstChangePassword(userSystemDto.getId().toString(), command.getEmail(),
+            Boolean result = authService.firstChangePassword(userSystemDto.getKeyCloakId().toString(), command.getEmail(),
                     command.getNewPassword(), command.getOldPassword());
             command.setResul(result);
         }
