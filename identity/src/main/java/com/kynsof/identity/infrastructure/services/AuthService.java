@@ -104,7 +104,7 @@ public class AuthService implements IAuthService {
     @Override
     public String registerUserSystem(@NonNull UserSystemKycloackRequest userRequest, boolean isSystemUser) {
         return createUser(userRequest.getName(), userRequest.getLastName(), userRequest.getEmail(),
-                userRequest.getUserName(), userRequest.getPassword(),userRequest.getUserType().toString().toUpperCase());
+                userRequest.getUserName(), userRequest.getPassword(), userRequest.getUserType().toString().toUpperCase());
     }
 
     @Override
@@ -163,11 +163,24 @@ public class AuthService implements IAuthService {
     public Boolean firstChangePassword(String userId, String email, String newPassword, String oldPassword) {
         try {
             LoginRequest loginDTO = new LoginRequest(email, oldPassword);
-            authenticate(loginDTO);
-        } catch (UserChangePasswordException exception) {
-            changePassword(userId, newPassword);
-            return true;
+            MultiValueMap<String, String> map = createAuthRequestMap(loginDTO.getUsername(), loginDTO.getPassword());
+            HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(map, createHeaders());
+
+            ResponseEntity<TokenResponse> response = restTemplate.exchange(
+                    keycloakProvider.getTokenUri(),
+                    HttpMethod.POST,
+                    entity,
+                    TokenResponse.class);
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.BAD_REQUEST) {
+                String errorResponse = e.getResponseBodyAsString();
+                if (errorResponse.contains("invalid_grant")) {
+                    changePassword(userId, newPassword);
+                    return true;
+                }
+            }
         }
+
         return false;
     }
 
