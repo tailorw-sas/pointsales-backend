@@ -33,6 +33,7 @@ public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServic
         update.setEstimatedDuration(command.getEstimatedDuration());
         update.setStatus(command.getStatus());
         update.setPicture(command.getPicture());
+        update.setPriority(command.getPriority());
 
         update.setApplyIva(command.isApplyIva());
         update.setExpressAppointmentPrice(command.getExpressAppointmentPrice());

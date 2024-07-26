@@ -25,5 +25,6 @@ public class ServiceDto implements Serializable {
     private Boolean applyIva;
     private int estimatedDuration;
     private String code;
+    private Integer priority;
 
 }

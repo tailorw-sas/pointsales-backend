@@ -18,4 +18,5 @@ public class UpdateServiceRequest {
     private boolean applyIva;
     private EServiceStatus status;
     private Integer estimatedDuration;
+    private Integer priority;
 }

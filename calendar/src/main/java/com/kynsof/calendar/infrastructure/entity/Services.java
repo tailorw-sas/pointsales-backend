@@ -37,7 +37,7 @@ public class Services {
 
     @Column(unique = true)
     private String code;
-
+    private Integer priority;
     private String picture;
     private String name;
     private Double normalAppointmentPrice;
@@ -83,10 +83,11 @@ public class Services {
         this.applyIva = object.getApplyIva();
         this.estimatedDuration = object.getEstimatedDuration();
         this.code = object.getCode();
+        this.priority = object.getPriority();
     }
 
     public ServiceDto toAggregate () {
         return new ServiceDto(id, type.toAggregate(), status, picture, name, normalAppointmentPrice,
-                expressAppointmentPrice, description, applyIva, estimatedDuration, code);
+                expressAppointmentPrice, description, applyIva, estimatedDuration, code, priority);
     }
 }

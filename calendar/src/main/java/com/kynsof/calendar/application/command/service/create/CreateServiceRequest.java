@@ -20,4 +20,5 @@ public class CreateServiceRequest {
     private EServiceStatus status;
     private Integer estimatedDuration;
     private String code;
+    private Integer priority;
 }
