@@ -12,18 +12,21 @@ public class FirstsChangePasswordCommand implements ICommand {
     private String email;
     private String newPassword;
     private String oldPassword;
+    private final String codeOtp;
 
 
 
-    public FirstsChangePasswordCommand(String email, String newPassword, String oldPassword) {
+    public FirstsChangePasswordCommand(String email, String newPassword, String oldPassword, String codeOtp) {
 
         this.email = email;
         this.newPassword = newPassword;
         this.oldPassword = oldPassword;
+        this.codeOtp = codeOtp;
     }
 
     public static FirstsChangePasswordCommand fromRequest(FirstsChangePasswordRequest request) {
-        return new FirstsChangePasswordCommand(request.getEmail(), request.getNewPassword(), request.getOldPassword());
+        return new FirstsChangePasswordCommand(request.getEmail(), request.getNewPassword(), request.getOldPassword(),
+                request.getCodeOtp());
     }
 
 

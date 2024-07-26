@@ -67,8 +67,8 @@ public class AuthService implements IAuthService {
                     TokenResponse.class);
             return handleAuthResponse(response);
         } catch (HttpClientErrorException e) {
-            handleAuthException(e);
-            return null; // Esto no se ejecutará, ya que handleAuthException lanza una excepción
+            handleAuthException(e, loginDTO.getUsername(), loginDTO.getUsername());
+            return null;
         }
     }
 
@@ -213,10 +213,14 @@ public class AuthService implements IAuthService {
         }
     }
 
-    private void handleAuthException(HttpClientErrorException e) {
+    private void handleAuthException(HttpClientErrorException e, String email, String name) {
         if (e.getStatusCode() == HttpStatus.BAD_REQUEST) {
             String errorResponse = e.getResponseBodyAsString();
             if (errorResponse.contains("invalid_grant")) {
+                String otpCode = otpService.generateOtpCode();
+                otpService.saveOtpCode(email, otpCode);
+                producerOtp.create(new UserOtpKafka(email, otpCode, name));
+
                 throw new UserChangePasswordException("You must change your password before continuing.",
                         new ErrorField("password", "You must change your password before continuing."));
             }
