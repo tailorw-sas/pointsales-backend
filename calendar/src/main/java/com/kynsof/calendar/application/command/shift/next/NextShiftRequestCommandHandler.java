@@ -10,10 +10,10 @@ import com.kynsof.calendar.infrastructure.service.socket.NotificationService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class NextShiftRequestCommandHandler implements ICommandHandler<NextShiftRequestCommand> {
@@ -129,13 +129,9 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
     }
 
     public boolean hasMultipleServices(List<TurnDto> turnDtoList) {
-        Set<UUID> serviceIds = new HashSet<>();
-        for (TurnDto turnDto : turnDtoList) {
-            serviceIds.add(turnDto.getServices().getId());
-            if (serviceIds.size() > 1) {
-                return true;
-            }
-        }
-        return false;
+        Set<UUID> serviceIds = turnDtoList.stream()
+                .map(turnDto -> turnDto.getServices().getId())
+                .collect(Collectors.toSet());
+        return serviceIds.size() > 1;
     }
 }
