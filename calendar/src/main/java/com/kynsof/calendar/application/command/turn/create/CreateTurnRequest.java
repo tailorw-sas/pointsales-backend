@@ -13,5 +13,4 @@ public class CreateTurnRequest {
     private UUID service;
     private UUID business;
     private String identification;
-    private Boolean isPreferential;
 }
