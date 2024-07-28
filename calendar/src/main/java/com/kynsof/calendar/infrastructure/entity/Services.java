@@ -37,7 +37,6 @@ public class Services {
 
     @Column(unique = true)
     private String code;
-    private Integer priority;
     private String picture;
     private String name;
     private Double normalAppointmentPrice;
@@ -64,12 +63,25 @@ public class Services {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "services", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<BusinessServices> businessServices = new HashSet<>();
+
+
+    //Only turn
+    @Column(nullable = false, name = "prefer_flag")
+    private boolean preferFlag;
+    @Column(nullable = false, name = "max_priority_count")
+    private int maxPriorityCount = 0;
+    @Column(nullable = false, name = "priority_count")
+    private int priorityCount = 0;
+    @Column(nullable = false, name = "current_loop")
+    private int currentLoop = 0;
+    @Column(nullable = false, name = "order_priority")
+    private int order = 0;
+
 
     public Services(ServiceDto object) {
         this.id = object.getId();
@@ -83,11 +95,17 @@ public class Services {
         this.applyIva = object.getApplyIva();
         this.estimatedDuration = object.getEstimatedDuration();
         this.code = object.getCode();
-        this.priority = object.getPriority();
+
+        this.preferFlag = object.isPreferFlag();
+        this.maxPriorityCount = object.getMaxPriorityCount();
+        this.priorityCount = object.getPriorityCount();
+        this.currentLoop = object.getCurrentLoop();
+        this.order = object.getOrder();
     }
 
     public ServiceDto toAggregate () {
         return new ServiceDto(id, type.toAggregate(), status, picture, name, normalAppointmentPrice,
-                expressAppointmentPrice, description, applyIva, estimatedDuration, code, priority);
+                expressAppointmentPrice, description, applyIva, estimatedDuration, code,
+                preferFlag, maxPriorityCount, priorityCount, currentLoop, order);
     }
 }

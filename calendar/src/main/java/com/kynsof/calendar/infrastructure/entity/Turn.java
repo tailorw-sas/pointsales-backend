@@ -2,7 +2,6 @@ package com.kynsof.calendar.infrastructure.entity;
 
 
 import com.kynsof.calendar.domain.dto.TurnDto;
-import com.kynsof.calendar.domain.dto.enumType.EPriority;
 import com.kynsof.calendar.domain.dto.enumType.ETurnStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -39,24 +38,12 @@ public class Turn {
     @Column(name = "order_number", nullable = false)
     private Integer orderNumber;
 
-    private Integer position;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "priority", nullable = false)
-    private EPriority priority;
-
-    @Column(name = "is_preferential", nullable = false)
-    private Boolean isPreferential;
-
     @Column(name = "waiting_time")
     private String waitingTime;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ETurnStatus status;
-
-    private Boolean isNeedPayment;
-    private UUID nextServices;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "business_id", nullable = false)
@@ -76,14 +63,10 @@ public class Turn {
         this.services = new Services(turnDto.getServices());
         this.identification = turnDto.getIdentification();
         this.orderNumber = turnDto.getOrderNumber();
-        this.priority = turnDto.getPriority();
-        this.isPreferential = turnDto.getIsPreferential();
         this.waitingTime = turnDto.getWaitingTime();
         this.status = turnDto.getStatus();
         this.business = turnDto.getBusiness() != null ? new Business(turnDto.getBusiness()) : null;
         this.local = turnDto.getLocal();
-        this.isNeedPayment = turnDto.getIsNeedPayment();
-        this.nextServices = turnDto.getNextServices();
     }
 
     public TurnDto toAggregate() {
@@ -93,15 +76,10 @@ public class Turn {
                 services.toAggregate(),
                 identification,
                 orderNumber,
-                priority,
-                isPreferential,
                 waitingTime,
                 status,
-                business != null ? business.toAggregate() : null,
-                position,
-                isNeedPayment
+                business != null ? business.toAggregate() : null
         );
-        turnDto.setNextServices(nextServices);
         turnDto.setLocal(local);
         turnDto.setCreateAt(createdAt);
         return turnDto;

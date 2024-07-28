@@ -33,7 +33,6 @@ public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServic
         update.setEstimatedDuration(command.getEstimatedDuration());
         update.setStatus(command.getStatus());
         update.setPicture(command.getPicture());
-        update.setPriority(command.getPriority());
 
         update.setApplyIva(command.isApplyIva());
         update.setExpressAppointmentPrice(command.getExpressAppointmentPrice());
@@ -41,6 +40,13 @@ public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServic
 
         UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());
         UpdateIfNotNull.updateIfStringNotNull(update::setDescription, command.getDescription());
+
+        update.setPreferFlag(command.isPreferFlag());
+        update.setMaxPriorityCount(command.getMaxPriorityCount());
+        update.setPriorityCount(command.getPriorityCount());
+        update.setCurrentLoop(command.getCurrentLoop());
+        update.setOrder(command.getOrder());
+
         service.update(update);
     }
 }

@@ -1,7 +1,6 @@
 package com.kynsof.calendar.domain.dto;
 
 
-import com.kynsof.calendar.domain.dto.enumType.EPriority;
 import com.kynsof.calendar.domain.dto.enumType.ETurnStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,49 +19,23 @@ public class TurnDto {
     private ServiceDto services;
     private String identification;
     private Integer orderNumber;
-    private EPriority priority;
-    private Boolean isPreferential;
     private String waitingTime;
     private ETurnStatus status;
     private BusinessDto business;
     private LocalDateTime createAt;
-    private  Integer position;
     private String Local;
-    private Boolean isNeedPayment;
-    private UUID nextServices;
 
     public TurnDto(UUID id, ResourceDto doctorId, ServiceDto specialtyCode, String identification,
-                   Integer orderNumber, EPriority priority, Boolean isPreferential,
+                   Integer orderNumber,
                    String waitingTime, ETurnStatus status,
-                   BusinessDto business, Integer position, Boolean isNeedPayment) {
+                   BusinessDto business) {
         this.id = id;
         this.doctor = doctorId;
         this.services = specialtyCode;
         this.identification = identification;
         this.orderNumber = orderNumber;
-        this.priority = priority;
-        this.isPreferential = isPreferential;
         this.waitingTime = waitingTime;
         this.status = status;
         this.business = business;
-        this.position = position;
-        this.isNeedPayment = isNeedPayment;
-    }
-
-    public TurnDto toAggregate() {
-        return new TurnDto(
-                id,
-                doctor,
-                services,
-                identification,
-                orderNumber,
-                priority,
-                isPreferential,
-                waitingTime,
-                status,
-                business,
-                position,
-                isNeedPayment
-        );
     }
 }

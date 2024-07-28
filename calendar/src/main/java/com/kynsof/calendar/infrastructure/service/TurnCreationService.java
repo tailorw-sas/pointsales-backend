@@ -40,17 +40,12 @@ public class TurnCreationService {
         ResourceDto resourceDto = command.getDoctor() != null ? resourceService.findById(command.getDoctor()) : null;
         ServiceDto service = serviceService.findByIds(command.getService());
         UUID serviceId = service.getId();
-        UUID nextService = null;
-//        if (command.getIsPreferential()) {
-//            serviceId = UUID.fromString("c8dad20a-234e-4e1b-ad3c-fda5316e3714");
-//            service = serviceService.findByIds(serviceId);
-//            nextService = command.getService();
-//        }
+
         AttendanceLogDto attendanceLogDto = attendanceLogService.getByServiceId(serviceId, businessDto.getId());
 
         if (attendanceLogDto != null) {
             attendanceLogService.delete(attendanceLogDto.getId());
-            TurnDto turnDto = createTurnDto(command, resourceDto, service, businessDto, ETurnStatus.IN_PROGRESS, nextService, 0);
+            TurnDto turnDto = createTurnDto(command, resourceDto, service, businessDto, ETurnStatus.IN_PROGRESS);
             UUID id = turnService.create(turnDto);
 
             sendNotifications(service, attendanceLogDto, turnDto);
@@ -58,28 +53,23 @@ public class TurnCreationService {
             return id;
         }
 
-        TurnDto turnDtoCola = createTurnDto(command, resourceDto, service, businessDto, ETurnStatus.PENDING, nextService, 1);
+        TurnDto turnDtoCola = createTurnDto(command, resourceDto, service, businessDto, ETurnStatus.PENDING);
         UUID id = turnService.create(turnDtoCola);
         return id;
     }
 
     private TurnDto createTurnDto(CreateTurnRequest command, ResourceDto resourceDto, ServiceDto service, BusinessDto businessDto,
-                                  ETurnStatus status, UUID nextService, int position) {
+                                  ETurnStatus status) {
         TurnDto turnDto = new TurnDto(
                 UUID.randomUUID(),
                 resourceDto,
                 service,
                 command.getIdentification(),
                 RandomNumberGenerator.generateRandomNumber(0, 100),
-                command.getPriority(),
-                command.getIsPreferential(),
                 "0 min",
                 status,
-                businessDto,
-                position,
-                command.getIsNeedPayment()
+                businessDto
         );
-        turnDto.setNextServices(nextService);
         return turnDto;
     }
 
@@ -93,7 +83,6 @@ public class TurnCreationService {
         localMessage.setService(service.getName());
         localMessage.setQueueId(attendanceLogDto.getPlace().getId().toString());
         localMessage.setShift(message.getShift());
-        localMessage.setPreferential(turnDto.getIsPreferential());
         localMessage.setIdentification(turnDto.getIdentification());
         localMessage.setShiftId(turnDto.getId().toString());
         localMessage.setStatus(turnDto.getStatus().toString());

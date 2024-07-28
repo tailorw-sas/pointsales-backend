@@ -25,6 +25,11 @@ public class ServiceDto implements Serializable {
     private Boolean applyIva;
     private int estimatedDuration;
     private String code;
-    private Integer priority;
+
+    private boolean preferFlag;
+    private int maxPriorityCount = 0;
+    private int priorityCount = 0;
+    private int currentLoop = 0;
+    private int order = 0;
 
 }

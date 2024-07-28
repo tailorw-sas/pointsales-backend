@@ -20,11 +20,9 @@ public class CreateTurnCommandHandler implements ICommandHandler<CreateTurnComma
     public void handle(CreateTurnCommand command) {
         CreateTurnRequest request = new CreateTurnRequest();
         request.setDoctor(command.getDoctor());
-        request.setPriority(command.getPriority());
         request.setService(command.getService());
         request.setBusiness(command.getBusiness());
         request.setIsPreferential(command.getIsPreferential());
-        request.setIsNeedPayment(command.getIsNeedPayment());
         request.setIdentification(command.getIdentification());
         UUID id = turnCreationService.createTurn(request);
         command.setId(id);

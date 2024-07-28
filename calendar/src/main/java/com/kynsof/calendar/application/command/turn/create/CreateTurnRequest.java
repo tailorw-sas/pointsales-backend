@@ -1,6 +1,5 @@
 package com.kynsof.calendar.application.command.turn.create;
 
-import com.kynsof.calendar.domain.dto.enumType.EPriority;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +13,5 @@ public class CreateTurnRequest {
     private UUID service;
     private UUID business;
     private String identification;
-    private EPriority priority;
     private Boolean isPreferential;
-    private Boolean isNeedPayment;
 }

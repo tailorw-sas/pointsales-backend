@@ -37,7 +37,11 @@ public class CreateServiceCommandHandler implements ICommandHandler<CreateServic
                 command.isApplyIva(),
                 command.getEstimatedDuration(),
                 command.getCode(),
-                command.getPriority()
+                command.isPreferFlag(),
+                command.getMaxPriorityCount(),
+                command.getPriorityCount(),
+                command.getCurrentLoop(),
+                command.getOrder()
         ));
 
         command.setId(serviceDto.getId());

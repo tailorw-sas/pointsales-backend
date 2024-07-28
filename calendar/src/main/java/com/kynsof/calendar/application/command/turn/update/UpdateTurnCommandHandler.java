@@ -36,9 +36,7 @@ public class UpdateTurnCommandHandler implements ICommandHandler<UpdateTurnComma
         turnDto.setBusiness(businessDto);
         turnDto.setDoctor(resourceDto);
         turnDto.setIdentification(command.getIdentification());
-        turnDto.setIsPreferential(command.getIsPreferential());
         turnDto.setServices(serviceDto);
-        turnDto.setPriority(command.getPriority());
         turnDto.setStatus(command.getStatus());
         turnService.update(turnDto);
     }

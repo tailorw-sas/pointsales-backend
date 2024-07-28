@@ -1,6 +1,7 @@
 package com.kynsof.calendar.infrastructure.repository.query;
 
 import com.kynsof.calendar.infrastructure.entity.Turn;
+import feign.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -10,16 +11,20 @@ import java.util.UUID;
 
 public interface TurnReadDataJPARepository extends JpaRepository<Turn, UUID>, JpaSpecificationExecutor<Turn> {
 
-    @Query("SELECT t FROM Turn t" +
-            " WHERE t.services.id IN :serviceIds" +
-            " AND t.business.id = :businessId" +
-            " AND (t.status = 'PENDING' OR t.status = 'IN_PROGRESS')" +
-            " ORDER BY t.createdAt ASC")
-    List<Turn> findByServiceIds( List<UUID> serviceIds, UUID businessId);
+    @Query("SELECT t FROM Services s " +
+            "JOIN s.turns t " +
+            "WHERE s.id IN :serviceIds " +
+            "AND t.business.id = :businessId " +
+            "AND (t.status = 'PENDING' OR t.status = 'IN_PROGRESS') " +
+            "ORDER BY " +
+            "CASE WHEN s.preferFlag = true THEN t.createdAt ELSE '2200-12-31' END ASC, " +
+            "s.currentLoop ASC, " +
+            "s.priorityCount DESC, " +
+            "s.order ASC")
+    List<Turn> findByServiceIds(@Param("serviceIds") List<UUID> serviceIds, @Param("businessId") UUID businessId);
 
     @Query("SELECT t FROM Turn t" +
-            " WHERE t.isNeedPayment = true" +
-            " AND t.business.id = :businessId" +
+            " WHERE t.business.id = :businessId" +
             " AND (t.status = 'PENDING' OR t.status = 'IN_PROGRESS')" +
             " ORDER BY t.createdAt ASC")
     List<Turn> findByServiceByFinanceId(UUID businessId);
