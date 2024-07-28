@@ -88,14 +88,10 @@ public class TurnServiceImpl implements ITurnService {
     }
 
     @Override
-    public List<TurnDto> findByServiceByFinanceId( UUID businessId) {
-        return this.repositoryQuery.findByServiceByFinanceId(businessId).stream().map(Turn::toAggregate).toList();
+    public Integer findMaxOrderNumberByServiceId(UUID serviceId, UUID businessId) {
+        return this.repositoryQuery.findMaxOrderNumberByServiceId(serviceId, businessId);
     }
 
-    @Override
-    public int findPositionByServiceId(UUID serviceId, UUID businessDtoId) {
-        return 0;// this.repositoryQuery.findPositionByServiceId(serviceId, businessDtoId);
-    }
 
     private PaginatedResponse getPaginatedResponse(Page<Turn> data) {
         List<TurnResponse> patients = new ArrayList<>();

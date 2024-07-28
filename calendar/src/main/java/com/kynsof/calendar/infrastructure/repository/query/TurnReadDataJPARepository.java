@@ -36,5 +36,10 @@ public interface TurnReadDataJPARepository extends JpaRepository<Turn, UUID>, Jp
             " AND (t.status = 'PENDING' OR t.status = 'IN_PROGRESS')" +
             " ORDER BY t.createdAt ASC")
     List<Turn> findByLocalId(String local, UUID businessId);
+
+
+    @Query("SELECT MAX(t.orderNumber) FROM Turn t WHERE t.services.id = :serviceId and " +
+            "t.business.id = :businessId")
+    Integer findMaxOrderNumberByServiceId(@Param("serviceId") UUID serviceId, @Param("businessId") UUID businessId);
 }
 

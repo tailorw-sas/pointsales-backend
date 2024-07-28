@@ -1,7 +1,6 @@
 package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.command.turn.create.CreateTurnRequest;
-import com.kynsof.calendar.application.command.turn.create.RandomNumberGenerator;
 import com.kynsof.calendar.domain.dto.*;
 import com.kynsof.calendar.domain.dto.enumType.ETurnStatus;
 import com.kynsof.calendar.domain.service.*;
@@ -60,17 +59,18 @@ public class TurnCreationService {
 
     private TurnDto createTurnDto(CreateTurnRequest command, ResourceDto resourceDto, ServiceDto service, BusinessDto businessDto,
                                   ETurnStatus status) {
-        TurnDto turnDto = new TurnDto(
+
+        int orderNumber = this.turnService.findMaxOrderNumberByServiceId(service.getId(), businessDto.getId());
+        return new TurnDto(
                 UUID.randomUUID(),
                 resourceDto,
                 service,
                 command.getIdentification(),
-                RandomNumberGenerator.generateRandomNumber(0, 100),
+                orderNumber == 0 ? 0 : orderNumber + 1,
                 "0 min",
                 status,
                 businessDto
         );
-        return turnDto;
     }
 
     private void sendNotifications(ServiceDto service, AttendanceLogDto attendanceLogDto, TurnDto turnDto) {
