@@ -92,7 +92,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         var message = new NewServiceMessage();
         message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getOrderNumber()));
         message.setService(service.getName());
-        message.setLocal(place.getName());
+        message.setLocal(place.getBlock().getCode());
 
         var block = place.getBlock();
         message.setQueueId(block.getCode());
