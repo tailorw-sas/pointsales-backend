@@ -66,7 +66,7 @@ public class TurnCreationService {
                 resourceDto,
                 service,
                 command.getIdentification(),
-                orderNumber == 0 ? 0 : orderNumber + 1,
+               orderNumber + 1,
                 "0 min",
                 status,
                 businessDto
