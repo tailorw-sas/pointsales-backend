@@ -56,10 +56,10 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
                 .orElse(turnDtoList.isEmpty() ? null : turnDtoList.get(0));
 
         if (turnDto == null) {
-            services.stream().map(serviceDto -> {
+
+            services.forEach(serviceDto -> {
                 AttendanceLogDto attendanceLogDto = getAttendanceLogDto(place, resource, serviceDto, AttentionLocalStatus.AVAILABLE);
                 attendanceLogService.create(attendanceLogDto);
-                return null;
             });
 
             return;
