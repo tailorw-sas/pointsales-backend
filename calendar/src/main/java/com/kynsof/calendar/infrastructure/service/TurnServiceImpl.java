@@ -89,7 +89,8 @@ public class TurnServiceImpl implements ITurnService {
 
     @Override
     public Integer findMaxOrderNumberByServiceId(UUID serviceId, UUID businessId) {
-        return this.repositoryQuery.findMaxOrderNumberByServiceId(serviceId, businessId);
+        Integer maxOrderNumber =  this.repositoryQuery.findMaxOrderNumberByServiceId(serviceId, businessId);
+        return maxOrderNumber != null ? maxOrderNumber : 0;
     }
 
 
