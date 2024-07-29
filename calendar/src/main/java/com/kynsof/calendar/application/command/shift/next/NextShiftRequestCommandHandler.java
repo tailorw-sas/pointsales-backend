@@ -88,7 +88,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
     }
 
     private void sendNotification(ServiceDto service, TurnDto turnDto, PlaceDto place, ResourceDto resource) {
-        // message to send to the shift queue
+        // send turn TV
         var message = new NewServiceMessage();
         message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getOrderNumber()));
         message.setService(service.getName());
@@ -97,7 +97,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         var block = place.getBlock();
         message.setQueueId(block.getCode());
 
-        // message to send to the local queue
+        // send turn local
         var localMessage = new LocalServiceMessage();
         localMessage.setService(service.getName());
         localMessage.setQueueId(place.getId().toString());
