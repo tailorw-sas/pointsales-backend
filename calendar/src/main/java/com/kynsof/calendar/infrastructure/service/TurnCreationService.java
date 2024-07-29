@@ -50,6 +50,7 @@ public class TurnCreationService {
             }
            // attendanceLogService.delete(attendanceLogDto.getId());
             TurnDto turnDto = createTurnDto(command, resourceDto, service, businessDto, ETurnStatus.IN_PROGRESS);
+            turnDto.setLocal(attendanceLogDto.getPlace().getCode());
             UUID id = turnService.create(turnDto);
 
             sendNotifications(service, attendanceLogDto, turnDto);
