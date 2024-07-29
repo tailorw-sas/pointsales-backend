@@ -43,7 +43,12 @@ public class TurnCreationService {
         AttendanceLogDto attendanceLogDto = attendanceLogService.getByServiceId(serviceId, businessDto.getId());
 
         if (attendanceLogDto != null) {
-            attendanceLogService.delete(attendanceLogDto.getId());
+
+            var existLocalActive = this.attendanceLogService.getByLocalId(attendanceLogDto.getPlace().getId(), businessDto.getId());
+            if (!existLocalActive.isEmpty()) {
+                this.attendanceLogService.deleteByIds(existLocalActive.stream().map(AttendanceLogDto::getId).toList());
+            }
+           // attendanceLogService.delete(attendanceLogDto.getId());
             TurnDto turnDto = createTurnDto(command, resourceDto, service, businessDto, ETurnStatus.IN_PROGRESS);
             UUID id = turnService.create(turnDto);
 
