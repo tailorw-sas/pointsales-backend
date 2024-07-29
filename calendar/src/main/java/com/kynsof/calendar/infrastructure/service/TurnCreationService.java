@@ -74,8 +74,9 @@ public class TurnCreationService {
     }
 
     private void sendNotifications(ServiceDto service, AttendanceLogDto attendanceLogDto, TurnDto turnDto) {
+
         NewServiceMessage message = new NewServiceMessage();
-        message.setShift(service.getCode() + "-" + String.format("%02d", 1));
+        message.setShift(service.getCode() + "-" + String.format("%02d", turnDto.getOrderNumber()));
         message.setService(service.getName());
         message.setLocal(attendanceLogDto.getPlace().getName());
         message.setQueueId(attendanceLogDto.getPlace().getBlock().getCode());
