@@ -77,7 +77,7 @@ public class TurnCreationService {
         NewServiceMessage message = new NewServiceMessage();
         message.setShift(service.getCode() + "-" + String.format("%02d", 1));
         message.setService(service.getName());
-        message.setLocal(attendanceLogDto.getPlace().getBlock().getCode());
+        message.setLocal(attendanceLogDto.getPlace().getName());
         message.setQueueId(attendanceLogDto.getPlace().getBlock().getCode());
 
         LocalServiceMessage localMessage = new LocalServiceMessage();
