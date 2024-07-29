@@ -32,8 +32,8 @@ public class NotificationService {
 
             String notificationUrl = UriComponentsBuilder.newInstance()
                     .scheme("http")
-                    .host(host)
-                    .port(port)
+                    .host("localhost")
+                    .port(7171)
                     .path(endpoint)
                     .toUriString();
 

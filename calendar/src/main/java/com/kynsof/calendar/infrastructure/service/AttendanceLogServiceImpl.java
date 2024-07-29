@@ -73,6 +73,7 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
     }
 
     @Override
+    @Transactional
     public void deleteByIds(List<UUID> list) {
         this.repositoryCommand.deleteAllById(list);
     }
