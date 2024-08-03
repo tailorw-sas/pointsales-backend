@@ -51,7 +51,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         List<TurnDto> turnDtoList = turnService.findByServiceIds(ids, place.getBusinessDto().getId());
 
         var turnDto = turnDtoList.stream()
-                .filter(turnDtoTem -> turnDtoTem.getStatus() == ETurnStatus.IN_PROGRESS)
+             //   .filter(turnDtoTem -> turnDtoTem.getStatus() == ETurnStatus.IN_PROGRESS)
                 .findFirst()
                 .orElse(turnDtoList.isEmpty() ? null : turnDtoList.get(0));
 

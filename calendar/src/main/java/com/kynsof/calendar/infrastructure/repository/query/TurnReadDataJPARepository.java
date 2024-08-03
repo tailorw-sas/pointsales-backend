@@ -15,7 +15,7 @@ public interface TurnReadDataJPARepository extends JpaRepository<Turn, UUID>, Jp
             "JOIN s.turns t " +
             "WHERE s.id IN :serviceIds " +
             "AND t.business.id = :businessId " +
-            "AND (t.status = 'PENDING' OR t.status = 'IN_PROGRESS') " +
+            "AND t.status = 'PENDING'" +
             "ORDER BY " +
             "CASE WHEN s.preferFlag = true THEN t.createdAt ELSE '2200-12-31' END ASC, " +
             "s.currentLoop ASC, " +
@@ -25,7 +25,7 @@ public interface TurnReadDataJPARepository extends JpaRepository<Turn, UUID>, Jp
 
     @Query("SELECT t FROM Turn t" +
             " WHERE t.business.id = :businessId" +
-            " AND (t.status = 'PENDING' OR t.status = 'IN_PROGRESS')" +
+            " AND t.status = 'PENDING'" +
             " ORDER BY t.createdAt ASC")
     List<Turn> findByServiceByFinanceId(UUID businessId);
 
@@ -33,7 +33,7 @@ public interface TurnReadDataJPARepository extends JpaRepository<Turn, UUID>, Jp
     @Query("SELECT t FROM Turn t" +
             " WHERE t.local = :local" +
             " AND t.business.id = :businessId" +
-            " AND (t.status = 'PENDING' OR t.status = 'IN_PROGRESS')" +
+            " AND t.status = 'PENDING'" +
             " ORDER BY t.createdAt ASC")
     List<Turn> findByLocalId(String local, UUID businessId);
 
