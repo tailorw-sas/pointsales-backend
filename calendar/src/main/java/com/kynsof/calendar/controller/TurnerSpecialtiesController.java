@@ -15,10 +15,15 @@ import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import java.util.UUID;
+import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/turner-specialties")
@@ -72,6 +77,27 @@ public class TurnerSpecialtiesController {
         GetSearchTurnerSpecialtiesQuery query = new GetSearchTurnerSpecialtiesQuery(pageable, request.getFilter(),request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
+    }
+
+    @PostMapping(value = "/import",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Mono<ResponseEntity<?>> importPayment(@RequestPart("file") FilePart filePart,
+                                                 @RequestPart("importProcessId") UUID businessId){
+        return DataBufferUtils.join(filePart.content())
+                .flatMap(dataBuffer -> {
+                    byte[] bytes = new byte[dataBuffer.readableByteCount()];
+                    dataBuffer.read(bytes);
+                    DataBufferUtils.release(dataBuffer);
+
+                  //  PaymentImportRequest paymentImportRequest = new PaymentImportRequest(importProcessId,bytes,EImportPaymentType.valueOf(eImportPaymentType));
+                   // PaymentImportCommand paymentImportCommand = new PaymentImportCommand(paymentImportRequest);
+                    try {
+                     //   IMessage message = mediator.send(paymentImportCommand);
+                        return Mono.just(ResponseEntity.ok(businessId));// Mono.just(ResponseEntity.ok(message));
+                    }catch (Exception e) {
+                        return Mono.error(e);
+                    }
+
+                } );
     }
 
 }
