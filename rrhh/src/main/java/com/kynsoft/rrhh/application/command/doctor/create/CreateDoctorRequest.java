@@ -21,4 +21,5 @@ public class CreateDoctorRequest {
     private String phoneNumber;
     private String image;
     private UUID business;
+    private String code;
 }

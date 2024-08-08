@@ -8,6 +8,7 @@ import com.kynsof.share.utils.ConsumerUpdate;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import com.kynsoft.rrhh.domain.dto.DoctorDto;
 import com.kynsoft.rrhh.domain.interfaces.services.IDoctorService;
+import com.kynsoft.rrhh.domain.rules.doctor.DoctorCodeMustBeUniqueRule;
 import com.kynsoft.rrhh.domain.rules.doctor.UpdateDoctorEmailMustBeUniqueRule;
 import com.kynsoft.rrhh.domain.rules.doctor.UpdateDoctorIdentificationMustBeUniqueRule;
 import com.kynsoft.rrhh.domain.rules.users.UserSystemEmailValidateRule;
@@ -31,6 +32,7 @@ public class UpdateDoctorCommandHandler implements ICommandHandler<UpdateDoctorC
     @Override
     public void handle(UpdateDoctorCommand command) {
         RulesChecker.checkRule(new UserSystemEmailValidateRule(command.getEmail()));
+        RulesChecker.checkRule(new DoctorCodeMustBeUniqueRule(this.service, command.getCode(), command.getId()));
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getStatus(), "Doctor.status", "Doctor status cannot be null."));
         DoctorDto doctorSave = service.findById(command.getId());
         ConsumerUpdate update = new ConsumerUpdate();
@@ -57,6 +59,7 @@ public class UpdateDoctorCommandHandler implements ICommandHandler<UpdateDoctorC
         UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(doctorSave::setRegisterNumber, command.getRegisterNumber(), doctorSave.getRegisterNumber(), update::setUpdate);
         UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(doctorSave::setLanguage, command.getLanguage(), doctorSave.getLanguage(), update::setUpdate);
         UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(doctorSave::setPhoneNumber, command.getPhoneNumber(), doctorSave.getPhoneNumber(), update::setUpdate);
+        UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(doctorSave::setCode, command.getCode(), doctorSave.getCode(), update::setUpdate);
         doctorSave.setStatus(command.getStatus());
         doctorSave.setExpress(command.isExpress());
 

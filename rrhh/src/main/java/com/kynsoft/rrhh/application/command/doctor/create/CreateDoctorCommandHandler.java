@@ -10,6 +10,7 @@ import com.kynsoft.rrhh.domain.dto.UserBusinessRelationDto;
 import com.kynsoft.rrhh.domain.interfaces.services.IBusinessService;
 import com.kynsoft.rrhh.domain.interfaces.services.IDoctorService;
 import com.kynsoft.rrhh.domain.interfaces.services.IUserBusinessRelationService;
+import com.kynsoft.rrhh.domain.rules.doctor.DoctorCodeMustBeUniqueRule;
 import com.kynsoft.rrhh.domain.rules.doctor.DoctorEmailMustBeUniqueRule;
 import com.kynsoft.rrhh.domain.rules.doctor.DoctorIdentificationMustBeUniqueRule;
 import com.kynsoft.rrhh.domain.rules.users.UserSystemEmailValidateRule;
@@ -41,6 +42,7 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getStatus(), "Doctor.status", "Doctor status cannot be null."));
         RulesChecker.checkRule(new DoctorEmailMustBeUniqueRule(this.service, command.getEmail()));
         RulesChecker.checkRule(new DoctorIdentificationMustBeUniqueRule(this.service, command.getIdentification()));
+        RulesChecker.checkRule(new DoctorCodeMustBeUniqueRule(this.service, command.getCode(), command.getId()));
 
         BusinessDto businessDto = this.businessService.findById(command.getBusiness());
         DoctorDto doctorSave = new DoctorDto(
@@ -54,7 +56,8 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
                 command.getLanguage(),
                 command.isExpress(),
                 command.getPhoneNumber(),
-                command.getImage()
+                command.getImage(),
+                command.getCode()
         );
 
         service.create(doctorSave);

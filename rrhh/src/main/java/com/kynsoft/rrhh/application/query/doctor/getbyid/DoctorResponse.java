@@ -14,6 +14,7 @@ import java.util.UUID;
 public class DoctorResponse implements IResponse {
     private UUID id;
     private String identification;
+    private String code;
     private String email;
     private String name;
     private String lastName;
@@ -23,7 +24,6 @@ public class DoctorResponse implements IResponse {
     private boolean isExpress;
     private String phoneNumber;
     private String image;
-
 
     public DoctorResponse(DoctorDto userSystemDto) {
         this.id = userSystemDto.getId();
@@ -37,6 +37,7 @@ public class DoctorResponse implements IResponse {
         this.identification = userSystemDto.getIdentification();
         this.phoneNumber = userSystemDto.getPhoneNumber();
         this.image = userSystemDto.getImage();
+        this.code = userSystemDto.getCode();
     }
 
 }

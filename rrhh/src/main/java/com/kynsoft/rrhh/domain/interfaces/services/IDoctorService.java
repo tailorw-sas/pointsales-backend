@@ -18,4 +18,5 @@ public interface IDoctorService {
     Long countByEmail(String email);
     Long countByIdentificationAndNotId(String identification, UUID id);
     Long countByEmailAndNotId(String email, UUID id);
+    Long countByCodeAndNotId(String code, UUID id);
 }
