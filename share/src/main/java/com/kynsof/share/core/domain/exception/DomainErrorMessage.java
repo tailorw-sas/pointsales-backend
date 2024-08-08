@@ -74,7 +74,10 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     DOCTOR_NOT_FOUND(668, Series.DOMAIN_ERROR, "Doctor no encontrado."),
     CIE10_NOT_FOUND(669, Series.DOMAIN_ERROR, "CIE10 no encontrado."),
     NOT_DELETE(1000, Series.DOMAIN_ERROR, "El elemento no se puede eliminar porque tiene un elemento relacionado."),
-    MUST_BY_UNIQUE(1002, Series.DOMAIN_ERROR, "Debe ser único.");
+    MUST_BY_UNIQUE(1002, Series.DOMAIN_ERROR, "Debe ser único."),
+    OBJECT_NOT_FOUNT(1003, Series.DOMAIN_ERROR, "Objeto no encontrado."),
+    UUID_NOT_FORMAT(1004, Series.DOMAIN_ERROR, "Formato de UUID incorrecto."),
+    STATUS_NOT_FORMAT(1005, Series.DOMAIN_ERROR, "Estado no aceptado.");
     private static final DomainErrorMessage[] VALUES;
 
     static {
