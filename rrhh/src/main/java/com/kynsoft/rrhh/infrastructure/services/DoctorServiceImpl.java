@@ -102,4 +102,9 @@ public class DoctorServiceImpl implements IDoctorService {
         return this.repositoryQuery.countByEmailAndNotId(email, id);
     }
 
+    @Override
+    public Long countByCodeAndNotId(String code, UUID id) {
+        return this.repositoryQuery.countByCodeAndNotId(code, id);
+    }
+
 }

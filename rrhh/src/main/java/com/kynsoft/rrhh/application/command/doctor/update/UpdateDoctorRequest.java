@@ -16,4 +16,5 @@ public class UpdateDoctorRequest {
     private boolean isExpress;
     private String phoneNumber;
     private String image;
+    private String code;
 }

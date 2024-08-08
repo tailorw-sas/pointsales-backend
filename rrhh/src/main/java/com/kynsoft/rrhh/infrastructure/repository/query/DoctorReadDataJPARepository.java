@@ -23,6 +23,9 @@ public interface DoctorReadDataJPARepository extends JpaRepository<Doctor, UUID>
     @Query("SELECT COUNT(b) FROM Doctor b WHERE b.identification = :identification AND b.id <> :id")
     Long countByIdentificationAndNotId(@Param("identification") String identification, @Param("id") UUID id);
 
+    @Query("SELECT COUNT(b) FROM Doctor b WHERE b.code = :code AND b.id <> :id")
+    Long countByCodeAndNotId(@Param("code") String code, @Param("id") UUID id);
+
     @Query("SELECT COUNT(b) FROM Doctor b WHERE b.email = :email AND b.id <> :id")
     Long countByEmailAndNotId(@Param("email") String email, @Param("id") UUID id);
 }

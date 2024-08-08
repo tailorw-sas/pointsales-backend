@@ -22,9 +22,11 @@ public class UpdateDoctorCommand implements ICommand {
     private boolean isExpress;
     private final String phoneNumber;
     private final String image;
+    private String code;
 
     public UpdateDoctorCommand(UUID id, String identification, String email, String name, String lastName, String status,
-                               String registerNumber, String language, boolean isExpress, String phoneNumber, String image) {
+                               String registerNumber, String language, boolean isExpress, String phoneNumber, String image,
+                               String code) {
         this.id = id;
         this.identification = identification;
         this.email = email;
@@ -36,6 +38,7 @@ public class UpdateDoctorCommand implements ICommand {
         this.isExpress = isExpress;
         this.phoneNumber = phoneNumber;
         this.image = image;
+        this.code = code;
     }
 
     public static UpdateDoctorCommand fromRequest(UpdateDoctorRequest request, UUID id) {
@@ -50,7 +53,9 @@ public class UpdateDoctorCommand implements ICommand {
                 request.getLanguage(),
                 request.isExpress(),
                 request.getPhoneNumber(),
-                request.getImage());
+                request.getImage(),
+                request.getCode()
+        );
     }
 
     @Override

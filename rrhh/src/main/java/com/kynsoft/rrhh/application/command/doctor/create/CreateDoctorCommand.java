@@ -23,9 +23,11 @@ public class CreateDoctorCommand implements ICommand {
     private final String phoneNumber;
     private final String image;
     private final UUID business;
+    private String code;
 
     public CreateDoctorCommand(UUID id, String identification, String email, String name, String lastName, String status,
-                               String registerNumber, String language, boolean isExpress, String phoneNumber, String image, UUID business) {
+                               String registerNumber, String language, boolean isExpress, String phoneNumber, String image, UUID business,
+                               String code) {
         this.id = id;
         this.identification = identification;
         this.email = email;
@@ -38,6 +40,7 @@ public class CreateDoctorCommand implements ICommand {
         this.image = image;
         this.phoneNumber = phoneNumber;
         this.business = business;
+        this.code = code;
     }
 
     public static CreateDoctorCommand fromRequest(CreateDoctorRequest request) {
@@ -53,7 +56,9 @@ public class CreateDoctorCommand implements ICommand {
                 request.isExpress(),
                 request.getPhoneNumber(),
                 request.getImage(),
-                request.getBusiness());
+                request.getBusiness(),
+                request.getCode()
+        );
     }
 
     @Override
