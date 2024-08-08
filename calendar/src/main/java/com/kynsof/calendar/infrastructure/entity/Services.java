@@ -108,4 +108,10 @@ public class Services {
                 expressAppointmentPrice, description, applyIva, estimatedDuration, code,
                 preferFlag, maxPriorityCount, priorityCount, currentLoop, order);
     }
+
+    public ServiceDto toAggregateSimple () {
+        return new ServiceDto(id, type.toAggregate(), status, picture, name, normalAppointmentPrice,
+                expressAppointmentPrice, description, applyIva, estimatedDuration, code,
+                preferFlag, maxPriorityCount, priorityCount, currentLoop, order);
+    }
 }

@@ -9,6 +9,7 @@ import com.kynsof.calendar.domain.service.ITurnService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -36,9 +37,12 @@ public class StopShiftRequestCommandHandler implements ICommandHandler<StopShift
             return null;
         });
 
-        TurnDto turnDto = turnService.findByLocalId(place.getCode(), place.getBusinessDto().getId());
+        List<TurnDto>  turnDtos = turnService.findByLocalId(place.getCode(), place.getBusinessDto().getId());
+        turnDtos.stream().map(turnDto -> {
         turnDto.setStatus(ETurnStatus.COMPLETED);
         turnService.update(turnDto);
+           return null;
+        });
 
     }
 }

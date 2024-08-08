@@ -21,7 +21,7 @@ public interface ITurnService {
 
     List<TurnDto> findByServiceIds(List<UUID> serviceId, UUID businessId);
 
-    TurnDto findByLocalId(String local, UUID businessId);
+    List<TurnDto>  findByLocalId(String local, UUID businessId);
 
     Integer findMaxOrderNumberByServiceId( UUID serviceId, UUID businessId);
 }

@@ -33,7 +33,7 @@ public interface TurnReadDataJPARepository extends JpaRepository<Turn, UUID>, Jp
     @Query("SELECT t FROM Turn t" +
             " WHERE t.local = :local" +
             " AND t.business.id = :businessId" +
-            " AND t.status = 'PENDING'" +
+            " AND t.status = 'IN_PROGRESS'" +
             " ORDER BY t.createdAt ASC")
     List<Turn> findByLocalId(String local, UUID businessId);
 
