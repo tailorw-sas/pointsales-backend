@@ -2,6 +2,8 @@ package com.kynsof.calendar.controller;
 
 import com.kynsof.calendar.application.command.shift.next.NextShiftRequest;
 import com.kynsof.calendar.application.command.shift.next.NextShiftRequestCommand;
+import com.kynsof.calendar.application.command.shift.notification.NotificationRequest;
+import com.kynsof.calendar.application.command.shift.notification.NotificationShiftRequestCommand;
 import com.kynsof.calendar.application.command.shift.stop.StopShiftRequest;
 import com.kynsof.calendar.application.command.shift.stop.StopShiftRequestCommand;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
@@ -31,6 +33,13 @@ public class ShiftController {
     @PostMapping("stop")
     public ResponseEntity<?> stop(@RequestBody StopShiftRequest request) {
         var command = StopShiftRequestCommand.fromRequest(request);
+        mediator.send(command);
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("notification")
+    public ResponseEntity<?> sendNotification(@RequestBody NotificationRequest request) {
+        var command = NotificationShiftRequestCommand.fromRequest(request);
         mediator.send(command);
         return ResponseEntity.ok(true);
     }
