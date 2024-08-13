@@ -57,5 +57,5 @@ ENV TZ="America/Guayaquil"
 
 # Copy the native executable into the containers
 WORKDIR /app
-COPY --from=builder /build/target/calendar-1.0.0.jar .
-ENTRYPOINT [ "java", "-jar", "/app/calendar-1.0.0.jar" ]
+COPY --from=builder /build/target/shift-1.0.0.jar .
+ENTRYPOINT [ "java", "-jar", "/app/shift-1.0.0.jar" ]
