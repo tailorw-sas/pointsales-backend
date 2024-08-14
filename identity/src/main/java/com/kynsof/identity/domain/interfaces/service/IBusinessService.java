@@ -22,6 +22,8 @@ public interface IBusinessService {
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
+    List<BusinessDto> findAll();
+
     Long countByName(String name);
 
     Long countByRuc(String ruc);
