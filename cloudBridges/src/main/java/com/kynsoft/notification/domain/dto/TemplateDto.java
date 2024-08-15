@@ -16,5 +16,6 @@ public class TemplateDto {
     private String name;
     private String description;
     private MailjetConfigurationDto mailjetConfigurationDto;
+    private TenantDto tenant;
     private LocalDateTime createdAt;
 }

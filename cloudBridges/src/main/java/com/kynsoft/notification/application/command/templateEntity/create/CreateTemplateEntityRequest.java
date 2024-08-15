@@ -13,4 +13,5 @@ public class CreateTemplateEntityRequest {
     private String name;
     private String description;
     private UUID MailjetConfigId;
+    private String tenant;
 }

@@ -15,22 +15,21 @@ public class UpdateTemplateEntityCommand implements ICommand {
     private final String name;
     private final String description;
     private final UUID MailjetConfigId;
+    private String tenant;
 
-
-    public UpdateTemplateEntityCommand(UUID id, String templateCode, String name, String description, UUID mailjetConfigId) {
+    public UpdateTemplateEntityCommand(UUID id, String templateCode, String name, String description, UUID mailjetConfigId, String tenant) {
         this.id = id;
-
         this.templateCode = templateCode;
         this.name = name;
         this.description = description;
-        MailjetConfigId = mailjetConfigId;
+        this.MailjetConfigId = mailjetConfigId;
+        this.tenant = tenant;
     }
 
     public static UpdateTemplateEntityCommand fromRequest(UUID id, UpdateTemplateEntityRequest request) {
         return new UpdateTemplateEntityCommand(id, request.getTemplateCode(), request.getName(),
-                request.getDescription(), request.getMailjetConfigId());
+                request.getDescription(), request.getMailjetConfigId(), request.getTenant());
     }
-
 
     @Override
     public ICommandMessage getMessage() {
