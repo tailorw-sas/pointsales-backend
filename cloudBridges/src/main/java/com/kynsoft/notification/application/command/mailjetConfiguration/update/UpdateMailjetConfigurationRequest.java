@@ -10,4 +10,5 @@ public class UpdateMailjetConfigurationRequest {
     private String mailjetApiSecret;
     private String email;
     private String name;
+    private String tenant;
 }

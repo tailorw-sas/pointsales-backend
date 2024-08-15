@@ -2,6 +2,7 @@ package com.kynsoft.notification.application.query.mailjetConfiguration.getById;
 
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
+import com.kynsoft.notification.application.TenantResponse;
 import com.kynsoft.notification.domain.dto.MailjetConfigurationDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class MailjetConfigurationResponse implements IResponse {
     private String email;
     private String name;
     private LocalDate createdAt;
+    private TenantResponse tenant;
 
     public MailjetConfigurationResponse(MailjetConfigurationDto mailjetConfigurationDto) {
         this.id = mailjetConfigurationDto.getId();
@@ -28,6 +30,7 @@ public class MailjetConfigurationResponse implements IResponse {
         email = mailjetConfigurationDto.getFromEmail();
         name = mailjetConfigurationDto.getFromName();
         createdAt = mailjetConfigurationDto.getCreatedAt().toLocalDate();
+        this.tenant = mailjetConfigurationDto.getTenant() != null ? new TenantResponse(mailjetConfigurationDto.getTenant()) : null;
     }
 
 }
