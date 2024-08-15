@@ -17,6 +17,7 @@ public class MailjetConfigurationDto {
     private String mailjetApiSecret;
     private String fromEmail;
     private String fromName;
+    private TenantDto tenant;
     private LocalDateTime createdAt;
 
 }

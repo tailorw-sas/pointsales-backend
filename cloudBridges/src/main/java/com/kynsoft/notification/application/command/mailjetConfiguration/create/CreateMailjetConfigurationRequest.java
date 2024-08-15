@@ -11,4 +11,5 @@ public class CreateMailjetConfigurationRequest {
     private String mailjetApiSecret;
     private String email;
     private String name;
+    private String tenant;
 }

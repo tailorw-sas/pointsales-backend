@@ -38,6 +38,10 @@ public class MailjetConfiguration implements Serializable {
     @Column(nullable = false)
     private String fromName;
 
+    @ManyToOne()
+    @JoinColumn(name = "tenant_id")
+    private Tenant tenant;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -49,7 +53,15 @@ public class MailjetConfiguration implements Serializable {
     private List<TemplateEntity> templates;
 
     public MailjetConfigurationDto toAggregate() {
-        return new MailjetConfigurationDto(id, mailjetApiKey, mailjetApiSecret, fromEmail, fromName, createdAt);
+        return new MailjetConfigurationDto(
+                id, 
+                mailjetApiKey, 
+                mailjetApiSecret, 
+                fromEmail, 
+                fromName, 
+                tenant != null ? tenant.toAggregate() : null, 
+                createdAt
+        );
     }
 
     public MailjetConfiguration(MailjetConfigurationDto dto) {
@@ -58,6 +70,7 @@ public class MailjetConfiguration implements Serializable {
         this.fromEmail = dto.getFromEmail();
         this.fromName = dto.getFromName();
         this.id = dto.getId();
+        this.tenant = dto.getTenant() != null ? new Tenant(dto.getTenant()) : null;
     }
 
 }
