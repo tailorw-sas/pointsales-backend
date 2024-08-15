@@ -15,20 +15,20 @@ public class CreateTemplateEntityCommand implements ICommand {
     private final String name;
     private final String description;
     private final UUID MailjetConfigId;
+    private String tenant;
 
-
-    public CreateTemplateEntityCommand(String templateCode, String name, String description, UUID mailjetConfigId) {
+    public CreateTemplateEntityCommand(String templateCode, String name, String description, UUID mailjetConfigId, String tenant) {
         this.templateCode = templateCode;
         this.name = name;
         this.description = description;
         MailjetConfigId = mailjetConfigId;
+        this.tenant = tenant;
     }
 
     public static CreateTemplateEntityCommand fromRequest(CreateTemplateEntityRequest request) {
         return new CreateTemplateEntityCommand(request.getTemplateCode(), request.getName(),
-                request.getDescription(), request.getMailjetConfigId());
+                request.getDescription(), request.getMailjetConfigId(), request.getTenant());
     }
-
 
     @Override
     public ICommandMessage getMessage() {

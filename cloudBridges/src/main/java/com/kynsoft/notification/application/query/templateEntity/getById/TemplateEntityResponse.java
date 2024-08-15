@@ -2,6 +2,7 @@ package com.kynsoft.notification.application.query.templateEntity.getById;
 
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
+import com.kynsoft.notification.application.TenantResponse;
 import com.kynsoft.notification.application.query.mailjetConfiguration.getById.MailjetConfigurationResponse;
 import com.kynsoft.notification.domain.dto.TemplateDto;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,8 @@ public class TemplateEntityResponse implements IResponse {
     private String description;
     private LocalDate createdAt;
     private MailjetConfigurationResponse MailjetConfigId;
+    private TenantResponse tenant;
+
     public TemplateEntityResponse(TemplateDto dto) {
         this.id = dto.getId();
         this.templateCode = dto.getTemplateCode();
@@ -28,6 +31,7 @@ public class TemplateEntityResponse implements IResponse {
         this.description = dto.getDescription();
         this.createdAt = dto.getCreatedAt().toLocalDate();
         this.setMailjetConfigId(new MailjetConfigurationResponse(dto.getMailjetConfigurationDto()));
+        this.tenant = dto.getTenant() != null ? new TenantResponse(dto.getTenant()) : null;
     }
 
 }
