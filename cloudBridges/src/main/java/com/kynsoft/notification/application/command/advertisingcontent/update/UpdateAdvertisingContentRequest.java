@@ -16,5 +16,5 @@ public class UpdateAdvertisingContentRequest {
     private ContentType type;
     private String image;
     private String link;
-
+    private String tenant;
 }

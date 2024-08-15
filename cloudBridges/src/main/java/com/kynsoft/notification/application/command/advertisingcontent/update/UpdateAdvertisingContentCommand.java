@@ -18,14 +18,16 @@ public class UpdateAdvertisingContentCommand implements ICommand {
     private ContentType type;
     private String image;
     private String link;
+    private String tenant;
 
-    public UpdateAdvertisingContentCommand(UUID id, String title, String description, ContentType type, String image, String link) {
+    public UpdateAdvertisingContentCommand(UUID id, String title, String description, ContentType type, String image, String link, String tenant) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.type = type;
         this.image = image;
         this.link = link;
+        this.tenant = tenant;
     }
 
     public static UpdateAdvertisingContentCommand fromRequest(UpdateAdvertisingContentRequest request, UUID id) {
@@ -35,7 +37,8 @@ public class UpdateAdvertisingContentCommand implements ICommand {
                 request.getDescription(), 
                 request.getType(), 
                 request.getImage(), 
-                request.getLink()
+                request.getLink(),
+                request.getTenant()
         );
     }
 
