@@ -1,4 +1,4 @@
-package com.kynsoft.report.applications.query.jasperreporttemplate.search;
+package com.kynsoft.report.applications.query.dbconection.search;
 
 import com.kynsof.share.core.domain.bus.query.IQuery;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetJasperReportTemplateQuery implements IQuery {
+public class GetSearchDBConectionQuery implements IQuery {
 
     private Pageable pageable;
     private List<FilterCriteria> filter;

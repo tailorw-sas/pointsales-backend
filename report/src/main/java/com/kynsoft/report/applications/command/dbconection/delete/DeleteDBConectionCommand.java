@@ -1,4 +1,4 @@
-package com.kynsoft.report.applications.command.jasperReportTemplate.delete;
+package com.kynsoft.report.applications.command.dbconection.delete;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
@@ -11,13 +11,12 @@ import java.util.UUID;
 @Getter
 @Setter
 @AllArgsConstructor
-public class DeleteJasperReportTemplateCommand implements ICommand {
+public class DeleteDBConectionCommand implements ICommand {
 
     private UUID id;
 
     @Override
     public ICommandMessage getMessage() {
-        return new DeleteJasperReportTemplateMessage(id);
+        return new DeleteDBConectionMessage(id);
     }
-
 }
