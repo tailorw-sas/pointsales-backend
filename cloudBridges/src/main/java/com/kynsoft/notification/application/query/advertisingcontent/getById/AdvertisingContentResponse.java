@@ -1,6 +1,7 @@
 package com.kynsoft.notification.application.query.advertisingcontent.getById;
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
+import com.kynsoft.notification.application.TenantResponse;
 import com.kynsoft.notification.domain.dto.AdvertisingContentDto;
 import com.kynsoft.notification.domain.dto.ContentType;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class AdvertisingContentResponse implements IResponse {
     private LocalDate updatedAt;
     private String image;
     private String link;
+    private TenantResponse tenant;
 
     public AdvertisingContentResponse(AdvertisingContentDto advertisingContentDto) {
         this.id = advertisingContentDto.getId();
@@ -34,6 +36,7 @@ public class AdvertisingContentResponse implements IResponse {
         this.updatedAt = advertisingContentDto.getUpdatedAt().toLocalDate();
         this.image = advertisingContentDto.getUrl();
         this.link = advertisingContentDto.getLink();
+        this.tenant = advertisingContentDto.getTenant() != null ? new TenantResponse(advertisingContentDto.getTenant()) : null;
     }
 
 }

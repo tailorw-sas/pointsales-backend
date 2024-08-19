@@ -6,7 +6,9 @@ import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.ConfigureTimeZone;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import com.kynsoft.notification.domain.dto.AdvertisingContentDto;
+import com.kynsoft.notification.domain.dto.TenantDto;
 import com.kynsoft.notification.domain.service.IAdvertisingContentService;
+import com.kynsoft.notification.domain.service.ITenantService;
 import com.kynsoft.notification.infrastructure.service.AmazonClient;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +17,14 @@ public class UpdateAdvertisingContentCommandHandler implements ICommandHandler<U
 
     private final IAdvertisingContentService service;
     private final AmazonClient amazonClient;
+    private final ITenantService tenantService;
 
-    public UpdateAdvertisingContentCommandHandler(IAdvertisingContentService service, AmazonClient amazonClient) {
+    public UpdateAdvertisingContentCommandHandler(IAdvertisingContentService service, 
+                                                  AmazonClient amazonClient,
+                                                  ITenantService tenantService) {
         this.service = service;
         this.amazonClient = amazonClient;
+        this.tenantService = tenantService;
     }
 
     @Override
@@ -42,6 +48,10 @@ public class UpdateAdvertisingContentCommandHandler implements ICommandHandler<U
         update.setType(command.getType());
         update.setUpdatedAt(ConfigureTimeZone.getTimeZone());
         update.setUrl(command.getImage());
+        if (command.getTenant() != null) {
+            TenantDto tenantDto = this.tenantService.findByTenantId(command.getTenant());
+            update.setTenant(tenantDto);
+        }
         this.service.update(update);
     }
 }

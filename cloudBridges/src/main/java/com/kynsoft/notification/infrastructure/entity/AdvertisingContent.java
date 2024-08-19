@@ -45,6 +45,10 @@ public class AdvertisingContent {
     @Column()
     private String link;
 
+    @ManyToOne()
+    @JoinColumn(name = "tenant_id")
+    private Tenant tenant;
+
     public AdvertisingContent(AdvertisingContentDto advertisingContentDto) {
         this.id = advertisingContentDto.getId();
         this.title = advertisingContentDto.getTitle();
@@ -54,6 +58,7 @@ public class AdvertisingContent {
         this.updatedAt = advertisingContentDto.getUpdatedAt() != null ? advertisingContentDto.getUpdatedAt() : null;
         this.url = advertisingContentDto.getUrl() != null ? advertisingContentDto.getUrl() : null;
         this.link = advertisingContentDto.getLink() != null ? advertisingContentDto.getLink() : null;
+        this.tenant = advertisingContentDto.getTenant() != null ? new Tenant(advertisingContentDto.getTenant()) : null;
     }
 
     public AdvertisingContentDto toAggregate () {
@@ -61,8 +66,18 @@ public class AdvertisingContent {
         LocalDateTime updateDateTime = createdAt != null ? createdAt : null;
         String urlS = url != null ? url : null;
         String linkS = link != null ? link : null;
-        
-        return new AdvertisingContentDto(id, title, description, type, createdDateTime, updateDateTime, urlS, linkS);
+
+        return new AdvertisingContentDto(
+                id, 
+                title, 
+                description, 
+                type, 
+                createdDateTime, 
+                updateDateTime, 
+                urlS, 
+                linkS,
+                tenant != null ? tenant.toAggregate() : null
+        );
     }
 
 }

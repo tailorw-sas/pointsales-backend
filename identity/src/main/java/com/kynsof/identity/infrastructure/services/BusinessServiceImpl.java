@@ -91,12 +91,12 @@ public class BusinessServiceImpl implements IBusinessService {
             List<ModuleSystem> moduleSystems = businessModuleReadDataJPARepository.findModulesByBusinessId(id);
             List<ModuleDto> moduleDtoList = moduleSystems.stream()
                     .map(moduleSystem -> new ModuleDto(
-                                    moduleSystem.getId(),
-                                    moduleSystem.getName(),
-                                    moduleSystem.getImage(),
-                                    moduleSystem.getDescription(),
-                                    new ArrayList<>()
-                            )
+                    moduleSystem.getId(),
+                    moduleSystem.getName(),
+                    moduleSystem.getImage(),
+                    moduleSystem.getDescription(),
+                    new ArrayList<>()
+            )
                     )
                     .collect(Collectors.toList());
 
@@ -117,7 +117,7 @@ public class BusinessServiceImpl implements IBusinessService {
 
     private void filterCreteria(List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
-            if ("status" .equals(filter.getKey()) && filter.getValue() instanceof String) {
+            if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
                 try {
                     EBusinessStatus enumValue = EBusinessStatus.valueOf((String) filter.getValue());
                     filter.setValue(enumValue);
@@ -155,6 +155,13 @@ public class BusinessServiceImpl implements IBusinessService {
     @Override
     public Long countByNameAndNotId(String name, UUID id) {
         return repositoryQuery.countByNameAndNotId(name, id);
+    }
+
+    @Override
+    public List<BusinessDto> findAll() {
+        return this.repositoryQuery.findAll().stream()
+                .map(Business::toAggregate)
+                .collect(Collectors.toList());
     }
 
 }

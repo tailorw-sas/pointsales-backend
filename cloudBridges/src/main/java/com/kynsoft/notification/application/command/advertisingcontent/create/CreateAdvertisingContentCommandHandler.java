@@ -3,24 +3,26 @@ package com.kynsoft.notification.application.command.advertisingcontent.create;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.utils.ConfigureTimeZone;
 import com.kynsoft.notification.domain.dto.AdvertisingContentDto;
+import com.kynsoft.notification.domain.dto.TenantDto;
 import com.kynsoft.notification.domain.service.IAdvertisingContentService;
-import com.kynsoft.notification.infrastructure.service.AmazonClient;
+import com.kynsoft.notification.domain.service.ITenantService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CreateAdvertisingContentCommandHandler implements ICommandHandler<CreateAdvertisingContentCommand> {
 
     private final IAdvertisingContentService service;
-    private final AmazonClient amazonClient;
+    private final ITenantService tenantService;
 
-    public CreateAdvertisingContentCommandHandler(IAdvertisingContentService service, AmazonClient amazonClient) {
+    public CreateAdvertisingContentCommandHandler(IAdvertisingContentService service,
+                                                  ITenantService tenantService) {
         this.service = service;
-        this.amazonClient = amazonClient;
+        this.tenantService = tenantService;
     }
 
     @Override
     public void handle(CreateAdvertisingContentCommand command) {
-        String url = null;
+        TenantDto tenantDto = command.getTenant() != null ? this.tenantService.findByTenantId(command.getTenant()) : null;
 
         this.service.create(new AdvertisingContentDto(
                 command.getId(), 
@@ -30,7 +32,8 @@ public class CreateAdvertisingContentCommandHandler implements ICommandHandler<C
                 ConfigureTimeZone.getTimeZone(),
                 null,
                 command.getImage(),
-                command.getLink()
+                command.getLink(),
+                tenantDto
         ));
     }
 }

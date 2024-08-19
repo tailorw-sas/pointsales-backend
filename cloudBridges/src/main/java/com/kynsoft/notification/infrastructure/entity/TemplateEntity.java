@@ -38,6 +38,10 @@ public class TemplateEntity {
     @JoinColumn(name = "mailjet_config_id")
     private MailjetConfiguration mailjetConfig;
 
+    @ManyToOne()
+    @JoinColumn(name = "tenant_id")
+    private Tenant tenant;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -51,10 +55,18 @@ public class TemplateEntity {
         this.name = dto.getName();
         this.description = dto.getDescription();
         this.mailjetConfig = new MailjetConfiguration(dto.getMailjetConfigurationDto());
+        this.tenant = dto.getTenant() != null ? new Tenant(dto.getTenant()) : null;
     }
 
-
     public TemplateDto toAggregate() {
-        return new TemplateDto(this.id, this.templateCode, this.name, this.description, mailjetConfig.toAggregate(), createdAt);
+        return new TemplateDto(
+                this.id, 
+                this.templateCode, 
+                this.name, 
+                this.description, 
+                mailjetConfig.toAggregate(), 
+                tenant != null ? tenant.toAggregate() : null,
+                createdAt
+        );
     }
 }

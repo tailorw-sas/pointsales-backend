@@ -15,10 +15,10 @@ public class CreateMailjetConfigurationCommand implements ICommand {
     private final String mailjetApiSecret;
     private final String fromEmail;
     private final String fromName;
+    private String tenant;
 
-
-    public CreateMailjetConfigurationCommand(String mailjetApiKey, String mailjetApiSecret, String fromEmail, String fromName) {
-
+    public CreateMailjetConfigurationCommand(String mailjetApiKey, String mailjetApiSecret, String fromEmail, String fromName, String tenant) {
+        this.tenant = tenant;
         this.mailjetApiKey = mailjetApiKey;
         this.mailjetApiSecret = mailjetApiSecret;
         this.fromEmail = fromEmail;
@@ -27,9 +27,8 @@ public class CreateMailjetConfigurationCommand implements ICommand {
 
     public static CreateMailjetConfigurationCommand fromRequest(CreateMailjetConfigurationRequest request) {
         return new CreateMailjetConfigurationCommand(request.getMailjetApiKey(), request.getMailjetApiSecret(),
-                request.getEmail(), request.getName());
+                request.getEmail(), request.getName(), request.getTenant());
     }
-
 
     @Override
     public ICommandMessage getMessage() {

@@ -21,5 +21,5 @@ public class AdvertisingContentDto {
     private LocalDateTime updatedAt;
     private String url;
     private String link;
-
+    private TenantDto tenant;
 }
