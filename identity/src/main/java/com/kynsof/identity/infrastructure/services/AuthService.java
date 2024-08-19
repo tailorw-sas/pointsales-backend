@@ -221,8 +221,8 @@ public class AuthService implements IAuthService {
         if (response.getStatusCode() == HttpStatus.OK) {
             return response.getBody();
         } else {
-            throw new AuthenticateNotFoundException("The username or password is incorrect. Please try again.",
-                    new ErrorField("email/password", "The username or password is incorrect. Please try again."));
+            throw new AuthenticateNotFoundException("El usuario o contraseña es incorrecto. Por favor intente de nuevo.",
+                    new ErrorField("correo/contraseña", "El usuario o contraseña es incorrecto. Por favor intente de nuevo."));
         }
     }
 
@@ -238,7 +238,7 @@ public class AuthService implements IAuthService {
                         new ErrorField("password", "You must change your password before continuing."));
             }
         }
-        throw new AuthenticateNotFoundException("The username or password is incorrect. Please try again.", new ErrorField("email/password", "The username or password is incorrect. Please try again."));
+        throw new AuthenticateNotFoundException("El usuario o contraseña es incorrecto. Por favor intente de nuevo.", new ErrorField("email/password", "The username or password is incorrect. Please try again."));
     }
 
     private String createUser(String firstName, String lastName, String email, String username, String password, String role) {
