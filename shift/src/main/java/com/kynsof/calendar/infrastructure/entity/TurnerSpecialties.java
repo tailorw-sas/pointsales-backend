@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.UUID;
@@ -23,17 +25,24 @@ public class TurnerSpecialties {
     @Id
     protected UUID id;
 
+    private LocalDateTime shiftDateTime;
+    private LocalTime consultationTime;
+
     private String medicalHistory;
     private String patient;
     private String identification;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "resource_id")
-    private Resource resource;//Doctor
+    private Resource resource;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_id")
-    private Services service;//Specialties
+    private Services service;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "business_id", nullable = false)
+    private Business business;
 
     @Enumerated(EnumType.STRING)
     private ETurnerSpecialtiesStatus status;
@@ -61,15 +70,16 @@ public class TurnerSpecialties {
 
     public TurnerSpecialtiesDto toAggregate() {
         return new TurnerSpecialtiesDto(
-                id, 
-                medicalHistory, 
-                patient, 
-                identification, 
-                resource != null ? resource.toAggregate() : null, 
-                service != null ? service.toAggregate() : null, 
-                status, 
-                createdAt, 
-                updatedAt
+                id,
+                medicalHistory,
+                patient,
+                identification,
+                resource != null ? resource.toAggregate() : null,
+                service != null ? service.toAggregate() : null,
+                status,
+                shiftDateTime,
+                consultationTime,
+                business.toAggregate()
         );
     }
 }

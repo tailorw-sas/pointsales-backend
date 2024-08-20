@@ -2,12 +2,10 @@ package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.BusinessResponse;
 import com.kynsof.calendar.domain.dto.BusinessDto;
-import com.kynsof.calendar.domain.dto.ScheduleServiceInfoDto;
 import com.kynsof.calendar.domain.service.IBusinessService;
 import com.kynsof.calendar.infrastructure.entity.Business;
 import com.kynsof.calendar.infrastructure.repository.command.BusinessWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.BusinessReadDataJPARepository;
-import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessException;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
@@ -36,8 +34,7 @@ public class BusinessServiceImpl implements IBusinessService {
     @Autowired
     private BusinessReadDataJPARepository repositoryQuery;
 
-    @Autowired
-    private ScheduleReadDataJPARepository scheduleReadDataJPARepository;
+
 
     @Override
     public void create(BusinessDto object) {
@@ -109,18 +106,16 @@ public class BusinessServiceImpl implements IBusinessService {
     @Override
     public PaginatedResponse findBusinessesWithAvailableStockByDateAndService(LocalDate date, UUID serviceId,
                                                                               Pageable pageable) {
-        Page<Business> data =  scheduleReadDataJPARepository.findBusinessesWithAvailableStockByDateAndService(date, serviceId, pageable);
-        return getPaginatedResponse(data);
+       // Page<Business> data =  scheduleReadDataJPARepository.findBusinessesWithAvailableStockByDateAndService(date, serviceId, pageable);
+        return getPaginatedResponse(null);
     }
 
     @Override
     public PaginatedResponse findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(LocalDate startDate,
                                                                                              LocalDate endDate, UUID serviceId,String businessName,
                                                                               Pageable pageable) {
-        Page<ScheduleServiceInfoDto> data =  scheduleReadDataJPARepository.
-                findDetailedAvailableSchedulesByResourceAndBusinessAndDateRange(serviceId, startDate, endDate,businessName, pageable);
-        return new PaginatedResponse(data.stream().toList(), data.getTotalPages(), data.getNumberOfElements(),
-                data.getTotalElements(), data.getSize(), data.getNumber());
+
+        return null;
     }
 
     private PaginatedResponse getPaginatedResponse(Page<Business> data) {

@@ -6,16 +6,15 @@ import com.kynsof.calendar.domain.dto.TurnerSpecialtiesDto;
 import com.kynsof.calendar.domain.dto.enumType.ETurnerSpecialtiesStatus;
 import com.kynsof.calendar.domain.service.IResourceService;
 import com.kynsof.calendar.domain.service.IServiceService;
+import com.kynsof.calendar.domain.service.ITurnerSpecialtiesService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.response.ErrorField;
-import java.util.UUID;
 import org.springframework.stereotype.Component;
-import com.kynsof.calendar.domain.service.ITurnerSpecialtiesService;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
+
+import java.util.UUID;
 
 @Component
 public class UpdateTurnerSpecialtiesCommandHandler implements ICommandHandler<UpdateTurnerSpecialtiesCommand> {
@@ -45,8 +44,6 @@ public class UpdateTurnerSpecialtiesCommandHandler implements ICommandHandler<Up
         turnerSpecialtiesDto.setResource(doctor);
         turnerSpecialtiesDto.setService(service);
         turnerSpecialtiesDto.setStatus(this.validateStatus(command.getStatus()));
-        turnerSpecialtiesDto.setUpdatedAt(OffsetDateTime.now(ZoneId.of("UTC")));
-
         this.turnerSpecialtiesService.create(turnerSpecialtiesDto);
     }
 
@@ -54,7 +51,8 @@ public class UpdateTurnerSpecialtiesCommandHandler implements ICommandHandler<Up
         try {
             return UUID.fromString(uuid);
         } catch (Exception e) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.UUID_NOT_FORMAT, new ErrorField("id", DomainErrorMessage.UUID_NOT_FORMAT.getReasonPhrase())));
+            throw new BusinessNotFoundException(new GlobalBusinessException(
+                    DomainErrorMessage.UUID_NOT_FORMAT, new ErrorField("id", DomainErrorMessage.UUID_NOT_FORMAT.getReasonPhrase())));
         }
     }
 

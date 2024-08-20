@@ -19,11 +19,7 @@ public class ServiceDto implements Serializable {
     private EServiceStatus status;
     private String picture;
     private String name;
-    private Double normalAppointmentPrice;
-    private Double expressAppointmentPrice;
     private String description;
-    private Boolean applyIva;
-    private int estimatedDuration;
     private String code;
 
     private boolean preferFlag;

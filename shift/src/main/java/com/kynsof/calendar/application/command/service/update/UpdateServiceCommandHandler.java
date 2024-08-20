@@ -30,14 +30,8 @@ public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServic
         ServiceTypeDto serviceTypeDto = serviceTypeService.findById(command.getServiceTypeId());
         ServiceDto update = service.findByIds(command.getId());
         update.setType(serviceTypeDto);
-        update.setEstimatedDuration(command.getEstimatedDuration());
         update.setStatus(command.getStatus());
         update.setPicture(command.getPicture());
-
-        update.setApplyIva(command.isApplyIva());
-        update.setExpressAppointmentPrice(command.getExpressAppointmentPrice());
-        update.setNormalAppointmentPrice(command.getNormalAppointmentPrice());
-
         UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());
         UpdateIfNotNull.updateIfStringNotNull(update::setDescription, command.getDescription());
 

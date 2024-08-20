@@ -41,10 +41,6 @@ public class ServicesResponse implements IResponse, Serializable {
         this.image = object.getPicture();
         this.name = object.getName();
         this.description = object.getDescription();
-        this.applyIva = object.getApplyIva();
-        this.normalAppointmentPrice = object.getNormalAppointmentPrice();
-        this.expressAppointmentPrice = object.getExpressAppointmentPrice();
-        this.estimatedDuration = object.getEstimatedDuration();
         this.code = object.getCode();
 
         this.preferFlag = object.isPreferFlag();

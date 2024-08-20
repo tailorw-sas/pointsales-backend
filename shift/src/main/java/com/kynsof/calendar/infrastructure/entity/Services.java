@@ -39,10 +39,6 @@ public class Services {
     private String code;
     private String picture;
     private String name;
-    private Double normalAppointmentPrice;
-    private Double expressAppointmentPrice;
-    @Column(nullable = true)
-    private Integer estimatedDuration;
 
     @Size(max = 2000)
     private String description;
@@ -52,12 +48,6 @@ public class Services {
 
     @OneToMany(mappedBy = "services",fetch = FetchType.LAZY)
     private Set<Turn> turns = new HashSet<>();
-
-    @OneToMany(mappedBy = "service",fetch = FetchType.LAZY)
-    private Set<Schedule> schedules = new HashSet<>();
-
-    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
-    private Boolean applyIva = true;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -89,11 +79,7 @@ public class Services {
         this.status = object.getStatus();
         this.picture = object.getPicture();
         this.name = object.getName();
-        this.normalAppointmentPrice = object.getNormalAppointmentPrice();
-        this.expressAppointmentPrice = object.getExpressAppointmentPrice();
         this.description = object.getDescription();
-        this.applyIva = object.getApplyIva();
-        this.estimatedDuration = object.getEstimatedDuration();
         this.code = object.getCode();
 
         this.preferFlag = object.isPreferFlag();
@@ -104,14 +90,14 @@ public class Services {
     }
 
     public ServiceDto toAggregate () {
-        return new ServiceDto(id, type.toAggregate(), status, picture, name, normalAppointmentPrice,
-                expressAppointmentPrice, description, applyIva, estimatedDuration, code,
+        return new ServiceDto(id, type.toAggregate(), status, picture, name,
+                description,  code,
                 preferFlag, maxPriorityCount, priorityCount, currentLoop, order);
     }
 
     public ServiceDto toAggregateSimple () {
-        return new ServiceDto(id, type.toAggregate(), status, picture, name, normalAppointmentPrice,
-                expressAppointmentPrice, description, applyIva, estimatedDuration, code,
+        return new ServiceDto(id, type.toAggregate(), status, picture, name,
+                description,  code,
                 preferFlag, maxPriorityCount, priorityCount, currentLoop, order);
     }
 }

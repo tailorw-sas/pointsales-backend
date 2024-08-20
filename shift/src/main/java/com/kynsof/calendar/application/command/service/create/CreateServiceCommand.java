@@ -17,11 +17,7 @@ public class CreateServiceCommand implements ICommand {
     private String name;
     private String description;
     private UUID type;
-    private Double normalAppointmentPrice;
-    private Double expressAppointmentPrice;
-    private boolean applyIva;
     private EServiceStatus status;
-    private Integer estimatedDuration;
     private String code;
 
     private final boolean preferFlag;
@@ -31,9 +27,9 @@ public class CreateServiceCommand implements ICommand {
     private final int order;
 
     public CreateServiceCommand(String name, String picture, String description, UUID serviceTypeId,
-                                Double normalAppointmentPrice, Double expressAppointmentPrice, Boolean applyIva,
-                                EServiceStatus status, Integer estimatedDuration, String code, boolean preferFlag, int maxPriorityCount, int priorityCount, int currentLoop, int order) {
-        this.applyIva = applyIva;
+                                EServiceStatus status, String code, boolean preferFlag,
+                                int maxPriorityCount, int priorityCount, int currentLoop, int order) {
+
         this.preferFlag = preferFlag;
         this.maxPriorityCount = maxPriorityCount;
         this.priorityCount = priorityCount;
@@ -44,17 +40,15 @@ public class CreateServiceCommand implements ICommand {
         this.image = picture;
         this.description = description;
         this.type = serviceTypeId;
-        this.normalAppointmentPrice = normalAppointmentPrice;
-        this.expressAppointmentPrice = expressAppointmentPrice;
         this.status = status;
-        this.estimatedDuration = estimatedDuration;
         this.code = code;
     }
 
     public static CreateServiceCommand fromRequest(CreateServiceRequest request) {
         return new CreateServiceCommand(request.getName(), request.getImage(), request.getDescription(),
-                request.getType(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(),
-                request.isApplyIva(), request.getStatus(), request.getEstimatedDuration(), request.getCode(),
+                request.getType(),
+                request.getStatus(),
+                request.getCode(),
                 request.isPreferFlag(),
                 request.getMaxPriorityCount(),
                 request.getPriorityCount(),

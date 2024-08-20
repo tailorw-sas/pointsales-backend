@@ -2,8 +2,6 @@ package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.ResourceResponse;
 import com.kynsof.calendar.domain.dto.ResourceDto;
-import com.kynsof.calendar.domain.dto.ResourceWithSchedulesDto;
-import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import com.kynsof.calendar.domain.service.IResourceService;
@@ -11,7 +9,10 @@ import com.kynsof.calendar.infrastructure.entity.*;
 import com.kynsof.calendar.infrastructure.repository.command.BusinessResourceWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.command.ResourceServiceWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.command.ResourceWriteDataJPARepository;
-import com.kynsof.calendar.infrastructure.repository.query.*;
+import com.kynsof.calendar.infrastructure.repository.query.BusinessReadDataJPARepository;
+import com.kynsof.calendar.infrastructure.repository.query.ResourceReadDataJPARepository;
+import com.kynsof.calendar.infrastructure.repository.query.ResourceServicesReadDataJPARepository;
+import com.kynsof.calendar.infrastructure.repository.query.ServiceReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -26,25 +27,32 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ResourceServiceImpl implements IResourceService {
 
     private final ResourceWriteDataJPARepository repositoryCommand;
     private final ResourceReadDataJPARepository repositoryQuery;
-    private final ScheduleReadDataJPARepository scheduleReadDataJPARepository;
+
     private final BusinessReadDataJPARepository businessReadDataJPARepository;
     private final ServiceReadDataJPARepository serviceReadRepository;
     private final ResourceServiceWriteDataJPARepository resourceServiceWriteDataJPARepository;
     private final ResourceServicesReadDataJPARepository resourceServiceReadDataJPARepository;
     private final BusinessResourceWriteDataJPARepository businessResourceWriteDataJPARepository;
 
-    public ResourceServiceImpl(ResourceWriteDataJPARepository repositoryCommand, ResourceReadDataJPARepository repositoryQuery, ScheduleReadDataJPARepository scheduleReadDataJPARepository, BusinessReadDataJPARepository businessReadDataJPARepository, ServiceReadDataJPARepository serviceReadRepository, ResourceServiceWriteDataJPARepository resourceServiceWriteDataJPARepository, ResourceServicesReadDataJPARepository resourceServiceReadDataJPARepository, BusinessResourceWriteDataJPARepository businessResourceWriteDataJPARepository) {
+    public ResourceServiceImpl(ResourceWriteDataJPARepository repositoryCommand, ResourceReadDataJPARepository repositoryQuery,
+                               BusinessReadDataJPARepository businessReadDataJPARepository,
+                               ServiceReadDataJPARepository serviceReadRepository,
+                               ResourceServiceWriteDataJPARepository resourceServiceWriteDataJPARepository,
+                               ResourceServicesReadDataJPARepository resourceServiceReadDataJPARepository,
+                               BusinessResourceWriteDataJPARepository businessResourceWriteDataJPARepository) {
         this.repositoryCommand = repositoryCommand;
         this.repositoryQuery = repositoryQuery;
-        this.scheduleReadDataJPARepository = scheduleReadDataJPARepository;
+
         this.businessReadDataJPARepository = businessReadDataJPARepository;
         this.serviceReadRepository = serviceReadRepository;
         this.resourceServiceWriteDataJPARepository = resourceServiceWriteDataJPARepository;
@@ -96,6 +104,11 @@ public class ResourceServiceImpl implements IResourceService {
         return getPaginatedResponse(data);
     }
 
+    @Override
+    public PaginatedResponse findResourcesWithAvailableSchedules(UUID businessId, UUID serviceId, LocalDate date, Pageable pageable) {
+        return null;
+    }
+
     private PaginatedResponse getPaginatedResponse(Page<Resource> data) {
         List<ResourceResponse> patients = new ArrayList<>();
         for (Resource s : data.getContent()) {
@@ -105,26 +118,7 @@ public class ResourceServiceImpl implements IResourceService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
-    @Override
-    public PaginatedResponse findResourcesWithAvailableSchedules(UUID businessId, UUID serviceId, LocalDate date, Pageable pageable) {
-        Page<Schedule> schedules = scheduleReadDataJPARepository.findSchedulesWithStockByBusinessServiceAndDate(businessId, serviceId, date, pageable);
 
-        Map<UUID, List<Schedule>> schedulesByResourceId = schedules.stream()
-                .collect(Collectors.groupingBy(s -> s.getResource().getId()));
-
-        List<ResourceWithSchedulesDto> resourcesWithSchedules = new ArrayList<>();
-        schedulesByResourceId.forEach((resourceId, schedulesList) -> {
-            Resource resource = schedulesList.get(0).getResource();
-            List<ScheduleDto> scheduleDtos = schedulesList.stream()
-                    .map(Schedule::toAggregate)
-                    .collect(Collectors.toList());
-
-            resourcesWithSchedules.add(new ResourceWithSchedulesDto(resource.toAggregate(), scheduleDtos));
-        });
-
-        return new PaginatedResponse(resourcesWithSchedules, schedules.getTotalPages(), schedules.getNumberOfElements(),
-                schedules.getTotalElements(), schedules.getSize(), schedules.getNumber());
-    }
 
     @Override
     public void addBusiness(UUID businessId, UUID userId, LocalDate date) {

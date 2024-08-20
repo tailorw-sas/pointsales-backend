@@ -16,12 +16,8 @@ public class UpdateServiceCommand implements ICommand {
     private UUID serviceTypeId;
     private String picture;
     private String name;
-    private Double normalAppointmentPrice;
-    private Double expressAppointmentPrice;
     private String description;
-    private boolean applyIva;
     private EServiceStatus status;
-    private Integer estimatedDuration;
 
     private final boolean preferFlag;
     private final int maxPriorityCount;
@@ -30,19 +26,17 @@ public class UpdateServiceCommand implements ICommand {
     private final int order;
 
 
-    public UpdateServiceCommand(UUID id, UUID serviceTypeId, String picture, String name, Double normalAppointmentPrice,
-                                Double expressAppointmentPrice, String description, boolean applyIva,
-                                EServiceStatus status, Integer estimatedDuration, boolean preferFlag, int maxPriorityCount, int priorityCount, int currentLoop, int order) {
+    public UpdateServiceCommand(UUID id, UUID serviceTypeId, String picture, String name,
+                                String description, EServiceStatus status,
+                                boolean preferFlag, int maxPriorityCount, int priorityCount,
+                                int currentLoop, int order) {
         this.id = id;
         this.serviceTypeId = serviceTypeId;
         this.picture = picture;
         this.name = name;
-        this.normalAppointmentPrice = normalAppointmentPrice;
-        this.expressAppointmentPrice = expressAppointmentPrice;
+
         this.description = description;
-        this.applyIva = applyIva;
         this.status = status;
-        this.estimatedDuration = estimatedDuration;
         this.preferFlag = preferFlag;
         this.maxPriorityCount = maxPriorityCount;
         this.priorityCount = priorityCount;
@@ -53,8 +47,10 @@ public class UpdateServiceCommand implements ICommand {
 
     public static UpdateServiceCommand fromRequest(UUID id, UpdateServiceRequest request) {
         return new UpdateServiceCommand(id, request.getType(), request.getImage(),
-                request.getName(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(),
-                request.getDescription(), request.isApplyIva(), request.getStatus(), request.getEstimatedDuration(),
+                request.getName(),
+
+                request.getDescription(),
+               request.getStatus(),
                 request.isPreferFlag(),
                 request.getMaxPriorityCount(),
                 request.getPriorityCount(),
