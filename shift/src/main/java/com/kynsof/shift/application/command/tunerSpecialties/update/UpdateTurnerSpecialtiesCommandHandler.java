@@ -44,7 +44,10 @@ public class UpdateTurnerSpecialtiesCommandHandler implements ICommandHandler<Up
         turnerSpecialtiesDto.setResource(doctor);
         turnerSpecialtiesDto.setService(service);
         turnerSpecialtiesDto.setStatus(this.validateStatus(command.getStatus()));
-        this.turnerSpecialtiesService.create(turnerSpecialtiesDto);
+        turnerSpecialtiesDto.setShiftDateTime(command.getShiftDateTime());
+        turnerSpecialtiesDto.setConsultationTime(command.getConsultationTime());
+
+        this.turnerSpecialtiesService.update(turnerSpecialtiesDto);
     }
 
     private UUID validateUUID(String uuid) {
