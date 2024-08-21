@@ -50,6 +50,9 @@ public abstract class AbstractReader<T> {
             }
             if (Objects.isNull(rowCursor)) {
                 this.rowCursor = readerConfiguration.isIgnoreHeaders() ? 1 : 0;
+                if (readerConfiguration.getStartReadRow()>0){
+                    this.rowCursor=readerConfiguration.getStartReadRow();
+                }
             }
             this.hasContent();
         } catch (IOException e) {

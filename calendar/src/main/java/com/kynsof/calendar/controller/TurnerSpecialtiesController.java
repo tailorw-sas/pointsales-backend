@@ -5,16 +5,21 @@ import com.kynsof.calendar.application.command.tunerSpecialties.create.CreateTur
 import com.kynsof.calendar.application.command.tunerSpecialties.create.CreateTurnerSpecialtiesRequest;
 import com.kynsof.calendar.application.command.tunerSpecialties.delete.DeleteTurnerSpecialtiesCommand;
 import com.kynsof.calendar.application.command.tunerSpecialties.delete.DeleteTurnerSpecialtiesMessage;
+import com.kynsof.calendar.application.command.tunerSpecialties.importExcel.ImportTunerSpecialtiesCommand;
+import com.kynsof.calendar.application.command.tunerSpecialties.importExcel.ImportTurnerSpecialtiesRequest;
 import com.kynsof.calendar.application.command.tunerSpecialties.update.UpdateTurnerSpecialtiesCommand;
 import com.kynsof.calendar.application.command.tunerSpecialties.update.UpdateTurnerSpecialtiesMessage;
 import com.kynsof.calendar.application.command.tunerSpecialties.update.UpdateTurnerSpecialtiesRequest;
 import com.kynsof.calendar.application.query.TurnerSpecialtiesResponse;
 import com.kynsof.calendar.application.query.tunerSpecialties.getById.FindTurnerSpecialtiesByIdQuery;
+import com.kynsof.calendar.application.query.tunerSpecialties.importExcel.ImportProcessStatusResponse;
+import com.kynsof.calendar.application.query.tunerSpecialties.importExcel.ImportTurnerSpecialtiesStatusQuery;
 import com.kynsof.calendar.application.query.tunerSpecialties.search.GetSearchTurnerSpecialtiesQuery;
 import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
+import org.aspectj.bridge.IMessage;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -81,23 +86,34 @@ public class TurnerSpecialtiesController {
 
     @PostMapping(value = "/import",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Mono<ResponseEntity<?>> importPayment(@RequestPart("file") FilePart filePart,
-                                                 @RequestPart("importProcessId") UUID businessId){
+                                                 @RequestPart("importProcessId") String businessId){
         return DataBufferUtils.join(filePart.content())
                 .flatMap(dataBuffer -> {
                     byte[] bytes = new byte[dataBuffer.readableByteCount()];
                     dataBuffer.read(bytes);
                     DataBufferUtils.release(dataBuffer);
 
-                  //  PaymentImportRequest paymentImportRequest = new PaymentImportRequest(importProcessId,bytes,EImportPaymentType.valueOf(eImportPaymentType));
-                   // PaymentImportCommand paymentImportCommand = new PaymentImportCommand(paymentImportRequest);
+                    ImportTurnerSpecialtiesRequest importTurnerSpecialtiesRequest = new ImportTurnerSpecialtiesRequest(bytes,businessId);
+                    ImportTunerSpecialtiesCommand importTunerSpecialtiesCommand = new ImportTunerSpecialtiesCommand(importTurnerSpecialtiesRequest);
                     try {
-                     //   IMessage message = mediator.send(paymentImportCommand);
-                        return Mono.just(ResponseEntity.ok(businessId));// Mono.just(ResponseEntity.ok(message));
+                        IMessage message = mediator.send(importTunerSpecialtiesCommand);
+                        return Mono.just(ResponseEntity.ok(message));// Mono.just(ResponseEntity.ok(message));
                     }catch (Exception e) {
                         return Mono.error(e);
                     }
 
                 } );
     }
+
+    @GetMapping("/{importProcessId}/import-status")
+    public ResponseEntity<ImportProcessStatusResponse> importTurnerSpecialties(@PathVariable("importProcessId") String importProcessId){
+        ImportTurnerSpecialtiesStatusQuery statusQuery = new ImportTurnerSpecialtiesStatusQuery(importProcessId);
+        return ResponseEntity.ok(mediator.send(statusQuery));
+    }
+//    @PostMapping("/import-search")
+//    public ResponseEntity<?> importPayment(@RequestBody SearchRequest request){
+//        ImportTurnerSpecialtiesStatusQuery query= new ImportTurnerSpecialtiesStatusQuery();
+//        return ResponseEntity.ok(mediator.send(command));
+//    }
 
 }
