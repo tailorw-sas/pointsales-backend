@@ -25,7 +25,7 @@ public class ConsumerCreateDoctorEventService {
         this.resourceService = resourceService;
     }
 
-    @KafkaListener(topics = "medinec-replicate-doctor", groupId = "calendar")
+    @KafkaListener(topics = "medinec-replicate-doctor", groupId = "shift")
     public void listen(String event) {
         try {
 

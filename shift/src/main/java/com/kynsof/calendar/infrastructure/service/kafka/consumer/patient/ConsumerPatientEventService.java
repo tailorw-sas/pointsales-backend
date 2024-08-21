@@ -25,7 +25,7 @@ public class ConsumerPatientEventService {
         this.objectMapper = objectMapper;
     }
 
-    @KafkaListener(topics = "medinec-create-patient", groupId = "calendar-patient")
+    @KafkaListener(topics = "medinec-create-patient", groupId = "shift-patient")
     public void listen(String event) {
         try {
 

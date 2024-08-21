@@ -19,7 +19,7 @@ public class ConsumerUpdateBusinessEventService {
     @Autowired
     private IBusinessService service;
 
-    @KafkaListener(topics = "update-busines", groupId = "update-busines-calendar")
+    @KafkaListener(topics = "update-busines", groupId = "update-shift")
     public void consumer(String event) {
 
         try {
