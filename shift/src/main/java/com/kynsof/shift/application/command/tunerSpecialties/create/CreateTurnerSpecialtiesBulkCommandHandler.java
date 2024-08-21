@@ -1,17 +1,19 @@
 package com.kynsof.shift.application.command.tunerSpecialties.create;
 
-import com.kynsof.calendar.domain.dto.ResourceDto;
-import com.kynsof.calendar.domain.dto.ServiceDto;
-import com.kynsof.calendar.domain.dto.TurnerSpecialtiesDto;
-import com.kynsof.calendar.domain.dto.enumType.ETurnerSpecialtiesStatus;
-import com.kynsof.calendar.domain.service.IResourceService;
-import com.kynsof.calendar.domain.service.IServiceService;
-import com.kynsof.calendar.domain.service.ITurnerSpecialtiesService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.response.ErrorField;
+import com.kynsof.shift.domain.dto.BusinessDto;
+import com.kynsof.shift.domain.dto.ResourceDto;
+import com.kynsof.shift.domain.dto.ServiceDto;
+import com.kynsof.shift.domain.dto.TurnerSpecialtiesDto;
+import com.kynsof.shift.domain.dto.enumType.ETurnerSpecialtiesStatus;
+import com.kynsof.shift.domain.service.IBusinessService;
+import com.kynsof.shift.domain.service.IResourceService;
+import com.kynsof.shift.domain.service.IServiceService;
+import com.kynsof.shift.domain.service.ITurnerSpecialtiesService;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -24,14 +26,16 @@ public class CreateTurnerSpecialtiesBulkCommandHandler implements ICommandHandle
     private final ITurnerSpecialtiesService turnerSpecialtiesService;
     private final IResourceService resourceService;
     private final IServiceService serviceService;
+    private final IBusinessService businessService;
 
     public CreateTurnerSpecialtiesBulkCommandHandler(ITurnerSpecialtiesService turnerSpecialtiesService,
                                                      IResourceService resourceService,
-                                                     IServiceService serviceService) {
+                                                     IServiceService serviceService, IBusinessService businessService) {
 
         this.turnerSpecialtiesService = turnerSpecialtiesService;
         this.resourceService = resourceService;
         this.serviceService = serviceService;
+        this.businessService = businessService;
     }
 
     @Override
@@ -41,6 +45,7 @@ public class CreateTurnerSpecialtiesBulkCommandHandler implements ICommandHandle
 
             ResourceDto doctor = this.resourceService.findById(this.validateUUID(command.getResource()));
             ServiceDto service = this.serviceService.findByIds(this.validateUUID(command.getService()));
+            BusinessDto businessDto = this.businessService.findById(this.validateUUID(command.getBusiness()));
             bulk.add(new TurnerSpecialtiesDto(
                     command.getId(),
                     command.getMedicalHistory(),
@@ -49,8 +54,9 @@ public class CreateTurnerSpecialtiesBulkCommandHandler implements ICommandHandle
                     doctor,
                     service,
                     this.validateStatus(command.getStatus()),
-                    null,
-                    null
+                    command.getShiftDateTime(),
+                    command.getConsultationTime(),
+                    businessDto
             ));
         }
 
@@ -59,11 +65,14 @@ public class CreateTurnerSpecialtiesBulkCommandHandler implements ICommandHandle
         this.turnerSpecialtiesService.create(bulk);
     }
 
+
     private UUID validateUUID(String uuid) {
         try {
             return UUID.fromString(uuid);
         } catch (Exception e) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.UUID_NOT_FORMAT, new ErrorField("id", DomainErrorMessage.UUID_NOT_FORMAT.getReasonPhrase())));
+            throw new BusinessNotFoundException(
+                    new GlobalBusinessException(DomainErrorMessage.UUID_NOT_FORMAT,
+                            new ErrorField("id", DomainErrorMessage.UUID_NOT_FORMAT.getReasonPhrase())));
         }
     }
 

@@ -1,7 +1,5 @@
 package com.kynsof.shift.domain.excel;
 
-import com.kynsof.calendar.domain.dto.TurnerSpecialtiesDto;
-import com.kynsof.calendar.domain.dto.enumType.ETurnerSpecialtiesStatus;
 import com.kynsof.share.core.application.excel.annotation.Cell;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,11 +33,5 @@ public class TurnerSpecialtiesRow implements Serializable {
     @Cell(position = 7)
     private String specialties;
 
-   public TurnerSpecialtiesDto toAggregate(){
-      TurnerSpecialtiesDto dto= new TurnerSpecialtiesDto();
-      dto.setIdentification(identificationNumber);
-      dto.setStatus(ETurnerSpecialtiesStatus.PENDING);
-      return dto;
-   }
 
 }

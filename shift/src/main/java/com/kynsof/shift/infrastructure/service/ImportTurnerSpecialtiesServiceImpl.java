@@ -1,10 +1,15 @@
 package com.kynsof.shift.infrastructure.service;
 
-import com.kynsof.calendar.application.command.tunerSpecialties.create.CreateTurnerSpecialtiesCommand;
+
+import com.kynsof.share.core.application.excel.ExcelBean;
+import com.kynsof.share.core.application.excel.ReaderConfiguration;
+import com.kynsof.share.core.domain.exception.ExcelException;
+import com.kynsof.share.core.infrastructure.excel.ExcelBeanReader;
+import com.kynsof.shift.application.command.tunerSpecialties.create.CreateTurnerSpecialtiesCommand;
 import com.kynsof.shift.application.command.tunerSpecialties.importExcel.ImportTurnerSpecialtiesRequest;
 import com.kynsof.shift.application.query.tunerSpecialties.importExcel.ImportProcessStatusResponse;
 import com.kynsof.shift.domain.dto.ImportProcessStatusDto;
-import com.kynsof.calendar.domain.dto.enumType.ETurnerSpecialtiesStatus;
+import com.kynsof.shift.domain.dto.enumType.ETurnerSpecialtiesStatus;
 import com.kynsof.shift.domain.excel.ImportCache;
 import com.kynsof.shift.domain.excel.ImportProcessStatusEntity;
 import com.kynsof.shift.domain.excel.TurnerSpecialtiesRow;
@@ -12,10 +17,6 @@ import com.kynsof.shift.domain.service.ImportTurnerSpecialtiesService;
 import com.kynsof.shift.infrastructure.excel.event.CreateTurnerSpecialtiesEvent;
 import com.kynsof.shift.infrastructure.repository.redis.ImportCacheRepository;
 import com.kynsof.shift.infrastructure.repository.redis.ImportProcessStatusRepository;
-import com.kynsof.share.core.application.excel.ExcelBean;
-import com.kynsof.share.core.application.excel.ReaderConfiguration;
-import com.kynsof.share.core.domain.exception.ExcelException;
-import com.kynsof.share.core.infrastructure.excel.ExcelBeanReader;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,7 +99,10 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
                         //Hay que ver como hacer el match en la bd , aqui estoy poniendo el code que viene el excel
                         importCache.getCodDoctor(),//Aqui hay que cambiar esto por el uuid del resource
                         importCache.getCodSpecialties(),//Aqui hay que cambiar esto por el uuid de la especialidad
-                        ETurnerSpecialtiesStatus.PENDING.name()
+                        ETurnerSpecialtiesStatus.PENDING.name(),
+                        LocalDateTime.now(),
+                        LocalTime.ofNanoOfDay(importCache.getAppoimentDate().getTime()),
+                        "" //esto no se que es aun bussiness
                         );
                 commandList.add(comman);
             });

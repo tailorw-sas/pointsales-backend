@@ -1,6 +1,6 @@
 package com.kynsof.shift.infrastructure.excel.event;
 
-import com.kynsof.calendar.application.command.tunerSpecialties.create.CreateTurnerSpecialtiesCommand;
+import com.kynsof.shift.application.command.tunerSpecialties.create.CreateTurnerSpecialtiesCommand;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
