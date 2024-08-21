@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -27,6 +29,8 @@ public class TurnerSpecialtiesResponse implements IResponse {
     private ETurnerSpecialtiesStatus status;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+    private  LocalDateTime shiftDateTime;
+    private  LocalTime consultationTime;
 
     public TurnerSpecialtiesResponse(TurnerSpecialtiesDto dto) {
         this.id = dto.getId();
@@ -38,6 +42,9 @@ public class TurnerSpecialtiesResponse implements IResponse {
         this.status = dto.getStatus();
         this.createdAt = dto.getCreatedAt();
         this.updatedAt = dto.getUpdatedAt();
+        this.shiftDateTime = dto.getShiftDateTime();
+        this.consultationTime = dto.getConsultationTime();
+
     }
 
 }
