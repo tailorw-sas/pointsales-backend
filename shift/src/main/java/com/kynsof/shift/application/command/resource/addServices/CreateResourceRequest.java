@@ -12,6 +12,7 @@ public class CreateResourceRequest {
     private UUID resourceId;
     private UUID businessId;
     private String name;
+    private String code;
     private String image;
     private List<UUID> serviceIds;
 }

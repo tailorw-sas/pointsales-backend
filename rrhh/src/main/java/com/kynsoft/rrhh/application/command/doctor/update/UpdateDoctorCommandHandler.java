@@ -74,6 +74,7 @@ public class UpdateDoctorCommandHandler implements ICommandHandler<UpdateDoctorC
         producerReplicateDoctorService.create(new DoctorKafka(
                 doctorDto.getId(),
                 doctorDto.getIdentification(),
+                doctorDto.getCode(),
                 doctorDto.getEmail(),
                 doctorDto.getName(),
                 doctorDto.getLastName(),

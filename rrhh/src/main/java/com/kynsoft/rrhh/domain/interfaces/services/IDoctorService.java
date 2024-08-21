@@ -19,4 +19,5 @@ public interface IDoctorService {
     Long countByIdentificationAndNotId(String identification, UUID id);
     Long countByEmailAndNotId(String email, UUID id);
     Long countByCodeAndNotId(String code, UUID id);
+    List<DoctorDto> findAllToReplicate();
 }

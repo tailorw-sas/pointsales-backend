@@ -31,6 +31,9 @@ public class Resource {
     @NotBlank
     private String name;
 
+    @Column(nullable = true)
+    private String code;
+
     @Enumerated(EnumType.STRING)
     private EResourceStatus status;
 
@@ -58,11 +61,12 @@ public class Resource {
         this.name = resourceDto.getName();
         this.image = resourceDto.getImage();
         this.status = resourceDto.getStatus();
+        this.code = resourceDto.getCode();
         //services = resourceDto.getServices() != null ? resourceDto.getServices().stream().map(Services::new).collect(Collectors.toSet()) : null;
     }
 
     public ResourceDto toAggregate() {
         // List<ServiceDto> serviceDtos = services.stream().map(Services::toAggregate).toList();
-        return new ResourceDto(id, name, image, status);
+        return new ResourceDto(id, name, image, status, code);
     }
 }

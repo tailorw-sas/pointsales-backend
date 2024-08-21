@@ -10,6 +10,7 @@ import java.util.UUID;
 public class CreateAssistantRequest {
     private UUID id;
     private String identification;
+    private String code;
     private String email;
     private String name;
     private String lastName;

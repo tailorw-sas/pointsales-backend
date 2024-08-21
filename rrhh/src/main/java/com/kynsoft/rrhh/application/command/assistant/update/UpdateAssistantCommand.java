@@ -13,6 +13,7 @@ public class UpdateAssistantCommand implements ICommand {
 
     private UUID id;
     private final String identification;
+    private final String code;
     private final String email;
     private final String name;
     private final String lastName;
@@ -22,11 +23,12 @@ public class UpdateAssistantCommand implements ICommand {
     private final String department;
 
 
-    public UpdateAssistantCommand(UUID id, String identification, String email, String name, String lastName,
+    public UpdateAssistantCommand(UUID id, String identification, String code, String email, String name, String lastName,
                                   String status, String phoneNumber, String image, String department) {
         this.id = id;
 
         this.identification = identification;
+        this.code = code;
         this.email = email;
         this.name = name;
         this.lastName = lastName;
@@ -40,6 +42,7 @@ public class UpdateAssistantCommand implements ICommand {
         return new UpdateAssistantCommand(
                 id,
                 request.getIdentification(),
+                request.getCode(),
                 request.getEmail(),
                 request.getName(),
                 request.getLastName(),

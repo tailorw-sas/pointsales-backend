@@ -16,11 +16,11 @@ import java.util.logging.Logger;
 
 @Service
 public class ConsumerCreateAssistantEventService {
+
     private final IResourceService service;
     private final IResourceService resourceService;
 
     public ConsumerCreateAssistantEventService(IResourceService service, IResourceService resourceService) {
-
 
         this.service = service;
         this.resourceService = resourceService;
@@ -35,7 +35,7 @@ public class ConsumerCreateAssistantEventService {
 
             this.service.create(new ResourceDto(
                     eventRead.getId(), eventRead.getName() + " " + eventRead.getLastName(),
-                    eventRead.getImage(), EResourceStatus.ACTIVE
+                    eventRead.getImage(), EResourceStatus.ACTIVE, eventRead.getCode()
             ));
 
             resourceService.addBusiness(UUID.fromString(eventRead.getBusiness()), eventRead.getId(), LocalDate.now());

@@ -14,6 +14,7 @@ import java.util.UUID;
 public class UserSystemDto {
     private UUID id;
     private String identification;
+    private String code;
     private String name;
     private String lastName;
     private String email;

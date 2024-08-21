@@ -29,6 +29,9 @@ public class UserSystem implements Serializable {
     @Column(nullable = false, unique = true)
     private String identification;
 
+    @Column(nullable = true)
+    private String code;
+
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -68,7 +71,16 @@ public class UserSystem implements Serializable {
     }
 
     public UserSystemDto toAggregate() {
-        return new UserSystemDto(this.id, this.identification, this.email,
-                this.name, this.lastName, this.status,this.phoneNumber,this.image );
+        return new UserSystemDto(
+                this.id,
+                this.identification,
+                this.code,
+                this.email,
+                this.name,
+                this.lastName,
+                this.status,
+                this.phoneNumber,
+                this.image
+        );
     }
 }

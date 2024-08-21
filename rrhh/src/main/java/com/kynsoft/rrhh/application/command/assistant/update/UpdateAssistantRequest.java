@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class UpdateAssistantRequest {
     private String identification;
+    private String code;
     private String email;
     private String name;
     private String lastName;
