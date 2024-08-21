@@ -29,7 +29,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +101,7 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
                         ETurnerSpecialtiesStatus.PENDING.name(),
                         LocalDateTime.now(),
                         LocalTime.ofNanoOfDay(importCache.getAppoimentDate().getTime()),
-                        "" //esto no se que es aun bussiness
+                        "" //esto no se que es aun bussiness--Te lo debe pasar el front en la petición, es el hospital
                         );
                 commandList.add(comman);
             });
