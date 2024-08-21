@@ -68,6 +68,7 @@ public class UserSystem implements Serializable {
         this.status = dto.getStatus();
         this.image = dto.getImage();
         this.phoneNumber = dto.getPhoneNumber();
+        this.code = dto.getCode();
     }
 
     public UserSystemDto toAggregate() {
