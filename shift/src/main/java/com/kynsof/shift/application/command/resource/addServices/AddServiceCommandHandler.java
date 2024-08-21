@@ -28,7 +28,7 @@ public class AddServiceCommandHandler implements ICommandHandler<AddServiceComma
 
     @Override
     public void handle(AddServiceCommand command) {
-        resourceService.create(new ResourceDto(command.getId(),command.getName(), command.getImage(), EResourceStatus.ACTIVE));
+        resourceService.create(new ResourceDto(command.getId(),command.getName(), command.getImage(), EResourceStatus.ACTIVE, command.getCode()));
         resourceService.addServicesToResource(command.getId(),command.getServiceIds());
         BusinessDto businessDto = this.businessService.findById(command.getBusinessId());
         ResourceDto resourceDto = this.resourceService.findById(command.getId());

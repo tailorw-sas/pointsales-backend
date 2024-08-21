@@ -19,5 +19,6 @@ public class ResourceDto implements Serializable {
     private String name;
     private String image;
     private EResourceStatus status;
+    private String code;
 
 }

@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 
 @Service
 public class ConsumerCreateDoctorEventService {
+
     private final IResourceService service;
     private final IResourceService resourceService;
 
@@ -32,14 +33,20 @@ public class ConsumerCreateDoctorEventService {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
             DoctorKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), DoctorKafka.class);
-            
+
             this.service.create(new ResourceDto(
-                    eventRead.getId(), eventRead.getName() + " " + eventRead.getLastName(), 
-                    eventRead.getImage(), EResourceStatus.ACTIVE
+                    eventRead.getId(), eventRead.getName() + " " + eventRead.getLastName(),
+                    eventRead.getImage(), EResourceStatus.ACTIVE, eventRead.getCode()
             ));
 
-            resourceService.addBusiness(UUID.fromString(eventRead.getBusiness()), eventRead.getId(), LocalDate.now());
+            try {
 
+                if (eventRead.getBusiness() != null) {
+                    resourceService.addBusiness(UUID.fromString(eventRead.getBusiness()), eventRead.getId(), LocalDate.now());
+                }
+
+            } catch (Exception e) {
+            }
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerCreateDoctorEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
