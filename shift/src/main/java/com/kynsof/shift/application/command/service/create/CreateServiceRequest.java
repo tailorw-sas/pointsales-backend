@@ -13,12 +13,8 @@ public class CreateServiceRequest {
     private UUID type;
     private String image;
     private String name;
-    private Double normalAppointmentPrice;
-    private Double expressAppointmentPrice;
     private String description;
-    private boolean applyIva;
     private EServiceStatus status;
-    private Integer estimatedDuration;
     private String code;
 
 
