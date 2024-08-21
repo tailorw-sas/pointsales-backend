@@ -27,6 +27,7 @@ public class CreateAssistantCommand implements ICommand {
                                   String phoneNumber, String image, String department, UUID business) {
         this.id = id;
         this.identification = identification;
+        this.code = code;
         this.email = email;
         this.name = name;
         this.lastName = lastName;

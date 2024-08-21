@@ -65,9 +65,7 @@ public class UpdateDoctorCommandHandler implements ICommandHandler<UpdateDoctorC
 
         service.update(doctorSave);
 
-        if (!changedFields.isEmpty()) {
-            sendIntegrationEvent(doctorSave, changedFields);
-        }
+        sendIntegrationEvent(doctorSave, changedFields);
     }
 
     private void sendIntegrationEvent(DoctorDto doctorDto, List<String> changedFields) {

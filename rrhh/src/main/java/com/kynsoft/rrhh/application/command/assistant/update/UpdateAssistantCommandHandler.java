@@ -53,6 +53,9 @@ public class UpdateAssistantCommandHandler implements ICommandHandler<UpdateAssi
         if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setImage, command.getImage(), assistantDto.getImage(), update::setUpdate)) {
             isUpdated = true;
         }
+        if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(assistantDto::setCode, command.getCode(), assistantDto.getCode(), update::setUpdate)) {
+            isUpdated = true;
+        }
         if (command.getStatus() != null && !command.getStatus().equals(assistantDto.getStatus())) {
             assistantDto.setStatus(command.getStatus());
             isUpdated = true;
