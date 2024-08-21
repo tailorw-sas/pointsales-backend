@@ -67,6 +67,8 @@ public class TurnerSpecialties {
         this.resource = dto.getResource() != null ? new Resource(dto.getResource()) : null;
         this.service = dto.getService() != null ? new Services(dto.getService()) : null;
         this.business = dto.getBusiness() != null ? new Business(dto.getBusiness()) : null;
+        this.consultationTime = dto.getConsultationTime();
+        this.shiftDateTime = dto.getShiftDateTime();
     }
 
     public TurnerSpecialtiesDto toAggregate() {
