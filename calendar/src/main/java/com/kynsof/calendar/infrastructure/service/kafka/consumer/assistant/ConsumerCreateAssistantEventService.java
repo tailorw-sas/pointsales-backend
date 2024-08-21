@@ -26,7 +26,7 @@ public class ConsumerCreateAssistantEventService {
         this.resourceService = resourceService;
     }
 
-    @KafkaListener(topics = "medinec-replicate-assistant", groupId = "identity-doctor")
+    @KafkaListener(topics = "medinec-replicate-assistant", groupId = "calendar-assistant")
     public void listen(String event) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
