@@ -67,7 +67,7 @@ public class DoctorServiceImpl implements IDoctorService {
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         GenericSpecificationsBuilder<Doctor> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-       //Page<UserBusinessRelation> responses =  this.userBusinessRelationReadDataJPARepository.findAll(specifications, pageable);
+        //Page<UserBusinessRelation> responses =  this.userBusinessRelationReadDataJPARepository.findAll(specifications, pageable);
         Page<Doctor> data = this.repositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(data);
     }
@@ -80,7 +80,6 @@ public class DoctorServiceImpl implements IDoctorService {
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
-
 
     @Override
     public Long countByIdentification(String identification) {
@@ -105,6 +104,18 @@ public class DoctorServiceImpl implements IDoctorService {
     @Override
     public Long countByCodeAndNotId(String code, UUID id) {
         return this.repositoryQuery.countByCodeAndNotId(code, id);
+    }
+
+    @Override
+    public List<DoctorDto> findAllToReplicate() {
+        List<Doctor> objects = this.repositoryQuery.findAll();
+        List<DoctorDto> objectDtos = new ArrayList<>();
+
+        for (Doctor object : objects) {
+            objectDtos.add(object.toAggregate());
+        }
+
+        return objectDtos;
     }
 
 }

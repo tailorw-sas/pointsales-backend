@@ -44,6 +44,7 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
         AssistantDto assistantSave = new AssistantDto(
                 command.getId(),
                 command.getIdentification(),
+                command.getCode(),
                 command.getEmail(),
                 command.getName(),
                 command.getLastName(),
@@ -61,6 +62,7 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
         producerReplicateAssistantService.create(new DoctorKafka(
                 assistantSave.getId(),
                 assistantSave.getIdentification(),
+                assistantSave.getCode(),
                 assistantSave.getEmail(),
                 assistantSave.getName(),
                 assistantSave.getLastName(),

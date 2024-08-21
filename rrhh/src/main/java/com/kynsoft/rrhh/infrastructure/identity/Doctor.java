@@ -1,7 +1,6 @@
 package com.kynsoft.rrhh.infrastructure.identity;
 
 import com.kynsoft.rrhh.domain.dto.DoctorDto;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +11,6 @@ import lombok.Setter;
 public class Doctor extends UserSystem {
     private String registerNumber;
 
-    @Column(nullable = true)
-    private String code;
     private String language;
     private boolean isExpress;
 
@@ -26,7 +23,6 @@ public class Doctor extends UserSystem {
         this.registerNumber = dto.getRegisterNumber();
         this.language = dto.getLanguage();
         this.isExpress = dto.isExpress();
-        this.code = dto.getCode();
     }
 
     @Override
@@ -34,6 +30,7 @@ public class Doctor extends UserSystem {
         return new DoctorDto(
                 this.getId(),
                 this.getIdentification(),
+                this.getCode(),
                 this.getEmail(),
                 this.getName(),
                 this.getLastName(),
@@ -42,8 +39,7 @@ public class Doctor extends UserSystem {
                 this.language,
                 this.isExpress,
                 this.getPhoneNumber(),
-                this.getImage(),
-                this.code
+                this.getImage()
         );
     }
 }

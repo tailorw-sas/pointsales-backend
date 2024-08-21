@@ -25,6 +25,7 @@ public class Assistant extends UserSystem {
         return new AssistantDto(
                 this.getId(),
                 this.getIdentification(),
+                this.getCode(),
                 this.getEmail(),
                 this.getName(),
                 this.getLastName(),

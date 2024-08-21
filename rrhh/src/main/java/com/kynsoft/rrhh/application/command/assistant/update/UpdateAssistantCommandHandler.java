@@ -64,6 +64,7 @@ public class UpdateAssistantCommandHandler implements ICommandHandler<UpdateAssi
             producerReplicateAssistantService.create(new DoctorKafka(
                     assistantDto.getId(),
                     assistantDto.getIdentification(),
+                    assistantDto.getCode(),
                     assistantDto.getEmail(),
                     assistantDto.getName(),
                     assistantDto.getLastName(),

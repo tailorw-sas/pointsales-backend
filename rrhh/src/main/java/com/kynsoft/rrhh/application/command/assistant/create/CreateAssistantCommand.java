@@ -13,6 +13,7 @@ public class CreateAssistantCommand implements ICommand {
 
     private UUID id;
     private String identification;
+    private String code;
     private String email;
     private String name;
     private String lastName;
@@ -22,7 +23,7 @@ public class CreateAssistantCommand implements ICommand {
     private String department;
     private final UUID business;
 
-    public CreateAssistantCommand(UUID id, String identification, String email, String name, String lastName, String status,
+    public CreateAssistantCommand(UUID id, String identification, String code, String email, String name, String lastName, String status,
                                   String phoneNumber, String image, String department, UUID business) {
         this.id = id;
         this.identification = identification;
@@ -40,6 +41,7 @@ public class CreateAssistantCommand implements ICommand {
         return new CreateAssistantCommand(
                 request.getId(),
                 request.getIdentification(),
+                request.getCode(),
                 request.getEmail(),
                 request.getName(),
                 request.getLastName(),

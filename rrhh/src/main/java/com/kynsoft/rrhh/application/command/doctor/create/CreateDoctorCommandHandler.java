@@ -48,6 +48,7 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
         DoctorDto doctorSave = new DoctorDto(
                 command.getId(),
                 command.getIdentification(),
+                command.getCode(),
                 command.getEmail(),
                 command.getName(),
                 command.getLastName(),
@@ -56,8 +57,7 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
                 command.getLanguage(),
                 command.isExpress(),
                 command.getPhoneNumber(),
-                command.getImage(),
-                command.getCode()
+                command.getImage()
         );
 
         service.create(doctorSave);
@@ -67,6 +67,7 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
         producerReplicateDoctorService.create(new DoctorKafka(
                 doctorSave.getId(), 
                 doctorSave.getIdentification(), 
+                doctorSave.getCode(),
                 doctorSave.getEmail(), 
                 doctorSave.getName(), 
                 doctorSave.getLastName(),
