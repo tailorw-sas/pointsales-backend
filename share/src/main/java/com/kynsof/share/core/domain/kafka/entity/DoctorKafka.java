@@ -16,6 +16,7 @@ public class DoctorKafka implements Serializable {
 
     private UUID id;
     private String identification;
+    private String code;
     private String email;
     private String name;
     private String lastName;
