@@ -5,9 +5,11 @@ import com.kynsoft.notification.domain.dto.MailJetAttachment;
 import com.kynsoft.notification.domain.dto.MailJetRecipient;
 import com.kynsoft.notification.domain.dto.MailJetVar;
 import com.kynsoft.notification.domain.service.IEmailService;
+import com.mailjet.client.ClientOptions;
 import com.mailjet.client.MailjetClient;
 import com.mailjet.client.MailjetRequest;
 import com.mailjet.client.MailjetResponse;
+import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.resource.Email;
 import org.springframework.stereotype.Service;
 
@@ -78,30 +80,45 @@ public class EmailServiceMailjet implements IEmailService {
 //    }
 
     @Override
-    public boolean sendEmailMailjet(EmailRequest emailRequest, String mailjetApiKey,String mailjetApiSecret,
+    public boolean sendEmailMailjet(EmailRequest emailRequest, String mailjetApiKey, String mailjetApiSecret,
                                     String fromEmail, String fromName) {
-       try {
-           MailjetClient client;
-           MailjetRequest request;
-           MailjetResponse response;
+        try {
 
-           client = new MailjetClient(mailjetApiKey, mailjetApiSecret);
-           request = new MailjetRequest(Email.resource)
-                   .property(Email.FROMEMAIL, fromEmail)
-                   .property(Email.FROMNAME, fromName)
-                   .property(Email.MJTEMPLATEID, emailRequest.getTemplateId())
-                   .property(Email.MJTEMPLATELANGUAGE, true)
-                   .property(Email.SUBJECT, emailRequest.getSubject())
-                   .property(Email.RECIPIENTS, MailJetRecipient.createRecipientsJsonArray(emailRequest.getRecipientEmail()))
-                   .property(Email.ATTACHMENTS, MailJetAttachment.generateAttachments(emailRequest.getMailJetAttachments()))
-                  .property(Email.VARS, MailJetVar.createVarsJsonObject(emailRequest.getMailJetVars()))
-                   .property(Email.MJEVENTPAYLOAD, "Eticket,1234,row,15,seat,B");
-           response = client.post(request);
-           return response.getStatus() == 200;
-       }catch (Exception ex){
-           String e= ex.getMessage();
-           return false;
-       }
+            ClientOptions options = ClientOptions.builder()
+                    .apiKey(mailjetApiKey)
+                    .apiSecretKey(mailjetApiSecret)
+                    .build();
+
+            MailjetClient client = new MailjetClient(options);
+
+            // Construir el request de Mailjet
+            MailjetRequest request = new MailjetRequest(Email.resource)
+                    .property(Email.FROMEMAIL, fromEmail)
+                    .property(Email.FROMNAME, fromName)
+                    .property(Email.MJTEMPLATEID, emailRequest.getTemplateId())
+                    .property(Email.MJTEMPLATELANGUAGE, true)
+                    .property(Email.SUBJECT, emailRequest.getSubject())
+                    .property(Email.RECIPIENTS, MailJetRecipient.createRecipientsJsonArray(emailRequest.getRecipientEmail()))
+                    .property(Email.ATTACHMENTS, MailJetAttachment.generateAttachments(emailRequest.getMailJetAttachments()))
+                    .property(Email.VARS, MailJetVar.createVarsJsonObject(emailRequest.getMailJetVars()))
+                    .property(Email.MJEVENTPAYLOAD, "Eticket,1234,row,15,seat,B");
+
+            // Enviar el request
+            MailjetResponse response = client.post(request);
+
+            // Verificar la respuesta y retornar el estado
+            return response.getStatus() == 200;
+
+        } catch (MailjetException e) {
+            // Manejo específico para errores de Mailjet
+            System.err.println("Mailjet API error: " + e.getMessage());
+            return false;
+
+        } catch (Exception e) {
+            // Manejo genérico para otros tipos de errores
+            System.err.println("General error: " + e.getMessage());
+            return false;
+        }
     }
 
 }

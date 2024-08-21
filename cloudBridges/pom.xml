@@ -167,11 +167,13 @@
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>com.mailjet</groupId>
-            <artifactId>mailjet-client</artifactId>
-            <version>5.2.4</version>
-        </dependency>
+
+            <dependency>
+                <groupId>com.mailjet</groupId>
+                <artifactId>mailjet-client</artifactId>
+                <version>5.2.5</version>
+            </dependency>
+
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>bom</artifactId>
