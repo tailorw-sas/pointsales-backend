@@ -15,7 +15,7 @@ public class NotificationService {
     @Value("${notification.host:localhost}")
     private String host;
 
-    @Value("${notification.port:8585}")
+    @Value("${notification.port:7171}")
     private String port;
 
     private final RestTemplate restTemplate;
