@@ -1,4 +1,4 @@
-package com.kynsof.calendar.domain.excel;
+package com.kynsof.shift.domain.excel;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

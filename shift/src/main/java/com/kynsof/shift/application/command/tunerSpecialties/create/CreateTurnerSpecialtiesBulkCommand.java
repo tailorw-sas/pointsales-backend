@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.command.tunerSpecialties.create;
+package com.kynsof.shift.application.command.tunerSpecialties.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;

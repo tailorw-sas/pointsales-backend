@@ -1,6 +1,6 @@
-package com.kynsof.calendar.infrastructure.repository.redis;
+package com.kynsof.shift.infrastructure.repository.redis;
 
-import com.kynsof.calendar.domain.excel.ImportProcessStatusEntity;
+import com.kynsof.shift.domain.excel.ImportProcessStatusEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

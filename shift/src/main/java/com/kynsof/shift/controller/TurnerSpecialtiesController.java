@@ -1,9 +1,9 @@
 package com.kynsof.shift.controller;
 
-import com.kynsof.calendar.application.command.tunerSpecialties.importExcel.ImportTunerSpecialtiesCommand;
-import com.kynsof.calendar.application.command.tunerSpecialties.importExcel.ImportTurnerSpecialtiesRequest;
-import com.kynsof.calendar.application.query.tunerSpecialties.importExcel.ImportProcessStatusResponse;
-import com.kynsof.calendar.application.query.tunerSpecialties.importExcel.ImportTurnerSpecialtiesStatusQuery;
+import com.kynsof.shift.application.command.tunerSpecialties.importExcel.ImportTunerSpecialtiesCommand;
+import com.kynsof.shift.application.command.tunerSpecialties.importExcel.ImportTurnerSpecialtiesRequest;
+import com.kynsof.shift.application.query.tunerSpecialties.importExcel.ImportProcessStatusResponse;
+import com.kynsof.shift.application.query.tunerSpecialties.importExcel.ImportTurnerSpecialtiesStatusQuery;
 import com.kynsof.shift.application.command.tunerSpecialties.create.CreateTurnerSpecialtiesCommand;
 import com.kynsof.shift.application.command.tunerSpecialties.create.CreateTurnerSpecialtiesMessage;
 import com.kynsof.shift.application.command.tunerSpecialties.create.CreateTurnerSpecialtiesRequest;

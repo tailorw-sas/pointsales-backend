@@ -1,4 +1,4 @@
-package com.kynsof.calendar.infrastructure.excel.event;
+package com.kynsof.shift.infrastructure.excel.event;
 
 import com.kynsof.calendar.application.command.tunerSpecialties.create.CreateTurnerSpecialtiesCommand;
 import lombok.Getter;

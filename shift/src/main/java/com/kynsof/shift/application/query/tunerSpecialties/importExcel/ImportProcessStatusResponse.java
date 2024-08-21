@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.query.tunerSpecialties.importExcel;
+package com.kynsof.shift.application.query.tunerSpecialties.importExcel;
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
 import lombok.Getter;

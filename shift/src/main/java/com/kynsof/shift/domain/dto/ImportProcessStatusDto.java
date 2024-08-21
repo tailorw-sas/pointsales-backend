@@ -1,6 +1,6 @@
-package com.kynsof.calendar.domain.dto;
+package com.kynsof.shift.domain.dto;
 
-import com.kynsof.calendar.domain.excel.ImportProcessStatusEntity;
+import com.kynsof.shift.domain.excel.ImportProcessStatusEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

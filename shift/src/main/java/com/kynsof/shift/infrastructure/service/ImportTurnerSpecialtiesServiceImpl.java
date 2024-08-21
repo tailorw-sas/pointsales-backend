@@ -1,18 +1,17 @@
-package com.kynsof.calendar.infrastructure.service;
+package com.kynsof.shift.infrastructure.service;
 
 import com.kynsof.calendar.application.command.tunerSpecialties.create.CreateTurnerSpecialtiesCommand;
-import com.kynsof.calendar.application.command.tunerSpecialties.importExcel.ImportTunerSpecialtiesCommand;
-import com.kynsof.calendar.application.command.tunerSpecialties.importExcel.ImportTurnerSpecialtiesRequest;
-import com.kynsof.calendar.application.query.tunerSpecialties.importExcel.ImportProcessStatusResponse;
-import com.kynsof.calendar.domain.dto.ImportProcessStatusDto;
+import com.kynsof.shift.application.command.tunerSpecialties.importExcel.ImportTurnerSpecialtiesRequest;
+import com.kynsof.shift.application.query.tunerSpecialties.importExcel.ImportProcessStatusResponse;
+import com.kynsof.shift.domain.dto.ImportProcessStatusDto;
 import com.kynsof.calendar.domain.dto.enumType.ETurnerSpecialtiesStatus;
-import com.kynsof.calendar.domain.excel.ImportCache;
-import com.kynsof.calendar.domain.excel.ImportProcessStatusEntity;
-import com.kynsof.calendar.domain.excel.TurnerSpecialtiesRow;
-import com.kynsof.calendar.domain.service.ImportTurnerSpecialtiesService;
-import com.kynsof.calendar.infrastructure.excel.event.CreateTurnerSpecialtiesEvent;
-import com.kynsof.calendar.infrastructure.repository.redis.ImportCacheRepository;
-import com.kynsof.calendar.infrastructure.repository.redis.ImportProcessStatusRepository;
+import com.kynsof.shift.domain.excel.ImportCache;
+import com.kynsof.shift.domain.excel.ImportProcessStatusEntity;
+import com.kynsof.shift.domain.excel.TurnerSpecialtiesRow;
+import com.kynsof.shift.domain.service.ImportTurnerSpecialtiesService;
+import com.kynsof.shift.infrastructure.excel.event.CreateTurnerSpecialtiesEvent;
+import com.kynsof.shift.infrastructure.repository.redis.ImportCacheRepository;
+import com.kynsof.shift.infrastructure.repository.redis.ImportProcessStatusRepository;
 import com.kynsof.share.core.application.excel.ExcelBean;
 import com.kynsof.share.core.application.excel.ReaderConfiguration;
 import com.kynsof.share.core.domain.exception.ExcelException;
@@ -28,10 +27,7 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 @Service
 public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialtiesService {

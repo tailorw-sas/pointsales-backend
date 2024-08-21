@@ -1,6 +1,6 @@
-package com.kynsof.calendar.infrastructure.excel.event;
+package com.kynsof.shift.infrastructure.excel.event;
 
-import com.kynsof.calendar.application.command.tunerSpecialties.create.CreateTurnerSpecialtiesBulkCommand;
+import com.kynsof.shift.application.command.tunerSpecialties.create.CreateTurnerSpecialtiesBulkCommand;
 import com.kynsof.calendar.application.command.tunerSpecialties.create.CreateTurnerSpecialtiesCommand;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.context.ApplicationListener;

@@ -1,4 +1,4 @@
-package com.kynsof.calendar.domain.excel;
+package com.kynsof.shift.domain.excel;
 
 import com.kynsof.calendar.domain.dto.TurnerSpecialtiesDto;
 import com.kynsof.calendar.domain.dto.enumType.ETurnerSpecialtiesStatus;

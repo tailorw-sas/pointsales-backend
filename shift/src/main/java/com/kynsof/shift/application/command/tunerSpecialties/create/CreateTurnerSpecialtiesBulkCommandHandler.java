@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.command.tunerSpecialties.create;
+package com.kynsof.shift.application.command.tunerSpecialties.create;
 
 import com.kynsof.calendar.domain.dto.ResourceDto;
 import com.kynsof.calendar.domain.dto.ServiceDto;

@@ -1,6 +1,6 @@
-package com.kynsof.calendar.domain.excel;
+package com.kynsof.shift.domain.excel;
 
-import com.kynsof.calendar.domain.dto.ImportProcessStatusDto;
+import com.kynsof.shift.domain.dto.ImportProcessStatusDto;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisHash;

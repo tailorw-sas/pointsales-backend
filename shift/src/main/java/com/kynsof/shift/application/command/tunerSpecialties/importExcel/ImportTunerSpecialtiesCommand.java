@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.command.tunerSpecialties.importExcel;
+package com.kynsof.shift.application.command.tunerSpecialties.importExcel;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;

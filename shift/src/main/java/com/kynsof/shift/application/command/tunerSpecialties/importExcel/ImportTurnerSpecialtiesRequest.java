@@ -1,4 +1,4 @@
-package com.kynsof.calendar.application.command.tunerSpecialties.importExcel;
+package com.kynsof.shift.application.command.tunerSpecialties.importExcel;
 
 import lombok.Getter;
 
