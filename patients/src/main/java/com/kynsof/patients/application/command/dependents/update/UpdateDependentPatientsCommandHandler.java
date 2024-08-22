@@ -8,10 +8,9 @@ import com.kynsof.patients.domain.dto.enumTye.Status;
 import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
-import com.kynsof.patients.infrastructure.services.kafka.producer.customer.ProducerUpdateCustomerEventService;
-import com.kynsof.patients.infrastructure.services.kafka.producer.patient.ProducerUpdateDependentPatientsEventService;
+import com.kynsof.patients.infrastructure.services.kafka.producer.customer.ProducerCreateCustomerEventService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.entity.UpdateCustomerKafka;
+import com.kynsof.share.core.domain.kafka.entity.CustomerKafka;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,19 +19,16 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
     private final IPatientsService serviceImpl;
     private final IContactInfoService contactInfoService;
     private final IGeographicLocationService geographicLocationService;
-    private final ProducerUpdateDependentPatientsEventService updateDependentPatientsEventService;
-    private final ProducerUpdateCustomerEventService updateCustomerEventService;
+    private final ProducerCreateCustomerEventService createCustomerEventService;
 
     public UpdateDependentPatientsCommandHandler(IPatientsService serviceImpl,
                                                  IContactInfoService contactInfoService,
                                                  IGeographicLocationService geographicLocationService,
-                                                 ProducerUpdateDependentPatientsEventService updateDependentPatientsEventService,
-                                                 ProducerUpdateCustomerEventService updateCustomerEventService) {
+                                                 ProducerCreateCustomerEventService createCustomerEventService) {
         this.serviceImpl = serviceImpl;
         this.contactInfoService = contactInfoService;
         this.geographicLocationService = geographicLocationService;
-        this.updateDependentPatientsEventService = updateDependentPatientsEventService;
-        this.updateCustomerEventService = updateCustomerEventService;
+        this.createCustomerEventService = createCustomerEventService;
     }
 
     @Override
@@ -82,7 +78,16 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
             contactInfoService.update(contactInfoDto);
         }
 
-        this.updateDependentPatientsEventService.update(serviceImpl.findByIdSimple(command.getId()), command.getCreateContactInfoRequest().getBirthdayDate());
-        this.updateCustomerEventService.update(new UpdateCustomerKafka(update.getId().toString(), update.getName(), update.getLastName()));
+//        this.updateDependentPatientsEventService.update(serviceImpl.findByIdSimple(command.getId()), command.getCreateContactInfoRequest().getBirthdayDate());
+//        this.updateCustomerEventService.update(new UpdateCustomerKafka(update.getId().toString(), update.getName(), update.getLastName()));
+        this.createCustomerEventService.create(new CustomerKafka(
+                update.getId().toString(), 
+                update.getIdentification(), 
+                update.getName(), 
+                update.getLastName(), 
+                contactInfoDto.getEmail(), 
+                update.getPhoto(), 
+                contactInfoDto.getBirthdayDate()
+        ));
     }
 }
