@@ -38,7 +38,13 @@ public class ConsumerCreateAssistantEventService {
                     eventRead.getImage(), EResourceStatus.ACTIVE
             ));
 
-            resourceService.addBusiness(UUID.fromString(eventRead.getBusiness()), eventRead.getId(), LocalDate.now());
+            try {
+                if (eventRead.getBusiness() != null) {
+                    resourceService.addBusiness(UUID.fromString(eventRead.getBusiness()), eventRead.getId(), LocalDate.now());
+                }
+
+            } catch (Exception e) {
+            }
 
         } catch (Exception ex) {
             Logger.getLogger(ConsumerCreateAssistantEventService.class.getName()).log(Level.SEVERE, null, ex);
