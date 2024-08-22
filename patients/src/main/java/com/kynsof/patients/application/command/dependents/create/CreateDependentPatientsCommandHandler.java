@@ -10,7 +10,6 @@ import com.kynsof.patients.domain.service.IContactInfoService;
 import com.kynsof.patients.domain.service.IGeographicLocationService;
 import com.kynsof.patients.domain.service.IPatientsService;
 import com.kynsof.patients.infrastructure.services.kafka.producer.customer.ProducerCreateCustomerEventService;
-import com.kynsof.patients.infrastructure.services.kafka.producer.patient.ProducerCreateDependentPatientsEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.kafka.entity.CustomerKafka;
@@ -25,18 +24,15 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
     private final IContactInfoService contactInfoService;
     private final IGeographicLocationService geographicLocationService;
 
-    private final ProducerCreateDependentPatientsEventService dependentPatientsEventService;
     private final ProducerCreateCustomerEventService createCustomerEventService;
 
     public CreateDependentPatientsCommandHandler(IPatientsService serviceImpl, IContactInfoService contactInfoService,
             IGeographicLocationService geographicLocationService,
-            ProducerCreateDependentPatientsEventService dependentPatientsEventService,
             ProducerCreateCustomerEventService createCustomerEventService
     ) {
         this.serviceImpl = serviceImpl;
         this.contactInfoService = contactInfoService;
         this.geographicLocationService = geographicLocationService;
-        this.dependentPatientsEventService = dependentPatientsEventService;
         this.createCustomerEventService = createCustomerEventService;
     }
 
@@ -78,7 +74,7 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 parroquia
         ));
         command.setId(id);
-        this.dependentPatientsEventService.create(patientDto, command.getCreateContactInfoRequest().getBirthdayDate());
+
         this.createCustomerEventService.create(new CustomerKafka(
                 id.toString(),
                 dependentPatientDto.getIdentification(),
