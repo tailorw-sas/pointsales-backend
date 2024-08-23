@@ -11,9 +11,7 @@ import com.kynsof.identity.domain.rules.business.BusinessRucMustBeUniqueRule;
 import com.kynsof.identity.infrastructure.services.kafka.producer.business.ProducerCreateBusinessEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.kafka.producer.s3.ProducerSaveFileEventService;
 import com.kynsof.share.utils.ConfigureTimeZone;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,17 +19,17 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
 
     private final IBusinessService service;
 
-    @Autowired
-    private ProducerSaveFileEventService saveFileEventService;
 
-    @Autowired
-    private IGeographicLocationService geographicLocationService;
 
-    @Autowired
-    private ProducerCreateBusinessEventService createBusinessEventService;
+    private final IGeographicLocationService geographicLocationService;
 
-    public CreateBusinessCommandHandler(IBusinessService service) {
+    private final ProducerCreateBusinessEventService createBusinessEventService;
+
+    public CreateBusinessCommandHandler(IBusinessService service, IGeographicLocationService geographicLocationService,
+                                        ProducerCreateBusinessEventService createBusinessEventService) {
         this.service = service;
+        this.geographicLocationService = geographicLocationService;
+        this.createBusinessEventService = createBusinessEventService;
     }
 
     @Override
@@ -42,7 +40,6 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
         RulesChecker.checkRule(new BusinessNameMustBeUniqueRule(this.service, command.getName(), command.getId()));
 
         GeographicLocationDto location = this.geographicLocationService.findById(command.getGeographicLocation());
-       // UUID idLogo = UUID.randomUUID();
 
         BusinessDto create = new BusinessDto(
                 command.getId(),
@@ -60,12 +57,5 @@ public class CreateBusinessCommandHandler implements ICommandHandler<CreateBusin
         create.setCreateAt(ConfigureTimeZone.getTimeZone());
         service.create(create);
         createBusinessEventService.create(create);
-
-//        if (command.getImage() != null) {
-//            FileKafka fileSave = new FileKafka(idLogo, "identity", UUID.randomUUID().toString(),
-//                    command.getImage());
-//            saveFileEventService.create(fileSave);
-//        }
-
     }
 }

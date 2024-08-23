@@ -90,7 +90,7 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
 
     @Override
     public void delete(BusinessModuleDto object) {
-        commandRepository.save(new BusinessModule(object));
+        commandRepository.delete(new BusinessModule(object));
     }
 
     @Override
@@ -98,7 +98,7 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
         var deletesObject = deletes.stream()
                 .map(BusinessModule::new)
                 .toList();
-        commandRepository.saveAll(deletesObject);
+        commandRepository.deleteAll(deletesObject);
     }
 
     @Override
