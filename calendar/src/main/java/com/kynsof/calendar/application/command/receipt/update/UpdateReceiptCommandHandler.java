@@ -16,19 +16,19 @@ import java.util.Optional;
 @Component
 public class UpdateReceiptCommandHandler implements ICommandHandler<UpdateReceiptCommand> {
 
-    private final IReceiptService service;
+    private final IReceiptService receiptService;
     private final IScheduleService serviceSchedule;
     private final IPaymentServiceClient paymentServiceClient;
 
     public UpdateReceiptCommandHandler(IReceiptService service, IScheduleService scheduleService, IPaymentServiceClient paymentServiceClient) {
-        this.service = service;
+        this.receiptService = service;
         this.serviceSchedule = scheduleService;
         this.paymentServiceClient = paymentServiceClient;
     }
 
     @Override
     public void handle(UpdateReceiptCommand command) {
-        Optional<Receipt> entity = this.service.findByRequestId(command.getRequestId());
+        Optional<Receipt> entity = this.receiptService.findByRequestId(command.getRequestId());
 
         if (entity.isPresent()) {
             Receipt receipt = entity.get();
@@ -40,6 +40,8 @@ public class UpdateReceiptCommandHandler implements ICommandHandler<UpdateReceip
                 dto.setStatus(EStatusReceipt.APPROVED);
                 TransactionsState transactionsState = paymentServiceClient.getTransactionsState(Integer.parseInt(command.getRequestId()));
                 dto.setAuthorizationCode(transactionsState.getValue().getAuthorization());
+              //  _schedule.setStatus(EStatusSchedule.ATTENDED);
+               // serviceSchedule.update(_schedule);
                 //TODO
                 //Enviar correo
             }
@@ -63,7 +65,7 @@ public class UpdateReceiptCommandHandler implements ICommandHandler<UpdateReceip
                 dto.setStatus(EStatusReceipt.REJECTED);
 
             }
-        service.update(dto);
+        receiptService.update(dto);
     }
 
     }
