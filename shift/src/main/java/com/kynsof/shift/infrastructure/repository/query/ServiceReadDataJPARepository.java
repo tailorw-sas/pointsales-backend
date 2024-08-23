@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ServiceReadDataJPARepository extends JpaRepository<Services, UUID>, JpaSpecificationExecutor<Services> {
@@ -19,4 +20,6 @@ public interface ServiceReadDataJPARepository extends JpaRepository<Services, UU
 
     @Query("SELECT rs.service FROM ResourceService rs WHERE rs.resource.id = :resourceId")
     Page<Services> findServicesByResourceId(@Param("resourceId") UUID resourceId, Pageable pageable);
+
+    Optional<Services> findServicesByCode(String code);
 }

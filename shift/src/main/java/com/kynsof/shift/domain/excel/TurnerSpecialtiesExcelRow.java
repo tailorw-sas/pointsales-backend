@@ -12,8 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class TurnerSpecialtiesRow implements Serializable {
-
+public class TurnerSpecialtiesExcelRow implements Serializable {
     @Cell(position = -1)
     private int rowNumber;
     @Cell(position = 0)

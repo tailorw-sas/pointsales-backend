@@ -6,6 +6,6 @@ import com.kynsof.shift.application.query.tunerSpecialties.importExcel.ImportPro
 public interface ImportTurnerSpecialtiesService {
 
 
-    public void readExcel(ImportTurnerSpecialtiesRequest request);
-    public ImportProcessStatusResponse importStatus(String importProcessId);
+    public void excelProcessor(ImportTurnerSpecialtiesRequest request);
+    public ImportProcessStatusResponse turnerSpecialtiesImportStatus(String importProcessId);
 }

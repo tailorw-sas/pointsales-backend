@@ -1,6 +1,5 @@
 package com.kynsof.shift.infrastructure.service;
 
-
 import com.kynsof.share.core.application.excel.ExcelBean;
 import com.kynsof.share.core.application.excel.ReaderConfiguration;
 import com.kynsof.share.core.domain.exception.ExcelException;
@@ -9,14 +8,18 @@ import com.kynsof.shift.application.command.tunerSpecialties.create.CreateTurner
 import com.kynsof.shift.application.command.tunerSpecialties.importExcel.ImportTurnerSpecialtiesRequest;
 import com.kynsof.shift.application.query.tunerSpecialties.importExcel.ImportProcessStatusResponse;
 import com.kynsof.shift.domain.dto.ImportProcessStatusDto;
+import com.kynsof.shift.domain.dto.ResourceDto;
+import com.kynsof.shift.domain.dto.ServiceDto;
 import com.kynsof.shift.domain.dto.enumType.ETurnerSpecialtiesStatus;
-import com.kynsof.shift.domain.excel.ImportCache;
-import com.kynsof.shift.domain.excel.ImportProcessStatusEntity;
-import com.kynsof.shift.domain.excel.TurnerSpecialtiesRow;
+import com.kynsof.shift.domain.excel.TurnerSpecialtiesExcelRow;
+import com.kynsof.shift.domain.service.IResourceService;
+import com.kynsof.shift.domain.service.IServiceService;
 import com.kynsof.shift.domain.service.ImportTurnerSpecialtiesService;
+import com.kynsof.shift.infrastructure.entity.redis.ImportProcessStatus;
+import com.kynsof.shift.infrastructure.entity.redis.TurnerSpecialtiesCache;
 import com.kynsof.shift.infrastructure.excel.event.CreateTurnerSpecialtiesEvent;
-import com.kynsof.shift.infrastructure.repository.redis.ImportCacheRepository;
 import com.kynsof.shift.infrastructure.repository.redis.ImportProcessStatusRepository;
+import com.kynsof.shift.infrastructure.repository.redis.TurnerSpecialtiesCacheRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +29,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -34,90 +36,110 @@ import java.util.List;
 
 @Service
 public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialtiesService {
-
     private final ImportProcessStatusRepository statusRepository;
-    private final ImportCacheRepository importCacheRepository;
-
+    private final TurnerSpecialtiesCacheRepository turnerSpecialtiesCacheRepository;
+    private final IResourceService resourceService;
+    private final IServiceService serviceService;
     private final ApplicationEventPublisher applicationEventPublisher;
 
     public ImportTurnerSpecialtiesServiceImpl(ImportProcessStatusRepository statusRepository,
-                                              ImportCacheRepository importCacheRepository,
+                                              TurnerSpecialtiesCacheRepository turnerSpecialtiesCacheRepository,
+                                              IResourceService resourceService, IServiceService serviceService,
                                               ApplicationEventPublisher applicationEventPublisher) {
         this.statusRepository = statusRepository;
-        this.importCacheRepository = importCacheRepository;
+        this.turnerSpecialtiesCacheRepository = turnerSpecialtiesCacheRepository;
+        this.resourceService = resourceService;
+        this.serviceService = serviceService;
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @Async
     @Override
-    public void readExcel(ImportTurnerSpecialtiesRequest request) {
-        ReaderConfiguration readerConfiguration = new ReaderConfiguration();
-        readerConfiguration.setIgnoreHeaders(true);
-        InputStream inputStream = new ByteArrayInputStream(request.getFile());
-        readerConfiguration.setInputStream(inputStream);
-        readerConfiguration.setReadLastActiveSheet(true);
-        readerConfiguration.setStartReadRow(2);
-        ExcelBeanReader<TurnerSpecialtiesRow> reader = new ExcelBeanReader<>(readerConfiguration, TurnerSpecialtiesRow.class);
-        ExcelBean<TurnerSpecialtiesRow> beanReader = new ExcelBean<>(reader);
-        this.readAndCachingExcel(beanReader, request.getImportProcessId());
-        this.readCacheAndSave(request.getImportProcessId());
-    }
-
-
-    private void readAndCachingExcel(ExcelBean<TurnerSpecialtiesRow> excelBean, String importProcessId) {
-
-        for (TurnerSpecialtiesRow row : excelBean) {
-            ImportCache importCache = new ImportCache(
-                    null, importProcessId, row.getRowNumber(),
-                    row.getAppoimentDate(),
-                    row.getPatient(),
-                    row.getIdentificationNumber(),
-                    row.getCodDoctor(), row.getDoctor(),
-                    row.getCodSpecialties(),
-                    row.getSpecialties(),
-                    row.getMedicalRecord()
-            );
-            importCacheRepository.save(importCache);
-
+    public void excelProcessor(ImportTurnerSpecialtiesRequest request) {
+        try {
+            ExcelBean<TurnerSpecialtiesExcelRow> excelBean = this.createExcelBean(request);
+            for (TurnerSpecialtiesExcelRow row : excelBean) {
+                cachingExcelRow(row,request);
+            }
+            this.createCommandFromCache(request);
+        }catch (Exception e){
+           this.processImportError(e);
         }
-
     }
 
-    private void readCacheAndSave(String importProcessId) {
+    private ExcelBean<TurnerSpecialtiesExcelRow> createExcelBean(ImportTurnerSpecialtiesRequest request) {
+        ReaderConfiguration readerConfiguration = this.buildExcelReaderConfiguration(request);
+        ExcelBeanReader<TurnerSpecialtiesExcelRow> reader = new ExcelBeanReader<>(readerConfiguration, TurnerSpecialtiesExcelRow.class);
+        return new ExcelBean<>(reader);
+    }
 
+    private ReaderConfiguration buildExcelReaderConfiguration(ImportTurnerSpecialtiesRequest request) {
+        return new ReaderConfiguration
+                .ReaderConfigurationBuilder()
+                .inputStream(new ByteArrayInputStream(request.getFile()))
+                .setIgnoreHeaders(true)
+                .setReadLastActiveSheet(true)
+                .setStartReadRow(2)
+                .build();
+    }
+
+    private void cachingExcelRow(TurnerSpecialtiesExcelRow row,ImportTurnerSpecialtiesRequest importRequest) {
+        TurnerSpecialtiesCache turnerSpecialtiesCache = new TurnerSpecialtiesCache(
+                null,
+                importRequest.getImportProcessId(),
+                row.getRowNumber(),
+                row.getAppoimentDate(),
+                row.getPatient(),
+                row.getIdentificationNumber(),
+                row.getCodDoctor(), row.getDoctor(),
+                row.getCodSpecialties(),
+                row.getSpecialties(),
+                row.getMedicalRecord()
+        );
+        turnerSpecialtiesCacheRepository.save(turnerSpecialtiesCache);
+    }
+
+    private void createCommandFromCache(ImportTurnerSpecialtiesRequest request) {
         Pageable pageable = PageRequest.of(0, 500, Sort.by(Sort.Direction.ASC, "id"));
-        Page<ImportCache> cacheList;
+        Page<TurnerSpecialtiesCache> cacheList;
         List<CreateTurnerSpecialtiesCommand> commandList = new ArrayList<>();
 
         do {
-            cacheList = importCacheRepository.findAllByImportProcessId(importProcessId, pageable);
-            cacheList.forEach(importCache -> {
-                CreateTurnerSpecialtiesCommand comman = new CreateTurnerSpecialtiesCommand(importCache.getMedicalRecord(),
-                        importCache.getPatient(),
-                        importCache.getIdentificationNumber(),
-                        //Hay que ver como hacer el match en la bd , aqui estoy poniendo el code que viene el excel
-                        importCache.getCodDoctor(),//Aqui hay que cambiar esto por el uuid del resource
-                        importCache.getCodSpecialties(),//Aqui hay que cambiar esto por el uuid de la especialidad
+            cacheList = turnerSpecialtiesCacheRepository.findTurnerSpecialtiesCacheByImportProcessId(request.getImportProcessId(), pageable);
+            cacheList.forEach(turnerSpecialtiesCache -> {
+                CreateTurnerSpecialtiesCommand comman = new CreateTurnerSpecialtiesCommand(turnerSpecialtiesCache.getMedicalRecord(),
+                        turnerSpecialtiesCache.getPatient(),
+                        turnerSpecialtiesCache.getIdentificationNumber(),
+                        this.getResourceFromCode(turnerSpecialtiesCache.getCodDoctor()).getId().toString(),
+                        this.getServiceFromCode(turnerSpecialtiesCache.getCodSpecialties()).getId().toString(),
                         ETurnerSpecialtiesStatus.PENDING.name(),
                         LocalDateTime.now(),
-                        LocalTime.ofNanoOfDay(importCache.getAppoimentDate().getTime()),
-                        "" //esto no se que es aun bussiness--Te lo debe pasar el front en la petición, es el hospital
-                        );
+                        LocalTime.ofNanoOfDay(turnerSpecialtiesCache.getAppoimentDate().getTime()),
+                        request.getBussinessId()
+                );
                 commandList.add(comman);
             });
-            CreateTurnerSpecialtiesEvent createTurnerSpecialtiesEvent = new CreateTurnerSpecialtiesEvent(this,commandList);
+            CreateTurnerSpecialtiesEvent createTurnerSpecialtiesEvent = new CreateTurnerSpecialtiesEvent(this, commandList);
             applicationEventPublisher.publishEvent(createTurnerSpecialtiesEvent);
-
             pageable = pageable.next();
         } while (cacheList.hasNext());
 
 
     }
+    private ResourceDto getResourceFromCode(String code) {
+        return resourceService.findByCode(code);
+    }
+    private ServiceDto getServiceFromCode(String code) {
+        return serviceService.findByCode(code);
+    }
+    private void processImportError(Exception e){
+
+    }
 
     @Override
-    public ImportProcessStatusResponse importStatus(String importProcessId) {
+    public ImportProcessStatusResponse turnerSpecialtiesImportStatus(String importProcessId) {
         ImportProcessStatusDto paymentImportStatusDto = statusRepository.findByImportProcessId(importProcessId)
-                .map(ImportProcessStatusEntity::toAggregate)
+                .map(ImportProcessStatus::toAggregate)
                 .orElseThrow();
         if (paymentImportStatusDto.isHasError()) {
             throw new ExcelException(paymentImportStatusDto.getExceptionMessage());

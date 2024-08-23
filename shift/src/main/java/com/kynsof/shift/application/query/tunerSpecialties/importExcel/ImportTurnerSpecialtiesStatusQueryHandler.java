@@ -15,6 +15,6 @@ public class ImportTurnerSpecialtiesStatusQueryHandler implements IQueryHandler<
 
     @Override
     public ImportProcessStatusResponse handle(ImportTurnerSpecialtiesStatusQuery query) {
-        return turnerSpecialtiesService.importStatus(query.getImportProcessId());
+        return turnerSpecialtiesService.turnerSpecialtiesImportStatus(query.getImportProcessId());
     }
 }

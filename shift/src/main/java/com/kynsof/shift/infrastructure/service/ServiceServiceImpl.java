@@ -113,6 +113,18 @@ public class ServiceServiceImpl implements IServiceService {
     }
 
     @Override
+    public ServiceDto findByCode(String code) {
+        Optional<Services> object = this.repositoryQuery.findServicesByCode(code);
+        if (object.isPresent()) {
+            return object.get().toAggregate();
+        }
+
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SERVICE_NOT_FOUND,
+                new ErrorField("code", "Service not found.")));
+
+    }
+
+    @Override
    // @Cacheable(cacheNames =  CacheConfig.SERVICE_CACHE, unless = "#result == null")
     public PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId) {
         Page<Services> services = this.repositoryQuery.findServicesByResourceId(resourceId, pageable);

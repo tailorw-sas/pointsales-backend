@@ -15,7 +15,7 @@ public class ImportTunerSpecialtiesCommandHandler implements ICommandHandler<Imp
 
     @Override
     public void handle(ImportTunerSpecialtiesCommand command) {
-        importTurnerSpecialtiesService.readExcel(command.getRequest());
+        importTurnerSpecialtiesService.excelProcessor(command.getRequest());
     }
 }
 
