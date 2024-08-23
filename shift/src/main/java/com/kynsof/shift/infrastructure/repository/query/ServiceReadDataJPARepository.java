@@ -22,4 +22,5 @@ public interface ServiceReadDataJPARepository extends JpaRepository<Services, UU
     Page<Services> findServicesByResourceId(@Param("resourceId") UUID resourceId, Pageable pageable);
 
     Optional<Services> findServicesByCode(String code);
+    boolean existsServicesByCode(String code);
 }

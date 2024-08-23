@@ -105,6 +105,11 @@ public class ResourceServiceImpl implements IResourceService {
         throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.RESOURCE_NOT_FOUND, new ErrorField("code", "Resource not found.")));
     }
 
+    @Override
+    public boolean existResourceByCode(String code) {
+        return repositoryQuery.existsResourceByCode(code);
+    }
+
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {

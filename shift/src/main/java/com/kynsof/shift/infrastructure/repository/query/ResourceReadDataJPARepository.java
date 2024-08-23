@@ -25,4 +25,6 @@ public interface ResourceReadDataJPARepository extends JpaRepository<Resource, U
     List<Services> findAllServicesByResourceAndBusiness(@Param("resourceId") UUID resourceId, @Param("businessId") UUID businessId);
 
     Optional<Resource> findResourceByCode(String code);
+
+    boolean existsResourceByCode(String code);
 }

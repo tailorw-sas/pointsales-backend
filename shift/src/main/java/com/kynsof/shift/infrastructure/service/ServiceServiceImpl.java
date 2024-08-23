@@ -125,6 +125,11 @@ public class ServiceServiceImpl implements IServiceService {
     }
 
     @Override
+    public boolean existServiceByCode(String code) {
+        return repositoryQuery.existsServicesByCode(code);
+    }
+
+    @Override
    // @Cacheable(cacheNames =  CacheConfig.SERVICE_CACHE, unless = "#result == null")
     public PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId) {
         Page<Services> services = this.repositoryQuery.findServicesByResourceId(resourceId, pageable);

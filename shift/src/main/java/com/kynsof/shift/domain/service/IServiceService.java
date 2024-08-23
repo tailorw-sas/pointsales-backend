@@ -19,4 +19,5 @@ public interface IServiceService {
     Long countByNameAndNotId(String name, UUID id);
 
     ServiceDto findByCode(String code);
+    boolean existServiceByCode(String code);
 }

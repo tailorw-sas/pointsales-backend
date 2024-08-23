@@ -19,6 +19,7 @@ public interface IResourceService {
 
     ResourceDto findById(UUID id);
     ResourceDto findByCode(String code);
+    boolean existResourceByCode(String code);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 

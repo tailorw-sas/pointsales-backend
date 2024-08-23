@@ -14,6 +14,7 @@ import com.kynsof.shift.application.command.tunerSpecialties.update.UpdateTurner
 import com.kynsof.shift.application.command.tunerSpecialties.update.UpdateTurnerSpecialtiesRequest;
 import com.kynsof.shift.application.query.TurnerSpecialtiesResponse;
 import com.kynsof.shift.application.query.tunerSpecialties.getById.FindTurnerSpecialtiesByIdQuery;
+import com.kynsof.shift.application.query.tunerSpecialties.importExcel.TurnerSpecialtiesSearchImportErrorQuery;
 import com.kynsof.shift.application.query.tunerSpecialties.search.GetSearchTurnerSpecialtiesQuery;
 import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
@@ -110,10 +111,10 @@ public class TurnerSpecialtiesController {
         ImportTurnerSpecialtiesStatusQuery statusQuery = new ImportTurnerSpecialtiesStatusQuery(importProcessId);
         return ResponseEntity.ok(mediator.send(statusQuery));
     }
-//    @PostMapping("/import-search")
-//    public ResponseEntity<?> importPayment(@RequestBody SearchRequest request){
-//        ImportTurnerSpecialtiesStatusQuery query= new ImportTurnerSpecialtiesStatusQuery();
-//        return ResponseEntity.ok(mediator.send(command));
-//    }
+    @PostMapping("/import-search")
+    public ResponseEntity<?> importPayment(@RequestBody SearchRequest request){
+        TurnerSpecialtiesSearchImportErrorQuery command = new TurnerSpecialtiesSearchImportErrorQuery(request);
+        return ResponseEntity.ok(mediator.send(command));
+    }
 
 }
