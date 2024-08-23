@@ -89,6 +89,7 @@ public class TurnCreationService {
 
         LocalServiceMessage localMessage = new LocalServiceMessage();
         localMessage.setService(service.getName());
+        localMessage.setServiceId(service.getId().toString());
         localMessage.setQueueId(attendanceLogDto.getPlace().getId().toString());
         localMessage.setShift(message.getShift());
         localMessage.setIdentification(turnDto.getIdentification());
