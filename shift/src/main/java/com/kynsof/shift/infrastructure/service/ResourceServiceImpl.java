@@ -98,7 +98,7 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Override
     public ResourceDto findByCode(String code) {
-        Optional<Resource> object = this.repositoryQuery.findResourceByCode(code);
+        Optional<Resource> object = this.repositoryQuery.findResourceByExternalCode(code);
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
@@ -107,7 +107,7 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Override
     public boolean existResourceByCode(String code) {
-        return repositoryQuery.existsResourceByCode(code);
+        return repositoryQuery.existsResourceByExternalCode(code);
     }
 
 

@@ -33,7 +33,7 @@ public class TurnerSpecialtiesCodDoctorCellValidator implements ExcelRuleValidat
     }
 
     private void validateIfFieldValueExist(TurnerSpecialtiesExcelRow row, List<ErrorField> errorFieldList) {
-        if (Objects.nonNull(row.getCodDoctor()) && resourceService.existResourceByCode(row.getCodDoctor())) {
+        if (Objects.nonNull(row.getCodDoctor()) && !resourceService.existResourceByCode(row.getCodDoctor())) {
             errorFieldList.add(new ErrorField("", "El valor del campo coddoctor no existe"));
         }
     }

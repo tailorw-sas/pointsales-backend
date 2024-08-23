@@ -55,6 +55,8 @@ public class Resource {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+    @Column(unique = true)
+    private String externalCode;
 
     public Resource(ResourceDto resourceDto) {
         this.id = resourceDto.getId();
@@ -62,11 +64,12 @@ public class Resource {
         this.image = resourceDto.getImage();
         this.status = resourceDto.getStatus();
         this.code = resourceDto.getCode();
+        this.externalCode =resourceDto.getExternalCode();
         //services = resourceDto.getServices() != null ? resourceDto.getServices().stream().map(Services::new).collect(Collectors.toSet()) : null;
     }
 
     public ResourceDto toAggregate() {
         // List<ServiceDto> serviceDtos = services.stream().map(Services::toAggregate).toList();
-        return new ResourceDto(id, name, image, status, code);
+        return new ResourceDto(id, name, image, status, code,externalCode);
     }
 }

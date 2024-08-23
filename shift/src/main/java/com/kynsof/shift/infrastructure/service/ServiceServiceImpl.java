@@ -114,7 +114,7 @@ public class ServiceServiceImpl implements IServiceService {
 
     @Override
     public ServiceDto findByCode(String code) {
-        Optional<Services> object = this.repositoryQuery.findServicesByCode(code);
+        Optional<Services> object = this.repositoryQuery.findServicesByExternalCode(code);
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
@@ -126,7 +126,7 @@ public class ServiceServiceImpl implements IServiceService {
 
     @Override
     public boolean existServiceByCode(String code) {
-        return repositoryQuery.existsServicesByCode(code);
+        return repositoryQuery.existsServicesByExternalCode(code);
     }
 
     @Override

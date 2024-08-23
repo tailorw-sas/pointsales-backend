@@ -22,6 +22,7 @@ import com.kynsof.shift.infrastructure.entity.redis.ImportProcessStatus;
 import com.kynsof.shift.infrastructure.entity.redis.TurnerSpecialtiesCache;
 import com.kynsof.shift.infrastructure.entity.redis.TurnerSpecialtiesExcelRowError;
 import com.kynsof.shift.infrastructure.excel.event.CreateTurnerSpecialtiesEvent;
+import com.kynsof.shift.infrastructure.excel.event.ImportErrorEvent;
 import com.kynsof.shift.infrastructure.excel.validator.TurnerSpecialtiesCodDoctorCellValidator;
 import com.kynsof.shift.infrastructure.excel.validator.TurnerSpecialtiesExcelCellValidatorFactory;
 import com.kynsof.shift.infrastructure.excel.validator.TurnerSpecialtiesServicesCellValidator;
@@ -40,6 +41,8 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -80,16 +83,18 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
             ExcelBean<TurnerSpecialtiesExcelRow> excelBean = this.createExcelBean(request);
             this.sendInitImportProcessEvent(request.getImportProcessId());
             for (TurnerSpecialtiesExcelRow row : excelBean) {
-                if (validExcelRow(row))
+                if (validExcelRow(row,request))
                     cachingExcelRow(row, request);
             }
             this.createTurnerSpecialtiesFromCache(request);
             this.sendEndImportProcessEvent(request.getImportProcessId());
+            this.clearCache(request.getImportProcessId());
             logger.info("Finalizado el proceso de importacion");
         } catch (Exception e) {
             logger.error("Ha ocurrido un error al importar");
             e.printStackTrace();
             this.processImportError(request.getImportProcessId(), e);
+            this.clearCache(request.getImportProcessId());
         }
     }
 
@@ -130,6 +135,15 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
         statusRepository.save(importProcessStatusDto.toAggregate());
     }
 
+    private void clearCache(String importProcessId){
+        Pageable pageable = PageRequest.of(0, 500, Sort.by(Sort.Direction.ASC, "id"));
+        Page<TurnerSpecialtiesCache> cacheList;
+        do {
+            cacheList = turnerSpecialtiesCacheRepository.findAllByImportProcessId(importProcessId, pageable);
+            turnerSpecialtiesCacheRepository.deleteAll(cacheList.getContent());
+            pageable = pageable.next();
+        } while (cacheList.hasNext());
+    }
     private ExcelBean<TurnerSpecialtiesExcelRow> createExcelBean(ImportTurnerSpecialtiesRequest request) {
         ReaderConfiguration readerConfiguration = this.buildExcelReaderConfiguration(request);
         ExcelBeanReader<TurnerSpecialtiesExcelRow> reader = new ExcelBeanReader<>(readerConfiguration, TurnerSpecialtiesExcelRow.class);
@@ -152,12 +166,12 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
                 importRequest.getImportProcessId(),
                 row.getRowNumber(),
                 row.getAppoimentDate(),
+                row.getMedicalRecord(),
                 row.getPatient(),
                 row.getIdentificationNumber(),
                 row.getCodDoctor(), row.getDoctor(),
                 row.getCodSpecialties(),
-                row.getSpecialties(),
-                row.getMedicalRecord()
+                row.getSpecialties()
         );
         turnerSpecialtiesCacheRepository.save(turnerSpecialtiesCache);
     }
@@ -176,8 +190,8 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
                         this.getResourceFromCode(turnerSpecialtiesCache.getCodDoctor()).getId().toString(),
                         this.getServiceFromCode(turnerSpecialtiesCache.getCodSpecialties()).getId().toString(),
                         ETurnerSpecialtiesStatus.PENDING.name(),
-                        LocalDateTime.now(),
-                        LocalTime.ofNanoOfDay(turnerSpecialtiesCache.getAppoimentDate().getTime()),
+                        LocalDateTime.ofInstant(turnerSpecialtiesCache.getAppoimentDate().toInstant(), ZoneId.systemDefault()),
+                        LocalTime.now(),
                         request.getBussinessId()
                 );
                 commandList.add(comman);
@@ -198,7 +212,7 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
         return serviceService.findByCode(code);
     }
 
-    private boolean validExcelRow(TurnerSpecialtiesExcelRow row) {
+    private boolean validExcelRow(TurnerSpecialtiesExcelRow row,ImportTurnerSpecialtiesRequest request) {
         if (Objects.isNull(specialtiesServicesCellValidator))
             specialtiesServicesCellValidator = (TurnerSpecialtiesServicesCellValidator)
                     cellValidatorFactory.makeExcelRuleValidator(TurnerSpecialtiesServicesCellValidator.VALIDATOR_ID);
@@ -208,6 +222,13 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
         List<ErrorField> errorContainer = new ArrayList<>();
         errorContainer.addAll(specialtiesServicesCellValidator.validate(row));
         errorContainer.addAll(codDoctorCellValidator.validate(row));
+        if (!errorContainer.isEmpty()) {
+            ImportErrorEvent event = new ImportErrorEvent(this,
+                    new TurnerSpecialtiesExcelRowError(null, row.getRowNumber(),
+                            request.getImportProcessId(), errorContainer, row));
+            applicationEventPublisher.publishEvent(event);
+        }
+
         return errorContainer.isEmpty();
     }
 

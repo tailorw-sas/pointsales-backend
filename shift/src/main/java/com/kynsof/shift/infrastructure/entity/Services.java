@@ -39,6 +39,8 @@ public class Services {
     private String code;
     private String picture;
     private String name;
+    @Column(unique = true)
+    private String externalCode;
 
     @Size(max = 2000)
     private String description;
@@ -87,17 +89,18 @@ public class Services {
         this.priorityCount = object.getPriorityCount();
         this.currentLoop = object.getCurrentLoop();
         this.order = object.getOrder();
+        this.externalCode=object.getExternalCode();
     }
 
     public ServiceDto toAggregate () {
         return new ServiceDto(id, type.toAggregate(), status, picture, name,
                 description,  code,
-                preferFlag, maxPriorityCount, priorityCount, currentLoop, order);
+                preferFlag, maxPriorityCount, priorityCount, currentLoop, order,externalCode);
     }
 
     public ServiceDto toAggregateSimple () {
         return new ServiceDto(id, type.toAggregate(), status, picture, name,
                 description,  code,
-                preferFlag, maxPriorityCount, priorityCount, currentLoop, order);
+                preferFlag, maxPriorityCount, priorityCount, currentLoop, order,externalCode);
     }
 }
