@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class TurnerSpecialtiesCodDoctorCellValidator implements ExcelRuleValidator<TurnerSpecialtiesExcelRow> {
 
-    public static final String VALIDATOR_ID="COD_SERVICE_VALIDATOR";
+    public static final String VALIDATOR_ID="COD_DOCTOR_VALIDATOR";
     private final IResourceService resourceService;
 
     public TurnerSpecialtiesCodDoctorCellValidator(IResourceService resourceService) {

@@ -28,14 +28,14 @@ public class TurnerSpecialtiesServicesCellValidator implements ExcelRuleValidato
     }
 
     private void validateIfFieldIsEmpty(TurnerSpecialtiesExcelRow obj, List<ErrorField> errorFieldList) {
-        if (Objects.isNull(obj.getCodDoctor()) || obj.getCodDoctor().isEmpty()) {
-            errorFieldList.add(new ErrorField("cod doctor", "El  campo coddoctor no puede ser vacio"));
+        if (Objects.isNull(obj.getCodSpecialties()) || obj.getCodSpecialties().isEmpty()) {
+            errorFieldList.add(new ErrorField("cod doctor", "El  campo codSpecialties no puede ser vacio"));
         }
     }
 
     private void validateIfFieldValueExist(TurnerSpecialtiesExcelRow row, List<ErrorField> errorFieldList) {
-        if (Objects.nonNull(row.getCodDoctor()) && serviceService.existServiceByCode(row.getCodSpecialties())) {
-            errorFieldList.add(new ErrorField("", "El valor del campo coddoctor no existe"));
+        if (Objects.nonNull(row.getCodSpecialties()) && !serviceService.existServiceByCode(row.getCodSpecialties())) {
+            errorFieldList.add(new ErrorField("", "El valor del campo codSpecialties no existe"));
         }
     }
 }

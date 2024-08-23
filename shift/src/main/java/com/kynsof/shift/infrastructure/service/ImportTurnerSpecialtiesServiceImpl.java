@@ -28,6 +28,8 @@ import com.kynsof.shift.infrastructure.excel.validator.TurnerSpecialtiesServices
 import com.kynsof.shift.infrastructure.repository.redis.ImportProcessStatusRepository;
 import com.kynsof.shift.infrastructure.repository.redis.TurnerSpecialtiesCacheRepository;
 import com.kynsof.shift.infrastructure.repository.redis.TurnerSpecialtiesErrorCacheRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,7 +37,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
 import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -45,6 +46,7 @@ import java.util.Objects;
 
 @Service
 public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialtiesService {
+    private final Logger logger = LoggerFactory.getLogger(ImportTurnerSpecialtiesService.class);
     private final ImportProcessStatusRepository statusRepository;
     private final TurnerSpecialtiesCacheRepository turnerSpecialtiesCacheRepository;
     private final TurnerSpecialtiesErrorCacheRepository errorCacheRepository;
@@ -52,7 +54,6 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
     private final IServiceService serviceService;
     private final TurnerSpecialtiesExcelCellValidatorFactory cellValidatorFactory;
     private final ApplicationEventPublisher applicationEventPublisher;
-
     private TurnerSpecialtiesCodDoctorCellValidator codDoctorCellValidator;
     private TurnerSpecialtiesServicesCellValidator specialtiesServicesCellValidator;
 
@@ -74,15 +75,21 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
     @Async
     @Override
     public void excelProcessor(ImportTurnerSpecialtiesRequest request) {
+        logger.info("Iniciando proceso de importacion");
         try {
             ExcelBean<TurnerSpecialtiesExcelRow> excelBean = this.createExcelBean(request);
+            this.sendInitImportProcessEvent(request.getImportProcessId());
             for (TurnerSpecialtiesExcelRow row : excelBean) {
                 if (validExcelRow(row))
                     cachingExcelRow(row, request);
             }
             this.createTurnerSpecialtiesFromCache(request);
+            this.sendEndImportProcessEvent(request.getImportProcessId());
+            logger.info("Finalizado el proceso de importacion");
         } catch (Exception e) {
-            this.processImportError(request.getImportProcessId(),e);
+            logger.error("Ha ocurrido un error al importar");
+            e.printStackTrace();
+            this.processImportError(request.getImportProcessId(), e);
         }
     }
 
@@ -98,7 +105,7 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
     }
 
     @Override
-    public PaginatedResponse getTurnerSpecialtiesImportError(String importProcessId,Pageable pageable) {
+    public PaginatedResponse getTurnerSpecialtiesImportError(String importProcessId, Pageable pageable) {
         Page<TurnerSpecialtiesExcelRowError> page = errorCacheRepository.
                 findAllByImportProcessId(importProcessId, pageable);
         return new PaginatedResponse(page.getContent(),
@@ -106,6 +113,21 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
                 page.getTotalElements(),
                 page.getSize(),
                 page.getNumber());
+    }
+
+    private void sendInitImportProcessEvent(String importProcessId) {
+        ImportProcessStatusDto importProcessStatusDto =
+                new ImportProcessStatusDto(null,
+                        EImportProcessStatus.RUNNING.name(),
+                        importProcessId, false, "");
+        statusRepository.save(importProcessStatusDto.toAggregate());
+    }
+
+    private void sendEndImportProcessEvent(String importProcessId) {
+        ImportProcessStatusDto importProcessStatusDto = statusRepository.findByImportProcessId(importProcessId)
+                .map(ImportProcessStatus::toAggregate).orElseThrow();
+        importProcessStatusDto.setStatus(EImportProcessStatus.FINISHED.name());
+        statusRepository.save(importProcessStatusDto.toAggregate());
     }
 
     private ExcelBean<TurnerSpecialtiesExcelRow> createExcelBean(ImportTurnerSpecialtiesRequest request) {

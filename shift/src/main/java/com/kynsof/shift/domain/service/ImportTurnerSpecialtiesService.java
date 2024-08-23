@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface ImportTurnerSpecialtiesService {
 
-
     public void excelProcessor(ImportTurnerSpecialtiesRequest request);
     public ImportProcessStatusResponse turnerSpecialtiesImportStatus(String importProcessId);
 
