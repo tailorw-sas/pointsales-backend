@@ -10,88 +10,26 @@ import com.mailjet.client.MailjetClient;
 import com.mailjet.client.MailjetRequest;
 import com.mailjet.client.MailjetResponse;
 import com.mailjet.client.errors.MailjetException;
+import com.mailjet.client.resource.Contact;
+import com.mailjet.client.resource.Contactslist;
 import com.mailjet.client.resource.Email;
+import com.mailjet.client.resource.Listrecipient;
 import org.springframework.stereotype.Service;
 
-//@Profile("mailjet")
+import java.util.List;
+
 @Service
 public class EmailServiceMailjet implements IEmailService {
 
-//    @Value("${mailjet.apiKey}")
-//    private String mailjetApiKey;
-//
-//    @Value("${mailjet.apiSecret}")
-//    private String mailjetApiSecret;
-//
-//    @Value("${mailjet.fromEmail}")
-//    private String fromEmail;
-//
-//    @Value("${mailjet.fromName}")
-//    private String fromName;
-
-    //private final MailjetClient client;
-
     public EmailServiceMailjet() {
-
     }
 
-//    @Override
-//    public boolean sendMail(String toEmail, String subject, String message) {
-//        try {
-//
-//            MailjetClient client1 = new MailjetClient(mailjetApiKey, mailjetApiSecret);
-//            MailjetRequest request = new MailjetRequest(Email.users)
-//                    .property(Email.FROMEMAIL, fromEmail)
-//                    .property(Email.FROMNAME, fromName)
-//                    .property(Email.SUBJECT, subject)
-//                    .property(Email.TEXTPART, subject)
-//                    .property(Email.HTMLPART, "<h3>Dear passenger, welcome to <a href=\"https://www.mailjet.com/\">Mailjet</a>!<br />May the delivery force be with you!")
-//                    .property(Email.RECIPIENTS, new JSONArray()
-//                            .put(new JSONObject()
-//                                    .put("Email", toEmail)));
-//            MailjetResponse  response = client1.post(request);
-//            System.out.println(response.getStatus());
-//            System.out.println(response.getData());
-//
-//            return response.getStatus() == 200;
-//        } catch (MailjetException e) {
-//            return false;
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    @Override
-//    public boolean sendMailHtml(String toEmail, String subject, String message) {
-//        // Similar a sendMail, pero asegúrate de que el HTML esté bien formado
-//        return sendMail(toEmail, subject, message); // Simplificado para el ejemplo
-//    }
-//
-//    @Override
-//    public boolean sendMessageWithAttachment(String toEmail, String subject, String text, MultipartFile file) {
-//        // Implementación con archivo adjunto usando la API de Mailjet
-//        // Mailjet API v3.1 no soporta directamente MultipartFile; necesitarás convertirlo.
-//        return false; // Simplificado para el ejemplo
-//    }
-//
-//    @Override
-//    public boolean sendMessageWithAttachmentArray(String toEmail, String subject, String text, MultipartFile[] file) {
-//        return false;
-//    }
-
     @Override
-    public boolean sendEmailMailjet(EmailRequest emailRequest, String mailjetApiKey, String mailjetApiSecret,
-                                    String fromEmail, String fromName) {
+    public void sendEmailMailjet(EmailRequest emailRequest, String mailjetApiKey, String mailjetApiSecret,
+                                 String fromEmail, String fromName) {
         try {
+            MailjetClient client = createMailjetClient(mailjetApiKey, mailjetApiSecret);
 
-            ClientOptions options = ClientOptions.builder()
-                    .apiKey(mailjetApiKey)
-                    .apiSecretKey(mailjetApiSecret)
-                    .build();
-
-            MailjetClient client = new MailjetClient(options);
-
-            // Construir el request de Mailjet
             MailjetRequest request = new MailjetRequest(Email.resource)
                     .property(Email.FROMEMAIL, fromEmail)
                     .property(Email.FROMNAME, fromName)
@@ -103,22 +41,139 @@ public class EmailServiceMailjet implements IEmailService {
                     .property(Email.VARS, MailJetVar.createVarsJsonObject(emailRequest.getMailJetVars()))
                     .property(Email.MJEVENTPAYLOAD, "Eticket,1234,row,15,seat,B");
 
-            // Enviar el request
             MailjetResponse response = client.post(request);
-
-            // Verificar la respuesta y retornar el estado
-            return response.getStatus() == 200;
+            response.getStatus(); // Handle response status
 
         } catch (MailjetException e) {
-            // Manejo específico para errores de Mailjet
             System.err.println("Mailjet API error: " + e.getMessage());
-            return false;
-
         } catch (Exception e) {
-            // Manejo genérico para otros tipos de errores
             System.err.println("General error: " + e.getMessage());
-            return false;
         }
     }
 
+    @Override
+    public Long createContactList(String name, List<String> emails, String mailjetApiKey, String mailjetApiSecret) throws MailjetException {
+        MailjetClient client = createMailjetClient(mailjetApiKey, mailjetApiSecret);
+
+        MailjetRequest createListRequest = new MailjetRequest(Contactslist.resource)
+                .property("Name", name)
+                .property("IsDeleted", "false");
+
+        MailjetResponse createListResponse = client.post(createListRequest);
+
+        if (createListResponse.getStatus() == 201) {
+            Long listId = createListResponse.getData().getJSONObject(0).getLong("ID");
+
+            for (String email : emails) {
+                Long contactId = getOrCreateContactId(client, email);
+
+                MailjetRequest addContactRequest = new MailjetRequest(Listrecipient.resource)
+                        .property("ContactID", contactId)
+                        .property("ListID", listId)
+                        .property("IsUnsubscribed", "false");
+
+                MailjetResponse addContactResponse = client.post(addContactRequest);
+
+                if (addContactResponse.getStatus() != 201 && addContactResponse.getStatus() != 200) {
+                    throw new RuntimeException("Failed to add contact to the list: " + addContactResponse.getStatus() + " " + addContactResponse.getData());
+                }
+            }
+
+            return listId;
+        } else {
+            throw new RuntimeException("Failed to create recipients list: " + createListResponse.getStatus() + " " + createListResponse.getData());
+        }
+    }
+
+    @Override
+    public void addContactsToList(Long listId, List<String> emails, String mailjetApiKey, String mailjetApiSecret) throws MailjetException {
+        MailjetClient client = createMailjetClient(mailjetApiKey, mailjetApiSecret);
+
+        for (String email : emails) {
+            Long contactId = getOrCreateContactId(client, email);
+
+            MailjetRequest addContactRequest = new MailjetRequest(Listrecipient.resource)
+                    .property("ContactID", contactId)
+                    .property("ListID", listId)
+                    .property("IsUnsubscribed", "false");
+
+            MailjetResponse addContactResponse = client.post(addContactRequest);
+
+            if (addContactResponse.getStatus() != 201 && addContactResponse.getStatus() != 200) {
+                throw new RuntimeException("Failed to add contact to the list: " + addContactResponse.getStatus() + " " + addContactResponse.getData());
+            }
+        }
+    }
+
+    @Override
+    public void removeContactFromList(Long listId, String email, String mailjetApiKey, String mailjetApiSecret) throws MailjetException {
+        MailjetClient client = createMailjetClient(mailjetApiKey, mailjetApiSecret);
+
+        MailjetRequest request = new MailjetRequest(Contact.resource)
+                .filter(Contact.EMAIL, email)
+                .filter(Contact.CONTACTSLIST, listId.toString());
+
+        MailjetResponse response = client.delete(request);
+
+        if (response.getStatus() != 200 && response.getStatus() != 204) {
+            throw new RuntimeException("Failed to remove contact from the list: " + response.getStatus() + " " + response.getData());
+        }
+    }
+
+    @Override
+    public void deleteContactList(Long listId, String mailjetApiKey, String mailjetApiSecret) throws MailjetException {
+        MailjetClient client = createMailjetClient(mailjetApiKey, mailjetApiSecret);
+
+        MailjetRequest request = new MailjetRequest(Contactslist.resource, listId);
+
+        MailjetResponse response = client.delete(request);
+
+        if (response.getStatus() != 204) {  // 204 No Content indicates successful deletion
+            throw new RuntimeException("Failed to delete contact list: " + response.getStatus() + " " + response.getData());
+        }
+    }
+
+    @Override
+    public String createCampaign(String campaignName, String senderEmail, String senderName, String subject,
+                                 Long templateId, Long contactListId, String mailjetApiKey, String mailjetApiSecret) throws MailjetException {
+        // Implement this method if needed
+        return "";
+    }
+
+    @Override
+    public boolean sendCampaign(String campaignId, String mailjetApiKey, String mailjetApiSecret) throws MailjetException {
+        // Implement this method if needed
+        return false;
+    }
+
+    private MailjetClient createMailjetClient(String apiKey, String apiSecret) {
+        ClientOptions options = ClientOptions.builder()
+                .apiKey(apiKey)
+                .apiSecretKey(apiSecret)
+                .build();
+
+        return new MailjetClient(options);
+    }
+
+    private Long getOrCreateContactId(MailjetClient client, String email) throws MailjetException {
+        MailjetRequest getContactRequest = new MailjetRequest(Contact.resource)
+                .filter(Contact.EMAIL, email);
+
+        MailjetResponse getContactResponse = client.get(getContactRequest);
+
+        if (getContactResponse.getStatus() == 200 && !getContactResponse.getData().isEmpty()) {
+            return getContactResponse.getData().getJSONObject(0).getLong("ID");
+        } else {
+            MailjetRequest createContactRequest = new MailjetRequest(Contact.resource)
+                    .property("Email", email);
+
+            MailjetResponse createContactResponse = client.post(createContactRequest);
+
+            if (createContactResponse.getStatus() == 201 || createContactResponse.getStatus() == 200) {
+                return createContactResponse.getData().getJSONObject(0).getLong("ID");
+            } else {
+                throw new RuntimeException("Failed to create contact: " + createContactResponse.getStatus() + " " + createContactResponse.getData());
+            }
+        }
+    }
 }
