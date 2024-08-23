@@ -83,7 +83,7 @@ public class TurnerSpecialtiesServiceImpl implements ITurnerSpecialtiesService {
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
                 Sort.by(
-                        Sort.Order.asc("status"), // Puts 'PENDING' first if enum is sorted by ordinal or alphabetically
+                        Sort.Order.desc("status"), // Puts 'PENDING' first if enum is sorted by ordinal or alphabetically
                         Sort.Order.asc("consultationTime")
                 )
         );
