@@ -101,6 +101,7 @@ public class NextShiftRequestCommandHandler implements ICommandHandler<NextShift
         var localMessage = new LocalServiceMessage();
         localMessage.setService(service.getName());
         localMessage.setQueueId(place.getId().toString());
+        localMessage.setServiceId(service.getId().toString());
         localMessage.setShift(message.getShift());
         localMessage.setIdentification(turnDto.getIdentification());
         localMessage.setShiftId(turnDto.getId().toString());

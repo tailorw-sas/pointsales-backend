@@ -14,6 +14,7 @@ public class LocalServiceMessage {
     private String shiftId;
     private String shift;
     private String service;
+    private String serviceId;
 
     private String identification;
     private boolean preferential;
