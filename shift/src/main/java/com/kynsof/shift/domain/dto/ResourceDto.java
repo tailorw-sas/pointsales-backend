@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class ResourceDto implements Serializable {
@@ -20,5 +19,22 @@ public class ResourceDto implements Serializable {
     private String image;
     private EResourceStatus status;
     private String code;
+    private String externalCode;
 
+    public ResourceDto(UUID id, String name, String image, EResourceStatus status, String code) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.status = status;
+        this.code = code;
+    }
+
+    public ResourceDto(UUID id, String name, String image, EResourceStatus status, String code, String externalCode) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.status = status;
+        this.code = code;
+        this.externalCode = externalCode;
+    }
 }

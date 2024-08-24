@@ -1,6 +1,6 @@
 package com.kynsof.shift.domain.dto;
 
-import com.kynsof.shift.domain.excel.ImportProcessStatusEntity;
+import com.kynsof.shift.infrastructure.entity.redis.ImportProcessStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +22,8 @@ public class ImportProcessStatusDto {
         this.importProcessId = importProcessId;
     }
 
-    public ImportProcessStatusEntity toAggregate() {
-        return new ImportProcessStatusEntity(this.id,
+    public ImportProcessStatus toAggregate() {
+        return new ImportProcessStatus(this.id,
                 this.status,
                 this.importProcessId,
                 this.hasError,

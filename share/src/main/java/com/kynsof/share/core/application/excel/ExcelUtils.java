@@ -110,6 +110,7 @@ public class ExcelUtils {
             beanField.setFieldValue(ExcelUtils.getValueFromCell(cellInfo, cell, dataFormatter,formatter ), bean);
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ExcelException("Invalid excel content");
         }
     }

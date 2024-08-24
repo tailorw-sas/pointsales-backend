@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ResourceReadDataJPARepository extends JpaRepository<Resource, UUID>, JpaSpecificationExecutor<Resource> {
@@ -22,4 +23,8 @@ public interface ResourceReadDataJPARepository extends JpaRepository<Resource, U
 
     @Query("SELECT rs.service FROM ResourceService rs JOIN rs.resource r JOIN r.businessResources br WHERE rs.resource.id = :resourceId AND br.business.id = :businessId")
     List<Services> findAllServicesByResourceAndBusiness(@Param("resourceId") UUID resourceId, @Param("businessId") UUID businessId);
+
+    Optional<Resource> findResourceByExternalCode(String code);
+
+    boolean existsResourceByExternalCode(String code);
 }

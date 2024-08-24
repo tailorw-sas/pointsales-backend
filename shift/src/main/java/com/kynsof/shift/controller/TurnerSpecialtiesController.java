@@ -14,6 +14,7 @@ import com.kynsof.shift.application.command.tunerSpecialties.update.UpdateTurner
 import com.kynsof.shift.application.command.tunerSpecialties.update.UpdateTurnerSpecialtiesRequest;
 import com.kynsof.shift.application.query.TurnerSpecialtiesResponse;
 import com.kynsof.shift.application.query.tunerSpecialties.getById.FindTurnerSpecialtiesByIdQuery;
+import com.kynsof.shift.application.query.tunerSpecialties.importExcel.TurnerSpecialtiesSearchImportErrorQuery;
 import com.kynsof.shift.application.query.tunerSpecialties.search.GetSearchTurnerSpecialtiesQuery;
 import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
@@ -36,7 +37,7 @@ public class TurnerSpecialtiesController {
 
     private final IMediator mediator;
 
-    public TurnerSpecialtiesController(IMediator mediator){
+    public TurnerSpecialtiesController(IMediator mediator) {
 
         this.mediator = mediator;
     }
@@ -76,44 +77,44 @@ public class TurnerSpecialtiesController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request)
-    {
+    public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageableUtil.createPageable(request);
-        GetSearchTurnerSpecialtiesQuery query = new GetSearchTurnerSpecialtiesQuery(pageable, request.getFilter(),request.getQuery());
+        GetSearchTurnerSpecialtiesQuery query = new GetSearchTurnerSpecialtiesQuery(pageable, request.getFilter(), request.getQuery());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
 
-    @PostMapping(value = "/import",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Mono<ResponseEntity<?>> importPayment(@RequestPart("file") FilePart filePart,
-                                                 @RequestPart("importProcessId") String businessId){
+                                                 @RequestPart("importProcessId") String importProcessId,
+                                                 @RequestPart("businessId") String businessId
+    ) {
         return DataBufferUtils.join(filePart.content())
                 .flatMap(dataBuffer -> {
                     byte[] bytes = new byte[dataBuffer.readableByteCount()];
                     dataBuffer.read(bytes);
                     DataBufferUtils.release(dataBuffer);
-
-                    ImportTurnerSpecialtiesRequest importTurnerSpecialtiesRequest = new ImportTurnerSpecialtiesRequest(bytes,businessId);
+                    ImportTurnerSpecialtiesRequest importTurnerSpecialtiesRequest = new ImportTurnerSpecialtiesRequest(bytes, importProcessId, businessId);
                     ImportTunerSpecialtiesCommand importTunerSpecialtiesCommand = new ImportTunerSpecialtiesCommand(importTurnerSpecialtiesRequest);
                     try {
                         IMessage message = mediator.send(importTunerSpecialtiesCommand);
                         return Mono.just(ResponseEntity.ok(message));// Mono.just(ResponseEntity.ok(message));
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         return Mono.error(e);
                     }
 
-                } );
+                });
     }
 
     @GetMapping("/{importProcessId}/import-status")
-    public ResponseEntity<ImportProcessStatusResponse> importTurnerSpecialties(@PathVariable("importProcessId") String importProcessId){
+    public ResponseEntity<ImportProcessStatusResponse> importTurnerSpecialties(@PathVariable("importProcessId") String importProcessId) {
         ImportTurnerSpecialtiesStatusQuery statusQuery = new ImportTurnerSpecialtiesStatusQuery(importProcessId);
         return ResponseEntity.ok(mediator.send(statusQuery));
     }
-//    @PostMapping("/import-search")
-//    public ResponseEntity<?> importPayment(@RequestBody SearchRequest request){
-//        ImportTurnerSpecialtiesStatusQuery query= new ImportTurnerSpecialtiesStatusQuery();
-//        return ResponseEntity.ok(mediator.send(command));
-//    }
+    @PostMapping("/import-search")
+    public ResponseEntity<?> importPayment(@RequestBody SearchRequest request){
+        TurnerSpecialtiesSearchImportErrorQuery command = new TurnerSpecialtiesSearchImportErrorQuery(request);
+        return ResponseEntity.ok(mediator.send(command));
+    }
 
 }

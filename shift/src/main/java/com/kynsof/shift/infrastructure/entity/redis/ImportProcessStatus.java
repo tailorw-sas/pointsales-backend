@@ -1,4 +1,4 @@
-package com.kynsof.shift.domain.excel;
+package com.kynsof.shift.infrastructure.entity.redis;
 
 import com.kynsof.shift.domain.dto.ImportProcessStatusDto;
 import jakarta.persistence.Id;
@@ -8,17 +8,20 @@ import org.springframework.data.redis.core.index.Indexed;
 
 @AllArgsConstructor
 @RedisHash(value = "processstatus",timeToLive = 3600)
-public class ImportProcessStatusEntity {
+public class ImportProcessStatus {
     @Id
     String id;
     private String status;
     @Indexed
     private String importProcessId;
-
     private boolean hasError;
     private String exceptionMessage;
 
     public ImportProcessStatusDto toAggregate(){
-        return new ImportProcessStatusDto(this.id,this.status,this.importProcessId,this.hasError,this.exceptionMessage);
+        return new ImportProcessStatusDto(this.id,
+                this.status,
+                this.importProcessId,
+                this.hasError,
+                this.exceptionMessage);
     }
 }

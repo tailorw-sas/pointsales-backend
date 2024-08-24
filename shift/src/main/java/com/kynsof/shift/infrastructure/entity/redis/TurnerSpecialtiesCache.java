@@ -1,4 +1,4 @@
-package com.kynsof.shift.domain.excel;
+package com.kynsof.shift.infrastructure.entity.redis;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,25 +15,21 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-@RedisHash(value = "importcache",timeToLive = 14400)
-public class ImportCache implements Serializable {
+@RedisHash(value = "turnerspecialties", timeToLive = 14400)
+public class TurnerSpecialtiesCache implements Serializable {
     @Id
     private String id;
     @Indexed
     private String importProcessId;
     private int rowNumber;
-
     private Date appoimentDate;
-
     private String medicalRecord;
     private String patient;
-
     private String identificationNumber;
     private String codDoctor;
     private String doctor;
     private String codSpecialties;
     private String specialties;
-
 
 
 }

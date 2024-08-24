@@ -17,4 +17,7 @@ public interface IServiceService {
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
     PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId);
     Long countByNameAndNotId(String name, UUID id);
+
+    ServiceDto findByCode(String code);
+    boolean existServiceByCode(String code);
 }

@@ -18,8 +18,8 @@ public class CreateTurnerSpecialtiesEventHandler implements ApplicationListener<
 
     @Override
     public void onApplicationEvent(CreateTurnerSpecialtiesEvent event) {
-       List<CreateTurnerSpecialtiesCommand> command = event.getCommand();
+        List<CreateTurnerSpecialtiesCommand> command = event.getCommand();
         CreateTurnerSpecialtiesBulkCommand commandBulk = new CreateTurnerSpecialtiesBulkCommand(command);
-       mediator.send(commandBulk);
+        mediator.send(commandBulk);
     }
 }

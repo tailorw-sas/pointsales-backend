@@ -5,18 +5,7 @@ import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.List;
 
-public abstract class ExcelRuleValidator<T> {
-
-    protected final ApplicationEventPublisher applicationEventPublisher;
-
-    protected ExcelRuleValidator(ApplicationEventPublisher applicationEventPublisher) {
-        this.applicationEventPublisher = applicationEventPublisher;
-    }
-
-    public abstract boolean validate(T obj, List<ErrorField> errorFieldList);
-
-    protected void sendErrorEvent( Object rowError){
-        applicationEventPublisher.publishEvent(rowError);
-    }
+public interface ExcelRuleValidator<T> {
+    List<ErrorField> validate(T obj);
 }
 

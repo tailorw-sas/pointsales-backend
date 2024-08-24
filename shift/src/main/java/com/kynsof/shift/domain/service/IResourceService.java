@@ -18,7 +18,9 @@ public interface IResourceService {
     void delete(UUID id);
 
     ResourceDto findById(UUID id);
-    
+    ResourceDto findByCode(String code);
+    boolean existResourceByCode(String code);
+
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
     PaginatedResponse findResourcesWithAvailableSchedules(UUID businessId, UUID serviceId, LocalDate date,
