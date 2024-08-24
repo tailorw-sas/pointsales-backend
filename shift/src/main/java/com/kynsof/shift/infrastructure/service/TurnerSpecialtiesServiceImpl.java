@@ -1,11 +1,5 @@
 package com.kynsof.shift.infrastructure.service;
 
-import com.kynsof.shift.application.query.TurnerSpecialtiesResponse;
-import com.kynsof.shift.domain.dto.TurnerSpecialtiesDto;
-import com.kynsof.shift.domain.dto.enumType.ETurnerSpecialtiesStatus;
-import com.kynsof.shift.infrastructure.entity.TurnerSpecialties;
-import com.kynsof.shift.infrastructure.repository.command.TurnerSpecialtiesWriteDataJPARepository;
-import com.kynsof.shift.infrastructure.repository.query.TurnerSpecialtiesReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -13,16 +7,24 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import com.kynsof.shift.application.query.TurnerSpecialtiesResponse;
+import com.kynsof.shift.domain.dto.TurnerSpecialtiesDto;
+import com.kynsof.shift.domain.dto.enumType.ETurnerSpecialtiesStatus;
+import com.kynsof.shift.domain.service.ITurnerSpecialtiesService;
+import com.kynsof.shift.infrastructure.entity.TurnerSpecialties;
+import com.kynsof.shift.infrastructure.repository.command.TurnerSpecialtiesWriteDataJPARepository;
+import com.kynsof.shift.infrastructure.repository.query.TurnerSpecialtiesReadDataJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import com.kynsof.shift.domain.service.ITurnerSpecialtiesService;
 
 @Service
 public class TurnerSpecialtiesServiceImpl implements ITurnerSpecialtiesService {
@@ -77,7 +79,15 @@ public class TurnerSpecialtiesServiceImpl implements ITurnerSpecialtiesService {
         filterCriteria(filterCriteria);
 
         GenericSpecificationsBuilder<TurnerSpecialties> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-        Page<TurnerSpecialties> data = this.repositoryQuery.findAll(specifications, pageable);
+        Pageable sortedPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(
+                        Sort.Order.desc("status"), // Puts 'PENDING' first if enum is sorted by ordinal or alphabetically
+                        Sort.Order.asc("consultationTime")
+                )
+        );
+        Page<TurnerSpecialties> data = this.repositoryQuery.findAll(specifications, sortedPageable);
 
         return getPaginatedResponse(data);
     }

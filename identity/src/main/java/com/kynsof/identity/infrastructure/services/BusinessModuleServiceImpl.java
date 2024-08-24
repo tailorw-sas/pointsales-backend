@@ -18,6 +18,7 @@ import com.kynsof.share.core.infrastructure.specifications.GenericSpecifications
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -73,6 +74,7 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
     }
 
     @Override
+    @Transactional
     public void create(List<BusinessModuleDto> objects) {
         var businessModules = objects.stream()
                 .map(BusinessModule::new)
@@ -81,6 +83,7 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
     }
 
     @Override
+    @Transactional
     public void update(List<BusinessModuleDto> objects) {
         var businessModules = objects.stream()
                 .map(BusinessModule::new)
@@ -90,15 +93,16 @@ public class BusinessModuleServiceImpl implements IBusinessModuleService {
 
     @Override
     public void delete(BusinessModuleDto object) {
-        commandRepository.save(new BusinessModule(object));
+        commandRepository.delete(new BusinessModule(object));
     }
 
     @Override
+    @Transactional
     public void delete(List<BusinessModuleDto> deletes) {
         var deletesObject = deletes.stream()
                 .map(BusinessModule::new)
                 .toList();
-        commandRepository.saveAll(deletesObject);
+        commandRepository.deleteAll(deletesObject);
     }
 
     @Override
