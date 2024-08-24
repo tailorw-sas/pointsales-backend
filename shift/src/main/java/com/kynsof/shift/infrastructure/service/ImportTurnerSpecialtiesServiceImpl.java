@@ -156,7 +156,7 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
                 .inputStream(new ByteArrayInputStream(request.getFile()))
                 .setIgnoreHeaders(true)
                 .setReadLastActiveSheet(true)
-                .setStartReadRow(2)
+                .setStartReadRow(1)
                 .build();
     }
 
@@ -171,7 +171,8 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
                 row.getIdentificationNumber(),
                 row.getCodDoctor(), row.getDoctor(),
                 row.getCodSpecialties(),
-                row.getSpecialties()
+                row.getSpecialties(),
+                row.getAppoimentHour()
         );
         turnerSpecialtiesCacheRepository.save(turnerSpecialtiesCache);
     }
@@ -191,7 +192,7 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
                         this.getServiceFromCode(turnerSpecialtiesCache.getCodSpecialties()).getId().toString(),
                         ETurnerSpecialtiesStatus.PENDING.name(),
                         LocalDateTime.ofInstant(turnerSpecialtiesCache.getAppoimentDate().toInstant(), ZoneId.systemDefault()),
-                        LocalTime.now(),
+                        LocalTime.ofInstant(turnerSpecialtiesCache.getAppointmentHour().toInstant(),ZoneId.systemDefault()),
                         request.getBussinessId()
                 );
                 commandList.add(comman);
