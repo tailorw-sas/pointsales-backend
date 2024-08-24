@@ -32,6 +32,9 @@ public class TurnerSpecialtiesExcelRow implements Serializable {
     private String codSpecialties;
     @Cell(position = 7,cellType = CustomCellType.DATAFORMAT)
     private String specialties;
+    @Cell(position = 8,cellType = CustomCellType.DATE)
+    private Date appoimentHour;
+
 
 
 }

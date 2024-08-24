@@ -30,6 +30,7 @@ public class TurnerSpecialtiesCache implements Serializable {
     private String doctor;
     private String codSpecialties;
     private String specialties;
+    private Date appointmentHour;
 
 
 }
