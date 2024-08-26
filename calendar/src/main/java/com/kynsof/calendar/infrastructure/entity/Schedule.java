@@ -86,7 +86,7 @@ public class Schedule {
         this.date = scheduleDto.getDate();
         this.startTime = scheduleDto.getStartTime();
         this.endingTime = scheduleDto.getEndingTime();
-        this.stock = this.receipts.size();
+        this.stock = scheduleDto.getStock();
         this.initialStock = scheduleDto.getInitialStock();
         this.status = scheduleDto.getStatus();
         this.service = new Services(scheduleDto.getService());
