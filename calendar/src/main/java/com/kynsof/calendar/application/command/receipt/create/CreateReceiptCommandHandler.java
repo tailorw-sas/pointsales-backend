@@ -4,7 +4,6 @@ import com.kynsof.calendar.domain.dto.PatientDto;
 import com.kynsof.calendar.domain.dto.ReceiptDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.dto.ServiceDto;
-import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.domain.service.IPatientsService;
 import com.kynsof.calendar.domain.service.IReceiptService;
 import com.kynsof.calendar.domain.service.IScheduleService;
@@ -58,7 +57,7 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
 
         UUID id = service.create(receiptDto);
         _schedule.setStock(_schedule.getStock() - 1);
-        _schedule.setStatus(EStatusSchedule.RESERVED);
+       // _schedule.setStatus(EStatusSchedule.RESERVED);
         this.serviceSchedule.update(_schedule);
         command.setId(id);
     }

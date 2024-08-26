@@ -47,7 +47,7 @@ public class ReceiptService implements IReceiptService {
     @Override
     public UUID create(ReceiptDto receipt) {
 
-        if (receipt.getSchedule().getStatus() != EStatusSchedule.ACTIVE) {
+        if (receipt.getSchedule().getStatus() != EStatusSchedule.AVAILABLE) {
             throw new BusinessException(DomainErrorMessage.SCHEDULE_IS_NOT_AVAIBLE, "The selected schedule is not available.");
         }
         Receipt entity = this.receiptRepositoryCommand.save(new Receipt(receipt));
@@ -80,10 +80,11 @@ public class ReceiptService implements IReceiptService {
 
         switch (status) {
             case CANCEL: {
+                //TODO revisar la logica para poner agotada el scheduled
                 if (!receipt.getStatus().equals(EStatusReceipt.ATTENDED)) {
                     //Liberando el schedule
                     ScheduleDto _schedule = receipt.getSchedule();
-                    _schedule.setStatus(EStatusSchedule.ACTIVE);
+                    _schedule.setStatus(EStatusSchedule.AVAILABLE);
                     this.scheduleServiceImpl.create(_schedule);
 
                     receipt.setSchedule(null);
@@ -98,7 +99,7 @@ public class ReceiptService implements IReceiptService {
             case CONFIRMED: {
                 if (receipt.getStatus().equals(EStatusReceipt.PRE_RESERVE) || receipt.getStatus().equals(EStatusReceipt.CONFIRMED)) {
                     ScheduleDto _schedule = receipt.getSchedule();
-                    _schedule.setStatus(EStatusSchedule.RESERVED);
+                   // _schedule.setStatus(EStatusSchedule.RESERVED);
                     receipt.setSchedule(_schedule);
 
                     receipt.setStatus(status);
@@ -111,7 +112,7 @@ public class ReceiptService implements IReceiptService {
             }
             case ATTENDED: {
                 ScheduleDto _schedule = receipt.getSchedule();
-                _schedule.setStatus(EStatusSchedule.ATTENDED);
+               // _schedule.setStatus(EStatusSchedule.ATTENDED);
                 receipt.setSchedule(_schedule);
 
                 receipt.setStatus(status);

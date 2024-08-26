@@ -44,7 +44,7 @@ public class CreateScheduleCommandHandler implements ICommandHandler<CreateSched
         UUID id = UUID.randomUUID();
         int stock = command.getStock() == 0 ? 1 : command.getStock();
         UUID result = service.create(new ScheduleDto(id, _resource, _business, command.getDate(), command.getStartTime(), command.getEndingTime(),
-                stock, stock, EStatusSchedule.ACTIVE, _service));
+                stock, stock, EStatusSchedule.AVAILABLE, _service));
         command.setId(result);
 
 

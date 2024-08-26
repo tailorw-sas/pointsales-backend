@@ -75,7 +75,7 @@ public class ScheduleServiceImpl implements IScheduleService {
 
     @Override
     public boolean findByResourceAndDateAndStartTimeAndEndingTime(Resource resource, LocalDate date, LocalTime startTime, LocalTime endingTime) {
-        Schedule _schedule = this.repositoryQuery.findByResourceAndDateAndStartTimeAndEndingTimeAndStatus(resource, date, startTime, endingTime, EStatusSchedule.ACTIVE);
+        Schedule _schedule = this.repositoryQuery.findByResourceAndDateAndStartTimeAndEndingTimeAndStatus(resource, date, startTime, endingTime, EStatusSchedule.AVAILABLE);
         return _schedule != null;
     }
 
@@ -122,8 +122,7 @@ public class ScheduleServiceImpl implements IScheduleService {
 
     @Override
     public void delete(Schedule schedule) {
-        schedule.setStatus(EStatusSchedule.INACTIVE);
-        repositoryCommand.save(schedule);
+        repositoryCommand.delete(schedule);
     }
 
     @Override
