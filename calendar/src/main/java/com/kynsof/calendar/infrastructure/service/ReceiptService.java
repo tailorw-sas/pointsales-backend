@@ -17,7 +17,7 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,21 +30,25 @@ import java.util.UUID;
 @Service
 public class ReceiptService implements IReceiptService {
 
-    @Autowired
-    private ReceiptReadDataJPARepository receiptRepositoryQuery;
+    private final ReceiptReadDataJPARepository receiptRepositoryQuery;
 
-    @Autowired
-    private ReceiptWriteDataJPARepository receiptRepositoryCommand;
+    private final ReceiptWriteDataJPARepository receiptRepositoryCommand;
 
-    @Autowired
-    private ScheduleServiceImpl scheduleServiceImpl;
+    private final ScheduleServiceImpl scheduleServiceImpl;
 
-    @Autowired
-    private ServiceServiceImpl serviceServiceImpl;
 
+
+    public ReceiptService(ReceiptReadDataJPARepository receiptRepositoryQuery,
+                          ReceiptWriteDataJPARepository receiptRepositoryCommand, ScheduleServiceImpl scheduleServiceImpl) {
+        this.receiptRepositoryQuery = receiptRepositoryQuery;
+        this.receiptRepositoryCommand = receiptRepositoryCommand;
+        this.scheduleServiceImpl = scheduleServiceImpl;
+
+    }
 
 
     @Override
+    @Transactional
     public UUID create(ReceiptDto receipt) {
 
         if (receipt.getSchedule().getStatus() != EStatusSchedule.AVAILABLE) {
