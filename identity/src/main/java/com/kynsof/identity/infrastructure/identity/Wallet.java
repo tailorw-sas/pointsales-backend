@@ -30,8 +30,8 @@ public class Wallet {
     private BigDecimal balance;
 
     @OneToOne()
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "user_system_id", nullable = false)
+    private UserSystem userSystem;
 
     @OneToMany(mappedBy = "wallet",fetch = FetchType.EAGER)
     private Set<WalletTransaction> transactions = new HashSet<>();
@@ -47,12 +47,12 @@ public class Wallet {
     public Wallet(WalletDto dto) {
         this.id = dto.getId();
         this.balance = dto.getBalance();
-        this.customer = new Customer(dto.getCustomer());
+        this.userSystem = new UserSystem(dto.getCustomer());
      //   this.transactions = dto.getTransactions().stream().map(WalletTransaction::new).collect(Collectors.toSet());
     }
     public WalletDto toAggregate() {
         List<WalletTransactionDto> walletTransactions = transactions != null ?
                 transactions.stream().map(WalletTransaction::toAggregate).collect(Collectors.toList()) : new ArrayList<>();
-        return new WalletDto(id,balance,customer.toAggregate(),walletTransactions );
+        return new WalletDto(id,balance,userSystem.toAggregate(),walletTransactions );
     }
 }

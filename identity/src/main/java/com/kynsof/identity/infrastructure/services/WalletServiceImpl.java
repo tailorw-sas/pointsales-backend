@@ -3,8 +3,8 @@ package com.kynsof.identity.infrastructure.services;
 import com.kynsof.identity.domain.dto.WalletDto;
 import com.kynsof.identity.domain.interfaces.service.IWalletService;
 import com.kynsof.identity.infrastructure.identity.Wallet;
+import com.kynsof.identity.infrastructure.repository.command.WalletWriteDataJPARepository;
 import com.kynsof.identity.infrastructure.repository.query.WalletReadDataJPARepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,26 +14,29 @@ import java.util.UUID;
 public class WalletServiceImpl implements IWalletService {
 
 
-    @Autowired
-    private WalletReadDataJPARepository repositoryQuery;
+    private final WalletReadDataJPARepository repositoryQuery;
+    private final WalletWriteDataJPARepository repositoryWrite;
+
+    public WalletServiceImpl(WalletReadDataJPARepository repositoryQuery, WalletWriteDataJPARepository repositoryWrite) {
+        this.repositoryQuery = repositoryQuery;
+        this.repositoryWrite = repositoryWrite;
+    }
 
     @Override
     public WalletDto findByCustomerId(UUID customerId) {
         Optional<Wallet> wallet = repositoryQuery.findByCustomerId(customerId);
-        if (wallet.isPresent()) {
-
-        return wallet.get().toAggregate();
-        }
-        return new WalletDto();
+        return wallet.map(Wallet::toAggregate).orElse(null);
     }
 
-//    @Autowired
+    //    @Autowired
 //    private BusinessModuleReadDataJPARepository businessModuleReadDataJPARepository;
 //
-//    @Override
-//    public void create(BusinessDto object) {
-//        this.repositoryCommand.save(new Business(object));
-//    }
+    @Override
+    public UUID create(WalletDto object) {
+        Wallet value = new Wallet(object);
+        var wallet = repositoryWrite.save(value);
+        return wallet.getId();
+    }
 //
 //    @Override
 //    public void update(BusinessDto objectDto) {
