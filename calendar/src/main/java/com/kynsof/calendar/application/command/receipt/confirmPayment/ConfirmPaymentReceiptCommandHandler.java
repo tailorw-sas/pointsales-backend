@@ -42,45 +42,45 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
         _receipt.setSessionId(command.getSessionId());
         _receipt.setIpAddressPayment(command.getIpAddress());
         _receipt.setUserAgentPayment(command.getUserAgent());
-
-        if (transactionsState.getValue().getStatus().getStatus().equals(EStatusReceipt.PAYMENT.toString())) {
-            _receipt.setStatus(command.getStatus());
-            //  _schedule.setStatus(EStatusSchedule.RESERVED);
-            //  this.serviceSchedule.update(_schedule);
-//            Map<String, Object> parameters = new HashMap<>();
-//            parameters.put("logo", _schedule.getBusiness().getLogo());
-//            parameters.put("cita", _receipt.getId().toString());
-//            parameters.put("nombres", _patient.getName() + " " + _patient.getLastName());
-//            parameters.put("identidad", _patient.getIdentification());
-//            parameters.put("fecha", _schedule.getDate());
-//            parameters.put("hora", _schedule.getStartTime());
-//            parameters.put("servicio", _service.getName());
-//            parameters.put("tipo", _service.getType().getName());
-//            parameters.put("direccion", _schedule.getBusiness().getAddress());
-//            parameters.put("lugar", _schedule.getBusiness().getName());
-//            parameters.put("fecha_registro", LocalDateTime.now());
-//            parameters.put("URL_QR", "http://d3ksvzqyx4up5m.cloudfront.net/Ttt_2024-03-14_19-03-33.png");
-//
-//            GenerateReportKafka report = new GenerateReportKafka();
-//            report.setParameters(parameters);
-//            report.setEmail(_patient.getEmail());
-//            report.setJasperReportCode("7777");
-//
-//            this.producerGenerateReportEventService.create(report);
-        }
+        _receipt.setStatus(command.getStatus());
+//        if (transactionsState.getValue().getStatus().getStatus().equals(EStatusReceipt.PAYMENT.toString())) {
+//            _receipt.setStatus(command.getStatus());
+//            //  _schedule.setStatus(EStatusSchedule.RESERVED);
+//            //  this.serviceSchedule.update(_schedule);
+////            Map<String, Object> parameters = new HashMap<>();
+////            parameters.put("logo", _schedule.getBusiness().getLogo());
+////            parameters.put("cita", _receipt.getId().toString());
+////            parameters.put("nombres", _patient.getName() + " " + _patient.getLastName());
+////            parameters.put("identidad", _patient.getIdentification());
+////            parameters.put("fecha", _schedule.getDate());
+////            parameters.put("hora", _schedule.getStartTime());
+////            parameters.put("servicio", _service.getName());
+////            parameters.put("tipo", _service.getType().getName());
+////            parameters.put("direccion", _schedule.getBusiness().getAddress());
+////            parameters.put("lugar", _schedule.getBusiness().getName());
+////            parameters.put("fecha_registro", LocalDateTime.now());
+////            parameters.put("URL_QR", "http://d3ksvzqyx4up5m.cloudfront.net/Ttt_2024-03-14_19-03-33.png");
+////
+////            GenerateReportKafka report = new GenerateReportKafka();
+////            report.setParameters(parameters);
+////            report.setEmail(_patient.getEmail());
+////            report.setJasperReportCode("7777");
+////
+////            this.producerGenerateReportEventService.create(report);
+//        }
 
         if (transactionsState.getValue().getStatus().getStatus().equals(EStatusReceipt.CANCEL.toString())) {
             //TO DO
             //Liverar el stock
             //Enviar Correo de cancelado
             _receipt.setStatus(command.getStatus());
-            _receipt.getSchedule().setStock(_receipt.getSchedule().getStock() - 1);
+            _receipt.getSchedule().setStock(_receipt.getSchedule().getStock() + 1);
 
             //  cleanStock(_schedule);
 
         }
         if (transactionsState.getValue().getStatus().getStatus().equals(EStatusReceipt.REJECTED.toString())) {
-            _receipt.getSchedule().setStock(_receipt.getSchedule().getStock() - 1);
+            _receipt.getSchedule().setStock(_receipt.getSchedule().getStock() + 1);
             //TO DO
             //Validar el estado del pago, si el estado es pendiente de pago o pago hacer el proceso de confirmado ,sino cambiar el estado
             //  cleanStock(_schedule);
@@ -89,11 +89,11 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
             _receipt.setStatus(command.getStatus());
 
         }
-        if (command.getStatus().equals(EStatusReceipt.PENDING)) {
-            //TODO
-
-            _receipt.setStatus(command.getStatus());
-        }
+//        if (command.getStatus().equals(EStatusReceipt.PENDING)) {
+//            //TODO
+//
+//            _receipt.setStatus(command.getStatus());
+//        }
 
         service.update(_receipt);
     }
