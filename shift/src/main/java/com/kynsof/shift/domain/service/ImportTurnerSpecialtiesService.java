@@ -11,4 +11,5 @@ public interface ImportTurnerSpecialtiesService {
     public ImportProcessStatusResponse turnerSpecialtiesImportStatus(String importProcessId);
 
     public PaginatedResponse getTurnerSpecialtiesImportError(String importProcessId, Pageable pageable);
+
 }
