@@ -38,7 +38,7 @@ public class CreateScheduleReceiptCommandHandler implements ICommandHandler<Crea
         PatientDto _patient = this.patientsService.findById(command.getUser());
         UUID id = UUID.randomUUID();
         ScheduleDto _scheduled = new ScheduleDto(id, _resource, _business, command.getDate(), command.getStartTime(), command.getEndingTime(),
-                command.getStock(), command.getStock(), EStatusSchedule.ACTIVE,_service);
+                command.getStock(), command.getStock(), EStatusSchedule.AVAILABLE,_service);
        UUID scheduledId = service.create(_scheduled);
         command.setId(id);
 

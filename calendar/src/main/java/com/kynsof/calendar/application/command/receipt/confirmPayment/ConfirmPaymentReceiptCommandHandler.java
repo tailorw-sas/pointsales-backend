@@ -5,7 +5,6 @@ import com.kynsof.calendar.domain.dto.ReceiptDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
-import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.domain.service.IPatientsService;
 import com.kynsof.calendar.domain.service.IReceiptService;
 import com.kynsof.calendar.domain.service.IScheduleService;
@@ -60,7 +59,7 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
 
         if (transactionsState.getValue().getStatus().getStatus().equals(EStatusReceipt.APPROVED.toString())) {
             _receipt.setStatus(command.getStatus());
-            _schedule.setStatus(EStatusSchedule.RESERVED);
+          //  _schedule.setStatus(EStatusSchedule.RESERVED);
             this.serviceSchedule.update(_schedule);
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("logo", _schedule.getBusiness().getLogo());

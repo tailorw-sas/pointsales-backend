@@ -70,7 +70,7 @@ public class CreateScheduleByLoteGoogleStyleCommandHandler implements ICommandHa
                         end,
                         day.getStock(),
                         1,
-                        EStatusSchedule.ACTIVE,
+                        EStatusSchedule.AVAILABLE,
                         service
                 ));
             } else {

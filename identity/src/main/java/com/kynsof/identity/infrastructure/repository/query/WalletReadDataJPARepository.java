@@ -14,6 +14,6 @@ import java.util.UUID;
 public interface WalletReadDataJPARepository extends JpaRepository<Wallet, UUID>, JpaSpecificationExecutor<Wallet> {
 
     Page<Wallet> findAll(Specification specification, Pageable pageable);
-    @Query("SELECT b  FROM Wallet b WHERE b.customer.id = :customerId")
+    @Query("SELECT b  FROM Wallet b WHERE b.userSystem.id = :customerId")
     Optional<Wallet> findByCustomerId(UUID customerId);
 }

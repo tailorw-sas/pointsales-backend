@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface IWalletService {
 
-    //    void create(WalletDto object);
+    UUID create(WalletDto object);
 //
 //    void update(WalletDto object);
 //

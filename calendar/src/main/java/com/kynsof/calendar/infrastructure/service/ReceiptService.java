@@ -17,7 +17,7 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,25 +30,34 @@ import java.util.UUID;
 @Service
 public class ReceiptService implements IReceiptService {
 
-    @Autowired
-    private ReceiptReadDataJPARepository receiptRepositoryQuery;
+    private final ReceiptReadDataJPARepository receiptRepositoryQuery;
 
-    @Autowired
-    private ReceiptWriteDataJPARepository receiptRepositoryCommand;
+    private final ReceiptWriteDataJPARepository receiptRepositoryCommand;
 
-    @Autowired
-    private ScheduleServiceImpl scheduleServiceImpl;
+    private final ScheduleServiceImpl scheduleServiceImpl;
 
-    @Autowired
-    private ServiceServiceImpl serviceServiceImpl;
 
+
+    public ReceiptService(ReceiptReadDataJPARepository receiptRepositoryQuery,
+                          ReceiptWriteDataJPARepository receiptRepositoryCommand, ScheduleServiceImpl scheduleServiceImpl) {
+        this.receiptRepositoryQuery = receiptRepositoryQuery;
+        this.receiptRepositoryCommand = receiptRepositoryCommand;
+        this.scheduleServiceImpl = scheduleServiceImpl;
+
+    }
 
 
     @Override
+    @Transactional
     public UUID create(ReceiptDto receipt) {
 
-        if (receipt.getSchedule().getStatus() != EStatusSchedule.ACTIVE) {
+        if (receipt.getSchedule().getStatus() != EStatusSchedule.AVAILABLE) {
             throw new BusinessException(DomainErrorMessage.SCHEDULE_IS_NOT_AVAIBLE, "The selected schedule is not available.");
+        }
+        var stock = receipt.getSchedule().getStock() - 1;
+        receipt.getSchedule().setStock(stock);
+        if (stock == 0) {
+            receipt.getSchedule().setStatus(EStatusSchedule.SOLD_OUT);
         }
         Receipt entity = this.receiptRepositoryCommand.save(new Receipt(receipt));
         return entity.getId();
@@ -80,10 +89,11 @@ public class ReceiptService implements IReceiptService {
 
         switch (status) {
             case CANCEL: {
+                //TODO revisar la logica para poner agotada el scheduled
                 if (!receipt.getStatus().equals(EStatusReceipt.ATTENDED)) {
                     //Liberando el schedule
                     ScheduleDto _schedule = receipt.getSchedule();
-                    _schedule.setStatus(EStatusSchedule.ACTIVE);
+                    _schedule.setStatus(EStatusSchedule.AVAILABLE);
                     this.scheduleServiceImpl.create(_schedule);
 
                     receipt.setSchedule(null);
@@ -98,7 +108,7 @@ public class ReceiptService implements IReceiptService {
             case CONFIRMED: {
                 if (receipt.getStatus().equals(EStatusReceipt.PRE_RESERVE) || receipt.getStatus().equals(EStatusReceipt.CONFIRMED)) {
                     ScheduleDto _schedule = receipt.getSchedule();
-                    _schedule.setStatus(EStatusSchedule.RESERVED);
+                   // _schedule.setStatus(EStatusSchedule.RESERVED);
                     receipt.setSchedule(_schedule);
 
                     receipt.setStatus(status);
@@ -111,7 +121,7 @@ public class ReceiptService implements IReceiptService {
             }
             case ATTENDED: {
                 ScheduleDto _schedule = receipt.getSchedule();
-                _schedule.setStatus(EStatusSchedule.ATTENDED);
+               // _schedule.setStatus(EStatusSchedule.ATTENDED);
                 receipt.setSchedule(_schedule);
 
                 receipt.setStatus(status);

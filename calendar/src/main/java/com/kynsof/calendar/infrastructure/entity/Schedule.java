@@ -15,6 +15,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -61,10 +63,9 @@ public class Schedule {
     @JoinColumn(name = "service_id")
     private Services service;
 
-    @PrePersist
-    public void prePersist() {
-        this.initialStock = this.stock;
-    }
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("schedule") // Evita la recursión infinita al serializar a JSON
+    private List<Receipt> receipts = new ArrayList<>();
 
     @CreationTimestamp
     @Column(updatable = false)

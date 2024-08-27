@@ -78,7 +78,7 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
             "WHERE s.resource.id = :resourceId " +
             "AND s.business.id = :businessId " +
             "AND s.date BETWEEN :startDate AND :endDate " +
-            "AND s.status = 'ACTIVE' " +
+            "AND s.status = 'AVAILABLE' " +
             "AND s.stock > 0 " +
             "ORDER BY s.date ASC, s.startTime ASC")
     List<ScheduleAvailabilityDto> findAvailableSchedulesByResourceAndBusinessAndDateRange(
@@ -97,7 +97,7 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
             "JOIN BusinessServices bs ON bs.business = b AND bs.services.id = s.service.id " +
             "WHERE s.service.id = :serviceId " +
             "AND s.date BETWEEN :startDate AND :endDate " +
-            "AND s.status = 'ACTIVE' " +
+            "AND s.status = 'AVAILABLE' " +
             "AND b.name LIKE CONCAT('%', :businessName, '%') " +
             "AND s.stock > 0 " +
             "GROUP BY s.business.id, s.business.name, s.business.address, s.business.logo, s.business.latitude, s.business.longitude " +

@@ -16,6 +16,6 @@ import java.util.UUID;
 public class WalletDto {
     private UUID id;
     private BigDecimal balance;
-    private CustomerDto customer;
+    private UserSystemDto customer;
     private List<WalletTransactionDto> transactions;
 }
