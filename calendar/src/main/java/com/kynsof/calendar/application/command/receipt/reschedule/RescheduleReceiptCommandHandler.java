@@ -24,7 +24,7 @@ public class RescheduleReceiptCommandHandler implements ICommandHandler<Reschedu
     @Override
     public void handle(RescheduleReceiptCommand command) {
         ReceiptDto _receipt = this.service.findById(command.getReceiptId());
-        if(!_receipt.getStatus().equals(EStatusReceipt.APPROVED)){
+        if(!_receipt.getStatus().equals(EStatusReceipt.PAYMENT)){
             throw new UserNotFoundException("No se puede reagendar la cita", new ErrorField("scheduled",
                     "No se puede reagendar la cita"));
         }

@@ -104,7 +104,7 @@ public class Receipt {
 
     @PreUpdate
     public void onPreUpdate() {
-        if (EStatusReceipt.APPROVED.equals(status) && !status.equals(previousStatus)) {
+        if (EStatusReceipt.PAYMENT.equals(status) && !status.equals(previousStatus)) {
             paymentDate = LocalDateTime.now();
         }
     }

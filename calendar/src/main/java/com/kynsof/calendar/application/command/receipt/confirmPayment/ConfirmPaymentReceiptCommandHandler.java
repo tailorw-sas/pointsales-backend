@@ -43,7 +43,7 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
         _receipt.setIpAddressPayment(command.getIpAddress());
         _receipt.setUserAgentPayment(command.getUserAgent());
 
-        if (transactionsState.getValue().getStatus().getStatus().equals(EStatusReceipt.APPROVED.toString())) {
+        if (transactionsState.getValue().getStatus().getStatus().equals(EStatusReceipt.PAYMENT.toString())) {
             _receipt.setStatus(command.getStatus());
             //  _schedule.setStatus(EStatusSchedule.RESERVED);
             //  this.serviceSchedule.update(_schedule);

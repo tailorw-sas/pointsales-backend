@@ -36,8 +36,8 @@ public class UpdateReceiptCommandHandler implements ICommandHandler<UpdateReceip
             ScheduleDto _schedule = serviceSchedule.findById(receipt.getSchedule().getId());
 
             if (!dto.getStatus().toString().equals(command.getStatus())
-                    && command.getStatus().equals(EStatusReceipt.APPROVED.toString())){
-                dto.setStatus(EStatusReceipt.APPROVED);
+                    && command.getStatus().equals(EStatusReceipt.PAYMENT.toString())){
+                dto.setStatus(EStatusReceipt.PAYMENT);
                 TransactionsState transactionsState = paymentServiceClient.getTransactionsState(Integer.parseInt(command.getRequestId()));
                 dto.setAuthorizationCode(transactionsState.getValue().getAuthorization());
               //  _schedule.setStatus(EStatusSchedule.ATTENDED);
