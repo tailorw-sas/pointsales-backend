@@ -17,7 +17,6 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,15 +30,19 @@ import java.util.UUID;
 @Service
 public class WalletTransactionServiceImpl implements IWalletTransactionService {
 
-    @Autowired
-    private WalletTransactionWriteDataJPARepository repositoryCommand;
+    private final WalletTransactionWriteDataJPARepository repositoryCommand;
 
-    @Autowired
-    private WalletTransactionReadDataJPARepository repositoryQuery;
+    private final WalletTransactionReadDataJPARepository repositoryQuery;
 
-    @Autowired
-    private WalletWriteDataJPARepository walletWriteDataJPARepository;
+    private final WalletWriteDataJPARepository walletWriteDataJPARepository;
 
+    public WalletTransactionServiceImpl(WalletTransactionWriteDataJPARepository repositoryCommand,
+                                        WalletTransactionReadDataJPARepository repositoryQuery,
+                                        WalletWriteDataJPARepository walletWriteDataJPARepository) {
+        this.repositoryCommand = repositoryCommand;
+        this.repositoryQuery = repositoryQuery;
+        this.walletWriteDataJPARepository = walletWriteDataJPARepository;
+    }
 
 
     @Override

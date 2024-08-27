@@ -79,7 +79,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     UUID_NOT_FORMAT(1004, Series.DOMAIN_ERROR, "Formato de UUID incorrecto."),
     STATUS_NOT_FORMAT(1005, Series.DOMAIN_ERROR, "Estado no aceptado."),
     ITEM_ALREADY_EXITS(1006, Series.DOMAIN_ERROR, "Ya existe el elemento en el sistema."),
-    DBCONECTION_NOT_FOUND(1007, Series.DOMAIN_ERROR, "Conexión no encontrada."),
+    DB_CONNECTION_NOT_FOUND(1007, Series.DOMAIN_ERROR, "Conexión no encontrada."),
+    PAYMENT_NOT_FOUND(1009, Series.DOMAIN_ERROR, "No se pudo procesar el pago."),
     PASSWORD_MISMATCH(1008, Series.DOMAIN_ERROR, "La contraseña no coincide.");
     private static final DomainErrorMessage[] VALUES;
 

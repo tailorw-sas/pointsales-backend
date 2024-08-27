@@ -7,6 +7,8 @@ import com.kynsof.calendar.infrastructure.service.kafka.producer.ProducerGenerat
 import com.kynsof.share.core.application.payment.domain.placeToPlay.response.TransactionsState;
 import com.kynsof.share.core.application.payment.domain.service.IPaymentServiceClient;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,6 +28,9 @@ public class ConfirmPaymentReceiptCommandHandler implements ICommandHandler<Conf
     @Override
     public void handle(ConfirmPaymentReceiptCommand command) {
         TransactionsState transactionsState = paymentServiceClient.getTransactionsState(Integer.parseInt(command.getRequestId()));
+        if(transactionsState == null || !transactionsState.getValue().getStatus().getStatus().equals("APPROVED")) {
+            throw new BusinessException(DomainErrorMessage.PAYMENT_NOT_FOUND, DomainErrorMessage.PAYMENT_NOT_FOUND.toString());
+        }
         ReceiptDto _receipt = this.service.findById(command.getReceiptId());
         //  PatientDto _patient = this.servicePatient.findById(command.getUserId());
         //   ScheduleDto _schedule = this.serviceSchedule.findById(command.getScheduleId());

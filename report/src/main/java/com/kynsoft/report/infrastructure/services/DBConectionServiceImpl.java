@@ -72,8 +72,8 @@ public class DBConectionServiceImpl implements IDBConectionService {
         if (dbConection.isPresent()) {
             return dbConection.get().toAggregate();
         }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.DBCONECTION_NOT_FOUND,
-                new ErrorField("id",  DomainErrorMessage.DBCONECTION_NOT_FOUND.getReasonPhrase())));
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.DB_CONNECTION_NOT_FOUND,
+                new ErrorField("id",  DomainErrorMessage.DB_CONNECTION_NOT_FOUND.getReasonPhrase())));
     }
 
     @Override
