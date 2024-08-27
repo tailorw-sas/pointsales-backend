@@ -118,6 +118,7 @@ public class ImportTurnerSpecialtiesServiceImpl implements ImportTurnerSpecialti
                 page.getTotalElements(),
                 page.getSize(),
                 page.getNumber());
+
     }
 
     private void sendInitImportProcessEvent(String importProcessId) {

@@ -115,6 +115,7 @@ public class TurnerSpecialtiesController {
     public ResponseEntity<?> importPayment(@RequestBody SearchRequest request){
         TurnerSpecialtiesSearchImportErrorQuery command = new TurnerSpecialtiesSearchImportErrorQuery(request);
         return ResponseEntity.ok(mediator.send(command));
+
     }
 
 }

@@ -9,5 +9,6 @@ public class TurnerSpecialtiesSearchImportErrorQuery implements IQuery {
     private final SearchRequest searchRequest;
     public TurnerSpecialtiesSearchImportErrorQuery(SearchRequest request) {
         this.searchRequest=request;
+
     }
 }

@@ -22,6 +22,7 @@ public class TurnerSpecialtiesSearchImportErrorQueryHandler implements
     public PaginatedResponse handle(TurnerSpecialtiesSearchImportErrorQuery query) {
         Pageable pageable =PageableUtil.createPageable(query.getSearchRequest());
         String importProcessId=query.getSearchRequest().getQuery();
+
         return importTurnerSpecialtiesService.getTurnerSpecialtiesImportError(importProcessId,pageable);
     }
 }
