@@ -79,7 +79,6 @@ public class Receipt {
         this.status = receipt.getStatus();
         this.user = new Patient(receipt.getUser());
         this.schedule = receipt.getSchedule() != null ? new Schedule(receipt.getSchedule()) : null;
-       // this.service = new Services(receipt.getService());
         this.requestId = receipt.getRequestId();
         this.authorizationCode = receipt.getAuthorizationCode();
         this.reference = receipt.getReference();
