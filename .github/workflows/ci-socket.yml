@@ -12,7 +12,6 @@ on:
     paths:
       - .github/workflows/ci-socket.yml
       - 'socketService/**'
-      - 'share/**'
 jobs:
   build-push:
     runs-on: ubuntu-latest
