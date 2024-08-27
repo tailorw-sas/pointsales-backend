@@ -44,7 +44,7 @@ public class CreateReceiptCommandHandler implements ICommandHandler<CreateReceip
 
         ReceiptDto receiptDto = new ReceiptDto(
                 UUID.randomUUID(),
-                command.getPrice(),
+                command.getPrice() == null ? _service.getNormalAppointmentPrice() : command.getPrice(),
                 command.getExpress(),
                 command.getReasons(),
                 _patient,
