@@ -50,8 +50,6 @@ public class Services {
     @OneToMany(mappedBy = "service",fetch = FetchType.LAZY)
     private Set<ResourceService> resourceServices = new HashSet<>();
 
-    @OneToMany(mappedBy = "services",fetch = FetchType.LAZY)
-    private Set<Turn> turns = new HashSet<>();
 
     @OneToMany(mappedBy = "service",fetch = FetchType.LAZY)
     private Set<Schedule> schedules = new HashSet<>();
