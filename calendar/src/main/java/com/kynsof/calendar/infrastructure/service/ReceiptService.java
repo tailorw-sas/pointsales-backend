@@ -80,6 +80,7 @@ public class ReceiptService implements IReceiptService {
     }
 
     @Override
+    @Transactional
     public void update(ReceiptDto dto) {
         Receipt receipt = new Receipt(dto);
         this.receiptRepositoryCommand.save(receipt);

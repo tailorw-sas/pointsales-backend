@@ -50,20 +50,20 @@ public class Schedule {
     private EStatusSchedule status;
 
     @JsonIgnoreProperties({"picture", "services", "qualifications"})
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "resource_id")
     private Resource resource;
 
     @JsonIgnoreProperties({"logo", "description", "resources", "services", "schedules", "receipts"})
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "business_id")
     private Business business;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "service_id")
     private Services service;
 
-    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "schedule")
     @JsonIgnoreProperties("schedule") // Evita la recursión infinita al serializar a JSON
     private List<Receipt> receipts = new ArrayList<>();
 
