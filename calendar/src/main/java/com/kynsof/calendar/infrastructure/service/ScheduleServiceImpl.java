@@ -156,4 +156,9 @@ public class ScheduleServiceImpl implements IScheduleService {
         return this.repositoryQuery.findOverlappingSchedules(resourceId, date, startTime, endingTime);
     }
 
+    @Override
+    public List<ScheduleDto> findSchedulesWithEqualStock(LocalDate date) {
+        return this.repositoryQuery.findSchedulesWithEqualStock(date).stream().map(Schedule::toAggregate).collect(Collectors.toList());
+    }
+
 }
