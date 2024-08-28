@@ -6,9 +6,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
+import java.io.Serializable;
+
 @AllArgsConstructor
 @RedisHash(value = "processstatus",timeToLive = 3600)
-public class ImportProcessStatus {
+public class ImportProcessStatus implements Serializable {
     @Id
     String id;
     private String status;
