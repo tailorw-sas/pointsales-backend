@@ -20,6 +20,7 @@ public class UpdateScheduleCommandHandler implements ICommandHandler<UpdateSched
         scheduleDto.setStartTime(command.getStartTime());
         scheduleDto.setEndingTime(command.getEndingTime());
         scheduleDto.setDate(command.getDate());
+        scheduleDto.setStock(command.getStock());
         scheduleService.update(scheduleDto);
     }
 }
