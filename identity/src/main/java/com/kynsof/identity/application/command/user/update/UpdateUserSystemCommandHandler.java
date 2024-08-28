@@ -1,27 +1,26 @@
 package com.kynsof.identity.application.command.user.update;
 
+import com.kynsof.identity.application.command.auth.registry.UserRequest;
 import com.kynsof.identity.domain.dto.UserSystemDto;
+import com.kynsof.identity.domain.interfaces.service.IAuthService;
 import com.kynsof.identity.domain.interfaces.service.IUserSystemService;
 import com.kynsof.identity.domain.rules.usersystem.ModuleEmailMustBeUniqueRule;
 import com.kynsof.identity.domain.rules.usersystem.ModuleUserNameMustBeUniqueRule;
-import com.kynsof.identity.infrastructure.services.KeycloakProvider;
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerUserSystemUpdateEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
-import org.keycloak.admin.client.resource.UserResource;
-import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUserSystemCommand> {
 
     private final IUserSystemService systemService;
-    private final KeycloakProvider keycloakProvider;
+    private final IAuthService keycloakProvider;
     private final ProducerUserSystemUpdateEventService resourceEventService;
 
-    public UpdateUserSystemCommandHandler(IUserSystemService systemService, KeycloakProvider keycloakProvider, ProducerUserSystemUpdateEventService resourceEventService) {
+    public UpdateUserSystemCommandHandler(IUserSystemService systemService, IAuthService keycloakProvider, ProducerUserSystemUpdateEventService resourceEventService) {
         this.systemService = systemService;
         this.keycloakProvider = keycloakProvider;
         this.resourceEventService = resourceEventService;
@@ -78,27 +77,8 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
         }
     }
 
-    private void updateUserKeycloak(UpdateUserSystemCommand userRequest, String userKeycloakId) {
-        try {
-            UserResource userResource = keycloakProvider.getUserResource().get(userKeycloakId);
-            UserRepresentation user = userResource.toRepresentation();
-            if (userRequest.getUserName() != null) {
-                user.setUsername(userRequest.getUserName());
-            }
-            if (userRequest.getName() != null) {
-                user.setFirstName(userRequest.getName());
-            }
-            if (userRequest.getLastName() != null) {
-                user.setLastName(userRequest.getLastName());
-            }
-            if (userRequest.getEmail() != null) {
-                user.setEmail(userRequest.getEmail());
-                user.setEmailVerified(true);
-            }
-            user.setEnabled(true);
-            userResource.update(user);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to update user.", e);
-        }
+    private void updateUserKeycloak(UpdateUserSystemCommand command, String userKeycloakId) {
+        UserRequest userRequest = new UserRequest(command.getUserName(), command.getEmail(), command.getImage(), command.getLastName(), userKeycloakId);
+        keycloakProvider.updateUser(userKeycloakId, userRequest);
     }
 }

@@ -17,4 +17,5 @@ public interface IAuthService {
     Boolean changePassword(String userId, String newPassword);
     Boolean firstChangePassword(String userId, String email, String newPassword, String oldPassword);
     Boolean delete(String userId);
+    void updateUser(String userId, UserRequest userRequest);
 }

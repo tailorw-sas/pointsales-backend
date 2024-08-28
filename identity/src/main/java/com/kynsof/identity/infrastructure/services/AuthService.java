@@ -16,10 +16,7 @@ import com.kynsof.share.core.domain.kafka.entity.UserOtpKafka;
 import com.kynsof.share.core.domain.response.ErrorField;
 import io.micrometer.common.lang.NonNull;
 import jakarta.ws.rs.core.Response;
-import org.keycloak.admin.client.resource.ClientResource;
-import org.keycloak.admin.client.resource.RealmResource;
-import org.keycloak.admin.client.resource.RolesResource;
-import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.admin.client.resource.*;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -197,6 +194,31 @@ public class AuthService implements IAuthService {
             return true;
         } catch (Exception e) {
             throw new RuntimeException("Failed to delete user", e);
+        }
+    }
+
+    @Override
+    public void updateUser(String userId, UserRequest userRequest) {
+        try {
+            UserResource userResource = keycloakProvider.getUserResource().get(userId);
+            UserRepresentation user = userResource.toRepresentation();
+            if (userRequest.getUserName() != null) {
+                user.setUsername(userRequest.getUserName());
+            }
+            if (userRequest.getName() != null) {
+                user.setFirstName(userRequest.getName());
+            }
+            if (userRequest.getLastName() != null) {
+                user.setLastName(userRequest.getLastName());
+            }
+            if (userRequest.getEmail() != null) {
+                user.setEmail(userRequest.getEmail());
+         //       user.setEmailVerified(true);
+            }
+       //     user.setEnabled(true);
+            userResource.update(user);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update user.", e);
         }
     }
 
