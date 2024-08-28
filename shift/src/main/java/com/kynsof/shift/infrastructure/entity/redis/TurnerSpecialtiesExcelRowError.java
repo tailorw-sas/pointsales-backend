@@ -9,13 +9,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
+import java.io.Serializable;
 import java.util.List;
 
 @AllArgsConstructor
 @Getter
 @Setter
 @RedisHash(value = "turnerspecialtieserror",timeToLive = 3600)
-public class TurnerSpecialtiesExcelRowError {
+public class TurnerSpecialtiesExcelRowError implements Serializable {
 
     @Id
     private String id;
