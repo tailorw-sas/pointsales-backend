@@ -1,13 +1,11 @@
 package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.ScheduleResponse;
-import com.kynsof.calendar.domain.dto.AvailableDateDto;
-import com.kynsof.calendar.domain.dto.AvailableTimeSlotDto;
-import com.kynsof.calendar.domain.dto.ScheduleAvailabilityDto;
-import com.kynsof.calendar.domain.dto.ScheduleDto;
+import com.kynsof.calendar.domain.dto.*;
 import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.domain.service.IScheduleService;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
+import com.kynsof.calendar.infrastructure.entity.Services;
 import com.kynsof.calendar.infrastructure.repository.command.ScheduleWriteDataJPARepository;
 import com.kynsof.calendar.infrastructure.repository.query.ScheduleReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
@@ -68,12 +66,6 @@ public class ScheduleServiceImpl implements IScheduleService {
         return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
-
-    @Override
-    public Page<Schedule> getAll(Pageable pageable) {
-        return repositoryQuery.findAll(pageable);
-    }
-
 
 
    // @Cacheable(cacheNames = CacheConfig.SCHEDULE_CACHE, unless = "#result == null")
@@ -161,4 +153,29 @@ public class ScheduleServiceImpl implements IScheduleService {
         return this.repositoryQuery.findSchedulesWithEqualStock(date).stream().map(Schedule::toAggregate).collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public PaginatedResponse getUniqueAvailableServices(Pageable pageable) {
+        // Obtiene los schedules disponibles (con stock > 0 y fecha mayor a la actual) paginados
+        Page<Schedule> availableSchedules = this.repositoryQuery.findAvailableSchedules(LocalDate.now(), pageable);
+
+        // Extrae los servicios únicos y convierte a ServiceDto
+        List<ServiceDto> serviceDtos = availableSchedules.stream()
+                .map(Schedule::getService)
+                .filter(service -> service != null) // Filtra servicios nulos
+                .distinct() // Elimina duplicados
+                .map(Services::toAggregate) // Convierte a DTO
+                .collect(Collectors.toList());
+
+        // Construir y retornar PaginatedResponse
+        return new PaginatedResponse(
+                serviceDtos,
+                availableSchedules.getTotalPages(),
+                availableSchedules.getNumberOfElements(),
+                availableSchedules.getTotalElements(),
+                availableSchedules.getSize(),
+                availableSchedules.getNumber()
+        );
+    }
 }
+
