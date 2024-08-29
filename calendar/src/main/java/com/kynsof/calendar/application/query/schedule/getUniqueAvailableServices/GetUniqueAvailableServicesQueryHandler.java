@@ -17,6 +17,6 @@ public class GetUniqueAvailableServicesQueryHandler implements IQueryHandler<Get
     @Override
     public PaginatedResponse handle(GetUniqueAvailableServicesQuery query) {
 
-        return service.getUniqueAvailableServices(query.getPageable());
+        return service.getUniqueAvailableServices(query.getPageable(), query.getFilter());
     }
 }

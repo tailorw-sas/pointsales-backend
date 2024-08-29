@@ -26,5 +26,5 @@ public interface IScheduleService {
     List<Schedule> findOverlappingSchedules(UUID resourceId, LocalDate date, LocalTime startTime, LocalTime endingTime);
 
     List<ScheduleDto> findSchedulesWithEqualStock(LocalDate date);
-    PaginatedResponse getUniqueAvailableServices(Pageable pageable);
+    PaginatedResponse getUniqueAvailableServices(Pageable pageable,  List<FilterCriteria> filterCriteria);
 }

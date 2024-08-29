@@ -15,7 +15,10 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import com.kynsof.share.core.infrastructure.specifications.LogicalOperation;
+import com.kynsof.share.core.infrastructure.specifications.SearchOperation;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +32,6 @@ import java.util.stream.Collectors;
 public class ScheduleServiceImpl implements IScheduleService {
 
     private final ScheduleReadDataJPARepository repositoryQuery;
-
     private final ScheduleWriteDataJPARepository repositoryCommand;
 
     public ScheduleServiceImpl(ScheduleReadDataJPARepository repositoryQuery, ScheduleWriteDataJPARepository repositoryCommand) {
@@ -37,55 +39,58 @@ public class ScheduleServiceImpl implements IScheduleService {
         this.repositoryCommand = repositoryCommand;
     }
 
+    @Override
     public List<LocalDate> findDistinctAvailableDatesByServiceIdAndDateRange(UUID serviceId, LocalDate startDate, LocalDate endDate) {
         return repositoryQuery.findDistinctAvailableDatesByServiceIdAndDateRange(serviceId, startDate, endDate);
     }
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-        for (FilterCriteria filter : filterCriteria) {
+        // Convierte y valida los filtros antes de construir especificaciones
+        filterCriteria.forEach(filter -> {
             if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
-                try {
-                    EStatusSchedule enumValue = EStatusSchedule.valueOf((String) filter.getValue());
-                    filter.setValue(enumValue);
-                } catch (IllegalArgumentException e) {
-                    System.err.println("Valor inválido para el tipo Enum EStatusSchedule: " + filter.getValue());
-                }
+                convertEnumFilter(filter, EStatusSchedule.class);
             }
-        }
+        });
+
         GenericSpecificationsBuilder<Schedule> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-        Page<Schedule> data = this.repositoryQuery.findAll(specifications, pageable);
-        return getPaginatedResponse(data);
+        Page<Schedule> schedules = repositoryQuery.findAll(specifications, pageable);
+        return getPaginatedResponse(schedules);
     }
 
-    private PaginatedResponse getPaginatedResponse(Page<Schedule> data) {
-        List<ScheduleResponse> patients = new ArrayList<>();
-        for (Schedule s : data.getContent()) {
-            patients.add(new ScheduleResponse(s.toAggregate()));
+    private <E extends Enum<E>> void convertEnumFilter(FilterCriteria filter, Class<E> enumClass) {
+        try {
+            filter.setValue(Enum.valueOf(enumClass, (String) filter.getValue()));
+        } catch (IllegalArgumentException e) {
+            System.err.println("Valor inválido para el tipo Enum " + enumClass.getSimpleName() + ": " + filter.getValue());
         }
-        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
-                data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    private PaginatedResponse getPaginatedResponse(Page<Schedule> schedules) {
+        List<ScheduleResponse> responses = schedules.stream()
+                .map(schedule -> new ScheduleResponse(schedule.toAggregate()))
+                .collect(Collectors.toList());
+        return new PaginatedResponse(responses, schedules.getTotalPages(), schedules.getNumberOfElements(),
+                schedules.getTotalElements(), schedules.getSize(), schedules.getNumber());
+    }
 
-   // @Cacheable(cacheNames = CacheConfig.SCHEDULE_CACHE, unless = "#result == null")
     @Override
     public ScheduleDto findById(UUID id) {
-
-        Optional<Schedule> object = this.repositoryQuery.findById(id);
-        if (object.isPresent()) {
-            return object.get().toAggregate();
-        }
-
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SCHEDULE_NOT_FOUND, new ErrorField("id", "Schedule not found.")));
+        return repositoryQuery.findById(id)
+                .map(Schedule::toAggregate)
+                .orElseThrow(() -> new BusinessNotFoundException(
+                        new GlobalBusinessException(DomainErrorMessage.SCHEDULE_NOT_FOUND,
+                                new ErrorField("id", "Schedule not found."))));
     }
 
     @Override
     public void delete(UUID id) {
         try {
-            this.repositoryCommand.deleteById(id);
+            repositoryCommand.deleteById(id);
         } catch (Exception e) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+            throw new BusinessNotFoundException(
+                    new GlobalBusinessException(DomainErrorMessage.NOT_DELETE,
+                            new ErrorField("id", "Element cannot be deleted as it has a related element.")));
         }
     }
 
@@ -106,76 +111,76 @@ public class ScheduleServiceImpl implements IScheduleService {
             Schedule entity = repositoryCommand.save(new Schedule(schedule));
             return entity.getId();
         }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SCHEDULED_TASK_ALREADY_EXISTS, new ErrorField("id", "A scheduled task for this service already exists.")));
+        throw new BusinessNotFoundException(
+                new GlobalBusinessException(DomainErrorMessage.SCHEDULED_TASK_ALREADY_EXISTS,
+                        new ErrorField("id", "A scheduled task for this service already exists.")));
     }
 
-
     @Override
-    public void createAll(List<ScheduleDto> schedule) {
-
-        repositoryCommand.saveAll(schedule.stream().map(Schedule::new).collect(Collectors.toList()));
+    public void createAll(List<ScheduleDto> schedules) {
+        List<Schedule> entities = schedules.stream()
+                .map(Schedule::new)
+                .collect(Collectors.toList());
+        repositoryCommand.saveAll(entities);
     }
 
     @Override
     @Transactional
     public void update(ScheduleDto schedule) {
-        var entity = new Schedule(schedule);
-        repositoryCommand.save(entity);
+        repositoryCommand.save(new Schedule(schedule));
     }
 
-
     @Override
-    public List<AvailableDateDto> getAvailableDatesAndSlots(UUID resourceId, UUID businessId,  LocalDate startDate, LocalDate endDate) {
-        List<ScheduleAvailabilityDto> schedules = this.repositoryQuery.findAvailableSchedulesByResourceAndBusinessAndDateRange(resourceId, businessId, startDate, endDate);
-
-        Map<LocalDate, List<ScheduleAvailabilityDto>> groupedByDate = schedules.stream()
-                .collect(Collectors.groupingBy(ScheduleAvailabilityDto::getDate));
-
-        List<AvailableDateDto> availableDates = new ArrayList<>();
-
-        groupedByDate.forEach((date, scheduleAvailabilityDtos) -> {
-            List<AvailableTimeSlotDto> timeSlots = scheduleAvailabilityDtos.stream()
-                    .map(s -> new AvailableTimeSlotDto(s.getStartTime(), s.getEndingTime(), s.getScheduleId()))
-                    .collect(Collectors.toList());
-            availableDates.add(new AvailableDateDto(date, timeSlots));
-        });
-
-        return availableDates;
+    public List<AvailableDateDto> getAvailableDatesAndSlots(UUID resourceId, UUID businessId, LocalDate startDate, LocalDate endDate) {
+        return repositoryQuery.findAvailableSchedulesByResourceAndBusinessAndDateRange(resourceId, businessId, startDate, endDate).stream()
+                .collect(Collectors.groupingBy(ScheduleAvailabilityDto::getDate))
+                .entrySet().stream()
+                .map(entry -> new AvailableDateDto(entry.getKey(), entry.getValue().stream()
+                        .map(s -> new AvailableTimeSlotDto(s.getStartTime(), s.getEndingTime(), s.getScheduleId()))
+                        .collect(Collectors.toList())))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Schedule> findOverlappingSchedules(UUID resourceId, LocalDate date, LocalTime startTime, LocalTime endingTime) {
-        return this.repositoryQuery.findOverlappingSchedules(resourceId, date, startTime, endingTime);
+        return repositoryQuery.findOverlappingSchedules(resourceId, date, startTime, endingTime);
     }
 
     @Override
     public List<ScheduleDto> findSchedulesWithEqualStock(LocalDate date) {
-        return this.repositoryQuery.findSchedulesWithEqualStock(date).stream().map(Schedule::toAggregate).collect(Collectors.toList());
+        return repositoryQuery.findSchedulesWithEqualStock(date).stream()
+                .map(Schedule::toAggregate)
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public PaginatedResponse getUniqueAvailableServices(Pageable pageable) {
-        // Obtiene los schedules disponibles (con stock > 0 y fecha mayor a la actual) paginados
-        Page<Schedule> availableSchedules = this.repositoryQuery.findAvailableSchedules(LocalDate.now(), pageable);
+    public PaginatedResponse getUniqueAvailableServices(Pageable pageable, List<FilterCriteria> filterCriteria) {
 
-        // Extrae los servicios únicos y convierte a ServiceDto
+        filterCriteria.add(new FilterCriteria("stock", SearchOperation.GREATER_THAN, 0, LogicalOperation.AND));
+        filterCriteria.add(new FilterCriteria("date", SearchOperation.GREATER_THAN, LocalDate.now(), LogicalOperation.AND));
+        GenericSpecificationsBuilder<Schedule> specificationsBuilder = new GenericSpecificationsBuilder<>(filterCriteria);
+        Page<Schedule> availableSchedules = repositoryQuery.findAll(specificationsBuilder, pageable);
+
         List<ServiceDto> serviceDtos = availableSchedules.stream()
                 .map(Schedule::getService)
-                .filter(service -> service != null) // Filtra servicios nulos
-                .distinct() // Elimina duplicados
-                .map(Services::toAggregate) // Convierte a DTO
-                .collect(Collectors.toList());
+                .filter(Objects::nonNull)
+                .collect(Collectors.toCollection(() ->
+                        new TreeSet<>(Comparator.comparing(Services::getId))))
+                .stream()
+                .map(Services::toAggregate).distinct().collect(Collectors.toList());
+        int start = Math.min((int) pageable.getOffset(), serviceDtos.size());
+        int end = Math.min((start + pageable.getPageSize()), serviceDtos.size());
+        Page<ServiceDto> pagedServiceDtos = new PageImpl<>(serviceDtos.subList(start, end), pageable, serviceDtos.size());
 
-        // Construir y retornar PaginatedResponse
+
         return new PaginatedResponse(
-                serviceDtos,
-                availableSchedules.getTotalPages(),
-                availableSchedules.getNumberOfElements(),
-                availableSchedules.getTotalElements(),
-                availableSchedules.getSize(),
-                availableSchedules.getNumber()
+                pagedServiceDtos.getContent(),
+                pagedServiceDtos.getTotalPages(),
+                pagedServiceDtos.getNumberOfElements(),
+                pagedServiceDtos.getTotalElements(),
+                pagedServiceDtos.getSize(),
+                pagedServiceDtos.getNumber()
         );
     }
-}
-
+    }
