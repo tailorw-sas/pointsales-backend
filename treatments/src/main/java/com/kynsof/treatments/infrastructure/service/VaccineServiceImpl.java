@@ -16,7 +16,6 @@ import com.kynsof.treatments.infrastructure.entity.specifications.Cie10Specifica
 import com.kynsof.treatments.infrastructure.repositories.command.VaccineWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.PatientVaccineReadDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.VaccineReadDataJPARepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,30 +23,33 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 public class VaccineServiceImpl implements IVaccineService {
 
-    @Autowired
-    private VaccineWriteDataJPARepository repositoryCommand;
+    private final VaccineWriteDataJPARepository repositoryCommand;
 
-    @Autowired
-    private VaccineReadDataJPARepository repositoryQuery;
-    @Autowired
-    private PatientVaccineReadDataJPARepository patientVaccineReadDataJPARepository;
+    private final VaccineReadDataJPARepository repositoryQuery;
+
+    private final PatientVaccineReadDataJPARepository patientVaccineReadDataJPARepository;
+
+    public VaccineServiceImpl(VaccineWriteDataJPARepository repositoryCommand, VaccineReadDataJPARepository repositoryQuery, PatientVaccineReadDataJPARepository patientVaccineReadDataJPARepository) {
+        this.repositoryCommand = repositoryCommand;
+        this.repositoryQuery = repositoryQuery;
+        this.patientVaccineReadDataJPARepository = patientVaccineReadDataJPARepository;
+    }
 
     @Override
     public VaccineDto findById(UUID id) {
-        Optional<Vaccine> vaccine = this.repositoryQuery.findById(id);
-        if (vaccine.isPresent()) {
-            return vaccine.get().toAggregate();
-        }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.VACCINE_NOT_FOUND, new ErrorField("id", "Vaccine not found.")));
+        return this.repositoryQuery.findById(id)
+                .map(Vaccine::toAggregate)
+                .orElseThrow(() -> new BusinessNotFoundException(
+                        new GlobalBusinessException(DomainErrorMessage.VACCINE_NOT_FOUND,
+                                new ErrorField("id", "Vaccine not found."))));
     }
 
     @Override
@@ -55,55 +57,32 @@ public class VaccineServiceImpl implements IVaccineService {
         try {
             this.repositoryCommand.deleteById(object.getId());
         } catch (Exception e) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+            throw new BusinessNotFoundException(new GlobalBusinessException(
+                    DomainErrorMessage.NOT_DELETE,
+                    new ErrorField("id", "Element cannot be deleted has a related element.")));
         }
     }
 
-//    @Override
-//    public List<VaccineDto> getApplicableVaccines(LocalDate birthDate, UUID patientId) {
-//        long monthsOld = ChronoUnit.MONTHS.between(birthDate, LocalDate.now());
-//        List<Vaccine> applicableVaccines = this.repositoryQuery.findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual(monthsOld);
-//        // Obtener las vacunas que el paciente ya se ha puesto
-//        List<Vaccine> administeredVaccines = this.patientVaccineReadDataJPARepository.findVaccinesByPatientId(patientId);
-//
-//        // Filtrar las vacunas aplicables para excluir las ya administradas
-//        List<VaccineDto> nonAdministeredVaccines = applicableVaccines.stream()
-//                .filter(vaccine -> !administeredVaccines.contains(vaccine))
-//                .map(Vaccine::toAggregate)
-//                .collect(Collectors.toList());
-//
-//        return nonAdministeredVaccines;
-//    }
     @Override
     public PaginatedResponse getApplicableVaccines(LocalDate birthDate, UUID patientId, Pageable pageable) {
-        long monthsOld = ChronoUnit.MONTHS.between(birthDate, LocalDate.now());
+        int monthsOld = (int) ChronoUnit.MONTHS.between(birthDate, LocalDate.now());
 
         Page<Vaccine> vaccinePage = this.repositoryQuery.findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual(monthsOld, pageable);
         if (vaccinePage.isEmpty()) {
-            return new PaginatedResponse(
-                    new ArrayList<>(),
-                    vaccinePage.getTotalPages(),
-                    vaccinePage.getNumberOfElements(),
-                    vaccinePage.getTotalElements(),
-                    pageable.getPageSize(),
-                    pageable.getPageNumber()
-            );
+            return emptyPaginatedResponse(pageable);
         }
-        List<Vaccine> administeredVaccines = patientVaccineReadDataJPARepository.findVaccinesByPatientId(patientId);
+
+        Set<UUID> administeredVaccineIds = patientVaccineReadDataJPARepository.findVaccinesByPatientId(patientId)
+                .stream()
+                .map(Vaccine::getId)
+                .collect(Collectors.toSet());
 
         List<VaccineResponse> nonAdministeredVaccines = vaccinePage.getContent().stream()
-                .filter(vaccine -> !administeredVaccines.contains(vaccine))
+                .filter(vaccine -> !administeredVaccineIds.contains(vaccine.getId()))
                 .map(vaccine -> new VaccineResponse(vaccine.toAggregate()))
                 .collect(Collectors.toList());
 
-        return new PaginatedResponse(
-                nonAdministeredVaccines,
-                vaccinePage.getTotalPages(),
-                vaccinePage.getNumberOfElements(),
-                vaccinePage.getTotalElements(),
-                pageable.getPageSize(),
-                pageable.getPageNumber()
-        );
+        return createPaginatedResponse(nonAdministeredVaccines, vaccinePage);
     }
 
     @Override
@@ -123,18 +102,12 @@ public class VaccineServiceImpl implements IVaccineService {
     public PaginatedResponse findAll(Pageable pageable, String name, String description) {
         Cie10Specifications specifications = new Cie10Specifications(name, description);
         Page<Vaccine> data = this.repositoryQuery.findAll(specifications, pageable);
-
-        List<VaccineResponse> allergyResponses = new ArrayList<>();
-        for (Vaccine p : data.getContent()) {
-            allergyResponses.add(new VaccineResponse(p.toAggregate()));
-        }
-        return new PaginatedResponse(allergyResponses, data.getTotalPages(), data.getNumberOfElements(),
-                data.getTotalElements(), data.getSize(), data.getNumber());
+        return createPaginatedResponse(data);
     }
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-        for (FilterCriteria filter : filterCriteria) {
+        filterCriteria.forEach(filter -> {
             if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
                 try {
                     VaccinationStatus enumValue = VaccinationStatus.valueOf((String) filter.getValue());
@@ -143,19 +116,11 @@ public class VaccineServiceImpl implements IVaccineService {
                     System.err.println("Valor inválido para el tipo Enum RoleStatus: " + filter.getValue());
                 }
             }
-        }
+        });
+
         GenericSpecificationsBuilder<Vaccine> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<Vaccine> data = this.repositoryQuery.findAll(specifications, pageable);
-        return getPaginatedResponse(data);
-    }
-
-    private PaginatedResponse getPaginatedResponse(Page<Vaccine> data) {
-        List<VaccineResponse> vaccineResponses = new ArrayList<>();
-        for (Vaccine p : data.getContent()) {
-            vaccineResponses.add(new VaccineResponse(p.toAggregate()));
-        }
-        return new PaginatedResponse(vaccineResponses, data.getTotalPages(), data.getNumberOfElements(),
-                data.getTotalElements(), data.getSize(), data.getNumber());
+        return createPaginatedResponse(data);
     }
 
     @Override
@@ -163,4 +128,29 @@ public class VaccineServiceImpl implements IVaccineService {
         return this.repositoryQuery.countByNameAndNotId(name, id);
     }
 
+    private PaginatedResponse createPaginatedResponse(Page<Vaccine> data) {
+        List<VaccineResponse> vaccineResponses = data.getContent().stream()
+                .map(Vaccine::toAggregate)
+                .map(VaccineResponse::new)
+                .collect(Collectors.toList());
+
+        return new PaginatedResponse(vaccineResponses, data.getTotalPages(), data.getNumberOfElements(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    private PaginatedResponse createPaginatedResponse(List<VaccineResponse> vaccineResponses, Page<Vaccine> data) {
+        return new PaginatedResponse(vaccineResponses, data.getTotalPages(), vaccineResponses.size(),
+                data.getTotalElements(), data.getSize(), data.getNumber());
+    }
+
+    private PaginatedResponse emptyPaginatedResponse(Pageable pageable) {
+        return new PaginatedResponse(
+                List.of(),
+                0,
+                0,
+                0L,
+                pageable.getPageSize(),
+                pageable.getPageNumber()
+        );
+    }
 }
