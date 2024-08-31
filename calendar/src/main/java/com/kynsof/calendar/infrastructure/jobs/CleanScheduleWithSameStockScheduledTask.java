@@ -1,4 +1,4 @@
-package com.kynsof.calendar.infrastructure.service.jobs;
+package com.kynsof.calendar.infrastructure.jobs;
 
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.service.IScheduleService;

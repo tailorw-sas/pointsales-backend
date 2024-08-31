@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,5 +42,7 @@ public interface TurnReadDataJPARepository extends JpaRepository<Turn, UUID>, Jp
     @Query("SELECT MAX(t.orderNumber) FROM Turn t WHERE t.services.id = :serviceId and " +
             "t.business.id = :businessId")
     Integer findMaxOrderNumberByServiceId(@Param("serviceId") UUID serviceId, @Param("businessId") UUID businessId);
+
+    List<Turn> findByCreatedAtBefore(LocalDateTime createAt);
 }
 
