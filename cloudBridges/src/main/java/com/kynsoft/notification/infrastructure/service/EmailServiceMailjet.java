@@ -10,10 +10,7 @@ import com.mailjet.client.MailjetClient;
 import com.mailjet.client.MailjetRequest;
 import com.mailjet.client.MailjetResponse;
 import com.mailjet.client.errors.MailjetException;
-import com.mailjet.client.resource.Contact;
-import com.mailjet.client.resource.Contactslist;
-import com.mailjet.client.resource.Email;
-import com.mailjet.client.resource.Listrecipient;
+import com.mailjet.client.resource.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -136,8 +133,34 @@ public class EmailServiceMailjet implements IEmailService {
     @Override
     public String createCampaign(String campaignName, String senderEmail, String senderName, String subject,
                                  Long templateId, Long contactListId, String mailjetApiKey, String mailjetApiSecret) throws MailjetException {
-        // Implement this method if needed
-        return "";
+
+        // Crear el cliente de Mailjet
+        MailjetClient client = createMailjetClient(mailjetApiKey, mailjetApiSecret);
+
+        MailjetRequest request = new MailjetRequest(Contactslist.resource);
+        MailjetResponse response = client.get(request);
+
+        // Crear la campaña
+        MailjetRequest createCampaignRequest = new MailjetRequest(Campaign.resource)
+                .property("Title", campaignName)
+                .property("Subject", subject)
+                .property("ContactsListID", contactListId)
+                .property("FromName", senderName)
+                .property("FromEmail", senderEmail)
+                .property("TemplateID", templateId)
+                .property("Locale", "en_US");
+
+        // Enviar la solicitud para crear la campaña
+        MailjetResponse createCampaignResponse = client.post(createCampaignRequest);
+
+        // Verificar si la campaña fue creada con éxito
+        if (createCampaignResponse.getStatus() == 201) {
+            // Retornar el ID de la campaña creada
+            return createCampaignResponse.getData().getJSONObject(0).getString("ID");
+        } else {
+            // Manejar el error si la campaña no fue creada
+            throw new RuntimeException("Failed to create campaign: " + createCampaignResponse.getStatus() + " " + createCampaignResponse.getData());
+        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.kynsoft.notification.controller;
 
 import com.kynsof.share.core.infrastructure.bus.IMediator;
+import com.kynsoft.notification.application.command.Campaign.CreateCampaignRequest;
 import com.kynsoft.notification.application.command.ContactList.ContactListRequest;
 import com.kynsoft.notification.application.command.sendMailjetEmail.SendMailJetEMailCommand;
 import com.kynsoft.notification.application.command.sendMailjetEmail.SendMailJetEMailRequest;
@@ -23,8 +24,8 @@ public class MailController {
         this.emailService = emailService;
     }
 
-    @PostMapping("/send/multi/keime")
-    public ResponseEntity<?> keimer(@RequestBody SendMailJetEMailRequest emailRequest) {
+    @PostMapping("/send/email")
+    public ResponseEntity<?> sendEmail(@RequestBody SendMailJetEMailRequest emailRequest) {
         SendMailJetEMailCommand sendMailJetEMailCommand = SendMailJetEMailCommand.fromRequest(emailRequest);
         SendMailjetEmailMessage sendMailjetEmailMessage = mediator.send(sendMailJetEMailCommand);
         return ResponseEntity.ok(sendMailjetEmailMessage);
@@ -75,16 +76,11 @@ public class MailController {
     }
 
     @PostMapping("/create-campaign")
-    public ResponseEntity<String> createCampaign(@RequestParam String campaignName,
-                                                 @RequestParam String senderEmail,
-                                                 @RequestParam String senderName,
-                                                 @RequestParam String subject,
-                                                 @RequestParam Long templateId,
-                                                 @RequestParam Long contactListId,
-                                                 @RequestParam String mailjetApiKey,
-                                                 @RequestParam String mailjetApiSecret) {
+    public ResponseEntity<String> createCampaign(@RequestBody CreateCampaignRequest request) {
         try {
-            String campaignId = emailService.createCampaign(campaignName, senderEmail, senderName, subject, templateId, contactListId, mailjetApiKey, mailjetApiSecret);
+            String campaignId = emailService.createCampaign(request.getCampaignName(), request.getSenderEmail(),
+                    request.getSenderName(), request.getSubject(), request.getTemplateId(),
+                    request.getContactListId(), "516542c2b1e7bfbf3ec65077bcb619d3", "2c69809275145fcd158cf369d5676d05");
             return ResponseEntity.ok("Campaign created successfully with ID: " + campaignId);
         } catch (MailjetException e) {
             return ResponseEntity.status(500).body("Failed to create campaign: " + e.getMessage());
