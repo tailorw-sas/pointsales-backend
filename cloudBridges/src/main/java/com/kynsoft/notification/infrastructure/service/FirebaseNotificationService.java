@@ -71,13 +71,13 @@ public class FirebaseNotificationService implements IFirebaseNotificationService
 
     @Override
     public String sendPnsToDevice(NotificationRequest notificationRequestDto) {
-        if (notificationRequestDto.getToken().isEmpty()) {
+        if (notificationRequestDto.getTokens().isEmpty()) {
             logger.warn("No tokens provided for sending message to device.");
             return null;
         }
 
         Message message = Message.builder()
-                .setToken(notificationRequestDto.getToken().get(0))
+                .setToken(notificationRequestDto.getTokens().get(0))
                 .putData("body", new Gson().toJson(notificationRequestDto))
                 .putData("priority", "high")
                 .putData("click_action", "FLUTTER_NOTIFICATION_CLICK")
@@ -96,7 +96,7 @@ public class FirebaseNotificationService implements IFirebaseNotificationService
 
     @Override
     public void sendMultipleNotificationsUsers(NotificationRequest notificationRequestDto) {
-        List<String> registrationTokens = notificationRequestDto.getToken();
+        List<String> registrationTokens = notificationRequestDto.getTokens();
         if (registrationTokens.isEmpty()) {
             logger.warn("No tokens provided for sending multiple notifications.");
             return;

@@ -15,5 +15,5 @@ public class NotificationRequest {
 
     private String title;
     private String body;
-    private List<String> token;
+    private List<String> tokens;
 }
