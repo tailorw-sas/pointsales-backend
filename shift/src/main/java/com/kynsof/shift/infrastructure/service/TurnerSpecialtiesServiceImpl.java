@@ -21,10 +21,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class TurnerSpecialtiesServiceImpl implements ITurnerSpecialtiesService {
@@ -90,6 +92,11 @@ public class TurnerSpecialtiesServiceImpl implements ITurnerSpecialtiesService {
         Page<TurnerSpecialties> data = this.repositoryQuery.findAll(specifications, sortedPageable);
 
         return getPaginatedResponse(data);
+    }
+
+    @Override
+    public List<TurnerSpecialtiesDto> findByShiftDateTimeBefore(LocalDateTime shiftDateTime) {
+        return this.repositoryQuery.findByShiftDateTimeBefore(shiftDateTime).stream().map(TurnerSpecialties::toAggregate).collect(Collectors.toList());
     }
 
     private void filterCriteria(List<FilterCriteria> filterCriteria) {

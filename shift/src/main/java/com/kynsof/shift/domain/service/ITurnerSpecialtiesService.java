@@ -5,6 +5,7 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,4 +22,5 @@ public interface ITurnerSpecialtiesService {
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
+    List<TurnerSpecialtiesDto> findByShiftDateTimeBefore(LocalDateTime shiftDateTime);
 }
