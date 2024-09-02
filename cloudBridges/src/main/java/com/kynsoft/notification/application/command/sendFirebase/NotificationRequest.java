@@ -5,13 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NotificationRequestDto {
+public class NotificationRequest {
 
     private String title;
     private String body;
-    private String token;
+    private List<String> token;
 }
