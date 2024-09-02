@@ -18,7 +18,6 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 public class FirebaseNotificationService implements IFirebaseNotificationService {
@@ -54,7 +53,7 @@ public class FirebaseNotificationService implements IFirebaseNotificationService
                     .subscribeToTopic(subscriptionRequestDto.getTokens(), subscriptionRequestDto.getTopicName());
             logger.info("Successfully subscribed to topic: {}", subscriptionRequestDto.getTopicName());
         } catch (FirebaseMessagingException e) {
-            logger.error("Failed to subscribe to topic: {}", subscriptionRequestDto.getTopicName(), e);
+            handleFirebaseMessagingException(e);
         }
     }
 
@@ -65,7 +64,7 @@ public class FirebaseNotificationService implements IFirebaseNotificationService
                     .unsubscribeFromTopic(subscriptionRequestDto.getTokens(), subscriptionRequestDto.getTopicName());
             logger.info("Successfully unsubscribed from topic: {}", subscriptionRequestDto.getTopicName());
         } catch (FirebaseMessagingException e) {
-            logger.error("Failed to unsubscribe from topic: {}", subscriptionRequestDto.getTopicName(), e);
+            handleFirebaseMessagingException(e);
         }
     }
 
@@ -89,7 +88,7 @@ public class FirebaseNotificationService implements IFirebaseNotificationService
             logger.info("Successfully sent message to device: {}", response);
             return response;
         } catch (FirebaseMessagingException e) {
-            logger.error("Error sending message to device", e);
+            handleFirebaseMessagingException(e);
             return null;
         }
     }
@@ -102,73 +101,97 @@ public class FirebaseNotificationService implements IFirebaseNotificationService
             return;
         }
 
-        AndroidConfig androidConfig = createAndroidConfig();
-        ApnsConfig apnsConfig = createApnsConfig();
-
-        // Dividir la lista de tokens en sublistas de hasta 100 elementos
-        List<List<String>> tokenBatches = splitTokensIntoBatches(registrationTokens);
-
-        // Enviar mensajes a cada sublista
-        sendBatchedNotifications(notificationRequestDto, tokenBatches, androidConfig, apnsConfig);
-    }
-
-    private AndroidConfig createAndroidConfig() {
-        return AndroidConfig.builder()
-                .setPriority(AndroidConfig.Priority.HIGH)
-                .build();
-    }
-
-    private ApnsConfig createApnsConfig() {
-        return ApnsConfig.builder()
-                .putHeader("apns-priority", "10")
-                .setAps(Aps.builder().setContentAvailable(true).setSound("default").build())
-                .build();
-    }
-
-    private List<List<String>> splitTokensIntoBatches(List<String> tokens) {
-        return IntStream.range(0, (tokens.size() + 99) / 100)
-                .mapToObj(i -> tokens.subList(i * 100, Math.min((i + 1) * 100, tokens.size())))
+        // Crear mensajes para cada token
+        List<Message> messages = registrationTokens.stream()
+                .map(token -> buildMessage(notificationRequestDto, token))
                 .collect(Collectors.toList());
-    }
 
-    private Integer sendBatchedNotifications(NotificationRequest notificationRequestDto, List<List<String>> tokenBatches,
-                                             AndroidConfig androidConfig, ApnsConfig apnsConfig) {
-        int result = 1;
-
-        for (List<String> subList : tokenBatches) {
-            MulticastMessage message = buildMulticastMessage(notificationRequestDto, subList, androidConfig, apnsConfig);
-
-            try {
-                BatchResponse response = FirebaseMessaging.getInstance(firebaseApp).sendMulticast(message);
-                logBatchResponse(response);
-            } catch (FirebaseMessagingException e) {
-                result = 0;
-                logger.error("Error sending multicast message to batch: {}", subList, e);
-            }
+        try {
+            // Enviar todos los mensajes usando sendAll
+            BatchResponse response = FirebaseMessaging.getInstance(firebaseApp).sendAll(messages);
+            logBatchResponse(response);
+        } catch (FirebaseMessagingException e) {
+            logger.error("Error sending notifications", e);
         }
-        return result;
     }
 
-    private MulticastMessage buildMulticastMessage(NotificationRequest notificationRequestDto, List<String> tokens,
-                                                   AndroidConfig androidConfig, ApnsConfig apnsConfig) {
-        return MulticastMessage.builder()
+    // Construcción del mensaje individual
+    private Message buildMessage(NotificationRequest notificationRequestDto, String token) {
+        return Message.builder()
+                .setToken(token)
                 .putData("body", new Gson().toJson(notificationRequestDto))
                 .putData("priority", "high")
                 .putData("click_action", "FLUTTER_NOTIFICATION_CLICK")
                 .putData("contentAvailable", "true")
-                .setAndroidConfig(androidConfig)
-                .setApnsConfig(apnsConfig)
-                .addAllTokens(tokens)
                 .build();
     }
 
     private void logBatchResponse(BatchResponse response) {
-        logger.info("Multicast message sent with {} successes and {} failures",
+        logger.info("Batch message sent with {} successes and {} failures",
                 response.getSuccessCount(), response.getFailureCount());
         response.getResponses().forEach(resp -> {
             if (!resp.isSuccessful()) {
                 logger.error("Error sending message: {}", resp.getException().getMessage());
             }
         });
+    }
+
+    private void handleFirebaseMessagingException(FirebaseMessagingException e) {
+        if (e.getErrorCode() == null) {
+            logger.error("Unknown error occurred with no specific ErrorCode: {}", e.getMessage(), e);
+            return;
+        }
+        switch (e.getErrorCode()) {
+            case INVALID_ARGUMENT:
+                logger.error("Invalid argument: {}", e.getMessage(), e);
+                break;
+            case FAILED_PRECONDITION:
+                logger.error("Failed precondition: {}", e.getMessage(), e);
+                break;
+            case OUT_OF_RANGE:
+                logger.error("Out of range: {}", e.getMessage(), e);
+                break;
+            case UNAUTHENTICATED:
+                logger.error("Unauthenticated: {}", e.getMessage(), e);
+                break;
+            case PERMISSION_DENIED:
+                logger.error("Permission denied: {}", e.getMessage(), e);
+                break;
+            case NOT_FOUND:
+                logger.error("Not found: {}", e.getMessage(), e);
+                break;
+            case CONFLICT:
+                logger.error("Conflict: {}", e.getMessage(), e);
+                break;
+            case ABORTED:
+                logger.error("Aborted: {}", e.getMessage(), e);
+                break;
+            case ALREADY_EXISTS:
+                logger.error("Already exists: {}", e.getMessage(), e);
+                break;
+            case RESOURCE_EXHAUSTED:
+                logger.error("Resource exhausted: {}", e.getMessage(), e);
+                break;
+            case CANCELLED:
+                logger.error("Cancelled: {}", e.getMessage(), e);
+                break;
+            case DATA_LOSS:
+                logger.error("Data loss: {}", e.getMessage(), e);
+                break;
+            case UNKNOWN:
+                logger.error("Unknown error: {}", e.getMessage(), e);
+                break;
+            case INTERNAL:
+                logger.error("Internal error: {}", e.getMessage(), e);
+                break;
+            case UNAVAILABLE:
+                logger.error("Service unavailable: {}", e.getMessage(), e);
+                break;
+            case DEADLINE_EXCEEDED:
+                logger.error("Deadline exceeded: {}", e.getMessage(), e);
+                break;
+            default:
+                logger.error("Unhandled FirebaseMessagingException occurred: {}", e.getMessage(), e);
+        }
     }
 }
