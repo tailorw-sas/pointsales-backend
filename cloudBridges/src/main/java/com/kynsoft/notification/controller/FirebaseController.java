@@ -23,7 +23,7 @@ private final IFirebaseNotificationService fcmNotificationService;
     @PostMapping("/send")
     public ResponseEntity<?> uploadFile(@RequestBody NotificationRequest request) {
         try {
-          fcmNotificationService.sendPnsToDevice(request);
+          fcmNotificationService.sendMultipleNotificationsUsers(request);
             return ResponseEntity.ok("OK");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to send notification: " + e.getMessage());

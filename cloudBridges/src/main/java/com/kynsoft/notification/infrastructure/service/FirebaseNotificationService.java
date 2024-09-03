@@ -52,7 +52,7 @@ public class FirebaseNotificationService implements IFirebaseNotificationService
                     .subscribeToTopic(subscriptionRequestDto.getTokens(), subscriptionRequestDto.getTopicName());
             logger.info("Successfully subscribed to topic: {}", subscriptionRequestDto.getTopicName());
         } catch (FirebaseMessagingException e) {
-            handleFirebaseMessagingException(e);
+         //   handleFirebaseMessagingException(e);
         }
     }
 
@@ -63,7 +63,7 @@ public class FirebaseNotificationService implements IFirebaseNotificationService
                     .unsubscribeFromTopic(subscriptionRequestDto.getTokens(), subscriptionRequestDto.getTopicName());
             logger.info("Successfully unsubscribed from topic: {}", subscriptionRequestDto.getTopicName());
         } catch (FirebaseMessagingException e) {
-            handleFirebaseMessagingException(e);
+           // handleFirebaseMessagingException(e);
         }
     }
 
@@ -87,7 +87,7 @@ public class FirebaseNotificationService implements IFirebaseNotificationService
             logger.info("Successfully sent message to device: {}", response);
             return response;
         } catch (FirebaseMessagingException e) {
-            handleFirebaseMessagingException(e);
+            //handleFirebaseMessagingException(e);
             return null;
         }
     }
@@ -181,62 +181,62 @@ public class FirebaseNotificationService implements IFirebaseNotificationService
         });
     }
 
-    private void handleFirebaseMessagingException(FirebaseMessagingException e) {
-        if (e.getErrorCode() == null) {
-            logger.error("Unknown error occurred with no specific ErrorCode: {}", e.getMessage(), e);
-            return;
-        }
-        switch (e.getErrorCode()) {
-            case INVALID_ARGUMENT:
-                logger.error("Invalid argument: {}", e.getMessage(), e);
-                break;
-            case FAILED_PRECONDITION:
-                logger.error("Failed precondition: {}", e.getMessage(), e);
-                break;
-            case OUT_OF_RANGE:
-                logger.error("Out of range: {}", e.getMessage(), e);
-                break;
-            case UNAUTHENTICATED:
-                logger.error("Unauthenticated: {}", e.getMessage(), e);
-                break;
-            case PERMISSION_DENIED:
-                logger.error("Permission denied: {}", e.getMessage(), e);
-                break;
-            case NOT_FOUND:
-                logger.error("Not found: {}", e.getMessage(), e);
-                break;
-            case CONFLICT:
-                logger.error("Conflict: {}", e.getMessage(), e);
-                break;
-            case ABORTED:
-                logger.error("Aborted: {}", e.getMessage(), e);
-                break;
-            case ALREADY_EXISTS:
-                logger.error("Already exists: {}", e.getMessage(), e);
-                break;
-            case RESOURCE_EXHAUSTED:
-                logger.error("Resource exhausted: {}", e.getMessage(), e);
-                break;
-            case CANCELLED:
-                logger.error("Cancelled: {}", e.getMessage(), e);
-                break;
-            case DATA_LOSS:
-                logger.error("Data loss: {}", e.getMessage(), e);
-                break;
-            case UNKNOWN:
-                logger.error("Unknown error: {}", e.getMessage(), e);
-                break;
-            case INTERNAL:
-                logger.error("Internal error: {}", e.getMessage(), e);
-                break;
-            case UNAVAILABLE:
-                logger.error("Service unavailable: {}", e.getMessage(), e);
-                break;
-            case DEADLINE_EXCEEDED:
-                logger.error("Deadline exceeded: {}", e.getMessage(), e);
-                break;
-            default:
-                logger.error("Unhandled FirebaseMessagingException occurred: {}", e.getMessage(), e);
-        }
-    }
+//    private void handleFirebaseMessagingException(FirebaseMessagingException e) {
+//        if (e.getErrorCode() == null) {
+//            logger.error("Unknown error occurred with no specific ErrorCode: {}", e.getMessage(), e);
+//            return;
+//        }
+//        switch (e.getErrorCode()) {
+//            case INVALID_ARGUMENT:
+//                logger.error("Invalid argument: {}", e.getMessage(), e);
+//                break;
+//            case FAILED_PRECONDITION:
+//                logger.error("Failed precondition: {}", e.getMessage(), e);
+//                break;
+//            case OUT_OF_RANGE:
+//                logger.error("Out of range: {}", e.getMessage(), e);
+//                break;
+//            case UNAUTHENTICATED:
+//                logger.error("Unauthenticated: {}", e.getMessage(), e);
+//                break;
+//            case PERMISSION_DENIED:
+//                logger.error("Permission denied: {}", e.getMessage(), e);
+//                break;
+//            case NOT_FOUND:
+//                logger.error("Not found: {}", e.getMessage(), e);
+//                break;
+//            case CONFLICT:
+//                logger.error("Conflict: {}", e.getMessage(), e);
+//                break;
+//            case ABORTED:
+//                logger.error("Aborted: {}", e.getMessage(), e);
+//                break;
+//            case ALREADY_EXISTS:
+//                logger.error("Already exists: {}", e.getMessage(), e);
+//                break;
+//            case RESOURCE_EXHAUSTED:
+//                logger.error("Resource exhausted: {}", e.getMessage(), e);
+//                break;
+//            case CANCELLED:
+//                logger.error("Cancelled: {}", e.getMessage(), e);
+//                break;
+//            case DATA_LOSS:
+//                logger.error("Data loss: {}", e.getMessage(), e);
+//                break;
+//            case UNKNOWN:
+//                logger.error("Unknown error: {}", e.getMessage(), e);
+//                break;
+//            case INTERNAL:
+//                logger.error("Internal error: {}", e.getMessage(), e);
+//                break;
+//            case UNAVAILABLE:
+//                logger.error("Service unavailable: {}", e.getMessage(), e);
+//                break;
+//            case DEADLINE_EXCEEDED:
+//                logger.error("Deadline exceeded: {}", e.getMessage(), e);
+//                break;
+//            default:
+//                logger.error("Unhandled FirebaseMessagingException occurred: {}", e.getMessage(), e);
+//        }
+   // }
 }
