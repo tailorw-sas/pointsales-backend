@@ -3,7 +3,10 @@ package com.kynsoft.notification.infrastructure.service;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.firebase.messaging.*;
+import com.google.firebase.messaging.BatchResponse;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.Message;
 import com.google.gson.Gson;
 import com.kynsoft.notification.application.command.sendFirebase.NotificationRequest;
 import com.kynsoft.notification.application.command.sendFirebase.SubscriptionRequestDto;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FirebaseNotificationService implements IFirebaseNotificationService {
@@ -92,73 +96,73 @@ public class FirebaseNotificationService implements IFirebaseNotificationService
         }
     }
 
-    @Override
-    public void sendMultipleNotificationsUsers(
-            NotificationRequest notificationRequestDto/* , String operation */) {
-        List<String> registrationTokens = notificationRequestDto.getTokens();
-        Integer resultado = 1;
-        // Se fracciona la lista de tokens de 100 en 100 ya que el metodo addAllTokens
-        // permite esta cantidad como maximo
-        for (int i = 0; i < registrationTokens.size(); i += 100) {
-            List<String> subList = registrationTokens.subList(i, Math.min(registrationTokens.size(), i + 100));
-            BatchResponse response = null;
-            AndroidConfig androidConfig = AndroidConfig.builder().setPriority(AndroidConfig.Priority.HIGH).build();
-            ApnsConfig apnsConfig = ApnsConfig.builder()
-                    .putHeader("apns-priority", "10")
-                    .setAps(Aps.builder().setContentAvailable(true)
-                            .setSound("default")
-                            .build())
-                    .build();
+//    @Override
+//    public void sendMultipleNotificationsUsers(
+//            NotificationRequest notificationRequestDto/* , String operation */) {
+//        List<String> registrationTokens = notificationRequestDto.getTokens();
+//        Integer resultado = 1;
+//        // Se fracciona la lista de tokens de 100 en 100 ya que el metodo addAllTokens
+//        // permite esta cantidad como maximo
+//        for (int i = 0; i < registrationTokens.size(); i += 100) {
+//            List<String> subList = registrationTokens.subList(i, Math.min(registrationTokens.size(), i + 100));
+//            BatchResponse response = null;
+//            AndroidConfig androidConfig = AndroidConfig.builder().setPriority(AndroidConfig.Priority.HIGH).build();
+//            ApnsConfig apnsConfig = ApnsConfig.builder()
+//                    .putHeader("apns-priority", "10")
+//                    .setAps(Aps.builder().setContentAvailable(true)
+//                            .setSound("default")
+//                            .build())
+//                    .build();
+//
+//            if (subList != null && subList.size() > 0) {
+//                MulticastMessage message = MulticastMessage.builder()
+//                        .putData("body", new Gson().toJson(notificationRequestDto))
+//                        .putData("priority", "high")
+//                        .putData("click_action", "FLUTTER_NOTIFICATION_CLICK")
+//                        .putData("contentAvailable", "true")
+//                        // .setNotification(new Notification(notificationRequestDto.getTitle(),
+//                        // notificationRequestDto.getBody()))
+//                        // .putData("body", new Gson().toJson(tripRequest))
+//                        //// .putData("priority", "high")
+//                        //// .putData("contentAvailable", "true")
+//                        // .putData("operation", operation)
+//                        .setAndroidConfig(androidConfig)
+//                        .setApnsConfig(apnsConfig)
+//                        .addAllTokens(subList)
+//                        .build();
+//                try {
+//                    response = FirebaseMessaging.getInstance().sendMulticast(message);
+//                } catch (FirebaseMessagingException e) {
+//                    resultado = 0;
+//                    System.out.println(e.getMessage());
+//                    System.out.println(e.getCause());
+//                }
+//            }
+//        }
+//
+//    }
 
-            if (subList != null && subList.size() > 0) {
-                MulticastMessage message = MulticastMessage.builder()
-                        .putData("body", new Gson().toJson(notificationRequestDto))
-                        .putData("priority", "high")
-                        .putData("click_action", "FLUTTER_NOTIFICATION_CLICK")
-                        .putData("contentAvailable", "true")
-                        // .setNotification(new Notification(notificationRequestDto.getTitle(),
-                        // notificationRequestDto.getBody()))
-                        // .putData("body", new Gson().toJson(tripRequest))
-                        //// .putData("priority", "high")
-                        //// .putData("contentAvailable", "true")
-                        // .putData("operation", operation)
-                        .setAndroidConfig(androidConfig)
-                        .setApnsConfig(apnsConfig)
-                        .addAllTokens(subList)
-                        .build();
-                try {
-                    response = FirebaseMessaging.getInstance().sendMulticast(message);
-                } catch (FirebaseMessagingException e) {
-                    resultado = 0;
-                    System.out.println(e.getMessage());
-                    System.out.println(e.getCause());
-                }
-            }
+    @Override
+    public void sendMultipleNotificationsUsers(NotificationRequest notificationRequestDto) {
+        List<String> registrationTokens = notificationRequestDto.getTokens();
+        if (registrationTokens.isEmpty()) {
+            logger.warn("No tokens provided for sending multiple notifications.");
+            return;
         }
 
-    }
+        // Crear mensajes para cada token
+        List<Message> messages = registrationTokens.stream()
+                .map(token -> buildMessage(notificationRequestDto, token))
+                .collect(Collectors.toList());
 
-//    @Override
-//    public void sendMultipleNotificationsUsers(NotificationRequest notificationRequestDto) {
-//        List<String> registrationTokens = notificationRequestDto.getTokens();
-//        if (registrationTokens.isEmpty()) {
-//            logger.warn("No tokens provided for sending multiple notifications.");
-//            return;
-//        }
-//
-//        // Crear mensajes para cada token
-//        List<Message> messages = registrationTokens.stream()
-//                .map(token -> buildMessage(notificationRequestDto, token))
-//                .collect(Collectors.toList());
-//
-//        try {
-//            // Enviar todos los mensajes usando sendAll
-//            BatchResponse response = FirebaseMessaging.getInstance(firebaseApp).sendAll(messages);
-//            logBatchResponse(response);
-//        } catch (FirebaseMessagingException e) {
-//            logger.error("Error sending notifications", e);
-//        }
-//    }
+        try {
+            // Enviar todos los mensajes usando sendAll
+            BatchResponse response = FirebaseMessaging.getInstance(firebaseApp).sendAll(messages);
+            logBatchResponse(response);
+        } catch (FirebaseMessagingException e) {
+            logger.error("Error sending notifications", e);
+        }
+    }
 
     // Construcción del mensaje individual
     private Message buildMessage(NotificationRequest notificationRequestDto, String token) {
