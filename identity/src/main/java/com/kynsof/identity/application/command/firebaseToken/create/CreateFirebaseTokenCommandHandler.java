@@ -20,12 +20,18 @@ public class CreateFirebaseTokenCommandHandler implements ICommandHandler<Create
 
     @Override
     public void handle(CreateFirebaseTokenCommand command) {
+        FirebaseTokenDto firebaseTokenDto = firebaseTokenService.findByUserSystemId(command.getUserId());
+        if (firebaseTokenDto == null) {
         UserSystemDto userSystemDto = service.findById(command.getUserId());
+            firebaseTokenService.create(new FirebaseTokenDto(
+                    command.getId(),
+                    userSystemDto,
+                    command.getToken()
+            ));
+        }else {
+            firebaseTokenDto.setToken(command.getToken());
+            firebaseTokenService.update(firebaseTokenDto);
+        }
 
-        firebaseTokenService.create(new FirebaseTokenDto(
-                command.getId(),
-                userSystemDto,
-                command.getToken()
-        ));
     }
 }

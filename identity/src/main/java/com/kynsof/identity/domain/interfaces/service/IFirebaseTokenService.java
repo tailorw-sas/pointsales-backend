@@ -14,4 +14,5 @@ public interface IFirebaseTokenService {
     void delete(FirebaseTokenDto delete);
     FirebaseTokenDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+    FirebaseTokenDto findByUserSystemId(UUID id);
 }

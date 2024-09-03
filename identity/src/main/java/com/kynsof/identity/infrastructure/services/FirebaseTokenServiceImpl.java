@@ -64,6 +64,15 @@ public class FirebaseTokenServiceImpl implements IFirebaseTokenService {
     }
 
     @Override
+    public FirebaseTokenDto findByUserSystemId(UUID id) {
+        var entity = queryRepository.findByUserSystemId(id);
+        if (entity.isPresent()) {
+            return entity.get().toAggregate();
+        }
+        return null;
+    }
+
+    @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
      //   filterCriteria(filterCriteria);
         var specifications = new GenericSpecificationsBuilder<FirebaseTokenResponse>(filterCriteria);
