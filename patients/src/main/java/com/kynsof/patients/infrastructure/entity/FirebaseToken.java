@@ -1,0 +1,32 @@
+package com.kynsof.patients.infrastructure.entity;
+
+import com.kynsof.patients.domain.dto.FirebaseTokenDto;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import java.util.UUID;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class FirebaseToken {
+
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    private String token;
+
+    public FirebaseToken(FirebaseTokenDto dto) {
+        this.id = dto.getId();
+        this.token = dto.getToken();
+    }
+
+    public FirebaseTokenDto toAggregate() {
+        return new FirebaseTokenDto(id, token);
+    }
+}
