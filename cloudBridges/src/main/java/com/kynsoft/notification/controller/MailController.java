@@ -1,7 +1,7 @@
 package com.kynsoft.notification.controller;
 
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsoft.notification.application.command.Campaign.CreateCampaignRequest;
+import com.kynsoft.notification.application.command.campaign.CreateCampaignRequest;
 import com.kynsoft.notification.application.command.ContactList.ContactListRequest;
 import com.kynsoft.notification.application.command.sendMailjetEmail.SendMailJetEMailCommand;
 import com.kynsoft.notification.application.command.sendMailjetEmail.SendMailJetEMailRequest;
@@ -81,7 +81,7 @@ public class MailController {
             String campaignId = emailService.createCampaign(request.getCampaignName(), request.getSenderEmail(),
                     request.getSenderName(), request.getSubject(), request.getTemplateId(),
                     request.getContactListId(), "516542c2b1e7bfbf3ec65077bcb619d3", "2c69809275145fcd158cf369d5676d05");
-            return ResponseEntity.ok("Campaign created successfully with ID: " + campaignId);
+            return ResponseEntity.ok("campaign created successfully with ID: " + campaignId);
         } catch (MailjetException e) {
             return ResponseEntity.status(500).body("Failed to create campaign: " + e.getMessage());
         }
@@ -94,7 +94,7 @@ public class MailController {
         try {
             boolean result = emailService.sendCampaign(campaignId, mailjetApiKey, mailjetApiSecret);
             if (result) {
-                return ResponseEntity.ok("Campaign sent successfully!");
+                return ResponseEntity.ok("campaign sent successfully!");
             } else {
                 return ResponseEntity.status(500).body("Failed to send campaign");
             }
