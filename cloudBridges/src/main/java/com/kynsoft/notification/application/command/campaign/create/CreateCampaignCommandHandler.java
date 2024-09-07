@@ -8,7 +8,6 @@ import com.kynsoft.notification.domain.dtoEnum.CampaignStatus;
 import com.kynsoft.notification.domain.service.CampaignService;
 import com.kynsoft.notification.domain.service.ITemplateEntityService;
 import com.kynsoft.notification.domain.service.ITenantService;
-import com.kynsoft.notification.infrastructure.entity.Tenant;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

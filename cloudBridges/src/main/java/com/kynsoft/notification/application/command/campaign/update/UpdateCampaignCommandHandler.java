@@ -1,8 +1,6 @@
 package com.kynsoft.notification.application.command.campaign.update;
 
-import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import com.kynsoft.notification.domain.dto.CampaignDto;
 import com.kynsoft.notification.domain.dto.TemplateDto;
 import com.kynsoft.notification.domain.dto.TenantDto;

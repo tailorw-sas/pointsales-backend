@@ -1,4 +1,4 @@
-package com.kynsoft.notification.application.command.Campaign;
+package com.kynsoft.notification.application.command.campaign;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CreateCampaignRequest {
 
-    @NotBlank(message = "Campaign name is required")
+    @NotBlank(message = "campaign name is required")
     private String campaignName;
 
     @Email(message = "Sender email should be valid")
