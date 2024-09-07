@@ -6,6 +6,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -20,7 +21,11 @@ import lombok.Setter;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.generator.EventType;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
@@ -32,6 +37,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class Campaign {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -65,8 +71,10 @@ public class Campaign {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "campaign",cascade = CascadeType.ALL)
     private Set<EmailList> emailList;
 
-    @Embedded
-    private AuditMetadata auditMetadata;
+    @CreatedDate
+    private Instant createDate;
+    @LastModifiedDate
+    private Instant updateDate;
 
 
     public CampaignDto toAggregate(){

@@ -5,6 +5,7 @@ import com.kynsoft.notification.infrastructure.entity.Campaign;
 import com.kynsoft.notification.infrastructure.entity.EmailList;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
+import lombok.Setter;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -19,8 +20,9 @@ import java.util.stream.Collectors;
 /**
  * DTO for {@link com.kynsoft.notification.infrastructure.entity.Campaign}
  */
-@Value
+
 @Builder
+@Setter
 public class CampaignDto implements Serializable {
     @NotNull
     UUID id;

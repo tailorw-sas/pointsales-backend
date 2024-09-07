@@ -12,4 +12,6 @@ public class CreateCampaignRequest {
     private final String userId;
     private final String code;
     private final LocalDate campaignDate;
+    private final String templateId;
+    private final String tenantId;
 }

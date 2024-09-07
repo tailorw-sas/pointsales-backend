@@ -9,8 +9,10 @@ import java.time.LocalDate;
 @Getter
 @Builder
 public class UpdateCampaignRequest {
+    private final String id;
     private final String userId;
-    private final FilePart emailList;
     private final String code;
     private final LocalDate campaignDate;
+    private final String templateId;
+    private final String tenantId;
 }

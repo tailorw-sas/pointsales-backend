@@ -4,6 +4,7 @@ import com.kynsoft.notification.domain.dto.EmailListDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -17,7 +18,11 @@ import lombok.Setter;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.generator.EventType;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -27,6 +32,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class EmailList {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -41,8 +47,10 @@ public class EmailList {
     @ManyToOne
     private Campaign campaign;
 
-    @Embedded
-    private AuditMetadata auditMetadata;
+    @CreatedDate
+    private Instant createDate;
+    @LastModifiedDate
+    private Instant updateDate;
 
 
     public EmailListDto toAggregate(){
