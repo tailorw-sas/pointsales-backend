@@ -36,6 +36,8 @@ public class UpdateCampaignCommandHandler implements ICommandHandler<UpdateCampa
         campaignDto.setCampaignDate(request.getCampaignDate());
         campaignDto.setTemplate(templateDto);
         campaignDto.setTenant(tenantDto);
+        campaignDto.setAmountEmailOpen(request.getAmountEmailOpen());
+        campaignDto.setAmountEmailSent(request.getAmountEmailSent());
         campaignService.updateCampaign(campaignDto);
     }
 }

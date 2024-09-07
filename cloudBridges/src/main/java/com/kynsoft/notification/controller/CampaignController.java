@@ -60,8 +60,8 @@ public class CampaignController {
         return ResponseEntity.ok(mediator.send(query));
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<?> search(SearchRequest searchRequest){
+    @PostMapping("/search")
+    public ResponseEntity<?> search(@RequestBody SearchRequest searchRequest){
         SearchCampaignQuery searchCampaignQuery = new SearchCampaignQuery(
                 PageableUtil.createPageable(searchRequest),
                 searchRequest.getFilter(),

@@ -68,7 +68,7 @@ public class Campaign {
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "campaign",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "campaign",cascade = CascadeType.ALL)
     private Set<EmailList> emailList;
 
     @CreatedDate
