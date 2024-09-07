@@ -61,6 +61,8 @@ public class Campaign {
 
     private long amountEmailOpen;
 
+    private String subject;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "template_id")
     private TemplateEntity template;
@@ -87,6 +89,7 @@ public class Campaign {
                 .status(status)
                 .amountEmailSent(amountEmailSent)
                 .amountEmailOpen(amountEmailOpen)
+                .subject(subject)
                 .template(Objects.nonNull(template)?template.toAggregate():null)
                 .tenant(Objects.nonNull(tenant)?tenant.toAggregate():null)
                 .emailList(emailList.stream().map(EmailList::toAggregate).collect(Collectors.toSet()))

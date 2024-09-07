@@ -18,4 +18,5 @@ public class UpdateCampaignRequest {
     private final String tenantId;
     private final long amountEmailSent;
     private final long amountEmailOpen;
+    private final String subject;
 }

@@ -40,6 +40,7 @@ public class CreateCampaignCommandHandler implements ICommandHandler<CreateCampa
                 .campaignDate(request.getCampaignDate())
                 .template(templateDto)
                 .tenant(tenantDto)
+                .subject(request.getSubject())
                 .build()
         );
     }
