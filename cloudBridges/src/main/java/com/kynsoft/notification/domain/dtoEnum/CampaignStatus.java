@@ -1,4 +1,4 @@
-package com.kynsoft.notification.domain;
+package com.kynsoft.notification.domain.dtoEnum;
 
 public enum CampaignStatus {
     PENDING,

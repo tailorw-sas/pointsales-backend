@@ -1,6 +1,7 @@
 package com.kynsoft.notification.domain.dto;
 
 
+import com.kynsoft.notification.infrastructure.entity.MailjetConfiguration;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,9 @@ public class MailjetConfigurationDto {
     private String fromName;
     private TenantDto tenant;
     private LocalDateTime createdAt;
+
+    public MailjetConfiguration toAggregate(){
+        return new MailjetConfiguration(this);
+    }
 
 }

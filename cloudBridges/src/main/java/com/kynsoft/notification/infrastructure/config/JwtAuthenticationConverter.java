@@ -26,10 +26,10 @@ public class JwtAuthenticationConverter  implements Converter<Jwt, Mono<Abstract
     private final JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter =
             new JwtGrantedAuthoritiesConverter();
 
-    @Value("${jwt.auth.converter.principle-attribute}")
+   // @Value("${jwt.auth.converter.principle-attribute}")
     private String principleAttribute = "preferred_username";
     
-    @Value("${jwt.auth.converter.resource-id}")
+   // @Value("${jwt.auth.converter.resource-id}")
     private String resourceId = "quipux-gateway";
     
     @NonNull

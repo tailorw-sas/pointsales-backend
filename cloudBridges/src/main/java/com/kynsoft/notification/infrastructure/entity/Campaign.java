@@ -1,7 +1,10 @@
 package com.kynsoft.notification.infrastructure.entity;
 
-import com.kynsoft.notification.domain.CampaignStatus;
+import com.kynsoft.notification.domain.dto.CampaignDto;
+import com.kynsoft.notification.domain.dtoEnum.CampaignStatus;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,12 +24,14 @@ import org.hibernate.generator.EventType;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity(name = "campaign")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Campaign {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -38,6 +44,8 @@ public class Campaign {
 
     private String code;
 
+    private UUID ownerId;
+
     private LocalDate campaignDate;
 
     private CampaignStatus status;
@@ -46,17 +54,36 @@ public class Campaign {
 
     private long amountEmailOpen;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "template_id")
     private TemplateEntity template;
 
-    @ManyToOne()
+    @ManyToOne(fetch =FetchType.EAGER)
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "email_list_id")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "campaign",cascade = CascadeType.ALL)
     private Set<EmailList> emailList;
+
+    @Embedded
+    private AuditMetadata auditMetadata;
+
+
+    public CampaignDto toAggregate(){
+        return CampaignDto.builder()
+                .id(id)
+                .campaignId(campaignId)
+                .code(code)
+                .campaignDate(campaignDate)
+                .status(status)
+                .amountEmailSent(amountEmailSent)
+                .amountEmailOpen(amountEmailOpen)
+                .template(template.toAggregate())
+                .tenant(tenant.toAggregate())
+                .emailList(emailList.stream().map(EmailList::toAggregate).collect(Collectors.toSet()))
+                .build();
+
+    }
 
 
 }

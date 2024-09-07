@@ -1,6 +1,8 @@
 package com.kynsoft.notification.domain.dto;
 
 import java.time.OffsetDateTime;
+
+import com.kynsoft.notification.infrastructure.entity.Tenant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +19,8 @@ public class TenantDto {
     private UUID id;
     private String tenantId;
     private OffsetDateTime createdAt;
+
+    public Tenant toAggregate(){
+        return new Tenant(this);
+    }
 }
