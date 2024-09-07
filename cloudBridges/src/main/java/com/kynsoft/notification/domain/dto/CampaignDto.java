@@ -4,7 +4,9 @@ import com.kynsoft.notification.domain.dtoEnum.CampaignStatus;
 import com.kynsoft.notification.infrastructure.entity.Campaign;
 import com.kynsoft.notification.infrastructure.entity.EmailList;
 import jakarta.validation.constraints.NotNull;
+import jdk.jfr.DataAmount;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Setter;
 import lombok.Value;
 
@@ -22,7 +24,7 @@ import java.util.stream.Collectors;
  */
 
 @Builder
-@Setter
+@Data
 public class CampaignDto implements Serializable {
     @NotNull
     UUID id;

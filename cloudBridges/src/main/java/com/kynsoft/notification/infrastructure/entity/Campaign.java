@@ -27,6 +27,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -86,8 +87,8 @@ public class Campaign {
                 .status(status)
                 .amountEmailSent(amountEmailSent)
                 .amountEmailOpen(amountEmailOpen)
-                .template(template.toAggregate())
-                .tenant(tenant.toAggregate())
+                .template(Objects.nonNull(template)?template.toAggregate():null)
+                .tenant(Objects.nonNull(tenant)?tenant.toAggregate():null)
                 .emailList(emailList.stream().map(EmailList::toAggregate).collect(Collectors.toSet()))
                 .build();
 

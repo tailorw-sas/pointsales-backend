@@ -56,7 +56,7 @@ public class CampaignServiceImpl implements CampaignService {
         GenericSpecificationsBuilder<Campaign> specifications = new GenericSpecificationsBuilder<>(filter);
         Page<Campaign> data = readRepository.findAll(specifications, pageable);
 
-        return new PaginatedResponse(data.getContent(),
+        return new PaginatedResponse(data.getContent().stream().map(Campaign::toAggregate).toList(),
                 data.getTotalPages(),
                 data.getNumberOfElements(),
                 data.getTotalElements(),
