@@ -15,6 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.generator.EventType;
@@ -44,6 +45,7 @@ public class EmailList {
     private String email;
     private String clientName;
     private String clientLastname;
+    @JsonIgnore
     @ManyToOne
     private Campaign campaign;
 
@@ -60,7 +62,7 @@ public class EmailList {
                 .email(email)
                 .clientName(clientName)
                 .clientLastname(clientLastname)
-                .campaign(Objects.nonNull(campaign)?campaign.toAggregate():null)
+               // .campaign(Objects.nonNull(campaign)?campaign.toAggregate():null)
                 .build();
     }
 }

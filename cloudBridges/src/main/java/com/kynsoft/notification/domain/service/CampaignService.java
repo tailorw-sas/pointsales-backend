@@ -22,4 +22,6 @@ public interface CampaignService {
     CampaignDto getCampaignById(String campaignId);
 
     PaginatedResponse getAllCampaign(Pageable pageable);
+
+    CampaignDto findById(String campaignId);
 }

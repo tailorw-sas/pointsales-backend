@@ -1,11 +1,15 @@
 package com.kynsoft.notification.domain.bean;
 
 import com.kynsof.share.core.application.excel.annotation.Cell;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ImportEmailListRow {
    @Cell(position = 0)
    private String email;
@@ -13,4 +17,5 @@ public class ImportEmailListRow {
    private String clientName;
    @Cell(position = 2)
    private String clientLastname;
+
 }

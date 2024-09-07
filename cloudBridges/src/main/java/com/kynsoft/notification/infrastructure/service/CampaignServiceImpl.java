@@ -88,6 +88,14 @@ public class CampaignServiceImpl implements CampaignService {
                 data.getNumber());
     }
 
+    @Override
+    public CampaignDto findById(String campaignId) {
+        return readRepository.findById(UUID.fromString(campaignId))
+                .map(Campaign::toAggregate)
+                .orElseThrow(()-> new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND,
+                        new ErrorField("campaignId", "The campaign not found."))));
+    }
+
     private void filterCriteria(List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
 
