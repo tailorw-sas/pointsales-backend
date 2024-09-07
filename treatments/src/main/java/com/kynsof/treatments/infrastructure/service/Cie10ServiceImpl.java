@@ -34,12 +34,11 @@ public class Cie10ServiceImpl implements ICie10Service {
     @Override
     @Cacheable(cacheNames = CacheConfig.CIE10, unless = "#result == null")
     public Cie10Dto findByCode(String code) {
-        Optional<Cie10> cie10ByCode = Optional.ofNullable(this.repositoryQuery.findCie10ByCode(code));
-        if (cie10ByCode.isPresent()) {
-            return cie10ByCode.get().toAggregate();
-        }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.CIE10_NOT_FOUND,
-                new ErrorField("id", "Cie10 not found.")));
+        return Optional.ofNullable(repositoryQuery.findCie10ByCode(code))
+                .map(Cie10::toAggregate)
+                .orElseThrow(() -> new BusinessNotFoundException(new GlobalBusinessException(
+                        DomainErrorMessage.CIE10_NOT_FOUND,
+                        new ErrorField("code", "Cie10 not found."))));
     }
 
     @Override
@@ -47,7 +46,7 @@ public class Cie10ServiceImpl implements ICie10Service {
     public PaginatedResponse findAll(Pageable pageable, String name, String code) {
         var specifications = new Cie10Specifications(name, code);
         var data = repositoryQuery.findAll(specifications, pageable);
-        return getPaginatedResponse(data);
+        return createPaginatedResponse(data);
     }
 
     @Override
@@ -55,12 +54,13 @@ public class Cie10ServiceImpl implements ICie10Service {
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         var specifications = new GenericSpecificationsBuilder<Cie10>(filterCriteria);
         var data = repositoryQuery.findAll(specifications, pageable);
-        return getPaginatedResponse(data);
+        return createPaginatedResponse(data);
     }
 
-    private PaginatedResponse getPaginatedResponse(Page<Cie10> data) {
+    private PaginatedResponse createPaginatedResponse(Page<Cie10> data) {
         var responses = data.getContent().stream()
-                .map(cie10 -> new Cie10Response(cie10.toAggregate()))
+                .map(Cie10::toAggregate)
+                .map(Cie10Response::new)
                 .toList();
         return new PaginatedResponse(responses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());

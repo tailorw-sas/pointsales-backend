@@ -60,7 +60,7 @@ public class Turn {
     public Turn(TurnDto turnDto) {
         this.id = turnDto.getId();
         this.resource = turnDto.getDoctor() != null ? new Resource(turnDto.getDoctor()) : null;
-        this.services = new Services(turnDto.getServices());
+        this.services = turnDto.getServices() != null ? new Services(turnDto.getServices()) : null;
         this.identification = turnDto.getIdentification();
         this.orderNumber = turnDto.getOrderNumber();
         this.waitingTime = turnDto.getWaitingTime();
@@ -73,7 +73,7 @@ public class Turn {
         TurnDto turnDto = new TurnDto(
                 id,
                 resource != null ? resource.toAggregate() : null,
-                services.toAggregate(),
+                services != null ? services.toAggregate() : null,
                 identification,
                 orderNumber,
                 waitingTime,

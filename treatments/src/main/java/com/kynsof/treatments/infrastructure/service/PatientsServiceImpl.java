@@ -10,8 +10,8 @@ import com.kynsof.treatments.infrastructure.entity.Patients;
 import com.kynsof.treatments.infrastructure.repositories.command.PatientsWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.PatientsReadDataJPARepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -19,67 +19,61 @@ import java.util.UUID;
 @Service
 public class PatientsServiceImpl implements IPatientsService {
 
-    @Autowired
-    private PatientsWriteDataJPARepository repositoryCommand;
+    private final PatientsWriteDataJPARepository repositoryCommand;
+    private final PatientsReadDataJPARepository repositoryQuery;
 
-    @Autowired
-    private PatientsReadDataJPARepository repositoryQuery;
+    public PatientsServiceImpl(PatientsWriteDataJPARepository repositoryCommand,
+                               PatientsReadDataJPARepository repositoryQuery) {
+        this.repositoryCommand = repositoryCommand;
+        this.repositoryQuery = repositoryQuery;
+    }
 
     @Override
+    @Transactional
     public UUID create(PatientDto patients) {
-        Patients entity = this.repositoryCommand.save(new Patients(patients));
+        Patients entity = repositoryCommand.save(new Patients(patients));
         return entity.getId();
     }
 
     @Override
+    @Transactional
     public UUID update(PatientDto patientDto) {
         if (patientDto == null || patientDto.getId() == null) {
             throw new IllegalArgumentException("Patient DTO or ID cannot be null");
         }
 
-        this.repositoryQuery.findById(patientDto.getId())
+        Patients updatedPatient = repositoryQuery.findById(patientDto.getId())
                 .map(patient -> {
-                    if (patientDto.getName() != null) {
-                        patient.setName(patientDto.getName());
-                    }
-                    if (patientDto.getLastName() != null) {
-                        patient.setLastName(patientDto.getLastName());
-                    }
-                    if (patientDto.getIdentification() != null) {
-                        patient.setIdentification(patientDto.getIdentification());
-                    }
-                    if (patientDto.getGender() != null) {
-                        patient.setGender(patientDto.getGender());
-                    }
-                    if (patientDto.getStatus() != null) {
-                        patient.setStatus(patientDto.getStatus());
-                    }
-                    if (patientDto.getBirthDate() != null) {
-                        patient.setBirthDate(patientDto.getBirthDate());
-                    }
-                    return this.repositoryCommand.save(patient);
+                    Optional.ofNullable(patientDto.getName()).ifPresent(patient::setName);
+                    Optional.ofNullable(patientDto.getLastName()).ifPresent(patient::setLastName);
+                    Optional.ofNullable(patientDto.getIdentification()).ifPresent(patient::setIdentification);
+                    Optional.ofNullable(patientDto.getGender()).ifPresent(patient::setGender);
+                    Optional.ofNullable(patientDto.getStatus()).ifPresent(patient::setStatus);
+                    Optional.ofNullable(patientDto.getBirthDate()).ifPresent(patient::setBirthDate);
+                    return repositoryCommand.save(patient);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Patient with ID " + patientDto.getId() + " not found"));
 
-        return patientDto.getId();
+        return updatedPatient.getId();
     }
 
     @Override
     public PatientDto findById(UUID id) {
-        Optional<Patients> patient = this.repositoryQuery.findById(id);
-        if (patient.isPresent()) {
-            return patient.get().toAggregate();
-        }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.PATIENTS_NOT_FOUND, new ErrorField("id", "Patient not found.")));
+        return repositoryQuery.findById(id)
+                .map(Patients::toAggregate)
+                .orElseThrow(() -> new BusinessNotFoundException(new GlobalBusinessException(
+                        DomainErrorMessage.PATIENTS_NOT_FOUND,
+                        new ErrorField("id", "Patient not found."))));
     }
 
     @Override
     public void delete(UUID id) {
         try {
-            this.repositoryCommand.deleteById(id);
+            repositoryCommand.deleteById(id);
         } catch (Exception e) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+            throw new BusinessNotFoundException(new GlobalBusinessException(
+                    DomainErrorMessage.NOT_DELETE,
+                    new ErrorField("id", "Element cannot be deleted as it has a related element.")));
         }
     }
-
 }

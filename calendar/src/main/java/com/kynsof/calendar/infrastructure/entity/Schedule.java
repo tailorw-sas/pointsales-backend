@@ -77,20 +77,20 @@ public class Schedule {
 
     public Schedule(ScheduleDto scheduleDto) {
         this.id = scheduleDto.getId();
-        this.resource = new Resource(scheduleDto.getResource());
-        this.business = new Business(scheduleDto.getBusiness());
+        this.resource = scheduleDto.getResource() != null ? new Resource(scheduleDto.getResource()) : null;
+        this.business = scheduleDto.getBusiness() != null ? new Business(scheduleDto.getBusiness()) : null;
         this.date = scheduleDto.getDate();
         this.startTime = scheduleDto.getStartTime();
         this.endingTime = scheduleDto.getEndingTime();
         this.stock = scheduleDto.getStock();
         this.initialStock = scheduleDto.getInitialStock();
         this.status = scheduleDto.getStatus();
-        this.service = new Services(scheduleDto.getService());
+        this.service = scheduleDto.getService() != null ? new Services(scheduleDto.getService()) : null;
     }
 
     public ScheduleDto toAggregate() {
-        return new ScheduleDto(id, resource.toAggregate(), business.toAggregate(), date, startTime, endingTime, stock,
-                initialStock, status, service.toAggregate());
+        return new ScheduleDto(id, resource != null ? resource.toAggregate() : null, business != null ? business.toAggregate() : null, date, startTime, endingTime, stock,
+                initialStock, status, service != null ? service.toAggregate() : null);
     }
 
 }

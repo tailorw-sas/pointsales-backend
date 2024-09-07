@@ -21,6 +21,7 @@ import com.kynsof.calendar.application.query.schedule.getAvailableDatesAndSlots.
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesByServiceId.AvailableDatesRequest;
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesByServiceId.GetAvailableDatesByServiceIdQuery;
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesByServiceId.GetAvailableDatesByServiceIdResponse;
+import com.kynsof.calendar.application.query.schedule.getUniqueAvailableServices.GetUniqueAvailableServicesQuery;
 import com.kynsof.calendar.application.query.schedule.getbyid.FindScheduleByIdQuery;
 import com.kynsof.calendar.application.query.schedule.search.GetSearchScheduleQuery;
 import com.kynsof.share.core.domain.request.PageableUtil;
@@ -141,5 +142,13 @@ public class ScheduledController {
                 request.getStartDate(), request.getFinalDate());
         GetAvailableDatesAndSlotsResponse availableDates = mediator.send(query);
         return ResponseEntity.ok(availableDates);
+    }
+
+    @PostMapping("/services")
+    public ResponseEntity<PaginatedResponse> services(@RequestBody SearchRequest request) {
+        Pageable pageable = PageableUtil.createPageable(request);
+        GetUniqueAvailableServicesQuery query = new GetUniqueAvailableServicesQuery(pageable, request.getFilter(), request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
     }
 }

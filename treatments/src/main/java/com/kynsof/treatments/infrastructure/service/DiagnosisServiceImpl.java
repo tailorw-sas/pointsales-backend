@@ -13,7 +13,6 @@ import com.kynsof.treatments.domain.dto.ExternalConsultationDto;
 import com.kynsof.treatments.domain.service.IDiagnosisService;
 import com.kynsof.treatments.infrastructure.entity.Diagnosis;
 import com.kynsof.treatments.infrastructure.entity.ExternalConsultation;
-import com.kynsof.treatments.infrastructure.entity.Procedure;
 import com.kynsof.treatments.infrastructure.repositories.command.DiagnosisWriteDataJPARepository;
 import com.kynsof.treatments.infrastructure.repositories.query.DiagnosisReadDataJPARepository;
 import org.springframework.data.domain.Page;
@@ -21,43 +20,45 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class DiagnosisServiceImpl implements IDiagnosisService {
 
     private final DiagnosisReadDataJPARepository repositoryQuery;
-
     private final DiagnosisWriteDataJPARepository repositoryCommand;
 
     public DiagnosisServiceImpl(DiagnosisReadDataJPARepository repositoryQuery,
-            DiagnosisWriteDataJPARepository repositoryCommand) {
+                                DiagnosisWriteDataJPARepository repositoryCommand) {
         this.repositoryQuery = repositoryQuery;
         this.repositoryCommand = repositoryCommand;
     }
 
     @Override
     public void create(List<DiagnosisDto> diagnosisDtoList) {
-        List<Diagnosis> diagnoses = diagnosisDtoList.stream().map(Diagnosis::new).toList();
-        this.repositoryCommand.saveAll(diagnoses);
+        List<Diagnosis> diagnoses = diagnosisDtoList.stream()
+                .map(Diagnosis::new)
+                .collect(Collectors.toList());
+        repositoryCommand.saveAll(diagnoses);
     }
 
     @Override
     public void update(DiagnosisDto treatment) {
         Diagnosis update = new Diagnosis(treatment);
         update.setUpdatedAt(LocalDateTime.now());
-        this.repositoryCommand.save(update);
+        repositoryCommand.save(update);
     }
 
     @Override
     public void delete(DiagnosisDto treatment) {
         try {
-            this.repositoryCommand.deleteById(treatment.getId());
+            repositoryCommand.deleteById(treatment.getId());
         } catch (Exception e) {
-            throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
+            throw new BusinessNotFoundException(new GlobalBusinessException(
+                    DomainErrorMessage.NOT_DELETE,
+                    new ErrorField("id", "Element cannot be deleted as it has a related element.")));
         }
     }
 
@@ -68,33 +69,32 @@ public class DiagnosisServiceImpl implements IDiagnosisService {
 
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
-        GenericSpecificationsBuilder<Procedure> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
-        Page<Diagnosis> data = this.repositoryQuery.findAll(specifications, pageable);
-        return getPaginatedResponse(data);
+        var specifications = new GenericSpecificationsBuilder<Diagnosis>(filterCriteria);
+        var data = repositoryQuery.findAll(specifications, pageable);
+        return createPaginatedResponse(data);
     }
 
-    private PaginatedResponse getPaginatedResponse(Page<Diagnosis> data) {
-        List<DiagnosisResponse> patients = new ArrayList<>();
-        for (Diagnosis o : data.getContent()) {
-            patients.add(new DiagnosisResponse(o.toAggregate()));
-        }
-        return new PaginatedResponse(patients, data.getTotalPages(), data.getNumberOfElements(),
+    private PaginatedResponse createPaginatedResponse(Page<Diagnosis> data) {
+        var responses = data.getContent().stream()
+                .map(Diagnosis::toAggregate)
+                .map(DiagnosisResponse::new)
+                .collect(Collectors.toList());
+        return new PaginatedResponse(responses, data.getTotalPages(), data.getNumberOfElements(),
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
     @Override
     public DiagnosisDto findById(UUID id) {
-        Optional<Diagnosis> object = this.repositoryQuery.findById(id);
-        if (object.isPresent()) {
-            return object.get().toAggregate();
-        }
-
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.DIAGNOSIS_NOT_FOUND, new ErrorField("id", "Diagnosis not found.")));
+        return repositoryQuery.findById(id)
+                .map(Diagnosis::toAggregate)
+                .orElseThrow(() -> new BusinessNotFoundException(new GlobalBusinessException(
+                        DomainErrorMessage.DIAGNOSIS_NOT_FOUND,
+                        new ErrorField("id", "Diagnosis not found."))));
     }
 
     @Override
     public PaginatedResponse findByExternalConsultation(ExternalConsultationDto externalConsultation, Pageable pageable) {
-        Page<Diagnosis> diagnosis = this.repositoryQuery.findByExternalConsultation(new ExternalConsultation(externalConsultation), pageable);
-        return getPaginatedResponse(diagnosis);
+        var diagnosis = repositoryQuery.findByExternalConsultation(new ExternalConsultation(externalConsultation), pageable);
+        return createPaginatedResponse(diagnosis);
     }
 }

@@ -5,7 +5,6 @@ import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
@@ -17,7 +16,6 @@ public interface IScheduleService {
     void delete(UUID id);
     ScheduleDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
-    Page<Schedule> getAll(Pageable pageable);
 
     void delete(Schedule schedule);
     UUID create(ScheduleDto schedule);
@@ -27,4 +25,6 @@ public interface IScheduleService {
     List<AvailableDateDto> getAvailableDatesAndSlots(UUID resourceId, UUID businessId,  LocalDate startDate, LocalDate endDate);
     List<Schedule> findOverlappingSchedules(UUID resourceId, LocalDate date, LocalTime startTime, LocalTime endingTime);
 
+    List<ScheduleDto> findSchedulesWithEqualStock(LocalDate date);
+    PaginatedResponse getUniqueAvailableServices(Pageable pageable,  List<FilterCriteria> filterCriteria);
 }

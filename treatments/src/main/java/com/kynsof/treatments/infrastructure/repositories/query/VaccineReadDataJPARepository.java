@@ -13,8 +13,8 @@ import java.util.UUID;
 
 public interface VaccineReadDataJPARepository extends JpaRepository<Vaccine, UUID>, JpaSpecificationExecutor<Vaccine> {
     Page<Vaccine> findAll(Specification specification, Pageable pageable);
-    @Query("SELECT v FROM Vaccine v WHERE v.minAge <= :age AND v.maxAge >= :age")
-    Page<Vaccine> findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual(@Param("age") double age, Pageable pageable);
+    @Query("SELECT v FROM Vaccine v WHERE (v.minAge * 12) <= :age AND (v.maxAge * 12) >= :age")
+    Page<Vaccine> findByMinAgeLessThanEqualAndMaxAgeGreaterThanEqual(@Param("age") int age, Pageable pageable);
 
     
     @Query("SELECT COUNT(b) FROM Vaccine b WHERE b.name = :name AND b.id <> :id")
