@@ -27,6 +27,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -60,6 +61,8 @@ public class Campaign {
 
     private long amountEmailOpen;
 
+    private String subject;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "template_id")
     private TemplateEntity template;
@@ -68,7 +71,7 @@ public class Campaign {
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "campaign",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "campaign",cascade = CascadeType.ALL)
     private Set<EmailList> emailList;
 
     @CreatedDate
@@ -86,8 +89,9 @@ public class Campaign {
                 .status(status)
                 .amountEmailSent(amountEmailSent)
                 .amountEmailOpen(amountEmailOpen)
-                .template(template.toAggregate())
-                .tenant(tenant.toAggregate())
+                .subject(subject)
+                .template(Objects.nonNull(template)?template.toAggregate():null)
+                .tenant(Objects.nonNull(tenant)?tenant.toAggregate():null)
                 .emailList(emailList.stream().map(EmailList::toAggregate).collect(Collectors.toSet()))
                 .build();
 

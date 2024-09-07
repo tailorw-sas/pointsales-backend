@@ -18,6 +18,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -48,13 +49,14 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
+    @Transactional
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filter) {
         filterCriteria(filter);
 
         GenericSpecificationsBuilder<Campaign> specifications = new GenericSpecificationsBuilder<>(filter);
         Page<Campaign> data = readRepository.findAll(specifications, pageable);
 
-        return new PaginatedResponse(data.getContent(),
+        return new PaginatedResponse(data.getContent().stream().map(Campaign::toAggregate).toList(),
                 data.getTotalPages(),
                 data.getNumberOfElements(),
                 data.getTotalElements(),
@@ -84,6 +86,14 @@ public class CampaignServiceImpl implements CampaignService {
                 data.getTotalElements(),
                 data.getSize(),
                 data.getNumber());
+    }
+
+    @Override
+    public CampaignDto findById(String campaignId) {
+        return readRepository.findById(UUID.fromString(campaignId))
+                .map(Campaign::toAggregate)
+                .orElseThrow(()-> new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND,
+                        new ErrorField("campaignId", "The campaign not found."))));
     }
 
     private void filterCriteria(List<FilterCriteria> filterCriteria) {

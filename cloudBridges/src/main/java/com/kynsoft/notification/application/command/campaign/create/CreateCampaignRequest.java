@@ -13,4 +13,5 @@ public class CreateCampaignRequest {
     private final LocalDate campaignDate;
     private final String templateId;
     private final String tenantId;
+    private final String subject;
 }

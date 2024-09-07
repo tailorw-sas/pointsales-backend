@@ -9,10 +9,11 @@ import com.kynsoft.notification.domain.service.EmailListService;
 import com.kynsoft.notification.infrastructure.entity.EmailList;
 import com.kynsoft.notification.infrastructure.repository.command.EmailListWriteRepository;
 import com.kynsoft.notification.infrastructure.repository.query.EmailListReadRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -32,17 +33,12 @@ public class EmailListServiceImpl implements EmailListService {
 
     @Override
     public void createBulkEmailList(List<EmailListDto> emailListDtoList) {
-         writeRepository.saveAll(emailListDtoList.stream().map(EmailListDto::toAggregate).toList());
+        writeRepository.saveAll(emailListDtoList.stream().map(EmailListDto::toAggregate).toList());
     }
 
     @Override
-    public List<EmailListDto> getEmailListByCampaignId(String campaignId) {
-        Optional<List<EmailList>> result= readRepository.findEmailListByCampaignId(UUID.fromString(campaignId));
-        if (result.isPresent()){
-            return result.get().stream().map(EmailList::toAggregate).toList();
-        }
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.BUSINESS_NOT_FOUND,
-                new ErrorField("id", "The email list not found.")));
+    public Page<EmailListDto> getEmailListByCampaignId(String campaignId, Pageable pageable) {
+        return readRepository.findEmailListByCampaignId(UUID.fromString(campaignId), pageable).map(EmailList::toAggregate);
 
     }
 }

@@ -4,7 +4,9 @@ import com.kynsoft.notification.domain.dtoEnum.CampaignStatus;
 import com.kynsoft.notification.infrastructure.entity.Campaign;
 import com.kynsoft.notification.infrastructure.entity.EmailList;
 import jakarta.validation.constraints.NotNull;
+import jdk.jfr.DataAmount;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Setter;
 import lombok.Value;
 
@@ -22,20 +24,22 @@ import java.util.stream.Collectors;
  */
 
 @Builder
-@Setter
+@Data
 public class CampaignDto implements Serializable {
     @NotNull
-    UUID id;
-    UUID ownerId;
-    Long campaignId;
-    String code;
-    LocalDate campaignDate;
-    CampaignStatus status;
-    long amountEmailSent;
-    long amountEmailOpen;
-    TemplateDto template;
-    TenantDto tenant;
-    Set<EmailListDto> emailList;
+    private UUID id;
+    private UUID ownerId;
+    private Long campaignId;
+    private String code;
+    private LocalDate campaignDate;
+    private CampaignStatus status;
+    private long amountEmailSent;
+    private long amountEmailOpen;
+    private TemplateDto template;
+   private  TenantDto tenant;
+    private Set<EmailListDto> emailList;
+    private String subject;
+
 
     public Campaign toAggregate(){
         return Campaign.builder()
@@ -50,6 +54,7 @@ public class CampaignDto implements Serializable {
                 .tenant(Objects.nonNull(tenant)?tenant.toAggregate():null)
                 .emailList(Objects.nonNull(emailList)?emailList.stream().map(EmailListDto::toAggregate).collect(Collectors.toSet()):null)
                 .ownerId(ownerId)
+                .subject(subject)
                 .build();
 
     }

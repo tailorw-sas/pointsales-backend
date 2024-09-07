@@ -1,7 +1,6 @@
 package com.kynsoft.notification.application.query.emaillist;
 
 import com.kynsof.share.core.domain.bus.query.IQueryHandler;
-import com.kynsoft.notification.domain.dto.EmailListDto;
 import com.kynsoft.notification.domain.service.EmailListService;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +14,6 @@ public class GetEmailListByCampaignIdQueryHandler implements IQueryHandler<GetEm
     }
     @Override
     public GetEmailListByCampaignIdResponse handle(GetEmailListByCampaignIdQuery query) {
-        return new GetEmailListByCampaignIdResponse( emailListService.getEmailListByCampaignId(query.getCampaignId()));
+        return new GetEmailListByCampaignIdResponse( emailListService.getEmailListByCampaignId(query.getCampaignId(), ));
     }
 }

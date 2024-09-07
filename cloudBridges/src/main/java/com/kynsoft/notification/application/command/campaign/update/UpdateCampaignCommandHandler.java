@@ -4,6 +4,7 @@ import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsoft.notification.domain.dto.CampaignDto;
 import com.kynsoft.notification.domain.dto.TemplateDto;
 import com.kynsoft.notification.domain.dto.TenantDto;
+import com.kynsoft.notification.domain.dtoEnum.CampaignStatus;
 import com.kynsoft.notification.domain.service.CampaignService;
 import com.kynsoft.notification.domain.service.ITemplateEntityService;
 import com.kynsoft.notification.domain.service.ITenantService;
@@ -34,6 +35,10 @@ public class UpdateCampaignCommandHandler implements ICommandHandler<UpdateCampa
         campaignDto.setCampaignDate(request.getCampaignDate());
         campaignDto.setTemplate(templateDto);
         campaignDto.setTenant(tenantDto);
+        campaignDto.setAmountEmailOpen(request.getAmountEmailOpen());
+        campaignDto.setAmountEmailSent(request.getAmountEmailSent());
+        campaignDto.setSubject(request.getSubject());
+        campaignDto.setStatus(CampaignStatus.valueOf(request.getStatus()));
         campaignService.updateCampaign(campaignDto);
     }
 }

@@ -77,14 +77,14 @@ public class ImportEmailListServiceImpl implements ImportEmailListService {
         ExcelBean<ImportEmailListRow> excelBean = new ExcelBean<>(beanReader);
         try{
             this.createStartProcessStatus(request.getImportProcessId());
-            this.readExcelContent(excelBean);
+            this.readExcelContent(excelBean,request);
             this.createEndProcessStatus(request.getImportProcessId());
         }catch (Exception e){
             this.processImportError(e.getMessage(), request.getImportProcessId());
         }
     }
 
-    private void readExcelContent(ExcelBean<ImportEmailListRow> excelBean){
+    private void readExcelContent(ExcelBean<ImportEmailListRow> excelBean,ImportEmailListRequest request){
         int batchControl = 0;
         int importTotal = 0;
         List<ImportEmailListRow> emailListRowList = new ArrayList<>();
@@ -95,32 +95,36 @@ public class ImportEmailListServiceImpl implements ImportEmailListService {
             emailListRowList.add(emailListRow);
             batchControl++;
             if (batchControl == batchSize) {
-                this.createEmailListBulk(emailListRowList);
+                this.createEmailListBulk(emailListRowList,request.getCampaignId());
+                emailListRowList.clear();
                 batchControl = 0;
             }
             importTotal++;
         }
+        if(!emailListRowList.isEmpty()){
+            this.createEmailListBulk(emailListRowList,request.getCampaignId());
+        }
     }
 
-    private void createEmailListBulk(List<ImportEmailListRow> rows) {
-        CreateEmailListEvent event = new CreateEmailListEvent(rows);
+    private void createEmailListBulk(List<ImportEmailListRow> rows,String campaignId) {
+        CreateEmailListEvent event = new CreateEmailListEvent(rows,campaignId);
         applicationEventPublisher.publishEvent(event);
     }
     private void createStartProcessStatus(String importProcessId){
-        applicationEventPublisher.publishEvent(ImportEmailListProcessStatus
+        applicationEventPublisher.publishEvent(new CreateImportStatusEvent(ImportEmailListProcessStatus
                 .builder()
                 .status(ProcessStatus.RUNNING)
                 .importProcessId(importProcessId)
                 .build()
-        );
+        ));
     }
 
     private void createEndProcessStatus(String importProcessId){
-        applicationEventPublisher.publishEvent(ImportEmailListProcessStatus
+        applicationEventPublisher.publishEvent(new CreateImportStatusEvent(ImportEmailListProcessStatus
                 .builder()
                 .status(ProcessStatus.FINISHED)
                 .importProcessId(importProcessId)
-                .build()
+                .build())
         );
     }
     private void processImportError(String message,String importProcessId){

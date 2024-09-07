@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Value;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -27,7 +28,7 @@ public class EmailListDto implements Serializable {
                 .email(email)
                 .clientName(clientName)
                 .clientLastname(clientLastname)
-                .campaign(campaign.toAggregate())
+                .campaign(Objects.nonNull(campaign)?campaign.toAggregate():null)
                 .build();
     }
 
