@@ -1,4 +1,4 @@
-package com.kynsoft.notification.infrastructure.event.handler;
+package com.kynsoft.notification.domain.event.handler;
 
 import com.kynsoft.notification.domain.event.CreateImportErrorEvent;
 import com.kynsoft.notification.infrastructure.entity.redis.ImportEmailListErrorRow;

@@ -1,9 +1,8 @@
 package com.kynsoft.notification.infrastructure.service;
 
-import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
-import com.kynsof.share.core.domain.exception.DomainErrorMessage;
-import com.kynsof.share.core.domain.exception.GlobalBusinessException;
-import com.kynsof.share.core.domain.response.ErrorField;
+import com.kynsof.share.core.domain.request.FilterCriteria;
+import com.kynsof.share.core.domain.response.PaginatedResponse;
+import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
 import com.kynsoft.notification.domain.dto.EmailListDto;
 import com.kynsoft.notification.domain.service.EmailListService;
 import com.kynsoft.notification.infrastructure.entity.EmailList;
@@ -41,4 +40,17 @@ public class EmailListServiceImpl implements EmailListService {
         return readRepository.findEmailListByCampaignId(UUID.fromString(campaignId), pageable).map(EmailList::toAggregate);
 
     }
+
+    @Override
+    public PaginatedResponse search(Pageable page, List<FilterCriteria> filter) {
+        GenericSpecificationsBuilder<EmailList> specifications = new GenericSpecificationsBuilder<>(filter);
+        Page<EmailList> data = readRepository.findAll(specifications, page);
+        return new PaginatedResponse(data.getContent().stream().map(EmailList::toAggregate).toList(),
+                data.getTotalPages(),
+                data.getNumberOfElements(),
+                data.getTotalElements(),
+                data.getSize(),
+                data.getNumber());
+    }
+
 }
