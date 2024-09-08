@@ -13,5 +13,5 @@ public class EmailRequest {
     private List<MailJetVar> mailJetVars;
     private List<MailJetAttachment> mailJetAttachments;
     private String subject;
-    private int templateId;
+    private String templateId;
 }

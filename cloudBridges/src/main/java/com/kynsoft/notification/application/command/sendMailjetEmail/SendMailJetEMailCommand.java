@@ -18,18 +18,18 @@ public class SendMailJetEMailCommand implements ICommand {
     private  final List<MailJetVar> mailJetVars;
     private  final List<MailJetAttachment> mailJetAttachments;
     private  final String subject;
-    private  final int templateId;
+    private  final String templateCode;
 
 
     public SendMailJetEMailCommand(List<MailJetRecipient> recipientEmail, List<MailJetVar> mailJetVars,
-                                   List<MailJetAttachment> mailJetAttachments, String subject, int templateId) {
+                                   List<MailJetAttachment> mailJetAttachments, String subject, String templateId) {
 
 
         this.recipientEmail = recipientEmail;
         this.mailJetVars = mailJetVars;
         this.mailJetAttachments = mailJetAttachments;
         this.subject = subject;
-        this.templateId = templateId;
+        this.templateCode = templateId;
     }
 
     public static SendMailJetEMailCommand fromRequest(SendMailJetEMailRequest request) {

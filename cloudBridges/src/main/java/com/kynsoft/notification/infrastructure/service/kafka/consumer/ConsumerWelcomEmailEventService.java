@@ -58,7 +58,7 @@ public class ConsumerWelcomEmailEventService {
         int  templateId = MailjetTemplateEnum.WELCOM.getTemplateId();
 
         return new SendMailJetEMailCommand(mailJetRecipients, vars, new ArrayList<>(),
-                "Correo de Bienvenida",templateId);
+                "Correo de Bienvenida",String.valueOf(templateId));
     }
 
 }

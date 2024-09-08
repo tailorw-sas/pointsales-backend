@@ -15,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.List;
 
 @Component
@@ -42,14 +41,13 @@ public class SendEmailCampaignEventHandler {
         do {
             data = emailListService.getEmailListByCampaignId(campaignId, pageable);
             List<MailJetRecipient> mailJetRecipientList = data.stream().map(emailListDto -> {
-                MailJetRecipient mailJetRecipient = new MailJetRecipient(emailListDto.getEmail(),emailListDto.getClientName());
-                return mailJetRecipient;
+                return new MailJetRecipient(emailListDto.getEmail(),emailListDto.getClientName());
             }).toList();
             SendMailJetEMailCommand command = new SendMailJetEMailCommand(mailJetRecipientList,
                     null,
                     null,
                     campaignDto.getSubject(),
-                    0
+                    campaignDto.getTemplate().getTemplateCode()
                     );
             mediator.send(command);
             pageable = pageable.next();

@@ -44,7 +44,7 @@ public class ConsumerEmailEventService {
             int templateId = MailjetTemplateEnum.EMAIL_CONFIRMATION_CITE.getTemplateId();
 
             SendMailJetEMailCommand command = new SendMailJetEMailCommand(mailJetRecipients, mailJetVars, mailJetAttachments,
-                    sendEmailRequest.getSubject(), templateId);
+                    sendEmailRequest.getSubject(), String.valueOf(templateId));
             mediator.send(command);
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerEmailEventService.class.getName()).log(Level.SEVERE, null, ex);

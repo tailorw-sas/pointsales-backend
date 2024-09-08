@@ -16,5 +16,5 @@ public class SendMailJetEMailRequest {
     private List<MailJetVar> mailJetVars;
     private List<MailJetAttachment> mailJetAttachments;
     private String subject;
-    private int templateId;
+    private String templateId;
 }

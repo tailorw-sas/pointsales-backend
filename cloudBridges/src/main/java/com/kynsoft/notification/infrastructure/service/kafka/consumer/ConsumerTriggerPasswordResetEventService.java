@@ -54,7 +54,7 @@ public class ConsumerTriggerPasswordResetEventService {
         int  templateId = MailjetTemplateEnum.OTP.getTemplateId();
 
         return new SendMailJetEMailCommand(mailJetRecipients, vars, new ArrayList<>(),
-                "Código de verificación",templateId);
+                "Código de verificación",String.valueOf(templateId));
     }
 
 }

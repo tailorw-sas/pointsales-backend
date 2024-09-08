@@ -25,10 +25,10 @@ public class SendMailJetEMailCommandHandler implements ICommandHandler<SendMailJ
     @Override
     public void handle(SendMailJetEMailCommand command) {
 
-        TemplateDto templateDto = templateEntityService.findByTemplateCode(String.valueOf(command.getTemplateId()));
+        TemplateDto templateDto = templateEntityService.findByTemplateCode(command.getTemplateCode());
 
         EmailRequest emailRequest = new EmailRequest(command.getRecipientEmail(), command.getMailJetVars(),
-                new ArrayList<>(), templateDto.getName(), command.getTemplateId());
+                new ArrayList<>(), templateDto.getName(), command.getTemplateCode());
         try {
             this.service.sendEmailMailjet(emailRequest, templateDto.getMailjetConfigurationDto().getMailjetApiKey(),
                     templateDto.getMailjetConfigurationDto().getMailjetApiSecret(), templateDto.getMailjetConfigurationDto().getFromEmail(),

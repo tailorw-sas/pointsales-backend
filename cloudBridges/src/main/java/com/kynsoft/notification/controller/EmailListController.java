@@ -1,5 +1,6 @@
 package com.kynsoft.notification.controller;
 
+import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsoft.notification.application.command.emaillist.importEmailList.ImportEmailListCommand;
@@ -42,8 +43,8 @@ public class EmailListController {
         return ResponseEntity.ok(mediator.send(command));
     }
     @GetMapping("/{campaignId}")
-    public ResponseEntity<?> getAllEmailListByCampaignId(@PathVariable("campaignId") String campaignId){
-        GetEmailListByCampaignIdQuery query = new GetEmailListByCampaignIdQuery(campaignId);
+    public ResponseEntity<?> getAllEmailListByCampaignId(@PathVariable("campaignId") String campaignId, @RequestBody SearchRequest searchRequest){
+        GetEmailListByCampaignIdQuery query = new GetEmailListByCampaignIdQuery(campaignId, PageableUtil.createPageable(searchRequest));
         return ResponseEntity.ok(mediator.send(query));
     }
 
