@@ -2,22 +2,8 @@ package com.kynsoft.notification.infrastructure.entity;
 
 import com.kynsoft.notification.domain.dto.CampaignDto;
 import com.kynsoft.notification.domain.dtoEnum.CampaignStatus;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.generator.EventType;
@@ -30,7 +16,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Entity(name = "campaign")
 @NoArgsConstructor
@@ -71,7 +56,7 @@ public class Campaign {
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "campaign",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "campaign",cascade = CascadeType.ALL)
     private Set<EmailList> emailList;
 
     @CreatedDate
@@ -92,7 +77,7 @@ public class Campaign {
                 .subject(subject)
                 .template(Objects.nonNull(template)?template.toAggregate():null)
                 .tenant(Objects.nonNull(tenant)?tenant.toAggregate():null)
-                .emailList(emailList.stream().map(EmailList::toAggregate).collect(Collectors.toSet()))
+                //.emailList(emailList.stream().map(EmailList::toAggregate).collect(Collectors.toSet()))
                 .build();
 
     }
