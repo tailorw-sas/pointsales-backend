@@ -31,8 +31,8 @@ public class CreateCampaignCommandHandler implements ICommandHandler<CreateCampa
     public void handle(CreateCampaignCommand command) {
         CreateCampaignRequest request = command.getCreateCampaignRequest();
         TemplateDto templateDto = templateEntityService.findById(UUID.fromString(request.getTemplateId()));
-        TenantDto tenantDto = tenantService.findById(UUID.fromString(request.getTenantId()));
-        campaignService.createCampaign(CampaignDto.builder()
+        TenantDto tenantDto = tenantService.findByTenantId(request.getTenantId());
+      UUID id =  campaignService.createCampaign(CampaignDto.builder()
                 .code(request.getCode())
                 .status(CampaignStatus.PENDING)
                 .ownerId(UUID.fromString(request.getUserId()))
@@ -42,5 +42,6 @@ public class CreateCampaignCommandHandler implements ICommandHandler<CreateCampa
                 .subject(request.getSubject())
                 .build()
         );
+      command.setCampaignId(id);
     }
 }
