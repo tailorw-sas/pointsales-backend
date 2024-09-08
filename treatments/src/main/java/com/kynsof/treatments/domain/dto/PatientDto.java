@@ -20,4 +20,13 @@ public class PatientDto {
     private String gender;
     private Status status;
     private LocalDate birthDate;
+
+    public PatientDto(UUID id, String identificationNumber, String firstName, String lastName, Status status, LocalDate birthDate) {
+        this.id = id;
+        this.identification = identificationNumber;
+        this.name = firstName;
+        this.lastName = lastName;
+        this.status = status;
+        this.birthDate = birthDate;
+    }
 }
