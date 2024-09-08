@@ -10,6 +10,7 @@ import com.kynsoft.notification.application.query.emaillist.importError.ImportEm
 import com.kynsoft.notification.application.query.emaillist.importError.ImportEmailListErrorRequest;
 import com.kynsoft.notification.application.query.emaillist.processStatus.ImportEmailListProcessStatusQuery;
 import com.kynsoft.notification.application.query.emaillist.processStatus.ImportEmailListProcessStatusRequest;
+import com.kynsoft.notification.application.query.emaillist.search.GetSearchEmailListQuery;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.multipart.FilePart;
@@ -47,7 +48,11 @@ public class EmailListController {
         GetEmailListByCampaignIdQuery query = new GetEmailListByCampaignIdQuery(campaignId, PageableUtil.createPageable(searchRequest));
         return ResponseEntity.ok(mediator.send(query));
     }
-
+    @PostMapping(path = "/search")
+    public ResponseEntity<?> search(@RequestBody SearchRequest searchRequest) {
+        GetSearchEmailListQuery query = new GetSearchEmailListQuery(searchRequest);
+        return ResponseEntity.ok(mediator.send(query));
+    }
     @PostMapping(path = "/import-search")
     public ResponseEntity<?> getImportEmailListError(@RequestBody SearchRequest searchRequest) {
         ImportEmailListErrorRequest request = new ImportEmailListErrorRequest(searchRequest.getQuery(),

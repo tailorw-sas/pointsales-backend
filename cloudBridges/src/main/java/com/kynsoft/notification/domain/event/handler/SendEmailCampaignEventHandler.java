@@ -1,4 +1,4 @@
-package com.kynsoft.notification.infrastructure.event.handler;
+package com.kynsoft.notification.domain.event.handler;
 
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsoft.notification.application.command.sendMailjetEmail.SendMailJetEMailCommand;

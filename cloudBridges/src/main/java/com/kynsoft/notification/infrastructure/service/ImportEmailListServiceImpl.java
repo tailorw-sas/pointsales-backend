@@ -15,6 +15,7 @@ import com.kynsoft.notification.domain.event.CreateImportStatusEvent;
 import com.kynsoft.notification.domain.service.ImportEmailListService;
 import com.kynsoft.notification.infrastructure.entity.redis.ImportEmailListErrorRow;
 import com.kynsoft.notification.infrastructure.entity.redis.ImportEmailListProcessStatus;
+import com.kynsoft.notification.infrastructure.excel.validator.ValidatorFactory;
 import com.kynsoft.notification.infrastructure.repository.redis.ImportEmailListErrorRedisRepository;
 import com.kynsoft.notification.infrastructure.repository.redis.ImportEmailListProcessStatusRedisRepository;
 import io.jsonwebtoken.lang.Assert;
@@ -42,15 +43,18 @@ public class ImportEmailListServiceImpl implements ImportEmailListService {
     private int importLimit;
     private final ApplicationEventPublisher applicationEventPublisher;
     private final ImportEmailListErrorRedisRepository errorRedisRepository;
-
     private final ImportEmailListProcessStatusRedisRepository statusRedisRepository;
+
+    private final ValidatorFactory<ImportEmailListRow> validatorFactory;
 
     public ImportEmailListServiceImpl(ApplicationEventPublisher applicationEventPublisher,
                                       ImportEmailListErrorRedisRepository errorRedisRepository,
-                                      ImportEmailListProcessStatusRedisRepository statusRedisRepository) {
+                                      ImportEmailListProcessStatusRedisRepository statusRedisRepository,
+                                      ValidatorFactory<ImportEmailListRow> validatorFactory) {
         this.applicationEventPublisher = applicationEventPublisher;
         this.errorRedisRepository = errorRedisRepository;
         this.statusRedisRepository = statusRedisRepository;
+        this.validatorFactory = validatorFactory;
     }
 
     @Override
@@ -88,21 +92,25 @@ public class ImportEmailListServiceImpl implements ImportEmailListService {
         int batchControl = 0;
         int importTotal = 0;
         List<ImportEmailListRow> emailListRowList = new ArrayList<>();
+        validatorFactory.createValidators();
         for (ImportEmailListRow emailListRow : excelBean) {
-            if (importTotal == importLimit) {
-                break;
+            emailListRow.setImportProcessId(request.getImportProcessId());
+            if (validatorFactory.validate(emailListRow)) {
+                if (importTotal == importLimit) {
+                    break;
+                }
+                emailListRowList.add(emailListRow);
+                batchControl++;
+                if (batchControl == batchSize) {
+                    this.createEmailListBulk(emailListRowList, request.getCampaignId());
+                    emailListRowList.clear();
+                    batchControl = 0;
+                }
+                importTotal++;
             }
-            emailListRowList.add(emailListRow);
-            batchControl++;
-            if (batchControl == batchSize) {
-                this.createEmailListBulk(emailListRowList,request.getCampaignId());
-                emailListRowList.clear();
-                batchControl = 0;
+            if (!emailListRowList.isEmpty()) {
+                this.createEmailListBulk(emailListRowList, request.getCampaignId());
             }
-            importTotal++;
-        }
-        if(!emailListRowList.isEmpty()){
-            this.createEmailListBulk(emailListRowList,request.getCampaignId());
         }
     }
 

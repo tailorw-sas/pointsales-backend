@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ImportEmailListRow {
+   private String importProcessId;
+   @Cell(position = -1)
+   private int rowNumber;
    @Cell(position = 0)
    private String email;
    @Cell(position = 1)
