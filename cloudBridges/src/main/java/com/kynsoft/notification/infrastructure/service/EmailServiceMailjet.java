@@ -13,6 +13,7 @@ import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.resource.*;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,6 +28,9 @@ public class EmailServiceMailjet implements IEmailService {
         try {
             MailjetClient client = createMailjetClient(mailjetApiKey, mailjetApiSecret);
 
+            // Verificar si las variables son nulas y asignar una lista vacía si es necesario
+            List<MailJetVar> mailJetVars = emailRequest.getMailJetVars() != null ? emailRequest.getMailJetVars() : new ArrayList<>();
+
             MailjetRequest request = new MailjetRequest(Email.resource)
                     .property(Email.FROMEMAIL, fromEmail)
                     .property(Email.FROMNAME, fromName)
@@ -35,7 +39,7 @@ public class EmailServiceMailjet implements IEmailService {
                     .property(Email.SUBJECT, emailRequest.getSubject())
                     .property(Email.RECIPIENTS, MailJetRecipient.createRecipientsJsonArray(emailRequest.getRecipientEmail()))
                     .property(Email.ATTACHMENTS, MailJetAttachment.generateAttachments(emailRequest.getMailJetAttachments()))
-                    .property(Email.VARS, MailJetVar.createVarsJsonObject(emailRequest.getMailJetVars()))
+                    .property(Email.VARS, MailJetVar.createVarsJsonObject(mailJetVars)) // Uso de mailJetVars seguro
                     .property(Email.MJEVENTPAYLOAD, "Eticket,1234,row,15,seat,B");
 
             MailjetResponse response = client.post(request);
