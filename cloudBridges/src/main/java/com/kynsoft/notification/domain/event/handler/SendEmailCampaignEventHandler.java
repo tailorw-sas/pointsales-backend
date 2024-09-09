@@ -5,6 +5,7 @@ import com.kynsoft.notification.application.command.sendMailjetEmail.SendMailJet
 import com.kynsoft.notification.domain.dto.CampaignDto;
 import com.kynsoft.notification.domain.dto.EmailListDto;
 import com.kynsoft.notification.domain.dto.MailJetRecipient;
+import com.kynsoft.notification.domain.dtoEnum.CampaignStatus;
 import com.kynsoft.notification.domain.event.SendEmailEvent;
 import com.kynsoft.notification.domain.service.CampaignService;
 import com.kynsoft.notification.domain.service.EmailListService;
@@ -65,6 +66,9 @@ public class SendEmailCampaignEventHandler {
             // Avanzar a la siguiente página
             pageable = pageable.next();
         } while (data.hasNext());
+
+        campaignDto.setStatus(CampaignStatus.EXECUTED);
+        campaignService.updateCampaign(campaignDto);
     }
 
     private List<List<EmailListDto>> partitionList(List<EmailListDto> list, int size) {
