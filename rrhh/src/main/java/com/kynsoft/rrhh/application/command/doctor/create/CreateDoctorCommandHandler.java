@@ -70,6 +70,7 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
 
         try {
             var id = consumeCreateUserSystemService(command);
+            command.setId(UUID.fromString(id));
 
             service.create(doctorSave);
             this.userBusinessRelationService.create(new UserBusinessRelationDto(UUID.randomUUID(),
