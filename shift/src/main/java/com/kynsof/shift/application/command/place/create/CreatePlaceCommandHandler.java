@@ -1,5 +1,6 @@
 package com.kynsof.shift.application.command.place.create;
 
+import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.shift.domain.dto.BlockDto;
 import com.kynsof.shift.domain.dto.BusinessDto;
 import com.kynsof.shift.domain.dto.PlaceDto;
@@ -7,6 +8,7 @@ import com.kynsof.shift.domain.service.IBlockService;
 import com.kynsof.shift.domain.service.IBusinessService;
 import com.kynsof.shift.domain.service.IPlaceService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.shift.domain.rules.service.place.PlaceCodeMustBeUniqueRule;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -26,6 +28,7 @@ public class CreatePlaceCommandHandler implements ICommandHandler<CreatePlaceCom
 
     @Override
     public void handle(CreatePlaceCommand command) {
+        RulesChecker.checkRule(new PlaceCodeMustBeUniqueRule(this.service, command.getCode(), command.getId()));
         BlockDto blockDto = this.blockService.findById(command.getBlock());
         BusinessDto businessDto = this.businessService.findById(command.getBusiness());
         UUID id = service.create(new PlaceDto(

@@ -6,6 +6,7 @@ import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
+import com.kynsof.shift.domain.rules.service.block.BlockCodeMustBeUniqueRule;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,7 +26,11 @@ public class UpdateBlockCommandHandler implements ICommandHandler<UpdateBlockCom
 
 
         UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());
-        update.setCode(command.getCode());
+        if (!command.getCode().equals(update.getCode())) {
+            RulesChecker.checkRule(new BlockCodeMustBeUniqueRule(this.service, command.getCode(), command.getId()));
+            update.setCode(command.getCode());
+        }
+
         update.setStatus(command.getStatus());
         service.update(update);
     }

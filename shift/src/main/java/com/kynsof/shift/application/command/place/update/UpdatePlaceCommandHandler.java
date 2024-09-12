@@ -8,6 +8,7 @@ import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
+import com.kynsof.shift.domain.rules.service.place.PlaceCodeMustBeUniqueRule;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -29,6 +30,10 @@ public class UpdatePlaceCommandHandler implements ICommandHandler<UpdatePlaceCom
         BlockDto blockDto = this.blockService.findById(command.getBlock());
 
         UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());
+        if (!command.getCode().equals(update.getCode()) ) {
+            RulesChecker.checkRule(new PlaceCodeMustBeUniqueRule(this.service, command.getCode(), command.getId()));
+            update.setCode(command.getCode());
+        }
         update.setCode(command.getCode());
         update.setStatus(command.getStatus());
         update.setBlock(blockDto);
