@@ -8,8 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.UUID;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface BlockReadDataJPARepository extends JpaRepository<Block, UUID>, JpaSpecificationExecutor<Block> {
     Page<Block> findAll(Specification specification, Pageable pageable);
 
+    @Query("SELECT COUNT(b) FROM Block b WHERE b.code = :code AND b.id <> :id")
+    Long countByCodeAndNotId(@Param("code") String code, @Param("id") UUID id);
 }

@@ -18,4 +18,6 @@ public interface IPlaceService {
     PlaceDto findById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+
+    Long countByCodeAndNotId(String code, UUID id);
 }

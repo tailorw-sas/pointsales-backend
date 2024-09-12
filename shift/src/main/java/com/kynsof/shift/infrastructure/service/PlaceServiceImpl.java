@@ -114,5 +114,10 @@ public class PlaceServiceImpl implements IPlaceService {
                 data.getTotalElements(), data.getSize(), data.getNumber());
     }
 
+    @Override
+    public Long countByCodeAndNotId(String code, UUID id) {
+        return this.repositoryQuery.countByCodeAndNotId(code, id);
+    }
+
 
 }
