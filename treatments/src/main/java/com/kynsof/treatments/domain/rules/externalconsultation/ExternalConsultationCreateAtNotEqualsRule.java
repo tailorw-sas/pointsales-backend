@@ -15,7 +15,7 @@ public class ExternalConsultationCreateAtNotEqualsRule extends BusinessRule {
     public ExternalConsultationCreateAtNotEqualsRule(Date consultationTime) {
         super(
                 DomainErrorMessage.PROCEDURE_CODE_MUST_BY_UNIQUE,
-                new ErrorField("date", "The external query cannot be modified. Creation date has already passed.")
+                new ErrorField("date", "La consulta externa no se puede modificar. La fecha de creación ya pasó..")
         );
         this.date = ConfigureTimeZone.convertDateToLocalDateTime(consultationTime);
     }
