@@ -3,6 +3,8 @@ package com.kynsoft.rrhh.application.command.assistant.create;
 import com.kynsof.share.core.domain.EUserType;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.kafka.entity.DoctorKafka;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsoft.rrhh.domain.dto.AssistantDto;
@@ -86,15 +88,9 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
                 assistantSave.getImage(),
                 command.getBusiness().toString()
         ));
-        } catch (InterruptedException | URISyntaxException | IOException ex) {
-            throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            throw new BusinessException(DomainErrorMessage.DOCTOR_NOT_FOUND, "Ocurrió un error al crear al usuario.");
         }
-
-
-
-
-        // Consumir el servicio createUserSystem desde otro microservicio
-
     }
 
     // Método para consumir el servicio createUserSystem

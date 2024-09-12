@@ -3,6 +3,8 @@ package com.kynsoft.rrhh.application.command.doctor.create;
 import com.kynsof.share.core.domain.EUserType;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.kafka.entity.DoctorKafka;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsoft.rrhh.domain.dto.BusinessDto;
@@ -84,7 +86,7 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
                     command.getBusiness().toString()
             ));
         }catch (Exception exception){
-            throw new RuntimeException(exception);
+            throw new BusinessException(DomainErrorMessage.DOCTOR_NOT_FOUND, "Ocurrió un error al crear al usuario.");
         }
     }
 
