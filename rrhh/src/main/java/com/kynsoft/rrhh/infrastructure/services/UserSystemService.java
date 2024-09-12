@@ -3,7 +3,10 @@ package com.kynsoft.rrhh.infrastructure.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kynsoft.rrhh.domain.dto.CreateUserResponse;
 import com.kynsoft.rrhh.domain.dto.CreateUserSystemRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,8 +17,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Service
+@Configuration
 public class UserSystemService {
-
+    private static final Logger logger = LoggerFactory.getLogger(UserSystemService.class);
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
 
@@ -30,7 +34,7 @@ public class UserSystemService {
 
     public String createUserSystem(CreateUserSystemRequest value) throws IOException, URISyntaxException, InterruptedException {
         String requestBody = objectMapper.writeValueAsString(value);
-
+        logger.error("URL-USER:" + userSystemApiUrl);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(userSystemApiUrl))
                 .header("Content-Type", "application/json")
