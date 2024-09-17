@@ -1,10 +1,14 @@
 package com.kynsoft.rrhh.application.command.doctor.create;
 
+import com.kynsof.share.core.domain.EUserType;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.exception.BusinessException;
+import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.kafka.entity.DoctorKafka;
 import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsoft.rrhh.domain.dto.BusinessDto;
+import com.kynsoft.rrhh.domain.dto.CreateUserSystemRequest;
 import com.kynsoft.rrhh.domain.dto.DoctorDto;
 import com.kynsoft.rrhh.domain.dto.UserBusinessRelationDto;
 import com.kynsoft.rrhh.domain.interfaces.services.IBusinessService;
@@ -14,9 +18,12 @@ import com.kynsoft.rrhh.domain.rules.doctor.DoctorCodeMustBeUniqueRule;
 import com.kynsoft.rrhh.domain.rules.doctor.DoctorEmailMustBeUniqueRule;
 import com.kynsoft.rrhh.domain.rules.doctor.DoctorIdentificationMustBeUniqueRule;
 import com.kynsoft.rrhh.domain.rules.users.UserSystemEmailValidateRule;
+import com.kynsoft.rrhh.infrastructure.services.UserSystemService;
 import com.kynsoft.rrhh.infrastructure.services.kafka.producer.doctor.ProducerReplicateDoctorService;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -27,13 +34,14 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
     private final IBusinessService businessService;
     private final ProducerReplicateDoctorService producerReplicateDoctorService;
     private final IUserBusinessRelationService userBusinessRelationService;
-
+    private final UserSystemService userSystemService;
     public CreateDoctorCommandHandler(IDoctorService service, IBusinessService businessService,
-                                      ProducerReplicateDoctorService producerReplicateDoctorService, IUserBusinessRelationService userBusinessRelationService) {
+                                      ProducerReplicateDoctorService producerReplicateDoctorService, IUserBusinessRelationService userBusinessRelationService, UserSystemService userSystemService) {
         this.service = service;
         this.businessService = businessService;
         this.producerReplicateDoctorService = producerReplicateDoctorService;
         this.userBusinessRelationService = userBusinessRelationService;
+        this.userSystemService = userSystemService;
     }
 
     @Override
@@ -60,19 +68,41 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
                 command.getImage()
         );
 
-        service.create(doctorSave);
-        this.userBusinessRelationService.create(new UserBusinessRelationDto(UUID.randomUUID(),
-                doctorSave,businessDto, "ACTIVE", LocalDateTime.now()));
+        try {
+            var id = consumeCreateUserSystemService(command);
+            command.setId(UUID.fromString(id));
 
-        producerReplicateDoctorService.create(new DoctorKafka(
-                doctorSave.getId(), 
-                doctorSave.getIdentification(), 
-                doctorSave.getCode(),
-                doctorSave.getEmail(), 
-                doctorSave.getName(), 
-                doctorSave.getLastName(),
-                doctorSave.getImage(),
-                command.getBusiness().toString()
-        ));
+            service.create(doctorSave);
+            this.userBusinessRelationService.create(new UserBusinessRelationDto(UUID.randomUUID(),
+                    doctorSave,businessDto, "ACTIVE", LocalDateTime.now()));
+
+            producerReplicateDoctorService.create(new DoctorKafka(
+                    UUID.fromString(id),
+                    doctorSave.getIdentification(),
+                    doctorSave.getCode(),
+                    doctorSave.getEmail(),
+                    doctorSave.getName(),
+                    doctorSave.getLastName(),
+                    doctorSave.getImage(),
+                    command.getBusiness().toString()
+            ));
+        }catch (Exception exception){
+            throw new BusinessException(DomainErrorMessage.DOCTOR_NOT_FOUND, "Ocurrió un error al crear al usuario.");
+        }
+    }
+
+    // Método para consumir el servicio createUserSystem
+    private String consumeCreateUserSystemService(CreateDoctorCommand command) throws IOException, URISyntaxException, InterruptedException {
+        CreateUserSystemRequest createUserSystemRequest = new CreateUserSystemRequest();
+        createUserSystemRequest.setUserName(command.getEmail());
+        createUserSystemRequest.setEmail(command.getEmail());
+        createUserSystemRequest.setName(command.getName());
+        createUserSystemRequest.setLastName(command.getLastName());
+        createUserSystemRequest.setPassword("defaultPassword"); // Ajusta según tus necesidades
+        createUserSystemRequest.setUserType(EUserType.ASSISTANTS); // Ajusta si es necesario
+        createUserSystemRequest.setImage(command.getImage());
+
+        return userSystemService.createUserSystem(createUserSystemRequest);
+
     }
 }
