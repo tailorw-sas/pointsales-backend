@@ -9,6 +9,7 @@ import com.kynsof.shift.domain.service.IBusinessService;
 import com.kynsof.shift.domain.service.IPlaceService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.shift.domain.rules.service.place.PlaceCodeMustBeUniqueRule;
+import com.kynsof.shift.domain.rules.service.place.PlaceNameMustBeUniqueRule;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -29,6 +30,8 @@ public class CreatePlaceCommandHandler implements ICommandHandler<CreatePlaceCom
     @Override
     public void handle(CreatePlaceCommand command) {
         RulesChecker.checkRule(new PlaceCodeMustBeUniqueRule(this.service, command.getCode(), command.getId()));
+        RulesChecker.checkRule(new PlaceNameMustBeUniqueRule(this.service, command.getName(), command.getId()));
+
         BlockDto blockDto = this.blockService.findById(command.getBlock());
         BusinessDto businessDto = this.businessService.findById(command.getBusiness());
         UUID id = service.create(new PlaceDto(

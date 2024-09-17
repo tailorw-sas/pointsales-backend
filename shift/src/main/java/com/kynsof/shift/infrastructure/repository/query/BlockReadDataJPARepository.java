@@ -16,4 +16,7 @@ public interface BlockReadDataJPARepository extends JpaRepository<Block, UUID>, 
 
     @Query("SELECT COUNT(b) FROM Block b WHERE b.code = :code AND b.id <> :id")
     Long countByCodeAndNotId(@Param("code") String code, @Param("id") UUID id);
+
+    @Query("SELECT COUNT(b) FROM Block b WHERE b.name = :code AND b.id <> :id")
+    Long countByNameAndNotId(@Param("name") String name, @Param("id") UUID id);
 }
