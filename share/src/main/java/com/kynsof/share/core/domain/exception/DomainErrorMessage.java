@@ -81,7 +81,11 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     ITEM_ALREADY_EXITS(1006, Series.DOMAIN_ERROR, "Ya existe el elemento en el sistema."),
     DB_CONNECTION_NOT_FOUND(1007, Series.DOMAIN_ERROR, "Conexión no encontrada."),
     PAYMENT_NOT_FOUND(1009, Series.DOMAIN_ERROR, "No se pudo procesar el pago."),
-    PASSWORD_MISMATCH(1008, Series.DOMAIN_ERROR, "La contraseña no coincide.");
+    PASSWORD_MISMATCH(1008, Series.DOMAIN_ERROR, "La contraseña no coincide."),
+    PLACE_CODE_MUST_BY_UNIQUE(1009, Series.DOMAIN_ERROR, "El código del lugar debe ser único."),
+    PLACE_NAME_MUST_BY_UNIQUE(1010, Series.DOMAIN_ERROR, "El nombre del lugar debe ser único."),
+    BLOCK_CODE_MUST_BY_UNIQUE(1011, Series.DOMAIN_ERROR, "El código del bloque debe ser único."),
+    BLOCK_NAME_MUST_BY_UNIQUE(1012, Series.DOMAIN_ERROR, "El nombre del bloque debe ser único.");
     private static final DomainErrorMessage[] VALUES;
 
     static {
