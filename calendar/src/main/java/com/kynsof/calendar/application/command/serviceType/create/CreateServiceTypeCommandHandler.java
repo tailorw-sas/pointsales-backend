@@ -36,6 +36,6 @@ public class CreateServiceTypeCommandHandler implements ICommandHandler<CreateSe
         );
         UUID id = service.create(type);
         command.setId(id);
-        this.producerServiceTypeEventService.create(new ServiceTypeKafka(id, type.getName(), type.getPicture(), type.getStatus().name(), type.getCode()));
+        this.producerServiceTypeEventService.create(new ServiceTypeKafka(type.getId(), type.getName(), type.getPicture(), type.getStatus().name(), type.getCode()));
     }
 }

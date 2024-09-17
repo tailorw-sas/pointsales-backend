@@ -5,8 +5,10 @@ import com.kynsof.calendar.domain.dto.ServiceTypeDto;
 import com.kynsof.calendar.domain.rules.service.SeviceNameMustBeUniqueRule;
 import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
+import com.kynsof.calendar.infrastructure.service.kafka.producer.service.ProducerServiceEventService;
 import com.kynsof.share.core.domain.RulesChecker;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.share.core.domain.kafka.entity.Servicekafka;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,10 +16,14 @@ public class CreateServiceCommandHandler implements ICommandHandler<CreateServic
 
     private final IServiceService service;
     private final IServiceTypeService serviceTypeService;
+    private final ProducerServiceEventService producerServiceEventService;
 
-    public CreateServiceCommandHandler(IServiceService service, IServiceTypeService serviceTypeService) {
+    public CreateServiceCommandHandler(IServiceService service, 
+                                       IServiceTypeService serviceTypeService,
+                                       ProducerServiceEventService producerServiceEventService) {
         this.service = service;
         this.serviceTypeService = serviceTypeService;
+        this.producerServiceEventService = producerServiceEventService;
     }
 
     @Override
@@ -45,5 +51,23 @@ public class CreateServiceCommandHandler implements ICommandHandler<CreateServic
         ));
 
         command.setId(serviceDto.getId());
+        this.producerServiceEventService.create(new Servicekafka(
+                serviceDto.getId(), 
+                serviceDto.getType().getId(), 
+                serviceDto.getStatus().name(), 
+                serviceDto.getPicture(), 
+                serviceDto.getName(), 
+                serviceDto.getNormalAppointmentPrice(), 
+                serviceDto.getExpressAppointmentPrice(), 
+                serviceDto.getDescription(), 
+                serviceDto.getApplyIva(), 
+                serviceDto.getEstimatedDuration(), 
+                serviceDto.getCode(), 
+                serviceDto.isPreferFlag(), 
+                serviceDto.getMaxPriorityCount(), 
+                serviceDto.getPriorityCount(), 
+                serviceDto.getCurrentLoop(), 
+                serviceDto.getOrder()
+        ));
     }
 }
