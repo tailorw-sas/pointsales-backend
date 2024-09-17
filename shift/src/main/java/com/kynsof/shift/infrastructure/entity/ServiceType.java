@@ -24,7 +24,6 @@ import java.util.UUID;
 @Table(name = "service_type")
 public class ServiceType {
     @Id
-    @GeneratedValue(generator = "UUID")
     private UUID id;
 
     @Size(max = 150)
