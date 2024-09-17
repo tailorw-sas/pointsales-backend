@@ -7,27 +7,27 @@ import com.kynsof.shift.domain.service.IBlockService;
 
 import java.util.UUID;
 
-public class BlockCodeMustBeUniqueRule extends BusinessRule {
+public class BlockNameMustBeUniqueRule extends BusinessRule {
 
     private final IBlockService service;
 
-    private final String code;
+    private final String name;
 
     private final UUID id;
 
-    public BlockCodeMustBeUniqueRule(IBlockService service, String code, UUID id) {
+    public BlockNameMustBeUniqueRule(IBlockService service, String name, UUID id) {
         super(
-                DomainErrorMessage.BLOCK_CODE_MUST_BY_UNIQUE, 
-                new ErrorField("code", "The block code must be unique.")
+                DomainErrorMessage.BLOCK_NAME_MUST_BY_UNIQUE, 
+                new ErrorField("name", "The block name must be unique.")
         );
         this.service = service;
-        this.code = code;
+        this.name = name;
         this.id = id;
     }
 
     @Override
     public boolean isBroken() {
-        return this.service.countByCodeAndNotId(code, id) > 0;
+        return this.service.countByNameAndNotId(name, id) > 0;
     }
 
 }

@@ -7,27 +7,27 @@ import com.kynsof.shift.domain.service.IPlaceService;
 
 import java.util.UUID;
 
-public class PlaceCodeMustBeUniqueRule extends BusinessRule {
+public class PlaceNameMustBeUniqueRule extends BusinessRule {
 
     private final IPlaceService service;
 
-    private final String code;
+    private final String name;
 
     private final UUID id;
 
-    public PlaceCodeMustBeUniqueRule(IPlaceService service, String code, UUID id) {
+    public PlaceNameMustBeUniqueRule(IPlaceService service, String name, UUID id) {
         super(
-                DomainErrorMessage.PLACE_CODE_MUST_BY_UNIQUE, 
-                new ErrorField("code", "The place code must be unique.")
+                DomainErrorMessage.SERVICE_NAME_MUST_BY_UNIQUE, 
+                new ErrorField("name", "The place name must be unique.")
         );
         this.service = service;
-        this.code = code;
+        this.name = name;
         this.id = id;
     }
 
     @Override
     public boolean isBroken() {
-        return this.service.countByCodeAndNotId(code, id) > 0;
+        return this.service.countByNameAndNotId(name, id) > 0;
     }
 
 }
