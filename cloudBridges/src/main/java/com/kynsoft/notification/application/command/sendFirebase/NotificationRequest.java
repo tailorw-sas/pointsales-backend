@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NotificationRequest {
-
     private String title;
     private String body;
     private List<String> tokens;
