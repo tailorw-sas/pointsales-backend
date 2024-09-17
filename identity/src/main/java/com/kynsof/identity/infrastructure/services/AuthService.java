@@ -202,9 +202,9 @@ public class AuthService implements IAuthService {
         try {
             UserResource userResource = keycloakProvider.getUserResource().get(userId);
             UserRepresentation user = userResource.toRepresentation();
-            if (userRequest.getUserName() != null) {
-                user.setUsername(userRequest.getUserName());
-            }
+//            if (userRequest.getUserName() != null) {
+//                user.setUsername(userRequest.getUserName());
+//            }
             if (userRequest.getName() != null) {
                 user.setFirstName(userRequest.getName());
             }
