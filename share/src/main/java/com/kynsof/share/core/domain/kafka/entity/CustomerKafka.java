@@ -20,4 +20,5 @@ public class CustomerKafka {
     private String email;
     private String image;
     private LocalDate birthDate;
+    private String gender;
 }

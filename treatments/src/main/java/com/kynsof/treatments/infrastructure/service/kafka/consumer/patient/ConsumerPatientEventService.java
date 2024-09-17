@@ -33,14 +33,16 @@ public class ConsumerPatientEventService {
             CustomerKafka eventRead = objectMapper.treeToValue(rootNode.get("data"),
                     CustomerKafka.class);
 
-            this.service.create(new PatientDto(
+            PatientDto patientDto = new PatientDto(
                     UUID.fromString(eventRead.getId()),
                     eventRead.getIdentificationNumber(),
                     eventRead.getFirstName(),
                     eventRead.getLastName(),
                     Status.ACTIVE,
                     eventRead.getBirthDate()
-            ));
+            );
+            patientDto.setGender(eventRead.getGender());
+            this.service.create(patientDto);
 
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerPatientEventService.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);

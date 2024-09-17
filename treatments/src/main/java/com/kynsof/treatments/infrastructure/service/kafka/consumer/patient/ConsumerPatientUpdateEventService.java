@@ -26,38 +26,23 @@ public class ConsumerPatientUpdateEventService {
     @KafkaListener(topics = "patient-update", groupId = "treatments-patient")
     public void listen(String event) {
         try {
-            System.err.println("#######################################################");
-            System.err.println("#######################################################");
-            System.err.println("ENTRO");
-            System.err.println("#######################################################");
-            System.err.println("#######################################################");
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(event);
 
             PatientKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), PatientKafka.class);
             EventType eventType = objectMapper.treeToValue(rootNode.get("type"), EventType.class);
 
-
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-                System.err.println("EVENTO DE ACTUALIZA UN PACIENTE");
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-                this.service.update(new PatientDto(
-                        UUID.fromString(eventRead.getId()),
-                        eventRead.getIdentification(),
-                        eventRead.getName(),
-                        eventRead.getLastName(),
-                        eventRead.getGender(),
-                        Status.ACTIVE,
-                        LocalDate.parse(eventRead.getBirthdayDate())
-                ));
-
-
+            this.service.update(new PatientDto(
+                    UUID.fromString(eventRead.getId()),
+                    eventRead.getIdentification(),
+                    eventRead.getName(),
+                    eventRead.getLastName(),
+                    eventRead.getGender(),
+                    Status.ACTIVE,
+                    LocalDate.parse(eventRead.getBirthdayDate())
+            ));
 
         } catch (JsonProcessingException ex) {
-            System.err.println("########################");
-            System.err.println("ERROR: " + ex.getMessage());
             Logger.getLogger(ConsumerPatientUpdateEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
