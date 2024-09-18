@@ -3,6 +3,7 @@ package com.kynsof.calendar.application.command.receipt.updateStatus;
 import com.kynsof.calendar.domain.dto.ReceiptDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.domain.dto.enumType.EStatusReceipt;
+import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.domain.service.IReceiptService;
 import com.kynsof.calendar.domain.service.IScheduleService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
@@ -43,6 +44,7 @@ public class UpdateStatusReceiptCommandHandler implements ICommandHandler<Update
 
     private void cleanStock(ScheduleDto scheduleDto) {
         scheduleDto.setStock(scheduleDto.getStock() + 1);
+        scheduleDto.setStatus(EStatusSchedule.AVAILABLE);
         serviceSchedule.update(scheduleDto);
     }
 }
