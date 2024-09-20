@@ -107,7 +107,7 @@ public class GenericSpecification<T> implements Specification<T> {
                 } else if (value instanceof LocalDateTime) {
                     yield builder.notEqual(path.as(LocalDateTime.class), (LocalDateTime) value);
                 } else {
-                    yield builder.equal(
+                    yield builder.notEqual(
                             builder.lower(builder.function("replace", String.class, path.as(String.class), builder.literal(" "), builder.literal(""))),
                             value.toString().toLowerCase().replace(" ", "")
                     );
