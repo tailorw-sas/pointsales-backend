@@ -6,6 +6,7 @@ import com.kynsof.share.core.domain.rules.ValidateObjectNotNullRule;
 import com.kynsof.share.utils.UpdateIfNotNull;
 import com.kynsof.treatments.domain.dto.ProcedureDto;
 import com.kynsof.treatments.domain.rules.procedure.ProcedureCodeMustBeUniqueRule;
+import com.kynsof.treatments.domain.rules.procedure.ProcedureNameMustBeUniqueRule;
 import com.kynsof.treatments.domain.service.IProcedureService;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,7 @@ public class UpdateProcedureCommandHandler implements ICommandHandler<UpdateProc
 
         UpdateIfNotNull.updateIfStringNotNull(update::setCode, command.getCode());
         RulesChecker.checkRule(new ProcedureCodeMustBeUniqueRule(this.serviceImpl, command.getCode(), command.getId()));
+        RulesChecker.checkRule(new ProcedureNameMustBeUniqueRule(this.serviceImpl, command.getName(), command.getId()));
 
         UpdateIfNotNull.updateIfStringNotNull(update::setDescription, command.getDescription());
         UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());
