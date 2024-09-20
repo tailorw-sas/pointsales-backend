@@ -54,6 +54,12 @@ public class MedicinesServiceImpl implements IMedicinesService {
             throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.NOT_DELETE, new ErrorField("id", "Element cannot be deleted has a related element.")));
         }
     }
+
+    @Override
+    public Long countByNameAndNotId(String name, UUID id) {
+        return this.repositoryQuery.countByNameAndNotId(name, id);
+    }
+
     @Override
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         GenericSpecificationsBuilder<Procedure> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
