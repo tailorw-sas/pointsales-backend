@@ -9,10 +9,18 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IServiceTypeService {
-     UUID create(ServiceTypeDto object);
-     void update(ServiceTypeDto object);
-     void delete(UUID id);
-     ServiceTypeDto findById(UUID id);
+
+    UUID create(ServiceTypeDto object);
+
+    void update(ServiceTypeDto object);
+
+    void delete(UUID id);
+
+    ServiceTypeDto findById(UUID id);
+
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+
     Long countByNameAndNotId(String name, UUID id);
+
+    Long countByCodeAndNotId(String code, UUID id);
 }

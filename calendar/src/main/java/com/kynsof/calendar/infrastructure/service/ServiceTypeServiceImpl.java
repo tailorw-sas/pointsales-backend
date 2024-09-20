@@ -101,4 +101,9 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
         return this.repositoryQuery.countByNameAndNotId(name, id);
     }
 
+    @Override
+    public Long countByCodeAndNotId(String code, UUID id) {
+        return this.repositoryQuery.countByCodeAndNotId(code, id);
+    }
+
 }

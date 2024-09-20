@@ -1,6 +1,7 @@
 package com.kynsof.calendar.application.command.serviceType.create;
 
 import com.kynsof.calendar.domain.dto.ServiceTypeDto;
+import com.kynsof.calendar.domain.rules.servicetype.ServiceTypeCodeMustBeUniqueRule;
 import com.kynsof.calendar.domain.rules.servicetype.SeviceTypeNameMustBeUniqueRule;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
 import com.kynsof.calendar.infrastructure.service.kafka.producer.typeService.ProducerServiceTypeEventService;
@@ -26,6 +27,7 @@ public class CreateServiceTypeCommandHandler implements ICommandHandler<CreateSe
     @Override
     public void handle(CreateServiceTypeCommand command) {
         RulesChecker.checkRule(new SeviceTypeNameMustBeUniqueRule(this.service, command.getName(), command.getId()));
+        RulesChecker.checkRule(new ServiceTypeCodeMustBeUniqueRule(this.service, command.getCode(), command.getId()));
 
         ServiceTypeDto type = new ServiceTypeDto(
                 command.getId(),
