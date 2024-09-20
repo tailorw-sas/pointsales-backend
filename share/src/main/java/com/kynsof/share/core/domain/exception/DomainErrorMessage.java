@@ -87,7 +87,8 @@ public enum DomainErrorMessage implements IDomainErrorMessage {
     BLOCK_CODE_MUST_BY_UNIQUE(1011, Series.DOMAIN_ERROR, "El código del bloque debe ser único."),
     BLOCK_NAME_MUST_BY_UNIQUE(1012, Series.DOMAIN_ERROR, "El nombre del bloque debe ser único."),
     PROCEDURE_NAME_MUST_BY_UNIQUE(1013, Series.DOMAIN_ERROR, "El nombre del procedimiento debe ser único."),
-    MEDICINES_NAME_MUST_BY_UNIQUE(1014, Series.DOMAIN_ERROR, "El nombre del medicamento debe ser único.");
+    MEDICINES_NAME_MUST_BY_UNIQUE(1014, Series.DOMAIN_ERROR, "El nombre del medicamento debe ser único."),
+    SERVICE_TYPE_CODE_MUST_BY_UNIQUE(1015, Series.DOMAIN_ERROR, "El código del tipo de servicio debe ser único.");
     private static final DomainErrorMessage[] VALUES;
 
     static {
