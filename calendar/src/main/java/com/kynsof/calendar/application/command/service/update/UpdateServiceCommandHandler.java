@@ -2,6 +2,7 @@ package com.kynsof.calendar.application.command.service.update;
 
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.ServiceTypeDto;
+import com.kynsof.calendar.domain.rules.service.SeviceNameMustBeUniqueRule;
 import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
 import com.kynsof.calendar.infrastructure.service.kafka.producer.service.ProducerServiceEventService;
@@ -30,6 +31,7 @@ public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServic
     public void handle(UpdateServiceCommand command) {
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getServiceTypeId(), "id", "Service Type ID cannot be null."));
         RulesChecker.checkRule(new ValidateObjectNotNullRule<>(command.getId(), "id", "Service ID cannot be null."));
+        RulesChecker.checkRule(new SeviceNameMustBeUniqueRule(this.service, command.getName(), command.getId()));
 
         ServiceTypeDto serviceTypeDto = serviceTypeService.findById(command.getServiceTypeId());
         ServiceDto update = service.findByIds(command.getId());

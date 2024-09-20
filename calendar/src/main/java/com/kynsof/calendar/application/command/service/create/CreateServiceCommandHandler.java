@@ -2,6 +2,7 @@ package com.kynsof.calendar.application.command.service.create;
 
 import com.kynsof.calendar.domain.dto.ServiceDto;
 import com.kynsof.calendar.domain.dto.ServiceTypeDto;
+import com.kynsof.calendar.domain.rules.service.ServiceCodeMustBeUniqueRule;
 import com.kynsof.calendar.domain.rules.service.SeviceNameMustBeUniqueRule;
 import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.calendar.domain.service.IServiceTypeService;
@@ -29,6 +30,7 @@ public class CreateServiceCommandHandler implements ICommandHandler<CreateServic
     @Override
     public void handle(CreateServiceCommand command) {
         RulesChecker.checkRule(new SeviceNameMustBeUniqueRule(this.service, command.getName(), command.getId()));
+        RulesChecker.checkRule(new ServiceCodeMustBeUniqueRule(this.service, command.getCode(), command.getId()));
         ServiceTypeDto serviceTypeDto = serviceTypeService.findById(command.getType());
 
         ServiceDto serviceDto = service.create(new ServiceDto(

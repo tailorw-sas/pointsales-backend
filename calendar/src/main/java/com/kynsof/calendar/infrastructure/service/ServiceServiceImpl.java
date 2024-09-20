@@ -113,6 +113,11 @@ public class ServiceServiceImpl implements IServiceService {
     }
 
     @Override
+    public Long countByCodeAndNotId(String code, UUID id) {
+        return this.repositoryQuery.countByCodeAndNotId(code, id);
+    }
+
+    @Override
    // @Cacheable(cacheNames =  CacheConfig.SERVICE_CACHE, unless = "#result == null")
     public PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId) {
         Page<Services> services = this.repositoryQuery.findServicesByResourceId(resourceId, pageable);
