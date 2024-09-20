@@ -122,4 +122,9 @@ public class ProcedureServiceImpl implements IProcedureService {
     public Long countByCodeAndNotId(String code, UUID id) {
         return this.repositoryQuery.countByCodeAndNotId(code, id);
     }
+
+    @Override
+    public Long countByNameAndNotId(String name, UUID id) {
+        return this.repositoryQuery.countByNameAndNotId(name, id);
+    }
 }

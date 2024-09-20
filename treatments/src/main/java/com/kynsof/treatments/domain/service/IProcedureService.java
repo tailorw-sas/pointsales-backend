@@ -25,4 +25,6 @@ public interface IProcedureService {
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
     Long countByCodeAndNotId(String code, UUID id);
+
+    Long countByNameAndNotId(String name, UUID id);
 }
