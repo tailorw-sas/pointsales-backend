@@ -76,4 +76,19 @@ public class ContactInformation {
                 parroquiaDto
         );
     }
+
+    public ContactInfoDto toAggregateSimple() {
+
+        GeographicLocationDto parroquiaDto = parroquia != null ? parroquia.toAggregate() : null;
+        return new ContactInfoDto(
+                getId(),
+                null,
+                getEmail(),
+                getTelephone(),
+                getAddress(),
+                getBirthdayDate(),
+                getStatus(),
+                parroquiaDto
+        );
+    }
 }
