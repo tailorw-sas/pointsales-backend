@@ -1,9 +1,12 @@
 package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.query.ScheduleResponse;
+import com.kynsof.calendar.application.query.schedule.getAvailabilityByRangeDate.ResourceWithSchedulesResponse;
+import com.kynsof.calendar.application.query.schedule.getAvailabilityByRangeDate.ScheduleSimpleResponse;
 import com.kynsof.calendar.domain.dto.*;
 import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.domain.service.IScheduleService;
+import com.kynsof.calendar.infrastructure.entity.Resource;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
 import com.kynsof.calendar.infrastructure.entity.Services;
 import com.kynsof.calendar.infrastructure.repository.command.ScheduleWriteDataJPARepository;
@@ -56,6 +59,69 @@ public class ScheduleServiceImpl implements IScheduleService {
         GenericSpecificationsBuilder<Schedule> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<Schedule> schedules = repositoryQuery.findAll(specifications, pageable);
         return getPaginatedResponse(schedules);
+    }
+
+    @Override
+    public PaginatedResponse getResourcesWithContinuousAvailability(ReservationRequestDto reservationRequest, Pageable pageable) {
+        // Generar el rango de fechas solicitado
+        List<LocalDate> requestedDates = generateDateRange(reservationRequest.getStartDate(), reservationRequest.getEndDate());
+
+        // Obtener los recursos y los horarios con disponibilidad
+        List<Object[]> results = repositoryQuery.findResourcesAndSchedulesForServiceWithFullAvailability(
+                reservationRequest.getServiceId(),
+                reservationRequest.getBusinessId(),
+                requestedDates,
+                LocalTime.of(8, 0),
+                LocalTime.of(17, 0),
+                requestedDates.size(),
+                pageable
+        );
+
+        // Mapeo de los resultados (Object[]) a una estructura usable (ResourceWithSchedulesResponse)
+        Map<UUID, ResourceWithSchedulesResponse> resourceMap = new HashMap<>();
+
+        for (Object[] result : results) {
+            Resource resource = (Resource) result[0];
+            Schedule schedule = (Schedule) result[1];
+
+            // Si el recurso ya está en el mapa, agregarle el nuevo horario
+            resourceMap.computeIfAbsent(resource.getId(), key -> new ResourceWithSchedulesResponse(
+                    resource.getId(),
+                    resource.getName(),
+                    resource.getStatus().name(),
+                    new ArrayList<>()
+            )).getSchedules().add(new ScheduleSimpleResponse(schedule.toAggregate()));
+        }
+
+        // Convertir el mapa a una lista de respuestas
+        List<ResourceWithSchedulesResponse> responses = new ArrayList<>(resourceMap.values());
+
+        // Aplicar la paginación a nivel de código, ya que el repositorio devuelve una lista sin paginar
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), responses.size());
+        List<ResourceWithSchedulesResponse> paginatedResponses = responses.subList(start, end);
+
+        // Retornar la respuesta paginada
+        return new PaginatedResponse(
+                paginatedResponses,
+                pageable.getPageNumber(),
+                paginatedResponses.size(),
+                (long) responses.size(),
+                pageable.getPageSize(),
+                pageable.getPageNumber()
+        );
+    }
+    public static List<LocalDate> generateDateRange(LocalDate startDate, LocalDate endDate) {
+        List<LocalDate> dates = new ArrayList<>();
+        LocalDate currentDate = startDate;
+
+        // Agregar fechas al rango hasta que se alcance la fecha de fin
+        while (!currentDate.isAfter(endDate)) {
+            dates.add(currentDate);
+            currentDate = currentDate.plusDays(1); // Avanzar un día
+        }
+
+        return dates;
     }
 
     private <E extends Enum<E>> void convertEnumFilter(FilterCriteria filter, Class<E> enumClass) {

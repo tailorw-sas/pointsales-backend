@@ -1,6 +1,7 @@
 package com.kynsof.calendar.domain.service;
 
 import com.kynsof.calendar.domain.dto.AvailableDateDto;
+import com.kynsof.calendar.domain.dto.ReservationRequestDto;
 import com.kynsof.calendar.domain.dto.ScheduleDto;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
 import com.kynsof.share.core.domain.request.FilterCriteria;
@@ -16,7 +17,7 @@ public interface IScheduleService {
     void delete(UUID id);
     ScheduleDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
-
+    PaginatedResponse getResourcesWithContinuousAvailability(ReservationRequestDto reservationRequest, Pageable pageable);
     void delete(Schedule schedule);
     UUID create(ScheduleDto schedule);
     void createAll(List<ScheduleDto> schedule);

@@ -2,9 +2,7 @@ package com.kynsof.calendar.infrastructure.repository.query;
 
 import com.kynsof.calendar.domain.dto.ScheduleAvailabilityDto;
 import com.kynsof.calendar.domain.dto.ScheduleServiceInfoDto;
-import com.kynsof.calendar.domain.dto.enumType.EStatusSchedule;
 import com.kynsof.calendar.infrastructure.entity.Business;
-import com.kynsof.calendar.infrastructure.entity.Resource;
 import com.kynsof.calendar.infrastructure.entity.Schedule;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,26 +20,6 @@ import java.util.UUID;
 public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, UUID>, JpaSpecificationExecutor<Schedule> {
     Page<Schedule> findAll(Pageable pageable);
     Page<Schedule> findAll(Specification specification, Pageable pageable);
-    List<Schedule> findByResourceId(UUID resourceId);
-    List<Schedule> findByResourceIdAndStatus(UUID resourceId, EStatusSchedule status);
-    List<Schedule> findByResourceIdAndDateAndStatus(UUID resourceId, LocalDate date, EStatusSchedule status);
-
-//    @Query("SELECT s FROM Schedule s WHERE s.date = :date AND s.endingTime >= :endingTime AND s.status = 3")
-//    List<Schedule> findByDateAndEndingTimeAndStatus(LocalDate date, LocalTime endingTime);
-//
-//    @Query("SELECT s FROM Schedule s WHERE s.date <= :date AND s.endingTime < :time AND s.status = 0")
-//    List<Schedule> findActiveSchedulesAfterDateAndTime(LocalDate date, LocalTime time);
-
-    Schedule findByResourceAndDateAndStartTimeAndEndingTimeAndStatus(Resource resource, LocalDate date, LocalTime startTime, LocalTime endingTime, EStatusSchedule status);
-
-    @Query("SELECT s FROM Schedule s WHERE s.date = :date AND s.resource = :resource AND (:time >= s.startTime AND :time <= s.endingTime)")
-    List<Schedule> findByDateAndTimeInRange(@Param("resource") Resource resource, @Param("date") LocalDate date, @Param("time") LocalTime time);
-
-    @Query("SELECT s FROM Schedule s WHERE s.date = :date AND s.resource = :resource AND (:startTime >= s.startTime AND :endingTime <= s.endingTime)")
-    List<Schedule> findByDateAndTimeInRangeAndStartTimeAndEndingTime(@Param("resource") Resource resource, @Param("date") LocalDate date, @Param("startTime") LocalTime startTime, @Param("endingTime") LocalTime endingTime);
-
-    @Query("SELECT s FROM Schedule s WHERE s.date = :date AND s.resource = :resource AND (:time >= s.startTime AND :time <= s.endingTime) AND s.id != :id")
-    List<Schedule> findByDateAndTimeInRangeAndIdScheduleNotEqual(@Param("resource") Resource resource, @Param("date") LocalDate date, @Param("time") LocalTime time, @Param("id") UUID id);
 
 
     @Query("SELECT s FROM Schedule s WHERE s.resource.id = :resourceId " +
@@ -54,7 +32,6 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
 
 
 
-    //Keimer dev
     @Query("SELECT DISTINCT s.business FROM Schedule s " +
             "WHERE s.date = :date " +
             "AND s.service.id = :serviceId " +
@@ -112,7 +89,22 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
     @Query("SELECT s FROM Schedule s WHERE s.initialStock = s.stock AND s.date = :date")
     List<Schedule> findSchedulesWithEqualStock(@Param("date") LocalDate date);
 
-//    @Query("SELECT s FROM Schedule s WHERE s.stock > 0 AND s.date > :currentDate")
-//    Page<Schedule> findAvailableSchedules(@Param("currentDate") LocalDate currentDate, Pageable pageable, GenericSpecificationsBuilder<Schedule> specifications);
-
+    @Query("SELECT r, s " +
+            "FROM Schedule s JOIN s.resource r " +
+            "WHERE s.service.id = :serviceId " +
+            "AND (:businessId IS NULL OR s.business.id = :businessId) " +
+            "AND s.date IN :dates " +
+            "AND s.status = 'AVAILABLE' " +
+      "AND s.startTime <= :startTime " + // Comentado
+      "AND s.endingTime >= :endingTime " + // Comentado
+            "GROUP BY r.id, r.name, r.status, r.image, r.createdAt, r.updatedAt, s.id, s.date, s.startTime, s.endingTime, s.initialStock, s.stock, s.createdAt, s.updatedAt, s.status " +
+            "HAVING COUNT(s.date) = :totalDays")
+    List<Object[]> findResourcesAndSchedulesForServiceWithFullAvailability(
+            @Param("serviceId") UUID serviceId,
+            @Param("businessId") UUID businessId,
+            @Param("dates") List<LocalDate> dates,
+          @Param("startTime") LocalTime startTime, // Comentado
+          @Param("endingTime") LocalTime endingTime, // Comentado
+            @Param("totalDays") long totalDays,
+            Pageable pageable);
 }

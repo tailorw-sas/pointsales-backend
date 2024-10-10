@@ -15,7 +15,6 @@ import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
 import com.kynsof.share.core.domain.response.ErrorField;
-import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -26,8 +25,6 @@ import java.util.UUID;
 
 @Component
 public class CreateScheduleByLoteGoogleStyleCommandHandler implements ICommandHandler<CreateScheduleByLoteGoogleStyleCommand> {
-
-    private IMediator mediator;
 
     private final IBusinessService businessService;
     private final IResourceService resourceService;
@@ -46,7 +43,6 @@ public class CreateScheduleByLoteGoogleStyleCommandHandler implements ICommandHa
 
     @Override
     public void handle(CreateScheduleByLoteGoogleStyleCommand command) {
-        this.mediator = command.getMediator();
 
         BusinessDto business = this.businessService.findById(command.getBusiness());
         ResourceDto resource = this.resourceService.findById(command.getResource());

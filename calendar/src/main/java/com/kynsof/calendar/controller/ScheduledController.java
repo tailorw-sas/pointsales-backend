@@ -15,6 +15,8 @@ import com.kynsof.calendar.application.command.schedule.update.ScheduleUpdateReq
 import com.kynsof.calendar.application.command.schedule.update.UpdateScheduleCommand;
 import com.kynsof.calendar.application.command.schedule.update.UpdateScheduleMessage;
 import com.kynsof.calendar.application.query.ScheduleResponse;
+import com.kynsof.calendar.application.query.schedule.getAvailabilityByRangeDate.GetAvailabilityByRangeDateQuery;
+import com.kynsof.calendar.application.query.schedule.getAvailabilityByRangeDate.GetAvailabilityByRangeDateRequest;
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesAndSlots.AvailableDatesByResourceRequest;
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesAndSlots.GetAvailableDatesAndSlotsQuery;
 import com.kynsof.calendar.application.query.schedule.getAvailableDatesAndSlots.GetAvailableDatesAndSlotsResponse;
@@ -28,6 +30,7 @@ import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -94,6 +97,15 @@ public class ScheduledController {
     public ResponseEntity<PaginatedResponse> search(@RequestBody SearchRequest request) {
         Pageable pageable = PageableUtil.createPageable(request);
         GetSearchScheduleQuery query = new GetSearchScheduleQuery(pageable, request.getFilter(), request.getQuery());
+        PaginatedResponse data = mediator.send(query);
+        return ResponseEntity.ok(data);
+    }
+
+    @PostMapping("/availability-by-range-date")
+    public ResponseEntity<?> availability(@RequestBody GetAvailabilityByRangeDateRequest request) {
+        Pageable pageable = PageRequest.of(request.getPage(), request.getPageSize());
+        GetAvailabilityByRangeDateQuery query = new GetAvailabilityByRangeDateQuery(pageable, request.getStartDate(),
+                request.getEndDate(),request.getServiceId(),request.getBusinessId());
         PaginatedResponse data = mediator.send(query);
         return ResponseEntity.ok(data);
     }
