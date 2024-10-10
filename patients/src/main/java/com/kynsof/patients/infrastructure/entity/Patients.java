@@ -116,8 +116,11 @@ public class Patients implements Serializable {
     }
 
     public PatientDto toAggregate() {
-        return new PatientDto(id, identification, firstName, lastName, gender, status, weight, height, hasDisability, isPregnant,
+        PatientDto patientDto = new PatientDto(id, identification, firstName, lastName, gender, status, weight, height, hasDisability, isPregnant,
                 photo, disabilityType, gestationTime);
+        ContactInfoDto contactInfoDto = contactInformation != null ? contactInformation.toAggregate() : null;
+        patientDto.setContactInfo(contactInfoDto);
+        return patientDto;
     }
 
     public PatientByIdDto toAggregateById() {
@@ -125,6 +128,7 @@ public class Patients implements Serializable {
         PatientByIdDto result = new PatientByIdDto(id, identification, firstName, lastName, gender, status, weight, height,
                 hasDisability, isPregnant, photo, disabilityType, gestationTime, familyRelationship,
                 contactInfoDto );
+        result.setContactInfoDto(contactInfoDto);
         return result;
 
     }

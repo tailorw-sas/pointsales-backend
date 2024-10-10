@@ -25,6 +25,8 @@ public class PatientsResponse implements IResponse {
     private Boolean hasDisability;
     private Boolean isPregnant;
     private String image;
+    private String email;
+    private String phone;
     public PatientsResponse(PatientDto patients) {
         this.id = patients.getId();
         this.identification = patients.getIdentification();
@@ -36,6 +38,8 @@ public class PatientsResponse implements IResponse {
         this.hasDisability = patients.getHasDisability();
         this.isPregnant = patients.getIsPregnant();
         this.image = patients.getPhoto();
+        this.email = patients.getContactInfo().getEmail();
+        this.phone = patients.getContactInfo().getTelephone();
     }
 
 }
