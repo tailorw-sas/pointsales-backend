@@ -103,7 +103,7 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
         createUserSystemRequest.setPassword("defaultPassword"); // Ajusta según tus necesidades
         createUserSystemRequest.setUserType(EUserType.ASSISTANTS); // Ajusta si es necesario
         createUserSystemRequest.setImage(command.getImage());
-        createUserSystemRequest.setBusinessId(createUserSystemRequest.getBusinessId());
+        createUserSystemRequest.setBusinessId(command.getBusiness().toString());
 
       return userSystemService.createUserSystem(createUserSystemRequest);
 
