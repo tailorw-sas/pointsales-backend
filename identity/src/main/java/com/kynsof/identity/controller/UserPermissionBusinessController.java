@@ -29,7 +29,7 @@ public class UserPermissionBusinessController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> createLote(@RequestBody UserPermissionBusinessRequest request) {
+    public ResponseEntity<?> create(@RequestBody UserPermissionBusinessRequest request) {
         CreateUserPermissionBusinessCommand command = CreateUserPermissionBusinessCommand.fromRequest(request);
         CreateUserPermissionBusinessMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
