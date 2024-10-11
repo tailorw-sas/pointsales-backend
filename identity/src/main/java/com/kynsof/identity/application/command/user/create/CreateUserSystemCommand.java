@@ -19,9 +19,11 @@ public class CreateUserSystemCommand implements ICommand {
     private final String password;
     private final EUserType userType;
     private final String image;
+    private String businessId;
 
 
-    public CreateUserSystemCommand(UUID id,String userName, String email, String name, String lastName, String password, EUserType userType, String image) {
+    public CreateUserSystemCommand(UUID id,String userName, String email, String name, String lastName, String password,
+                                   EUserType userType, String image) {
         this.userName = userName;
         this.email = email;
         this.name = name;

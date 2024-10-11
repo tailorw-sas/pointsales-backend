@@ -40,6 +40,9 @@ public class Permission {
     @OneToMany(mappedBy = "permission")
     private Set<UserPermissionBusiness> userPermissionBusinesses = new HashSet<>();
 
+    @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UserTypePermission> userTypePermissions = new HashSet<>();
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;

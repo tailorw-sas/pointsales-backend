@@ -23,7 +23,6 @@ public class CreateUserPermissionBusinessCommandHandler implements ICommandHandl
     private final IBusinessService businessService;
 
     private final IUserSystemService userSystemService;
-    private final IRedisService redisService;
 
     private final ProducerCreateUserBusinessRelationEventService createUserBusinessEventService;
 
@@ -36,7 +35,6 @@ public class CreateUserPermissionBusinessCommandHandler implements ICommandHandl
         this.permissionService = permissionService;
         this.businessService = businessService;
         this.userSystemService = userSystemService;
-        this.redisService = redisService;
         this.createUserBusinessEventService = createUserBusinessEventService;
     }
 

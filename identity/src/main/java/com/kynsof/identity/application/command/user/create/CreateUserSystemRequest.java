@@ -15,4 +15,5 @@ public class CreateUserSystemRequest {
     private String password;
     private EUserType userType;
     private String image;
+    private String businessId;
 }
