@@ -38,7 +38,8 @@ public class CreateUserSystemCommandHandler implements ICommandHandler<CreateUse
     @Autowired
     public CreateUserSystemCommandHandler(IUserSystemService userSystemService, IAuthService authService,
                                           ProducerUserWelcomEventService producerUserWelcomEventService,
-                                          ProducerRegisterUserSystemEventService registerUserSystemEventService, IUserPermissionBusinessService service, IPermissionService permissionService, IBusinessService businessService, ProducerCreateUserBusinessRelationEventService createUserBusinessEventService, IUserTypePermissionService userTypePermissionService) {
+                                          ProducerRegisterUserSystemEventService registerUserSystemEventService,
+                                          IUserPermissionBusinessService service, IPermissionService permissionService, IBusinessService businessService, ProducerCreateUserBusinessRelationEventService createUserBusinessEventService, IUserTypePermissionService userTypePermissionService) {
         this.userSystemService = userSystemService;
         this.authService = authService;
         this.producerUserWelcomEventService = producerUserWelcomEventService;

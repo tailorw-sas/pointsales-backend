@@ -4,13 +4,18 @@ import com.kynsof.identity.domain.interfaces.service.IUserTypePermissionService;
 import com.kynsof.identity.infrastructure.identity.UserTypePermission;
 import com.kynsof.identity.infrastructure.repository.query.UserTypePermissionReadDataJPARepository;
 import com.kynsof.share.core.domain.EUserType;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class UserTypePermissionService implements IUserTypePermissionService {
-    @Autowired
-    private UserTypePermissionReadDataJPARepository userTypePermissionRepository;
+
+    private final UserTypePermissionReadDataJPARepository userTypePermissionRepository;
+
+    public UserTypePermissionService(UserTypePermissionReadDataJPARepository userTypePermissionRepository) {
+        this.userTypePermissionRepository = userTypePermissionRepository;
+    }
+
     @Override
     public List<UserTypePermission> getPermissionsByUserType(EUserType userType) {
         return userTypePermissionRepository.findByUserType(userType);
