@@ -36,6 +36,12 @@ public class Cie10 implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    public Cie10(Cie10Dto cie10Dto) {
+        this.id = cie10Dto.getId();
+        this.code = cie10Dto.getCode();
+        this.name = cie10Dto.getName();
+    }
+
     public Cie10Dto toAggregate() {
         return new Cie10Dto(this.id,this.code, this.name);
     }
