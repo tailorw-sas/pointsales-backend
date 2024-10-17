@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -18,6 +19,7 @@ public class PaymentAllergyResponse implements IResponse {
     private Cie10Dto cie10;
     private String severity;
     private String reaction;
+    private LocalDateTime createdAt;
 
     public PaymentAllergyResponse(PatientAllergyDto dto) {
         this.id = dto.getId();
@@ -25,6 +27,7 @@ public class PaymentAllergyResponse implements IResponse {
         this.cie10 = dto.getCie10();
         this.severity = dto.getSeverity();
         this.reaction = dto.getReaction();
+        this.createdAt = dto.getCreatedAt();
     }
 
 }

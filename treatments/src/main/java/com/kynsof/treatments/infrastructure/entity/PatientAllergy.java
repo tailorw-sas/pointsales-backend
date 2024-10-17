@@ -48,6 +48,8 @@ public class PatientAllergy {
     }
 
     public PatientAllergyDto toAggregate() {
-        return new PatientAllergyDto(id, patient.toAggregate(), cie10.toAggregate(), severity, reaction);
+        PatientAllergyDto patientAllergyDto = new PatientAllergyDto(id, patient.toAggregate(), cie10.toAggregate(), severity, reaction);
+        patientAllergyDto.setCreatedAt(createdAt);
+        return patientAllergyDto;
     }
 }
