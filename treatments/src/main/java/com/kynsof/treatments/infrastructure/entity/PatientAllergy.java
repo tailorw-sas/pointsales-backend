@@ -6,7 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -20,16 +23,21 @@ public class PatientAllergy {
     @Column(name = "id")
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id", nullable = false)
     private Patients patient;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cie10_id", nullable = false)
     private Cie10 cie10;  // Asociación con el CIE10 para clasificar la alergia
 
     private String severity;  // La severidad de la alergia (leve, moderada, grave)
-    private String reaction;  // La reacción que causa la alergia (urticaria, anafilaxia, etc.)
+    private String reaction;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
     public PatientAllergy(PatientAllergyDto dto) {
         this.id = dto.getId();
