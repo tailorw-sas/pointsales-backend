@@ -7,7 +7,6 @@ import com.kynsof.calendar.domain.dto.enumType.EResourceStatus;
 import com.kynsof.calendar.domain.service.IBusinessResourceService;
 import com.kynsof.calendar.domain.service.IBusinessService;
 import com.kynsof.calendar.domain.service.IResourceService;
-import com.kynsof.calendar.domain.service.IServiceService;
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +19,8 @@ public class AddServiceCommandHandler implements ICommandHandler<AddServiceComma
     private final IBusinessResourceService businessResourceService;
     private final IBusinessService businessService;
 
-    public AddServiceCommandHandler(IResourceService resourceService, IServiceService serviceService, IBusinessResourceService businessResourceService, IBusinessService businessService) {
+    public AddServiceCommandHandler(IResourceService resourceService, IBusinessResourceService businessResourceService,
+                                    IBusinessService businessService) {
         this.resourceService = resourceService;
         this.businessResourceService = businessResourceService;
         this.businessService = businessService;
