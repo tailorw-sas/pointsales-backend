@@ -64,7 +64,7 @@ public class Services {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "services", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "services", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<BusinessServices> businessServices = new HashSet<>();
 
 
