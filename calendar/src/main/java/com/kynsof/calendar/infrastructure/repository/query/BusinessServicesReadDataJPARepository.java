@@ -16,8 +16,7 @@ public interface BusinessServicesReadDataJPARepository extends JpaRepository<Bus
     Page<BusinessServices> findAll(Specification specification, Pageable pageable);
 
     @Query("SELECT bs FROM BusinessServices bs" +
-            " WHERE bs.business.id = :businessId " +
-            "AND bs.services.type.code ='CEXT'")
+            " WHERE bs.business.id = :businessId ")
     Page<BusinessServices> findServicesByBusinessId(@Param("businessId") UUID businessId, Pageable pageable);
 
     @Query("SELECT bs.id FROM BusinessServices bs WHERE bs.business.id = :businessId")
