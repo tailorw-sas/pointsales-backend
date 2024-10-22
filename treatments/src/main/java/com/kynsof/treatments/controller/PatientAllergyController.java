@@ -4,11 +4,11 @@ import com.kynsof.share.core.domain.request.PageableUtil;
 import com.kynsof.share.core.domain.request.SearchRequest;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsof.treatments.application.command.diagnosis.delete.DiagnosisDeleteCommand;
-import com.kynsof.treatments.application.command.diagnosis.delete.DiagnosisDeleteMessage;
 import com.kynsof.treatments.application.command.patientAllergy.create.CreatePatientAllergyCommand;
 import com.kynsof.treatments.application.command.patientAllergy.create.CreatePatientAllergyMessage;
 import com.kynsof.treatments.application.command.patientAllergy.create.CreatePatientAllergyRequest;
+import com.kynsof.treatments.application.command.patientAllergy.delete.DeletePatientAllergyCommand;
+import com.kynsof.treatments.application.command.patientAllergy.delete.DeletePatientAllergyMessage;
 import com.kynsof.treatments.application.command.patientAllergy.update.UpdatePatientAllergyCommand;
 import com.kynsof.treatments.application.command.patientAllergy.update.UpdatePatientAllergyMessage;
 import com.kynsof.treatments.application.command.patientAllergy.update.UpdatePatientAllergyRequest;
@@ -69,8 +69,8 @@ public class PatientAllergyController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
 
-        DiagnosisDeleteCommand query = new DiagnosisDeleteCommand(id);
-        DiagnosisDeleteMessage response = mediator.send(query);
+        DeletePatientAllergyCommand query = new DeletePatientAllergyCommand(id);
+        DeletePatientAllergyMessage response = mediator.send(query);
         return ResponseEntity.ok(response);
     }
 
