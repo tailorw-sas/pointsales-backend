@@ -13,6 +13,8 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,6 @@ import java.util.UUID;
 public class ServiceTypeServiceImpl implements IServiceTypeService {
 
     private final ServiceTypeWriteDataJPARepository repositoryCommand;
-
     private final ServiceTypeReadDataJPARepository repositoryQuery;
 
     public ServiceTypeServiceImpl(ServiceTypeWriteDataJPARepository repositoryCommand, ServiceTypeReadDataJPARepository repositoryQuery) {
@@ -36,11 +37,13 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
     }
 
     @Override
+    @CacheEvict(cacheNames = {"serviceType", "serviceTypeAll"}, allEntries = true)
     public UUID create(ServiceTypeDto object) {
         return this.repositoryCommand.save(new ServiceType(object)).getId();
     }
 
     @Override
+    @CacheEvict(cacheNames = {"serviceType", "serviceTypeAll"}, allEntries = true)
     public void update(ServiceTypeDto objectDto) {
         ServiceType update = new ServiceType(objectDto);
         update.setUpdatedAt(LocalDateTime.now());
@@ -48,6 +51,7 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
     }
 
     @Override
+    @CacheEvict(cacheNames = {"serviceType", "serviceTypeAll"}, allEntries = true)
     public void delete(UUID id) {
         try {
             this.repositoryCommand.deleteById(id);
@@ -56,31 +60,18 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
         }
     }
 
-    private ServiceTypeDto getById(UUID id) {
-
-        Optional<ServiceType> object = this.repositoryQuery.findById(id);
-        if (object.isPresent()) {
-            return object.get().toAggregate();
-        }
-
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SERVICE_TYPE_NOT_FOUND, new ErrorField("id", "Service Type not found.")));
-
-    }
-
-    //@Cacheable(cacheNames = CacheConfig.SERVICE_CACHE, unless = "#result == null")
     @Override
+    @Cacheable(cacheNames = "serviceType", key = "#id", unless = "#result == null")
     public ServiceTypeDto findById(UUID id) {
-
         Optional<ServiceType> object = this.repositoryQuery.findById(id);
         if (object.isPresent()) {
             return object.get().toAggregate();
         }
-
         throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SERVICE_TYPE_NOT_FOUND, new ErrorField("id", "Service Type not found.")));
-
     }
 
     @Override
+    @Cacheable(cacheNames = "serviceTypeAll", unless = "#result == null")
     public PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria) {
         GenericSpecificationsBuilder<ServiceType> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<ServiceType> data = this.repositoryQuery.findAll(specifications, pageable);
@@ -105,5 +96,4 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
     public Long countByCodeAndNotId(String code, UUID id) {
         return this.repositoryQuery.countByCodeAndNotId(code, id);
     }
-
 }

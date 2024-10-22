@@ -35,7 +35,7 @@ public class ExternalConsultationController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> createAll(@RequestBody CreateExternalConsultationAllRequest request) {
+    public ResponseEntity<?> create(@RequestBody CreateExternalConsultationAllRequest request) {
         CreateExternalConsultationAllCommand createCommand = CreateExternalConsultationAllCommand.fromRequest(request);
         CreateExternalConsultationAllMessage response = mediator.send(createCommand);
 
