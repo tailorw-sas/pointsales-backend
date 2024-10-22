@@ -23,10 +23,12 @@ public class UpdatePatientAllergyCommandHandler implements ICommandHandler<Updat
     @Override
     public void handle(UpdatePatientAllergyCommand command) {
         PatientAllergyDto patientAllergyDto = patientAllergyService.findById(command.getId());
-        Cie10Dto cie10Dto = this.cie10Service.findByCode(command.getCie10());
-        patientAllergyDto.setCie10(cie10Dto);
+        if (command.getCie10() != null) {
+            Cie10Dto cie10Dto = this.cie10Service.findByCode(command.getCie10());
+            patientAllergyDto.setCie10(cie10Dto);
+        }
         patientAllergyDto.setSeverity(command.getSeverity());
         patientAllergyDto.setReaction(command.getReaction());
-        patientAllergyService.update( patientAllergyDto);
+        patientAllergyService.update(patientAllergyDto);
     }
 }
