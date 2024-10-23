@@ -23,4 +23,6 @@ public interface IServiceTypeService {
     Long countByNameAndNotId(String name, UUID id);
 
     Long countByCodeAndNotId(String code, UUID id);
+
+    List<ServiceTypeDto> findAllToReplicate();
 }

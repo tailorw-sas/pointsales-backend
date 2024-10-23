@@ -18,4 +18,5 @@ public interface IServiceService {
     PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId);
     Long countByNameAndNotId(String name, UUID id);
     Long countByCodeAndNotId(String code, UUID id);
+    List<ServiceDto> findAllToReplicate();
 }

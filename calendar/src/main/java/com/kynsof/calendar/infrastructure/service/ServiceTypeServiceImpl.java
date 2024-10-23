@@ -96,4 +96,15 @@ public class ServiceTypeServiceImpl implements IServiceTypeService {
     public Long countByCodeAndNotId(String code, UUID id) {
         return this.repositoryQuery.countByCodeAndNotId(code, id);
     }
+
+    @Override
+    public List<ServiceTypeDto> findAllToReplicate() {
+        List<ServiceType> objects = this.repositoryQuery.findAll();
+        List<ServiceTypeDto> objectDtos = new ArrayList<>();
+        for (ServiceType object : objects) {
+            objectDtos.add(object.toAggregate());
+        }
+        return objectDtos;
+    }
+
 }

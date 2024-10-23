@@ -124,4 +124,14 @@ public class ServiceServiceImpl implements IServiceService {
         return getPaginatedResponse(services);
     }
 
+    @Override
+    public List<ServiceDto> findAllToReplicate() {
+        List<Services> objects = this.repositoryQuery.findAll();
+        List<ServiceDto> objectDtos = new ArrayList<>();
+        for (Services object : objects) {
+            objectDtos.add(object.toAggregate());
+        }
+        return objectDtos;
+    }
+
 }
