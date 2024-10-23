@@ -1,12 +1,5 @@
-package com.kynsof.calendar.infrastructure.service;
+package com.kynsof.treatments.infrastructure.service;
 
-import com.kynsof.calendar.application.query.service.ServicesResponse;
-import com.kynsof.calendar.domain.dto.ServiceDto;
-import com.kynsof.calendar.domain.dto.enumType.EServiceStatus;
-import com.kynsof.calendar.domain.service.IServiceService;
-import com.kynsof.calendar.infrastructure.entity.Services;
-import com.kynsof.calendar.infrastructure.repository.command.ServiceWriteDataJPARepository;
-import com.kynsof.calendar.infrastructure.repository.query.ServiceReadDataJPARepository;
 import com.kynsof.share.core.domain.exception.BusinessNotFoundException;
 import com.kynsof.share.core.domain.exception.DomainErrorMessage;
 import com.kynsof.share.core.domain.exception.GlobalBusinessException;
@@ -14,6 +7,13 @@ import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.ErrorField;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
 import com.kynsof.share.core.infrastructure.specifications.GenericSpecificationsBuilder;
+import com.kynsof.treatments.application.query.services.replicate.ServicesResponse;
+import com.kynsof.treatments.domain.dto.ServiceDto;
+import com.kynsof.treatments.domain.dto.enumDto.EServiceStatus;
+import com.kynsof.treatments.domain.service.IServiceService;
+import com.kynsof.treatments.infrastructure.entity.Services;
+import com.kynsof.treatments.infrastructure.repositories.command.ServiceWriteDataJPARepository;
+import com.kynsof.treatments.infrastructure.repositories.query.ServiceReadDataJPARepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public class ServiceServiceImpl implements IServiceService {
     @Override
     //@CachePut(cacheNames =  CacheConfig.SERVICE_CACHE, key = "#result.id")
     public ServiceDto create(ServiceDto object) {
-        object.setStatus(EServiceStatus.ACTIVE);
+        object.setStatus(EServiceStatus.ACTIVE.ACTIVE);
         Services serviceEntity = new Services(object);
         Services savedEntity = this.repositoryCommand.save(serviceEntity);
         return savedEntity.toAggregate();
@@ -113,25 +113,20 @@ public class ServiceServiceImpl implements IServiceService {
     }
 
     @Override
-    public Long countByCodeAndNotId(String code, UUID id) {
-        return this.repositoryQuery.countByCodeAndNotId(code, id);
-    }
-
-    @Override
-   // @Cacheable(cacheNames =  CacheConfig.SERVICE_CACHE, unless = "#result == null")
-    public PaginatedResponse findServicesByResourceId(Pageable pageable, UUID resourceId) {
-        Page<Services> services = this.repositoryQuery.findServicesByResourceId(resourceId, pageable);
-        return getPaginatedResponse(services);
-    }
-
-    @Override
-    public List<ServiceDto> findAllToReplicate() {
-        List<Services> objects = this.repositoryQuery.findAll();
-        List<ServiceDto> objectDtos = new ArrayList<>();
-        for (Services object : objects) {
-            objectDtos.add(object.toAggregate());
+    public ServiceDto findByCode(String code) {
+        Optional<Services> object = this.repositoryQuery.findServicesByExternalCode(code);
+        if (object.isPresent()) {
+            return object.get().toAggregate();
         }
-        return objectDtos;
+
+        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SERVICE_NOT_FOUND,
+                new ErrorField("code", "Service not found.")));
+
+    }
+
+    @Override
+    public boolean existServiceByCode(String code) {
+        return repositoryQuery.existsServicesByExternalCode(code);
     }
 
 }
