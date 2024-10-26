@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/reports")
 public class ReportController {
 
-    private final IMediator medietor;
+    private final IMediator mediator;
 
-    public ReportController(IMediator medietor) {
-        this.medietor = medietor;
+    public ReportController(IMediator mediator) {
+        this.mediator = mediator;
     }
 
     @PostMapping(value = "/generate-template", produces = MediaType.APPLICATION_PDF_VALUE)
@@ -25,7 +25,7 @@ public class ReportController {
 
         GenerateTemplateCommand command = new GenerateTemplateCommand(request.getParameters(),
                 request.getJasperReportCode());
-        GenerateTemplateMessage response = medietor.send(command);
+        GenerateTemplateMessage response = mediator.send(command);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_PDF)
@@ -36,7 +36,7 @@ public class ReportController {
     @GetMapping("/parameters/{reportCode}")
     public ResponseEntity<?> getReportParameters(@PathVariable String reportCode) {
         GetReportParameterByCodeQuery query = new GetReportParameterByCodeQuery(reportCode);
-        GetReportParameterByCodeResponse response = medietor.send(query);
+        GetReportParameterByCodeResponse response = mediator.send(query);
         return ResponseEntity.ok(response);
     }
 
