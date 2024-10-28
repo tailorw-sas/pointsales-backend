@@ -34,6 +34,7 @@ public class PatientAllergy {
     private String severity;  // La severidad de la alergia (leve, moderada, grave)
     private String reaction;
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
