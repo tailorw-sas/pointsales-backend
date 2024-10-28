@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -98,13 +99,38 @@ public class CampaignServiceImpl implements CampaignService {
 
     private void filterCriteria(List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
+            if ("status".equals(filter.getKey())) {
+                Object filterValue = filter.getValue();
 
-            if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
-                try {
-                    CampaignStatus enumValue = CampaignStatus.valueOf((String) filter.getValue());
-                    filter.setValue(enumValue);
-                } catch (IllegalArgumentException e) {
-                    System.err.println("Valor inválido para el tipo Enum Status: " + filter.getValue());
+                // Caso cuando el valor es una sola cadena
+                if (filterValue instanceof String) {
+                    try {
+                        CampaignStatus enumValue = CampaignStatus.valueOf((String) filterValue);
+                        filter.setValue(enumValue);
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Valor inválido para el tipo Enum Status: " + filterValue);
+                    }
+
+                    // Caso cuando el valor es una lista de cadenas
+                } else if (filterValue instanceof List) {
+                    List<?> valueList = (List<?>) filterValue;
+                    List<CampaignStatus> enumList = new ArrayList<>();
+
+                    for (Object value : valueList) {
+                        if (value instanceof String) {
+                            try {
+                                CampaignStatus enumValue = CampaignStatus.valueOf((String) value);
+                                enumList.add(enumValue);
+                            } catch (IllegalArgumentException e) {
+                                System.err.println("Valor inválido para el tipo Enum Status en la lista: " + value);
+                            }
+                        }
+                    }
+
+                    // Si todos los elementos fueron convertidos correctamente, se establece la lista de Enums
+                    if (!enumList.isEmpty()) {
+                        filter.setValue(enumList);
+                    }
                 }
             }
         }
