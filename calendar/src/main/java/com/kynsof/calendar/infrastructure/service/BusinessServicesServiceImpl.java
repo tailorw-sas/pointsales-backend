@@ -119,7 +119,7 @@ public class BusinessServicesServiceImpl implements IBusinessServicesService {
         Page<BusinessServices> data = this.repositoryQuery.findServicesByBusinessId(businessId, pageable);
         List<ServiceSimple> responses = new ArrayList<>();
         for (BusinessServices s : data.getContent()) {
-            ServiceSimple serviceSimple = new ServiceSimple(s.getServices().getId(), s.getServices().getName());
+            ServiceSimple serviceSimple = new ServiceSimple(s.getServices().getId(), s.getServices().getName(), s.getServices().getStatus());
             responses.add(serviceSimple);
         }
         return new PaginatedResponse(responses, data.getTotalPages(), data.getNumberOfElements(),
