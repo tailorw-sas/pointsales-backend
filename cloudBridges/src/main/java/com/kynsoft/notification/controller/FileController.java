@@ -76,8 +76,8 @@ public class FileController {
     }
 
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteFile(@RequestParam("url") String url) {
+    @PostMapping("/delete")
+    public ResponseEntity<String> deleteFile(@RequestBody String url) {
         try {
             amazonClient.delete(url);
             return ResponseEntity.ok("File deleted successfully");
