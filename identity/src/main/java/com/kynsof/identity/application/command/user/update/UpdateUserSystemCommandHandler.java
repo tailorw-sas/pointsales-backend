@@ -45,7 +45,8 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
             idUpdate = true;
         }
         if (command.getImage() ==null || !command.getImage().equals(objectToUpdate.getImage())) {
-            UpdateIfNotNull.updateIfNotNull(objectToUpdate::setImage, command.getImage());
+         //   UpdateIfNotNull.updateIfNotNull(objectToUpdate::setImage, command.getImage());
+            objectToUpdate.setImage(command.getImage());
             isPublish = true;
             idUpdate = true;
         }
