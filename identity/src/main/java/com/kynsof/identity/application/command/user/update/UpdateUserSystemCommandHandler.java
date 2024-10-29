@@ -78,7 +78,9 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
     }
 
     private void updateUserKeycloak(UpdateUserSystemCommand command, String userKeycloakId) {
-        UserRequest userRequest = new UserRequest(command.getUserName(), command.getEmail(), command.getImage(), command.getLastName(), userKeycloakId);
+
+
+        UserRequest userRequest = new UserRequest(command.getUserName(), command.getEmail(), command.getName(), command.getLastName(), "");
         keycloakProvider.updateUser(userKeycloakId, userRequest);
     }
 }

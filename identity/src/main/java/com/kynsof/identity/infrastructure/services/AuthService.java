@@ -205,16 +205,17 @@ public class AuthService implements IAuthService {
 //            if (userRequest.getUserName() != null) {
 //                user.setUsername(userRequest.getUserName());
 //            }
-            if (userRequest.getName() != null) {
+            if (userRequest.getName() != null && !userRequest.getName().equals(user.getFirstName())) {
                 user.setFirstName(userRequest.getName());
             }
-            if (userRequest.getLastName() != null) {
+            if (userRequest.getLastName() != null && !userRequest.getLastName().equals(user.getLastName())){
                 user.setLastName(userRequest.getLastName());
             }
-            if (userRequest.getEmail() != null) {
+            if (userRequest.getEmail() != null && !userRequest.getEmail().equals(user.getEmail())) {
                 user.setEmail(userRequest.getEmail());
          //       user.setEmailVerified(true);
             }
+
        //     user.setEnabled(true);
             userResource.update(user);
         } catch (Exception e) {
