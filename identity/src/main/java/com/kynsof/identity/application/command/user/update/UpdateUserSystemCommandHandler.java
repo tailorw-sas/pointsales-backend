@@ -71,8 +71,8 @@ public class UpdateUserSystemCommandHandler implements ICommandHandler<UpdateUse
             resourceEventService.create(objectToUpdate);
         }
         if (idUpdate) {
-            updateUserKeycloak(command,objectToUpdate.getKeyCloakId().toString());
             systemService.update(objectToUpdate);
+            updateUserKeycloak(command,objectToUpdate.getKeyCloakId().toString());
 
         }
     }

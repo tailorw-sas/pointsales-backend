@@ -52,8 +52,8 @@ public class UpdateDoctorCommandHandler implements ICommandHandler<UpdateDoctorC
         if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(doctorSave::setLastName, command.getLastName(), doctorSave.getLastName(), update::setUpdate)) {
             changedFields.add("lastName");
         }
-        if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(doctorSave::setImage, command.getImage(), doctorSave.getImage(), update::setUpdate)) {
-            changedFields.add("image");
+        if (!command.getImage().equals(doctorSave.getImage())) {
+           doctorSave.setImage(command.getImage());
         }
 
         UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(doctorSave::setRegisterNumber, command.getRegisterNumber(), doctorSave.getRegisterNumber(), update::setUpdate);
