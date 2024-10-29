@@ -52,7 +52,7 @@ public class UpdateDoctorCommandHandler implements ICommandHandler<UpdateDoctorC
         if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(doctorSave::setLastName, command.getLastName(), doctorSave.getLastName(), update::setUpdate)) {
             changedFields.add("lastName");
         }
-        if (command.getImage() ==null || !command.getImage().equals(doctorSave.getImage())) {
+        if (command.getImage() ==null ||  doctorSave.getImage() == null || !command.getImage().equals(doctorSave.getImage())) {
            doctorSave.setImage(command.getImage());
         }
 
