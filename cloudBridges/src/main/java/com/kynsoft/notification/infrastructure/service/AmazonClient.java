@@ -103,16 +103,41 @@ public class AmazonClient implements IAmazonClient {
 
     @Override
     public void delete(String url) {
-        if (!url.equals("")) {
+        if (url != null && !url.isEmpty()) {
+            // Extraer la clave del archivo desde la URL
+            String key = url.contains(this.cloudfrontDomain) ? url.replace(this.cloudfrontDomain, "") : url;
 
-            String key = url;
+            // Confirmar la clave antes de intentar eliminar
+            System.out.println("Attempting to delete file with key: " + key);
 
-            if (url != null && url.contains(this.cloudfrontDomain)) {
-                key = url.replace(this.cloudfrontDomain, "");
+            // Verificar la existencia del archivo antes de eliminar
+            ListObjectsV2Request listRequest = ListObjectsV2Request.builder()
+                    .bucket(this.bucketName)
+                    .prefix(key)
+                    .build();
+
+            ListObjectsV2Response listResponse = s3Client.listObjectsV2(listRequest);
+            if (listResponse.contents().isEmpty()) {
+                System.out.println("File does not exist in the bucket: " + key);
+                return; // Salir si el archivo no existe
+            } else {
+                System.out.println("File exists and will be deleted: " + key);
             }
 
-            DeleteObjectRequest req = DeleteObjectRequest.builder().bucket(this.bucketName).key(key).build();
-            this.s3Client.deleteObject(req);
+            // Intentar eliminar el archivo y capturar cualquier error
+            try {
+                DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                        .bucket(this.bucketName)
+                        .key(key)
+                        .build();
+                s3Client.deleteObject(deleteObjectRequest);
+                System.out.println("File deleted successfully: " + key);
+            } catch (AwsServiceException | SdkClientException e) {
+                System.err.println("Failed to delete file: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("URL is empty or null, no deletion performed.");
         }
     }
 

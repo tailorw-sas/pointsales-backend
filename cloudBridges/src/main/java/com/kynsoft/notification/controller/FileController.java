@@ -80,31 +80,6 @@ public class FileController {
                 });
     }
 
-//    @PostMapping(value = "")
-//    public Mono<ResponseEntity<ApiResponse<?>>> upload(@RequestPart("file") FilePart filePart) {
-//        return DataBufferUtils.join(filePart.content())
-//                .flatMap(dataBuffer -> {
-//                    byte[] bytes = new byte[dataBuffer.readableByteCount()];
-//                    dataBuffer.read(bytes);
-//                    DataBufferUtils.release(dataBuffer);
-//
-//                    // Crear MultipartFile a partir de bytes
-//                    MultipartFile multipartFile = new MockMultipartFile(UUID.randomUUID().toString(),
-//                            UUID.randomUUID().toString(), Objects.requireNonNull(filePart.headers().getContentType()).toString(), bytes);
-//
-//                    try {
-//                        // Llamar a AmazonClient para guardar el archivo
-//                        SaveFileS3RequestMessage response = mediator.send(new SaveFileS3RequestCommand(multipartFile, "medinec"));
-//                        return Mono.just(ResponseEntity.ok(ApiResponse.success(response)));
-//                    } catch (Exception e) {
-//                        //return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload: " + e.getMessage()));
-//                        return Mono.error(e);
-//                    }
-//                });
-//
-//    }
-
-
     @PostMapping("/delete")
     public ResponseEntity<String> deleteFile(@RequestBody String url) {
         try {
