@@ -157,19 +157,7 @@ public class AmazonClient implements IAmazonClient {
                 .collect(Collectors.toList());
     }
 
-    public void deleteFileByKey(String key) {
-        try {
-            DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(key)
-                    .build();
-        s3Client.deleteObject(deleteObjectRequest);
-        }catch (Exception e){
-            e.printStackTrace();
-            String mesage = e.getMessage();
-        }
 
-    }
 
     public List<String> listAllBuckets() {
         ListBucketsResponse listBucketsResponse = s3Client.listBuckets();
