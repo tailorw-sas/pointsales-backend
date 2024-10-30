@@ -13,17 +13,18 @@ import java.util.UUID;
 public class AdminChangePasswordCommandHandler implements ICommandHandler<AdminChangePasswordCommand> {
     private final IAuthService authService;
     private final IUserSystemService userSystemService;
-
     public AdminChangePasswordCommandHandler(IAuthService authService, IUserSystemService userSystemService) {
 
         this.authService = authService;
         this.userSystemService = userSystemService;
+
     }
 
     @Override
     public void handle(AdminChangePasswordCommand command) {
         UserSystemDto userSystemDto = userSystemService.findById(UUID.fromString(command.getUserId()));
-        Boolean result = authService.changePassword(userSystemDto.getKeyCloakId().toString(), command.getNewPassword());
+        Boolean result = authService.changePassword(userSystemDto.getKeyCloakId().toString(), command.getNewPassword(),
+                false);
         command.setResul(result);
     }
 }

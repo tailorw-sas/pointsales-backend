@@ -21,7 +21,7 @@ public class ChangePasswordCommandHandler implements ICommandHandler<ChangePassw
     @Override
     public void handle(ChangePasswordCommand command) {
         UserSystemDto userSystemDto = userSystemService.findById(command.getId());
-        Boolean result = authService.changePassword(userSystemDto.getKeyCloakId().toString(), command.getNewPassword());
+        Boolean result = authService.changePassword(userSystemDto.getKeyCloakId().toString(), command.getNewPassword(),false);
         command.setResul(result);
     }
 }

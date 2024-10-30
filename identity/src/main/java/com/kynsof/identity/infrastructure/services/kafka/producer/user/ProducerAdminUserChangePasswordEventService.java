@@ -1,4 +1,4 @@
-package com.kynsof.identity.infrastructure.services.kafka.producer;
+package com.kynsof.identity.infrastructure.services.kafka.producer.user;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,10 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class ProducerTriggerPasswordResetEventService {
+public class ProducerAdminUserChangePasswordEventService {
     private final KafkaTemplate<String, String> producer;
 
-    public ProducerTriggerPasswordResetEventService(KafkaTemplate<String, String> producer) {
+    public ProducerAdminUserChangePasswordEventService(KafkaTemplate<String, String> producer) {
         this.producer = producer;
     }
 
@@ -26,9 +26,9 @@ public class ProducerTriggerPasswordResetEventService {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(new CreateEvent<>(entity, EventType.CREATED));
-            this.producer.send("otp", json);
+            this.producer.send("admin-change-password", json);
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ProducerTriggerPasswordResetEventService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProducerAdminUserChangePasswordEventService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

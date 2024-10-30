@@ -14,7 +14,7 @@ public interface IAuthService {
     String registerUserSystem(@NonNull UserSystemKycloackRequest userRequest, boolean isSystemUser);
     Boolean forwardPassword(PasswordChangeRequest changeRequest);
     Boolean sendPasswordRecoveryOtp(String email);
-    Boolean changePassword(String userId, String newPassword);
+    Boolean changePassword(String userId, String newPassword,boolean temporary);
     Boolean firstChangePassword(String userId, String email, String newPassword, String oldPassword);
     Boolean delete(String userId);
     void updateUser(String userId, UserRequest userRequest);

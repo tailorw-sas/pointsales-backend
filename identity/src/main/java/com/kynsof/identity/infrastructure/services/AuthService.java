@@ -7,7 +7,7 @@ import com.kynsof.identity.application.command.auth.registry.UserRequest;
 import com.kynsof.identity.application.command.auth.registrySystemUser.UserSystemKycloackRequest;
 import com.kynsof.identity.domain.interfaces.service.IAuthService;
 import com.kynsof.identity.domain.interfaces.service.IRedisService;
-import com.kynsof.identity.infrastructure.services.kafka.producer.ProducerTriggerPasswordResetEventService;
+import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerTriggerPasswordResetEventService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerRegisterUserEventService;
 import com.kynsof.identity.infrastructure.services.kafka.producer.user.ProducerRegisterUserSystemEventService;
 import com.kynsof.share.core.domain.EUserType;
@@ -142,13 +142,13 @@ public class AuthService implements IAuthService {
     }
 
     @Override
-    public Boolean changePassword(String userId, String newPassword) {
+    public Boolean changePassword(String userId, String newPassword, boolean temporary) {
         UserRepresentation user = keycloakProvider.getRealmResource().users().get(userId).toRepresentation();
         if (user != null) {
             CredentialRepresentation credential = new CredentialRepresentation();
             credential.setType(CredentialRepresentation.PASSWORD);
             credential.setValue(newPassword);
-            credential.setTemporary(false); // True si quieres que sea una contraseña temporal
+            credential.setTemporary(temporary); // True si quieres que sea una contraseña temporal
 
             keycloakProvider.getRealmResource().users().get(userId).resetPassword(credential);
             return true;
@@ -172,7 +172,7 @@ public class AuthService implements IAuthService {
             if (e.getStatusCode() == HttpStatus.BAD_REQUEST) {
                 String errorResponse = e.getResponseBodyAsString();
                 if (errorResponse.contains("invalid_grant")) {
-                    changePassword(userId, newPassword);
+                    changePassword(userId, newPassword,false);
                     return true;
                 }
             }
