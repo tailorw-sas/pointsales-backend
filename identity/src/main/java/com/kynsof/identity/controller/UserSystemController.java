@@ -2,6 +2,9 @@ package com.kynsof.identity.controller;
 
 import com.kynsof.identity.application.command.auth.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpCommand;
 import com.kynsof.identity.application.command.auth.sendPasswordRecoveryOtp.SendPasswordRecoveryOtpMessage;
+import com.kynsof.identity.application.command.user.adminUserChangePassword.AdminChangePasswordCommand;
+import com.kynsof.identity.application.command.user.adminUserChangePassword.AdminChangePasswordMessage;
+import com.kynsof.identity.application.command.user.adminUserChangePassword.AdminChangePasswordRequest;
 import com.kynsof.identity.application.command.user.changePassword.ChangePasswordCommand;
 import com.kynsof.identity.application.command.user.changePassword.ChangePasswordMessage;
 import com.kynsof.identity.application.command.user.changePassword.ChangePasswordRequest;
@@ -120,6 +123,13 @@ public class UserSystemController {
     public ResponseEntity<?> changePassword(@PathVariable UUID id, @RequestBody ChangePasswordRequest request) {
         ChangePasswordCommand command = ChangePasswordCommand.fromRequest(id, request);
         ChangePasswordMessage response = mediator.send(command);
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping(path = "/admin/change-password")
+    public ResponseEntity<?> adminChangePassword(@RequestBody AdminChangePasswordRequest request) {
+        AdminChangePasswordCommand command = AdminChangePasswordCommand.fromRequest(request);
+        AdminChangePasswordMessage response = mediator.send(command);
         return ResponseEntity.ok(response);
     }
 
