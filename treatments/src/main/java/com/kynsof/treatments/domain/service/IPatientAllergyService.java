@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface IPatientAllergyService {
 
-    void create(PatientAllergyDto diagnosisDtoList);
+    UUID create(PatientAllergyDto diagnosisDtoList);
 
     void update(PatientAllergyDto diagnosis);
 

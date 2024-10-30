@@ -34,9 +34,10 @@ public class PatientAllergyServiceImpl implements IPatientAllergyService {
     }
 
     @Override
-    public void create(PatientAllergyDto diagnosisDtoList) {
+    public UUID create(PatientAllergyDto diagnosisDtoList) {
         PatientAllergy entity = new PatientAllergy(diagnosisDtoList);
-        repositoryCommand.save(entity);
+        PatientAllergy allergy =  repositoryCommand.save(entity);
+        return allergy.getId();
     }
 
     @Override

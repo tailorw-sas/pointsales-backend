@@ -15,6 +15,7 @@ public class CreatePatientAllergyCommand implements ICommand {
     private final String cie10;
     private final String severity;
     private final String reaction;
+    private UUID allergyId;
 
     public CreatePatientAllergyCommand(UUID patientId, String cie10Id, String severity, String reaction) {
         this.patientId = patientId;
@@ -30,6 +31,6 @@ public class CreatePatientAllergyCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return new CreatePatientAllergyMessage();
+        return new CreatePatientAllergyMessage(allergyId);
     }
 }

@@ -29,12 +29,13 @@ public class CreatePatientAllergyCommandHandler implements ICommandHandler<Creat
         PatientDto patientDto = this.patientsService.findById(command.getPatientId());
         Cie10Dto cie10Dto = this.cie10Service.findByCode(command.getCie10());
 
-        patientAllergyService.create(new PatientAllergyDto(
+        UUID id = patientAllergyService.create(new PatientAllergyDto(
                 UUID.randomUUID(),
                 patientDto,
                 cie10Dto,
                 command.getSeverity(),
                 command.getReaction()
         ));
+        command.setAllergyId(id);
     }
 }
