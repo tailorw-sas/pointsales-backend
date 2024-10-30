@@ -48,8 +48,8 @@ public class ConsumerSaveFileEventService {
 
                 MultipartFile file = new CustomMultipartFile(eventRead.getFile(), eventRead.getFileName());
                 try {
-                    String fileUrl = amazonClient.save(file, eventRead.getFileName());
-                    this.fileService.create(new AFileDto(eventRead.getId(), eventRead.getFileName(), eventRead.getMicroServiceName(), fileUrl));
+                    String fileUrl = amazonClient.save(file);
+                    this.fileService.create(new AFileDto(eventRead.getId(), eventRead.getFileName(), fileUrl));
                 } catch (IOException ex) {
                     Logger.getLogger(ConsumerSaveFileEventService.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -66,16 +66,7 @@ public class ConsumerSaveFileEventService {
                     this.fileService.delete(deleteFile);
 
             }
-            if (eventType.equals(EventType.UPDATED)) {
-                //Definir accion
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
-                System.err.println("SE EJECUTA UN EVENTO DE ACTUALIZACION");
-                System.err.println("#######################################################");
-                System.err.println("#######################################################");
 
-                //this.service.update(new PatientDto(UUID.fromString(eventRead.getId()), "", eventRead.getFirstname(), eventRead.getLastname(), "", PatientStatus.ACTIVE));
-            }
 
         } catch (JsonProcessingException ex) {
             Logger.getLogger(ConsumerSaveFileEventService.class.getName()).log(Level.SEVERE, null, ex);

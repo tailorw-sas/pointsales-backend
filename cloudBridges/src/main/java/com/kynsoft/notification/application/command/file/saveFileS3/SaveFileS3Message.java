@@ -1,4 +1,4 @@
-package com.kynsoft.notification.application.command.saveFileS3;
+package com.kynsoft.notification.application.command.file.saveFileS3;
 
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.UUID;
 
 @Getter
-public class SaveFileS3RequestMessage implements ICommandMessage {
+public class SaveFileS3Message implements ICommandMessage {
 
 
     private final String url;
@@ -14,7 +14,7 @@ public class SaveFileS3RequestMessage implements ICommandMessage {
 
 
 
-    public SaveFileS3RequestMessage(String result, UUID id) {
+    public SaveFileS3Message(String result, UUID id) {
         this.url = result;
         this.id = id;
     }

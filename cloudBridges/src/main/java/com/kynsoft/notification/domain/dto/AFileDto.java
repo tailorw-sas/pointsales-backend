@@ -14,7 +14,6 @@ import java.util.UUID;
 public class AFileDto {
     private UUID id;
     private String name;
-    private String microServiceName;
     private String url;
 
     public AFileDto(String name, String url) {

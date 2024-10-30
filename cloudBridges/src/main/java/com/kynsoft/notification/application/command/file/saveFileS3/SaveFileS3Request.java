@@ -1,4 +1,4 @@
-package com.kynsoft.notification.application.command.saveFileS3;
+package com.kynsoft.notification.application.command.file.saveFileS3;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -14,4 +14,6 @@ public interface IAFileService {
     void delete(AFileDto object);
     AFileDto findById(UUID id);
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
+
+    AFileDto findByUrl(String url);
 }

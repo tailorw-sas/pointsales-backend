@@ -14,13 +14,11 @@ import java.util.UUID;
 public class FileResponse implements IResponse {
     private UUID id;
     private String name;
-    private String microServiceName;
     private String url;
 
     public FileResponse(AFileDto fileDto) {
         this.id = fileDto.getId();
         this.name = fileDto.getName();
-        this.microServiceName = fileDto.getMicroServiceName();
         this.url = fileDto.getUrl();
     }
 

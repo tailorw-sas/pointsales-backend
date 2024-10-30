@@ -7,8 +7,11 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface FileReadDataJPARepository extends JpaRepository<AFile, UUID>, JpaSpecificationExecutor<AFile> {
     Page<AFile> findAll(Specification specification, Pageable pageable);
+
+    Optional<AFile> findByUrl(String url);
 }

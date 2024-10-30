@@ -13,7 +13,6 @@ import com.kynsoft.notification.domain.service.IAFileService;
 import com.kynsoft.notification.infrastructure.entity.AFile;
 import com.kynsoft.notification.infrastructure.repository.command.FileWriteDataJPARepository;
 import com.kynsoft.notification.infrastructure.repository.query.FileReadDataJPARepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,11 +25,14 @@ import java.util.UUID;
 @Service
 public class AFileServiceImpl implements IAFileService {
 
-    @Autowired
-    private FileWriteDataJPARepository commandRepository;
+    private final FileWriteDataJPARepository commandRepository;
 
-    @Autowired
-    private FileReadDataJPARepository queryRepository;
+    private final FileReadDataJPARepository queryRepository;
+
+    public AFileServiceImpl(FileWriteDataJPARepository commandRepository, FileReadDataJPARepository queryRepository) {
+        this.commandRepository = commandRepository;
+        this.queryRepository = queryRepository;
+    }
 
     @Override
     public UUID create(AFileDto object) {
@@ -40,7 +42,7 @@ public class AFileServiceImpl implements IAFileService {
 
     @Override
     public void update(AFileDto object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -63,6 +65,15 @@ public class AFileServiceImpl implements IAFileService {
         GenericSpecificationsBuilder<FileResponse> specifications = new GenericSpecificationsBuilder<>(filterCriteria);
         Page<AFile> data = this.queryRepository.findAll(specifications, pageable);
         return getPaginatedResponse(data);
+    }
+
+    @Override
+    public AFileDto findByUrl(String url) {
+        Optional<AFile>  entity = this.queryRepository.findByUrl(url);
+        if (entity.isPresent()) {
+            return entity.map(AFile::toAggregate).orElse(null);
+        }
+        return null;
     }
 
     private PaginatedResponse getPaginatedResponse(Page<AFile> data) {

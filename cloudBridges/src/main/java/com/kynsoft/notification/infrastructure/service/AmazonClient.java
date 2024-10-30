@@ -88,7 +88,7 @@ public class AmazonClient implements IAmazonClient {
     }
 
     @Override
-    public String save(MultipartFile file, String folder) throws IOException {
+    public String save(MultipartFile file) throws IOException {
         String originalFilename = file.getOriginalFilename();
 
         String sanitizedFilename = originalFilename.replace(" ", "_");

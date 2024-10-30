@@ -4,8 +4,10 @@ import com.kynsof.share.core.application.FileRequest;
 import com.kynsof.share.core.domain.response.ApiResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import com.kynsof.share.core.infrastructure.util.CustomMultipartFile;
-import com.kynsoft.notification.application.command.saveFileS3.SaveFileS3RequestCommand;
-import com.kynsoft.notification.application.command.saveFileS3.SaveFileS3RequestMessage;
+import com.kynsoft.notification.application.command.file.deleteFileS3.DeleteFileS3Command;
+import com.kynsoft.notification.application.command.file.deleteFileS3.DeleteFileS3Message;
+import com.kynsoft.notification.application.command.file.saveFileS3.SaveFileS3Command;
+import com.kynsoft.notification.application.command.file.saveFileS3.SaveFileS3Message;
 import com.kynsoft.notification.domain.dto.AFileDto;
 import com.kynsoft.notification.domain.dto.FileInfoDto;
 import com.kynsoft.notification.domain.service.IAFileService;
@@ -43,8 +45,8 @@ public class FileController {
     public ResponseEntity<?> uploadFile(@RequestBody FileRequest request) {
         try {
             MultipartFile file = new CustomMultipartFile(request.getFile(), request.getFileName());
-            String fileUrl = amazonClient.save(file, request.getFileName());
-            this.fileService.create(new AFileDto(UUID.randomUUID(), request.getFileName(), "", fileUrl));
+            String fileUrl = amazonClient.save(file);
+            this.fileService.create(new AFileDto(UUID.randomUUID(), request.getFileName(), fileUrl));
             return ResponseEntity.ok("OK");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to upload file: " + e.getMessage());
@@ -71,8 +73,7 @@ public class FileController {
                     );
 
                     try {
-                        // Llamar a AmazonClient para guardar el archivo
-                        SaveFileS3RequestMessage response = mediator.send(new SaveFileS3RequestCommand(multipartFile, "medinec"));
+                        SaveFileS3Message response = mediator.send(new SaveFileS3Command(multipartFile,  filePart.filename()));
                         return Mono.just(ResponseEntity.ok(ApiResponse.success(response)));
                     } catch (Exception e) {
                         return Mono.error(e);
@@ -81,10 +82,11 @@ public class FileController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<String> deleteFile(@RequestBody String url) {
+    public ResponseEntity<?> deleteFile(@RequestBody String url) {
         try {
-            amazonClient.delete(url);
-            return ResponseEntity.ok("File deleted successfully");
+            DeleteFileS3Command command = new DeleteFileS3Command(url);
+            DeleteFileS3Message message =mediator.send(command);
+            return ResponseEntity.ok(message);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to delete file: " + e.getMessage());
         }
@@ -118,13 +120,13 @@ public class FileController {
         return amazonClient.listAllFiles(bucketName);
     }
 
-    @GetMapping("/delete/key")
-    public String deleteFileByKey( @RequestParam("key") String key) {
-
-            amazonClient.deleteFileByKey(key);
-            return "Archivo eliminado con éxito.";
-
-    }
+//    @GetMapping("/delete/key")
+//    public String deleteFileByKey( @RequestParam("key") String key) {
+//
+//            amazonClient.deleteFileByKey(key);
+//            return "Archivo eliminado con éxito.";
+//
+//    }
 
     @GetMapping("/buckets")
     public List<String> listBuckets() {

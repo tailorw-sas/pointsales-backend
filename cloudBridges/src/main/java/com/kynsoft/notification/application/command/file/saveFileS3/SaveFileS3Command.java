@@ -1,4 +1,4 @@
-package com.kynsoft.notification.application.command.saveFileS3;
+package com.kynsoft.notification.application.command.file.saveFileS3;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
@@ -10,23 +10,22 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class SaveFileS3RequestCommand implements ICommand {
+public class SaveFileS3Command implements ICommand {
     private final MultipartFile multipartFile;
-    private final String fonder;
     private UUID fileId;
     private String url;
+    private final String fileName;
 
-    public SaveFileS3RequestCommand(MultipartFile multipartFile, String fonder) {
-
-
+    public SaveFileS3Command(MultipartFile multipartFile, String fileName) {
         this.multipartFile = multipartFile;
-        this.fonder = fonder;
+
+        this.fileName = fileName;
     }
 
 
 
     @Override
     public ICommandMessage getMessage() {
-        return new SaveFileS3RequestMessage(url,fileId);
+        return new SaveFileS3Message(url,fileId);
     }
 }

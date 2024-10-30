@@ -1,4 +1,4 @@
-package com.kynsoft.notification.application.command.saveFileS3;
+package com.kynsoft.notification.application.command.file.saveFileS3;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsoft.notification.domain.dto.AFileDto;
@@ -10,23 +10,23 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Component
-public class SaveFileS3RequestCommandHandler implements ICommandHandler<SaveFileS3RequestCommand> {
+public class SaveFileS3CommandHandler implements ICommandHandler<SaveFileS3Command> {
 
     private final IAmazonClient amazonClient;
     private final IAFileService fileService;
 
 
-    public SaveFileS3RequestCommandHandler(IAmazonClient amazonClient, IAFileService fileService) {
+    public SaveFileS3CommandHandler(IAmazonClient amazonClient, IAFileService fileService) {
 
         this.amazonClient = amazonClient;
         this.fileService = fileService;
     }
 
     @Override
-    public void handle(SaveFileS3RequestCommand command) {
+    public void handle(SaveFileS3Command command) {
         try {
-            String url = amazonClient.save(command.getMultipartFile(), command.getFonder());
-            AFileDto aFileDto = new AFileDto(UUID.randomUUID(),command.getMultipartFile().getName(), "file", url);
+            String url = amazonClient.save(command.getMultipartFile());
+            AFileDto aFileDto = new AFileDto(UUID.randomUUID(), command.getFileName(),  url);
             UUID fileId = fileService.create(aFileDto);
             command.setFileId(fileId);
             command.setUrl(url);

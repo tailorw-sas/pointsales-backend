@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Entity
 @Getter
 @Setter
@@ -18,24 +16,15 @@ import java.util.UUID;
 public class AFile extends BaseEntity {
 
     private String name;
-    private String microServiceName;
     private String url;
-
-    public AFile(UUID id, String name, String microServiceName, String url) {
-        this.id = id;
-        this.name = name;
-        this.microServiceName = microServiceName;
-        this.url = url;
-    }
 
     public AFile(AFileDto file) {
         this.id = file.getId();
         this.name = file.getName();
-        this.microServiceName = file.getMicroServiceName();
         this.url = file.getUrl();
     }
 
     public AFileDto toAggregate () {
-        return new AFileDto(id, name, microServiceName, url);
+        return new AFileDto(id, name,  url);
     }
 }
