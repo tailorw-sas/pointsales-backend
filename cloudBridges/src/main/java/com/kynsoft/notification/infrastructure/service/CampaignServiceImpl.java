@@ -97,6 +97,19 @@ public class CampaignServiceImpl implements CampaignService {
                         new ErrorField("campaignId", "The campaign not found."))));
     }
 
+//    private void filterCriteria(List<FilterCriteria> filterCriteria) {
+//        for (FilterCriteria filter : filterCriteria) {
+//            if ("status".equals(filter.getKey()) && filter.getValue() instanceof String) {
+//                try {
+//                    CampaignStatus enumValue = CampaignStatus.valueOf((String) filter.getValue());
+//                    filter.setValue(enumValue);
+//                } catch (IllegalArgumentException e) {
+//                    System.err.println("Valor inválido para el tipo Enum Empresa: " + filter.getValue());
+//                }
+//            }
+//        }
+//    }
+
     private void filterCriteria(List<FilterCriteria> filterCriteria) {
         for (FilterCriteria filter : filterCriteria) {
             if ("status".equals(filter.getKey())) {
