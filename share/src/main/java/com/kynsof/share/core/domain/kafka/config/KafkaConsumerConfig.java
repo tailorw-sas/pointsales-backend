@@ -34,6 +34,14 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
+    @Profile("turnero")
+    public DefaultKafkaConsumerFactory<String, String> turneroConsumerFactory() {
+        Map<String, Object> configProps = createBaseProps();
+        addSaslConfig(configProps, "animauser", "nysjUcseBPS3f5d1ybXiM79j8rNnFabE");
+        return new DefaultKafkaConsumerFactory<>(configProps);
+    }
+
+    @Bean
     @Profile("!dev")
     public DefaultKafkaConsumerFactory<String, String> defaultConsumerFactory() {
         Map<String, Object> configProps = createBaseProps();
