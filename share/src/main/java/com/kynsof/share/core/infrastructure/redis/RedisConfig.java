@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 
@@ -37,10 +38,16 @@ public class RedisConfig {
         }
 
         LettuceConnectionFactory factory = new LettuceConnectionFactory(redisConfig);
+        factory.afterPropertiesSet();
 
-        // Agregar log de verificación
-        factory.afterPropertiesSet(); // Para asegurar que la configuración esté completa
-        logger.info("Redis connection established with address: {}:{} and username: {}", redisAddress, redisPort, redisUsername.isEmpty() ? "none" : redisUsername);
+        // Prueba de conexión
+        try (RedisConnection connection = factory.getConnection()) {
+            String pingResponse = connection.ping();
+            logger.info("Redis connection established with address: {}:{} and username: {}. Ping response: {}",
+                    redisAddress, redisPort, redisUsername.isEmpty() ? "none" : redisUsername, pingResponse);
+        } catch (Exception e) {
+            logger.error("Failed to connect to Redis at {}:{}", redisAddress, redisPort, e);
+        }
 
         return factory;
     }
