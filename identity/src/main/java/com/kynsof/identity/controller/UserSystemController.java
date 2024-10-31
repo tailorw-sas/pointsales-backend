@@ -126,7 +126,7 @@ public class UserSystemController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping(path = "/admin/change-password")
+    @PostMapping(path = "/admin/change-password")
     public ResponseEntity<?> adminChangePassword(@RequestBody AdminChangePasswordRequest request) {
         AdminChangePasswordCommand command = AdminChangePasswordCommand.fromRequest(request);
         AdminChangePasswordMessage response = mediator.send(command);
