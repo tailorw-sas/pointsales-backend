@@ -1,9 +1,7 @@
 package com.kynsoft.notification.controller;
 
-import com.kynsof.share.core.application.FileRequest;
 import com.kynsof.share.core.domain.response.ApiResponse;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
-import com.kynsof.share.core.infrastructure.util.CustomMultipartFile;
 import com.kynsoft.notification.application.command.file.deleteFileS3.DeleteFileS3Command;
 import com.kynsoft.notification.application.command.file.deleteFileS3.DeleteFileS3Message;
 import com.kynsoft.notification.application.command.file.saveFileS3.SaveFileS3Command;
@@ -40,21 +38,25 @@ public class FileController {
         this.amazonClient = amazonClient;
         this.fileService = fileService;
     }
-
-    @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(@RequestBody FileRequest request) {
-        try {
-            MultipartFile file = new CustomMultipartFile(request.getFile(), request.getFileName());
-            String fileUrl = amazonClient.save(file);
-            this.fileService.create(new AFileDto(UUID.randomUUID(), request.getFileName(), fileUrl));
-            return ResponseEntity.ok("OK");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Failed to upload file: " + e.getMessage());
-        }
-    }
+//
+//    @PostMapping("/upload")
+//    public ResponseEntity<?> uploadFile(@RequestBody FileRequest request) {
+//        try {
+//            MultipartFile file = new CustomMultipartFile(request.getFile(), request.getFileName());
+//            String fileUrl = amazonClient.save(file);
+//            this.fileService.create(new AFileDto(UUID.randomUUID(), request.getFileName(), fileUrl));
+//            return ResponseEntity.ok("OK");
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Failed to upload file: " + e.getMessage());
+//        }
+//    }
 
     @PostMapping(value = "")
-    public Mono<ResponseEntity<ApiResponse<?>>> upload(@RequestPart("file") FilePart filePart) {
+    public Mono<ResponseEntity<ApiResponse<?>>> upload(
+            @RequestPart("file") FilePart filePart,
+            @RequestPart("objectId") String objectId) {
+        // Asignar cadena vacía si objectId es null
+       String valueId = (objectId == null) ? "" : objectId;
         return DataBufferUtils.join(filePart.content())
                 .flatMap(dataBuffer -> {
                     byte[] bytes = new byte[dataBuffer.readableByteCount()];
@@ -73,13 +75,41 @@ public class FileController {
                     );
 
                     try {
-                        SaveFileS3Message response = mediator.send(new SaveFileS3Command(multipartFile,  filePart.filename()));
+                        // Pasar el objectId al comando junto con el archivo
+                        SaveFileS3Message response = mediator.send(new SaveFileS3Command(multipartFile, filePart.filename(), valueId));
                         return Mono.just(ResponseEntity.ok(ApiResponse.success(response)));
                     } catch (Exception e) {
                         return Mono.error(e);
                     }
                 });
     }
+//    @PostMapping(value = "")
+//    public Mono<ResponseEntity<ApiResponse<?>>> upload(@RequestPart("file") FilePart filePart) {
+//        return DataBufferUtils.join(filePart.content())
+//                .flatMap(dataBuffer -> {
+//                    byte[] bytes = new byte[dataBuffer.readableByteCount()];
+//                    dataBuffer.read(bytes);
+//                    DataBufferUtils.release(dataBuffer);
+//
+//                    // Obtener el tipo de contenido (MIME type)
+//                    String contentType = Objects.requireNonNull(filePart.headers().getContentType()).toString();
+//
+//                    // Crear MultipartFile a partir de bytes y tipo MIME
+//                    MultipartFile multipartFile = new MockMultipartFile(
+//                            UUID.randomUUID().toString(),
+//                            filePart.filename(),
+//                            contentType,
+//                            bytes
+//                    );
+//
+//                    try {
+//                        SaveFileS3Message response = mediator.send(new SaveFileS3Command(multipartFile,  filePart.filename(),""));
+//                        return Mono.just(ResponseEntity.ok(ApiResponse.success(response)));
+//                    } catch (Exception e) {
+//                        return Mono.error(e);
+//                    }
+//                });
+//    }
 
     @PostMapping("/delete")
     public ResponseEntity<?> deleteFile(@RequestBody String url) {

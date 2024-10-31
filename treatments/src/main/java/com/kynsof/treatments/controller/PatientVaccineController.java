@@ -69,7 +69,7 @@ public class PatientVaccineController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping(path = "/{id}")
+    @PatchMapping(path = "/{id}")
     public ResponseEntity<UpdatePatientVaccineMessage> update(@PathVariable UUID id, @RequestBody UpdatePatientVaccineRequest request) {
         UpdatePatientVaccineCommand command = UpdatePatientVaccineCommand.fromRequest(id,request );
         UpdatePatientVaccineMessage response = mediator.send(command);

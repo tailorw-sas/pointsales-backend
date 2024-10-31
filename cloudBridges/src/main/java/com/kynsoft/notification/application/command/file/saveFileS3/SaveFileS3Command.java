@@ -15,11 +15,12 @@ public class SaveFileS3Command implements ICommand {
     private UUID fileId;
     private String url;
     private final String fileName;
+    private final String objectId;
 
-    public SaveFileS3Command(MultipartFile multipartFile, String fileName) {
+    public SaveFileS3Command(MultipartFile multipartFile, String fileName, String objectId) {
         this.multipartFile = multipartFile;
-
         this.fileName = fileName;
+        this.objectId = objectId;
     }
 
 

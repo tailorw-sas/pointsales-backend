@@ -15,6 +15,7 @@ public class AFileDto {
     private UUID id;
     private String name;
     private String url;
+    private String objetId;
 
     public AFileDto(String name, String url) {
         this.name = name;

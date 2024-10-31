@@ -17,14 +17,16 @@ public class AFile extends BaseEntity {
 
     private String name;
     private String url;
+    private String objetId;
 
     public AFile(AFileDto file) {
         this.id = file.getId();
         this.name = file.getName();
         this.url = file.getUrl();
+        this.objetId = file.getObjetId();
     }
 
     public AFileDto toAggregate () {
-        return new AFileDto(id, name,  url);
+        return new AFileDto(id, name,  url, objetId);
     }
 }
