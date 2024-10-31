@@ -65,42 +65,7 @@ public class GenericSpecification<T> implements Specification<T> {
                     );
                 }
             }
-            case GREATER_THAN -> {
-                if (value instanceof LocalDate) {
-                    yield builder.greaterThan(path.as(LocalDate.class), (LocalDate) value);
-                } else if (value instanceof LocalDateTime) {
-                    yield builder.greaterThan(path.as(LocalDateTime.class), (LocalDateTime) value);
-                } else {
-                    yield builder.greaterThan(path.as(String.class), value.toString());
-                }
-            }
-            case LESS_THAN -> {
-                if (value instanceof LocalDate) {
-                    yield builder.lessThan(path.as(LocalDate.class), (LocalDate) value);
-                } else if (value instanceof LocalDateTime) {
-                    yield builder.lessThan(path.as(LocalDateTime.class), (LocalDateTime) value);
-                } else {
-                    yield builder.lessThan(path.as(String.class), value.toString());
-                }
-            }
-            case GREATER_THAN_OR_EQUAL_TO -> {
-                if (value instanceof LocalDate) {
-                    yield builder.greaterThanOrEqualTo(path.as(LocalDate.class), (LocalDate) value);
-                } else if (value instanceof LocalDateTime) {
-                    yield builder.greaterThanOrEqualTo(path.as(LocalDateTime.class), (LocalDateTime) value);
-                } else {
-                    yield builder.greaterThanOrEqualTo(path.as(String.class), value.toString());
-                }
-            }
-            case LESS_THAN_OR_EQUAL_TO -> {
-                if (value instanceof LocalDate) {
-                    yield builder.lessThanOrEqualTo(path.as(LocalDate.class), (LocalDate) value);
-                } else if (value instanceof LocalDateTime) {
-                    yield builder.lessThanOrEqualTo(path.as(LocalDateTime.class), (LocalDateTime) value);
-                } else {
-                    yield builder.lessThanOrEqualTo(path.as(String.class), value.toString());
-                }
-            }
+
             case NOT_EQUALS -> {
                 if (value instanceof LocalDate) {
                     yield builder.notEqual(path.as(LocalDate.class), (LocalDate) value);
@@ -111,6 +76,65 @@ public class GenericSpecification<T> implements Specification<T> {
                             builder.lower(builder.function("replace", String.class, path.as(String.class), builder.literal(" "), builder.literal(""))),
                             value.toString().toLowerCase().replace(" ", "")
                     );
+                }
+            }
+
+            case GREATER_THAN -> {
+                if (value instanceof LocalDate) {
+                    yield builder.greaterThan(path.as(LocalDate.class), (LocalDate) value);
+                } else if (value instanceof LocalDateTime) {
+                    yield builder.greaterThan(path.as(LocalDateTime.class), (LocalDateTime) value);
+                } else if (value instanceof Integer) {
+                    yield builder.greaterThan(path.as(Integer.class), (Integer) value);
+                }
+                else if (value instanceof Double) {
+                    yield builder.greaterThan(path.as(Double.class), (Double) value);
+                }
+                else {
+                    yield builder.greaterThan(path.as(String.class), value.toString());
+                }
+            }
+            case LESS_THAN -> {
+                if (value instanceof LocalDate) {
+                    yield builder.lessThan(path.as(LocalDate.class), (LocalDate) value);
+                } else if (value instanceof LocalDateTime) {
+                    yield builder.lessThan(path.as(LocalDateTime.class), (LocalDateTime) value);
+                } else if (value instanceof Integer) {
+                    yield builder.lessThan(path.as(Integer.class), (Integer) value);
+                }
+                else if (value instanceof Double) {
+                    yield builder.lessThan(path.as(Double.class), (Double) value);
+                }
+                else {
+                    yield builder.lessThan(path.as(String.class), value.toString());
+                }
+            }
+            case GREATER_THAN_OR_EQUAL_TO -> {
+                if (value instanceof LocalDate) {
+                    yield builder.greaterThanOrEqualTo(path.as(LocalDate.class), (LocalDate) value);
+                } else if (value instanceof LocalDateTime) {
+                    yield builder.greaterThanOrEqualTo(path.as(LocalDateTime.class), (LocalDateTime) value);
+                } else if (value instanceof Integer) {
+                    yield builder.greaterThanOrEqualTo(path.as(Integer.class), (Integer) value);
+                }
+                else if (value instanceof Double) {
+                    yield builder.greaterThanOrEqualTo(path.as(Double.class), (Double) value);
+                } else {
+                    yield builder.greaterThanOrEqualTo(path.as(String.class), value.toString());
+                }
+            }
+            case LESS_THAN_OR_EQUAL_TO -> {
+                if (value instanceof LocalDate) {
+                    yield builder.lessThanOrEqualTo(path.as(LocalDate.class), (LocalDate) value);
+                } else if (value instanceof LocalDateTime) {
+                    yield builder.lessThanOrEqualTo(path.as(LocalDateTime.class), (LocalDateTime) value);
+                } else if (value instanceof Integer) {
+                    yield builder.lessThanOrEqualTo(path.as(Integer.class), (Integer) value);
+                } else if (value instanceof Double) {
+                    yield builder.lessThanOrEqualTo(path.as(Double.class), (Double) value);
+                }
+                else {
+                    yield builder.lessThanOrEqualTo(path.as(String.class), value.toString());
                 }
             }
             case IN -> {
@@ -135,18 +159,21 @@ public class GenericSpecification<T> implements Specification<T> {
             case NOT_IN -> {
                 CriteriaBuilder.In<Object> inClause = builder.in(path);
                 if (value instanceof List) {
-                    ((List<?>) value).forEach(item -> {
-                        UUID uuid = convertToUUID(item.toString());
-                        if (uuid != null) {
-                            inClause.value(uuid);
+                    for (Object item : (List<?>) value) {
+                        Object finalValue = convertToUUID(item.toString());
+                        if (finalValue == null) {
+                            finalValue = item.toString();
                         }
-                    });
-                } else {
-                    UUID uuid = convertToUUID(value.toString());
-                    if (uuid != null) {
-                        inClause.value(uuid);
+                        inClause.value(finalValue);
                     }
+                } else {
+                    Object finalValue = convertToUUID(value.toString());
+                    if (finalValue == null) {
+                        finalValue = value.toString();
+                    }
+                    inClause.value(finalValue);
                 }
+                // Usamos builder.not para negar la cláusula "IN"
                 yield builder.not(inClause);
             }
             case IS_NULL -> builder.isNull(path);
