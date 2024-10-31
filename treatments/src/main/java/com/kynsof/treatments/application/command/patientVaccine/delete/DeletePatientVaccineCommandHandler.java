@@ -1,15 +1,15 @@
 package com.kynsof.treatments.application.command.patientVaccine.delete;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.treatments.infrastructure.service.PatientsServiceImpl;
+import com.kynsof.treatments.domain.service.IPatientsService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DeletePatientVaccineCommandHandler implements ICommandHandler<PatientsPatientVaccineCommand> {
 
-    private final PatientsServiceImpl serviceImpl;
+    private final IPatientsService serviceImpl;
 
-    public DeletePatientVaccineCommandHandler(PatientsServiceImpl serviceImpl) {
+    public DeletePatientVaccineCommandHandler(IPatientsService serviceImpl) {
         this.serviceImpl = serviceImpl;
     }
 
