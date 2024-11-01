@@ -28,15 +28,16 @@ public class RedisConfig {
 
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
-        RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration(redisAddress, redisPort);
+        RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration("redis-master.redis.svc.cluster.local", 6379);
 
-        if (!redisUsername.isEmpty()) {
-            redisConfig.setUsername(redisUsername);
-        }
-        if (!redisPassword.isEmpty()) {
-            redisConfig.setPassword(redisPassword);
-        }
-
+//        if (!redisUsername.isEmpty()) {
+//            redisConfig.setUsername(redisUsername);
+//        }
+//        if (!redisPassword.isEmpty()) {
+//            redisConfig.setPassword(redisPassword);
+//        }
+        redisConfig.setUsername("redis");
+        redisConfig.setPassword("IdoHj0o1oe");
         LettuceConnectionFactory factory = new LettuceConnectionFactory(redisConfig);
         factory.afterPropertiesSet();
 
