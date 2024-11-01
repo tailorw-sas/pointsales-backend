@@ -33,6 +33,17 @@ public class KafkaProducerConfig {
     }
 
     @Bean
+    @Profile("turnero")
+    public ProducerFactory<String, String> tuneroProducerFactory() {
+        Map<String, Object> configProps = createBaseProps();
+        configProps.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
+        configProps.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
+        configProps.put(SaslConfigs.SASL_JAAS_CONFIG,
+                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"animauser\" password=\"nysjUcseBPS3f5d1ybXiM79j8rNnFabE\";");
+        return new DefaultKafkaProducerFactory<>(configProps);
+    }
+
+    @Bean
     @Profile("!dev")
     public ProducerFactory<String, String> defaultProducerFactory() {
         Map<String, Object> configProps = createBaseProps();
