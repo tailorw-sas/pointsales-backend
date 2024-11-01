@@ -47,6 +47,8 @@ public class RedisConfig {
                     redisAddress, redisPort, redisUsername.isEmpty() ? "none" : redisUsername, pingResponse);
         } catch (Exception e) {
             logger.error("Failed to connect to Redis at {}:{}", redisAddress, redisPort, e);
+            logger.info("Redis connection established with address: {}:{} and username: {} ",
+                    redisAddress, redisPort, redisUsername.isEmpty() ? "none" : redisUsername);
         }
 
         return factory;
