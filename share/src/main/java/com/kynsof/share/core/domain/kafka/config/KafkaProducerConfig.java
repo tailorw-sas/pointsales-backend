@@ -29,7 +29,6 @@ public class KafkaProducerConfig {
     @Bean
     public ProducerFactory<String, String> producerFactory() {
         Map<String, Object> configProps = createBaseProps();
-
         if (!saslUsername.isEmpty() && !saslPassword.isEmpty()) {
             configProps.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
             configProps.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
@@ -37,7 +36,6 @@ public class KafkaProducerConfig {
                     String.format("org.apache.kafka.common.security.plain.PlainLoginModule required username=\"%s\" password=\"%s\";",
                             saslUsername, saslPassword));
         }
-
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
