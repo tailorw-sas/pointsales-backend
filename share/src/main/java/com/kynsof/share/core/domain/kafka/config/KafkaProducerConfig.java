@@ -20,34 +20,26 @@ public class KafkaProducerConfig {
     @Value("${KAFKA_BOOTSTRAP_ADDRESS:localhost:29092}")
     private String bootstrapAddress;
 
-//    @Bean
-//    @Profile("dev")
-//    public ProducerFactory<String, String> devProducerFactory() {
-//        Map<String, Object> configProps = createBaseProps();
-//        configProps.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
-//        configProps.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
-//        configProps.put(SaslConfigs.SASL_JAAS_CONFIG,
-//                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"user1\" password=\"AkC7B1ooWO\";");
-//        return new DefaultKafkaProducerFactory<>(configProps);
-//    }
+    @Value("${KAFKA_SASL_USERNAME:}")
+    private String saslUsername;
+
+    @Value("${KAFKA_SASL_PASSWORD:}")
+    private String saslPassword;
 
     @Bean
-  //  @Profile("turnero")
-    public ProducerFactory<String, String> tuneroProducerFactory() {
+    public ProducerFactory<String, String> producerFactory() {
         Map<String, Object> configProps = createBaseProps();
-        configProps.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
-        configProps.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
-        configProps.put(SaslConfigs.SASL_JAAS_CONFIG,
-                "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"animauser\" password=\"nysjUcseBPS3f5d1ybXiM79j8rNnFabE\";");
+
+        if (!saslUsername.isEmpty() && !saslPassword.isEmpty()) {
+            configProps.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
+            configProps.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
+            configProps.put(SaslConfigs.SASL_JAAS_CONFIG,
+                    String.format("org.apache.kafka.common.security.plain.PlainLoginModule required username=\"%s\" password=\"%s\";",
+                            saslUsername, saslPassword));
+        }
+
         return new DefaultKafkaProducerFactory<>(configProps);
     }
-
-//    @Bean
-//    @Profile("!dev")
-//    public ProducerFactory<String, String> defaultProducerFactory() {
-//        Map<String, Object> configProps = createBaseProps();
-//        return new DefaultKafkaProducerFactory<>(configProps);
-//    }
 
     private Map<String, Object> createBaseProps() {
         Map<String, Object> configProps = new HashMap<>();
@@ -58,7 +50,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory) {
-        return new KafkaTemplate<>(producerFactory);
+    public KafkaTemplate<String, String> kafkaTemplate() {
+        return new KafkaTemplate<>(producerFactory());
     }
 }
