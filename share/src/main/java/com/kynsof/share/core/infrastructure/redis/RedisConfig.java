@@ -20,24 +20,24 @@ public class RedisConfig {
     @Value("${REDIS_PORT:6379}")
     private Integer redisPort;
 
-    @Value("${REDIS_USERNAME:}") // Username opcional
+    @Value("${REDIS_USERNAME:}")
     private String redisUsername;
 
-    @Value("${REDIS_PASSWORD:}") // Password opcional
+    @Value("${REDIS_PASSWORD:}")
     private String redisPassword;
 
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
-        RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration("redis-master.redis.svc.cluster.local", 6379);
+        RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration(redisAddress, redisPort);
 
-//        if (!redisUsername.isEmpty()) {
-//            redisConfig.setUsername(redisUsername);
-//        }
-//        if (!redisPassword.isEmpty()) {
-//            redisConfig.setPassword(redisPassword);
-//        }
+        if (!redisUsername.isEmpty()) {
+            redisConfig.setUsername(redisUsername);
+        }
+        if (!redisPassword.isEmpty()) {
+            redisConfig.setPassword(redisPassword);
+        }
      //   redisConfig.setUsername("redis");
-        redisConfig.setPassword("IdoHj0o1oe");
+//        redisConfig.setPassword("IdoHj0o1oe");
         LettuceConnectionFactory factory = new LettuceConnectionFactory(redisConfig);
         factory.afterPropertiesSet();
 
