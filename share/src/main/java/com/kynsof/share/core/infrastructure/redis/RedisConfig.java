@@ -36,7 +36,7 @@ public class RedisConfig {
 //        if (!redisPassword.isEmpty()) {
 //            redisConfig.setPassword(redisPassword);
 //        }
-        redisConfig.setUsername("redis");
+     //   redisConfig.setUsername("redis");
         redisConfig.setPassword("IdoHj0o1oe");
         LettuceConnectionFactory factory = new LettuceConnectionFactory(redisConfig);
         factory.afterPropertiesSet();
