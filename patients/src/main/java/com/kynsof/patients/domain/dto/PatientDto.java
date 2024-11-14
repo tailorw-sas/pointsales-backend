@@ -47,4 +47,14 @@ public class PatientDto implements Serializable {
         this.disabilityType = disabilityType;
         this.gestationTime = gestationTime;
     }
+
+    public PatientDto(UUID id, String identification, String name, String lastName, GenderType gender, Status status, String photo) {
+        this.id = id;
+        this.identification = identification;
+        this.name = name;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.status = status;
+        this.photo = photo;
+    }
 }

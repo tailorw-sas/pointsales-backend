@@ -40,12 +40,6 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
         patientDto.setName(command.getName());
         patientDto.setLastName(command.getLastName());
         patientDto.setGender(command.getGender());
-        patientDto.setWeight(command.getWeight());
-        patientDto.setHeight(command.getHeight());
-        patientDto.setHasDisability(command.getHasDisability());
-        patientDto.setIsPregnant(command.getIsPregnant());
-        patientDto.setDisabilityType(command.getDisabilityType());
-        patientDto.setGestationTime(command.getGestationTime());
         patientDto.setPhoto(command.getPhoto());
         serviceImpl.update(patientDto);
 
@@ -68,13 +62,6 @@ public class UpdatePatientsCommandHandler implements ICommandHandler<UpdatePatie
             contactInfoService.update(contactInfoDto);
         }
 
-//        this.updatePatientsEventService.update(serviceImpl.findByIdSimple(command.getId()),
-//                command.getCreateContactInfoRequest().getBirthdayDate());
-//        this.updateCustomerEventService.update(new UpdateCustomerKafka(
-//                patientDto.getId().toString(), 
-//                patientDto.getName(), 
-//                patientDto.getLastName()
-//        ));
         this.createCustomerEventService.create(new CustomerKafka(
                 patientDto.getId().toString(), 
                 patientDto.getIdentification(), 

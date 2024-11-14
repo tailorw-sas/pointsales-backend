@@ -46,13 +46,7 @@ public class CreatePatientsCommandHandler implements ICommandHandler<CreatePatie
                 command.getLastName(),
                 command.getGender(),
                 Status.ACTIVE,
-                command.getWeight(),
-                command.getHeight(),
-                command.getHasDisability(),
-                command.getIsPregnant(),
-                command.getPhoto(),
-                command.getDisabilityType(),
-                command.getGestationTime());
+                command.getPhoto());
 
         UUID id = serviceImpl.create(patientDto);
         command.setId(id);
