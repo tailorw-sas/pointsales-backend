@@ -19,7 +19,6 @@ public class Servicekafka implements Serializable {
     private String picture;
     private String name;
     private Double normalAppointmentPrice;
-    private Double expressAppointmentPrice;
     private String description;
     private Boolean applyIva;
     private int estimatedDuration;

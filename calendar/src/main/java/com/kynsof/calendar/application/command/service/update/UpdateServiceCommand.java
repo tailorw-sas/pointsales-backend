@@ -17,7 +17,6 @@ public class UpdateServiceCommand implements ICommand {
     private String picture;
     private String name;
     private Double normalAppointmentPrice;
-    private Double expressAppointmentPrice;
     private String description;
     private boolean applyIva;
     private EServiceStatus status;
@@ -26,14 +25,13 @@ public class UpdateServiceCommand implements ICommand {
 
 
     public UpdateServiceCommand(UUID id, UUID serviceTypeId, String picture, String name, Double normalAppointmentPrice,
-                                Double expressAppointmentPrice, String description, boolean applyIva,
+                               String description, boolean applyIva,
                                 EServiceStatus status, Integer estimatedDuration) {
         this.id = id;
         this.serviceTypeId = serviceTypeId;
         this.picture = picture;
         this.name = name;
         this.normalAppointmentPrice = normalAppointmentPrice;
-        this.expressAppointmentPrice = expressAppointmentPrice;
         this.description = description;
         this.applyIva = applyIva;
         this.status = status;
@@ -43,7 +41,7 @@ public class UpdateServiceCommand implements ICommand {
 
     public static UpdateServiceCommand fromRequest(UUID id, UpdateServiceRequest request) {
         return new UpdateServiceCommand(id, request.getType(), request.getImage(),
-                request.getName(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(),
+                request.getName(), request.getNormalAppointmentPrice(),
                 request.getDescription(), request.isApplyIva(), request.getStatus(), request.getEstimatedDuration());
     }
 

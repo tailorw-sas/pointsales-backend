@@ -41,7 +41,7 @@ public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServic
         update.setPicture(command.getPicture());
 
         update.setApplyIva(command.isApplyIva());
-        update.setExpressAppointmentPrice(command.getExpressAppointmentPrice());
+
         update.setNormalAppointmentPrice(command.getNormalAppointmentPrice());
 
         UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());
@@ -55,8 +55,7 @@ public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServic
                 update.getStatus().name(), 
                 update.getPicture(), 
                 update.getName(), 
-                update.getNormalAppointmentPrice(), 
-                update.getExpressAppointmentPrice(), 
+                update.getNormalAppointmentPrice(),
                 update.getDescription(), 
                 update.getApplyIva(), 
                 update.getEstimatedDuration(), 

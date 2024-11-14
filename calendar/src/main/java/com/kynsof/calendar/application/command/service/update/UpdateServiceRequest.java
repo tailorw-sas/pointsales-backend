@@ -13,7 +13,6 @@ public class UpdateServiceRequest {
     private String image;
     private String name;
     private Double normalAppointmentPrice;
-    private Double expressAppointmentPrice;
     private String description;
     private boolean applyIva;
     private EServiceStatus status;

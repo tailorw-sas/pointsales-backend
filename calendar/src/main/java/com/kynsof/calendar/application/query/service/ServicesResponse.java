@@ -23,7 +23,6 @@ public class ServicesResponse implements IResponse, Serializable {
     private String description;
     private boolean applyIva;
     private Double normalAppointmentPrice;
-    private Double expressAppointmentPrice;
     private int estimatedDuration;
     private String code;
 
@@ -37,7 +36,6 @@ public class ServicesResponse implements IResponse, Serializable {
         this.description = object.getDescription();
         this.applyIva = object.getApplyIva();
         this.normalAppointmentPrice = object.getNormalAppointmentPrice();
-        this.expressAppointmentPrice = object.getExpressAppointmentPrice();
         this.estimatedDuration = object.getEstimatedDuration();
         this.code = object.getCode();
     }
