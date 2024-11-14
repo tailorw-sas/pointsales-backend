@@ -20,21 +20,10 @@ public class CreateServiceReplicateCommand implements ICommand {
     private EServiceStatus status;
     private String code;
 
-    private final boolean preferFlag;
-    private final int maxPriorityCount;
-    private final int priorityCount;
-    private final int currentLoop;
-    private final int order;
 
     public CreateServiceReplicateCommand(UUID id, String name, String picture, String description, UUID serviceTypeId,
-                                EServiceStatus status, String code, boolean preferFlag,
-                                int maxPriorityCount, int priorityCount, int currentLoop, int order) {
+                                EServiceStatus status, String code) {
 
-        this.preferFlag = preferFlag;
-        this.maxPriorityCount = maxPriorityCount;
-        this.priorityCount = priorityCount;
-        this.currentLoop = currentLoop;
-        this.order = order;
         this.id = id;
         this.name = name;
         this.image = picture;

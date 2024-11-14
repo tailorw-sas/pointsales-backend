@@ -23,16 +23,11 @@ public class UpdateServiceCommand implements ICommand {
     private EServiceStatus status;
     private Integer estimatedDuration;
 
-    private final boolean preferFlag;
-    private final int maxPriorityCount;
-    private final int priorityCount;
-    private final int currentLoop;
-    private final int order;
 
 
     public UpdateServiceCommand(UUID id, UUID serviceTypeId, String picture, String name, Double normalAppointmentPrice,
                                 Double expressAppointmentPrice, String description, boolean applyIva,
-                                EServiceStatus status, Integer estimatedDuration, boolean preferFlag, int maxPriorityCount, int priorityCount, int currentLoop, int order) {
+                                EServiceStatus status, Integer estimatedDuration) {
         this.id = id;
         this.serviceTypeId = serviceTypeId;
         this.picture = picture;
@@ -43,23 +38,13 @@ public class UpdateServiceCommand implements ICommand {
         this.applyIva = applyIva;
         this.status = status;
         this.estimatedDuration = estimatedDuration;
-        this.preferFlag = preferFlag;
-        this.maxPriorityCount = maxPriorityCount;
-        this.priorityCount = priorityCount;
-        this.currentLoop = currentLoop;
-        this.order = order;
     }
 
 
     public static UpdateServiceCommand fromRequest(UUID id, UpdateServiceRequest request) {
         return new UpdateServiceCommand(id, request.getType(), request.getImage(),
                 request.getName(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(),
-                request.getDescription(), request.isApplyIva(), request.getStatus(), request.getEstimatedDuration(),
-                request.isPreferFlag(),
-                request.getMaxPriorityCount(),
-                request.getPriorityCount(),
-                request.getCurrentLoop(),
-                request.getOrder());
+                request.getDescription(), request.isApplyIva(), request.getStatus(), request.getEstimatedDuration());
     }
 
     @Override

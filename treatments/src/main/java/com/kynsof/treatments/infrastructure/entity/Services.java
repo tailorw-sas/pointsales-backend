@@ -67,24 +67,11 @@ public class Services {
         this.name = object.getName();
         this.description = object.getDescription();
         this.code = object.getCode();
-
-        this.preferFlag = object.isPreferFlag();
-        this.maxPriorityCount = object.getMaxPriorityCount();
-        this.priorityCount = object.getPriorityCount();
-        this.currentLoop = object.getCurrentLoop();
-        this.order = object.getOrder();
-        this.externalCode=object.getExternalCode();
     }
 
     public ServiceDto toAggregate () {
         return new ServiceDto(id, type.toAggregate(), status, picture, name,
-                description,  code,
-                preferFlag, maxPriorityCount, priorityCount, currentLoop, order,externalCode);
+                description,  code);
     }
 
-    public ServiceDto toAggregateSimple () {
-        return new ServiceDto(id, type.toAggregate(), status, picture, name,
-                description,  code,
-                preferFlag, maxPriorityCount, priorityCount, currentLoop, order,externalCode);
-    }
 }

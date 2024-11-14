@@ -47,11 +47,6 @@ public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServic
         UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());
         UpdateIfNotNull.updateIfStringNotNull(update::setDescription, command.getDescription());
 
-        update.setPreferFlag(command.isPreferFlag());
-        update.setMaxPriorityCount(command.getMaxPriorityCount());
-        update.setPriorityCount(command.getPriorityCount());
-        update.setCurrentLoop(command.getCurrentLoop());
-        update.setOrder(command.getOrder());
 
         service.update(update);
         this.producerServiceEventService.create(new Servicekafka(
@@ -65,12 +60,7 @@ public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServic
                 update.getDescription(), 
                 update.getApplyIva(), 
                 update.getEstimatedDuration(), 
-                update.getCode(), 
-                update.isPreferFlag(), 
-                update.getMaxPriorityCount(), 
-                update.getPriorityCount(), 
-                update.getCurrentLoop(), 
-                update.getOrder()
+                update.getCode()
         ));
     }
 }

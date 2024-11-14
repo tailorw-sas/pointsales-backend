@@ -44,12 +44,7 @@ public class CreateServiceCommandHandler implements ICommandHandler<CreateServic
                 command.getDescription(),
                 command.isApplyIva(),
                 command.getEstimatedDuration(),
-                command.getCode(),
-                command.isPreferFlag(),
-                command.getMaxPriorityCount(),
-                command.getPriorityCount(),
-                command.getCurrentLoop(),
-                command.getOrder()
+                command.getCode()
         ));
 
         command.setId(serviceDto.getId());
@@ -64,12 +59,7 @@ public class CreateServiceCommandHandler implements ICommandHandler<CreateServic
                 serviceDto.getDescription(), 
                 serviceDto.getApplyIva(), 
                 serviceDto.getEstimatedDuration(), 
-                serviceDto.getCode(), 
-                serviceDto.isPreferFlag(), 
-                serviceDto.getMaxPriorityCount(), 
-                serviceDto.getPriorityCount(), 
-                serviceDto.getCurrentLoop(), 
-                serviceDto.getOrder()
+                serviceDto.getCode()
         ));
     }
 }

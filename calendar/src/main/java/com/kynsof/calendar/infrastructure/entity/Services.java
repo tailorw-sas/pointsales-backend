@@ -68,17 +68,6 @@ public class Services {
     private Set<BusinessServices> businessServices = new HashSet<>();
 
 
-    //Only turn
-    @Column(nullable = false, name = "prefer_flag")
-    private boolean preferFlag;
-    @Column(nullable = false, name = "max_priority_count")
-    private int maxPriorityCount = 0;
-    @Column(nullable = false, name = "priority_count")
-    private int priorityCount = 0;
-    @Column(nullable = false, name = "current_loop")
-    private int currentLoop = 0;
-    @Column(nullable = false, name = "order_priority")
-    private int order = 0;
 
 
     public Services(ServiceDto object) {
@@ -94,22 +83,15 @@ public class Services {
         this.estimatedDuration = object.getEstimatedDuration();
         this.code = object.getCode();
 
-        this.preferFlag = object.isPreferFlag();
-        this.maxPriorityCount = object.getMaxPriorityCount();
-        this.priorityCount = object.getPriorityCount();
-        this.currentLoop = object.getCurrentLoop();
-        this.order = object.getOrder();
     }
 
     public ServiceDto toAggregate () {
         return new ServiceDto(id, type.toAggregate(), status, picture, name, normalAppointmentPrice,
-                expressAppointmentPrice, description, applyIva, estimatedDuration, code,
-                preferFlag, maxPriorityCount, priorityCount, currentLoop, order);
+                expressAppointmentPrice, description, applyIva, estimatedDuration, code);
     }
 
     public ServiceDto toAggregateSimple () {
         return new ServiceDto(id, type.toAggregate(), status, picture, name, normalAppointmentPrice,
-                expressAppointmentPrice, description, applyIva, estimatedDuration, code,
-                preferFlag, maxPriorityCount, priorityCount, currentLoop, order);
+                expressAppointmentPrice, description, applyIva, estimatedDuration, code);
     }
 }

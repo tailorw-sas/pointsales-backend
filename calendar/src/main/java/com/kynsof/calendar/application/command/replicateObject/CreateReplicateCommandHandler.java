@@ -59,12 +59,7 @@ public class CreateReplicateCommandHandler implements ICommandHandler<CreateRepl
                                 serviceDto.getDescription(), 
                                 serviceDto.getApplyIva(), 
                                 serviceDto.getEstimatedDuration(), 
-                                serviceDto.getCode(), 
-                                serviceDto.isPreferFlag(), 
-                                serviceDto.getMaxPriorityCount(), 
-                                serviceDto.getPriorityCount(), 
-                                serviceDto.getCurrentLoop(), 
-                                serviceDto.getOrder()
+                                serviceDto.getCode()
                         ));
                     }
                 }

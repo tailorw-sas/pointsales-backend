@@ -23,22 +23,10 @@ public class CreateServiceCommand implements ICommand {
     private EServiceStatus status;
     private Integer estimatedDuration;
     private String code;
-
-    private final boolean preferFlag;
-    private final int maxPriorityCount;
-    private final int priorityCount;
-    private final int currentLoop;
-    private final int order;
-
     public CreateServiceCommand(String name, String picture, String description, UUID serviceTypeId,
                                 Double normalAppointmentPrice, Double expressAppointmentPrice, Boolean applyIva,
-                                EServiceStatus status, Integer estimatedDuration, String code, boolean preferFlag, int maxPriorityCount, int priorityCount, int currentLoop, int order) {
+                                EServiceStatus status, Integer estimatedDuration, String code) {
         this.applyIva = applyIva;
-        this.preferFlag = preferFlag;
-        this.maxPriorityCount = maxPriorityCount;
-        this.priorityCount = priorityCount;
-        this.currentLoop = currentLoop;
-        this.order = order;
         this.id = UUID.randomUUID();
         this.name = name;
         this.image = picture;
@@ -54,12 +42,7 @@ public class CreateServiceCommand implements ICommand {
     public static CreateServiceCommand fromRequest(CreateServiceRequest request) {
         return new CreateServiceCommand(request.getName(), request.getImage(), request.getDescription(),
                 request.getType(), request.getNormalAppointmentPrice(), request.getExpressAppointmentPrice(),
-                request.isApplyIva(), request.getStatus(), request.getEstimatedDuration(), request.getCode(),
-                request.isPreferFlag(),
-                request.getMaxPriorityCount(),
-                request.getPriorityCount(),
-                request.getCurrentLoop(),
-                request.getOrder());
+                request.isApplyIva(), request.getStatus(), request.getEstimatedDuration(), request.getCode());
     }
 
     @Override

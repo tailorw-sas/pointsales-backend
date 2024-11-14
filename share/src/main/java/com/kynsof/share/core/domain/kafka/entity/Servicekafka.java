@@ -24,11 +24,4 @@ public class Servicekafka implements Serializable {
     private Boolean applyIva;
     private int estimatedDuration;
     private String code;
-
-    private boolean preferFlag;
-    private int maxPriorityCount;
-    private int priorityCount;
-    private int currentLoop;
-    private int order;
-
 }

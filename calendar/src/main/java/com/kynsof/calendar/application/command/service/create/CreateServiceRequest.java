@@ -20,11 +20,4 @@ public class CreateServiceRequest {
     private EServiceStatus status;
     private Integer estimatedDuration;
     private String code;
-
-
-    private boolean preferFlag;
-    private int maxPriorityCount;
-    private int priorityCount;
-    private int currentLoop;
-    private int order;
 }

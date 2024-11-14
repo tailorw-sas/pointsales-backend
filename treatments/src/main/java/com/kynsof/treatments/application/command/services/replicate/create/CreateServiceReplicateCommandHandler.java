@@ -29,12 +29,7 @@ public class CreateServiceReplicateCommandHandler implements ICommandHandler<Cre
                 command.getImage(),
                 command.getName(),
                 command.getDescription(),
-                command.getCode(),
-                command.isPreferFlag(),
-                command.getMaxPriorityCount(),
-                command.getPriorityCount(),
-                command.getCurrentLoop(),
-                command.getOrder()
+                command.getCode()
         ));
 
         command.setId(serviceDto.getId());

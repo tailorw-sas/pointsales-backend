@@ -27,12 +27,6 @@ public class ServicesResponse implements IResponse, Serializable {
     private int estimatedDuration;
     private String code;
 
-    private  boolean preferFlag;
-    private  int maxPriorityCount;
-    private  int priorityCount;
-    private  int currentLoop;
-    private  int order;
-
 
     public ServicesResponse(ServiceDto object) {
         this.id = object.getId();
@@ -46,12 +40,6 @@ public class ServicesResponse implements IResponse, Serializable {
         this.expressAppointmentPrice = object.getExpressAppointmentPrice();
         this.estimatedDuration = object.getEstimatedDuration();
         this.code = object.getCode();
-
-        this.preferFlag = object.isPreferFlag();
-        this.maxPriorityCount = object.getMaxPriorityCount();
-        this.priorityCount = object.getPriorityCount();
-        this.currentLoop = object.getCurrentLoop();
-        this.order = object.getOrder();
     }
 
 }

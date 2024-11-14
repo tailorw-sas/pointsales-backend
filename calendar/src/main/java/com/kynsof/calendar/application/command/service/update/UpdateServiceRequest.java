@@ -18,11 +18,4 @@ public class UpdateServiceRequest {
     private boolean applyIva;
     private EServiceStatus status;
     private Integer estimatedDuration;
-
-
-    private boolean preferFlag;
-    private int maxPriorityCount;
-    private int priorityCount;
-    private int currentLoop;
-    private int order;
 }

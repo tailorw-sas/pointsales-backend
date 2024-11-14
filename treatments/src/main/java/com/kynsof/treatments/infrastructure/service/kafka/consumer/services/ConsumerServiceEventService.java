@@ -36,12 +36,7 @@ public class ConsumerServiceEventService {
                     eventRead.getDescription(), 
                     eventRead.getType(), 
                     EServiceStatus.ACTIVE, 
-                    eventRead.getCode(), 
-                    eventRead.isPreferFlag(), 
-                    eventRead.getMaxPriorityCount(), 
-                    eventRead.getPriorityCount(), 
-                    eventRead.getCurrentLoop(), 
-                    eventRead.getOrder()
+                    eventRead.getCode()
             ));
 
         } catch (JsonProcessingException ex) {
