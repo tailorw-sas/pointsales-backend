@@ -20,6 +20,7 @@ public class PaymentAllergyResponse implements IResponse {
     private String observations;
     private LocalDateTime createdAt;
     private String status;
+    private  String type;
 
     public PaymentAllergyResponse(PathologicalHistoryDto dto) {
         this.id = dto.getId();
@@ -28,6 +29,7 @@ public class PaymentAllergyResponse implements IResponse {
         this.observations = dto.getObservations();
         this.createdAt = dto.getCreatedAt();
         this.status = dto.getStatus();
+        this.type = dto.getType();
     }
 
 }

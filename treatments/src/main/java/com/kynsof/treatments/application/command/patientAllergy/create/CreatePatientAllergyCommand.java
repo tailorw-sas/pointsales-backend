@@ -16,17 +16,19 @@ public class CreatePatientAllergyCommand implements ICommand {
     private final String observations;
     private UUID allergyId;
     private final String status;
+    private final String type;
 
-    public CreatePatientAllergyCommand(UUID patientId, String cie10Id, String observations, String status) {
+    public CreatePatientAllergyCommand(UUID patientId, String cie10Id, String observations, String status, String type) {
         this.patientId = patientId;
         this.cie10 = cie10Id;
         this.observations = observations;
         this.status = status;
+        this.type = type;
     }
 
     public static CreatePatientAllergyCommand fromRequest(CreatePatientAllergyRequest request) {
         return new CreatePatientAllergyCommand(request.getPatientId(), request.getCie10(),
-                request.getObservations(),request.getStatus() );
+                request.getObservations(),request.getStatus(), request.getType());
     }
 
 

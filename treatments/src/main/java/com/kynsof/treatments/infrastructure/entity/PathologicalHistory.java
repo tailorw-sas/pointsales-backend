@@ -33,6 +33,8 @@ public class PathologicalHistory {
     private String observations;
 
     private String status;
+    private String type;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -45,11 +47,13 @@ public class PathologicalHistory {
         this.observations = dto.getObservations();
         this.patient = new Patients(dto.getPatient());
         this.cie10 = new Cie10(dto.getCie10());
+        this.status = dto.getStatus();
+        this.type = dto.getType();
     }
 
     public PathologicalHistoryDto toAggregate() {
         PathologicalHistoryDto patientAllergyDto = new PathologicalHistoryDto(id, patient.toAggregate(),
-                cie10.toAggregate(), observations,status);
+                cie10.toAggregate(), observations,status,type);
         patientAllergyDto.setCreatedAt(createdAt);
         return patientAllergyDto;
     }

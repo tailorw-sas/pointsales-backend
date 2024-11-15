@@ -34,7 +34,8 @@ public class CreatePatientAllergyCommandHandler implements ICommandHandler<Creat
                 patientDto,
                 cie10Dto,
                 command.getObservations(),
-                command.getStatus()
+                command.getStatus(),
+                command.getType()
         ));
         command.setAllergyId(id);
     }

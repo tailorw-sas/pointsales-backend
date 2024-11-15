@@ -16,19 +16,21 @@ public class UpdatePatientAllergyCommand implements ICommand {
     private final String cie10;
     private final String observations;
     private final String status;
+    private final String type;
 
-    public UpdatePatientAllergyCommand(UUID id, UUID patientId, String cie10, String observations,  String status) {
+    public UpdatePatientAllergyCommand(UUID id, UUID patientId, String cie10, String observations, String status, String type) {
         this.id = id;
         this.patientId = patientId;
         this.cie10 = cie10;
         this.observations = observations;
         this.status = status;
+        this.type = type;
     }
 
 
     public static UpdatePatientAllergyCommand fromRequest(UUID id, UpdatePatientAllergyRequest request) {
         return new UpdatePatientAllergyCommand(id, request.getPatientId(), request.getCie10(),
-                request.getObservations(), request.getStatus());
+                request.getObservations(), request.getStatus(), request.getType());
     }
 
     @Override
