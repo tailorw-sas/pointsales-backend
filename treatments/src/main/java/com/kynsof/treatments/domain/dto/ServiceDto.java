@@ -13,7 +13,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ServiceDto implements Serializable {
     private UUID id;
-    private ServiceTypeDto type;
     private EServiceStatus status;
     private String picture;
     private String name;
@@ -21,10 +20,10 @@ public class ServiceDto implements Serializable {
     private String code;
 
 
-    public ServiceDto(UUID id, ServiceTypeDto type, EServiceStatus status, String picture, String name,
+    public ServiceDto(UUID id,  EServiceStatus status, String picture, String name,
                       String description, String code) {
         this.id = id;
-        this.type = type;
+
         this.status = status;
         this.picture = picture;
         this.name = name;

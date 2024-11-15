@@ -30,7 +30,7 @@ public class ServicesResponse implements IResponse, Serializable {
 
     public ServicesResponse(ServiceDto object) {
         this.id = object.getId();
-        this.type = object.getType();
+
         this.status = object.getStatus();
         this.image = object.getPicture();
         this.name = object.getName();

@@ -24,7 +24,6 @@ public class CreateServiceReplicateCommandHandler implements ICommandHandler<Cre
 
         ServiceDto serviceDto = service.create(new ServiceDto(
                 command.getId(),
-                serviceTypeDto,
                 command.getStatus(),
                 command.getImage(),
                 command.getName(),

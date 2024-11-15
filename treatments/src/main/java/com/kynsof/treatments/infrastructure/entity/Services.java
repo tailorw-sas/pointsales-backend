@@ -23,9 +23,7 @@ public class Services {
     @Id
     private UUID id;
 
-    @ManyToOne()
-    @JoinColumn(name = "service_type_id") // Asume una columna foreign key service_type_id
-    private ServiceType type;
+
 
     @Enumerated(EnumType.STRING)
     private EServiceStatus status;
@@ -47,21 +45,8 @@ public class Services {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    //Only turn
-    @Column(nullable = false, name = "prefer_flag")
-    private boolean preferFlag;
-    @Column(nullable = false, name = "max_priority_count")
-    private int maxPriorityCount = 0;
-    @Column(nullable = false, name = "priority_count")
-    private int priorityCount = 0;
-    @Column(nullable = false, name = "current_loop")
-    private int currentLoop = 0;
-    @Column(nullable = false, name = "order_priority")
-    private int order = 0;
-
     public Services(ServiceDto object) {
         this.id = object.getId();
-        this.type = new ServiceType(object.getType());
         this.status = object.getStatus();
         this.picture = object.getPicture();
         this.name = object.getName();
@@ -70,7 +55,7 @@ public class Services {
     }
 
     public ServiceDto toAggregate () {
-        return new ServiceDto(id, type.toAggregate(), status, picture, name,
+        return new ServiceDto(id,  status, picture, name,
                 description,  code);
     }
 
