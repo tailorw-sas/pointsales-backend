@@ -28,7 +28,7 @@ ENV TZ="America/Guayaquil"
 COPY --from=builder /build/target/gateway-1.0.0.jar /app/gateway-1.0.0.jar
 
 # Expone el puerto utilizado por la aplicación
-EXPOSE 9909
+EXPOSE 8080
 
 # Comando de inicio para ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "/app/gateway-1.0.0.jar"]
