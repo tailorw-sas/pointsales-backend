@@ -29,6 +29,7 @@ public class UpdatePatientAllergyCommandHandler implements ICommandHandler<Updat
         }
         patientAllergyDto.setSeverity(command.getSeverity());
         patientAllergyDto.setReaction(command.getReaction());
+        patientAllergyDto.setStatus(command.getStatus());
         patientAllergyService.update(patientAllergyDto);
     }
 }

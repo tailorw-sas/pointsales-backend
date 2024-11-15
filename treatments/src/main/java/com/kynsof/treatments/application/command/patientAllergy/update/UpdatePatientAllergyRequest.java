@@ -12,4 +12,6 @@ public class UpdatePatientAllergyRequest {
     private String cie10;
     private String severity;
     private String reaction;
+    private String status;
+
 }

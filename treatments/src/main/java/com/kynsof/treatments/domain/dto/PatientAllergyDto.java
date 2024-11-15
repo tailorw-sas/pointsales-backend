@@ -19,13 +19,16 @@ public class PatientAllergyDto {
     private Cie10Dto cie10;
     private String severity;
     private String reaction;
+    private String status;
     private LocalDateTime createdAt;
 
-    public PatientAllergyDto(UUID id, PatientDto patient, Cie10Dto cie10, String severity, String reaction) {
+    public PatientAllergyDto(UUID id, PatientDto patient, Cie10Dto cie10, String severity, String reaction,
+                             String status) {
         this.id = id;
         this.patient = patient;
         this.cie10 = cie10;
         this.severity = severity;
         this.reaction = reaction;
+        this.status = status;
     }
 }

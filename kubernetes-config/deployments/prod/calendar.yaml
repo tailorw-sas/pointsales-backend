@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: shift
-  namespace: turnero
+  name: calendar
+  namespace: medinec
 spec:
   replicas: 1
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: apps.deployment-medinec-shift
+      workload.user.cattle.io/workloadselector: apps.deployment-medinec-calendar
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -15,12 +15,12 @@ spec:
   template:
     metadata:
       labels:
-        app: shift
-        workload.user.cattle.io/workloadselector: apps.deployment-medinec-shift
+        app: calendar
+        workload.user.cattle.io/workloadselector: apps.deployment-medinec-calendar
     spec:
       containers:
-        - name: shift
-          image: kmontes2020/medinec-shift:v1
+        - name: calendar
+          image: kmontes2020/medinec-calendar:v1
           imagePullPolicy: Always
           ports:
             - containerPort: 9908
@@ -28,7 +28,7 @@ spec:
               protocol: TCP
           envFrom:
             - secretRef:
-                name: shift-secret
+                name: calendar-secret
       imagePullSecrets:
         - name: dokcer-hub
       restartPolicy: Always

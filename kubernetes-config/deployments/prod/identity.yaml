@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: identity
-  namespace: turnero
+  namespace: medinec
 spec:
   replicas: 1
   selector:

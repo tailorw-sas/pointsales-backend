@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: report
-  namespace: turnero
+  name: shift
+  namespace: medinec
 spec:
   replicas: 1
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: apps.deployment-medinec-report
+      workload.user.cattle.io/workloadselector: apps.deployment-medinec-shift
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -15,12 +15,12 @@ spec:
   template:
     metadata:
       labels:
-        app: report
-        workload.user.cattle.io/workloadselector: apps.deployment-medinec-report
+        app: shift
+        workload.user.cattle.io/workloadselector: apps.deployment-medinec-shift
     spec:
       containers:
-        - name: report
-          image: kmontes2020/medinec-report:v1
+        - name: shift
+          image: kmontes2020/medinec-shift:v1
           imagePullPolicy: Always
           ports:
             - containerPort: 9908
@@ -28,7 +28,7 @@ spec:
               protocol: TCP
           envFrom:
             - secretRef:
-                name: report-secret
+                name: shift-secret
       imagePullSecrets:
         - name: dokcer-hub
       restartPolicy: Always
