@@ -32,11 +32,9 @@ public class Business {
     private String address;
     @Enumerated(EnumType.STRING)
     private EBusinessStatus status;
-
-
+    private double balance;
     @OneToMany(mappedBy = "business")
     private Set<UserPermissionBusiness> userPermissionBusinesses = new HashSet<>();
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "geographicLocation_id")
     private GeographicLocation geographicLocation;
@@ -44,8 +42,6 @@ public class Business {
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
-
-
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
@@ -60,6 +56,7 @@ public class Business {
         this.status = business.getStatus();
         this.geographicLocation = business.getGeographicLocationDto() != null ? new GeographicLocation(business.getGeographicLocationDto()) : null;
         this.address = business.getAddress();
+        this.balance = business.getBalance();
     }
 
     public BusinessDto toAggregate () {
@@ -75,6 +72,7 @@ public class Business {
                 geographicLocation != null ? geographicLocation.toAggregate() : null,
                 address
         );
+        businessDto.setBalance(balance);
         businessDto.setCreateAt(createdAt);
         return businessDto;
     }

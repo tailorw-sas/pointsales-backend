@@ -24,6 +24,7 @@ public class BusinessDto {
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
     private LocalDateTime deleteAt;
+    private double balance;
 
     private GeographicLocationDto geographicLocationDto;
     private List<ModuleDto> moduleDtoList;
