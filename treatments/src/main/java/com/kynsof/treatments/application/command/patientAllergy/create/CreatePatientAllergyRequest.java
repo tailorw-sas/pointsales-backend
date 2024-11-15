@@ -10,7 +10,6 @@ import java.util.UUID;
 public class CreatePatientAllergyRequest {
     private UUID patientId;
     private String cie10;
-    private String severity;
-    private String reaction;
+    private String observations;
     private String status;
 }

@@ -2,7 +2,7 @@ package com.kynsof.treatments.application.command.patientAllergy.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.Cie10Dto;
-import com.kynsof.treatments.domain.dto.PatientAllergyDto;
+import com.kynsof.treatments.domain.dto.PathologicalHistoryDto;
 import com.kynsof.treatments.domain.dto.PatientDto;
 import com.kynsof.treatments.domain.service.ICie10Service;
 import com.kynsof.treatments.domain.service.IPatientAllergyService;
@@ -29,12 +29,11 @@ public class CreatePatientAllergyCommandHandler implements ICommandHandler<Creat
         PatientDto patientDto = this.patientsService.findById(command.getPatientId());
         Cie10Dto cie10Dto = this.cie10Service.findByCode(command.getCie10());
 
-        UUID id = patientAllergyService.create(new PatientAllergyDto(
+        UUID id = patientAllergyService.create(new PathologicalHistoryDto(
                 UUID.randomUUID(),
                 patientDto,
                 cie10Dto,
-                command.getSeverity(),
-                command.getReaction(),
+                command.getObservations(),
                 command.getStatus()
         ));
         command.setAllergyId(id);

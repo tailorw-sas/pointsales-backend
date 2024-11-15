@@ -12,23 +12,21 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PatientAllergyDto {
+public class PathologicalHistoryDto {
 
     private UUID id;
     private PatientDto patient;
     private Cie10Dto cie10;
-    private String severity;
-    private String reaction;
     private String status;
+    private String observations;
     private LocalDateTime createdAt;
 
-    public PatientAllergyDto(UUID id, PatientDto patient, Cie10Dto cie10, String severity, String reaction,
-                             String status) {
+    public PathologicalHistoryDto(UUID id, PatientDto patient, Cie10Dto cie10, String observations,
+                                  String status) {
         this.id = id;
         this.patient = patient;
         this.cie10 = cie10;
-        this.severity = severity;
-        this.reaction = reaction;
+        this.observations = observations;
         this.status = status;
     }
 }

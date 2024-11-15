@@ -1,6 +1,6 @@
 package com.kynsof.treatments.infrastructure.entity;
 
-import com.kynsof.treatments.domain.dto.PatientAllergyDto;
+import com.kynsof.treatments.domain.dto.PathologicalHistoryDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-public class PatientAllergy {
+public class PathologicalHistory {
 
     @Id
     @Column(name = "id")
@@ -29,10 +29,8 @@ public class PatientAllergy {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cie10_id", nullable = false)
-    private Cie10 cie10;  // Asociación con el CIE10 para clasificar la alergia
-
-    private String severity;  // La severidad de la alergia (leve, moderada, grave)
-    private String reaction;
+    private Cie10 cie10;
+    private String observations;
 
     private String status;
     @CreationTimestamp
@@ -42,17 +40,16 @@ public class PatientAllergy {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public PatientAllergy(PatientAllergyDto dto) {
+    public PathologicalHistory(PathologicalHistoryDto dto) {
         this.id = dto.getId();
-        this.severity = dto.getSeverity();
-        this.reaction = dto.getReaction();
+        this.observations = dto.getObservations();
         this.patient = new Patients(dto.getPatient());
         this.cie10 = new Cie10(dto.getCie10());
     }
 
-    public PatientAllergyDto toAggregate() {
-        PatientAllergyDto patientAllergyDto = new PatientAllergyDto(id, patient.toAggregate(),
-                cie10.toAggregate(), severity, reaction, status);
+    public PathologicalHistoryDto toAggregate() {
+        PathologicalHistoryDto patientAllergyDto = new PathologicalHistoryDto(id, patient.toAggregate(),
+                cie10.toAggregate(), observations,status);
         patientAllergyDto.setCreatedAt(createdAt);
         return patientAllergyDto;
     }

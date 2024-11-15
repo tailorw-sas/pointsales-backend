@@ -1,7 +1,7 @@
 package com.kynsof.treatments.application.command.patientAllergy.delete;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
-import com.kynsof.treatments.domain.dto.PatientAllergyDto;
+import com.kynsof.treatments.domain.dto.PathologicalHistoryDto;
 import com.kynsof.treatments.domain.service.IPatientAllergyService;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ public class DeletePatientAllergyCommandHandler implements ICommandHandler<Delet
 
     @Override
     public void handle(DeletePatientAllergyCommand command) {
-        PatientAllergyDto delete = this.serviceImpl.findById(command.getId());
+        PathologicalHistoryDto delete = this.serviceImpl.findById(command.getId());
 
         serviceImpl.delete(delete);
     }

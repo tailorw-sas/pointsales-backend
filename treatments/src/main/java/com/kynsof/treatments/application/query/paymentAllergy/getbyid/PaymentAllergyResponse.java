@@ -17,17 +17,15 @@ public class PaymentAllergyResponse implements IResponse {
     private UUID id;
     private PatientDto patient;
     private Cie10Dto cie10;
-    private String severity;
-    private String reaction;
+    private String observations;
     private LocalDateTime createdAt;
     private String status;
 
-    public PaymentAllergyResponse(PatientAllergyDto dto) {
+    public PaymentAllergyResponse(PathologicalHistoryDto dto) {
         this.id = dto.getId();
         this.patient = dto.getPatient();
         this.cie10 = dto.getCie10();
-        this.severity = dto.getSeverity();
-        this.reaction = dto.getReaction();
+        this.observations = dto.getObservations();
         this.createdAt = dto.getCreatedAt();
         this.status = dto.getStatus();
     }

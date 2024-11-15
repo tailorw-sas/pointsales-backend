@@ -2,7 +2,7 @@ package com.kynsof.treatments.application.command.patientAllergy.update;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.Cie10Dto;
-import com.kynsof.treatments.domain.dto.PatientAllergyDto;
+import com.kynsof.treatments.domain.dto.PathologicalHistoryDto;
 import com.kynsof.treatments.domain.service.ICie10Service;
 import com.kynsof.treatments.domain.service.IPatientAllergyService;
 import com.kynsof.treatments.domain.service.IPatientsService;
@@ -22,13 +22,12 @@ public class UpdatePatientAllergyCommandHandler implements ICommandHandler<Updat
 
     @Override
     public void handle(UpdatePatientAllergyCommand command) {
-        PatientAllergyDto patientAllergyDto = patientAllergyService.findById(command.getId());
+        PathologicalHistoryDto patientAllergyDto = patientAllergyService.findById(command.getId());
         if (command.getCie10() != null) {
             Cie10Dto cie10Dto = this.cie10Service.findByCode(command.getCie10());
             patientAllergyDto.setCie10(cie10Dto);
         }
-        patientAllergyDto.setSeverity(command.getSeverity());
-        patientAllergyDto.setReaction(command.getReaction());
+        patientAllergyDto.setObservations(command.getObservations());
         patientAllergyDto.setStatus(command.getStatus());
         patientAllergyService.update(patientAllergyDto);
     }

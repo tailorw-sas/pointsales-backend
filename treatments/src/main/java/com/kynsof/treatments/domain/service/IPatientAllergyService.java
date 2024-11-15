@@ -2,7 +2,7 @@ package com.kynsof.treatments.domain.service;
 
 import com.kynsof.share.core.domain.request.FilterCriteria;
 import com.kynsof.share.core.domain.response.PaginatedResponse;
-import com.kynsof.treatments.domain.dto.PatientAllergyDto;
+import com.kynsof.treatments.domain.dto.PathologicalHistoryDto;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -10,14 +10,14 @@ import java.util.UUID;
 
 public interface IPatientAllergyService {
 
-    UUID create(PatientAllergyDto diagnosisDtoList);
+    UUID create(PathologicalHistoryDto diagnosisDtoList);
 
-    void update(PatientAllergyDto diagnosis);
+    void update(PathologicalHistoryDto diagnosis);
 
-    void delete(PatientAllergyDto treatment);
+    void delete(PathologicalHistoryDto treatment);
     void deleteByIds(List<UUID> ids);
 
-    PatientAllergyDto findById(UUID id);
+    PathologicalHistoryDto findById(UUID id);
 
     PaginatedResponse search(Pageable pageable, List<FilterCriteria> filterCriteria);
 
