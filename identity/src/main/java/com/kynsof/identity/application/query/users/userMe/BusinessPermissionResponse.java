@@ -15,6 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class BusinessPermissionResponse implements IResponse, Serializable {
     private UUID businessId;
+    private Double balance;
     private String name;
     private List<String> permissions;
 }

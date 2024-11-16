@@ -63,6 +63,7 @@ public class UserMeServiceImpl implements IUserMeService {
 
                     return new BusinessPermissionResponse(
                             business.getId(),
+                            business.getBalance(),
                             business.getName(),
                             permissions);
                 })
@@ -91,8 +92,9 @@ public class UserMeServiceImpl implements IUserMeService {
             UUID businessId = (UUID) result[0];
             String businessName = (String) result[1];
             String permissionCode = (String) result[2];
+            double balance = (double) result[3];
 
-            responseMap.computeIfAbsent(businessId, id -> new BusinessPermissionResponse(id, businessName, new ArrayList<>()))
+            responseMap.computeIfAbsent(businessId, id -> new BusinessPermissionResponse(id,balance, businessName, new ArrayList<>()))
                     .getPermissions().add(permissionCode);
         }
 
