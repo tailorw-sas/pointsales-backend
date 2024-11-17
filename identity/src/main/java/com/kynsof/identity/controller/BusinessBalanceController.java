@@ -3,6 +3,9 @@ package com.kynsof.identity.controller;
 import com.kynsof.identity.application.command.businessBalance.create.CreateBusinessBalanceCommand;
 import com.kynsof.identity.application.command.businessBalance.create.CreateBusinessBalanceMessage;
 import com.kynsof.identity.application.command.businessBalance.create.CreateBusinessBalanceRequest;
+import com.kynsof.identity.application.command.businessBalance.discount.DiscountBusinessBalanceCommand;
+import com.kynsof.identity.application.command.businessBalance.discount.DiscountBusinessBalanceMessage;
+import com.kynsof.identity.application.command.businessBalance.discount.DiscountBusinessBalanceRequest;
 import com.kynsof.share.core.infrastructure.bus.IMediator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +31,9 @@ public class BusinessBalanceController {
     }
 
     @PostMapping("/discount")
-    public ResponseEntity<?> discountBalance(@RequestBody CreateBusinessBalanceRequest request) {
-        CreateBusinessBalanceCommand createCommand = CreateBusinessBalanceCommand.fromRequest(request);
-        CreateBusinessBalanceMessage response = mediator.send(createCommand);
+    public ResponseEntity<?> discountBalance(@RequestBody DiscountBusinessBalanceRequest request) {
+        DiscountBusinessBalanceCommand createCommand = DiscountBusinessBalanceCommand.fromRequest(request);
+        DiscountBusinessBalanceMessage response = mediator.send(createCommand);
         return ResponseEntity.ok(response);
     }
 }
