@@ -16,19 +16,17 @@ public class CreateProcedureCommand implements ICommand {
     private String name;
     private String description;
     private MedicalExamCategory type;
-    private Double price;
 
-    public CreateProcedureCommand(String code, String name, String description, MedicalExamCategory type, Double price) {
+    public CreateProcedureCommand(String code, String name, String description, MedicalExamCategory type) {
         this.id = UUID.randomUUID();
         this.code = code;
         this.name = name;
         this.description = description;
         this.type = type;
-        this.price = price;
     }
 
     public static CreateProcedureCommand fromRequest(CreateProcedureRequest request) {
-        return new CreateProcedureCommand(request.getCode(), request.getName(), request.getDescription(), request.getType(), request.getPrice());
+        return new CreateProcedureCommand(request.getCode(), request.getName(), request.getDescription(), request.getType());
     }
 
 

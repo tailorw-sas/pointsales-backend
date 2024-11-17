@@ -17,19 +17,17 @@ public class UpdateProcedureCommand implements ICommand {
     private String name;
     private String description;
     private MedicalExamCategory type;
-    private Double price;
 
-    public UpdateProcedureCommand(UUID id, String code, String name, String description, MedicalExamCategory type, Double price) {
+    public UpdateProcedureCommand(UUID id, String code, String name, String description, MedicalExamCategory type) {
         this.id = id;
         this.code = code;
         this.name = name;
         this.description = description;
         this.type = type;
-        this.price = price;
     }
 
     public static UpdateProcedureCommand fromRequest(UpdateProcedureRequest request, UUID id) {
-        return new UpdateProcedureCommand(id, request.getCode(), request.getName(), request.getDescription(), request.getType(), request.getPrice());
+        return new UpdateProcedureCommand(id, request.getCode(), request.getName(), request.getDescription(), request.getType());
     }
 
     @Override

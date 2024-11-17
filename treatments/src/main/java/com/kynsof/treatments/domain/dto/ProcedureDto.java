@@ -16,5 +16,4 @@ public class ProcedureDto {
     private String name;
     private String description;
     private MedicalExamCategory type;
-    private Double price;
 }

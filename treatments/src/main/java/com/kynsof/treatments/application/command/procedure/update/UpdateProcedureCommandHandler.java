@@ -31,7 +31,6 @@ public class UpdateProcedureCommandHandler implements ICommandHandler<UpdateProc
 
         UpdateIfNotNull.updateIfStringNotNull(update::setDescription, command.getDescription());
         UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());
-        update.setPrice(command.getPrice());
         update.setType(command.getType());
 
         serviceImpl.update(update);

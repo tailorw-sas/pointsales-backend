@@ -23,7 +23,6 @@ public class CreateProcedureCommandHandler implements ICommandHandler<CreateProc
         RulesChecker.checkRule(new ProcedureCodeMustBeNullRule(command.getCode()));
         RulesChecker.checkRule(new ProcedureCodeMustBeUniqueRule(this.serviceImpl, command.getCode(), command.getId()));
         RulesChecker.checkRule(new ProcedureNameMustBeUniqueRule(this.serviceImpl, command.getName(), command.getId()));
-
-        serviceImpl.create(new ProcedureDto(command.getId(), command.getCode(), command.getName(), command.getDescription(), command.getType(), command.getPrice()));
+        serviceImpl.create(new ProcedureDto(command.getId(), command.getCode(), command.getName(), command.getDescription(), command.getType()));
     }
 }

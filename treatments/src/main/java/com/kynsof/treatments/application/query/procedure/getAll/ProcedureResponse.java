@@ -20,7 +20,6 @@ public class ProcedureResponse implements IResponse {
     private String name;
     private String description;
     private MedicalExamCategory type;
-    private Double price;
 
     public ProcedureResponse(ProcedureDto procedureDto) {
         this.id = procedureDto.getId();
@@ -28,6 +27,6 @@ public class ProcedureResponse implements IResponse {
         this.name = procedureDto.getName();
         this.description = procedureDto.getDescription();
         this.type = procedureDto.getType();
-        this.price = procedureDto.getPrice();
+
     }
 }

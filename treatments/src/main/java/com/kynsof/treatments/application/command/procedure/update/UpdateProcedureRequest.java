@@ -13,5 +13,4 @@ public class UpdateProcedureRequest {
     private String name;
     private String description;
     private MedicalExamCategory type;
-    private Double price;
 }
