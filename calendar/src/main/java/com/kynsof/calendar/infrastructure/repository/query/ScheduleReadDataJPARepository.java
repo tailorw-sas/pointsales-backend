@@ -86,7 +86,7 @@ public interface ScheduleReadDataJPARepository extends JpaRepository<Schedule, U
             @Param("businessName") String businessName,
             Pageable pageable);
 
-    @Query("SELECT s FROM Schedule s WHERE s.initialStock = s.stock AND s.date = :date")
+    @Query("SELECT s FROM Schedule s WHERE s.initialStock = s.stock AND s.date <= :date and  s.status='AVAILABLE'")
     List<Schedule> findSchedulesWithEqualStock(@Param("date") LocalDate date);
 
     @Query("SELECT r, s " +
