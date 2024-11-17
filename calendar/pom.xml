@@ -156,7 +156,7 @@
         <dependency>
             <groupId>org.codehaus.jettison</groupId>
             <artifactId>jettison</artifactId>
-            <version>1.4.0</version>
+            <version>1.5.4</version>
         </dependency>
         <dependency>
             <groupId>com.vaadin.external.google</groupId>
@@ -171,6 +171,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+            <version>42.7.2</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -178,17 +179,6 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-        <dependency>
-            <groupId>jakarta.annotation</groupId>
-            <artifactId>jakarta.annotation-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.kynsoft</groupId>
-            <artifactId>identity</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
