@@ -1,4 +1,4 @@
-package com.kynsof.identity.domain.interfaces.service;
+package com.kynsof.calendar.domain.service;
 
 
 import java.util.UUID;

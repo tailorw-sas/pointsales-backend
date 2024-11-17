@@ -1,7 +1,7 @@
 package com.kynsof.calendar.infrastructure.service;
 
 import com.kynsof.calendar.application.command.receipt.updateStatus.DiscountRequest;
-import com.kynsof.identity.domain.interfaces.service.IBusinessBalanceService;
+import com.kynsof.calendar.domain.service.IBusinessBalanceService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
