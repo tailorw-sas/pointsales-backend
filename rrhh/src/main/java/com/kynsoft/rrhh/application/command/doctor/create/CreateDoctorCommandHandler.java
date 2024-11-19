@@ -100,7 +100,7 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
         createUserSystemRequest.setName(command.getName());
         createUserSystemRequest.setLastName(command.getLastName());
         createUserSystemRequest.setPassword(PasswordGenerator.generatePassword()); // Ajusta según tus necesidades
-        createUserSystemRequest.setUserType(EUserType.ASSISTANTS); // Ajusta si es necesario
+        createUserSystemRequest.setUserType(EUserType.DOCTORS); // Ajusta si es necesario
         createUserSystemRequest.setImage(command.getImage());
         createUserSystemRequest.setBusinessId(command.getBusiness().toString());
         return userSystemService.createUserSystem(createUserSystemRequest);
