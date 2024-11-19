@@ -17,21 +17,18 @@ public class CreateServiceCommand implements ICommand {
     private String name;
     private String description;
     private UUID type;
-    private Double normalAppointmentPrice;
     private boolean applyIva;
     private EServiceStatus status;
     private Integer estimatedDuration;
     private String code;
     public CreateServiceCommand(String name, String picture, String description, UUID serviceTypeId,
-                                Double normalAppointmentPrice,  Boolean applyIva,
-                                EServiceStatus status, Integer estimatedDuration, String code) {
+                               Boolean applyIva, EServiceStatus status, Integer estimatedDuration, String code) {
         this.applyIva = applyIva;
         this.id = UUID.randomUUID();
         this.name = name;
         this.image = picture;
         this.description = description;
         this.type = serviceTypeId;
-        this.normalAppointmentPrice = normalAppointmentPrice;
         this.status = status;
         this.estimatedDuration = estimatedDuration;
         this.code = code;
@@ -39,8 +36,10 @@ public class CreateServiceCommand implements ICommand {
 
     public static CreateServiceCommand fromRequest(CreateServiceRequest request) {
         return new CreateServiceCommand(request.getName(), request.getImage(), request.getDescription(),
-                request.getType(), request.getNormalAppointmentPrice(),
-                request.isApplyIva(), request.getStatus(), request.getEstimatedDuration(), request.getCode());
+                request.getType(),
+                request.isApplyIva(),
+                request.getStatus(), request.getEstimatedDuration(),
+                request.getCode());
     }
 
     @Override

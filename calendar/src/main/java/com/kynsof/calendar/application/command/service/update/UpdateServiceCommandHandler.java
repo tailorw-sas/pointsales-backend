@@ -42,7 +42,7 @@ public class UpdateServiceCommandHandler implements ICommandHandler<UpdateServic
 
         update.setApplyIva(command.isApplyIva());
 
-        update.setNormalAppointmentPrice(command.getNormalAppointmentPrice());
+        //update.setNormalAppointmentPrice(command.getNormalAppointmentPrice());
 
         UpdateIfNotNull.updateIfStringNotNull(update::setName, command.getName());
         UpdateIfNotNull.updateIfStringNotNull(update::setDescription, command.getDescription());

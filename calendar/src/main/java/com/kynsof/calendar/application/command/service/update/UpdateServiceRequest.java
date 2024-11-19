@@ -12,7 +12,6 @@ public class UpdateServiceRequest {
     private UUID type;
     private String image;
     private String name;
-    private Double normalAppointmentPrice;
     private String description;
     private boolean applyIva;
     private EServiceStatus status;

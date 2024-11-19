@@ -39,7 +39,7 @@ public class CreateServiceCommandHandler implements ICommandHandler<CreateServic
                 command.getStatus(),
                 command.getImage(),
                 command.getName(),
-                command.getNormalAppointmentPrice(),
+                0.00,
                 command.getDescription(),
                 command.isApplyIva(),
                 command.getEstimatedDuration(),
