@@ -17,12 +17,15 @@ public class BusinessServicesResponse implements IResponse {
     private BusinessDto business;
     private ServiceDto service;
     private LocalDateTime createdAt;
+    private Double price;
+
 
     public BusinessServicesResponse(BusinessServicesDto businessServicesDto) {
         this.id = businessServicesDto.getId();
         this.business = businessServicesDto.getBusiness();
         this.service = businessServicesDto.getService();
         this.createdAt = businessServicesDto.getCreatedAt();
+        this.price = businessServicesDto.getPrice();
     }
 
 }
