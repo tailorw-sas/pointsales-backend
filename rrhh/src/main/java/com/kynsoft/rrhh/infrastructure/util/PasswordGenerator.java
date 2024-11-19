@@ -1,4 +1,4 @@
-package com.kynsof.identity.infrastructure;
+package com.kynsoft.rrhh.infrastructure.util;
 
 import java.security.SecureRandom;
 

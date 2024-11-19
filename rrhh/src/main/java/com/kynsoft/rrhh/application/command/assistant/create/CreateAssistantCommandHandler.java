@@ -18,6 +18,7 @@ import com.kynsoft.rrhh.domain.rules.assistant.AssistantEmailMustBeUniqueRule;
 import com.kynsoft.rrhh.domain.rules.assistant.AssistantIdentificationMustBeUniqueRule;
 import com.kynsoft.rrhh.infrastructure.services.UserSystemService;
 import com.kynsoft.rrhh.infrastructure.services.kafka.producer.assistant.ProducerReplicateAssistantService;
+import com.kynsoft.rrhh.infrastructure.util.PasswordGenerator;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -95,12 +96,13 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
 
     // Método para consumir el servicio createUserSystem
     private String consumeCreateUserSystemService(CreateAssistantCommand command) throws IOException, URISyntaxException, InterruptedException {
+
         CreateUserSystemRequest createUserSystemRequest = new CreateUserSystemRequest();
         createUserSystemRequest.setUserName(command.getEmail());
         createUserSystemRequest.setEmail(command.getEmail());
         createUserSystemRequest.setName(command.getName());
         createUserSystemRequest.setLastName(command.getLastName());
-        createUserSystemRequest.setPassword("defaultPassword"); // Ajusta según tus necesidades
+        createUserSystemRequest.setPassword(PasswordGenerator.generatePassword()); // Ajusta según tus necesidades
         createUserSystemRequest.setUserType(EUserType.ASSISTANTS); // Ajusta si es necesario
         createUserSystemRequest.setImage(command.getImage());
         createUserSystemRequest.setBusinessId(command.getBusiness().toString());
