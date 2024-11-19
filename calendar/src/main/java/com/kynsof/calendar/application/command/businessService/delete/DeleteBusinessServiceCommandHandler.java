@@ -6,16 +6,16 @@ import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DeleteBusinessModuleCommandHandler implements ICommandHandler<DeleteBusinessModuleCommand> {
+public class DeleteBusinessServiceCommandHandler implements ICommandHandler<DeleteBusinessServiceCommand> {
 
     private final IBusinessServicesService serviceImpl;
 
-    public DeleteBusinessModuleCommandHandler(IBusinessServicesService serviceImpl) {
+    public DeleteBusinessServiceCommandHandler(IBusinessServicesService serviceImpl) {
         this.serviceImpl = serviceImpl;
     }
 
     @Override
-    public void handle(DeleteBusinessModuleCommand command) {
+    public void handle(DeleteBusinessServiceCommand command) {
 
         BusinessServicesDto delete = this.serviceImpl.findById(command.getId());
         serviceImpl.delete(delete);

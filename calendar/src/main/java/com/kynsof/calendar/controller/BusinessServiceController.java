@@ -3,7 +3,7 @@ package com.kynsof.calendar.controller;
 import com.kynsof.calendar.application.command.businessService.create.CreateAllBusinessServicesCommand;
 import com.kynsof.calendar.application.command.businessService.create.CreateAllBusinessServicesMessage;
 import com.kynsof.calendar.application.command.businessService.create.CreateAllBusinessServicesRequest;
-import com.kynsof.calendar.application.command.businessService.delete.DeleteBusinessModuleCommand;
+import com.kynsof.calendar.application.command.businessService.delete.DeleteBusinessServiceCommand;
 import com.kynsof.calendar.application.command.businessService.delete.DeleteBusinessServiceMessage;
 import com.kynsof.calendar.application.command.businessService.update.UpdateBusinessServicesCommand;
 import com.kynsof.calendar.application.command.businessService.update.UpdateBusinessServicesMessage;
@@ -91,7 +91,7 @@ public class BusinessServiceController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
 
-        DeleteBusinessModuleCommand query = new DeleteBusinessModuleCommand(id);
+        DeleteBusinessServiceCommand query = new DeleteBusinessServiceCommand(id);
         DeleteBusinessServiceMessage response = mediator.send(query);
         return ResponseEntity.ok(response);
     }

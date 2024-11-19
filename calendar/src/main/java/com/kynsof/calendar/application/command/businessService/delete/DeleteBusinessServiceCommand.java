@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @AllArgsConstructor
-public class DeleteBusinessModuleCommand implements ICommand {
+public class DeleteBusinessServiceCommand implements ICommand {
 
     private UUID id;
 
