@@ -30,6 +30,5 @@ public class ShareAutoConfiguration {
         Request.Options option = new Request.Options(feignConnectTimeout, TimeUnit.MILLISECONDS, feignReadTimeout,
                 TimeUnit.MILLISECONDS, false);
         return Feign.builder().options(option);
-
     }
 }
