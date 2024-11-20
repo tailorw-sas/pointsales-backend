@@ -25,6 +25,7 @@ public class BusinessResponse implements IResponse {
     private String address;
     private EBusinessStatus status;
     private LocalDate createdAt;
+    private Double balance;
 
     private GeographicLocationResponse geolocation;
 
@@ -40,11 +41,9 @@ public class BusinessResponse implements IResponse {
         this.geolocation = object.getGeographicLocationDto() != null ? new GeographicLocationResponse(object.getGeographicLocationDto()) : null;
         this.address = object.getAddress() != null ? object.getAddress() : null;
         this.createdAt = object.getCreateAt().toLocalDate();
+        this.balance = object.getBalance();
     }
 
-    public BusinessResponse(UUID id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+
 
 }
