@@ -17,7 +17,7 @@ public interface ResourceReadDataJPARepository extends JpaRepository<Resource, U
     Page<Resource> findAll(Specification specification, Pageable pageable);
 
     @Query("SELECT br.resource FROM BusinessResource br WHERE br.business.id = :businessId AND br.resource IN" +
-            " (SELECT rs.resource FROM ResourceService rs WHERE rs.service.id = :serviceId) AND br.resource.status = 'ACTIVE'")
+            " (SELECT rs.resource FROM ResourceService rs WHERE rs.service.id = :serviceId)")
     Page<Resource> findResourcesByServiceIdAndBusinessId(@Param("serviceId") UUID serviceId, @Param("businessId") UUID businessId, Pageable pageable);
 
     @Query("SELECT rs.service FROM ResourceService rs JOIN rs.resource r JOIN r.businessResources br WHERE rs.resource.id = :resourceId AND br.business.id = :businessId")
