@@ -43,7 +43,6 @@ public class CreateExamOrderCommandHandler implements ICommandHandler<CreateExam
                 examRequest.getType(),
                 "",
                 new Date(),
-                examRequest.getPrice(),
                 examRequest.getCode()
         ))
                 .collect(Collectors.toList());

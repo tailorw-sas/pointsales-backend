@@ -54,7 +54,6 @@ public class UpdateExamOrderCommandHandler implements ICommandHandler<UpdateExam
                 examRequest.getType(),
                 "",
                 new Date(),
-                examRequest.getPrice(),
                 examRequest.getCode()
         ))
                 .collect(Collectors.toList());

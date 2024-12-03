@@ -17,16 +17,15 @@ public class UpdateExamCommand implements ICommand {
     private String description;
     private MedicalExamCategory type;
     private String result;
-    private Double price;
+
     private String code;
 
-    public UpdateExamCommand(UUID id, String name, String description, MedicalExamCategory type, String result, Double price, String code) {
+    public UpdateExamCommand(UUID id, String name, String description, MedicalExamCategory type, String result, String code) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.type = type;
         this.result = result;
-        this.price = price;
         this.code = code;
     }
 
@@ -36,8 +35,7 @@ public class UpdateExamCommand implements ICommand {
                 request.getName(), 
                 request.getDescription(), 
                 request.getType(), 
-                request.getResult(), 
-                request.getPrice(),
+                request.getResult(),
                 request.getCode()
         );
     }

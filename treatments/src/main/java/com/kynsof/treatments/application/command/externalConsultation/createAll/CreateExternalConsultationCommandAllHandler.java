@@ -63,7 +63,6 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
                         examRequest.getType(),
                         "",
                         new Date(),
-                        examRequest.getPrice(),
                         examRequest.getCode()
                 ))
                 .collect(Collectors.toList());

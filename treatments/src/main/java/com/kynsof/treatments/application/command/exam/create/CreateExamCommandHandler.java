@@ -23,8 +23,7 @@ public class CreateExamCommandHandler implements ICommandHandler<CreateExamComma
                 command.getName(), 
                 command.getDescription(), 
                 command.getType(), 
-                command.getResult(), 
-                command.getPrice()
+                command.getResult()
         );
         create.setCode(command.getCode());
 

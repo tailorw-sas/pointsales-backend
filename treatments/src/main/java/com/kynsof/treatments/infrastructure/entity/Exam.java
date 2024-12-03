@@ -30,7 +30,6 @@ public class Exam {
     private String result;
     @Temporal(TemporalType.TIMESTAMP)
     private Date datePerformed;
-    private Double price;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "exam_order_id")
@@ -55,13 +54,12 @@ public class Exam {
         this.description = examDto.getDescription();
         this.type = examDto.getType();
         this.result = examDto.getResult();
-        this.price = examDto.getPrice();
         this.datePerformed = examDto.getDatePerformed() != null ? examDto.getDatePerformed() : null;
         this.code = examDto.getCode();
     }
 
     public ExamDto toAggregate() {
-        return new ExamDto(id, name, description, type, result, datePerformed, price, code);
+        return new ExamDto(id, name, description, type, result, datePerformed, code);
     }
 
 }

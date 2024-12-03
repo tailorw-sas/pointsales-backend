@@ -20,16 +20,15 @@ public class ExamDto {
     private MedicalExamCategory type;
     private String result;
     private Date datePerformed;
-    private Double price;
     private String code;
 
-    public ExamDto(UUID id, String name, String description, MedicalExamCategory type, String result, Double price) {
+    public ExamDto(UUID id, String name, String description, MedicalExamCategory type, String result) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.type = type;
         this.result = result;
-        this.price = price;
+
     }
 
 }

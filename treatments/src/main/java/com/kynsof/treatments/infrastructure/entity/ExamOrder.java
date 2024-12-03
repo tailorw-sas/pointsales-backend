@@ -57,20 +57,16 @@ public class ExamOrder {
             exam.setExamOrder(this);
             exam.setDescription(examDto.getDescription());
             exam.setName(examDto.getName());
-            exam.setPrice(examDto.getPrice());
             exam.setType(examDto.getType());
             exam.setResult(examDto.getResult());
             exam.setDatePerformed(examDto.getDatePerformed());
             exam.setCode(examDto.getCode());
             return exam;
         }).collect(Collectors.toList());
-        this.recalculateTotalPrice();
         externalConsultation = dto.getExternalConsultation() != null ? new ExternalConsultation(dto.getExternalConsultation()) : null;
     }
 
-    public void recalculateTotalPrice() {
-        totalPrice = exams.stream().mapToDouble(Exam::getPrice).sum();
-    }
+
 
     @PrePersist
     protected void onCreate() {
@@ -83,7 +79,6 @@ public class ExamOrder {
           examDto.setId(exam.getId());
           examDto.setDescription(exam.getDescription());
           examDto.setName(exam.getName());
-          examDto.setPrice(exam.getPrice());
           examDto.setType(exam.getType());
           examDto.setResult(exam.getResult());
           examDto.setCode(exam.getCode());
@@ -99,7 +94,7 @@ public class ExamOrder {
             examDto.setId(exam.getId());
             examDto.setDescription(exam.getDescription());
             examDto.setName(exam.getName());
-            examDto.setPrice(exam.getPrice());
+
             examDto.setType(exam.getType());
             examDto.setResult(exam.getResult());
             examDto.setCode(exam.getCode());

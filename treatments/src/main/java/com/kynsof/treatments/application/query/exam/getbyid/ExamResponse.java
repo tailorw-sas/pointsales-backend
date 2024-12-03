@@ -18,7 +18,6 @@ public class ExamResponse implements IResponse {
     private MedicalExamCategory type;
     private String result;
     private Date datePerformed;
-    private Double price;
     private String code;
 
     public ExamResponse(ExamDto examDto) {
@@ -28,7 +27,6 @@ public class ExamResponse implements IResponse {
         this.type = examDto.getType();
         this.result = examDto.getResult();
         this.datePerformed = examDto.getDatePerformed();
-        this.price = examDto.getPrice();
         this.code = examDto.getCode();
     }
 
