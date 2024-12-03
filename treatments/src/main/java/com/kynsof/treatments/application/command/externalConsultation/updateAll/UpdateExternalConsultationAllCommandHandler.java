@@ -90,7 +90,6 @@ public class UpdateExternalConsultationAllCommandHandler implements ICommandHand
         UpdateIfNotNull.updateIfNotNull(externalConsultationDto::setMedicalHistory, command.getMedicalHistory());
         UpdateIfNotNull.updateIfNotNull(externalConsultationDto::setPhysicalExam, command.getPhysicalExam());
         UpdateIfNotNull.updateIfNotNull(externalConsultationDto::setObservations, command.getObservations());
-        UpdateIfNotNull.updateIfNotNull(externalConsultationDto::setMedicalSpeciality, command.getMedicalSpeciality());
 
         UUID id = externalConsultationService.update(externalConsultationDto);
         command.setId(id);
