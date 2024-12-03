@@ -22,19 +22,12 @@ import java.util.UUID;
 public class Services {
     @Id
     private UUID id;
-
-
-
     @Enumerated(EnumType.STRING)
     private EServiceStatus status;
-
     @Column(unique = true)
     private String code;
     private String picture;
     private String name;
-    @Column(unique = true)
-    private String externalCode;
-
     @Size(max = 2000)
     private String description;
 

@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public interface ServiceReadDataJPARepository extends JpaRepository<Services, UUID>, JpaSpecificationExecutor<Services> {
@@ -18,6 +17,4 @@ public interface ServiceReadDataJPARepository extends JpaRepository<Services, UU
     @Query("SELECT COUNT(b) FROM Services b WHERE b.name = :name AND b.id <> :id")
     Long countByNameAndNotId(@Param("name") String name, @Param("id") UUID id);
 
-    Optional<Services> findServicesByExternalCode(String code);
-    boolean existsServicesByExternalCode(String code);
 }

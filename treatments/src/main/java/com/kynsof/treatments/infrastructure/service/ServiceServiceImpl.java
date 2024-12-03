@@ -112,21 +112,6 @@ public class ServiceServiceImpl implements IServiceService {
         return this.repositoryQuery.countByNameAndNotId(name, id);
     }
 
-    @Override
-    public ServiceDto findByCode(String code) {
-        Optional<Services> object = this.repositoryQuery.findServicesByExternalCode(code);
-        if (object.isPresent()) {
-            return object.get().toAggregate();
-        }
 
-        throw new BusinessNotFoundException(new GlobalBusinessException(DomainErrorMessage.SERVICE_NOT_FOUND,
-                new ErrorField("code", "Service not found.")));
-
-    }
-
-    @Override
-    public boolean existServiceByCode(String code) {
-        return repositoryQuery.existsServicesByExternalCode(code);
-    }
 
 }
