@@ -19,17 +19,19 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
     private final IDoctorService doctorService;
     private final IMedicinesService medicinesService;
     private final IBusinessService businessService;
+    private final IServiceService serviceService;
 
     public CreateExternalConsultationCommandAllHandler(IExternalConsultationService externalConsultationService,
-                                                       IPatientsService patientsService, 
-                                                       IDoctorService doctorService, 
+                                                       IPatientsService patientsService,
+                                                       IDoctorService doctorService,
                                                        IMedicinesService medicinesService,
-                                                       IBusinessService businessService) {
+                                                       IBusinessService businessService, IServiceService serviceService) {
         this.externalConsultationService = externalConsultationService;
         this.patientsService = patientsService;
         this.doctorService = doctorService;
         this.medicinesService = medicinesService;
         this.businessService = businessService;
+        this.serviceService = serviceService;
     }
 
     @Override
@@ -37,6 +39,7 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
         PatientDto patientDto = patientsService.findById(command.getPatientId());
         DoctorDto doctorDto = doctorService.findById(command.getDoctorId());
         BusinessDto businessDto = businessService.findById(command.getBusinessId());
+        ServiceDto serviceDto = serviceService.findByIds(UUID.fromString(command.getMedicalSpeciality()));
 
         List<DiagnosisDto> diagnosisDtoList = command.getDiagnosis().stream().map(diagnosisRequest ->
                 new DiagnosisDto(UUID.randomUUID(), diagnosisRequest.getIcdCode(), diagnosisRequest.getDescription())).toList();
@@ -87,7 +90,7 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
                 command.getObservations(),
                 examOrderDto,
                 businessDto,
-                command.getMedicalSpeciality(),
+                serviceDto.getName(),
                 ""
         ));
         command.setId(id);
