@@ -51,7 +51,6 @@ public class CreateExamOrderCommandHandler implements ICommandHandler<CreateExam
                 UUID.randomUUID(),
                 command.getReason(),
                 Status.ACTIVE.toString(),
-                0.0,
                 new Date(),
                 patientDto,
                 examDtoList,

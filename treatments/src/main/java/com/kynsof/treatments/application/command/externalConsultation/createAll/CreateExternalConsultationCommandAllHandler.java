@@ -70,7 +70,6 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
                 UUID.randomUUID(),
                 command.getExamOrder().getReason(),
                 Status.ACTIVE.toString(),
-                0.0,
                 new Date(),
                 patientDto,
                 examDtoList

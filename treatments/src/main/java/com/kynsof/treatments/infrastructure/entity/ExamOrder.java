@@ -25,7 +25,6 @@ public class ExamOrder {
     private UUID id;
     private String reason;
     private String status;
-    private Double totalPrice;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
@@ -84,7 +83,7 @@ public class ExamOrder {
           examDto.setCode(exam.getCode());
          return examDto;
       }).collect(Collectors.toList());
-        return new ExamOrderDto(this.id, this.reason, this.status,this.totalPrice, this.orderDate,
+        return new ExamOrderDto(this.id, this.reason, this.status,this.orderDate,
                 this.patient.toAggregate(),examDtoList, externalConsultation.toAggregate());
     }
 
@@ -100,7 +99,7 @@ public class ExamOrder {
             examDto.setCode(exam.getCode());
             return examDto;
         }).collect(Collectors.toList());
-        return new ExamOrderDto(this.id, this.reason, this.status,this.totalPrice, this.orderDate,
+        return new ExamOrderDto(this.id, this.reason, this.status, this.orderDate,
                 this.patient.toAggregate(),examDtoList, null);
     }
 }

@@ -75,7 +75,6 @@ public class UpdateExternalConsultationAllCommandHandler implements ICommandHand
                 externalConsultationDto.getExamOrder().getId(),
                 command.getExamOrder().getReason(),
                 Status.ACTIVE.toString(),
-                0.0,
                 new Date(),
                 externalConsultationDto.getPatient(),
                 examDtoList

@@ -20,7 +20,6 @@ public class ExamOrderResponse implements IResponse {
     private UUID id;
     private String reason;
     private String status;
-    private Double totalPrice;
     private Date orderDate;
     private PatientDto patient;
     private List<ExamResponse> exams;
@@ -31,7 +30,6 @@ public class ExamOrderResponse implements IResponse {
         this.patient = dto.getPatient();
         this.reason = dto.getReason();
         this.status = dto.getStatus();
-        this.totalPrice = dto.getTotalPrice();
         this.orderDate = dto.getOrderDate();
         this.exams = dto.getExams().stream().map(ExamResponse::new).toList();
     }
