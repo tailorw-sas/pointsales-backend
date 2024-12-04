@@ -1,7 +1,6 @@
 package com.kynsof.treatments.application.query.treatment.getbyid;
 
 import com.kynsof.share.core.domain.bus.query.IResponse;
-import com.kynsof.treatments.domain.dto.MedicineUnit;
 import com.kynsof.treatments.domain.dto.MedicinesDto;
 import com.kynsof.treatments.domain.dto.TreatmentDto;
 import lombok.Getter;
@@ -16,7 +15,7 @@ public class TreatmentResponse implements IResponse {
     private String description;
     private MedicinesDto medication;
     private int quantity;
-    private MedicineUnit medicineUnit;
+    private String medicineUnit;
 
     public TreatmentResponse(TreatmentDto treatmentDto) {
         this.id = treatmentDto.getId();

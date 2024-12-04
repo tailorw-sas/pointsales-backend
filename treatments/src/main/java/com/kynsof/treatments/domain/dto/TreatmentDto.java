@@ -15,11 +15,11 @@ public class TreatmentDto {
     private String description;
     private MedicinesDto medication;
     private int quantity;
-    private MedicineUnit medicineUnit;
+    private String medicineUnit;
 
     private ExternalConsultationDto externalConsultationDto;
 
-    public TreatmentDto(UUID id, String description, MedicinesDto medication, int quantity, MedicineUnit duration) {
+    public TreatmentDto(UUID id, String description, MedicinesDto medication, int quantity, String duration) {
         this.id = id;
         this.description = description;
         this.medication = medication;

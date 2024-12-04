@@ -1,6 +1,5 @@
 package com.kynsof.treatments.infrastructure.entity;
 
-import com.kynsof.treatments.domain.dto.MedicineUnit;
 import com.kynsof.treatments.domain.dto.TreatmentDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,8 +24,7 @@ public class Treatment {
 
     private String description;
     private int quantity;
-    @Enumerated(EnumType.STRING)
-    private MedicineUnit medicineUnit;
+    private String medicineUnit;
 
     @ManyToOne
     @JoinColumn(name = "external_consultation_id")
