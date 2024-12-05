@@ -24,6 +24,8 @@ public class Medicines {
     @Column(unique = true)
     private String name;
 
+    private String presentation;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
@@ -36,7 +38,8 @@ public class Medicines {
     }
 
     public MedicinesDto toAggregate() {
-        return new MedicinesDto(this.id, this.name);
+        return new MedicinesDto(this.id, this.name,
+                this.presentation);
     }
 
 }

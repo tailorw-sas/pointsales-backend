@@ -13,15 +13,18 @@ public class CreateMedicineCommand implements ICommand {
 
     private UUID id;
     private String name;
+    private final String presentation;
 
-    public CreateMedicineCommand(String name) {
+    public CreateMedicineCommand(String name, String presentation) {
+        this.presentation = presentation;
         this.id = UUID.randomUUID();
         this.name = name;
     }
 
     public static CreateMedicineCommand fromRequest(CreateMedicineRequest request) {
         return new CreateMedicineCommand(
-                request.getName()
+                request.getName(),
+                request.getPresentation()
         );
     }
 

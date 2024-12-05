@@ -44,7 +44,7 @@ public class MedicinesController {
     }
 
     @PostMapping("all")
-    public ResponseEntity<?> createAll(@RequestBody List<String> payload) {
+    public ResponseEntity<?> createAll(@RequestBody List<CreateMedicineRequest> payload) {
         CreateAllMedicinesCommand createCommand = new CreateAllMedicinesCommand(payload);
         CreateAllMedicineMessage response = mediator.send(createCommand);
 

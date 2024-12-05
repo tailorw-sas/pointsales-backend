@@ -1,6 +1,7 @@
 package com.kynsof.treatments.application.command.medicine.createall;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
+import com.kynsof.treatments.application.command.medicine.create.CreateMedicineRequest;
 import com.kynsof.treatments.domain.dto.MedicinesDto;
 import com.kynsof.treatments.domain.service.IMedicinesService;
 import org.springframework.stereotype.Component;
@@ -18,10 +19,11 @@ public class CreateAllMedicineCommandHandler implements ICommandHandler<CreateAl
 
     @Override
     public void handle(CreateAllMedicinesCommand command) {
-        for (String name : command.getPayload()) {
+        for (CreateMedicineRequest createMedicineRequest : command.getPayload()) {
             MedicinesDto create = new MedicinesDto(
                     UUID.randomUUID(),
-                    name
+                    createMedicineRequest.getName(),
+                    createMedicineRequest.getPresentation()
             );
             try {
                 this.serviceImpl.create(create);

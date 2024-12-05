@@ -21,7 +21,8 @@ public class CreateMedicineCommandHandler implements ICommandHandler<CreateMedic
         RulesChecker.checkRule(new MedicinesNameMustBeUniqueRule(this.serviceImpl, command.getName(), command.getId()));
         MedicinesDto create = new MedicinesDto(
                 command.getId(), 
-                command.getName()
+                command.getName(),
+                command.getPresentation()
         );
         this.serviceImpl.create(create);
     }
