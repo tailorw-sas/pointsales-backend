@@ -12,6 +12,7 @@ import java.util.UUID;
 @Setter
 public class DoctorDto {
     private UUID id;
+    private String identification;
     private String name;
     private String lastName;
     private String registerNumber;

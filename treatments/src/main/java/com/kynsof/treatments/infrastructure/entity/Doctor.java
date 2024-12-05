@@ -19,6 +19,7 @@ public class Doctor {
     @Id
     @Column(name="id")
     private UUID id;
+    private String identification;
     private String name;
     private String lastName;
     private String registerNumber;
@@ -31,9 +32,15 @@ public class Doctor {
         this.name = doctor.getName();
         this.image = doctor.getImage();
         this.status = doctor.getStatus();
+        this.lastName = doctor.getLastName();
+        this.registerNumber = doctor.getRegisterNumber();
+        this.identification = doctor.getIdentification();
+
     }
 
     public DoctorDto toAggregate() {
-        return new DoctorDto(this.id,  this.name, this.lastName,this.registerNumber, this.image, this.status);
+        return new DoctorDto(this.id,this.identification,
+                this.name, this.lastName,this.registerNumber,
+                this.image, this.status);
     }
 }
