@@ -22,4 +22,5 @@ public class DoctorKafka implements Serializable {
     private String lastName;
     private String image;
     private String business;
+    private String registerNumber;
 }

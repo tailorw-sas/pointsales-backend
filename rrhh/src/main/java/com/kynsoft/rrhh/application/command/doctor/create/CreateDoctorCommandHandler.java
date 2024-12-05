@@ -85,7 +85,8 @@ public class CreateDoctorCommandHandler implements ICommandHandler<CreateDoctorC
                     doctorSave.getName(),
                     doctorSave.getLastName(),
                     doctorSave.getImage(),
-                    command.getBusiness().toString()
+                    command.getBusiness().toString(),
+                    command.getRegisterNumber()
             ));
         }catch (Exception exception){
             throw new BusinessException(DomainErrorMessage.DOCTOR_NOT_FOUND, "Ocurrió un error al crear al usuario.");

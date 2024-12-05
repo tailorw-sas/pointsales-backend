@@ -33,7 +33,8 @@ public class CreateReplicateCommandHandler implements ICommandHandler<CreateRepl
                                 doctorDto.getName(), 
                                 doctorDto.getLastName(), 
                                 doctorDto.getImage(), 
-                                null
+                                null,
+                                doctorDto.getRegisterNumber()
                         ));
                     }
                 }

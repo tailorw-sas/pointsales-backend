@@ -73,7 +73,8 @@ public class UpdateAssistantCommandHandler implements ICommandHandler<UpdateAssi
                     assistantDto.getName(),
                     assistantDto.getLastName(),
                     assistantDto.getImage(),
-                    null
+                    null,
+                    ""
             ));
         }
     }

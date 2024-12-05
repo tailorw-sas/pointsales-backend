@@ -29,7 +29,7 @@ public class ConsumerCreateDoctorEventService {
             DoctorKafka eventRead = objectMapper.treeToValue(rootNode.get("data"), DoctorKafka.class);
             
             this.service.create(new DoctorDto(
-                    eventRead.getId(), eventRead.getName() + " " + eventRead.getLastName(), 
+                    eventRead.getId(), eventRead.getName() , eventRead.getLastName(), eventRead.getRegisterNumber(),
                     eventRead.getImage(), 
                     Status.ACTIVE
             ));

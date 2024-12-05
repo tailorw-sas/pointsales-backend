@@ -13,6 +13,8 @@ import java.util.UUID;
 public class DoctorDto {
     private UUID id;
     private String name;
+    private String lastName;
+    private String registerNumber;
     private String image;
     private Status status;
 }

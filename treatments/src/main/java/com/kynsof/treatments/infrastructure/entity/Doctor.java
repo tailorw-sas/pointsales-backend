@@ -19,8 +19,9 @@ public class Doctor {
     @Id
     @Column(name="id")
     private UUID id;
-
     private String name;
+    private String lastName;
+    private String registerNumber;
     private String image;
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -33,6 +34,6 @@ public class Doctor {
     }
 
     public DoctorDto toAggregate() {
-        return new DoctorDto(this.id,  this.name,  this.image, this.status);
+        return new DoctorDto(this.id,  this.name, this.lastName,this.registerNumber, this.image, this.status);
     }
 }

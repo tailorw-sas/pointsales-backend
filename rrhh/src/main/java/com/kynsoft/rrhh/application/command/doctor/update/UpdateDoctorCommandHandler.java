@@ -52,8 +52,8 @@ public class UpdateDoctorCommandHandler implements ICommandHandler<UpdateDoctorC
         if (UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(doctorSave::setLastName, command.getLastName(), doctorSave.getLastName(), update::setUpdate)) {
             changedFields.add("lastName");
         }
-        if (command.getImage() ==null ||  doctorSave.getImage() == null || !command.getImage().equals(doctorSave.getImage())) {
-           doctorSave.setImage(command.getImage());
+        if (command.getImage() == null || doctorSave.getImage() == null || !command.getImage().equals(doctorSave.getImage())) {
+            doctorSave.setImage(command.getImage());
         }
 
         UpdateIfNotNull.updateIfStringNotNullNotEmptyAndNotEquals(doctorSave::setRegisterNumber, command.getRegisterNumber(), doctorSave.getRegisterNumber(), update::setUpdate);
@@ -77,7 +77,8 @@ public class UpdateDoctorCommandHandler implements ICommandHandler<UpdateDoctorC
                 doctorDto.getName(),
                 doctorDto.getLastName(),
                 doctorDto.getImage(),
-             null
+                null,
+                doctorDto.getRegisterNumber()
         ));
     }
 }

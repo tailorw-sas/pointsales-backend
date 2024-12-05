@@ -38,8 +38,7 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
     private final UserSystemService userSystemService;
 
 
-
-// Inyección de RestTemplate
+    // Inyección de RestTemplate
     public CreateAssistantCommandHandler(IAssistantService service, IBusinessService businessService,
                                          IUserBusinessRelationService userBusinessRelationService,
                                          ProducerReplicateAssistantService producerReplicateAssistantService, UserSystemService userSystemService) {
@@ -60,7 +59,7 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
         BusinessDto businessDto = this.businessService.findById(command.getBusiness());
 
         try {
-           var id = consumeCreateUserSystemService(command);
+            var id = consumeCreateUserSystemService(command);
             AssistantDto assistantSave = new AssistantDto(
                     UUID.fromString(id),
                     command.getIdentification(),
@@ -80,15 +79,16 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
                     assistantSave, businessDto, "ACTIVE", LocalDateTime.now()));
 
             producerReplicateAssistantService.create(new DoctorKafka(
-                assistantSave.getId(),
-                assistantSave.getIdentification(),
-                assistantSave.getCode(),
-                assistantSave.getEmail(),
-                assistantSave.getName(),
-                assistantSave.getLastName(),
-                assistantSave.getImage(),
-                command.getBusiness().toString()
-        ));
+                    assistantSave.getId(),
+                    assistantSave.getIdentification(),
+                    assistantSave.getCode(),
+                    assistantSave.getEmail(),
+                    assistantSave.getName(),
+                    assistantSave.getLastName(),
+                    assistantSave.getImage(),
+                    command.getBusiness().toString(),
+                    ""
+            ));
         } catch (Exception ex) {
             throw new BusinessException(DomainErrorMessage.DOCTOR_NOT_FOUND, "Ocurrió un error al crear al usuario.");
         }
@@ -107,7 +107,7 @@ public class CreateAssistantCommandHandler implements ICommandHandler<CreateAssi
         createUserSystemRequest.setImage(command.getImage());
         createUserSystemRequest.setBusinessId(command.getBusiness().toString());
 
-      return userSystemService.createUserSystem(createUserSystemRequest);
+        return userSystemService.createUserSystem(createUserSystemRequest);
 
     }
 
