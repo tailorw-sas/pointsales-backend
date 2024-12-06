@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/reports")
@@ -36,17 +37,31 @@ public class ReportController {
                 .body(response.getResult());
     }
 
+//    @PostMapping(value = "/generate", produces = MediaType.APPLICATION_PDF_VALUE)
+//    public ResponseEntity<?> generatedReport(@RequestBody GenerateReportRequest request) {
+//
+//        GenerateReportCommand command = new GenerateReportCommand(request.getParameters(),
+//                request.getJasperReportCode(), request.getReportFormatType());
+//        GenerateReportMessage response = mediator.send(command);
+//
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.pdf")
+//                .contentType(MediaType.APPLICATION_PDF)
+//                .body(response.getResult());
+//    }
+
     @PostMapping(value = "/generate", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<?> generatedReport(@RequestBody GenerateReportRequest request) {
+    public Mono<ResponseEntity<byte[]>> generateReport(@RequestBody GenerateReportRequest request) {
+        return Mono.fromCallable(() -> {
+            GenerateReportCommand command = new GenerateReportCommand(request.getParameters(),
+                    request.getJasperReportCode(), request.getReportFormatType());
+            GenerateReportMessage response = mediator.send(command);
 
-        GenerateReportCommand command = new GenerateReportCommand(request.getParameters(),
-                request.getJasperReportCode(), request.getReportFormatType());
-        GenerateReportMessage response = mediator.send(command);
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.pdf")
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(response.getResult());
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.pdf")
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(response.getResult());
+        });
     }
 
 
