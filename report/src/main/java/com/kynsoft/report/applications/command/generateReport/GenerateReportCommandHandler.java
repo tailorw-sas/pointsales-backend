@@ -147,6 +147,7 @@ public class GenerateReportCommandHandler implements ICommandHandler<GenerateRep
     }
 
     private InputStream loadReportInputStream(String reportPath) throws IOException {
+        logger.info("Buscar Archivo: templates/{}", reportPath);
         Resource localResource = resourceLoader.getResource("classpath:templates/" + reportPath);
         if (localResource.exists()) {
             logger.info("Loading JRXML template from local resources: templates/{}", reportPath);
