@@ -27,7 +27,7 @@ ENV TZ="America/Guayaquil"
 
 # Copia el JAR generado desde la etapa de construcción
 COPY --from=builder /build/target/report-1.0.0.jar /app/report-1.0.0.jar
-
+COPY src/main/resources/receta.jrxml /app/resources/receta.jrxml
 # Expone el puerto que utiliza la aplicación
 EXPOSE 9909
 
