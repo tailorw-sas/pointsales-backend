@@ -1,4 +1,4 @@
-package com.kynsoft.report.applications.command.generateTemplate;
+package com.kynsoft.report.applications.command.generateTemplate1;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.kynsoft.report.applications.command.generateTemplate;
+package com.kynsoft.report.applications.command.generateTemplate1;
 
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
 import lombok.Getter;
