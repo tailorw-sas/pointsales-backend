@@ -26,7 +26,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -66,47 +65,38 @@ public class GenerateReportCommandHandler implements ICommandHandler<GenerateRep
         }
     }
 
-    public byte[] generatePdfReport(Map<String, Object> parameters, String reportPath, JasperReportTemplateDto reportTemplateDto) throws JRException, IOException, SQLException {
+    public byte[] generatePdfReport(Map<String, Object> parameters, String reportPath, JasperReportTemplateDto reportTemplateDto) throws JRException, IOException {
         JasperReport jasperReport = getJasperReport(reportPath);
         logger.error("Generating PDF report with database: {}", reportTemplateDto.getDbConection().getName());
 
         JRFileVirtualizer virtualizer = new JRFileVirtualizer(2, "temp/");
         parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
 
-
-        JdbcTemplate jdbcTemplate = getJdbcTemplate(reportTemplateDto);
-        // Si no hay consulta, usa la conexión a la base de datos
-        Connection connection  = null;
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            JdbcTemplate jdbcTemplate = getJdbcTemplate(reportTemplateDto);
 
+            // Si la consulta está definida en el DTO
             if (reportTemplateDto.getQuery() != null && !reportTemplateDto.getQuery().isEmpty()) {
-                // Si hay consulta en el DTO, úsala
                 String query = replaceQueryParameters(reportTemplateDto.getQuery(), parameters);
                 NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
                 List<Map<String, Object>> rows = namedParameterJdbcTemplate.queryForList(query, parameters);
 
+                // Usar JRBeanCollectionDataSource con los datos de la consulta
                 JRDataSource jrDataSource = new JRBeanCollectionDataSource(rows);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
                 JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
             } else {
-                connection = DriverManager.getConnection(reportTemplateDto.getDbConection().getUrl(),
-                        reportTemplateDto.getDbConection().getUsername(), reportTemplateDto.getDbConection().getPassword());
+                // Si no hay consulta en el DTO, dejar que JasperReports use la consulta integrada en el JRXML
+                Connection connection = jdbcTemplate.getDataSource().getConnection();
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
                 JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
             }
 
             return outputStream.toByteArray();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             virtualizer.cleanup();
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                    logger.info("Database connection closed successfully.");
-                } catch (SQLException e) {
-                    logger.error("Failed to close the database connection.", e);
-                }
-            }
         }
     }
 
