@@ -72,22 +72,23 @@ public class GenerateReportCommandHandler implements ICommandHandler<GenerateRep
         JRFileVirtualizer virtualizer = new JRFileVirtualizer(2, "temp/");
         parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
 
+        Connection connection = null;
+
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             JdbcTemplate jdbcTemplate = getJdbcTemplate(reportTemplateDto);
 
-            // Si la consulta está definida en el DTO
             if (reportTemplateDto.getQuery() != null && !reportTemplateDto.getQuery().isEmpty()) {
+                // Si hay consulta en el DTO, úsala
                 String query = replaceQueryParameters(reportTemplateDto.getQuery(), parameters);
                 NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
                 List<Map<String, Object>> rows = namedParameterJdbcTemplate.queryForList(query, parameters);
 
-                // Usar JRBeanCollectionDataSource con los datos de la consulta
                 JRDataSource jrDataSource = new JRBeanCollectionDataSource(rows);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
                 JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
             } else {
-                // Si no hay consulta en el DTO, dejar que JasperReports use la consulta integrada en el JRXML
-                Connection connection = jdbcTemplate.getDataSource().getConnection();
+                // Si no hay consulta, usa la conexión a la base de datos
+                connection = jdbcTemplate.getDataSource().getConnection();
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
                 JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
             }
@@ -97,6 +98,15 @@ public class GenerateReportCommandHandler implements ICommandHandler<GenerateRep
             throw new RuntimeException(e);
         } finally {
             virtualizer.cleanup();
+
+            if (connection != null) {
+                try {
+                    connection.close();
+                    logger.info("Database connection closed successfully.");
+                } catch (SQLException e) {
+                    logger.error("Failed to close the database connection.", e);
+                }
+            }
         }
     }
 
