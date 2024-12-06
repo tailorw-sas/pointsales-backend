@@ -67,7 +67,7 @@ public class GenerateReportCommandHandler implements ICommandHandler<GenerateRep
 
     public byte[] generatePdfReport(Map<String, Object> parameters, String reportPath, JasperReportTemplateDto reportTemplateDto) throws JRException, IOException {
         JasperReport jasperReport = getJasperReport(reportPath);
-        logger.info("Generating PDF report with database: {}", reportTemplateDto.getDbConection().getName());
+        logger.error("Generating PDF report with database: {}", reportTemplateDto.getDbConection().getName());
 
         JRFileVirtualizer virtualizer = new JRFileVirtualizer(2, "temp/");
         parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
@@ -102,7 +102,7 @@ public class GenerateReportCommandHandler implements ICommandHandler<GenerateRep
 
     public byte[] generateExcelReport(Map<String, Object> parameters, String reportPath, JasperReportTemplateDto reportTemplateDto) throws JRException, IOException {
         JasperReport jasperReport = getJasperReport(reportPath);
-        logger.info("Generating Excel report with database: {}", reportTemplateDto.getDbConection().getName());
+        logger.error("Generating Excel report with database: {}", reportTemplateDto.getDbConection().getName());
 
         JRFileVirtualizer virtualizer = new JRFileVirtualizer(2, "temp/");
         parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
@@ -141,16 +141,16 @@ public class GenerateReportCommandHandler implements ICommandHandler<GenerateRep
 
     private JasperReport getJasperReport(String reportPath) throws JRException, IOException {
         try (InputStream jrxmlInput = loadReportInputStream(reportPath)) {
-            logger.info("JRXML content loaded successfully from: {}", reportPath);
+            logger.error("JRXML content loaded successfully from: {}", reportPath);
             return JasperCompileManager.compileReport(jrxmlInput);
         }
     }
 
     private InputStream loadReportInputStream(String reportPath) throws IOException {
-        logger.info("Buscar Archivo: templates/{}", reportPath);
+        logger.error("Buscar Archivo: templates/{}", reportPath);
         Resource localResource = resourceLoader.getResource("classpath:templates/" + reportPath);
         if (localResource.exists()) {
-            logger.info("Loading JRXML template from local resources: templates/{}", reportPath);
+            logger.error("Loading JRXML template from local resources: templates/{}", reportPath);
             return localResource.getInputStream();
         } else {
             logger.warn("Local template not found, fetching JRXML template from URL: {}", reportPath);
@@ -159,7 +159,7 @@ public class GenerateReportCommandHandler implements ICommandHandler<GenerateRep
     }
 
     private DataSource createDataSource(String url, String username, String password) {
-        logger.info("Connecting to database: {}", url);
+        logger.error("Connecting to database: {}", url);
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl(url);
