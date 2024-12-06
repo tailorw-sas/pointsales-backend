@@ -200,10 +200,6 @@ WHERE externalconsultation.id  = $P{id_consulta}::uuid]]>
 					</textElement>
 					<text><![CDATA[RECETA MÉDICA]]></text>
 				</staticText>
-				<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" onErrorType="Icon">
-					<reportElement x="20" y="0" width="140" height="105" uuid="31edb28f-9d3b-4a19-9eb8-0b29c36ce63c"/>
-					<imageExpression><![CDATA[new java.net.URL($F{logo}).toExternalForm()]]></imageExpression>
-				</image>
 				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 					<reportElement x="160" y="60" width="500" height="45" uuid="1f08c7ea-f40b-430c-bf1c-7be077d9c4b3"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
