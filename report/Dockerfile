@@ -8,22 +8,16 @@ WORKDIR /build
 COPY rc-settings.xml settings.xml
 
 # Configura variables de entorno para Maven y token de paquete
+# Configura el token para el acceso a repositorios privados en settings.xml
 ARG PACKAGE_TOKEN
-ENV PACKAGE_TOKEN=${PACKAGE_TOKEN}
-
-# Reemplaza el token de configuración en settings.xml
 RUN sed -i "s|GIT_TOKEN|$PACKAGE_TOKEN|g" settings.xml
 
 # Copia los archivos de proyecto
 COPY . /build
 
-# Argumento para obtener el nombre del POM de forma dinámica
-ARG POM_NAME
-ENV POM_NAME=${POM_NAME}
-
-# Compila las dependencias offline y el paquete
-RUN mvn dependency:go-offline -f ${POM_NAME} -s settings.xml
-RUN mvn clean package -DskipTests -f ${POM_NAME}
+# Compila las dependencias en modo offline y construye el paquete sin ejecutar pruebas
+RUN mvn dependency:go-offline -s settings.xml && \
+    mvn clean package -DskipTests
 
 # Etapa final: imagen ligera de distroless
 FROM gcr.io/distroless/java17-debian11
