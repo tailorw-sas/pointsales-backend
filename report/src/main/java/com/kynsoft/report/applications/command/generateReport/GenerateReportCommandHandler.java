@@ -26,6 +26,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -65,17 +66,18 @@ public class GenerateReportCommandHandler implements ICommandHandler<GenerateRep
         }
     }
 
-    public byte[] generatePdfReport(Map<String, Object> parameters, String reportPath, JasperReportTemplateDto reportTemplateDto) throws JRException, IOException {
+    public byte[] generatePdfReport(Map<String, Object> parameters, String reportPath, JasperReportTemplateDto reportTemplateDto) throws JRException, IOException, SQLException {
         JasperReport jasperReport = getJasperReport(reportPath);
         logger.error("Generating PDF report with database: {}", reportTemplateDto.getDbConection().getName());
 
         JRFileVirtualizer virtualizer = new JRFileVirtualizer(2, "temp/");
         parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
 
-        Connection connection = null;
 
+        JdbcTemplate jdbcTemplate = getJdbcTemplate(reportTemplateDto);
+        // Si no hay consulta, usa la conexión a la base de datos
+        Connection connection  = null;
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            JdbcTemplate jdbcTemplate = getJdbcTemplate(reportTemplateDto);
 
             if (reportTemplateDto.getQuery() != null && !reportTemplateDto.getQuery().isEmpty()) {
                 // Si hay consulta en el DTO, úsala
@@ -87,15 +89,13 @@ public class GenerateReportCommandHandler implements ICommandHandler<GenerateRep
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrDataSource);
                 JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
             } else {
-                // Si no hay consulta, usa la conexión a la base de datos
-                connection = jdbcTemplate.getDataSource().getConnection();
+                connection = DriverManager.getConnection(reportTemplateDto.getDbConection().getUrl(),
+                        reportTemplateDto.getDbConection().getUsername(), reportTemplateDto.getDbConection().getPassword());
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
                 JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
             }
 
             return outputStream.toByteArray();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         } finally {
             virtualizer.cleanup();
 
