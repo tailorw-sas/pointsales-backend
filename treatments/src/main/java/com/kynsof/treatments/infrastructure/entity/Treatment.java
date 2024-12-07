@@ -25,6 +25,9 @@ public class Treatment {
     private String description;
     private int quantity;
     private String medicineUnit;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "treatment_prescription_seq")
+    @SequenceGenerator(name = "treatment_prescription_seq", sequenceName = "treatment_prescription_seq", allocationSize = 1)
+    private Long prescriptionNumber;
 
     @ManyToOne
     @JoinColumn(name = "external_consultation_id")
