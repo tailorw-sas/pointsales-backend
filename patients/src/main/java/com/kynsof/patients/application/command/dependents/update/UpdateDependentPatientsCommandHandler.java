@@ -34,8 +34,6 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
     @Override
     public void handle(UpdateDependentPatientsCommand command) {
         ContactInfoDto contactInfoDto = contactInfoService.findByPatientId(command.getId());
-        GeographicLocationDto province = geographicLocationService.findById(command.getCreateContactInfoRequest().getProvince());
-        GeographicLocationDto canton = geographicLocationService.findById(command.getCreateContactInfoRequest().getCanton());
         GeographicLocationDto parroquia = geographicLocationService.findById(command.getCreateContactInfoRequest().getParroquia());
         PatientDto prime = serviceImpl.findByIdSimple(command.getPrimeId());
         PatientDto dependent = serviceImpl.findByIdSimple(command.getId());
@@ -48,8 +46,6 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
                 command.getGender(),
                 Status.ACTIVE,
                 prime,
-                command.getWeight(),
-                command.getHeight(),
                 command.getHasDisability(),
                 command.getIsPregnant(),
                 command.getFamilyRelationship(),
@@ -78,8 +74,6 @@ public class UpdateDependentPatientsCommandHandler implements ICommandHandler<Up
             contactInfoService.update(contactInfoDto);
         }
 
-//        this.updateDependentPatientsEventService.update(serviceImpl.findByIdSimple(command.getId()), command.getCreateContactInfoRequest().getBirthdayDate());
-//        this.updateCustomerEventService.update(new UpdateCustomerKafka(update.getId().toString(), update.getName(), update.getLastName()));
         this.createCustomerEventService.create(new CustomerKafka(
                 update.getId().toString(), 
                 update.getIdentification(), 

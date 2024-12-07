@@ -20,8 +20,6 @@ public class PatientsResponse implements IResponse {
     private String name;
     private String lastName;
     private GenderType gender;
-    private Double weight;
-    private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
     private String image;
@@ -33,8 +31,6 @@ public class PatientsResponse implements IResponse {
         this.name = patients.getName();
         this.lastName = patients.getLastName();
         this.gender = patients.getGender();
-        this.weight = patients.getWeight();
-        this.height = patients.getHeight();
         this.hasDisability = patients.getHasDisability();
         this.isPregnant = patients.getIsPregnant();
         this.image = patients.getPhoto();

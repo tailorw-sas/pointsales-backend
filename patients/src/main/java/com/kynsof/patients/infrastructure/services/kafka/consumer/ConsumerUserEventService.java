@@ -47,7 +47,7 @@ public class ConsumerUserEventService {
                 //Definir accion
                 UUID patientId = this.service.create(new PatientDto(UUID.fromString(eventRead.getId()),
                         null, eventRead.getFirstname(), eventRead.getLastname(), GenderType.UNDEFINED, Status.ACTIVE,
-                        null, null, null, null, null, null, 0));
+                       null, null, null, null, 0));
 
                 PatientDto patientDto = this.service.findByIdSimple(patientId);
                 this.contactInfoService.create(new ContactInfoDto(UUID.randomUUID(), patientDto, eventRead.getEmail(),
@@ -73,7 +73,7 @@ public class ConsumerUserEventService {
                 System.err.println("#######################################################");
                 this.service.update(new PatientDto(UUID.fromString(eventRead.getId()),
                         "", eventRead.getFirstname(), eventRead.getLastname(), GenderType.OTHER, Status.ACTIVE,
-                        null, null, null, null, null, null, 0));
+                        null, null, null, null, 0));
             }
 
         } catch (JsonProcessingException ex) {

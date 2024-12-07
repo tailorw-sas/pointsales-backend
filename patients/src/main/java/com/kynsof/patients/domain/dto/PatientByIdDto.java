@@ -23,8 +23,6 @@ public class PatientByIdDto implements Serializable {
     private String lastName;
     private GenderType gender;
     private Status status;
-    private Double weight;
-    private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
     private String photo;

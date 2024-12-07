@@ -44,8 +44,6 @@ public class Patients implements Serializable {
     @Enumerated(EnumType.STRING)
     private FamilyRelationship familyRelationship;
     private String photo;
-    private Double weight;
-    private Double height;
     private Boolean hasDisability;
     @Enumerated(EnumType.STRING)
     private DisabilityType disabilityType;
@@ -88,8 +86,6 @@ public class Patients implements Serializable {
         this.lastName = patients.getLastName();
         this.gender = patients.getGender() != null ? patients.getGender() : GenderType.UNDEFINED ;
         this.status = patients.getStatus();
-        this.weight = patients.getWeight();
-        this.height = patients.getHeight();
         this.hasDisability = patients.getHasDisability();
         this.isPregnant = patients.getIsPregnant();
         this.photo = patients.getPhoto();
@@ -105,8 +101,6 @@ public class Patients implements Serializable {
         this.gender = patients.getGender() != null ? patients.getGender() : GenderType.OTHER;
         this.status = patients.getStatus();
         this.setPrime(new Patients(patients.getPrime()));
-        this.weight = patients.getWeight();
-        this.height = patients.getHeight();
         this.hasDisability = patients.getHasDisability();
         this.isPregnant = patients.getIsPregnant();
         this.photo = patients.getPhoto();
@@ -116,7 +110,7 @@ public class Patients implements Serializable {
     }
 
     public PatientDto toAggregate() {
-        PatientDto patientDto = new PatientDto(id, identification, firstName, lastName, gender, status, weight, height, hasDisability, isPregnant,
+        PatientDto patientDto = new PatientDto(id, identification, firstName, lastName, gender, status,  hasDisability, isPregnant,
                 photo, disabilityType, gestationTime);
         ContactInfoDto contactInfoDto = contactInformation != null ? contactInformation.toAggregateSimple() : null;
         patientDto.setContactInfo(contactInfoDto);
@@ -125,7 +119,7 @@ public class Patients implements Serializable {
 
     public PatientByIdDto toAggregateById() {
         ContactInfoDto contactInfoDto = contactInformation != null ? contactInformation.toAggregate() : null;
-        return  new PatientByIdDto(id, identification, firstName, lastName, gender, status, weight, height,
+        return  new PatientByIdDto(id, identification, firstName, lastName, gender, status,
                 hasDisability, isPregnant, photo, disabilityType, gestationTime, familyRelationship,
                 contactInfoDto );
 

@@ -91,12 +91,6 @@ public class PatientsServiceImpl implements IPatientsService {
                     if (dependentPatientDto.getStatus() != null) {
                         dependentPatient.setStatus(dependentPatientDto.getStatus());
                     }
-                    if (dependentPatientDto.getWeight() != null) {
-                        dependentPatient.setWeight(dependentPatientDto.getWeight());
-                    }
-                    if (dependentPatientDto.getHeight() != null) {
-                        dependentPatient.setHeight(dependentPatientDto.getHeight());
-                    }
                     if (dependentPatientDto.getHasDisability() != null) {
                         dependentPatient.setHasDisability(dependentPatientDto.getHasDisability());
                     }

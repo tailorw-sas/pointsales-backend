@@ -25,8 +25,6 @@ public class CreatePatientsAdminCommandHandler implements ICommandHandler<Create
         PatientDto patientDto = serviceImpl.findByIdSimple(command.getId());
         patientDto.setPhoto(command.getPhoto());
         patientDto.setGender(command.getGender());
-        patientDto.setHeight(command.getHeight());
-        patientDto.setWeight(command.getWeight());
         patientDto.setDisabilityType(command.getDisabilityType());
         patientDto.setIdentification(command.getIdentification());
         patientDto.setGestationTime(command.getGestationTime());

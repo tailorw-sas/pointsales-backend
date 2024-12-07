@@ -30,8 +30,6 @@ public class CreateDependentByPatientIdCommandHandler implements ICommandHandler
                 dependent.getGender(),
                 Status.ACTIVE,
                 prime,
-                dependent.getWeight(),
-                dependent.getHeight(),
                 dependent.getHasDisability(),
                 dependent.getIsPregnant(),
                 command.getFamilyRelationship(),

@@ -51,8 +51,6 @@ public class CreateDependentPatientsCommandHandler implements ICommandHandler<Cr
                 command.getGender(),
                 Status.ACTIVE,
                 prime,
-                command.getWeight(),
-                command.getHeight(),
                 command.getHasDisability(),
                 command.getIsPregnant(),
                 command.getFamilyRelationship(),

@@ -21,8 +21,6 @@ public class DependentPatientDto {
     private GenderType gender;
     private Status status;
     private PatientDto prime;
-    private Double weight;
-    private Double height;
     private Boolean hasDisability;
     private Boolean isPregnant;
     private FamilyRelationship familyRelationship;
