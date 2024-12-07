@@ -109,6 +109,7 @@ public class ExternalConsultation {
         }
         this.examOrder = examOrder;
         this.business = new Business(dto.getBusiness());
+        this.service = new Services(dto.getService());
         this.referenceNumber = dto.getReferenceNumber() != null ? dto.getReferenceNumber() : GeneratorRandomNumber.generateRandomSecurity();
     }
 
