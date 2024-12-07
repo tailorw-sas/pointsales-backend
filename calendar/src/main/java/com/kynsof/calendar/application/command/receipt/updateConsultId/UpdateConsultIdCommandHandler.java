@@ -1,5 +1,6 @@
 package com.kynsof.calendar.application.command.receipt.updateConsultId;
 
+import com.kynsof.calendar.domain.dto.ReceiptDto;
 import com.kynsof.calendar.domain.service.IReceiptService;
 import com.kynsof.calendar.domain.service.IScheduleService;
 import com.kynsof.calendar.infrastructure.service.BusinessBalanceService;
@@ -21,6 +22,9 @@ public class UpdateConsultIdCommandHandler implements ICommandHandler<UpdateCons
 
     @Override
     public void handle(UpdateConsultIdCommand command) {
+        ReceiptDto receiptDto = receiptService.findById(command.getReceiptId());
+        receiptDto.setConsultId(command.getConsultId().toString());
+        receiptService.update(receiptDto);
        command.setResult(true);
     }
 
