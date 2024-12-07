@@ -23,6 +23,9 @@ public class ExamOrder {
     @Id
     @GeneratedValue(generator = "UUID")
     private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private Integer orderNumber; // Nuevo campo
     private String reason;
     private String status;
 
