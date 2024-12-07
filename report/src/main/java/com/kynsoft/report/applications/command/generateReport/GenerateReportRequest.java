@@ -15,4 +15,5 @@ public class GenerateReportRequest {
         private String jasperReportCode;
         private String reportFormatType;
         private Map<String, Object> parameters;
+        private int CantCopy;
 }
