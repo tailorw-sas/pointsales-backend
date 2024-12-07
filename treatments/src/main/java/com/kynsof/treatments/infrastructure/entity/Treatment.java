@@ -35,6 +35,7 @@ public class Treatment {
     private Medicines medicines;
 
     @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp

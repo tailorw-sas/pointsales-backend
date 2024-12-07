@@ -27,6 +27,7 @@ public class Medicines {
     private String presentation;
 
     @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp

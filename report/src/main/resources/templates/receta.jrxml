@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Receta" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="151845dd-87c1-4948-9ff8-ec01c724ac0d">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Treatment"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="kynsoft"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="198"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="797"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -197,7 +197,7 @@ FROM public.externalconsultation
 					<text><![CDATA[RECETA MÉDICA]]></text>
 				</staticText>
 				<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" onErrorType="Icon">
-					<reportElement x="20" y="0" width="140" height="105" uuid="31edb28f-9d3b-4a19-9eb8-0b29c36ce63c"/>
+					<reportElement x="20" y="11" width="130" height="95" uuid="31edb28f-9d3b-4a19-9eb8-0b29c36ce63c"/>
 					<imageExpression><![CDATA[new java.net.URL($F{logo}).toExternalForm()]]></imageExpression>
 				</image>
 				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
@@ -395,7 +395,7 @@ FROM public.externalconsultation
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ff8fe0e-6d81-4741-be3d-7daf3a8e4e18"/>
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
@@ -417,7 +417,7 @@ FROM public.externalconsultation
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ff8fe0e-6d81-4741-be3d-7daf3a8e4e18"/>
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
@@ -478,7 +478,7 @@ FROM public.externalconsultation
 					<text><![CDATA[Firma]]></text>
 				</staticText>
 				<componentElement>
-					<reportElement stretchType="ContainerHeight" x="-1" y="5" width="580" height="15" uuid="7e5b7396-67ec-45a3-8857-4c5c33e1e1f9">
+					<reportElement stretchType="ContainerHeight" x="0" y="3" width="580" height="15" uuid="7e5b7396-67ec-45a3-8857-4c5c33e1e1f9">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
@@ -488,7 +488,7 @@ FROM public.externalconsultation
 							</datasetParameter>
 							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 						</datasetRun>
-						<jr:listContents height="30" width="580">
+						<jr:listContents height="15" width="580">
 							<textField isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="580" height="15" uuid="3261d026-40e5-408a-ad08-d205af0ac5cf">
 									<property name="com.jaspersoft.studio.unit.height" value="px"/>

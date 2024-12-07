@@ -33,6 +33,7 @@ public class Procedure {
     private Set<BusinessProcedure> businessProcedures = new HashSet<>();
 
     @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp

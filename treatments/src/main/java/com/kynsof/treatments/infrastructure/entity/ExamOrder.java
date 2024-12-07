@@ -41,6 +41,7 @@ public class ExamOrder {
     private ExternalConsultation externalConsultation;
 
     @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
