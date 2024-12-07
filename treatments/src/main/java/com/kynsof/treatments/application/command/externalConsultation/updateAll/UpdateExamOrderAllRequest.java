@@ -1,6 +1,6 @@
 package com.kynsof.treatments.application.command.externalConsultation.updateAll;
 
-import com.kynsof.treatments.application.command.externalConsultation.createAll.ExamAllRequest;
+import com.kynsof.treatments.application.command.externalConsultation.create.ExamAllRequest;
 import lombok.Getter;
 import lombok.Setter;
 

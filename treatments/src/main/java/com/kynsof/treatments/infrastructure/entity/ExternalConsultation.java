@@ -64,11 +64,13 @@ public class ExternalConsultation {
     @OneToOne(mappedBy = "externalConsultation", cascade = CascadeType.ALL)
     private ExamOrder examOrder;
 
+    @ManyToOne
+    @JoinColumn(name = "service_id", nullable = true)
+    private Services service;
+
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
-
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
@@ -126,7 +128,7 @@ public class ExternalConsultation {
         return new ExternalConsultationDto(this.id, this.patient.toAggregate(), this.doctor.toAggregate(),
                 this.consultationTime, this.consultationReason, this.medicalHistory, this.physicalExam, diagnosisDtoList,
                 treatmentList, this.observations, exam, business.toAggregate(),
-                medicalSpeciality, this.referenceNumber);
+                medicalSpeciality, this.referenceNumber, this.service.toAggregate());
     }
 
     @PrePersist

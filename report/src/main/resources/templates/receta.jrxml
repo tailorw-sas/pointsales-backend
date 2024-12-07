@@ -67,12 +67,8 @@ FROM public.externalconsultation
          LEFT JOIN treatment ON treatment.external_consultation_id = externalconsultation.id
          LEFT JOIN medicines ON medicines.id = treatment.medicines_id
          LEFT JOIN business ON business.id = externalconsultation.business_id
-         LEFT JOIN services ON services.id =
-                               CASE
-                                   WHEN externalconsultation.medicalspeciality ~ '^[0-9a-fA-F-]{36}$' THEN externalconsultation.medicalspeciality::uuid
-                                   ELSE NULL
-                                   END
-WHERE externalconsultation.id  = $P{id_consulta}::uuid]]>
+         LEFT JOIN services ON services.id = externalconsultation.service_id
+           WHERE externalconsultation.id  = $P{id_consulta}::uuid]]>
 	</queryString>
 	<field name="consultationtime" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="consultationtime"/>

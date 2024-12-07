@@ -1,4 +1,4 @@
-package com.kynsof.treatments.application.command.externalConsultation.createAll;
+package com.kynsof.treatments.application.command.externalConsultation.create;
 
 import lombok.Getter;
 import lombok.Setter;

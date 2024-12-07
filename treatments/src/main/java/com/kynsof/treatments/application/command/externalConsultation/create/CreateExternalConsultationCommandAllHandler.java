@@ -1,4 +1,4 @@
-package com.kynsof.treatments.application.command.externalConsultation.createAll;
+package com.kynsof.treatments.application.command.externalConsultation.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommandHandler;
 import com.kynsof.treatments.domain.dto.*;
@@ -89,7 +89,8 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
                 examOrderDto,
                 businessDto,
                 serviceDto.getName(),
-                ""
+                "",
+                serviceDto
         ));
         command.setId(id);
     }

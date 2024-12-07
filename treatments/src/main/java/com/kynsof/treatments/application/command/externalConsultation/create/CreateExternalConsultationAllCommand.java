@@ -1,4 +1,4 @@
-package com.kynsof.treatments.application.command.externalConsultation.createAll;
+package com.kynsof.treatments.application.command.externalConsultation.create;
 
 import com.kynsof.share.core.domain.bus.command.ICommand;
 import com.kynsof.share.core.domain.bus.command.ICommandMessage;
