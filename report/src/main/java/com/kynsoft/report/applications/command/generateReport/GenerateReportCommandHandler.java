@@ -66,8 +66,8 @@ public class GenerateReportCommandHandler implements ICommandHandler<GenerateRep
     }
 
     public byte[] generatePdfReport(Map<String, Object> parameters, String reportPath, JasperReportTemplateDto reportTemplateDto) throws JRException, IOException {
-        JRFileVirtualizer virtualizer = new JRFileVirtualizer(2, "temp/");
-        parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
+        JRFileVirtualizer virtualized = new JRFileVirtualizer(2, "temp/");
+        parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualized);
 
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
              Connection connection = createConnection(reportTemplateDto)) {
@@ -92,7 +92,7 @@ public class GenerateReportCommandHandler implements ICommandHandler<GenerateRep
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            virtualizer.cleanup();
+            virtualized.cleanup();
         }
     }
 
