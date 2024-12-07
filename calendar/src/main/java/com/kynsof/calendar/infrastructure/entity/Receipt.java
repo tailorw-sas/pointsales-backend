@@ -49,6 +49,8 @@ public class Receipt {
     @Enumerated(EnumType.STRING)
     private EStatusReceipt status;
 
+    private String consultId;
+
     private String requestId;
     private String authorizationCode;
     private String reference;
@@ -87,12 +89,13 @@ public class Receipt {
         this.ipAddressPayment = receipt.getIpAddressPayment();
         this.userAgentCreate = receipt.getUserAgentCreate();
         this.userAgentPayment = receipt.getUserAgentPayment();
+        this.consultId = receipt.getConsultId();
     }
 
     public ReceiptDto toAggregate() {
         return new ReceiptDto(id, price, express, reasons, user.toAggregate(), schedule.toAggregate(),
                 schedule.getService().toAggregate(), status, requestId, authorizationCode, reference, sessionId, ipAddressCreate,
-                ipAddressPayment, userAgentCreate, userAgentPayment);
+                ipAddressPayment, userAgentCreate, userAgentPayment,consultId);
     }
 
     @PostLoad

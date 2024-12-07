@@ -16,6 +16,9 @@ import com.kynsof.calendar.application.command.receipt.delete.ReceiptDeleteMessa
 import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptCommand;
 import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptMessage;
 import com.kynsof.calendar.application.command.receipt.reschedule.RescheduleReceiptRequest;
+import com.kynsof.calendar.application.command.receipt.updateConsultId.UpdateConsultIdCommand;
+import com.kynsof.calendar.application.command.receipt.updateConsultId.UpdateConsultIdMessage;
+import com.kynsof.calendar.application.command.receipt.updateConsultId.UpdateConsultIdRequest;
 import com.kynsof.calendar.application.command.receipt.updateStatus.UpdateStatusReceiptCommand;
 import com.kynsof.calendar.application.command.receipt.updateStatus.UpdateStatusReceiptMessage;
 import com.kynsof.calendar.application.command.receipt.updateStatus.UpdateStatusReceiptRequest;
@@ -151,5 +154,16 @@ public class ReceiptController {
         UpdateStatusReceiptMessage response = mediator.send(createCommand);
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/change-consultId")
+    public ResponseEntity<?> changeConsultId( @RequestBody UpdateConsultIdRequest confirmPaymentReceiptRequest) {
+
+        UpdateConsultIdCommand createCommand = UpdateConsultIdCommand.fromRequest(
+                confirmPaymentReceiptRequest );
+        UpdateConsultIdMessage response = mediator.send(createCommand);
+        return ResponseEntity.ok(response);
+    }
+
+
 
 }
