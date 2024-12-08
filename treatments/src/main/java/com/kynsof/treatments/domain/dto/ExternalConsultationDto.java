@@ -28,11 +28,12 @@ public class ExternalConsultationDto {
     private String medicalSpeciality;
     private String referenceNumber;
     private ServiceDto service;
+    private List<OptometryExamDto> optometryExams;
 
     public ExternalConsultationDto(UUID id, PatientDto patient, DoctorDto doctor, Date consultationTime,
                                    String consultationReason, String medicalHistory, String physicalExam,
                                    String observations, ExamOrderDto examOrder, String medicalSpeciality,
-                                   ServiceDto service) {
+                                   ServiceDto service, List<OptometryExamDto> optometryExams) {
         this.id = id;
         this.patient = patient;
         this.doctor = doctor;
@@ -44,6 +45,7 @@ public class ExternalConsultationDto {
         this.examOrder = examOrder;
         this.medicalSpeciality = medicalSpeciality;
         this.service = service;
+        this.optometryExams = optometryExams;
     }
 
 }

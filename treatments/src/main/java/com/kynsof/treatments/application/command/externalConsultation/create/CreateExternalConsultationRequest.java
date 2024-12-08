@@ -20,5 +20,6 @@ public class CreateExternalConsultationRequest {
     private CreateExamOrderRequest examOrder;
     private List<DiagnosisRequest> diagnosis;
     private List<TreatmentRequest> treatments;
+    private List<OptometryExamRequest> optometryExams;
     private String medicalSpeciality;
 }

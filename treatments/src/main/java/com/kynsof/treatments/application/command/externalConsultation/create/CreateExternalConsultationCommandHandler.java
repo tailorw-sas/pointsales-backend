@@ -6,6 +6,7 @@ import com.kynsof.treatments.domain.dto.enumDto.Status;
 import com.kynsof.treatments.domain.service.*;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -75,6 +76,25 @@ public class CreateExternalConsultationCommandHandler implements ICommandHandler
                 examDtoList
         );
 
+        List<OptometryExamDto> optometryExamDtoList = command.getOptometryExams() != null ? command.getOptometryExams().stream()
+                .map(optometryExamRequest -> new OptometryExamDto(
+                        optometryExamRequest.getSphereOd(),
+                        optometryExamRequest.getCylinderOd(),
+                        optometryExamRequest.getAxisOd(),
+                        optometryExamRequest.getAvscOd(),
+                        optometryExamRequest.getAvccOd(),
+                        optometryExamRequest.getSphereOi(),
+                        optometryExamRequest.getCylinderOi(),
+                        optometryExamRequest.getAxisOi(),
+                        optometryExamRequest.getAvscOi(),
+                        optometryExamRequest.getAvccOi(),
+                        optometryExamRequest.getAddPower(),
+                        optometryExamRequest.getDp(),
+                        optometryExamRequest.getDv(),
+                        optometryExamRequest.getFilter(),
+                        optometryExamRequest.isCurrent()
+                )).toList() : new ArrayList<>();
+
         UUID id = externalConsultationService.createAll(new ExternalConsultationDto(
                 UUID.randomUUID(),
                 patientDto,
@@ -90,7 +110,8 @@ public class CreateExternalConsultationCommandHandler implements ICommandHandler
                 businessDto,
                 serviceDto.getName(),
                 "",
-                serviceDto
+                serviceDto,
+                optometryExamDtoList
         ));
         command.setId(id);
     }
