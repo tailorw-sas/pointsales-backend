@@ -6,13 +6,13 @@ import lombok.Getter;
 import java.util.UUID;
 
 @Getter
-public class CreateExternalConsultationAllMessage implements ICommandMessage {
+public class CreateExternalConsultationMessage implements ICommandMessage {
 
     private final UUID id;
 
     private final String command = "CREATE_EXTERNAL_CONSULTATION";
 
-    public CreateExternalConsultationAllMessage(UUID id) {
+    public CreateExternalConsultationMessage(UUID id) {
         this.id = id;
     }
 

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class CreateExternalConsultationAllRequest {
+public class CreateExternalConsultationRequest {
 
     private UUID patient;
     private UUID doctor;
@@ -17,7 +17,7 @@ public class CreateExternalConsultationAllRequest {
     private String medicalHistory;
     private String physicalExam;
     private String observations;
-    private CreateExamOrderAllRequest examOrder;
+    private CreateExamOrderRequest examOrder;
     private List<DiagnosisRequest> diagnosis;
     private List<TreatmentRequest> treatments;
     private String medicalSpeciality;

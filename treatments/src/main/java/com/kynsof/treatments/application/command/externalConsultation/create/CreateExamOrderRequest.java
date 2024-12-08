@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CreateExamOrderAllRequest {
+public class CreateExamOrderRequest {
     private String reason;
     private List<ExamAllRequest> exams;
 }

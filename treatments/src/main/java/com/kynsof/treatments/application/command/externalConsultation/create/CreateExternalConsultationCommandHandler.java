@@ -12,7 +12,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
-public class CreateExternalConsultationCommandAllHandler implements ICommandHandler<CreateExternalConsultationAllCommand> {
+public class CreateExternalConsultationCommandHandler implements ICommandHandler<CreateExternalConsultationCommand> {
 
     private final IExternalConsultationService externalConsultationService;
     private final IPatientsService patientsService;
@@ -21,11 +21,11 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
     private final IBusinessService businessService;
     private final IServiceService serviceService;
 
-    public CreateExternalConsultationCommandAllHandler(IExternalConsultationService externalConsultationService,
-                                                       IPatientsService patientsService,
-                                                       IDoctorService doctorService,
-                                                       IMedicinesService medicinesService,
-                                                       IBusinessService businessService, IServiceService serviceService) {
+    public CreateExternalConsultationCommandHandler(IExternalConsultationService externalConsultationService,
+                                                    IPatientsService patientsService,
+                                                    IDoctorService doctorService,
+                                                    IMedicinesService medicinesService,
+                                                    IBusinessService businessService, IServiceService serviceService) {
         this.externalConsultationService = externalConsultationService;
         this.patientsService = patientsService;
         this.doctorService = doctorService;
@@ -35,7 +35,7 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
     }
 
     @Override
-    public void handle(CreateExternalConsultationAllCommand command) {
+    public void handle(CreateExternalConsultationCommand command) {
         PatientDto patientDto = patientsService.findById(command.getPatientId());
         DoctorDto doctorDto = doctorService.findById(command.getDoctorId());
         BusinessDto businessDto = businessService.findById(command.getBusinessId());

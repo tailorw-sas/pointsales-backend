@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class CreateExternalConsultationAllCommand implements ICommand {
+public class CreateExternalConsultationCommand implements ICommand {
 
     private UUID id;
     private UUID patientId;
@@ -20,15 +20,15 @@ public class CreateExternalConsultationAllCommand implements ICommand {
     private String medicalHistory;
     private String physicalExam;
     private String observations;
-    private CreateExamOrderAllRequest examOrder;
+    private CreateExamOrderRequest examOrder;
     private final List<DiagnosisRequest> diagnosis;
     private final List<TreatmentRequest> treatments;
     private final String medicalSpeciality;
 
-    public CreateExternalConsultationAllCommand(UUID patientId, UUID doctorId, String consultationReason,
-                                                String medicalHistory, String physicalExam, String observations,
-                                                CreateExamOrderAllRequest examOrder, List<DiagnosisRequest> diagnosis,
-                                                List<TreatmentRequest> treatments, UUID businessId, String medicalSpeciality) {
+    public CreateExternalConsultationCommand(UUID patientId, UUID doctorId, String consultationReason,
+                                             String medicalHistory, String physicalExam, String observations,
+                                             CreateExamOrderRequest examOrder, List<DiagnosisRequest> diagnosis,
+                                             List<TreatmentRequest> treatments, UUID businessId, String medicalSpeciality) {
 
         this.patientId = patientId;
         this.doctorId = doctorId;
@@ -43,8 +43,8 @@ public class CreateExternalConsultationAllCommand implements ICommand {
         this.medicalSpeciality = medicalSpeciality;
     }
 
-    public static CreateExternalConsultationAllCommand fromRequest(CreateExternalConsultationAllRequest request) {
-        return new CreateExternalConsultationAllCommand(request.getPatient(), request.getDoctor(),
+    public static CreateExternalConsultationCommand fromRequest(CreateExternalConsultationRequest request) {
+        return new CreateExternalConsultationCommand(request.getPatient(), request.getDoctor(),
                 request.getConsultationReason(), request.getMedicalHistory(), request.getPhysicalExam(),
                 request.getObservations(), request.getExamOrder(),request.getDiagnosis() ,request.getTreatments(), 
                 request.getBusiness(),request.getMedicalSpeciality() );
@@ -52,6 +52,6 @@ public class CreateExternalConsultationAllCommand implements ICommand {
 
     @Override
     public ICommandMessage getMessage() {
-        return new CreateExternalConsultationAllMessage(id);
+        return new CreateExternalConsultationMessage(id);
     }
 }
