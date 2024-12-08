@@ -94,4 +94,5 @@ public class CreateExternalConsultationCommandAllHandler implements ICommandHand
         ));
         command.setId(id);
     }
+
 }

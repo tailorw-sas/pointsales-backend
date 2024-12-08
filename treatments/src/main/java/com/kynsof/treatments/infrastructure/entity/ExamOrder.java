@@ -19,13 +19,17 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Entity
+@Table(name = "exam_order")
 public class ExamOrder {
     @Id
     @GeneratedValue(generator = "UUID")
     private UUID id;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private Integer orderNumber; // Nuevo campo
+
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "exam_order_number_seq")
+    @SequenceGenerator(name = "exam_order_number_seq", sequenceName = "examorder_ordernumber_seq", allocationSize = 1)
+    @Column(nullable = false, unique = true, updatable = false)
+    private Integer orderNumber;
+
     private String reason;
     private String status;
 
@@ -73,6 +77,9 @@ public class ExamOrder {
 
     @PrePersist
     protected void onCreate() {
+        if (orderNumber == null) {
+            orderNumber = 0; // Valor temporal para evitar errores
+        }
         orderDate = new Date();
     }
 
@@ -106,4 +113,6 @@ public class ExamOrder {
         return new ExamOrderDto(this.id, this.reason, this.status, this.orderDate,
                 this.patient.toAggregate(),examDtoList, null);
     }
+
+
 }
