@@ -25,8 +25,8 @@ public class ExamOrder {
     @GeneratedValue(generator = "UUID")
     private UUID id;
 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "exam_order_number_seq")
-    @SequenceGenerator(name = "exam_order_number_seq", sequenceName = "examorder_ordernumber_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "exam_order_number1_seq")
+    @SequenceGenerator(name = "exam_order_number1_seq", sequenceName = "examorder_ordernumber1_seq", allocationSize = 1)
     @Column(nullable = false, unique = true, updatable = false)
     private Integer orderNumber;
 
