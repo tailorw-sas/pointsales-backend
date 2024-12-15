@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry
+  namespace: pointsales
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registry
+      workload.user.cattle.io/workloadselector: apps.deployment-pointsales-registry
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: registry
+        workload.user.cattle.io/workloadselector: apps.deployment-pointsales-registry
+    spec:
+      containers:
+        - image: tailorw/pointsales-registry:dev
+          imagePullPolicy: Always
+          name: registry
+          ports:
+            - containerPort: 8761
+              protocol: TCP
+      imagePullSecrets:
+        - name: docker-hub
+      restartPolicy: Always
