@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.knsof</groupId>
-    <artifactId>share</artifactId>
+    <artifactId>${packaging.artifactId}</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>share</name>
     <packaging>jar</packaging>
@@ -22,11 +22,58 @@
         <jsonwebtoken.version>0.11.5</jsonwebtoken.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+                <activation>
+                    <property>
+                        <name>env</name>
+                        <value>dev</value>
+                    </property>
+                    <activeByDefault>true</activeByDefault>
+                </activation>
+                <properties>
+                    <packaging.artifactId>share-dev</packaging.artifactId>
+                </properties>
+        </profile>
+        <profile>
+            <id>qa</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>qa</value>
+                </property>
+            </activation>
+            <properties>
+                <packaging.artifactId>share-qa</packaging.artifactId>
+            </properties>		
+        </profile>
+    </profiles>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+	   </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+				
     <dependencies>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.16.1</version> <!-- Usa la última versión disponible -->
+            <version>2.16.1</version>
         </dependency>
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
@@ -146,8 +193,7 @@
         <repository>
             <id>github</id>
             <name>GitHub OWNER Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/kmontes198910/scheduled</url>
+            <url>https://maven.pkg.github.com/tailorw-sas/pointsales-backend</url>
         </repository>
     </distributionManagement>
 </project>
-
