@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.knsof</groupId>
-    <artifactId>${packaging.artifactId}</artifactId>
+    <artifactId>share</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>share</name>
     <packaging>jar</packaging>
@@ -25,15 +25,15 @@
     <profiles>
         <profile>
             <id>dev</id>
-                <activation>
-                    <property>
-                        <name>env</name>
-                        <value>dev</value>
-                    </property>
-                </activation>
-                <properties>
-                    <packaging.artifactId>share-dev</packaging.artifactId>
-                </properties>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>dev</value>
+                </property>
+            </activation>
+            <properties>
+                <packaging.artifactId>share-dev</packaging.artifactId>
+            </properties>
         </profile>
         <profile>
             <id>qa</id>
