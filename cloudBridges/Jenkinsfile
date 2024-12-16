@@ -109,8 +109,8 @@ pipeline {
             steps {
                 echo '* * * * STAGE: Publishing to kubernetes * * * *'
                 withKubeConfig(credentialsId: "${SERVER_K3S_CREDENTIALS}", namespace: "${NAMESPACE}", restrictKubeConfigAccess: false, serverUrl: "${SERVER_K3S_URL}") {
-                    sh 'kubectl apply -f kubernetes-config/deployments/$YAML'
-                    //sh 'kubectl rollout restart deploy $DEPLOYMENT_NAME'
+                    //sh 'kubectl apply -f kubernetes-config/deployments/$YAML'
+                    sh 'kubectl rollout restart deploy $DEPLOYMENT_NAME'
                 }
             }
         }
