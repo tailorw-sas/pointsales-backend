@@ -44,7 +44,7 @@
             </dependencies>
         </profile>
         <profile>
-            <id>dev</id>
+            <id>qa</id>
             <activation>
                 <property>
                     <name>env</name>
