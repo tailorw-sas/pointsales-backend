@@ -45,7 +45,7 @@ RUN sed -i "s|GIT_TOKEN|$PACKAGE_TOKEN |g" settings.xml
 RUN mvn dependency:go-offline -f pom.xml -s settings.xml
 # RUN mvn -B clean package -Pnative  --no-transfer-progress
 # RUN mvn package -Pnative -f pom.xml
-RUN mvn --no-transfer-progress clean package -DskipTests
+RUN mvn --no-transfer-progress clean package -DskipTests -X
 
 # The deployment Image
 # FROM docker.io/oraclelinux:9-slim
