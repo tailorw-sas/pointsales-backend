@@ -10,7 +10,7 @@ pipeline {
     }
     
     environment {
-        SISTEMA = 'ERP'
+        SISTEMA = 'PointSales'
         GITHUB_REPO = 'pointsales-backend'
         GIT_TOKEN = "${env.GITHUB_TOKEN}"
         ORIGIN_BRANCH_NAME = "${env.GIT_BRANCH}"
