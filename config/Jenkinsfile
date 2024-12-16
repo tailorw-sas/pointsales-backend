@@ -81,7 +81,7 @@ pipeline {
 					
                     if(env.BRANCH_NAME == 'dev'){
                         env.SERVER_K3S_URL = env.URL_DEV
-                        env.EMAIL_LIST = env.EMAIL_LIST_DEV_ERP
+                        env.EMAIL_LIST = env.EMAIL_LIST_DEV_POINTSALES
                     }
                     if(env.BRANCH_NAME == 'qa'){
                         env.SERVER_K3S_URL = env.URL_QA
@@ -107,8 +107,8 @@ pipeline {
             steps {
                 echo '* * * * STAGE: Publishing to kubernetes * * * *'
                 withKubeConfig(credentialsId: "${SERVER_K3S_CREDENTIALS}", namespace: "${NAMESPACE}", restrictKubeConfigAccess: false, serverUrl: "${SERVER_K3S_URL}") {
-                    sh 'kubectl apply -f kubernetes-config/deployments/$YAML'
-                    //sh 'kubectl rollout restart deploy $DEPLOYMENT_NAME'
+                    //sh 'kubectl apply -f kubernetes-config/deployments/$YAML'
+                    sh 'kubectl rollout restart deploy $DEPLOYMENT_NAME'
                 }
             }
         }
