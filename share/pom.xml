@@ -33,7 +33,7 @@
                 </property>
             </activation>
             <properties>
-                <packaging.artifactId>share-dev</packaging.artifactId>
+                <dynamic.artifactId>share-dev</dynamic.artifactId>
             </properties>
         </profile>
         <profile>
@@ -45,7 +45,7 @@
                 </property>
             </activation>
             <properties>
-                <packaging.artifactId>share-qa</packaging.artifactId>
+                <dynamic.artifactId>share-qa</dynamic.artifactId>
             </properties>		
         </profile>
     </profiles>
