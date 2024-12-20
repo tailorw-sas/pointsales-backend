@@ -25,6 +25,44 @@
 		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
 	</properties>
 
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>dev</value>
+				</property>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.knsof</groupId>
+					<artifactId>share-dev</artifactId>
+					<version>0.0.1-SNAPSHOT</version>
+					<scope>compile</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>qa</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>qa</value>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.knsof</groupId>
+					<artifactId>share-qa</artifactId>
+					<version>0.0.1-SNAPSHOT</version>
+					<scope>compile</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+	
 	<dependencyManagement>
 		<dependencies>
 			<!-- Override Lombok provided by Spring Boot -->
@@ -51,7 +89,6 @@
 
 	<dependencies>
 
-
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
@@ -60,7 +97,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-
 
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
@@ -125,15 +161,9 @@
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.knsof</groupId>
-			<artifactId>share</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId> org.springframework.data</groupId>
 			<artifactId>spring-data-envers</artifactId>
-	 </dependency>
+		</dependency>
 
 		<!--Keycloack-->
 		<dependency>
@@ -207,8 +237,6 @@
 			<artifactId>resteasy-jaxrs</artifactId>
 			<version>3.15.6.Final</version>
 		</dependency>
-
-
 
 		<dependency>
 			<groupId>org.springdoc</groupId>

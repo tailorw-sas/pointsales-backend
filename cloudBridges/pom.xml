@@ -25,6 +25,44 @@
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     </properties>
 
+    <profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>dev</value>
+				</property>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.knsof</groupId>
+					<artifactId>share-dev</artifactId>
+					<version>0.0.1-SNAPSHOT</version>
+					<scope>compile</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>qa</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>qa</value>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.knsof</groupId>
+					<artifactId>share-qa</artifactId>
+					<version>0.0.1-SNAPSHOT</version>
+					<scope>compile</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+	
     <dependencyManagement>
         <dependencies>
             <!-- Override Lombok provided by Spring Boot -->
@@ -161,18 +199,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.knsof</groupId>
-            <artifactId>share</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
 
-            <dependency>
-                <groupId>com.mailjet</groupId>
-                <artifactId>mailjet-client</artifactId>
-                <version>5.2.5</version>
-            </dependency>
+        <dependency>
+            <groupId>com.mailjet</groupId>
+            <artifactId>mailjet-client</artifactId>
+            <version>5.2.5</version>
+        </dependency>
 
         <dependency>
             <groupId>software.amazon.awssdk</groupId>

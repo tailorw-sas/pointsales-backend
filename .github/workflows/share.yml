@@ -5,20 +5,39 @@ on:
   push:
     branches:
       - 'dev'
+      - 'qa'
     paths:
       - .github/workflows/share.yml
       - 'share/**'
-
+env:
+  BRANCH_NAME: ${{github.ref_name}}
+ 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+              
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
       - name: Publish package
-        run: cd share && mvn --batch-mode deploy
+        run: cd share && mvn --batch-mode -f pom.xml -P$BRANCH_NAME deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

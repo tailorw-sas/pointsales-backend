@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config
+  namespace: pointsales
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: apps.deployment-pointsales-config
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: config
+        workload.user.cattle.io/workloadselector: apps.deployment-pointsales-config
+    spec:
+      containers:
+        - name: config
+          image: tailorw/pointsales-config:dev
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: config-secret
+      imagePullSecrets:
+        - name: docker-hub
+      restartPolicy: Always
