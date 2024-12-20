@@ -57,8 +57,6 @@ public class UserSystem implements Serializable {
     @Column(unique = true)
     private UUID keyCloakId;
 
-    @OneToOne(mappedBy = "userSystem", cascade = CascadeType.ALL)
-    private Wallet wallet;
 
     public UserSystem(UserSystemDto dto) {
         this.id = dto.getId();
