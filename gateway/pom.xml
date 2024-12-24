@@ -37,12 +37,6 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<dependencies>
-				<dependency>
-					<groupId>com.knsof</groupId>
-					<artifactId>share</artifactId>
-					<version>0.0.1-SNAPSHOT</version>
-					<scope>compile</scope>
-				</dependency>
 			</dependencies>
 		</profile>
 		<profile>
@@ -53,186 +47,86 @@
 					<value>qa</value>
 				</property>
 			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>com.knsof</groupId>
-					<artifactId>share-qa</artifactId>
-					<version>0.0.1-SNAPSHOT</version>
-					<scope>compile</scope>
-				</dependency>
-			</dependencies>
+
 		</profile>
 	</profiles>
 
 	<dependencyManagement>
 		<dependencies>
-
-			<!-- Override Lombok provided by Spring Boot -->
 			<dependency>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok</artifactId>
-				<version>${lombok.version}</version>
-			</dependency>
-
-			<dependency>
-				<!-- Import dependency management from Spring Cloud -->
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
 				<version>${spring-cloud.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
-			<dependency>
-				<!-- Import dependency management from Spring Boot -->
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-gateway</artifactId>
-		</dependency>
+		<dependencies>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
+			<!-- Spring Boot WebFlux -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-webflux</artifactId>
+			</dependency>
 
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-oauth2-resource-server</artifactId>
-		</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-config</artifactId>
+			</dependency>
 
-		<dependency>
-			<groupId>jakarta.servlet</groupId>
-			<artifactId>jakarta.servlet-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
+			<!-- Spring Cloud Gateway -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-gateway</artifactId>
+			</dependency>
 
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>
+			<!-- Eureka Client -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			</dependency>
 
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-oauth2-jose</artifactId>
-		</dependency>
+			<!-- Lombok -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<optional>true</optional>
+			</dependency>
 
-		<dependency>
-			<groupId>org.springframework.security.oauth</groupId>
-			<artifactId>spring-security-oauth2</artifactId>
-			<version>${spring-security-oauth2.version}</version>
-		</dependency>
+			<!-- Reactor Core for Mono and Flux -->
+			<dependency>
+				<groupId>io.projectreactor</groupId>
+				<artifactId>reactor-core</artifactId>
+			</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-client</artifactId>
-		</dependency>
+			<!-- Actuator (optional, for monitoring) -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-actuator</artifactId>
+			</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+			<!-- Spring Security (for securing the Gateway) -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+			</dependency>
 
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>jakarta.annotation</groupId>
-			<artifactId>jakarta.annotation-api</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webflux</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxrs</artifactId>
-			<version>3.15.6.Final</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty-resolver-dns-native-macos</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
-			<version>${springdoc-openapi.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>2.0.1.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-boot-starter</artifactId>
-			<version>3.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka-clients</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>jakarta.persistence</groupId>
-			<artifactId>jakarta.persistence-api</artifactId>
-		</dependency>
+			<!-- Springdoc for OpenAPI documentation -->
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+				<version>2.4.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-oauth2-jose</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-oauth2-resource-server</artifactId>
+			</dependency>
 	</dependencies>
 
 	<build>
