@@ -37,7 +37,7 @@
             <dependencies>
                 <dependency>
                     <groupId>com.knsof</groupId>
-                    <artifactId>share-dev</artifactId>
+                    <artifactId>share</artifactId>
                     <version>0.0.1-SNAPSHOT</version>
                     <scope>compile</scope>
                 </dependency>
@@ -54,7 +54,7 @@
             <dependencies>
                 <dependency>
                     <groupId>com.knsof</groupId>
-                    <artifactId>share-qa</artifactId>
+                    <artifactId>share</artifactId>
                     <version>0.0.1-SNAPSHOT</version>
                     <scope>compile</scope>
                 </dependency>
