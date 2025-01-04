@@ -17,5 +17,6 @@ public class CreateBusinessRequest {
     private String ruc;
     private String address;;
     private UUID geographicLocation;
+    private Integer allowedSessionCount;
 
 }

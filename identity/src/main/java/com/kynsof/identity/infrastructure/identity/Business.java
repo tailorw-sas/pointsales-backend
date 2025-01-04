@@ -39,6 +39,11 @@ public class Business {
     @JoinColumn(name = "geographicLocation_id")
     private GeographicLocation geographicLocation;
 
+    @OneToMany(mappedBy = "business")
+    private Set<Session> sessions = new HashSet<>();
+    @Column(name = "allowed_session_count")
+    private Integer allowedSessionCount;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -57,6 +62,7 @@ public class Business {
         this.geographicLocation = business.getGeographicLocationDto() != null ? new GeographicLocation(business.getGeographicLocationDto()) : null;
         this.address = business.getAddress();
         this.balance = business.getBalance();
+        this.allowedSessionCount = business.getAllowedSessionCount();
     }
 
     public BusinessDto toAggregate () {
@@ -70,7 +76,8 @@ public class Business {
                 ruc, 
                 status, 
                 geographicLocation != null ? geographicLocation.toAggregate() : null,
-                address
+                address,
+                allowedSessionCount
         );
         businessDto.setBalance(balance);
         businessDto.setCreateAt(createdAt);

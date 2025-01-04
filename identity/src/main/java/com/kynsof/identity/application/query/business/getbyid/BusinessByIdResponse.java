@@ -30,6 +30,8 @@ public class BusinessByIdResponse implements IResponse, Serializable {
     private GeographicLocationResponse geolocation;
     private List<ModuleResponse> modules;
 
+    private Integer allowedSessionCount;
+
     public BusinessByIdResponse(BusinessDto object) {
         this.id = object.getId();
         this.name = object.getName();
@@ -47,6 +49,7 @@ public class BusinessByIdResponse implements IResponse, Serializable {
                     return new ModuleResponse(moduleDto.getId(), moduleDto.getName());
                 })
                 .toList();
+        this.allowedSessionCount = object.getAllowedSessionCount();
     }
 
     public BusinessByIdResponse(UUID id, String name) {

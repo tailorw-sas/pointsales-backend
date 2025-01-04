@@ -29,8 +29,11 @@ public class BusinessDto {
     private GeographicLocationDto geographicLocationDto;
     private List<ModuleDto> moduleDtoList;
 
+    private Integer allowedSessionCount;
+
     public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String logo,
-                       String ruc, EBusinessStatus status, GeographicLocationDto geographicLocationDto, String address) {
+                       String ruc, EBusinessStatus status, GeographicLocationDto geographicLocationDto, String address,
+                       Integer allowedSessionCount) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
@@ -41,8 +44,9 @@ public class BusinessDto {
         this.status = status;
         this.geographicLocationDto = geographicLocationDto;
         this.address = address;
+        this.allowedSessionCount = allowedSessionCount;
     }
 
-    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String string) {
+    public BusinessDto(UUID id, String name, String latitude, String longitude, String description, String string, Integer allowedSessionCount) {
     }
 }

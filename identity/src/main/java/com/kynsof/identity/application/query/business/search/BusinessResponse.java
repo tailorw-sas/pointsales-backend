@@ -29,6 +29,8 @@ public class BusinessResponse implements IResponse {
 
     private GeographicLocationResponse geolocation;
 
+    private Integer allowedSessionCount;
+
     public BusinessResponse(BusinessDto object) {
         this.id = object.getId();
         this.name = object.getName();
@@ -42,6 +44,7 @@ public class BusinessResponse implements IResponse {
         this.address = object.getAddress() != null ? object.getAddress() : null;
         this.createdAt = object.getCreateAt().toLocalDate();
         this.balance = object.getBalance();
+        this.allowedSessionCount = object.getAllowedSessionCount();
     }
 
 
