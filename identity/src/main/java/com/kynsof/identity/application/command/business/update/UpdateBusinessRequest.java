@@ -18,5 +18,6 @@ public class UpdateBusinessRequest {
     private EBusinessStatus status;
     private UUID geographicLocation;
     private String address;
+    private Integer allowedSessionCount;
 
 }

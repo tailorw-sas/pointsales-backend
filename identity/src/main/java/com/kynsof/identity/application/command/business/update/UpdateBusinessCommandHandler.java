@@ -69,6 +69,8 @@ public class UpdateBusinessCommandHandler implements ICommandHandler<UpdateBusin
 //        String logoId = command.getLogo() != null ? UUID.randomUUID().toString() : null;
         UpdateIfNotNull.updateIfNotNull(updateBusiness::setLogo, command.getLogo());
 
+        UpdateIfNotNull.updateIfNotNull(updateBusiness::setAllowedSessionCount, command.getAllowedSessionCount());
+
         service.update(updateBusiness);
 
         //Lanza el evento de integracion

@@ -20,9 +20,10 @@ public class CreateBusinessCommand implements ICommand {
     private String ruc;
     private String address;
     private UUID geographicLocation;
+    private Integer allowedSessionCount;
 
     public CreateBusinessCommand(String name, String latitude, String longitude, String description, String logo,
-                                 String ruc, UUID geographicLocation, String address) {
+                                 String ruc, UUID geographicLocation, String address, Integer allowedSessionCount) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.latitude = latitude;
@@ -32,6 +33,7 @@ public class CreateBusinessCommand implements ICommand {
         this.ruc = ruc;
         this.geographicLocation = geographicLocation;
         this.address = address;
+        this.allowedSessionCount = allowedSessionCount;
     }
 
     public static CreateBusinessCommand fromRequest(CreateBusinessRequest request) {
@@ -43,7 +45,8 @@ public class CreateBusinessCommand implements ICommand {
                 request.getImage(),
                 request.getRuc(), 
                 request.getGeographicLocation(),
-                request.getAddress()
+                request.getAddress(),
+                request.getAllowedSessionCount()
         );
     }
 
